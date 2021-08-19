@@ -18,12 +18,6 @@ export interface FormulaData extends Omit<FormulaSource, "_id" | "effects"> {
 export type CraftingType = "alchemical" | "magical" | "snare";
 
 interface FormulaSystemData extends ItemSystemData, ItemLevelData {
-    craftDC: {
-        value: number;
-    };
-    price: {
-        value: string;
-    };
     craftingType: ValuesList<CraftingType>;
     craftedObjectUuid: {
         value: CompendiumUUID;
