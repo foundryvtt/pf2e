@@ -1,19 +1,19 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
-import { tupleHasValue } from "@module/utils";
+import { sluggify, tupleHasValue } from "@module/utils";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
 import { MigrationBase } from "../base";
 
 const oldTraditions = ["arcane", "occult", "primal", "divine", "focus", "ritual", "halcyon", ""] as const;
 
 const defaultTraditionByClass: Record<string, keyof ConfigPF2e["PF2E"]["magicTraditions"]> = {
-    Wizard: "arcane",
-    Cleric: "divine",
-    Druid: "primal",
-    Bard: "occult",
-    Ranger: "primal",
-    Champion: "divine",
-    Monk: "divine",
+    wizard: "arcane",
+    cleric: "divine",
+    druid: "primal",
+    bard: "occult",
+    ranger: "primal",
+    champion: "divine",
+    monk: "divine",
 };
 
 export class Migration644SpellcastingCategory extends MigrationBase {
@@ -51,11 +51,11 @@ export class Migration644SpellcastingCategory extends MigrationBase {
             if (possibleMatch) {
                 spellcasting.tradition.value = possibleMatch.data.tradition.value;
             } else {
-                // Try to derive it from the class name,
-                const className = actor.items.find(
-                    (testItem): testItem is ClassSource => testItem.type === "class"
-                )?.name;
-                spellcasting.tradition.value = defaultTraditionByClass[className ?? ""] ?? "arcane";
+                // Try to derive it from the class name or slug. No other way to do it.
+                // Users can always edit their tradition in the actual spellcasting entry.
+                const classItem = actor.items.find((testItem): testItem is ClassSource => testItem.type === "class");
+                const className = classItem?.data.slug || sluggify(classItem?.name ?? "");
+                spellcasting.tradition.value = defaultTraditionByClass[className] ?? "arcane";
             }
         }
     }
