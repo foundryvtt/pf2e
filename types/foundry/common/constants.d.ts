@@ -164,9 +164,7 @@ declare global {
             UNIVERSAL: "u";
         };
 
-        /**
-         * The minimum allowed grid size which is supported by the software
-         */
+        /** The minimum allowed grid size which is supported by the software */
         GRID_MIN_SIZE: 50;
 
         /** An Array of valid MacroAction scope values */
@@ -199,14 +197,10 @@ declare global {
             SIMULTANEOUS: 2;
         };
 
-        /**
-         * Define the threshold version which packages must support as their minimumCoreVersion in order to be usable
-         */
+        /** Define the threshold version which packages must support as their minimumCoreVersion in order to be usable */
         REQUIRED_PACKAGE_CORE_VERSION: string;
 
-        /**
-         * Encode the reasons why a package may be available or unavailable for use
-         */
+        /** Encode the reasons why a package may be available or unavailable for use */
         PACKAGE_AVAILABILITY_CODES: {
             AVAILABLE: 0;
             REQUIRES_UPDATE: 1;
@@ -215,34 +209,34 @@ declare global {
             REQUIRES_CORE: 4;
         };
 
-        /**
-         * A safe password string which can be displayed
-         */
+        /** A safe password string which can be displayed */
         PASSWORD_SAFE_STRING: string;
 
-        /**
-         * The default sorting density for manually ordering child objects within a parent
-         */
+        /** The default sorting density for manually ordering child objects within a parent */
         SORT_INTEGER_DENSITY: 100000;
 
-        /**
-         * The allowed types of a TableResult document
-         */
+        /** The allowed types of a TableResult document */
         TABLE_RESULT_TYPES: {
             TEXT: 0;
             ENTITY: 1;
             COMPENDIUM: 2;
         };
 
-        /**
-         * Define the valid anchor locations for a Tooltip displayed on a Placeable Object
-         */
+        /** Define the valid anchor locations for a Tooltip displayed on a Placeable Object */
         TEXT_ANCHOR_POINTS: {
             CENTER: 0;
             BOTTOM: 1;
             TOP: 2;
             LEFT: 3;
             RIGHT: 4;
+        };
+
+        /** Define the valid occlusion modes which an overhead tile can use */
+        TILE_OCCLUSION_MODES: {
+            NONE: 0;
+            FADE: 1;
+            ROOF: 2;
+            RADIAL: 3;
         };
 
         /**
@@ -483,6 +477,7 @@ declare global {
     type PermissionLevel = typeof CONST.ENTITY_PERMISSIONS[DocumentPermission];
     type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
     type UserAction = "create" | "update" | "delete";
+    type TileOcclusionMode = typeof CONST.TILE_OCCLUSION_MODES[keyof typeof CONST.TILE_OCCLUSION_MODES];
     type TokenDisposition = typeof CONST.TOKEN_DISPOSITIONS[keyof typeof CONST.TOKEN_DISPOSITIONS];
     type TokenDisplayMode = typeof CONST.TOKEN_DISPLAY_MODES[keyof typeof CONST.TOKEN_DISPLAY_MODES];
 }
