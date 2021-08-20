@@ -10,6 +10,8 @@ import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { CharacterPF2e } from "@actor/character";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { SpellPF2e } from "@item";
+import { SpellChatButtons } from "@item/spell";
 
 /**
  * Base class for NPC and character sheets
@@ -23,7 +25,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
     ) {
         super.renderItemSummary(div, item, chatData);
         const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
+        switch (item.type) {
             case "action":
                 if (chatData.weapon.value) {
                     if (chatData.weapon.value) {
@@ -51,18 +53,24 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     );
                 }
 
-                if (this.actor instanceof CharacterPF2e) {
-                    if (chatData.isAttack) {
-                        buttons.append(
-                            `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                                "PF2E.AttackLabel"
-                            )}</button></span>`
-                        );
-                    }
-                    if (item.data.data.damage.value) {
-                        buttons.append(
-                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`
-                        );
+                if (this.actor instanceof CharacterPF2e && item instanceof SpellPF2e) {
+                    const buttonList: SpellChatButtons[] = chatData.buttons;
+                    for (const group of buttonList) {
+                        const buttonGroup = $('<div class="button-group"/>');
+                        for (const [idx, attack] of group.variants.entries()) {
+                            const action = `spellAttack${idx > 0 ? idx + 1 : ""}`;
+                            buttonGroup.append(
+                                `<button class="spell_attack" data-action="${action}">${attack.label}</button>`
+                            );
+                        }
+
+                        for (const damage of group.damage) {
+                            buttonGroup.append(
+                                `<button class="spell_damage" data-action="spellDamage">${damage.label}</button>`
+                            );
+                        }
+
+                        buttons.append(buttonGroup);
                     }
                 }
 
@@ -110,6 +118,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     break;
                 case "spellAttack":
                     item.rollSpellAttack(event);
+                    break;
+                case "spellAttack2":
+                    item.rollSpellAttack(event, 2);
+                    break;
+                case "spellAttack3":
+                    item.rollSpellAttack(event, 3);
                     break;
                 case "spellDamage":
                     item.rollSpellDamage(event);
