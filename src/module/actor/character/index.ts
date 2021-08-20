@@ -1079,7 +1079,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     } else {
                         DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", item: weapon, outcome, options },
+                            { type: "damage-roll", item: weapon, actor: this, outcome, options },
                             args.event,
                             args.callback
                         );
