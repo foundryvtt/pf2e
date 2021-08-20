@@ -14,28 +14,34 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
-    static async ensureSchemaVersion(document: ActorPF2e | ItemPF2e, migrations: MigrationBase[]): Promise<void> {
+    static async ensureSchemaVersion(
+        document: ActorPF2e | ItemPF2e,
+        migrations: MigrationBase[],
+        { preCreate = true } = {}
+    ): Promise<void> {
         const currentVersion = this.LATEST_SCHEMA_VERSION;
-        if (!document.sourceId) {
+        if (!document.sourceId && preCreate) {
             document.data.update({ "data.schema.version": currentVersion });
-            if (!("items" in document)) return;
-            for (const item of document.items) {
-                if (item.schemaVersion === null) {
-                    item.data.update({ "data.schema.version": currentVersion });
+            if ("items" in document) {
+                for (const item of document.items) {
+                    if (item.schemaVersion === null) {
+                        item.data.update({ "data.schema.version": currentVersion });
+                    }
                 }
             }
-            return;
         }
 
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
             const source = document.data._source;
-            const updated =
-                "items" in source
-                    ? await runner.getUpdatedActor(source, runner.migrations)
-                    : await runner.getUpdatedItem(source, runner.migrations);
-
-            document.data.update(updated);
+            // Consolidate this come Typescript 4.4
+            if ("items" in source) {
+                const updated = await runner.getUpdatedActor(source, runner.migrations);
+                preCreate ? document.data.update(updated) : await document.update(updated);
+            } else {
+                const updated = await runner.getUpdatedItem(source, runner.migrations);
+                preCreate ? document.data.update(updated) : await document.update(updated);
+            }
         }
     }
 
