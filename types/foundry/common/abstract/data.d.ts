@@ -133,7 +133,7 @@ declare global {
                  * @param options Options which determine how the new data is merged
                  * @returns The changed keys and values which are different than the previous data
                  */
-                update(data?: DocumentUpdateData, options?: MergeObjectOptions): DocumentSource;
+                update(data?: DocumentUpdateData, options?: DocumentModificationContext): DeepPartial<this["_source"]>;
 
                 /**
                  * Copy and transform the DocumentData into a plain object.

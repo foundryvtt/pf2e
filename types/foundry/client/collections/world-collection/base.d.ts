@@ -40,11 +40,9 @@ declare abstract class WorldCollection<TDocument extends ClientDocument> extends
     /*  Collection Methods                          */
     /* -------------------------------------------- */
 
-    /** @override */
-    set(id: string, document: TDocument): this;
+    override set(id: string, document: TDocument): this;
 
-    /** @override */
-    delete(id: string): boolean;
+    override delete(id: string): boolean;
 
     /**
      * Import a Document from a Compendium collection, adding it to the current World.
@@ -67,4 +65,11 @@ declare abstract class WorldCollection<TDocument extends ClientDocument> extends
      * @return The processed data ready for world Document creation
      */
     fromCompendium(document: TDocument | TDocument["data"]["_source"]): TDocument["data"]["_source"];
+
+    /**
+     * Prepare a document from an outside source for import into this collection.
+     * @param data The data to be prepared.
+     * @return The prepared data.
+     */
+    prepareForImport(data: TDocument["data"]["_source"]): TDocument["data"]["_source"];
 }
