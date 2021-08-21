@@ -817,12 +817,24 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<ItemPF2e | undefined> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
-            (itemType: string) =>
-                !(["condition", "martial", "spellcastingEntry"].includes(itemType) && BUILD_MODE === "production")
+            (itemType: string) => !["condition", "martial", "spellcastingEntry"].includes(itemType)
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
         return newItem;
+    }
+
+    /** If necessary, migrate this item before importing */
+    override async importFromJSON(json: string): Promise<this> {
+        const data: ItemSourcePF2e = JSON.parse(json);
+        this.data.update(this.collection.prepareForImport(data), { recursive: false });
+        await MigrationRunner.ensureSchemaVersion(
+            this,
+            Migrations.constructFromVersion(this.schemaVersion ?? undefined),
+            { preCreate: false }
+        );
+
+        return this.update(this.toObject(), { diff: false, recursive: false });
     }
 
     /* -------------------------------------------- */

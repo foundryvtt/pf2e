@@ -165,6 +165,8 @@ declare global {
 
         readonly parent: TParent | null;
 
+        get collection(): Actors<this>;
+
         _sheet: ActorSheet<Actor, Item> | null;
 
         get sheet(): ActorSheet<Actor, Item>;
