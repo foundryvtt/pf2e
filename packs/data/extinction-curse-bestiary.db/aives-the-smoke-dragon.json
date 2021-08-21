@@ -1,5 +1,5 @@
 {
-    "_id": "pOlP9ZR0eFS57c27",
+    "_id": "jov2FiLbWa4Nvob0",
     "data": {
         "abilities": {
             "cha": {
@@ -23,8 +23,9 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "details": "",
-                "value": 21
+                "value": 10
             },
             "allSaves": {
                 "value": ""
@@ -43,14 +44,14 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "value": 0
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -65,12 +66,7 @@
                 "value": ""
             }
         },
-        "resources": {
-            "focus": {
-                "max": 1,
-                "value": 1
-            }
-        },
+        "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
@@ -126,18 +122,18 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "6nV4lSGXCgZTjigM",
+            "_id": "Ub3CXoWK4VckfeVV",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
                     "value": "innate"
                 },
@@ -146,7 +142,7 @@
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -218,8 +214,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "18",
-                    "item": 0,
+                    "dc": 18,
                     "mod": 0,
                     "value": 8
                 },
@@ -237,12 +232,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "name": "Innate Divine Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "zt8eZow5yxHO6JkP",
+            "_id": "Y4qSIjU4rLUT7iLa",
             "data": {
                 "ability": {
                     "value": ""
@@ -253,6 +248,9 @@
                 },
                 "areasize": {
                     "value": "20-foot burst"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -281,11 +279,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "6nV4lSGXCgZTjigM"
+                    "value": "Ub3CXoWK4VckfeVV"
                 },
                 "materials": {
                     "value": ""
@@ -317,9 +318,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -353,14 +354,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "qeAEV973JZH09OkF",
+            "_id": "7tijU6zGbaC4zGbl",
             "data": {
                 "MAP": {
                     "value": ""
@@ -368,7 +373,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -394,7 +399,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -478,7 +483,7 @@
                     "value": ""
                 },
                 "quantity": {
-                    "value": 4
+                    "value": 1
                 },
                 "range": {
                     "value": "10"
@@ -490,9 +495,12 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dagger",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -526,14 +534,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
             "sort": 300000,
             "type": "weapon"
         },
         {
-            "_id": "ac26Xtnj09SYrEE1",
+            "_id": "kpGmoyBlf0eyU10x",
             "data": {
                 "armor": {
                     "value": 1
@@ -541,7 +553,7 @@
                 "armorType": {
                     "value": "light"
                 },
-                "baseItem": null,
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -564,7 +576,7 @@
                     "value": 4
                 },
                 "equipped": {
-                    "value": true
+                    "value": false
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -616,36 +628,6 @@
                 "price": {
                     "value": "2 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -669,7 +651,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
                     "value": ""
                 },
@@ -690,21 +672,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "Leather Armor",
             "sort": 400000,
             "type": "armor"
         },
         {
-            "_id": "T7xvOhyuZCoyJmOZ",
+            "_id": "G7PkqNFkjQWmFJGG",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -720,7 +706,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. If your thieves' tools are broken, you can repair them by replacing the lock picks with replacement picks appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -743,8 +729,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unusual Object"
                     }
                 },
                 "invested": {
@@ -775,7 +761,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "thieves-tools",
                 "source": {
                     "value": ""
                 },
@@ -800,34 +786,39 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.zvLyCVD8g2PdHJAc"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools",
             "sort": 500000,
             "type": "equipment"
         },
         {
-            "_id": "EFUnDnmk77yAN3xX",
+            "_id": "l1CAh9pI62HgTDqL",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Smoke Exhalation"
+                        "smoke-exhalation"
                     ]
                 },
                 "bonus": {
                     "value": 13
                 },
                 "damageRolls": {
-                    "0": {
+                    "jodzv7nyvuq9voqumy5t": {
                         "damage": "1d4+4",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, finesse, versatile S)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -842,7 +833,7 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "versatile S"
+                        "versatile-s"
                     ]
                 },
                 "weaponType": {
@@ -857,27 +848,28 @@
             "type": "melee"
         },
         {
-            "_id": "Q9pJn407lLKDMBVI",
+            "_id": "8gkIqaHNLuhJaFDa",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Smoke Exhalation"
+                        "smoke-exhalation"
                     ]
                 },
                 "bonus": {
                     "value": 13
                 },
                 "damageRolls": {
-                    "0": {
+                    "rk92e6zsb7kclmpwzcyl": {
                         "damage": "1d4+4",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, thrown 10 feet, versatile S)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -891,12 +883,13 @@
                     },
                     "value": [
                         "agile",
-                        "thrown 10 feet",
-                        "versatile S"
+                        "range",
+                        "thrown-10",
+                        "versatile-s"
                     ]
                 },
                 "weaponType": {
-                    "value": "ranged"
+                    "value": "melee"
                 }
             },
             "effects": [],
@@ -907,7 +900,120 @@
             "type": "melee"
         },
         {
-            "_id": "mY4dvHb9fAotqjkc",
+            "_id": "DcpA6f006waLxlKV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons. Until the cloud dissipates at the start of his next turn, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r 1d8 #poison]]{1d8 poison damage}, and targets of his Strikes must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison,damaging-effect\" data-pf2-label=\"\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "any": [
+                                "Smoke Exhalation"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.Smoke Exhalation"
+                    }
+                ],
+                "slug": "",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Smoke Exhalation",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "Mhv7HS2GtYyFQCtr",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "iDLdh5VbZvcNsMyO",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -919,7 +1025,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, if Aives rolled Deception or Stealth for initiative, creatures that haven't acted are flat-footed to him.</p>"
+                    "value": "<p>On the first round of combat, if Aives rolled Deception or Stealth for initiative, creatures that haven't acted are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -947,23 +1053,23 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attack",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "cpcIX2KKJCMLAkwJ",
+            "_id": "O0LZ2ScEhqjUForm",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": ""
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p>[one-action] Aives draws a weapon with an Interact action, then Strikes with the weapon he just drew.</p>"
+                    "value": "<p>Aives draws a weapon with an Interact action, then Strikes with the weapon he just drew.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -989,59 +1095,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Draw",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "L8WzC9UistctWGW5",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "1"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons. Until the cloud dissipates at the start of his next turn, Aives is concealed, his Strikes deal an extra [[/r 1d8 #poison]]{1d8 poison damage}, and targets of his Strikes must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"poison\" data-pf2-label=\"Smoke Exhalation DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become sickened 1.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Smoke Exhalation",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "CnXBPTCh9Wr5XnEc",
+            "_id": "n94bJ8vUHMql6W6T",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1053,13 +1113,31 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Aives deals an extra [[/r 1d6 #precision]]{1d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>Aives deals an extra [[/r 1d6 #precision]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                },
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -1068,9 +1146,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "precision"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -1080,20 +1156,21 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "s8wxTdCQfpiPAjaK",
+            "_id": "6dYmnF4TU8dJVtiX",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 10
@@ -1118,17 +1195,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
-            "_id": "7LKPg8I12ym37XdB",
+            "_id": "C8RWn3Qeovvl8LSr",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -1153,17 +1227,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
-            "_id": "i6QOAhjCsUwNc5xZ",
+            "_id": "wRHk8tJVWtgRvbDp",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -1188,17 +1259,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
-            "_id": "kXmXtoXk5zX7jMvb",
+            "_id": "zKDTaFyUBjBPMrh1",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -1223,17 +1291,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
-            "_id": "lt6MQFDSpyxViyLu",
+            "_id": "YffuqYNEXhO7fqJn",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 10
@@ -1258,17 +1323,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
-            "_id": "mOp5f4K0P5q8TcuT",
+            "_id": "8JI31BTRkG00zjSn",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 12
@@ -1293,16 +1355,16 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         }
     ],
-    "name": "Aives The Smoke Dragon",
+    "name": "Aives the Smoke Dragon",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Aives The Smoke Dragon",
+        "name": "Aives the Smoke Dragon",
         "width": 1
     },
     "type": "npc"
