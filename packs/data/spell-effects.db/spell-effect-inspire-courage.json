@@ -2,8 +2,6 @@
     "_id": "beReeFroAx24hj83",
     "data": {
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Granted by @Compendium[pf2e.spells-srd.Inspire Courage]{Inspire Courage}</p>\n<p>You are inspired by words or tunes of encouragement. You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
         },
         "duration": {
@@ -17,36 +15,32 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Inspire Courage",
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Inspire Courage",
                 "selector": "damage",
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Inspire Courage (vs fear)",
                 "predicate": {
                     "all": [
                         "fear"
                     ]
                 },
-                "selector": "will",
+                "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },

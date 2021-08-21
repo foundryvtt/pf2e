@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You favor unusual weapons tied to your people, such as blades with curved and peculiar shapes. You are trained with the @Compendium[pf2e.equipment-srd.Glaive]{Glaive} and @Compendium[pf2e.equipment-srd.Kukri]{Kukri}.</p>\n<p>In addition, you gain access to kukris and all uncommon gnome weapons. For the purpose of determining your proficiency, martial gnome weapons are simple weapons and advanced gnome weapons are martial weapons.</p>"
         },
         "featType": {
@@ -25,11 +23,20 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-glaive.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-kukri.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -47,16 +54,6 @@
         {
             "_id": "rhOGSMJhHsInXUTw",
             "changes": [
-                {
-                    "key": "data.martial.weapon-base-glaive.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-kukri.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
                 {
                     "key": "data.martial.martial.familiarity",
                     "mode": 5,

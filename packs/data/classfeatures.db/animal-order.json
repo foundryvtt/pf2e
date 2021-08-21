@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You have a strong connection to beasts, and you are allied with a beast companion. You are trained in Athletics. You also gain the @Compendium[pf2e.feats-srd.Animal Companion]{Animal Companion (Druid)} druid feat. You gain the @Compendium[pf2e.spells-srd.Heal Animal]{Heal Animal} order spell. Committing wanton cruelty to animals or killing animals unnecessarily is anathema to your order. (This doesn't prevent you from defending yourself against animals or killing them cleanly for food.)</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.ath.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "gqoHzUJvt1Xjub7Q",
-            "changes": [
-                {
-                    "key": "data.skills.ath.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/animal.webp",
-            "label": "Animal Order",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/animal.webp",
     "name": "Animal Order",

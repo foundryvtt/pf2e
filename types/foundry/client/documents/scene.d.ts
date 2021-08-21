@@ -52,15 +52,15 @@ declare global {
         activate(): Promise<this>;
 
         override clone(
-            createData: DeepPartial<foundry.data.SceneSource> | undefined,
+            data: DeepPartial<foundry.data.SceneSource> | undefined,
             options: { save: true; keepId?: boolean }
         ): Promise<this>;
         override clone(
-            createData: DeepPartial<foundry.data.SceneSource> | undefined,
-            options?: { save?: false | undefined; keepId?: boolean }
+            data?: DeepPartial<foundry.data.SceneSource>,
+            options?: { save?: false; keepId?: boolean }
         ): this;
         override clone(
-            createData?: DeepPartial<foundry.data.SceneSource>,
+            data?: DeepPartial<foundry.data.SceneSource>,
             options?: { save?: boolean; keepId?: boolean }
         ): this | Promise<this>;
 

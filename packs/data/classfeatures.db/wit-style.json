@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You are friendly, clever, and full of humor, always knowing just what to say in any situation. Your witticisms leave foes unprepared for the skill and speed of your attacks.</p>\n<p>You are trained in Diplomacy and gain the @Compendium[pf2e.feats-srd.Bon Mot]{Bon Mot} skill feat. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
         },
         "featType": {
@@ -39,12 +37,14 @@
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dip.rank",
+                "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -58,28 +58,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "qimKABhZLCDKt5yH",
-            "changes": [
-                {
-                    "key": "data.skills.dip.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/wit-style.webp",
-            "label": "Wit Style",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/wit-style.webp",
     "name": "Wit Style",

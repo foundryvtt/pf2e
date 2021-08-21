@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 20,
                 "details": "",
                 "value": 20
             },
@@ -71,7 +72,7 @@
                 "value": "N"
             },
             "creatureType": "Elemental",
-            "flavorText": "The tentacled mist stalker shrouds itself in a cloak of mist through which its single, never-blinking eye can see with clarity, allowing it an advantage when stalking its prey.<br /><br />",
+            "flavorText": "<p>The tentacled mist stalker shrouds itself in a cloak of mist through which its single, never-blinking eye can see with clarity, allowing it an advantage when stalking its prey.</p>\n<hr />\n<p>Water elementals that become infused with cold or mist have increased mobility in regions outside of bodies of water.</p>",
             "level": {
                 "value": 4
             },
@@ -93,10 +94,6 @@
                 "saveDetail": "",
                 "value": 11
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -168,10 +165,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -193,7 +186,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tentacle",
             "sort": 100000,
             "type": "melee"
@@ -208,7 +201,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
@@ -217,10 +210,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "darkvision",
                 "source": {
                     "value": ""
@@ -245,7 +234,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 200000,
             "type": "action"
@@ -260,19 +249,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @Compendium[pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 15 feet.</p>\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @Compendium[pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -298,7 +283,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mist Cloud",
             "sort": 300000,
             "type": "action"
@@ -313,7 +298,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The mist stalker ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from mist and fog.</p>"
@@ -322,10 +307,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -346,7 +327,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mist Vision",
             "sort": 400000,
             "type": "action"
@@ -361,19 +342,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r 1d8+4 #bludgeoning]] bludgeoning. DC 21</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 1d8+4 #bludgeoning]]{1d8+4 bludgeoning damage}, <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "constrict",
                 "source": {
                     "value": ""
@@ -413,7 +390,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>The mist stalker makes its mist cloud congeal, causing the aura to be difficult terrain until the start of the mist stalker's next turn.</p>\n<p>In addition, the mist stalker can make the mist even thicker around a single Medium or smaller creature within the cloud. The creature must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"primal,transmutation,water\" data-pf2-label=\"Solidify Mist DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or become @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} or it is no longer in the mist cloud's emanation.</p>"
@@ -422,10 +399,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -465,7 +438,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
@@ -474,10 +447,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "grab",
                 "source": {
                     "value": ""
@@ -523,10 +492,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -562,10 +527,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

@@ -57,6 +57,12 @@ import { Migration646UpdateInlineLinks } from "./migrations/646-update-inline-li
 import { Migration647FixPCSenses } from "./migrations/647-fix-pc-senses";
 import { Migration648RemoveInvestedProperty } from "./migrations/648-remove-invested-property";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
+import { Migration650StringifyWeaponProperties } from "./migrations/650-stringify-weapon-properties";
+import { Migration651EphemeralFocusPool } from "./migrations/651-ephemeral-focus-pool";
+import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
+import { Migration653AEstoREs } from "./migrations/653-aes-to-res";
+import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654-action-type-count";
+import { Migration655CreatureTokenSizes } from "./migrations/655-creature-token-sizes";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -118,6 +124,12 @@ export class Migrations {
         Migration647FixPCSenses,
         Migration648RemoveInvestedProperty,
         Migration649FocusToActor,
+        Migration650StringifyWeaponProperties,
+        Migration651EphemeralFocusPool,
+        Migration652KillHalcyonTradition,
+        Migration653AEstoREs,
+        Migration654ActionTypeAndCount,
+        Migration655CreatureTokenSizes,
     ];
 
     static get latestVersion(): number {

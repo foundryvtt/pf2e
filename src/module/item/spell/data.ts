@@ -3,6 +3,7 @@ import { AbilityString } from "@actor/data/base";
 import { TrickMagicItemCastData } from "@item/data";
 import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { ValuesList, OneToTen } from "@module/data";
 import type { SpellPF2e } from ".";
@@ -40,7 +41,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     category: {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
-    traditions: ValuesList<keyof ConfigPF2e["PF2E"]["spellTraditions"]>;
+    traditions: ValuesList<MagicTradition>;
     school: {
         value: MagicSchool;
     };
@@ -94,9 +95,6 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    prepared: {
-        value: boolean;
-    };
     location: {
         value: string;
     };
@@ -118,3 +116,5 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: OneToTen | null;
     };
 }
+
+export const MAGIC_TRADITIONS = ["arcane", "divine", "occult", "primal"] as const;

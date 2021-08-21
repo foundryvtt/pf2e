@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Select one arcane school of magic. You gain the school's initial school spell. If you don't already have one, you gain a focus pool of 1 Focus Point, which you can Refocus by studying.</p>"
         },
         "featType": {
@@ -28,11 +26,15 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

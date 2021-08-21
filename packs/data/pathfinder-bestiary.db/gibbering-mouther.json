@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "details": "all-around vision",
                 "value": 21
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "20 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Aberration",
-            "flavorText": "Amorphous blobs of yammering mouths and oozing, fleshy sludge, gibbering mouthers are among the strangest creatures found either aboveground or below. Perpetually ravenous, these aberrations are always seeking their next meals, ever eating but never sated. With a nominal intelligence, gibbering mouthers can understand and even speak Aklo, but they do so in an intelligible manner only rarely. Instead, their innumerable mouths constantly jabber and babble in a stream of sound that disrupts the thought patterns of other creatures in the area.<br /><br /> Where, how, and why gibbering mouthers originated are questions without answers. They share certain similarities with the much more powerful shoggoths, leading to theories that the two creatures share an origin; less charitable scholars have suggested that the gibbering mouther is instead a mortal's attempt to create something akin to a shoggoth-though the question of why remains unanswered. Still others believe gibbering mouthers were sent to the world by the gods as a punishment for some forgotten but surely terrible transgression. Gibbering mouthers themselves have little to say on the matter-at least, not in any sort of sense. Scholars have wasted countless hours in attempts to make sense of gibbering mouthers' noises-studies that put researchers into danger and give results that are contradictory and confusing at best.<br /><br /> Whatever their origin, gibbering mouthers range the entirety of Golarion. Sightings have been recorded in dungeons below ancient cities and ruins as well as many regions of the deeper Darklands layers of Sekamina and Orv. They are somewhat less common in the upper region of Nar-Voth, perhaps due to the prevalence of settlements that don't tolerate gibbering mouthers' presence.<br /><br />",
+            "flavorText": "<p>Amorphous blobs of yammering mouths and oozing, fleshy sludge, gibbering mouthers are among the strangest creatures found either aboveground or below. Perpetually ravenous, these aberrations are always seeking their next meals, ever eating but never sated. With a nominal intelligence, gibbering mouthers can understand and even speak Aklo, but they do so in an intelligible manner only rarely. Instead, their innumerable mouths constantly jabber and babble in a stream of sound that disrupts the thought patterns of other creatures in the area.</p>\n<p>Where, how, and why gibbering mouthers originated are questions without answers. They share certain similarities with the much more powerful shoggoths, leading to theories that the two creatures share an origin; less charitable scholars have suggested that the gibbering mouther is instead a mortal's attempt to create something akin to a shoggoth-though the question of why remains unanswered. Still others believe gibbering mouthers were sent to the world by the gods as a punishment for some forgotten but surely terrible transgression. Gibbering mouthers themselves have little to say on the matter-at least, not in any sort of sense. Scholars have wasted countless hours in attempts to make sense of gibbering mouthers' noises-studies that put researchers into danger and give results that are contradictory and confusing at best.</p>\n<p>Whatever their origin, gibbering mouthers range the entirety of Golarion. Sightings have been recorded in dungeons below ancient cities and ruins as well as many regions of the deeper Darklands layers of Sekamina and Orv. They are somewhat less common in the upper region of Nar-Voth, perhaps due to the prevalence of settlements that don't tolerate gibbering mouthers' presence.</p>",
             "level": {
                 "value": 5
             },
@@ -85,10 +87,6 @@
                 "saveDetail": "",
                 "value": 10
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -139,8 +137,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -156,10 +155,6 @@
                     "value": "<p>[[/r 1d4 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -179,7 +174,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -191,8 +186,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "burn eyes"
+                        "burn-eyes"
                     ]
                 },
                 "bonus": {
@@ -208,10 +204,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -222,7 +214,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range 30 feet"
+                        "range-increment-30"
                     ]
                 },
                 "weaponType": {
@@ -231,10 +223,58 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spittle",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "FROXSLA0KAmSygO8",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "OLoz41FJFungrpr5",
@@ -246,19 +286,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"auditory,aura,emotion,enchantment,incapacitation,mental,occult\" data-pf2-label=\"Gibbering DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, they are confused for 1 round. On a success, they are temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 60 feet.</p>\n<p>Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"auditory,aura,emotion,enchantment,incapacitation,mental,occult\" data-pf2-label=\"Gibbering DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p data-visibility=\"gm\">On a failure, they are @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round. On a success, they are temporarily immune for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -287,13 +323,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Gibbering",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "FkxlF9j7MHir7xEJ",
+            "_id": "7E8n4GtjQsDUscl5",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -302,7 +338,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>This monster can see in all directions simultaneously, and therefore can't be flanked.</p>"
@@ -311,11 +347,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "all-around-vision",
                 "source": {
                     "value": ""
                 },
@@ -334,10 +366,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -350,19 +386,15 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature deals the gibbering mouther slashing damage. <strong>Effect</strong> The gibbering mouther's wound opens into another maw. It makes a jaws Strike against the triggering creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An adjacent creature deals the gibbering mouther slashing damage.</p>\n<p><strong>Effect</strong> The gibbering mouther's wound opens into another maw. It makes a jaws Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -383,9 +415,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Gnaw",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -398,19 +430,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that takes damage from a gibbering mouther's spittle must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-label=\"Burn Eyes DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round (or blinded for 1 round on a critical failure).</p>"
+                    "value": "<p>A creature that takes damage from a gibbering mouther's spittle must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-label=\"Burn Eyes DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or be @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round (or @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round on a critical failure)</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -431,13 +459,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Burn Eyes",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "ztr9D72BH3ywcUHB",
+            "_id": "dlJRGF6svPQrT0kW",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -449,17 +477,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>DC 22, 3d8 piercing, Escape DC 22, Rupture 8<br />The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster's size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster's path) or pushed in front of the monster to the end of the monster's movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.<br /><br /> A creature that fails its save is pulled into the monster's body. It is grabbed, is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it's engulfed. An engulfed creature can get free by Escaping against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster's space.<br /><br /> If the monster dies, all creatures it has engulfed are automatically released as the monster's form loses cohesion.</p>"
+                    "value": "<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Engulf DC\" data-pf2-show-dc=\"gm\">Reflex</span>, [[/r 3d8 #piercing]]{3d8 piercing}, Escape DC 22, Rupture 8</p>\n<hr />\n<p>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster's size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster's path) or pushed in front of the monster to the end of the monster's movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.</p>\n<p>A creature that fails its save is pulled into the monster's body. It is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it's engulfed. An engulfed creature can get free by @Compendium[pf2e.actionspf2e.Escape]{Escaping} against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, all creatures it has engulfed are automatically released as the monster's form loses cohesion.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "engulf",
                 "source": {
                     "value": ""
                 },
@@ -478,10 +502,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.zU3Ovaet4xQ5Gmvy"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Engulf",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -497,16 +525,12 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gibbering mouther causes stone and earth under its body to grow soft and muddy, remaining so for 1 minute after the mouther moves off the location. A gibbering mouther can move through these areas with ease, but other creatures treat them as difficult terrain.</p>"
+                    "value": "<p>The gibbering mouther causes stone and earth under its body to grow soft and muddy, remaining so for 1 minute after the mouther moves off the location.</p>\n<p>A gibbering mouther can move through these areas with ease, but other creatures treat them as difficult terrain.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -530,9 +554,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Ground Manipulation",
-            "sort": 800000,
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "qj5Sb3cDS5e8IZDh",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -551,10 +623,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -571,7 +639,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -590,10 +658,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -610,7 +674,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

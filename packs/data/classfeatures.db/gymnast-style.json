@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess. You are trained in Athletics. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Grapple]{Grapple}, @Compendium[pf2e.actionspf2e.Shove]{Shove}, or @Compendium[pf2e.actionspf2e.Trip]{Trip} a foe.</p>"
         },
         "featType": {
@@ -41,12 +39,14 @@
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.ath.rank",
+                "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -60,28 +60,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "jN2zsW3Digzr7WDx",
-            "changes": [
-                {
-                    "key": "data.skills.ath.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/gymnast-style.webp",
-            "label": "Gymnast Style",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
     "name": "Gymnast Style",

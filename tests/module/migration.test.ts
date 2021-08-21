@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { populateFoundryUtilFunctions } from "../fixtures/foundryshim";
-import { ActorDataPF2e, CharacterData } from "@actor/data";
+import { ActorSourcePF2e, CharacterSource } from "@actor/data";
 import { MigrationRunner } from "@module/migration/runner";
 import { MigrationBase } from "@module/migration/base";
 import { FakeActor } from "tests/fakes/fake-actor";
@@ -14,15 +14,20 @@ import { FakeChatMessage } from "tests/fakes/fake-chat-message";
 
 import characterJSON from "../../packs/data/iconics.db/amiri-level-1.json";
 import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
-import { ArmorData } from "@item/data";
+import { ArmorSource } from "@item/data";
 import { FoundryUtils } from "tests/utils";
 import { FakeActors, FakeCollection, FakeWorldCollection } from "tests/fakes/fake-collection";
 import { LocalizePF2e } from "@module/system/localize";
 
-const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
-const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
+const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+characterData.data.schema = { version: 0, lastMigration: null };
+for (const item of characterData.items) {
+    item.data.schema = { version: 0, lastMigration: null };
+}
 
-declare let game: any;
+const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+armorData.data.schema = { version: 0, lastMigration: null };
+
 LocalizePF2e.ready = true;
 
 describe("test migration runner", () => {
@@ -32,7 +37,7 @@ describe("test migration runner", () => {
         worldSchemaVersion: 10,
     };
 
-    game = {
+    (global as any).game = {
         data: {
             version: "3.2.1",
         },
@@ -61,6 +66,11 @@ describe("test migration runner", () => {
         scenes: new FakeWorldCollection<FakeScene>(),
     };
 
+    (global as any).CONFIG = {
+        Actor: { documentClass: FakeActor },
+        Item: { documentClass: FakeItem },
+    };
+
     (global as any).ui = {
         notifications: {
             info(_msg: string, _other?: any) {},
@@ -77,14 +87,14 @@ describe("test migration runner", () => {
 
     class ChangeNameMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: ActorDataPF2e) {
+        async updateActor(actor: ActorSourcePF2e) {
             actor.name = "updated";
         }
     }
 
     class ChangeSizeMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: ActorDataPF2e) {
+        async updateActor(actor: ActorSourcePF2e) {
             actor.data.traits.size.value = "sm";
         }
     }
@@ -99,7 +109,7 @@ describe("test migration runner", () => {
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
         async updateItem(item: any) {
-            delete item.data.someFakeProperty;
+            item.data["-=someFakeProperty"] = null;
         }
     }
 
@@ -139,7 +149,7 @@ describe("test migration runner", () => {
         expect(settings.worldSchemaVersion).toEqual(12);
     });
 
-    test("expect update actor name in world", async () => {
+    test("expect updated actor name in world", async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
@@ -230,16 +240,19 @@ describe("test migration runner", () => {
         }
 
         game.actors.set(characterData._id, new FakeActor(characterData));
+        expect(game.actors.contents[0].items.size).toBeGreaterThan(0);
 
         const migrationRunner = new MigrationRunner([new RemoveItemsFromActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.items.length).toEqual(0);
+        expect(game.actors.contents[0].items.size).toEqual(0);
     });
 
     class AddItemToActor extends MigrationBase {
         static version = 13;
+
         requiresFlush = true;
-        async updateActor(actor: any) {
+
+        async updateActor(actor: { items: any[] }) {
             actor.items.push({
                 name: "sample item",
                 type: "melee",
@@ -254,18 +267,20 @@ describe("test migration runner", () => {
     }
 
     test("migrations can add items to actors", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
-        game.actors.contents[0]._data.items = [];
+        characterData.items = [];
+        const actor = new FakeActor(characterData);
+        game.actors.set(actor.id, actor);
 
         const migrationRunner = new MigrationRunner([new AddItemToActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.items.length).toEqual(1);
-        expect(game.actors.contents[0]._data.items[0]._id).toEqual("item1");
+
+        expect(actor.items.size).toEqual(1);
+        expect(actor.items.get("item1")).toBeDefined();
     });
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
-        async updateActor(actor: any) {
+        async updateActor(actor: { items: any[] }) {
             actor.data.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
         }
     }

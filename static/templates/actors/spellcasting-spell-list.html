@@ -14,27 +14,37 @@
 
                 <h3>{{localize section.label}}</h3>
 
-                {{#if entry.isPrepared}}
+                {{#if (and entry.isPrepared section.uses)}}
                     <span class="spell-max-input">
-                        <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
+                        <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
                     </span>
                 {{else}}
-                    {{#unless (or entry.isRitual entry.isFocusPool)}}
-                        {{#if section.isCantrip}}
-                            <span class="spell-slots">&infin;</span>
-                            <span class="flex0"> / </span>
-                            <span class="spell-max">&infin;</span>
-                        {{else}}
-                            <span class="spell-slots-input">
-                                <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number"/>
-                            </span>
-                            <span class="flex0"> / </span>
-                            <span class="spell-max-input">
-                                <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
-                            </span>
-                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}" data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
+                    {{#if section.isCantrip}}
+                        <span class="spell-slots">&infin;</span>
+                        <span class="flex0"> / </span>
+                        <span class="spell-max">&infin;</span>
+                    {{else if entry.isFocusPool}}
+                        <div class="focus-points" title="{{localize "PF2E.Focus.pointTitle"}}">
+                            {{~#times section.uses.max~}}
+                                {{~#if (gt section.uses.value this)~}}
+                                    <i class="fas fa-dot-circle"></i>
+                                {{~else~}}
+                                    <i class="far fa-circle"></i>
+                                {{~/if~}}
+                            {{/times}}
+                        </div>
+                    {{else if section.uses}}
+                        <span class="spell-slots-input">
+                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses.value}}" placeholder="0" data-dtype="Number"/>
+                        </span>
+                        <span class="flex0"> / </span>
+                        <span class="spell-max-input">
+                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
+                        </span>
+                        {{#if @root.owner}}
+                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
                         {{/if}}
-                    {{/unless}}
+                    {{/if}}
                 {{/if}}
             </div>
 

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Nature</p>\n<p><strong>Granted Spells</strong> cantrip: @Compendium[pf2e.spells-srd.Tanglefoot]{Tanglefoot}; 1st: @Compendium[pf2e.spells-srd.Charm]{Charm}; 2nd: @Compendium[pf2e.spells-srd.Calm Emotions]{Calm Emotions}; 3rd: @Compendium[pf2e.spells-srd.Animal Vision]{Animal Vision}; 4th: @Compendium[pf2e.spells-srd.Vital Beacon]{Vital Beacon}; 5th: @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}; 6th: @Compendium[pf2e.spells-srd.Repulsion]{Repulsion}; 7th: @Compendium[pf2e.spells-srd.Unfettered Pack]{Unfettered Pack}; 8th: @Compendium[pf2e.spells-srd.Moment of Renewal]{Moment of Renewal}; 9th: @Compendium[pf2e.spells-srd.Overwhelming Presence]{Overwhelming Presence}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Nymph's Token]{Nymph's Token}; advanced: @Compendium[pf2e.spells-srd.Blinding Beauty]{Blinding Beauty}; greater: @Compendium[pf2e.spells-srd.Establish Ward]{Establish Ward}</p>\n<p><strong>Blood Magic</strong> Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Nymph Blood Magic (Self)]{Effect: Nymph Blood Magic (Self)}, @Compendium[pf2e.feature-effects.Effect: Nymph Blood Magic (Target)]{Effect: Nymph Blood Magic (Target)}</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.nat.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "BUiZIckvG0vx485J",
-            "changes": [
-                {
-                    "key": "data.skills.dip.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/nymph.webp",
-            "label": "Bloodline: Nymph",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/nymph.webp",
     "name": "Bloodline: Nymph",

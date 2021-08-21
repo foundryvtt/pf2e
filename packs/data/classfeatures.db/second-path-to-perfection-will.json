@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You've learned to find perfection in every success.</p>\n<p>Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>"
         },
         "featType": {
@@ -38,12 +36,14 @@
                 "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
                 "selector": "will",
                 "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.will.rank",
+                "value": 3
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -57,28 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "7qrDTMWfbWn1PiVy",
-            "changes": [
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
-            "label": "Second Path to Perfection (Will)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
     "name": "Second Path to Perfection (Will)",

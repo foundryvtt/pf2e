@@ -3,6 +3,7 @@ import {
     Alignment,
     BaseCreatureAttributes,
     BaseCreatureData,
+    BaseCreatureResources,
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
@@ -26,6 +27,7 @@ import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -40,7 +42,7 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "items"
 }
 
 export interface CharacterSkillData extends SkillData {
-    rank: number;
+    rank: ZeroToFour;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -49,9 +51,12 @@ export interface CharacterSystemData extends CreatureSystemData {
     abilities: Abilities;
 
     /** The three save types. */
-    saves: Record<SaveType, SaveData>;
+    saves: CharacterSaves;
 
-    /** Tracks proficiencies for martial skills. */
+    /** Tracks proficiencies for magic skills */
+    magic: MagicTraditionProficiencies;
+
+    /** Tracks proficiencies for martial (weapon and armor) skills. */
     martial: CombatProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
@@ -113,7 +118,14 @@ export interface CharacterSystemData extends CreatureSystemData {
     toggles: {
         actions: RollToggle[];
     };
+
+    resources: CharacterResources;
 }
+
+interface CharacterSaveData extends SaveData {
+    rank: ZeroToFour;
+}
+export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
 export interface CharacterProficiencyData extends ProficiencyData {
     /** The proficiency rank (0 untrained - 4 legendary). */
@@ -128,6 +140,7 @@ export interface CharacterProficiencyData extends ProficiencyData {
     };
 }
 
+export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiencyData>;
 export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiencyData>;
 
 export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
@@ -136,12 +149,17 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
 
-export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
+export type CombatProficiencies = CategoryProficiencies &
+    Partial<BaseWeaponProficiencies> &
+    Partial<WeaponGroupProfiencies>;
 
-export type CombatProficiencyKey = keyof CombatProficiencies;
+export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-export type ClassDCData = StatisticModifier & RawSkillData;
+export interface ClassDCData extends StatisticModifier, RawSkillData {
+    rank: ZeroToFour;
+}
+
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier & StrikeData;
 
@@ -183,9 +201,20 @@ interface PathfinderSocietyData {
 
 export type CharacterArmorClass = Required<ArmorClassData>;
 
-interface CharacterAttributes extends BaseCreatureAttributes {
+interface CharacterResources extends BaseCreatureResources {
+    investiture: {
+        value: number;
+        max: number;
+    };
+}
+
+interface CharacterPerception extends PerceptionData {
+    rank: ZeroToFour;
+}
+
+export interface CharacterAttributes extends BaseCreatureAttributes {
     /** The perception skill. */
-    perception: PerceptionData;
+    perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
     /** Creature armor class, used to defend against attacks. */
@@ -224,6 +253,13 @@ interface CharacterAttributes extends BaseCreatureAttributes {
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: StatisticModifier;
+
+    /** The character's natural reach */
+    reach: {
+        value: number;
+        /** Its reach for the purpose of manipulate actions */
+        manipulate: number | null;
+    };
 
     /** Data related to character hitpoints. */
     hp: HitPointsData;

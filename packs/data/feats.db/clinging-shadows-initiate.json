@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You learn a mystical stance that transforms your ki into sticky smoke that shrouds your limbs, clinging to everything you touch.</p>\n<p>You gain the @Compendium[pf2e.spells-srd.Clinging Shadows Stance]{Clinging Shadows Stance} ki spell. Increase the number of Focus Points in your focus pool by 1. While entering the stance uses a ki spell, the shadow grasp attacks it grants are not, so you can use them as often as you like while in the stance.</p>"
         },
         "featType": {
@@ -28,11 +26,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

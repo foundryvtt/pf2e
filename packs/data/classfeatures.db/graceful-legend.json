@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your sublime movement grants you unparalleled protection and offense. Your proficiency rank for unarmored defense increases to legendary, and your proficiency rank for your monk class DC increases to master. If you have ki spells, your proficiency rank for spell attack rolls and spell DCs with the tradition of magic you use for your ki spells increases to master.</p>"
         },
         "featType": {
@@ -25,11 +23,20 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmored.rank",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.classDC.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +50,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "RsDX3ZAegPX26jOc",
-            "changes": [
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "4"
-                },
-                {
-                    "key": "data.attributes.classDC.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/graceful-legend.webp",
-            "label": "Graceful Legend",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/graceful-legend.webp",
     "name": "Graceful Legend",

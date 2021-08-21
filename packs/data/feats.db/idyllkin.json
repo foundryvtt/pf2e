@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>Your wild, unique features betray your agathion birthright. Serene celestials from the plane of Nirvana, agathions seek the peaceful path, ensuring a better world for all to coexist. Your halcyon demeanor leads you to search for peaceful resolution to conflict.</p>\n<p>You gain the trained proficiency rank in Nature. If you would automatically become trained in Nature (from your background or class, for example), you instead become trained in a skill of your choice. You know the Sylvan language and gain the @Compendium[pf2e.feats-srd.Natural Medicine]{Natural Medicine} skill feat.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill.</em></p>"
@@ -23,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.nat.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,28 +45,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "FXbKvdR2gfBdNY9D",
-            "changes": [
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Idyllkin",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Idyllkin",

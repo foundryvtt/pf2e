@@ -1,5 +1,5 @@
-import { IdentifyCreatureData } from "../../../recall-knowledge";
-import { padArray } from "../../../utils";
+import { IdentifyCreatureData } from "@module/recall-knowledge";
+import { padArray } from "@module/utils";
 
 export class RecallKnowledgePopup extends Application {
     static override get defaultOptions() {
@@ -17,18 +17,16 @@ export class RecallKnowledgePopup extends Application {
     }
 
     override getData() {
-        const data = this.data as IdentifyCreatureData;
+        const data = this.data;
         return {
             specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),
             unspecificLoreAttempts: this.padAttempts(data.unspecificLoreDC.progression),
             skills: Array.from(data.skills)
                 .sort()
-                .map((skill) => {
-                    return {
-                        name: CONFIG.PF2E.skills[skill],
-                        attempts: this.padAttempts(data.skill.progression),
-                    };
-                }),
+                .map((skill) => ({
+                    name: CONFIG.PF2E.skills[skill],
+                    attempts: this.padAttempts(data.skill.progression),
+                })),
         };
     }
 

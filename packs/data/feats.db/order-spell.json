@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You gain the initial order spell from your order. If you don't already have one, you gain a focus pool of 1 Focus Point, which you can Refocus by being one with nature.</p>"
         },
         "featType": {
@@ -28,11 +26,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>As a transmuter, you alter the physical properties of things, transforming creatures, objects, the natural world, and even yourself at your whim. You understand that change is inevitable. You add one 1st-level transmutation spell (such as @Compendium[pf2e.spells-srd.Magic Weapon]{Magic Weapon}) to your spellbook. You learn the @Compendium[pf2e.spells-srd.Physical Boost]{Physical Boost} school spell.</p>"
         },
         "featType": {
@@ -25,11 +23,15 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

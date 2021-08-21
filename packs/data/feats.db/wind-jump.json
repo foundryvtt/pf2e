@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You gather the wind beneath you, allowing you to soar as you jump. You gain the @Compendium[pf2e.spells-srd.Wind Jump]{Wind Jump} ki spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -29,11 +27,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

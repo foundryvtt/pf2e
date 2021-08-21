@@ -29,6 +29,7 @@ export interface LabeledNumber extends LabeledValue {
 export type ZeroToTwo = 0 | 1 | 2;
 export type ZeroToThree = ZeroToTwo | 3; // +1!
 export type OneToThree = Exclude<ZeroToThree, 0>;
+export type TwoToThree = Exclude<OneToThree, 1>;
 export type ZeroToFour = ZeroToThree | 4;
 export type OneToFour = Exclude<ZeroToFour, 0>;
 export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;

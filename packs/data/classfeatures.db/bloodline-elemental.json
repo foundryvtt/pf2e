@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>A genie ancestor or some other elemental influence has imbued your blood with primal fury. This affects how your blood magic works, along with your bloodline spells and granted spells marked with an asterisk (*).</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Nature</p>\n<p><strong>Granted Spells</strong> cantrip @Compendium[pf2e.spells-srd.Produce Flame]{Produce Flame}*, 1st: @Compendium[pf2e.spells-srd.Burning Hands]{Burning Hands}*, 2nd: @Compendium[pf2e.spells-srd.Resist Energy]{Resist Energy}, 3rd: @Compendium[pf2e.spells-srd.Fireball]{Fireball}*, 4th: @Compendium[pf2e.spells-srd.Freedom of Movement]{Freedom of Movement}, 5th: @Compendium[pf2e.spells-srd.Elemental Form]{Elemental Form}, 6th: @Compendium[pf2e.spells-srd.Repulsion]{Repulsion}, 7th: @Compendium[pf2e.spells-srd.Energy Aegis]{Energy Aegis}, 8th: @Compendium[pf2e.spells-srd.Prismatic Wall]{Prismatic Wall}, 9th: @Compendium[pf2e.spells-srd.Storm of Vengeance]{Storm of Vengeance}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Elemental Toss]{Elemental Toss}*, advanced: @Compendium[pf2e.spells-srd.Elemental Motion]{Elemental Motion}, greater: @Compendium[pf2e.spells-srd.Elemental Blast]{Elemental Blast}*</p>\n<p><strong>Blood Magic</strong> Elemental energy surrounds you or a target. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes 1 damage per spell level. The damage is bludgeoning or fire, according to your elemental type (see below). If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Elemental Blood Magic (Self)]{Effect: Elemental Blood Magic (Self)}</p>\n<h2 class=\"title\">Elemental Type</h2>\n<p>Choose the type of elemental that influenced your bloodline: air, earth, fire, or water.</p>\n<p>If your element is air, you buffet your foes with powerful winds; if it's earth, you toss huge chunks of rock; if it's fire, you incinerate your foes with flame; and if it's water, you inundate your foes with torrents of water.</p>\n<p>For fire, all marked spells deal fire damage. For other elements, they deal bludgeoning damage. You replace any existing elemental traits with the trait of the element you chose.</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.nat.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "keql4FWa2GyljGdg",
-            "changes": [
-                {
-                    "key": "data.skills.itm.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/elemental.webp",
-            "label": "Bloodline: Elemental",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/elemental.webp",
     "name": "Bloodline: Elemental",

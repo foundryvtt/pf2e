@@ -49,7 +49,13 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
                 "value": ""
             }
         },
@@ -80,10 +86,6 @@
                 "value": 11
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "ci": [],
             "di": {
@@ -99,7 +101,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
+                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non‑magical",
                     "label": "All",
                     "type": "all",
                     "value": "7"
@@ -158,13 +160,9 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, finesse, magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -186,13 +184,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Hand",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "icADtJnUi9XmHxg8",
+            "_id": "CpXxvpsrf7rcrJM4",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -201,20 +199,16 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>(area C36 and C37)</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -233,14 +227,66 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "Site Bound",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
             "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "7MLGaGjX9q43vGRI",
+            "_id": "yJdnNORoa1KtMM7W",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Area <strong>C36</strong> and <strong>C37</strong>.</p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghost-site-bound",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.BcSlVpaN72LoQ5BV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "smJkeUn705exUfuJ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -249,20 +295,64 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>To put Chandriu to rest permanently, a hero must convince her to stop pining over Volluk with a successful <span data-pf2-check=\"diplomacy\" data-pf2-dc=\"21\" data-pf2-traits=\"divine,necromancy,target:ghost,target:incorporeal,target:spirit,target:undead\" data-pf2-label=\"Rejuvenation DC\" data-pf2-show-dc=\"gm\">Diplomacy</span> check.<br />\nRegardless of the result of this check, Chandriu flies into a rage and attacks, but if the Diplomacy check is successful, she is slowed 1 for 10 rounds while she fights. If defeated while she is slowed, she is put to rest.</p>"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
                 },
-                "slug": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "rGX35xgDAZROYYQF",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>To put Chandriu to rest permanently, a hero must convince her to stop pining over Volluk with a successful <span data-pf2-check=\"diplomacy\" data-pf2-dc=\"21\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Convince Chandriu DC\" data-pf2-show-dc=\"gm\">Diplomacy</span> check.</p>\n<p data-visibility=\"gm\">Regardless of the result of this check, Chandriu flies into a rage and attacks, but if the Diplomacy check is successful, she is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 10 rounds while she fights. If defeated while she is slowed, she is put to rest.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
                 "source": {
                     "value": ""
                 },
@@ -284,10 +374,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -303,16 +397,12 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Chandriu wails in despair at her loss and betrayal, forcing each living creature within 30 feet to attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"auditory,divine,emotion,enchantment,mental\" data-pf2-label=\"Despairing Cry DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, a creature becomes slowed 1 (slowed 2 on a critical failure) for 1 round as they are overcome with sadness over their own missed opportunities. On a success, a creature is temporarily immune to Chandriu’s for 1 minute.</p>"
+                    "value": "<p>Chandriu wails in despair at her loss and betrayal, forcing each living creature within 30 feet to attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"auditory,divine,emotion,enchantment,mental\" data-pf2-label=\"Despairing Cry DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p data-visibility=\"gm\">On a failure, a creature becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (@Compendium[pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure) for 1 round as they are overcome with sadness over their own missed opportunities. On a success, a creature is temporarily immune to Chandriu's Despairing Cry for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -339,9 +429,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Despairing Cry",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -360,10 +450,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -380,7 +466,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Scriptorium Lore",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -399,10 +485,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -419,7 +501,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Scriptorium Lore",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -438,10 +520,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -458,7 +536,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -477,10 +555,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -497,7 +571,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

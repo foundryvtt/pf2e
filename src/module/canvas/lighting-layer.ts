@@ -3,6 +3,13 @@ import { AmbientLightPF2e } from "./ambient-light";
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
+    /** Fix bug in 0.8 core method */
+    override hasGlobalIllumination(): boolean {
+        if (!canvas.scene) return false;
+        const { globalLight, globalLightThreshold } = canvas.scene.data;
+        return globalLight && (globalLightThreshold === null || this.darknessLevel <= globalLightThreshold);
+    }
+
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!canvas.sight.rulesBasedVision) return;
 

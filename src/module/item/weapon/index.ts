@@ -4,10 +4,14 @@ import { RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { sluggify } from "@module/utils";
+import { ErrorPF2e, sluggify } from "@module/utils";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
+import { MeleePF2e } from "@item/melee";
+import { MeleeSource } from "@item/data";
+import { MeleeDamageRoll } from "@item/melee/data";
+import { NPCPF2e } from "@actor";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -34,6 +38,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get isSpecific(): boolean {
         return this.data.data.specific?.value ?? false;
+    }
+
+    get isRanged(): boolean {
+        const range = this.data.data.range.value.trim();
+        return !!range && Number.isInteger(Number(range));
+    }
+
+    get isMelee(): boolean {
+        return !this.isRanged || !["axe", "club", "hammer", "knife", "spear"].includes(this.group ?? "");
     }
 
     override prepareBaseData(): void {
@@ -198,6 +211,47 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
         return game.i18n.format(formatString, { item: itemType });
+    }
+
+    /** Generate a melee item from this weapon for use by NPCs */
+    toMelee(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
+        if (!(this.actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
+
+        const damageRoll = ((): MeleeDamageRoll => {
+            const weaponDamage = this.data.data.damage;
+            const modifier = ((): number => {
+                const weaponAbility = this.data.data.ability.value;
+                const abilityMod = this.actor.data.data.abilities[weaponAbility].mod;
+                return abilityMod;
+            })();
+            const actorLevel = this.actor.level;
+            const dice = [1, 2, 3, 4].reduce((closest, dice) =>
+                Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
+                    ? dice
+                    : closest
+            );
+            const constant = modifier > 0 ? ` + ${modifier}` : modifier < 0 ? ` - ${-1 * modifier}` : "";
+            return {
+                damage: `${dice}${weaponDamage.die}${constant}`,
+                damageType: weaponDamage.damageType,
+            };
+        })();
+        const source: PreCreate<MeleeSource> = {
+            name: this.name,
+            type: "melee",
+            data: {
+                bonus: {
+                    // Give an attack bonus approximating a high-threat NPC
+                    value: Math.ceil((this.actor.level * 3) / 2) - 1,
+                },
+                damageRolls: {
+                    [randomID()]: damageRoll,
+                },
+                weaponType: { value: this.isMelee ? "melee" : "ranged" },
+            },
+        };
+
+        return new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
     }
 }
 

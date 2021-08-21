@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You've mastered your arsenal of champion techniques and divine spells. Your proficiency ranks for your champion class DC and for divine spell attack rolls and spell DCs increase to master.</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.classDC.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "tyH5EF2wHvUKnrYm",
-            "changes": [
-                {
-                    "key": "data.attributes.classDC.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/champion-mastery.webp",
-            "label": "Champion Mastery",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/champion-mastery.webp",
     "name": "Champion Mastery",

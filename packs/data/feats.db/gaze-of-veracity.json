@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You can channel your mask's power to pierce through lies and see the truth in any situation. Increase the number of Focus Points in your focus pool by 1. While wearing your mask, you can cast the @Compendium[pf2e.spells-srd.Glimpse the Truth]{Glimpse the Truth} cleric domain spell as a divine focus spell.</p>"
         },
         "featType": {
@@ -31,11 +29,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

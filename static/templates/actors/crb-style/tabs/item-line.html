@@ -27,9 +27,13 @@
         {{/if}}
     {{/if}}
     <span class="item-quantity">
-        <a class="item-decrease-quantity{{#unless (or owner (not lootsheet))}} hidden{{/unless}}">&ndash;</a>
+        {{#if owner}}
+            <a class="item-decrease-quantity">&ndash;</a>
+        {{/if}}
         <span>{{item.data.quantity.value}}</span>
-        <a class="item-increase-quantity{{#unless (or owner (not lootsheet))}} hidden{{/unless}}">+</a>
+        {{#if owner}}
+            <a class="item-increase-quantity">+</a>
+        {{/if}}
     </span>
     <span class="item-weight">{{item.totalWeight}}</span>
 

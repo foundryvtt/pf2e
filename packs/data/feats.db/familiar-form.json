@@ -11,8 +11,6 @@
             "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You can use your magic to transform into a small creature of a type that commonly serves as a spellcaster's familiar, potentially allowing you to safely scout for your party while retaining a degree of spellcasting ability. You gain the @Compendium[pf2e.spells-srd.Familiar Form]{Familiar Form} focus spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -28,11 +26,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

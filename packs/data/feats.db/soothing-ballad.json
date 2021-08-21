@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You soothe your allies' wounds with the power of your performance. You learn the @Compendium[pf2e.spells-srd.Soothing Ballad]{Soothing Ballad} composition spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

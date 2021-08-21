@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You excoriate a foe for its wrath against goodly creatures.</p>\n<p>You can cast the @Compendium[pf2e.spells-srd.Litany against Wrath]{Litany against Wrath} devotion spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -32,11 +30,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

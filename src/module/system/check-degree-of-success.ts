@@ -34,7 +34,7 @@ export interface PF2CheckDC {
 }
 
 const PREFIXES = Object.freeze({
-    all: -1,
+    all: -1 as const,
     criticalFailure: DegreeOfSuccess.CRITICAL_FAILURE,
     failure: DegreeOfSuccess.FAILURE,
     success: DegreeOfSuccess.SUCCESS,
@@ -76,22 +76,22 @@ function getDegreeAdjustment(
     value: DegreeOfSuccess,
     modifiers: PF2CheckDCModifiers
 ): DegreeAdjustmentValues | undefined {
-    for (const [k, v] of Object.entries(modifiers)) {
-        const condition = PREFIXES[k];
-        const adjustment = ADJUSTMENTS[v];
-        if (condition !== undefined && adjustment !== undefined) {
-            if (
-                !(value === DegreeOfSuccess.CRITICAL_SUCCESS && adjustment === DegreeAdjustment.INCREASE) &&
-                !(value === DegreeOfSuccess.CRITICAL_FAILURE && adjustment === DegreeAdjustment.LOWER)
-            ) {
-                if (condition === PREFIXES.all) {
-                    // always return the adjustment
-                    return adjustment;
-                }
-                if (value === condition) {
-                    // return the adjustment for the first matching modifier
-                    return adjustment;
-                }
+    for (const degree of ["all", "criticalFailure", "failure", "success", "criticalSuccess"] as const) {
+        const checkDC = modifiers[degree];
+        if (!checkDC) continue;
+        const condition = PREFIXES[degree];
+        const adjustment = ADJUSTMENTS[checkDC];
+        if (
+            !(value === DegreeOfSuccess.CRITICAL_SUCCESS && adjustment === DegreeAdjustment.INCREASE) &&
+            !(value === DegreeOfSuccess.CRITICAL_FAILURE && adjustment === DegreeAdjustment.LOWER)
+        ) {
+            if (condition === PREFIXES.all) {
+                // always return the adjustment
+                return adjustment;
+            }
+            if (value === condition) {
+                // return the adjustment for the first matching modifier
+                return adjustment;
             }
         }
     }

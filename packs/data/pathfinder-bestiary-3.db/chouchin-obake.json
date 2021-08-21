@@ -88,10 +88,6 @@
                 "value": 15
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "attitude": {
                 "value": "hostile"
@@ -178,10 +174,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -202,7 +194,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tendril",
             "sort": 100000,
             "type": "melee"
@@ -234,10 +226,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -257,7 +245,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flame",
             "sort": 200000,
             "type": "melee"
@@ -272,19 +260,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>15 feet. @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A ghostly blue flame within the chouchin-obake draws upon the life-force of the living to sustain themself.</p>\n<p>At the start of the chouchin-obake’s turn, each creature in the aura takes [[/r 2d6 #negative]] negative damage (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"aura,divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Lifewick Candle DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). The chouchin-obake regains an amount of Hit Points equal to the amount of damage taken by the single creature that took the most damage.</p>"
+                    "value": "<p>15 feet. @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A ghostly blue flame within the chouchin-obake draws upon the life-force of the living to sustain themself.</p>\n<p>At the start of the chouchin-obake’s turn, each creature in the aura takes [[/r 2d6 #negative]]{2d6 negative damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"aura,divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Lifewick Candle DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). The chouchin-obake regains an amount of Hit Points equal to the amount of damage taken by the single creature that took the most damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -325,7 +309,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature attempts to leave the chouchin-obake’s Lifewick Candle aura during a move action;</p>\n<p><strong>Effect</strong> The chouchin-obake attempts to bind the creature using their own shadow. The triggering creature must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-label=\"Shadowbind DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or become @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until its next turn.</p>"
@@ -334,10 +318,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -373,19 +353,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p><span style=\"color: var(--body);\">[[/r 2d8 #negative]] negative plus [[/r 1d6 #fire]] fire, DC 26</span></p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 2d8 #negative]]{2d8 negative damage} plus [[/r 1d6 #fire]]{1d6 fire damage}, DC 26</p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "constrict",
                 "source": {
                     "value": ""
@@ -425,7 +401,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
@@ -434,10 +410,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "grab",
                 "source": {
                     "value": ""
@@ -483,10 +455,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -522,10 +490,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -561,10 +525,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

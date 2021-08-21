@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Through your patron, you gain glimpses of the future and insight into the ever-woven tapestry of time.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Hex Cantrip</strong> @Compendium[pf2e.spells-srd.Nudge Fate]{Nudge Fate}</p>\n<p><strong>Granted Spell</strong> @Compendium[pf2e.spells-srd.True Strike]{True Strike}</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.occ.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "SW18OBIj50XLeB2B",
-            "changes": [
-                {
-                    "key": "data.skills.occ.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/fate.webp",
-            "label": "Fate Patron",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/fate.webp",
     "name": "Fate Patron",

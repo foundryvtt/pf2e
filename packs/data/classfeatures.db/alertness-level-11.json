@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.perception.rank",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -47,28 +48,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "4GEMTluC0yAAZeyZ",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/alertness.webp",
-            "label": "Alertness",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/alertness.webp",
     "name": "Alertness (Level 11)",

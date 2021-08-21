@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>Your jaws can crush bone and bite through armor. Your jaws unarmed attack deals 1d8 piercing damage instead of 1d6 and gains the grapple trait.</p>"
@@ -23,11 +23,18 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "selector": "bite-damage",
+                "traits": [
+                    "grapple"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },

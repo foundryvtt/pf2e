@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You've steeled you mind with resolve. Your proficiency rank for Will saves increase to master. When you roll a success at a Will save, you get a critical success instead.</p>"
         },
         "featType": {
@@ -38,12 +36,14 @@
                 "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
                 "selector": "will",
                 "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.will.rank",
+                "value": 3
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -60,28 +60,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "RBoiBznXzC8O8ifO",
-            "changes": [
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/resolve.webp",
-            "label": "Resolve (Level 17)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/resolve.webp",
     "name": "Resolve (Level 17)",

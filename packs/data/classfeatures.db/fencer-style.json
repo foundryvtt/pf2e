@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks. You are trained in Deception. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Feint]{Feint} or @Compendium[pf2e.actionspf2e.Create a Diversion]{Create a Diversion} against a foe.</p>"
         },
         "featType": {
@@ -40,12 +38,14 @@
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -59,28 +59,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "uPj4gFD9sGn0FcAp",
-            "changes": [
-                {
-                    "key": "data.skills.dec.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/fencer-style.webp",
-            "label": "Fencer Style",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/fencer-style.webp",
     "name": "Fencer Style",

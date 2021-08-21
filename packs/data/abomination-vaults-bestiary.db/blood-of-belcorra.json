@@ -28,7 +28,7 @@
                 "value": 3
             },
             "reset": "<p>If the haunt is disabled or destroyed through damage, the bloody phantom of Belcorra sprays upward in a spiral, dousing the trap door leading to area <strong>A25</strong> before draining upward through the keyhole, which reduces the Thievery DC to @Compendium[pf2e.actionspf2e.Pick a Lock]{Pick the Lock} to 20.</p>\n<p>At the next sunrise, the blood drains back down to this room and the haunt resets. The haunt is destroyed permanently once Lasda Venkervale is rescued from area <strong>D9</strong>.</p>",
-            "routine": "<p>(1 action) The bloody image opens its mouth and appears to inhale, drawing blood from the body of one creature in its line of sight within 90 feet from the center of area <strong>A11</strong>. The creature targeted must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Blood of Belcorra DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d10 #bleed]] bleed damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 1d10+6 #bleed]] bleed damage.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 2d10+6 #bleed]] bleed damage and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} as long as it's bleeding.</p>\n</div>"
+            "routine": "<p>(1 action) The bloody image opens its mouth and appears to inhale, drawing blood from the body of one creature in its line of sight within 90 feet from the center of area <strong>A11</strong>. The creature targeted must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Blood of Belcorra DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d10 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 1d10+6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 2d10+6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} as long as it's bleeding.</p>\n</div>"
         },
         "saves": {
             "fortitude": {
@@ -43,10 +43,6 @@
                 "saveDetail": "",
                 "value": 12
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "source": {
             "value": "Pathfinder #163: Ruins of Gauntlight"
@@ -107,19 +103,15 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> A living creature ends its turn in area <strong>A11</strong> at night;</p>\n</div>\n<p><strong>Effect</strong> A ghastly image of Belcorra, seemingly composed of fresh blood, rises from the bloodstain on the floor and rotates in place like a lighthouse. Beams of cold blue light shine from Belcorra's eyes and open mouth, causing blisters and decay to spread across flesh. Living creatures within a 30-foot burst from the center of area A11 must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"light,necromancy,damaging-effect\" data-pf2-label=\"Gauntlight Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>The haunt then rolls initiative.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d8 #negative]] negative damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 1d8+6 #negative]] negative damage and is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 2d8+6 #negative]] negative damage and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round then dazzled for 1 round.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature ends its turn in area <strong>A11</strong> at night;</p>\n<p><strong>Effect</strong> A ghastly image of Belcorra, seemingly composed of fresh blood, rises from the bloodstain on the floor and rotates in place like a lighthouse. Beams of cold blue light shine from Belcorra's eyes and open mouth, causing blisters and decay to spread across flesh. Living creatures within a 30-foot burst from the center of area A11 must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"light,necromancy,damaging-effect\" data-pf2-label=\"Gauntlight Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>The haunt then rolls initiative.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d8 #negative]]{1d8 negative damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 1d8+6 #negative]]{1d8+6 negative damage} and is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 2d8+6 #negative]]{2d8+6 negative damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round then dazzled for 1 round.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

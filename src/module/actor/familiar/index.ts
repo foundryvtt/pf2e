@@ -195,7 +195,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .join(", ");
                 stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                        saveName: game.i18n.localize(CONFIG.PF2E.saves[save.name]),
+                        saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                     });
                     CheckPF2e.roll(
                         new CheckModifier(label, stat),

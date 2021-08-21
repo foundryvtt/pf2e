@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your patron is one of sigils and symbols, tomes and texts, words and wisdom.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Patron Skill</strong> Arcana</p>\n<p><strong>Hex Cantrip</strong> @Compendium[pf2e.spells-srd.Discern Secrets]{Discern Secrets}</p>\n<p><strong>Granted Spell</strong> @Compendium[pf2e.spells-srd.Magic Weapon]{Magic Weapon}</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.arc.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "kB0aGje2HKRES4q8",
-            "changes": [
-                {
-                    "key": "data.skills.arc.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/rune-patron.webp",
-            "label": "Rune Patron",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/rune-patron.webp",
     "name": "Rune Patron",

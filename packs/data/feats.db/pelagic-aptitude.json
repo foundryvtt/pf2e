@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>You’ve learned special tricks to survive underwater. You gain the trained proficiency rank in Survival.</p>\n<p>When in an aquatic environment, if you roll a critical failure on a Survival skill check to @Compendium[pf2e.actionspf2e.Sense Direction]{Sense Direction} or @Compendium[pf2e.actionspf2e.Subsist]{Subsist}, you get a failure instead.</p>"
@@ -53,12 +53,14 @@
                     ]
                 },
                 "selector": "survival"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.sur.rank",
+                "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -72,28 +74,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "sTSOXts2j7ySx7LE",
-            "changes": [
-                {
-                    "key": "data.skills.sur.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/default-icons/feats.webp",
-            "label": "Pelagic Aptitude",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Pelagic Aptitude",

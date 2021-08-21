@@ -8,28 +8,28 @@
             "hardness": 12,
             "hasHealth": true,
             "hp": {
-                "details": "; <b>Spout Hardness</b> 8, <b>SpoutHP</b> 32 (BT 16)",
+                "details": "",
                 "max": 48,
                 "temp": 0,
                 "tempmax": 0,
                 "value": 48
             },
             "stealth": {
-                "details": "(trained); the DC to notice the protoplasmic extruder is 0",
+                "details": "<p>(trained); the DC to notice the <em>protoplasmic extruder</em> is 0</p>",
                 "value": 0
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
-            "description": "A spherical contraption of metal and reinforced hoses 20 feet in diameter, the protoplasmic extruder drawsin the arcane slurry from Quantium's sewers and magically transforms the slurry into dangerous oozes",
-            "disable": "Occultism DC 22 (expert) twice or Thievery DC 24 (expert) causes it to lose its action on its next turn. Two successes (or one critical success) disables it completely; dispel magic (3rd level; counteract DC 20) causes the protoplasmic extruder to lose its action on its next turn but never disables it.",
+            "description": "<p>A spherical contraption of metal and reinforced hoses 20 feet in diameter, the <em>protoplasmic extruder</em> draws in the arcane slurry from Quantium's sewers and magically transforms the slurry into dangerous oozes.</p>",
+            "disable": "<p><span data-pf2-check=\"occultism\" data-pf2-traits=\"complex, mechanical,magical, trap\" data-pf2-label=\"Disable Extruder DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Occultism</span> (expert) twice or <span data-pf2-check=\"thievery\" data-pf2-traits=\"complex, mechanical,magical, trap\" data-pf2-label=\"Disable Extruder DC\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) causes it to lose its action on its next turn. Two successes (or one critical success) disables it completely; @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} (3rd level; counteract DC 20) causes the protoplasmic extruder to lose its action on its next turn but never disables it.</p>",
             "isComplex": true,
             "level": {
-                "value": 3
+                "value": 5
             },
-            "reset": "The protoplasmic extruder must gather reagents from the arcane slurry of the sewers for 24 hours before it can be reactivated.",
-            "routine": "On its initiative, the trap creates an ooze in an adjacent unoccupied space. The first time the protoplasmic extruder uses this action, it creates a gelatinous cube (Pathfinder Bestiary 254) that acts immediately and thereafter acts on the protoplasmic extruder's initiative. In following rounds, the protoplasmic extruder instead creates sewer oozes (Pathfinder Bestiary 254) that act in the same manner. Oozes created by the protoplasmic extruder are a nacreous green color; a gelatinous cube loses its transparent ability. All oozes created by the protoplasmic extruder are loyal to the Ohrlavis and act as they command. \n The protoplasmic extruder can create no more than four oozes in total before it deactivates and resets."
+            "reset": "<p>The <em>protoplasmic extruder</em> must gather reagents from the arcane slurry of the sewers for 24 hours before it can be reactivated.</p>",
+            "routine": "<p><span class=\"pf2-icon\">1</span> On its initiative, the trap creates an ooze in an adjacent unoccupied space. The first time the <em>protoplasmic extruder</em> uses this action, it creates a @Compendium[pf2e.pathfinder-bestiary.Gelatinous Cube]{Gelatinous Cube} that acts immediately and thereafter acts on the <em>protoplasmic extruder's</em> initiative. In following rounds, the <em>protoplasmic extruder</em> instead creates @Compendium[pf2e.pathfinder-bestiary.Sewer Ooze]{Sewer Oozes} that act in the same manner.</p>\n<p>Oozes created by the protoplasmic extruder are a nacreous green color; a gelatinous cube loses its transparent ability. All oozes created by the <em>protoplasmic extruder</em> are loyal to the Ohrlavis and act as they command.</p>\n<p>The <em>protoplasmic extruder</em> can create no more than four oozes in total before it deactivates and resets.</p>"
         },
         "saves": {
             "fortitude": {
@@ -45,12 +45,8 @@
                 "value": 0
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
-            "value": ""
+            "value": "Pathfinder Society Scenario 1-00: Origin of the Open Road"
         },
         "statusEffects": [],
         "traits": {
@@ -76,7 +72,8 @@
                 "custom": "",
                 "value": [
                     "magical",
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -89,25 +86,21 @@
             "_id": "71j8rIykcKntxLJQ",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Bijan or Zaynap Ohrlavi can speak and rolls initiative when within 60 feet of the protoplasmic extruder.</p>\n<p><strong>Effect</strong> The protoplasmic extruder begins chugging more loudly and rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Bijan or Zaynap Ohrlavi can speak and rolls initiative when within 60 feet of the protoplasmic extruder.</p>\n<p><strong>Effect</strong> The protoplasmic extruder begins chugging more loudly and rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -127,11 +120,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pdfoundry-pf2e": {
-                    "source": ""
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Creator's Command",
             "sort": 100000,

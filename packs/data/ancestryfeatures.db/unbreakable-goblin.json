@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You're able to bounce back from injuries easily due to an exceptionally thick skull, cartilaginous bones, or some other mixed blessing. You gain 10 Hit Points from your ancestry instead of 6. When you fall, reduce the falling damage you take as though you had fallen half the distance.</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.attributes.ancestryhp",
+                "value": 10
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "WlZLDrndIOM0dP46",
-            "changes": [
-                {
-                    "key": "data.attributes.ancestryhp",
-                    "mode": 5,
-                    "value": "10"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/ancestry/unbreakable-goblin.webp",
-            "label": "Unbreakable Goblin",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/ancestry/unbreakable-goblin.webp",
     "name": "Unbreakable Goblin",

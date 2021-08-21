@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your unbelievable training grants you mental resiliency.</p>\n<p>Your proficiency rank for Will saves increases to legendary. When you roll a success at a Will save, you get a critical success. When you roll a critical failure at a Will save, you get a failure instead. When you roll a failure on a Will save against a damaging effect, you take half damage.</p>"
         },
         "featType": {
@@ -38,12 +36,14 @@
                 "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
                 "selector": "will",
                 "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.will.rank",
+                "value": 4
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -59,28 +59,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "CPgQw1JHKZpxgMqB",
-            "changes": [
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "4"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/greater-resolve.webp",
-            "label": "Greater Resolve (Level 17)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/greater-resolve.webp",
     "name": "Greater Resolve (Level 17)",

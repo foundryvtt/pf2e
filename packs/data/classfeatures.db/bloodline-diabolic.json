@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Devils are evil with a silver tongue, and one of your ancestors dallied in darkness or made an infernal pact.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Deception, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @Compendium[pf2e.spells-srd.Produce Flame]{Produce Flame}, 1st: @Compendium[pf2e.spells-srd.Charm]{Charm}, 2nd: @Compendium[pf2e.spells-srd.Flaming Sphere]{Flaming Sphere}, 3rd: @Compendium[pf2e.spells-srd.Enthrall]{Enthrall}, 4th: @Compendium[pf2e.spells-srd.Suggestion]{Suggestion}, 5th: @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Dispair}, 6th: @Compendium[pf2e.spells-srd.True Seeing]{True Seeing}, 7th: @Compendium[pf2e.spells-srd.Divine Decree]{Divine Decree}, 8th: @Compendium[pf2e.spells-srd.Divine Aura]{Divine Aura}, 9th: @Compendium[pf2e.spells-srd.Meteor Swarm]{Meteor Swarm}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Diabolic Edict]{Diabolic Edict}, advanced: @Compendium[pf2e.spells-srd.Embrace the Pit]{Embrace the Pit}, greater: @Compendium[pf2e.spells-srd.Hellfire Plume]{Hellfire Plume}</p>\n<p><strong>Blood Magic</strong> Hellfire scorches a target or fills your tongue with lies. Either a target takes 1 fire damage per spell level (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +1 status bonus to Deception checks for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Diabolic Blood Magic (Self)]{Effect: Diabolic Blood Magic (Self)}</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.rel.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "Zl5h3FsCZqKf013R",
-            "changes": [
-                {
-                    "key": "data.skills.dec.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/diabolic.webp",
-            "label": "Bloodline: Diabolic",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/diabolic.webp",
     "name": "Bloodline: Diabolic",

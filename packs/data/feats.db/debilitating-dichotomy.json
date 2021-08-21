@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You can give others a glimpse of the impossible conflicts and unchecked power that courses through your body. You learn the @Compendium[pf2e.spells-srd.Debilitating Dichotomy]{Debilitating Dichotomy}<em> </em>revelation spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -24,11 +22,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

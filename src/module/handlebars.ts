@@ -145,4 +145,12 @@ export function registerHandlebarsHelpers() {
 
         return params.join("");
     });
+
+    Handlebars.registerHelper("times", function (count, block) {
+        const results = new Array<string>();
+        for (let i = 0; i < count; i++) {
+            results.push(block.fn(i));
+        }
+        return results.join("");
+    });
 }

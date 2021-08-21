@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire, or perhaps you died and returned a bit different.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @Compendium[pf2e.spells-srd.Chill Touch]{Chill Touch}, 1st: @Compendium[pf2e.spells-srd.Harm]{Harm}, 2nd: @Compendium[pf2e.spells-srd.False Life]{False Life}, 3rd: @Compendium[pf2e.spells-srd.Bind Undead]{Bind Undead}, 4th: @Compendium[pf2e.spells-srd.Talking Corpse]{Talking Corpse}, 5th: @Compendium[pf2e.spells-srd.Cloudkill]{Cloudkill}, 6th: @Compendium[pf2e.spells-srd.Vampiric Exsanguination]{Vampiric Exsanguination}, 7th: @Compendium[pf2e.spells-srd.Finger of Death]{Finger of Death}, 8th: @Compendium[pf2e.spells-srd.Horrid Wilting]{Horrid Wilting}, 9th: @Compendium[pf2e.spells-srd.Wail of the Banshee]{Wail of the Banshee}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Undeath's Blessing]{Undeath's Blessing}, advanced: @Compendium[pf2e.spells-srd.Drain Life]{Drain Life}, greater: @Compendium[pf2e.spells-srd.Grasping Grave]{Grasping Grave}</p>\n<p><strong>Blood Magic</strong> Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's level for 1 round, or a target takes 1 negative damage per spell level (if the spell already deals initial negative damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.itm.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.rel.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "cmhssj3UQGrc8ks0",
-            "changes": [
-                {
-                    "key": "data.skills.itm.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/undead.webp",
-            "label": "Bloodline: Undead",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/undead.webp",
     "name": "Bloodline: Undead",

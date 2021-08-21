@@ -15,20 +15,20 @@
                 "value": 60
             },
             "stealth": {
-                "details": "<p>+15 (expert)</p>",
+                "details": "<p>(expert)</p>",
                 "value": 15
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>The hatch atop the haunted furnace flips open and disgorges a pair of shrieking, burning ghosts.</p>",
-            "disable": "<p>DC 22 Intimidation (trained) to cow one of the vengeful spirits or DC 25 Religion (trained) to exorcise the spirit. The haunt remains active until both spirits are cowed or exorcised, or until the furnace is destroyed.</p>",
+            "disable": "<p><span data-pf2-check=\"intimidation\" data-pf2-dc=\"22\" data-pf2-label=\"Cow a Spirit DC\" data-pf2-show-dc=\"gm\">Intimidation</span> (trained) to cow one of the vengeful spirits or <span data-pf2-check=\"religion\" data-pf2-dc=\"25\" data-pf2-label=\"Exorcise the Spirit DC\" data-pf2-show-dc=\"gm\">Religion</span> (trained) to exorcise the spirit. The haunt remains active until both spirits are cowed or exorcised, or until the furnace is destroyed.</p>",
             "isComplex": true,
             "level": {
                 "value": 4
             },
             "reset": "<p>The haunt resets 1 hour after there are no creatures in the room.</p>",
-            "routine": "<p>(3 actions) The burning ghosts lash at a random stupefied creature in the room (or any random creature, if no creatures in the room are stupefied).</p>"
+            "routine": "<p>(3 actions) The burning ghosts lash at a random @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} creature in the room (or any random creature, if no creatures in the room are stupefied).</p>"
         },
         "saves": {
             "fortitude": {
@@ -44,10 +44,6 @@
                 "value": 0
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": "Pathfinder #163: Ruins of Gauntlight"
         },
@@ -60,7 +56,7 @@
                 "value": [
                     "critical-hits",
                     "object-immunities",
-                    "precision-damage"
+                    "precision"
                 ]
             },
             "dr": [],
@@ -86,7 +82,9 @@
             },
             "traits": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "haunt"
+                ]
             }
         }
     },
@@ -104,19 +102,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>The target of the haunt's initial Ghostly Assault, as well as any creature later hit by a burning lash Strike, loses random memories, as if these thoughts were incinerated like pages in a burning book. The creature must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"divine,enchantment,fire,mental\" data-pf2-label=\"Burn Knowledge DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 minute while they forget random memories, as if these thoughts were incinerated like pages in a burning book.</p>\n<p><strong>Failure</strong> As success, but the stupefied 1 condition persists for 24 hours.</p>\n<p><strong>Critical Failure</strong> As failure, but stupefied 2.</p>"
+                    "value": "<p data-visibility=\"gm\">The target of the haunt's initial Ghostly Assault, as well as any creature later hit by a burning lash Strike, loses random memories, as if these thoughts were incinerated like pages in a burning book.</p>\n<p>The creature must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"divine,enchantment,fire,mental\" data-pf2-label=\"Burn Knowledge DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute while they forget random memories, as if these thoughts were incinerated like pages in a burning book.</p>\n<p><strong>Failure</strong> As success, but the stupefied 1 condition persists for 24 hours.</p>\n<p><strong>Critical Failure</strong> As failure, but @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -142,7 +136,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Burn Knowledge",
             "sort": 100000,
             "type": "action"
@@ -156,7 +150,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Burn Knowledge"
+                        "burn-knowledge"
                     ]
                 },
                 "bonus": {
@@ -176,10 +170,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -201,7 +191,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Burning Lash",
             "sort": 200000,
             "type": "melee"
@@ -216,19 +206,15 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature with an Intelligence score of 15 or higher enters the room, or any creature touches the furnace;</p>\n<p><strong>Effect</strong> Burning ghosts burst from the furnace, exposing the triggering creature to the haunt's burn knowledge effect. The haunt rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature with an Intelligence score of 15 or higher enters the room, or any creature touches the furnace;</p>\n<p><strong>Effect</strong> Burning ghosts burst from the furnace<span data-visibility=\"gm\">, exposing the triggering creature to the haunt's burn knowledge effect</span>. The haunt rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

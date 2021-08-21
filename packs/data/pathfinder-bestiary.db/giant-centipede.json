@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +64,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "Most giant centipedes  nest in small groups but hunt alone when they seek out food. Attempts to domesticate giant centipedes for use as guardians or pets generally end poorly, but some tribes of goblins, kobolds, and mitflits have developed effective methods of utilizing these vermin as guardians. Other tribes and some humanoid societies roast and eat centipedes, often with pungent peppers as a savory delicacy, although care must be taken in preparing the meal to avoid tainting the flesh with the creature's venom.<br /><br />",
+            "flavorText": "<p>Hunters and scavengers that live amid dung and detritus, centipedes are a relatively common and often reviled threat faced by adventurers. Scurrying about with surprising speed on the scores of legs attached to their long, segmented bodies, centipedes strike with poisoned mandibles to slow and torment their prey with a vicious toxin before they settle down to feed in slow and disgusting leisure.</p>\n<hr />\n<p>Most giant centipedes  nest in small groups but hunt alone when they seek out food. Attempts to domesticate giant centipedes for use as guardians or pets generally end poorly, but some tribes of goblins, kobolds, and mitflits have developed effective methods of utilizing these vermin as guardians. Other tribes and some humanoid societies roast and eat centipedes, often with pungent peppers as a savory delicacy, although care must be taken in preparing the meal to avoid tainting the flesh with the creature's venom.</p>",
             "level": {
                 "value": -1
             },
@@ -85,10 +86,6 @@
                 "saveDetail": "",
                 "value": 2
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -131,8 +128,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "giant centipede venom"
+                        "giant-centipede-venom"
                     ]
                 },
                 "bonus": {
@@ -148,10 +146,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -171,10 +165,58 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "g0VHu9Gu6uxjumBD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "PIjZTZsbQlriq5X3",
@@ -186,19 +228,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Centipede Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage (1 round); <strong>Stage 2</strong> [[/r 1d8 # poison damage]] poison damage and flat-footed (1 round); <strong>Stage 3</strong> [[/r 1d12 # poison damage]] poison damage, clumsy 1, and flat-footed (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Centipede Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d8 #poison]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d12 #poison]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round).</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -221,9 +259,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Giant Centipede Venom",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -242,10 +280,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -262,7 +296,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -281,10 +315,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -301,7 +331,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -320,10 +350,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -340,7 +366,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

@@ -39,15 +39,15 @@ declare global {
         /* -------------------------------------------- */
 
         override clone(
-            createData: DeepPartial<foundry.data.TokenSource> | undefined,
+            data: DeepPartial<foundry.data.TokenSource> | undefined,
             options: { save: true; keepId?: boolean }
         ): Promise<this>;
         override clone(
-            createData: DeepPartial<foundry.data.TokenSource> | undefined,
-            options?: { save?: false | undefined; keepId?: boolean }
+            data?: DeepPartial<foundry.data.TokenSource>,
+            options?: { save?: false; keepId?: boolean }
         ): this;
         override clone(
-            createData?: DeepPartial<foundry.data.TokenSource>,
+            data?: DeepPartial<foundry.data.TokenSource>,
             options?: { save?: boolean; keepId?: boolean }
         ): this | Promise<this>;
 

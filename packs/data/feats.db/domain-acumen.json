@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Every oracle's mystery touches on a divine domain of the deities that fuel it; you can access that power.</p>\n<p>Choose one of the domains associated with your mystery for which you don't already have an initial domain spell. You gain an initial domain spell from that domain, which you cast as a revelation spell. It gains the cursebound trait. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -24,11 +22,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

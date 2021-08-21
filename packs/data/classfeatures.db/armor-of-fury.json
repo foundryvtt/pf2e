@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your training and rage deepen your connection to your armor. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to master.</p>"
         },
         "featType": {
@@ -25,11 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmored.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,38 +56,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "5q2LM8KiO9XDbUCX",
-            "changes": [
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.medium.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/armor-of-fury.webp",
-            "label": "Armor of Fury",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/armor-of-fury.webp",
     "name": "Armor of Fury",

@@ -453,7 +453,11 @@ export class DiceModifierPF2e implements RawModifier {
     diceNumber: number;
     /** The size of the dice to add. */
     dieSize?: DamageDieSize;
-    critical: boolean;
+    /**
+     * True means the dice are added to critical without doubling; false means the dice are never added to critical
+     * damage; omitted means add to normal damage and double on critical damage.
+     */
+    critical?: boolean;
     /** The damage category of these dice. */
     category?: string;
     damageType?: string;
@@ -475,7 +479,7 @@ export class DiceModifierPF2e implements RawModifier {
         this.label = param.label;
         this.diceNumber = param.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = param.dieSize;
-        this.critical = param.critical ?? false;
+        this.critical = param.critical;
         this.damageType = param.damageType;
         this.category = param.category;
         this.traits = param.traits ?? [];

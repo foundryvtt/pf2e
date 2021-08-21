@@ -19,56 +19,39 @@
                         </div>
                     {{/if}}
                 </div>
-                {{#if entry.isFocusPool}}
-                    <ol class="skills-list focus">
-                        <li class="skill-grid">
-                            <div class="skill-container focus-points">
-                                <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
-                                <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                    <span class="proficiency-rank pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                        {{{@root.focusIcon}}}
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="skill-container focus-pool">
-                                <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
-                                <span class="skill-item pf-value focus-pool-input" title="{{localize "PF2E.Focus.poolTitle"}}">
-                                    <h4 class="skill-item pf-title">{{localize "PF2E.Focus.poolLabel"}}</h4>
-                                    <input type="number" class="focus-pool" value="{{@root.data.resources.focus.max}}" placeholder="0"/>
-                                </span>
-                            </div>
-                        </li>
-                    </ol>
-                {{/if}}
 
                 {{#unless entry.isRitual}}
                     <ol class="skills-list spell-dc">
                         <li class="skill-grid">
-                            {{#unless entry.isFocusPool}}
                             <div class="skill-data">
                                 <span class="skill-score spell-attack" title="{{entry.data.attack.breakdown}}">{{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
                                 <h4 class="skill-name spell-attack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.SpellAttackLabel"}}</h4>
                             </div>
-                            {{/unless}}
 
                             <div class="skill-data">
                                 <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>
                                 <h4 class="skill-name spellcasting" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.SpellSaveLabel"}}</h4>
                             </div>
 
+                            {{#if entry.isFocusPool}}
+                            <div class="skill-container focus-pool">
+                                <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
+                                <span class="skill-item pf-value focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
+                                    <h4 class="skill-item pf-title">{{localize "PF2E.Focus.poolLabel"}}</h4>
+                                    <span class="focus-pool-max">
+                                        {{#if @root.data.resources.focus.max}}
+                                            {{@root.data.resources.focus.max}}
+                                        {{else}}
+                                            0
+                                        {{/if}}
+                                    </span>
+                                </span>
+                            </div>
+                            {{/if}}
                         </li>
                         <li class="spell-ability">
+                            <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
                             <span class="pf-value pf-rank adjust-item-stat" data-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
-                            <div class="skill-name">
-                                <select class="ability-select" data-item-id="{{entry.id}}" data-property="data.ability.value" data-dtype="String">
-                                    {{#select entry.data.ability.value}}
-                                        <option value="">{{localize "PF2E.SpellAbilityLabel"}}</option>
-                                        {{#each ../data.abilities as |abl a|}}
-                                            <option value="{{a}}">{{localize abl.label}}</option>
-                                        {{/each}}
-                                    {{/select}}
-                                </select>
-                            </div>
                         </li>
                     </ol>
                 {{/unless}}

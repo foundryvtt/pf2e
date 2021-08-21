@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your performances inspire even greater deeds in your allies. You learn the @Compendium[pf2e.spells-srd.Inspire Heroics]{Inspire Heroics} metamagic focus spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
@@ -29,11 +27,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

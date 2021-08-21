@@ -12,6 +12,11 @@ $unique: #54166e;
     padding: 0px;
     margin: 0px;
 
+    > ol.currency {
+      background-color: #171f69;
+      font-size: 13px;
+    }
+
     .header {
         display: grid;
         grid-template-columns: 26px 3fr 1fr 1fr;
@@ -27,6 +32,7 @@ $unique: #54166e;
         padding: 0px;
         border-left: 1px solid $primary-accent;
         border-right: 1px solid $primary-accent;
+        border-bottom: 1px solid $primary-accent;
 
         .item-list {
             list-style: none;
@@ -113,26 +119,10 @@ $unique: #54166e;
                         text-align: center;
                     }
 
-                    .controls {
-                        text-align: right;
-                        visibility: hidden;
-
-                        .chat {
-                            position: relative;
-                            top: 1px;
-                        }
-
-                        .item-toggle-equip {
-                            color: rgba(black, 0.4);
-
-                            &.active {
-                                color: rgba(black, 0.75);
-                            }
-                        }
-                    }
-                    &:hover {
-                        .controls {
-                            visibility: visible;
+                    .controls .item-toggle-equip {
+                        color: rgba(black, 0.4);
+                        &.active {
+                            color: rgba(black, 0.75);
                         }
                     }
                 }

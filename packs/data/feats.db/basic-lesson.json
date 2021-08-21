@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your patron grants you a special lesson, revealing a hidden facet of its nature. Choose a @Compendium[pf2e.classfeatures.Witch Lessons]{Basic Lesson}. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>\n<hr />"
         },
         "featType": {
@@ -24,11 +22,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

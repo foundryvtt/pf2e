@@ -81,10 +81,6 @@
                 "value": 12
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "attitude": {
                 "value": "hostile"
@@ -156,10 +152,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -177,7 +169,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frond",
             "sort": 100000,
             "type": "melee"
@@ -192,19 +184,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>Although a basidirond is immune to cold damage, any effect that deals cold damage causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for [[/r 1d4]] rounds. During this time, it cannot use its Hallucinogenic Cloud or basidirond spores.</p>"
+                    "value": "<p>Although a basidirond is immune to cold damage, any effect that deals cold damage causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for [[/br 1d4 #rounds]]{1d4 rounds}. During this time, it cannot use its Hallucinogenic Cloud or basidirond spores.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -225,7 +213,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cold Lethargy",
             "sort": 200000,
             "type": "action"
@@ -240,19 +228,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"disease\" data-pf2-label=\"Basidirond Spores DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"disease\" data-pf2-label=\"Basidirond Spores DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8 #poison]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d10 #poison]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12 #poison]]{1d12 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -290,19 +274,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
-                    "value": "<p>The basidirond releases a cloud of invisible spores in a 20-foot emanation. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,mental,poison\" data-pf2-label=\"Hallucinogenic Cloud DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or experience powerful hallucinations as long as it remains in the cloud, plus an additional [[/r 1d4 #rounds]] rounds after leaving the area. A creature must attempt a new save each round it remains within the area. The cloud persists for 5 rounds unless dispersed before then by a strong wind. Each hallucinating creature rolls [[/r 1d6]] each round to determine what it hallucinates that round.</p>\n<ol>\n<li>The target is sinking in quicksand. It falls @Compendium[pf2e.conditionitems.Prone]{Prone} and spends 1 action on its next turn flailing its limbs as if attempting to swim.</li>\n<li>The target is attacked by a swarm of spiders. It spends 2 actions on its next turn attacking the floor with a melee weapon (drawing a weapon if needed). It is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks.</li>\n<li>An item the target is holding turns into a viper. The target @Compendium[pf2e.actionspf2e.Release]{Release} the item and spends its next turn fleeing from it.</li>\n<li>The target is suffocating. It holds its breath and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</li>\n<li>The target shrinks to 1/10 its normal size. For 1 round it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 4}, and takes a -10-foot status penalty to its Speed.</li>\n<li>The target is melting. It drops everything it's holding and becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 4} for 1 round.</li>\n</ol>"
+                    "value": "<p>The basidirond releases a cloud of invisible spores in a 20-foot emanation. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,mental,poison\" data-pf2-label=\"Hallucinogenic Cloud DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or experience powerful hallucinations as long as it remains in the cloud, plus an additional [[/br 1d4 #rounds]]{1d4 rounds} after leaving the area. A creature must attempt a new save each round it remains within the area. The cloud persists for 5 rounds unless dispersed before then by a strong wind. Each hallucinating creature rolls [[/r 1d6]] each round to determine what it hallucinates that round.</p>\n<ol>\n<li>The target is sinking in quicksand. It falls @Compendium[pf2e.conditionitems.Prone]{Prone} and spends 1 action on its next turn flailing its limbs as if attempting to swim.</li>\n<li>The target is attacked by a swarm of spiders. It spends 2 actions on its next turn attacking the floor with a melee weapon (drawing a weapon if needed). It is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks.</li>\n<li>An item the target is holding turns into a viper. The target @Compendium[pf2e.actionspf2e.Release]{Release} the item and spends its next turn fleeing from it.</li>\n<li>The target is suffocating. It holds its breath and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</li>\n<li>The target shrinks to 1/10 its normal size. For 1 round it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 4}, and takes a -10-foot status penalty to its Speed.</li>\n<li>The target is melting. It drops everything it's holding and becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 4} for 1 round.</li>\n</ol>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -348,10 +328,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -387,10 +363,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

@@ -105,12 +105,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Is the character's key ability score overridden by an Active Effect?
-        sheetData.data.details.keyability.aeOverride = this.actor.effects.contents.some((effect) => {
-            return (
-                !effect.data.disabled &&
-                effect.data.changes.some((change) => change.key === "data.details.keyability.value")
-            );
-        });
+        sheetData.data.details.keyability.singleOption = this.actor.class?.data.data.keyAbility.value.length === 1;
 
         sheetData.data.effects = {};
 
@@ -125,7 +120,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.prepareSpellcasting(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
-        sheetData.focusIcon = this.getFocusIcon(this.actor.data.data.resources?.focus);
 
         // Return data for rendering
         return sheetData;
@@ -137,7 +131,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
         // Inventory
-        const inventory: Record<string, { label: string; items: ItemDataPF2e[]; investedItemCount?: number }> = {
+        const inventory: Record<
+            string,
+            {
+                label: string;
+                items: ItemDataPF2e[];
+                investedItemCount?: number;
+                investedMax?: number;
+                overInvested?: boolean;
+            }
+        > = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
@@ -211,6 +214,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         let investedCount = 0; // Tracking invested items
+        const investedMax = actorData.data.resources.investiture.max;
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
@@ -400,6 +404,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
+        inventory.equipment.investedMax = investedMax;
+        inventory.equipment.overInvested = investedMax < investedCount;
 
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
@@ -600,10 +606,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
+        html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
         html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
-        html.find(".focus-points .proficiency-rank").on("click contextmenu", (event) =>
-            this.onClickAdjustFocusPoints(event)
-        );
+        html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
 
         {
             // ensure correct tab name is displayed after actor update
@@ -806,6 +811,23 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
+    /** Handle changing of proficiency-rank via dropdown */
+    private async onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $select = $(event.delegateTarget);
+        const propertyKey = $select.attr("data-property") ?? "";
+        const currentValue = getProperty(this.actor.data, propertyKey);
+        const selectedValue = Number($select.val());
+
+        if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
+
+        const newValue = Math.clamped(selectedValue, 0, 4);
+
+        await this.actor.update({ [propertyKey]: newValue });
+        if (newValue !== getProperty(this.actor.data, propertyKey)) {
+            ui.notifications.info(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+        }
+    }
+
     /** Handle clicking of proficiency-rank adjustment buttons */
     private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
@@ -820,6 +842,35 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const newValue = Math.clamped(update, 0, max);
 
         await this.actor.update({ [propertyKey]: newValue });
+    }
+
+    /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
+    private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $select = $(event.delegateTarget);
+        const propertyKey = $select.attr("data-property") ?? "";
+        const selectedValue = Number($select.val());
+
+        const itemId = $select.closest(".item").attr("data-item-id") ?? "";
+        const item = this.actor.items.get(itemId);
+        if (!item) throw ErrorPF2e("Item not found");
+
+        // Retrieve and validate the updated value
+        const newValue = ((): number | undefined => {
+            if (item instanceof SpellcastingEntryPF2e) {
+                const dispatch: Record<string, () => number> = {
+                    "data.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
+                };
+                return dispatch[propertyKey]?.();
+            } else if (item instanceof LorePF2e) {
+                return Math.clamped(selectedValue, 0, 4);
+            } else {
+                throw ErrorPF2e("Item not recognized");
+            }
+        })();
+
+        if (typeof newValue === "number") {
+            await item.update({ [propertyKey]: newValue });
+        }
     }
 
     /** Handle clicking of lore and spellcasting entry adjustment buttons */
@@ -851,37 +902,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
         }
-    }
-
-    /** Handle clicking/right clicking the focus points control */
-    private async onClickAdjustFocusPoints(event: JQuery.TriggeredEvent<HTMLElement>) {
-        const change = event.type === "click" ? 1 : -1;
-        const focusPool = this.actor.data.data.resources.focus;
-        const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);
-        await this.actor.update({ "data.resources.focus.value": points });
-    }
-
-    /**
-     * Get the font-awesome icon used to display a certain level of focus points
-     * expection focus = { points: 1, pool: 1}
-     */
-    private getFocusIcon(focus?: { value: number; max: number }) {
-        if (!focus) return "";
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-dot-circle"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i <= focus.max; i++) {
-            // creates focus.pool amount of icon options to be selected in the icons object
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn <= focus.max; iconColumn++) {
-                // creating focus.pool amount of icons
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[focus.value];
     }
 
     private onIncrementModifierValue(event: JQuery.ClickEvent) {
