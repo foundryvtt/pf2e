@@ -76,6 +76,13 @@
 
                             {{#if @root.owner}}
                             <div class="item-controls">
+                                <a class="item-control toggle-signature-item" title="{{localize 'PF2E.ToggleSignatureItemTitle'}}">
+                                    {{#if this.formula.data.data.alchemist.signatureItem}}
+                                        <i class="fas fa-star"></i>
+                                    {{else}}
+                                        <i class="far fa-star"></i>
+                                    {{/if}}
+                                </a>
                                 <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-trash"></i></a>
                             </div>
                             {{/if}}
@@ -160,35 +167,51 @@
                     </div>
                     {{/if}}
                 </li>
-                <!-- Add formula items for each formula level -->
-                {{#each section as |item i|}}
-                <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{item._id}}"
-                    data-item-type="formula">
-                    <div class="item-name rollable">
-                        <div class="item-image">
-                            <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                    <!-- Add formula items for each formula level -->
+                    {{#each section as |item i|}}
+                    <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{item._id}}"
+                        data-item-type="formula">
+                        <div class="item-name rollable">
+                            <div class="item-image">
+                                <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                            </div>
+                            <h4>{{item.name}}</h4>
                         </div>
-                        <h4>{{item.name}}</h4>
-                    </div>
 
-                    <div class="formula-dc">{{item.data.craftDC.value}}</div>
-                    <div class="formula-cost">{{item.data.cost.value}}</div>
+                        <div class="formula-dc">{{item.data.craftDC.value}}</div>
+                        <div class="formula-cost">{{item.data.cost.value}}</div>
 
-                    {{#if @root.owner}}
-                    <div class="item-controls">
-                        <a class="item-control item-edit" title="{{localize " PF2E.EditItemTitle"}}"><i
-                                class="fas fa-edit"></i></a>
-                        <a class="item-control item-delete" title="{{localize " PF2E.DeleteItemTitle"}}"><i
-                                class="fas fa-trash"></i></a>
-                    </div>
-                    {{/if}}
+                        {{#if @root.owner}}
+                        <div class="item-controls">
+                            {{#if item.isAlchemical}}
+                            <a class="item-control toggle-perpetual-infusion" title="{{localize 'PF2E.TogglePerpetualInfusionTitle'}}">
+                                {{#if item.data.alchemist.perpetualInfusion}}
+                                    <i class="fas fa-infinity"></i>
+                                {{else}}
+                                    <i class="fas fa-flask"></i>
+                                {{/if}}
+                            </a>
+                            <a class="item-control toggle-signature-item" title="{{localize 'PF2E.ToggleSignatureItemTitle'}}">
+                                {{#if item.data.alchemist.signatureItem}}
+                                    <i class="fas fa-star"></i>
+                                {{else}}
+                                    <i class="far fa-star"></i>
+                                {{/if}}
+                            </a>
+                            {{/if}}
+                            <a class="item-control item-edit" title="{{localize " PF2E.EditItemTitle"}}"><i
+                                    class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize " PF2E.DeleteItemTitle"}}"><i
+                                    class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
 
-                    <div class="formula-craft">
-                        <button type="button" class="craft-item" data-item-id="{{item._id}}" data-level="{{lvl}}">
-                            {{localize 'PF2E.CraftLabel'}}</button>
-                    </div>
-                </li>
-                {{/each}}
+                        <div class="formula-craft">
+                            <button type="button" class="craft-item" data-item-id="{{item._id}}" data-level="{{lvl}}">
+                                {{localize 'PF2E.CraftLabel'}}</button>
+                        </div>
+                    </li>
+                    {{/each}}
                 {{/each}}
 
                 {{#unless actor.knownFormulas}}

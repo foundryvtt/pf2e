@@ -1,6 +1,7 @@
 import { CraftingEntryPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { PhysicalItemTrait } from "@item/physical/data";
 
 export type CraftingEntrySource = BaseNonPhysicalItemSource<"craftingEntry", CraftingEntrySystemData>;
 
@@ -27,10 +28,9 @@ export interface CraftingSlotData {
 }
 
 export interface ItemRestrictions {
-    all?: string[];
-    any?: string[];
-    not?: string[];
-    test?: (options?: string[]) => boolean;
+    traits?: PhysicalItemTrait[];
+    level?: number;
+    specificItems?: string[];
 }
 
 export interface CraftingEntrySystemData extends ItemSystemData {

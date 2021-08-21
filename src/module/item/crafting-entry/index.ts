@@ -57,7 +57,10 @@ export class CraftingEntryPF2e extends ItemPF2e {
         let formulaPrep = 0;
 
         for (const formula of formulas) {
-            if (fieldDiscovery && formula.formula.data.data.traits.value.includes(fieldDiscovery as ItemTrait)) {
+            if (
+                (fieldDiscovery && formula.formula.data.data.traits.value.includes(fieldDiscovery as ItemTrait)) ||
+                formula.formula.data.data.alchemist?.signatureItem
+            ) {
                 fieldDiscoveryPrep += formula.quantity;
             } else {
                 formulaPrep += formula.quantity;
@@ -97,8 +100,34 @@ export class CraftingEntryPF2e extends ItemPF2e {
     prepareFormula(formula: FormulaPF2e) {
         // TODO: Compare formula traits/level against advanced alchemy level + item restrictions
         // - Must convert spells to formulas before adding
-        // - Stack w/ quantity
         // - Item limitations
+        const itemRestrictions = this.data.data.itemRestrictions;
+        if (itemRestrictions) {
+            // Specific items overrule trait requirements.
+            if (
+                itemRestrictions.traits &&
+                !(itemRestrictions.traits || []).every((t) => formula.data.data.traits.value.includes(t))
+            ) {
+                ui.notifications.warn(
+                    `Formula does not meet entry requirements. Must have all of the following traits: [${itemRestrictions.traits.join(
+                        ", "
+                    )}]`
+                );
+                return;
+            }
+
+            const itemLevel =
+                itemRestrictions.level ||
+                (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]
+                    ?.advancedAlchemyLevel;
+
+            // Level restrictions always apply.
+            if (itemLevel && formula.data.data.level.value > itemLevel) {
+                ui.notifications.warn(`Formula does not meet entry requirements. Level exceeds limit of ${itemLevel}`);
+                return;
+            }
+        }
+
         const updatedArray = this.data.data.slots.prepared;
         const existingEntry = updatedArray.findIndex((s) => s.id === formula.id);
 

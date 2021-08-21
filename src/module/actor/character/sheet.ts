@@ -13,7 +13,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { CraftingEntryPF2e, LorePF2e, PhysicalItemPF2e } from "@item";
+import { CraftingEntryPF2e, FormulaPF2e, LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CraftingForm, performRoll } from "@module/crafting";
 import { CraftingType, FieldDiscoveryType } from "@item/formula/data";
@@ -161,8 +161,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
 
         // Known Formulas
-        type FormulaLevelEntry = Array<FormulaData>;
-        const knownFormulas: FormulaLevelEntry[] = [];
+        const knownFormulas: any[] = [];
         const craftingTypes = CONFIG.PF2E.craftingTypes;
         const fieldDiscoveryTypes = CONFIG.PF2E.fieldDiscoveryTypes;
 
@@ -309,6 +308,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const fieldDiscoveryType = formulaData.data.fieldDiscoveryType.value;
 
                 // Filters
+                // TODO - Change to be a trait selector rather than just crafting type + discovery
                 if (
                     (formulaLevelMin ? formulaLevelMin : 0) <= formulaLevel &&
                     (formulaLevelMax ? formulaLevelMax : 20) >= formulaLevel &&
@@ -321,7 +321,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     if (knownFormulas[formulaLevel] === undefined) {
                         knownFormulas[formulaLevel] = [];
                     }
-                    knownFormulas[formulaLevel].push(formulaData);
+                    knownFormulas[formulaLevel].push({
+                        isAlchemical: formulaData.data.traits.value.includes("alchemical"),
+                        ...formulaData,
+                    });
                 }
             }
 
@@ -650,13 +653,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (itemData.type === "craftingEntry") {
                 const entry = this.actor.items.get(itemData._id);
                 if (!(entry instanceof CraftingEntryPF2e)) {
-                    continue;
-                }
-
-                // Cleanup orphan crafting entries
-                const parent = this.actor.items.get(entry.data.data.source.value);
-                if (!parent) {
-                    entry.delete();
                     continue;
                 }
 
@@ -1033,6 +1029,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ).render(true);
         });
 
+        html.find(".toggle-signature-item").on("click", (event) => {
+            this.onToggleSignatureItem(event);
+        });
+
+        html.find(".toggle-perpetual-infusion").on("click", (event) => {
+            this.onTogglePerpetualInfusion(event);
+        });
+
         // Crafting daily preparations
         html.find(".prepare-daily-crafting").on("click", async () => {
             const craftingEntries = this.actor.itemTypes.craftingEntry;
@@ -1313,6 +1317,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
             spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
         }
+    }
+
+    private onToggleSignatureItem(event: JQuery.ClickEvent): void {
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!itemId) {
+            return;
+        }
+
+        const formula = this.actor.items.get(itemId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            return;
+        }
+
+        formula.update({ "data.alchemist.signatureItem": !formula.data.data.alchemist?.signatureItem });
+    }
+
+    private onTogglePerpetualInfusion(event: JQuery.ClickEvent): void {
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!itemId) {
+            return;
+        }
+
+        const formula = this.actor.items.get(itemId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            return;
+        }
+
+        formula.update({ "data.alchemist.perpetualInfusion": !formula.data.data.alchemist?.perpetualInfusion });
     }
 
     protected override async _onDropItem(

@@ -1,4 +1,5 @@
 import { ItemPF2e } from "@item";
+import { ItemRestrictions } from "@item/crafting-entry/data";
 import { CraftingEntrySource } from "@item/data";
 import { RuleElementPF2e } from "../rule-element";
 
@@ -15,7 +16,7 @@ export class PF2CraftingEntryRuleElement extends RuleElementPF2e {
                 entryType: {
                     value: this.data.type || "custom",
                 },
-                itemRestrictions: this.data.predicate || {},
+                itemRestrictions: this.data.itemRestrictions || {},
                 slots: {
                     prepared: [],
                 },
@@ -28,12 +29,12 @@ export class PF2CraftingEntryRuleElement extends RuleElementPF2e {
         ItemPF2e.create(source, { parent: this.actor });
     }
 
-    override onDelete(): void {
+    override async onDelete(): Promise<void> {
         const target = this.actor.items.find(
             (i) => i.data.type === "craftingEntry" && i.data.data.source.value === this.item.id
         );
         if (target) {
-            target.delete();
+            await target.delete();
         }
     }
 }
@@ -45,5 +46,6 @@ export interface PF2CraftingEntryRuleElement {
         type?: CraftingEntryType;
         selector?: string;
         resource?: string;
+        itemRestrictions?: ItemRestrictions;
     };
 }

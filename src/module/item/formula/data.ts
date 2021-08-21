@@ -31,8 +31,8 @@ interface FormulaSystemData extends ItemSystemData, ItemLevelData {
     craftedObjectUuid: {
         value: CompendiumUUID;
     };
-    preparationData: {
-        prepared: boolean;
-        quantity: number;
+    alchemist?: {
+        signatureItem?: boolean;
+        perpetualInfusion?: boolean;
     };
 }
