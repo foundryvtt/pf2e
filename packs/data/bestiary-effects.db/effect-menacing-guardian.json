@@ -1,0 +1,78 @@
+{
+    "_id": "yZUSxoBZDOvXdii5",
+    "data": {
+        "description": {
+            "value": "<p>The creature takes a -1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first. Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Menacing Guardian",
+                "predicate": {
+                    "all": [
+                        "hornedArchon"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Menacing Guardian",
+                "predicate": {
+                    "all": [
+                        "hornedArchon"
+                    ]
+                },
+                "selector": "damage",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Menacing Guardian",
+                "predicate": {
+                    "all": [
+                        "hornedArchon"
+                    ]
+                },
+                "selector": "spell-attack",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Menacing Guardian",
+    "type": "effect"
+}

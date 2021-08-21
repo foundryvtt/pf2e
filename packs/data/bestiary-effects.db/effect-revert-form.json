@@ -1,8 +1,8 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "Jpq0HAVlUaRANEW9",
     "data": {
         "description": {
-            "value": "<p>The creature gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p>The faceless stalker is in an assumed form. Effect The faceless stalker resumes its true form. Until the start of its next turn, it gains a +2 status bonus to attack rolls, damage rolls, saving throws, and skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,26 +11,36 @@
             "value": 1
         },
         "level": {
-            "value": 16
+            "value": 4
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
+                "label": "Revert Form",
                 "selector": "attack",
                 "type": "status",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
+                "label": "Revert Form",
                 "selector": "damage",
                 "type": "status",
-                "value": 1
+                "value": 2
             },
             {
-                "key": "PF2E.RuleElement.TempHP",
-                "value": 5
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Revert Form",
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Urgestalt",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
             }
         ],
         "source": {
@@ -54,7 +64,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Effect: Revert Form",
     "type": "effect"
 }

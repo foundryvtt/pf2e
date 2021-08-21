@@ -1,8 +1,8 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "FcepBYGlxXh9apKM",
     "data": {
         "description": {
-            "value": "<p>The creature gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p>The Marilith gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks. If the Marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,26 +11,15 @@
             "value": 1
         },
         "level": {
-            "value": 16
+            "value": 17
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "attack",
-                "type": "status",
+                "label": "Defensive Assault (1 Sword)",
+                "selector": "ac",
+                "type": "circumstance",
                 "value": 1
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "damage",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "PF2E.RuleElement.TempHP",
-                "value": 5
             }
         ],
         "source": {
@@ -54,7 +43,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/blade-barrier.webp",
+    "name": "Effect: Defensive Assault (1 Sword)",
     "type": "effect"
 }

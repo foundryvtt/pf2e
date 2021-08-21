@@ -1,36 +1,29 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "y4YFncSb60QYn1Lt",
     "data": {
         "description": {
-            "value": "<p>The creature gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p><strong>Traits</strong> mental, enchantment, divine, emotion</p>\n<p>The creature gains a +1 status bonus to attack rolls and 10 temporary Hit Points for 10 minutes. After that time, the target becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for 10 minutes unless they succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"divine,emotion,enchantment,mental\" data-pf2-label=\"Invigorating Passion DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
-            "value": 16
+            "value": 4
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
+                "label": "Invigorating Passion",
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "damage",
-                "type": "status",
-                "value": 1
-            },
-            {
                 "key": "PF2E.RuleElement.TempHP",
-                "value": 5
+                "value": 10
             }
         ],
         "source": {
@@ -54,7 +47,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/charm.webp",
+    "name": "Effect: Invigorating Passion",
     "type": "effect"
 }

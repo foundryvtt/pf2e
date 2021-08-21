@@ -1,29 +1,25 @@
 {
-    "_id": "wX9L6fbqVMLP05hn",
+    "_id": "sfjPMYmPAsA5fiSC",
     "data": {
         "description": {
-            "value": "<p>While within the aura, the creature takes a –2 circumstance penalty to saves against disease and to recover from the sickened condition.</p>"
+            "value": "<p>The Marilith gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks. If the Marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 1
+            "value": 17
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "disease"
-                    ]
-                },
-                "selector": "saving-throw",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Defensive Assault (3 Swords)",
+                "selector": "ac",
                 "type": "circumstance",
-                "value": -2
+                "value": 3
             }
         ],
         "source": {
@@ -47,7 +43,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/grease.webp",
-    "name": "Effect: Ghast Stench",
+    "img": "systems/pf2e/icons/spells/blade-barrier.webp",
+    "name": "Effect: Defensive Assault (3 Swords)",
     "type": "effect"
 }
