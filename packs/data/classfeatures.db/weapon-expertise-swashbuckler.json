@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert.</p>\n<hr />\n<p>You gain access to the critical specialization effects of all weapons for which you have expert proficiency.</p>"
         },
         "featType": {
@@ -250,12 +248,26 @@
                 },
                 "selector": "sword-weapon-group-damage",
                 "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.simple.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.martial.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "value": 2
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -269,38 +281,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "3Gtl8TXQP4TBLwKr",
-            "changes": [
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-            "label": "Weapon Expertise (Swashbuckler)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
     "name": "Weapon Expertise (Swashbuckler)",

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your rage makes you even more effective with the weapons you wield. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to master.</p>"
         },
         "featType": {
@@ -25,11 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.simple.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.martial.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,38 +56,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "14jp5vJGMloIFdBm",
-            "changes": [
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/weapon-fury.webp",
-            "label": "Weapon Fury",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/weapon-fury.webp",
     "name": "Weapon Fury",

@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>You lay claim to the might of dragons, but your powers are sacred instead of arcane-born from a worship of draconic might so powerful it infused your blood or, perhaps, from a celestial or draconic power blessing one of your ancestors received.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip: @Compendium[pf2e.spells-srd.Read Aura]{Read Aura}; 1st: @Compendium[pf2e.spells-srd.Mage Armor]{Mage Armor}; 2nd: @Compendium[pf2e.spells-srd.Resist Energy]{Resist Energy}; 3rd: @Compendium[pf2e.spells-srd.Haste]{Haste}; 4th: @Compendium[pf2e.spells-srd.Reflective Scales]{Reflective Scales}; 5th: @Compendium[pf2e.spells-srd.Cloak of Colors]{Cloak of Colors}; 6th: @Compendium[pf2e.spells-srd.Repulsion]{Repulsion}; 7th: @Compendium[pf2e.spells-srd.Mask of Terror]{Mask of Terror}; 8th: @Compendium[pf2e.spells-srd.Divine Inspiration]{Divine Inspiration}, 9th: @Compendium[pf2e.spells-srd.Overwhelming Presence]{Overwhelming Presence}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Dragon Claws]{Dragon Claws}; advanced: @Compendium[pf2e.spells-srd.Dragon Breath]{Dragon Breath}; greater: @Compendium[pf2e.spells-srd.Dragon Wings]{Dragon Wings}</p>\n<p><strong>Blood Magic</strong> Draconic might carries in your voice. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes a -1 status penalty to Will saves for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Wymblessed Blood Magic (Status Bonus - Self)]{Effect: Wymblessed Blood Magic (Status Bonus - Self)}</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Wymblessed Blood Magic (Status Penalty - Target)]{Effect: Wymblessed Blood Magic (Status Penalty - Target)}</p>\n<h2 class=\"title\">Dragon Type</h2>\n<p>At 1st level, choose the type of dragon that influenced your bloodline. You can't change your dragon type later. This choice affects how some of your bloodline spells function. The good metallic dragons and their damage types are brass (fire), bronze (electricity), copper (acid), gold (fire), and silver (cold).</p>\n<p>The evil chromatic dragons and their damage types are black (acid), blue (electricity), green (poison), red (fire), and white (cold).</p>\n<p>The primal dragons of planar origin and their damage types are brine (acid), cloud (electricity), crystal (piercing), magma (fire), and umbral (negative).</p>\n<p>The imperial dragons and their damage types are forest (piercing), sea (bludgeoning), sky (electricity), sovereign (mental), and underworld (fire).</p>\n<p>For the dragon breath focus spell, the area is a 60-foot line for a brine dragon; a 30-foot cone for a cloud, crystal, forest, magma, sovereign, or umbral dragon; and a 10-foot burst within 30 feet for a sea, sky, or underworld dragon.</p>"
@@ -23,11 +23,15 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

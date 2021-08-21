@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>It takes more to kill you than most. You die from the dying condition at dying 5, rather than dying 4.</p>"
         },
         "featType": {
@@ -24,11 +22,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.dying.max",
+                "value": 5
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,33 +43,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "r9IFkTGzEqWuheEr",
-            "changes": [
-                {
-                    "key": "data.attributes.dying.max",
-                    "mode": 4,
-                    "value": 5
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "rounds": null,
-                "seconds": null,
-                "startRound": null,
-                "startTime": null,
-                "startTurn": null,
-                "turns": null
-            },
-            "flags": {},
-            "icon": "icons/svg/aura.svg",
-            "label": "Diehard",
-            "origin": "",
-            "tint": "",
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Diehard",

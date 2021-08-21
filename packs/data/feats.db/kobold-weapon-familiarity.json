@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You’ve trained with weapons ideal for subterranean efficiency. You are trained with the @Compendium[pf2e.equipment-srd.Crossbow]{Crossbow}, @Compendium[pf2e.equipment-srd.Greatpick]{Greatpick}, @Compendium[pf2e.equipment-srd.Light Pick]{Light Pick}, @Compendium[pf2e.equipment-srd.Pick]{Pick}, and @Compendium[pf2e.equipment-srd.Spear]{Spear}.</p>\n<p>You also gain access to all uncommon kobold weapons. For the purpose of determining your proficiency, martial kobold weapons are simple weapons, and advanced kobold weapons are martial weapons.</p>"
         },
         "featType": {
@@ -25,11 +23,38 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-crossbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-greatpick.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-light-pick.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-pick.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-spear.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -47,31 +72,6 @@
         {
             "_id": "pSSCKTSGZwhUX65a",
             "changes": [
-                {
-                    "key": "data.martial.weapon-base-crossbow.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-greatpick.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-light-pick.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-pick.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-spear.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
                 {
                     "key": "data.martial.martial.familiarity",
                     "mode": 5,

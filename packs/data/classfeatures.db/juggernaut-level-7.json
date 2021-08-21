@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
         },
         "featType": {
@@ -38,12 +36,14 @@
                 "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
                 "selector": "fortitude",
                 "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.fortitude.rank",
+                "value": 3
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -57,28 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "hRemUrAMGRdFQeie",
-            "changes": [
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/juggerenaut.webp",
-            "label": "Juggernaut (Level 7)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
     "name": "Juggernaut (Level 7)",

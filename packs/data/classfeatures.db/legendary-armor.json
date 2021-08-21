@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You shield yourself with steel as easily as with faith. Your proficiency ranks for light, medium, and heavy armor, as well as for unarmored defense, increase to legendary.</p>"
         },
         "featType": {
@@ -25,11 +23,32 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmored.rank",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.heavy.rank",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 4
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,43 +62,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "cXgJqSZp7u11bE6Z",
-            "changes": [
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "4"
-                },
-                {
-                    "key": "data.martial.heavy.rank",
-                    "mode": 4,
-                    "value": "4"
-                },
-                {
-                    "key": "data.martial.medium.rank",
-                    "mode": 4,
-                    "value": "4"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "4"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/legendary-armor.webp",
-            "label": "Legendary Armor",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/legendary-armor.webp",
     "name": "Legendary Armor",

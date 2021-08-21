@@ -23,6 +23,7 @@ global.window = global.document.defaultView!;
 import $ from "jquery";
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { NPCSystemData } from "@actor/npc/data";
+import { isActorSource, isItemSource } from "./packman/compendium-pack";
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -127,7 +128,9 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
             topLevel = entityData;
             delete entityData.folder;
             if ("type" in entityData) {
-                if ("token" in entityData) {
+                if (isActorSource(entityData)) {
+                    delete (entityData.data as { schema?: unknown }).schema;
+
                     (entityData.token as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: entityData.token.disposition,
                         height: entityData.token.height,
@@ -136,15 +139,12 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
                         width: entityData.token.width,
                     };
                 }
-                if ("data" in entityData && !("items" in entityData)) {
+                if (isItemSource(entityData)) {
+                    delete (entityData.data as { schema?: unknown }).schema;
                     entityData.data.description = { value: entityData.data.description.value };
                 }
                 if (entityData.type !== "script") {
                     delete (entityData as Partial<PackEntry>).permission;
-                    if ("effects" in entityData) {
-                        // null out lastMigration to reduce commit spam
-                        entityData.data.schema.lastMigration = null;
-                    }
                 }
                 if (entityData.type === "npc") {
                     for (const key of Object.keys(entityData.data)) {
@@ -163,14 +163,18 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
 }
 
 function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = { isEmbedded: false }): T {
-    // Remove individual permissions
-    if (isEmbedded) {
-        delete entityData.flags.pf2e_updatednpcsheet;
-    } else {
+    // Clear non-core/pf2e flags
+    for (const flagScope in entityData.flags) {
+        if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
+            delete entityData.flags[flagScope];
+        }
+    }
+
+    if (!isEmbedded) {
         entityData.permission = { default: entityData.permission?.default ?? 0 };
         delete (entityData as Partial<typeof entityData>).sort;
 
-        if ("data" in entityData && "slug" in entityData.data) {
+        if (isItemSource(entityData)) {
             const slug = entityData.data.slug;
             if (typeof slug === "string" && slug !== sluggify(entityData.name)) {
                 console.warn(
@@ -179,16 +183,15 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
                 );
             }
 
-            delete entityData.data.slug;
+            delete (entityData.data as { slug?: unknown }).slug;
+            entityData.flags = entityData.type === "condition" ? { pf2e: { condition: true } } : {};
         }
 
-        entityData.flags = "type" in entityData && entityData.type === "condition" ? { pf2e: { condition: true } } : {};
-        if (
-            "effects" in entityData &&
-            !entityData.effects.some((effect: foundry.data.ActiveEffectSource) => effect.origin?.startsWith("Actor."))
-        ) {
-            for (const effect of entityData.effects) {
-                effect.origin = "";
+        if (isActorSource(entityData)) {
+            if (!entityData.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
+                for (const effect of entityData.effects) {
+                    effect.origin = "";
+                }
             }
         }
     }
@@ -273,7 +276,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     newEntityIdMap[entityData._id] = entityData.name;
 
     const sanitized = sanitizeDocument(entityData);
-    if ("items" in sanitized) {
+    if (isActorSource(sanitized)) {
         sanitized.items = sanitized.items.map((itemData) => sanitizeDocument(itemData, { isEmbedded: true }));
     }
     const entityJson = JSON.stringify(sanitized);
@@ -313,7 +316,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, "g");
+        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}(?=\\])`, "g");
         return partiallyConverted.replace(replacePattern, entityName);
     }, entityJson);
 

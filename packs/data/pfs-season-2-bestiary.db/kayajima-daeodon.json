@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 23,
                 "details": "",
                 "value": 23
             },
@@ -62,7 +63,7 @@
                 "value": 5
             },
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-02: Mountain of Sea and Sky"
             }
         },
         "resources": {},
@@ -79,10 +80,6 @@
                 "saveDetail": "",
                 "value": 12
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -143,10 +140,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -179,7 +172,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
@@ -188,10 +181,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "low-light-vision",
                 "source": {
                     "value": ""
@@ -231,7 +220,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
@@ -240,10 +229,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "scent",
                 "source": {
                     "value": ""
@@ -283,19 +268,15 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "ferocity",
                 "source": {
                     "value": ""
@@ -335,7 +316,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
                     "value": "<p>The daeodon Strides twice and then makes a tusk Strike. As long as it moved at least 20 feet, it gains a +2 circumstance bonus to its attack roll. A Medium or smaller creature struck by this attack must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-label=\"Daeodon Charge DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or be knocked @Compendium[pf2e.conditionitems.Prone]{Prone} by the force of the blow.</p>"
@@ -343,11 +324,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.daeodon-charge"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "daeodon-charge"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -389,10 +382,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -428,10 +417,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -467,10 +452,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

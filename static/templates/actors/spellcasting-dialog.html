@@ -1,22 +1,45 @@
-<form>
-    <div class="form-group">
-        <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
-        <select name="spellcastingType" {{#if entry}}disabled{{/if}}>
-        {{#select spellcastingType}}
-        {{#each spellcastingTypes as |label mode|}}
-            <option value="{{mode}}">{{localize label}}</option>
-        {{/each}}
-        {{/select}}
-        </select>
-    </div>
-    <div class="form-group tradition-group">
-        <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
-        <select name="magicTradition">
-        {{#select magicTradition}}
-        {{#each magicTraditions as |label mode|}}
-            <option value="{{mode}}">{{localize label}}</option>
-        {{/each}}
-        {{/select}}
-        </select>
-    </div>
-</form>
+<div class="dialog-content">
+    <form>
+        <div class="form-group">
+            <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
+            <select name="spellcastingType" {{#if entry}}disabled{{/if}}>
+            {{#select data.spellcastingType}}
+            {{#each spellcastingTypes as |label mode|}}
+                <option value="{{mode}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+            </select>
+        </div>
+        {{#unless (eq data.spellcastingType "ritual")}}
+            <div class="form-group tradition-group">
+                <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
+                <select name="magicTradition">
+                {{#select data.tradition}}
+                {{#each magicTraditions as |label mode|}}
+                    <option value="{{mode}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+                </select>
+            </div>
+            <div class="form-group spell-ability">
+                <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
+                <select name="ability">
+                    {{#select data.ability}}
+                        {{#each abilities as |abl a|}}
+                            <option value="{{a}}">{{localize abl}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        {{/unless}}
+    </form>
+</div>
+<div class="dialog-buttons">
+    <button class="dialog-button finish default" data-button="finish">
+        {{#if entry}}
+            {{localize "PF2E.UpdateLabelUniversal"}}
+        {{else}}
+            {{localize "PF2E.CreateLabelUniversal"}}
+        {{/if}}
+    </button>
+</div>

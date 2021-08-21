@@ -95,10 +95,6 @@
                 "value": 16
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "ci": [],
             "di": {
@@ -166,10 +162,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -261,7 +253,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -329,10 +321,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "conjuration"
@@ -402,10 +390,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -426,7 +410,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 300000,
             "type": "melee"
@@ -453,10 +437,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -476,7 +456,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 400000,
             "type": "melee"
@@ -503,10 +483,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -526,7 +502,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
             "sort": 500000,
             "type": "melee"
@@ -541,7 +517,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>90 feet, DC 23<br /> A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
@@ -550,10 +526,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -594,7 +566,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within reach of the copper dragon's tail uses a move action or leaves a square during a move action it's using. <strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the triggering action.</p>"
@@ -603,10 +575,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -645,16 +613,12 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The copper dragon breathes in one of two ways. The dragon can't use Breath Weapon again for [[/br 1d4 #rounds]] rounds.</p><ul><li><strong>Acid</strong> The dragon breathes acid in a 60-foot line that deals [[/r 8d6 #acid]] acid damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"acid,arcane,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</li><li><strong>Slowing Gas</strong> The dragon breathes a 60-foot line of slowing gas. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"arcane,transmutation\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round (or @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure).</li></ul>"
+                    "value": "<p>The copper dragon breathes in one of two ways. The dragon can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p><ul><li><strong>Acid</strong> The dragon breathes acid in a 60-foot line that deals [[/r 8d6 #acid]]{8d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"acid,arcane,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</li><li><strong>Slowing Gas</strong> The dragon breathes a 60-foot line of slowing gas. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"arcane,transmutation\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round (or @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure).</li></ul>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -695,7 +659,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The dragon's climb speed functions only when climbing stone surfaces.</p>"
@@ -704,10 +668,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -728,7 +688,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Climb Stone",
             "sort": 900000,
             "type": "action"
@@ -752,10 +712,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -791,7 +747,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>When the dragon scores a critical hit with a Strike, it recharges Breath Weapon.</p>"
@@ -800,10 +756,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -824,7 +776,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
             "sort": 1100000,
             "type": "action"
@@ -845,10 +797,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -884,10 +832,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -923,10 +867,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -962,10 +902,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1001,10 +937,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1040,10 +972,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1079,10 +1007,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

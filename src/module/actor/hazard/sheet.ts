@@ -2,6 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { ErrorPF2e } from "@module/utils";
 import { HazardPF2e } from ".";
 import { ConsumablePF2e } from "@item";
+import { ItemDataPF2e } from "@item/data";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {
@@ -61,13 +62,15 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     override prepareItems(sheetData: any): void {
         const actorData = sheetData.actor;
         // Actions
-        const attacks = {
+        type AttackData = { label: string; items: ItemDataPF2e[]; type: "melee" };
+        const attacks: Record<"melee" | "ranged", AttackData> = {
             melee: { label: "NPC Melee Attack", items: [], type: "melee" },
             ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
         };
 
         // Actions
-        const actions = {
+        type ActionData = { label: string; actions: ItemDataPF2e[] };
+        const actions: Record<string, ActionData> = {
             action: { label: "Actions", actions: [] },
             reaction: { label: "Reactions", actions: [] },
             free: { label: "Free Actions", actions: [] },
@@ -75,66 +78,51 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
 
         // Iterate through items, allocating to containers
-        for (const i of actorData.items) {
-            i.img = i.img || CONST.DEFAULT_TOKEN;
+        const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+        const traitsDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
+        for (const itemData of actorData.items) {
+            itemData.img = itemData.img || CONST.DEFAULT_TOKEN;
 
             // NPC Generic Attacks
-            if (i.type === "melee") {
-                const weaponType = (i.data.weaponType || {}).value || "melee";
-                const isAgile = (i.data.traits.value || []).includes("agile");
-                i.data.bonus.total = parseInt(i.data.bonus.value, 10) || 0;
-                i.data.isAgile = isAgile;
+            if (itemData.type === "melee") {
+                const weaponType: "melee" | "ranged" = itemData.data.weaponType.value || "melee";
+                const traits: string[] = itemData.data.traits.value;
+                const isAgile = traits.includes("agile");
+                itemData.data.bonus.total = Number(itemData.data.bonus.value) || 0;
+                itemData.data.isAgile = isAgile;
 
                 // get formated traits for read-only npc sheet
-                const traits: { label: string; description: string }[] = [];
-                if ((i.data.traits.value || []).length !== 0) {
-                    for (let j = 0; j < i.data.traits.value.length; j++) {
-                        const traitsObject = {
-                            label:
-                                CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
-                                i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
-                        };
-                        traits.push(traitsObject);
-                    }
-                }
-                i.traits = traits.filter((p) => !!p);
-
-                attacks[weaponType].items.push(i);
+                itemData.traits = traits.map((trait) => ({
+                    label: weaponTraits[trait] ?? trait.charAt(0).toUpperCase() + trait.slice(1),
+                    description: traitsDescriptions[trait] ?? "",
+                }));
+                attacks[weaponType].items.push(itemData);
             }
 
             // Actions
-            else if (i.type === "action") {
-                const actionType = i.data.actionType.value || "action";
-                i.img = HazardPF2e.getActionGraphics(
+            else if (itemData.type === "action") {
+                const actionType = itemData.data.actionType.value || "action";
+                itemData.img = HazardPF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1
+                    Number(itemData.data.actions.value) || 1
                 ).imageUrl;
 
                 // get formated traits for read-only npc sheet
-                const traits: { label: string; description: string }[] = [];
-                if ((i.data.traits.value || []).length !== 0) {
-                    for (let j = 0; j < i.data.traits.value.length; j++) {
-                        const traitsObject = {
-                            label:
-                                CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
-                                i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
-                        };
-                        traits.push(traitsObject);
-                    }
-                }
-                if (i.data.actionType.value) {
-                    traits.push({
-                        label:
-                            CONFIG.PF2E.weaponTraits[i.data.actionType.value] ||
-                            i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1),
-                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || "",
+                const traits: string[] = itemData.data.traits.value;
+                const traitObjects = traits.map((trait) => ({
+                    label: weaponTraits[trait] || trait.charAt(0).toUpperCase() + trait.slice(1),
+                    description: traitsDescriptions[trait] ?? "",
+                }));
+                if (itemData.data.actionType.value) {
+                    const actionType: string = itemData.data.actionType.value;
+                    traitObjects.push({
+                        label: weaponTraits[actionType] || actionType.charAt(0).toUpperCase() + actionType.slice(1),
+                        description: traitsDescriptions[actionType] ?? "",
                     });
                 }
-                i.traits = traits.filter((p) => !!p);
+                itemData.traits = traitObjects;
 
-                actions[actionType].actions.push(i);
+                actions[actionType].actions.push(itemData);
             }
         }
 
@@ -144,7 +132,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     override activateListeners(html: JQuery): void {

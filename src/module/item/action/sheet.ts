@@ -10,7 +10,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
         const actionImg = (() => {
             switch (actionType) {
                 case "action":
-                    return (Number(data.data.actions.value) || 1).toString();
+                    return (data.data.actions.value || 1).toString();
                 case "reaction":
                 case "free":
                 case "passive":

@@ -57,10 +57,10 @@ declare interface Number {
      * Test whether a value is numeric
      * This is the highest performing algorithm currently available
      * https://jsperf.com/isnan-vs-typeof/5
-     * @param {*} n       A value to test
-     * @return {Boolean}  Is it a number?
+     * @param n A value to test
+     * @return Is it a number?
      */
-    isNumeric(n: number): boolean;
+    isNumeric(n: unknown): boolean;
 }
 
 /* -------------------------------------------- */
@@ -74,32 +74,31 @@ declare interface Array<T> {
 
     /**
      * Test equality of the values of this array against the values of some other Array
-     * @param {Array} other
-     * @returns {boolean}
+     * @param other
      */
-    equals(other: Array<T>): boolean;
+    equals(other: T[]): boolean;
 
     /**
      * Partition an original array into two children array based on a logical test
      * Elements which test as false go into the first result while elements testing as true appear in the second
-     * @param rule {Function}
-     * @return {Array}    An Array of length two whose elements are the partitioned pieces of the original
+     * @param {Function}
+     * @return An Array of length two whose elements are the partitioned pieces of the original
      */
-    partition(rule: Function): Array<T>;
+    partition(rule: Function): [T, T];
 
     /**
      * Join an Array using a string separator, first filtering out any parts which return a false-y value
-     * @param {string} sep    The separator string
-     * @return {string}       The joined string, filtered of any false values
+     * @param sep The separator string
+     * @return The joined string, filtered of any false values
      */
     filterJoin(sep: string): string;
 
     /**
      * Find an element within the Array and remove it from the array
-     * @param {Function} find   A function to use as input to findIndex
-     * @return {*|null}         The removed item or null if none was found
+     * @param find   A function to use as input to findIndex
+     * @return The removed item or null if none was found
      */
-    findSplice(find: Function): any | null;
+    findSplice(find: (element: T) => boolean): T | null;
 }
 
 declare interface RegExp {

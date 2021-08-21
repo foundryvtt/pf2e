@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 18,
                 "details": "",
                 "value": 18
             },
@@ -30,7 +31,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 30,
                 "temp": 0,
                 "value": 30
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "5 feet"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "5"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "CE"
             },
             "creatureType": "Undead",
-            "flavorText": "Ghasts-feral, foul-smelling, and constantly hungry-are the more powerful kin of ghouls. They are relentless in the pursuit of their prey.<br /><br />",
+            "flavorText": "<p>Ghasts-feral, foul-smelling, and constantly hungry-are the more powerful kin of ghouls. They are relentless in the pursuit of their prey.</p>\n<hr />\n<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
             "level": {
                 "value": 2
             },
@@ -85,10 +87,6 @@
                 "saveDetail": "",
                 "value": 8
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -141,9 +139,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "ghast fever",
-                        "paralysis"
+                        "ghast-ghast-fever",
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
@@ -159,10 +158,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -182,7 +177,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -194,8 +189,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "paralysis"
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
@@ -211,10 +207,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -235,13 +227,61 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "PyFErFbzMDaAJsUV",
+            "_id": "Kju9SGt4hg4ArrHV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "bj0n2c03UcDAg05S",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -250,20 +290,64 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become sickened 1 (plus slowed 1 as long as itʼs sickened on a critical failure). While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
                 },
-                "slug": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "ueV6BVqlBFm5JpOt",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghast Stench]{Effect: Ghast Stench}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghast-stench",
                 "source": {
                     "value": ""
                 },
@@ -285,14 +369,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.SEzkqVJxr2eJDsuJ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "kwPsIpitPBaF09gf",
+            "_id": "hz5Q2bw1ujIUUlaf",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -304,17 +392,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghast is adjacent to the corpse of a creature that died within the last hour. <strong>Effect</strong> The ghast devours a chunk of the corpse and regains 3d6 Hit Points. It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghast is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghast devours a chunk of the corpse and regains [[/r 3d6 #Hit Points]]{3d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "ghast-consume-flesh",
                 "source": {
                     "value": ""
                 },
@@ -335,14 +419,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "aQpfm3tCsEdIkopd",
+            "_id": "xlokJIZ7rdG03r3e",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -351,20 +439,16 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Stage 1</strong> carrier with no ill effect (1 day); <strong>Stage 2</strong> [[/r 3d8 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day); <strong>Stage 3</strong> as stage 2 (1 day); <strong>Stage 4</strong> [[/r 3d8 # negative damage]] negative damage and gains no benefit from healing (1 day); <strong>Stage 5</strong> as stage 4 (1 day); <strong>Stage 6</strong> dead, and rises as a ghast the next midnight</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 3d8 #negative]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 3d8 #negative]]{3d8 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "ghast-ghast-fever",
                 "source": {
                     "value": ""
                 },
@@ -385,14 +469,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.hA6HsM4i4yPfEsDH"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghast Fever",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "EgQHWy3kEnjf7oLy",
+            "_id": "EUeTr6TFAb7g0ajm",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -401,20 +489,16 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>Any living creature (including elves) hit by a ghast's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living creature hit by a ghast's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "ghast-paralysis",
                 "source": {
                     "value": ""
                 },
@@ -425,8 +509,8 @@
                     },
                     "value": [
                         "incapacitation",
-                        "occult",
-                        "necromancy"
+                        "necromancy",
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -437,14 +521,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "oOLDphXSDdy4Tq1K",
+            "_id": "oRVvy2h6lTb5sJBi",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -462,11 +550,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
                     "value": ""
                 },
@@ -487,10 +571,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -509,10 +597,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -529,7 +613,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -548,10 +632,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -568,7 +648,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -587,10 +667,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -607,7 +683,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -626,10 +702,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -646,7 +718,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

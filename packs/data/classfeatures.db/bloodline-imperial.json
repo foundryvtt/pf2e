@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>One of your ancestors was a mortal who mastered magic. Such magical blood can remain latent for generations, but in you it manifested in full.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Society</p>\n<p><strong>Granted Spells</strong> cantrip @Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}, 1st: @Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}, 2nd: @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}, 3rd: @Compendium[pf2e.spells-srd.Haste]{Haste}, 4th: @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}, 5th: @Compendium[pf2e.spells-srd.Prying Eye]{Prying Eye}, 6th: @Compendium[pf2e.spells-srd.Disintegrate]{Disintegrate}, 7th: @Compendium[pf2e.spells-srd.Prismatic Spray]{Prismatic Spray}, 8th: @Compendium[pf2e.spells-srd.Maze]{Maze}, 9th: @Compendium[pf2e.spells-srd.Prismatic Sphere]{Prismatic Sphere}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Ancestral Memories]{Ancestral Memories}, advanced: @Compendium[pf2e.spells-srd.Extend Spell]{Extend Spell}, greater: @Compendium[pf2e.spells-srd.Arcane Countermeasure]{Arcane Countermeasure}</p>\n<p><strong>Blood Magic</strong> A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Imperial Blood Magic]{Effect: Imperial Blood Magic}</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.arc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.soc.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "TkidJukaEvt9IADp",
-            "changes": [
-                {
-                    "key": "data.skills.arc.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.soc.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/imperial.webp",
-            "label": "Bloodline: Imperial",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/imperial.webp",
     "name": "Bloodline: Imperial",

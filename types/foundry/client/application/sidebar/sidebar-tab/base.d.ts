@@ -10,20 +10,14 @@ declare interface EntryContextOption {
     callback: (li: JQuery) => void;
 }
 
-/**
- * An abstract pattern followed by the different tabs of the sidebar
- */
+/** An abstract pattern followed by the different tabs of the sidebar */
 declare abstract class SidebarTab extends Application<SidebarTabOptions> {
     constructor(options?: SidebarTabOptions);
 
-    /**
-     * The base name of this sidebar tab
-     */
+    /** The base name of this sidebar tab */
     tabName: string;
 
-    /**
-     * A reference to the pop-out variant of this SidebarTab, if one exists
-     */
+    /** A reference to the pop-out variant of this SidebarTab, if one exists */
     protected _popout: this;
 
     /**
@@ -32,13 +26,20 @@ declare abstract class SidebarTab extends Application<SidebarTabOptions> {
     protected _original: this;
 
     /**
-     * Only close the pop-out version of the sidebar tab
-     */
-    close(): Promise<void>;
-
-    /**
      * Get the set of ContextMenu options which should be used for Entities in a SidebarDirectory
      * @return The Array of context options passed to the ContextMenu instance
      */
     protected _getEntryContextOptions(): EntryContextOption[];
+
+    /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
+
+    /** Activate this SidebarTab, switching focus to it */
+    activate(): void;
+
+    override close(options?: { force?: boolean }): Promise<void>;
+
+    /** Render the SidebarTab as a pop-out container */
+    renderPopout(...args: unknown[]): void;
 }

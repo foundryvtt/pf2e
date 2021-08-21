@@ -87,10 +87,6 @@
                 "value": 38
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "ci": [],
             "di": {
@@ -177,10 +173,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -235,10 +227,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -274,7 +262,7 @@
                     "value": "free"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> The spirit turtle begins their turn;</p>\n<p><strong>Effect</strong> The spirit turtle harnesses their connection with the world around them to augment their attacks. They choose acid, cold, electricity, or fire. The energy damage dealt by their Strikes and Unbalancing Stomp changes to the selected energy type.</p>"
@@ -283,10 +271,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -325,7 +309,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
@@ -334,10 +318,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "regeneration",
                 "source": {
                     "value": ""
@@ -377,7 +357,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 100 feet. A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level @Compendium[pf2e.spells-srd.Calm Emotions]{Calm Emotions} spell (<span data-pf2-check=\"will\" data-pf2-traits=\"emotion, enchantment, primal\" data-pf2-label=\"Pacifying Aura DC\" data-pf2-dc=\"44\" data-pf2-show-dc=\"gm\">Will</span> save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
@@ -386,10 +366,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -429,7 +405,7 @@
                     "value": "free"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
@@ -438,10 +414,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "improved-grab",
                 "source": {
                     "value": ""
@@ -481,7 +453,7 @@
                     "value": "free"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown} as a free action triggered by a hit with its initial attack.</p>"
@@ -490,10 +462,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "improved-knockdown",
                 "source": {
                     "value": ""
@@ -533,19 +501,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
-                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a 15-foot burst centered on the target. All creatures in the area other than the spirit turtle take 10d10 bludgeoning and [[/r 4d8 # energy damage]]{4d8 energy damage} and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Unbalancing Stomp DC\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/r 1d4]]{1d4 rounds}.</p>"
+                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a 15-foot burst centered on the target. All creatures in the area other than the spirit turtle take [[/r 10d10 #bludgeoning]]{10d10 bludgeoning damage} and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Unbalancing Stomp DC\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -584,10 +548,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -620,10 +580,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -656,10 +612,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -692,10 +644,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -728,10 +676,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -764,10 +708,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

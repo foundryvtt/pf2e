@@ -5,6 +5,8 @@ import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { MigrationBase } from "@module/migration/base";
 import type { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { ItemSourcePF2e } from "@item/data";
+import { ActorSourcePF2e } from "@actor/data";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -37,114 +39,184 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<void> {
-        try {
-            const updatedItem = await this.getUpdatedItem(item.toObject(), migrations);
-            const changes = diffObject(item.toObject(), updatedItem);
-            if (!isObjectEmpty(changes)) {
-                await item.update(changes);
+    /** Migrate actor or item documents in batches of 25 */
+    private async migrateWorldDocuments<TDocument extends ActorPF2e | ItemPF2e>(
+        collection: WorldCollection<TDocument>,
+        DocumentClass: {
+            updateDocuments(
+                updates?: DocumentUpdateData<TDocument>[],
+                context?: DocumentModificationContext
+            ): Promise<TDocument[]>;
+        },
+        migrations: MigrationBase[]
+    ): Promise<void> {
+        const updateGroup: TDocument["data"]["_source"][] = [];
+        for await (const document of collection) {
+            if (updateGroup.length === 25) {
+                try {
+                    await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    updateGroup.length = 0;
+                }
             }
-        } catch (error) {
-            console.error(error);
-            console.error(error.stack);
+            const updated =
+                "items" in document
+                    ? await this.migrateWorldActor(migrations, document)
+                    : await this.migrateWorldItem(migrations, document);
+            if (updated) updateGroup.push(updated);
+        }
+        if (updateGroup.length > 0) {
+            await DocumentClass.updateDocuments(updateGroup, { noHook: true });
         }
     }
 
-    private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e): Promise<void> {
-        try {
-            const baseActor = actor.toObject();
-            const updatedActor = await this.getUpdatedActor(baseActor, migrations);
+    private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
+        const baseItem = item.toObject();
+        const updatedItem = await (() => {
+            try {
+                return this.getUpdatedItem(baseItem, migrations);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        })();
+        if (!updatedItem) return null;
 
-            const baseItems = baseActor.items;
-            const updatedItems = updatedActor.items;
-
-            delete (baseActor as { items?: unknown[] }).items;
-            delete (updatedActor as { items?: unknown[] }).items;
-            if (JSON.stringify(baseActor) !== JSON.stringify(updatedActor)) {
-                await actor.update(updatedActor);
+        const baseAEs = baseItem.effects;
+        const updatedAEs = updatedItem.effects;
+        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
+        if (aeDiff.deleted.length > 0) {
+            try {
+                await item.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+            } catch (error) {
+                console.error(error);
             }
-
-            // we pull out the items here so that the embedded document operations get called
-            const itemDiff = this.diffItems(baseItems, updatedItems);
-            if (itemDiff.deleted.length > 0) {
-                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted);
-            }
-            if (itemDiff.inserted.length > 0) {
-                await actor.createEmbeddedDocuments("Item", itemDiff.inserted);
-            }
-            if (itemDiff.updated.length > 0) {
-                await actor.updateEmbeddedDocuments("Item", itemDiff.updated);
-            }
-        } catch (error) {
-            console.error(error);
-            console.debug(error.stack);
         }
+
+        return updatedItem;
+    }
+
+    private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e): Promise<ActorSourcePF2e | null> {
+        const baseActor = actor.toObject();
+        const updatedActor = await (() => {
+            try {
+                return this.getUpdatedActor(baseActor, migrations);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        })();
+        if (!updatedActor) return null;
+
+        const baseItems = baseActor.items;
+        const baseAEs = baseActor.effects;
+        const updatedItems = updatedActor.items;
+        const updatedAEs = updatedActor.effects;
+
+        baseActor.items = [];
+        updatedActor.items = [];
+        baseActor.effects = [];
+        updatedActor.effects = [];
+
+        // We pull out the items here so that the embedded document operations get called
+        const itemDiff = this.diffCollection(baseItems, updatedItems);
+        if (itemDiff.deleted.length > 0) {
+            try {
+                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
+        if (aeDiff.deleted.length > 0) {
+            try {
+                await actor.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        if (itemDiff.inserted.length > 0) {
+            try {
+                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        updatedActor.items = itemDiff.updated;
+        return updatedActor;
     }
 
     private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e): Promise<void> {
+        if (!migrations.some((migration) => !!migration.updateMacro)) return;
+
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
             const changes = diffObject(macro.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
-                await macro.update(changes);
+                await macro.update(changes, { noHook: true });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
         }
     }
 
     private async migrateWorldTable(migrations: MigrationBase[], table: RollTable): Promise<void> {
+        if (!migrations.some((migration) => !!migration.updateTable)) return;
+
         try {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
             const changes = diffObject(table.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
-                table.update(changes);
+                table.update(changes, { noHook: true });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
         }
     }
 
     private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocumentPF2e): Promise<void> {
+        if (!migrations.some((migration) => !!migration.updateToken)) return;
+
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes);
+                await token.update(changes, { noHook: true });
             }
         } catch (error) {
             console.error(error);
-            console.debug(error.stack);
         }
     }
 
     private async migrateUser(migrations: MigrationBase[], user: UserPF2e): Promise<void> {
+        if (!migrations.some((migration) => !!migration.updateUser)) return;
+
         try {
             const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
             const changes = diffObject(user.toObject(), updatedUser);
             if (!isObjectEmpty(changes)) {
-                await user.update(changes);
+                await user.update(changes, { noHook: true });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
         }
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
-        const promises: Promise<void>[] = [];
-
         // Migrate World Actors
-        for (const actor of game.actors) {
-            promises.push(this.migrateWorldActor(migrations, actor));
-        }
+        await this.migrateWorldDocuments(game.actors, CONFIG.Actor.documentClass, migrations);
 
         // Migrate World Items
-        for (const item of game.items) {
-            promises.push(this.migrateWorldItem(migrations, item));
-        }
+        await this.migrateWorldDocuments(game.items, CONFIG.Item.documentClass, migrations);
 
+        const promises: Promise<unknown>[] = [];
         // Migrate World Macros
         for (const macro of game.macros) {
             promises.push(this.migrateWorldMacro(migrations, macro));
@@ -164,7 +236,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // call the free-form migration function. can really do anything
         for (const migration of migrations) {
-            promises.push(migration.migrate());
+            if (migration.migrate) promises.push(migration.migrate());
         }
 
         // the we should wait for the promises to complete before updating the tokens
@@ -195,7 +267,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actors and items in world compendia */
     private async runPackMigrations(
         migrations: MigrationBase[],
-        promises: Promise<void>[]
+        promises: Promise<unknown>[]
     ): Promise<CompendiumCollection[]> {
         const worldPacks = game.packs.filter((pack) => pack.metadata.package === "world");
         // Packs need to be unlocked in order for their content to be updated

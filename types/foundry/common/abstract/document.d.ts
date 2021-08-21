@@ -95,8 +95,8 @@ declare global {
                     options: { save: true; keepId?: boolean }
                 ): Promise<T>;
                 clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]> | undefined,
-                    options?: { save?: false | undefined; keepId?: boolean }
+                    data?: DeepPartial<T["data"]["_source"]>,
+                    options?: { save?: false; keepId?: boolean }
                 ): T;
                 clone<T extends this>(
                     data?: DeepPartial<T["data"]["_source"]>,
@@ -162,11 +162,11 @@ declare global {
                  * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
                  * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
                  */
-                static createDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    data?: PreCreate<T["data"]["_source"]>[],
+                static createDocuments<T extends ConstructorOf<any>>(
+                    this: T,
+                    data?: PreCreate<InstanceType<T>["data"]["_source"]>[],
                     context?: DocumentModificationContext
-                ): Promise<T[]>;
+                ): Promise<InstanceType<T>[]>;
 
                 /**
                  * Update multiple Document instances using provided differential data.

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @Compendium[pf2e.spells-srd.Light]{Light}, 1st: @Compendium[pf2e.spells-srd.Heal]{Heal}, 2nd: @Compendium[pf2e.spells-srd.Spiritual Weapon]{Spiritual Weapon}, 3rd: @Compendium[pf2e.spells-srd.Searing Light]{Searing Light}, 4th: @Compendium[pf2e.spells-srd.Divine Wrath]{Divine Wrath}, 5th: @Compendium[pf2e.spells-srd.Flame Strike]{Flame Strike}, 6th:@Compendium[pf2e.spells-srd.Blade Barrier]{Blade Barrier}, 7th: @Compendium[pf2e.spells-srd.Divine Decree]{Divine Decree}, 8th: @Compendium[pf2e.spells-srd.Divine Aura]{Divine Aura}, 9th: @Compendium[pf2e.spells-srd.Foresight]{Foresight}</p>\n<p><strong>Bloodline Spells</strong> initial: @Compendium[pf2e.spells-srd.Angelic Halo]{Angelic Halo}, advanced: @Compendium[pf2e.spells-srd.Angelic Wings]{Angelic Wings}, greater: @Compendium[pf2e.spells-srd.Celestial Brand]{Celestial Brand}</p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Angelic Blood Magic]{Effect: Angelic Blood Magic}</p>"
         },
         "featType": {
@@ -25,11 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.focus.max",
+                "priority": 10,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.rel.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +57,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "vtKYjX3UxxxX2FBb",
-            "changes": [
-                {
-                    "key": "data.skills.dip.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/angelic.webp",
-            "label": "Bloodline: Angelic",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/angelic.webp",
     "name": "Bloodline: Angelic",

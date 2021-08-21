@@ -50,12 +50,7 @@ export interface CreatureSystemData extends ActorSystemData {
     /** Saving throw data */
     saves: Record<SaveType, StatisticModifier>;
 
-    resources: {
-        focus?: {
-            value: number;
-            max: number;
-        };
-    };
+    resources: BaseCreatureResources;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -104,7 +99,12 @@ export interface BaseCreatureAttributes {
     ac: { value: number };
     perception: { value: number };
 }
-
+export interface BaseCreatureResources {
+    focus?: {
+        value: number;
+        max: number;
+    };
+}
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 
 export enum VisionLevels {

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\">Baba Yaga teaches you how to transfer spirits into objects and freeze your foes.</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Spell List</strong> occult</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Patron Skill</strong> Occultism</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Hex Cantrip</strong> @Compendium[pf2e.spells-srd.Spirit Object]{Spirit Object}</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Granted Spell</strong> @Compendium[pf2e.spells-srd.Chilling Spray]{Chilling Spray}</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.occ.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -46,28 +47,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "U2z33zqSEo2r9kTj",
-            "changes": [
-                {
-                    "key": "data.skills.occ.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/baba-yaga-patron.webp",
-            "label": "Baba Yaga Patron",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/baba-yaga-patron.webp",
     "name": "Baba Yaga Patron",

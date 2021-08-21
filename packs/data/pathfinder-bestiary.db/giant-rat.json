@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "10 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "10"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +64,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "Giant rats are enormous versions of the common vermin. They are typically found in abundant numbers, but since they cannot flt in the nooks where mundane rats typically hide, they are much easier to locate and exterminate. They mostly live in sewers where they can scavenge from the streets above, but some families of giant rats live in more remote locations, such as dank caves or forests and hills. Rats are incredibly adept survivors and can be found nearly anywhere in the world, though they tend to favor temperate or warm climates as opposed to cold regions.<br /><br /> Although its bite alone is not lethal except to the very young or very old, the giant rat carries the filth fever common to rodents around the world-a pestilence more than capable of ravaging rural communities.<br /><br />",
+            "flavorText": "<p>Rats are a ubiquitous menace, scurrying through the sewers and on the streets of nearly every settlement the world over. Though a regular rat darting underfoot might startle or even frighten the average passerby, giant rats and rat swarms are far more dangerous.</p>\n<hr />\n<p>Giant rats are enormous versions of the common vermin. They are typically found in abundant numbers, but since they cannot fit in the nooks where mundane rats typically hide, they are much easier to locate and exterminate. They mostly live in sewers where they can scavenge from the streets above, but some families of giant rats live in more remote locations, such as dank caves or forests and hills. Rats are incredibly adept survivors and can be found nearly anywhere in the world, though they tend to favor temperate or warm climates as opposed to cold regions.</p>\n<p>Although its bite alone is not lethal except to the very young or very old, the giant rat carries the filth fever common to rodents around the world-a pestilence more than capable of ravaging rural communities.</p>",
             "level": {
                 "value": -1
             },
@@ -85,10 +86,6 @@
                 "saveDetail": "",
                 "value": 3
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -131,8 +128,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "filth fever"
+                        "filth-fever"
                     ]
                 },
                 "bonus": {
@@ -148,10 +146,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -172,10 +166,106 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "g7nl0QahmH5JaunK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "28P5kFSjVh3w1R9o",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "Mjlek9OZ25Tga7Cg",
@@ -187,19 +277,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured. <strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"disease\" data-pf2-label=\"Filth Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Stage 1</strong> carrier with no ill effect (1d4 hours), <strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (1 day), <strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 (1 day), <strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day), <strong>Stage 5</strong> dead</p>"
+                    "value": "<p data-visibility=\"gm\">The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"disease\" data-pf2-label=\"Filth Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #hours]]{1d4 hours}),</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day),</p>\n<p><strong>Stage 3</strong> Sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day),</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day),</p>\n<p><strong>Stage 5</strong> dead</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -222,9 +308,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Filth Fever",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -243,10 +329,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -263,7 +345,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -295,10 +377,6 @@
                         "value": 2
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -321,7 +399,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -340,10 +418,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -360,7 +434,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         }
     ],

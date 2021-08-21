@@ -1,38 +1,21 @@
-import type { ActorPF2e } from "@actor/index";
+import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data";
-import type { ItemPF2e } from "@item/index";
+import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
-import { FoundryUtils } from "tests/utils";
 import { FakeCollection } from "./fake-collection";
-
-export class FakeActorItem {
-    actor: FakeActor;
-    id: string;
-    constructor(actor: FakeActor, id: string) {
-        this.actor = actor;
-        this.id = id;
-    }
-
-    get data() {
-        return this.actor.data.items.find((itemData: ItemSourcePF2e) => itemData._id == this.id);
-    }
-
-    get name() {
-        return this.data?.name;
-    }
-
-    update(changes: EmbeddedDocumentUpdateData<ItemPF2e>) {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this.data!, k, v);
-        }
-    }
-}
+import { FakeItem } from "./fake-item";
 
 export class FakeActor {
     _data: ActorSourcePF2e;
+
+    items: FakeCollection<ItemPF2e> = new FakeCollection();
+
     _itemGuid = 1;
+
     constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<ActorPF2e> = {}) {
-        this._data = FoundryUtils.duplicate(data);
+        this._data = duplicate(data);
+        this._data.items ??= [];
+        this.prepareData();
     }
 
     get id(): string {
@@ -47,13 +30,25 @@ export class FakeActor {
         return this._data.name;
     }
 
-    get items() {
-        const collection = new FakeCollection();
-        this.data.items?.forEach((itemData: ItemSourcePF2e) => {
-            const item = new FakeActorItem(this, itemData._id);
-            collection.set(item.id, item);
-        });
-        return collection;
+    prepareData(): void {
+        const sourceIds = this._data.items.map((source) => source._id);
+        for (const item of this.items) {
+            if (!sourceIds.includes(item.id)) {
+                this.items.delete(item.id);
+            }
+        }
+
+        for (const source of this._data.items) {
+            const item = this.items.get(source._id);
+            if (item) {
+                (item as any)._data = duplicate(source);
+            } else {
+                this.items.set(
+                    source._id,
+                    new FakeItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e
+                );
+            }
+        }
     }
 
     static fromToken(token: Token): ActorPF2e | null {
@@ -71,64 +66,62 @@ export class FakeActor {
         return new this(actorData, { token }) as unknown as ActorPF2e;
     }
 
-    update(changes: object) {
+    update(changes: Record<string, any>) {
+        delete changes.items;
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._data, k, v);
         }
+        this.prepareData();
     }
 
-    updateEmbeddedDocuments(type: string, data: any | any[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
+    static async updateDocuments(
+        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        _context: DocumentModificationContext = {}
+    ): Promise<ActorPF2e[]> {
+        return updates.flatMap((update) => {
+            const actor = game.actors.find((actor) => actor.id === update._id);
+            if (!actor) throw Error("PANIC!");
 
-        if (this._data.items === undefined) {
-            this._data.items = [];
-        }
+            const itemUpdates = (update.items ?? []) as DeepPartial<ItemSourcePF2e>[];
+            delete update.items;
+            mergeObject(actor.data, update);
+            for (const partial of itemUpdates) {
+                const source = (actor as any)._data.items.find(
+                    (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id
+                );
+                if (source) mergeObject(source, partial);
+            }
+            actor.prepareData();
+            return actor;
+        });
+    }
 
-        for (const itemChanges of data) {
-            let obj: unknown;
+    async updateEmbeddedDocuments(type: string, data: any[]): Promise<void> {
+        for (const changes of data) {
             if (type == "Item") {
-                obj = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === itemChanges._id);
-            }
-
-            for (const [k, v] of Object.entries(itemChanges)) {
-                if (typeof obj === "object" && obj !== null) {
-                    global.setProperty(obj, k, v);
-                }
+                const source = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === changes._id);
+                mergeObject(source, changes);
             }
         }
+        this.prepareData();
     }
 
-    createOwnedItem(data: any | any[]) {
-        return this.createEmbeddedDocuments("Item", data);
-    }
-
-    createEmbeddedDocuments(type: string, data: any | any[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
-
-        if (this._data.items === undefined) {
-            this._data.items = [];
-        }
-
+    async createEmbeddedDocuments(type: string, data: any[], _context: DocumentModificationContext): Promise<void> {
         if (type == "Item") {
-            for (const obj of data) {
-                obj._id = `item${this._itemGuid}`;
+            for (const source of data) {
+                source._id = `item${this._itemGuid}`;
                 this._itemGuid += 1;
-                this._data.items.push(obj);
+                this._data.items.push(source);
             }
         }
+        this.prepareData();
     }
 
-    deleteEmbeddedDocuments(type: string, data: string | string[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
-
+    async deleteEmbeddedDocuments(type: string, data: string[]): Promise<void> {
         if (type == "Item") {
-            for (const id of data) {
-                this._data.items = this._data.items?.filter((x: any) => x._id !== id);
-            }
+            this._data.items = this._data.items.filter((source: { _id: string }) => !data.includes(source._id));
         }
+        this.prepareData();
     }
 
     toObject(source = true) {

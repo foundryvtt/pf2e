@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You have honed your skill in using your body as a weapon. Your proficiency ranks for unarmed attacks and simple weapons increase to master.</p>"
         },
         "featType": {
@@ -25,11 +23,20 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.simple.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,33 +50,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "N0oiJuQwuC8JzRPO",
-            "changes": [
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/master-strikes.webp",
-            "label": "Master Strikes",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/master-strikes.webp",
     "name": "Master Strikes",

@@ -1,15 +1,18 @@
+import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { SpellPF2e } from "@item/spell";
 import { OneToTen, ZeroToTen } from "@module/data";
-import { groupBy } from "@module/utils";
+import { groupBy, ErrorPF2e } from "@module/utils";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
 
 export interface SpellcastingSlotLevel {
     label: string;
     level: ZeroToTen;
-    uses?: number;
-    slots: number;
     isCantrip: boolean;
+    uses?: {
+        value?: number;
+        max: number;
+    };
     displayPrepared?: boolean;
     active: (ActiveSpell | null)[];
     spellPrepList?: {
@@ -53,6 +56,20 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     get tradition() {
         return this.data.data.tradition.value;
+    }
+
+    /**
+     * Returns the proficiency used for calculations.
+     * For innate spells, this is the highest spell proficiency (min trained)
+     */
+    get rank() {
+        const actor = this.actor;
+        if (actor instanceof CharacterPF2e && this.isInnate) {
+            const allRanks = actor.itemTypes.spellcastingEntry.map((entry) => entry.data.data.proficiency.value ?? 0);
+            return Math.max(1, ...allRanks);
+        }
+
+        return this.data.data.proficiency.value ?? 0;
     }
 
     get isPrepared(): boolean {
@@ -146,15 +163,21 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
+        if (!(this.actor instanceof CreaturePF2e)) {
+            throw ErrorPF2e("Spellcasting entries can only exist on creatures");
+        }
+
         const results: SpellcastingSlotLevel[] = [];
         const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
         if (this.isPrepared) {
+            // Prepared Spells. Active spells are what's been prepped.
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
 
                 // Populate prepared spells
-                const active: (ActiveSpell | null)[] = Array(data.max).fill(null);
+                const maxPrepared = Math.max(data.max, 0);
+                const active: (ActiveSpell | null)[] = Array(maxPrepared).fill(null);
                 for (const [key, value] of Object.entries(data.prepared)) {
                     const spell = value.id ? this.spells.get(value.id) : null;
                     if (spell) {
@@ -169,7 +192,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 results.push({
                     label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
-                    slots: data.max,
+                    uses: { max: data.max },
                     isCantrip: level === 0,
                     spellPrepList: spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
@@ -182,20 +205,44 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                             : true,
                 });
             }
+        } else if (this.isFocusPool) {
+            // Focus Spells. All non-cantrips are grouped together as they're auto-scaled
+            const cantrips = spells.filter((spell) => spell.isCantrip);
+            const leveled = spells.filter((spell) => !spell.isCantrip);
+
+            if (cantrips.length) {
+                results.push({
+                    label: "PF2E.TraitCantrip",
+                    level: 0,
+                    isCantrip: true,
+                    active: cantrips.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                });
+            }
+
+            if (leveled.length) {
+                results.push({
+                    label: "PF2E.Focus.label",
+                    level: Math.max(1, Math.ceil(this.actor.level / 2)) as OneToTen,
+                    isCantrip: false,
+                    uses: this.actor.data.data.resources.focus ?? { value: 0, max: 0 },
+                    active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                });
+            }
         } else {
-            const alwaysShow = !this.isRitual && !this.isFocusPool;
+            // Everything else
+            const alwaysShowHeader = !this.isRitual;
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.heightenedLevel));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
                 // todo: innate spells should be able to expend like prep spells do
-                if (alwaysShow || spells.length) {
+                if (alwaysShowHeader || spells.length) {
+                    const uses = this.isRitual || level === 0 ? undefined : { value: data.value, max: data.max };
                     results.push({
                         label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                         level: level as ZeroToTen,
-                        uses: data.value,
-                        slots: data.max,
                         isCantrip: level === 0,
+                        uses,
                         active: spells.map((spell) => ({ spell, chatData: spell.getChatData() })),
                     });
                 }
@@ -223,6 +270,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return {
             id: this.id,
             name: this.name,
+            tradition: this.tradition,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isInnate: this.isInnate,
@@ -244,8 +292,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 const slotData = data.data.slots[slotKey];
                 if (!slotData) continue;
 
-                if (slotData.value) {
-                    const max = Number(slotData?.max ?? this.data.data.slots[slotKey].max);
+                if ("max" in slotData) {
+                    slotData.max = Math.max(Number(slotData.max) || 0, 0);
+                }
+                if ("value" in slotData) {
+                    const max = "max" in slotData ? Number(slotData?.max) || 0 : this.data.data.slots[slotKey].max;
                     slotData.value = Math.clamped(Number(slotData.value), 0, max);
                 }
             }

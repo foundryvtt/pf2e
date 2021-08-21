@@ -53,12 +53,6 @@ $rank-legendary: $primary-color;
 /* ----------------------------------------- */
 
 :root {
-    --body-serif: Gelasio, Georgia, serif;
-    --sans-serif: Roboto, sans-serif;
-    --sans-serif-condensed: "Roboto Condensed", var(--sans-serif);
-    --serif: Eczar, Georgia, serif;
-    --serif-condensed: "Modesto Condensed", serif;
-
     --primary: #{$primary-color};
     --secondary: #{$secondary-color};
     --tertiary: #{$tertiary-color};
@@ -120,10 +114,11 @@ $margin: 0.5em;
 @mixin micro {
     font-family: var(--sans-serif);
     font-size: 8px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 0.25px;
+    letter-spacing: .05em;
+    text-rendering: optimizeLegibility;
 }
 
 a[href] {
@@ -476,8 +471,9 @@ table.pf2-table {
 /* PF2E Inline Repost Element
 /* ----------------------------------------- */
 
-[data-pf2e-repost] {
+[data-pf2-repost] {
     color: #7a7971;
+    padding-left: 5px;
 }
 
 /* ----------------------------------------- */

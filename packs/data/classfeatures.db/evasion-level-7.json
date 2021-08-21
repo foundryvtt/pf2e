@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You've learned to move quickly to avoid explosions, dragon's breath, and worse. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
         },
         "featType": {
@@ -38,12 +36,14 @@
                 "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
                 "selector": "reflex",
                 "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.reflex.rank",
+                "value": 3
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -59,28 +59,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "cDnkNxjoHQ88utsn",
-            "changes": [
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/evasion.webp",
-            "label": "Evasion (Level 7)",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/evasion.webp",
     "name": "Evasion (Level 7)",

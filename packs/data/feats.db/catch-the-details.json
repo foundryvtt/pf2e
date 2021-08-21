@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>You are quick at recognizing broad details about people and things around you. You are trained in Society and gain the @Compendium[pf2e.feats-srd.Eye For Numbers]{Eye For Numbers} skill feat. If you would automatically become trained in Society (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill.</em></p>"
@@ -23,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.soc.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -41,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "BlbrN4Ye6LLSTp23",
-            "changes": [
-                {
-                    "key": "data.skills.soc.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/default-icons/feat.svg",
-            "label": "Catch the Details",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Catch the Details",

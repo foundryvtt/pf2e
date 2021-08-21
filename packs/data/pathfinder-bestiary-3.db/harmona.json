@@ -93,10 +93,6 @@
                 "value": 24
             }
         },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "traits": {
             "attitude": {
                 "value": "hostile"
@@ -168,10 +164,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -267,7 +259,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Primal Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -341,10 +333,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -430,10 +418,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -454,7 +438,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beak",
             "sort": 300000,
             "type": "melee"
@@ -484,10 +468,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -509,7 +489,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sonic Pulse",
             "sort": 400000,
             "type": "melee"
@@ -524,7 +504,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
@@ -533,10 +513,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "low-light-vision",
                 "source": {
                     "value": ""
@@ -576,7 +552,7 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature enters the harmona’s space or an adjacent square;</p>\n<p><strong>Effect</strong> The harmona Flies 10 feet away from the triggering creature.</p>"
@@ -585,10 +561,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -624,7 +596,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
                     "value": "<p>The harmona makes a beak Strike, channeling disruptive sound waves into the blow. On a hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,primal,sonic\" data-pf2-label=\"Concussive Blow DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure).</p>\n<p>After this Strike, the harmona can @Compendium[pf2e.actionspf2e.Fly]{Fly} up to half their fly Speed.</p>"
@@ -633,10 +605,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -676,19 +644,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
-                    "value": "<p>The harmona beats their wings rapidly towards the ground, creating a nearly inaudible rumble and sending a wave of shaking earth to overwhelm their enemies.</p>\n<p>Each creature in a 15-foot emanation must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,primal,damaging-effect\" data-pf2-label=\"Subsonic Pulse DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save or take [[/r 6d6 #sonic]] sonic damage. A creature that fails its save is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} from the shaking ground.</p>"
+                    "value": "<p>The harmona beats their wings rapidly towards the ground, creating a nearly inaudible rumble and sending a wave of shaking earth to overwhelm their enemies.</p>\n<p>Each creature in a 15-foot emanation must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,primal,damaging-effect\" data-pf2-label=\"Subsonic Pulse DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save or take [[/r 6d6 #sonic]]{6d6 sonic damage}. A creature that fails its save is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} from the shaking ground.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -727,19 +691,15 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": 2
                 },
                 "description": {
-                    "value": "<p>The harmona beats their wings skyward, creating a spiraling vibration. Each creature in a 30-foot cone must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,primal,sonic,damaging-effect\" data-pf2-label=\"Ultrasonic Thrust DC\" data-pf2-show-dc=\"gm\">Reflex</span> save as the high-frequency blast flings them up and away.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed 5 feet away and knocked off balance, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of their next turn.</p>\n<p><strong>Failure</strong> Sonic waves fling the creature 15 feet back from the harmona. The creature takes [[/r 6d6 #bludgeoning]] bludgeoning damage from the fall and lands @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is flung 30 feet and takes double damage.</p>"
+                    "value": "<p>The harmona beats their wings skyward, creating a spiraling vibration. Each creature in a 30-foot cone must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,primal,sonic,damaging-effect\" data-pf2-label=\"Ultrasonic Thrust DC\" data-pf2-show-dc=\"gm\">Reflex</span> save as the high-frequency blast flings them up and away.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed 5 feet away and knocked off balance, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of their next turn.</p>\n<p><strong>Failure</strong> Sonic waves fling the creature 15 feet back from the harmona. The creature takes [[/r 6d6 #bludgeoning]]{6d6 bludgeoning damage} from the fall and lands @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is flung 30 feet and takes double damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -779,7 +739,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
@@ -788,10 +748,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "push",
                 "source": {
                     "value": ""
@@ -837,10 +793,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -876,10 +828,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -915,10 +863,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -954,10 +898,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -993,10 +933,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1032,10 +968,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

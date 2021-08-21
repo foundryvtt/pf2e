@@ -1,5 +1,127 @@
 # Patch Notes:
 
+## Version 2.12.0
+### Bug Fixes
+* (stwlam) Ensure strike modifiers applied in the roll dialog are temporary
+* (stwlam) Fix ABC item-embedding for non-compendium items
+* (stwlam) Fix triple-damage application from ChatMessage context menu
+* (stwlam) Work around Foundry bug making `Actors#tokens` unusable. Closes #1637
+* (stwlam) Override LightingLayer#hasGlobalIllumination to fix upstream bug (https://gitlab.com/foundrynet/foundryvtt/-/issues/5741)
+* (Drental) Fix repost inline links functionality
+* (In3luki) Skip evaluation of modifer options for rerolled checks
+* (Trollderim) Fix wrong hp adjustment on elite and weak adjustment. Closes #1633
+* (Bluesatin) Fixed WIP PF2e theme toolbar spacing problem. Closes #1648
+
+### Content Changes
+* (TMun) Update duergars from Bounty 1 for Quest 13
+* (TMun) Add hazards and unique NPCs for Bounty 6 through 10
+* (TMun) Add or update NPCs from Bounty 3 through Bounty 5
+* (TMun) Add S and V components to _disrupt undead_. Closes #1634
+* (TMun) Add missing ability to Yianyin. Closes #1629
+* (TMun) Add Mahwek language
+* (TMun) Update Otyugh and Sewer Ooze formatting from Bestiary 1
+* (TMun) Add NPCs and Hazards from Quest 10
+* (TMun) Add summon trait for spells
+* (TMun) Add Bounty 12 unique hazard and linked cleanup
+* (TMun) Update Pathfinder Society S1-00 NPCs and Hazards
+* (TMun) Update NPCs from Pathfinder Society S2-02, S2-04, S2-05, S2-08, and S2-16
+* (TMun) Add missing or update NPCs and Hazards in Pathfinder Society S1-25. Closes #1625 and #1626
+* (TMun) Update warg and wolves from Bestiary 1 to new data standard
+* (TMun) Re-add accidentally removed text when spell link was added to equipment. Closes #1642
+* (TMun) Add new NPCs from Pathfinder Society S2-23
+* (TMun) Update Sea Drake in Bestiary 2
+* (TMun) Convert resistance/weakness/immunity types to traits to deduplicate the translations
+* (TMun) Add Russian as an uncommon language in PF2e
+* (TMun) Add passive for no MAP and note to scythe strike. Closes #1643
+* (TMun) Remove Jorogumo from Agents of Edgewatch (identical to Bestiary 3 entry)
+* (fryguy) Add +1 striking dagger to Agents of Edgewatch 4 NPC. Closes #1154
+* (stwlam) Set base item for explorer's clothing and variants
+* (stwlam) Add and set new base weapon types from Fists of the Ruby Phoenix
+* (stwlam) Fix spelling of Versatile heritage on Feiya
+* (stwlam) Clean up hex spell traits
+* (stwlam) Add svg icons for a few newer ancestries
+* (SpartanCPA) Correct actionCategory of Light Blindness in Compendium
+* (SpartanCPA) Batch change icon of spellcasting entries
+* (SpartanCPA) Batch change icon of hazards, NPCs, and prebuilts still using mystery man
+* (SpartanCPA) Batch change icon of Familiar Abilities
+* (SpartanCPA) Batch change icon of melee items
+* (SpartanCPA) Batch change passive action icons
+* (SpartanCPA) Correct traits for Gnagrif and Umbo in Strength of Thousands. Closes #1627
+* (SpartanCPA) Correct damage of Worm's Repast in Abomination Vaults
+* (SpartanCPA) Add rollable formulas to the Ghoul/Ghast stock abilities
+* (SpartanCPA) Have _inspire courage_ give a bonus to all fear-based saving throws, not just Will saves
+* (SpartanCPA) Add effect for Immunity to Guidance
+* (SpartanCPA) Brush up of Abomination Vaults level 3 creatures
+* (SpartanCPA) Add creature family abilities for Graveknight, Lich, Vampire, Werecreature, Zombie, and others
+* (SpartanCPA) Correct roll button on Buck
+* (SpartanCPA) Add `healing` trait to Antidote and Antiplague
+* (Drental) Change fane's escape to a skill feat
+* (Drental) Brush up labels and flavor text for inline damage rolls
+* (Tikael) Correct level of sand whirlwind hazard
+* (Tikael) Correct daikyu ability. Closes #1631
+* (Tikael) Link steel your resolve macro from steel your resolve feat description
+* (Tikael) Correct Belt of Regeneration details
+* (Tikael) Fix Forest Endemic Herb effect
+* (Tikael) Automate Crunch feat
+* (Tikael) Correct Anitoli's reflex save
+* (Tikael) Fix bonus to saving throws vs magic monster ability
+* (Tikael) Correct actions for _prismatic wall_ spell
+* (Tikael) Part 2 of brushup of Age of Ashes book 4
+* (Tikael) Add _divine vessel_ spell effects
+* (Tikael) Add base spell effect for _righteous might_
+* (kageru) Fix demonblood frenzy prerequisites
+* (kageru) Remove obsolete inline styling in some class descriptions
+* (Trent) Add "area" information to _field of life_ spell
+* (InfamousSky) Brush up of some Extinction Curse NPCs
+
+### Core System Improvements
+* (stwlam) Fix Strike rule element for NPCs
+* (stwlam) Add "cursed" to mystified traits
+* (stwlam) Attempt to migrate existing feats, class features etc to correctly calculate the focus pool size
+* (stwlam) Set several character proficiencies from class data and remove ability to directly edit
+* (stwlam) Remove active effects from classes, convert active effects on several item types to AE-like rule elements
+* (stwlam) Set a default permission of limited for newly-created PCs and familiars
+* (stwlam) Change "Combat" and "Combatant" language in Combat Tracker to "Encounter" and "Participant"
+* (stwlam) Add coin management buttons to NPC sheet
+* (stwlam) Add creature-size rule element, start tracking natural reach
+* (stwlam) Visually indicate that a hero point was used on a reroll
+* (stwlam) Only show class DC on PC sheet if actually present
+* (stwlam) Fix chat-log auto-scrolling issue when a damage roll is the last message
+* (stwlam) Set initial background skill rank from background
+* (stwlam) Retire TokenSize rule element in favor of CreatureSize rule element
+* (stwlam) Make data migrations faster and more resilient
+* (stwlam) Prevent input of negative spell slot values for PC spellcasting entries
+* (stwlam) Add more deadly-trait variants in config.ts and consolidate descriptions
+* (stwlam) Actor-sheet and journal-sheet styling cleanup
+* (stwlam) Remove gap beneath damage cards and restore auto-send-to-bottom of messages
+* (stwlam) Make check rolls async
+* (Tikael) Automate incredible investiture general feat
+* (Tikael) Fix area label in spell details
+* (Tikael) Simplify input of basic templates, change coarse rotation angle
+* (Tikael) Fix empty line in loot actor inventory
+* (Supe) Clean up old spell preparation property
+* (Supe) Update focus spell organization and styling, and fix sorting for focus cantrips
+* (Supe) Remove halcyon from traditions, spellTraditions constant removed in favor of magicTraditions
+* (Supe) Remove gaps in smaller character sheet header stroke for better readability
+* (Supe) Move magical traditions from individual spellcasting entries to actor data
+* (Supe) Innate spells sync to the highest spellcasting proficiency
+* (Supe) Spellcasting ability set in dialog, show tradition next to proficiency
+* (Supe) Partially standardize action header in character sheet, fixes deity boons item controls
+* (Supe) NPC sheet restructuring:
+    * Move Recall Knowledge and Languages to the main npc tab
+    * Remove NPC toggles section header to save space
+* (Supe) Make NPC sheet controls always visible, and reorganize strikes
+* (Supe) Fix NPC sheet inventory item summary and lack of border bottom bugs
+* (Supe) Focus and Halcyon migration tweaks
+* (Chup) Change proficiency level adjustment from clicking to dropdowns in Proficiency tab
+* (Chup) Adjusted styling for very small text elements to make them more legible
+* (Chup) Add button to settings tab to show legal notices, like the Paizo Community Use Policy, and remove the license text from the sheets
+* (Chup) Show message if set proficiency rank is below minimum set by features
+* (Chup) Remove "add" buttons on sheet for observers
+* (Chup) Fix vehicle tag selection
+* (kageru) Use numbers for action count in feats
+
+
 ## Version 2.11.1
 ### Bug Fixes
 * (stwlam) Fix sporadic error where a token would not have access to its data when determining vision

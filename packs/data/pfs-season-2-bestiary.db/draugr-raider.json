@@ -30,7 +30,7 @@
                 "value": null
             },
             "hp": {
-                "details": "(negative healing)",
+                "details": "negative healing",
                 "max": 70,
                 "temp": 0,
                 "value": 70
@@ -51,7 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
                         "label": "Swim",
                         "type": "swim",
                         "value": "25"
@@ -69,7 +68,7 @@
                 "value": 4
             },
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-04: Path of Kings"
             }
         },
         "resources": {},
@@ -86,10 +85,6 @@
                 "saveDetail": "",
                 "value": 10
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -108,6 +103,7 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Fire",
                     "type": "fire",
                     "value": "5"
@@ -121,10 +117,11 @@
                 }
             ],
             "languages": {
-                "custom": "",
+                "custom": "can't speak any language",
                 "selected": [],
                 "value": [
-                    "common (can't speak any language)"
+                    "common",
+                    "custom"
                 ]
             },
             "rarity": {
@@ -187,7 +184,7 @@
                     "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -277,16 +274,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
                 "slug": "greataxe",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -431,10 +427,6 @@
                 },
                 "resilient": {},
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -485,7 +477,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Grotesque Gift"
+                        "grotesque-gift"
                     ]
                 },
                 "bonus": {
@@ -501,10 +493,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -538,7 +526,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Grotesque Gift"
+                        "grotesque-gift"
                     ]
                 },
                 "bonus": {
@@ -554,10 +542,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -592,7 +576,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
@@ -601,10 +585,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "darkvision",
                 "source": {
                     "value": ""
@@ -629,7 +609,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 500000,
             "type": "action"
@@ -644,19 +624,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that slays a draugr is subjected to a @Compendium[pf2e.spells-srd.Mariner's Curse]{Mariner's Curse} spell with a save DC of 20. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
+                    "value": "<p>A creature that slays a draugr is subjected to a <em>@Compendium[pf2e.spells-srd.Mariner's Curse]{Mariner's Curse}</em> spell with a save DC of 20. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -681,7 +657,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "The Sea's Revenge",
             "sort": 600000,
             "type": "action"
@@ -696,7 +672,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
@@ -705,10 +681,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -733,7 +705,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
             "sort": 700000,
             "type": "action"
@@ -748,7 +720,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A draugr's attacks spatter their targets with rancid flesh and rotting seaweed. A creature damaged by a draugr's Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"olfactory\" data-pf2-label=\"Grotesque Gift DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
@@ -757,10 +729,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -783,7 +751,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grotesque Gift",
             "sort": 800000,
             "type": "action"
@@ -807,10 +775,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -831,7 +795,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Swipe",
             "sort": 900000,
             "type": "action"
@@ -852,10 +816,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -891,10 +851,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Whether taking stock of an enemy army or simply standing guard, you excel at observing your foes. Your proficiency rank for Perception increases to master. In addition, you gain a +2 circumstance bonus to Perception checks for initiative, making you faster to react during combat.</p>"
         },
         "featType": {
@@ -36,12 +34,14 @@
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.perception.rank",
+                "value": 3
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -55,28 +55,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "afb5nXpj8Mr5fEN0",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
-            "label": "Battlefield Surveyor",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
     "name": "Battlefield Surveyor",

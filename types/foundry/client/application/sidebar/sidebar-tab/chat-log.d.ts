@@ -2,10 +2,8 @@
  * The Chat Log application displayed in the Sidebar
  * @see {Sidebar}
  */
-declare class ChatLog extends SidebarTab {
-    /**
-     * Track whether the user currently has pending text in the chat box
-     */
+declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends SidebarTab {
+    /** Track whether the user currently has pending text in the chat box */
     protected _pendingText: string;
 
     /**
@@ -31,7 +29,7 @@ declare class ChatLog extends SidebarTab {
     /**
      * Track the last received message which included the user as a whisper recipient.
      */
-    _lastWhisper: ChatMessage | null;
+    protected _lastWhisper: TChatMessage | null;
 
     constructor(options?: {});
 
@@ -46,8 +44,7 @@ declare class ChatLog extends SidebarTab {
     /*  Application Rendering                       */
     /* -------------------------------------------- */
 
-    /** @override */
-    getData(options?: { stream?: boolean }): {
+    override getData(options?: { stream?: boolean }): {
         user: User;
         rollMode: number;
         rollModes: number[];
@@ -60,8 +57,7 @@ declare class ChatLog extends SidebarTab {
      */
     protected _renderBatch(size: number): Promise<void>;
 
-    /** @override */
-    renderPopout(original: ChatMessage): void;
+    override renderPopout(original: TChatMessage): void;
 
     /* -------------------------------------------- */
     /*  Chat Sidebar Methods                        */
@@ -130,7 +126,11 @@ declare class ChatLog extends SidebarTab {
      */
     protected processMessage(message: string): Promise<foundry.data.ChatMessageData>;
 
-    /** @todo: Fill remaining properties */
+    /**
+     * Get the ChatLog entry context options
+     * @return The sidebar entry context options
+     */
+    protected override _getEntryContextOptions(): EntryContextOption[];
 }
 
 declare interface ChatLogDefaultOptions extends SidebarTabOptions {

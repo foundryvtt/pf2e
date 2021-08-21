@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
-import type { ConditionPF2e, ArmorPF2e } from "@item/index";
+import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -16,7 +16,7 @@ import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
 import { AbilityString, BaseActorDataPF2e } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
@@ -33,7 +33,7 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
-export class ActorPF2e extends Actor<TokenDocumentPF2e> {
+class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Has this actor gone through at least one cycle of data preparation? */
     private initialized: true | undefined;
 
@@ -125,29 +125,13 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>,
-        context?: DocumentModificationContext
-    ): Promise<A | undefined>;
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[],
-        context?: DocumentModificationContext
-    ): Promise<A[]>;
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[] | PreCreate<A["data"]["_source"]>,
-        context?: DocumentModificationContext
-    ): Promise<A[] | A | undefined>;
-    static override async create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[] | PreCreate<A["data"]["_source"]>,
+    static override async createDocuments<A extends ConstructorOf<ActorPF2e>>(
+        this: A,
+        data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext = {}
-    ): Promise<A[] | A | undefined> {
+    ): Promise<InstanceType<A>[]> {
         if (game.settings.get("pf2e", "defaultTokenSettings")) {
-            const createData = Array.isArray(data) ? data : [data];
-            for (const datum of createData) {
+            for (const datum of data) {
                 // Set wounds, advantage, and display name visibility
                 const nameMode = game.settings.get("pf2e", "defaultTokenSettingsName");
                 const barMode = game.settings.get("pf2e", "defaultTokenSettingsBar");
@@ -168,6 +152,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 switch (merged.type) {
                     case "character":
                     case "familiar":
+                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
                         // Default characters and their minions to having tokens with vision and an actor link
                         merged.token.actorLink = true;
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
@@ -190,7 +175,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             }
         }
 
-        return super.create(data, context) as Promise<A[] | A | undefined>;
+        return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
@@ -1249,7 +1234,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 }
 
-export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
+interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
@@ -1305,3 +1290,12 @@ export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
+
+declare namespace ActorPF2e {
+    function updateDocuments(
+        updates?: DocumentUpdateData<ActorPF2e>[],
+        context?: DocumentModificationContext
+    ): Promise<ActorPF2e[]>;
+}
+
+export { ActorPF2e };

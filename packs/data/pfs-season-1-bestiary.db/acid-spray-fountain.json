@@ -1,0 +1,187 @@
+{
+    "_id": "mhKK0mhhI9V3OiUQ",
+    "data": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "stealth": {
+                "details": "<p>(expert) to notice the concealed fountain</p>",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A concealed acid fountain with three nozzles is connected to eight pressure pads in the room.</p>",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"complex,mechanical,trap\" data-pf2-label=\"Disable the Fountain DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) on the fountain stops it from spraying acid, or <span data-pf2-check=\"thievery\" data-pf2-traits=\"complex,mechanical,trap\" data-pf2-label=\"Disable a Fountain Nozzle DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) disables one of the nozzles and reduces the number of actions the trap can take by 1. When the number of actions is reduced to 0, the fountain is disabled.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "reset": "<p>The trap deactivates after 1 minute, at which point its acid reservoir is empty. It can't reactivate until this reservoir is refilled.</p>",
+            "routine": "<p><span class=\"pf2-icon\">3</span> On its initiative, the trap makes an acid spray Strike against a random creature in the room for each of its actions.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder Society Scenario 1-00: Origin of the Open Road"
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "acid",
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": {
+                "value": "common"
+            },
+            "size": {
+                "value": "med"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical",
+                    "trap"
+                ]
+            }
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "587VL0W2V2l2E1uh",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature steps on a pressure pad.</p>\n<p><strong>Effect</strong> The trap makes an acid spray Strike against a random creature in the room, although the initial damage is reduced by 8 as the acid eats through the concealing boxes. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Fountain Activation",
+            "sort": 0,
+            "type": "action"
+        },
+        {
+            "_id": "3EJeaEsJhTMJqDGi",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "0fmgo2760mbp1j346izl": {
+                        "damage": "2d10+8",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": "<p>No MAP penalty.</p>\n<p>The spray does [[/r 2d4 #persistent acid]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} on a hit and [[/r 4d4 #persistent acid]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} on a critical hit.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>Persistent Damage</strong> The spray does [[/r 2d4 #persistent acid]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} on a hit and [[/r 4d4 #persistent acid]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} on a critical hit.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Acid Spray",
+            "sort": 0,
+            "type": "melee"
+        }
+    ],
+    "name": "Acid Spray Fountain",
+    "token": {
+        "disposition": 0,
+        "height": 1,
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
+        "name": "Acid Spray Fountain",
+        "width": 1
+    },
+    "type": "hazard"
+}

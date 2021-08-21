@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You can use ki to move with extraordinary speed and make yourself harder to hit. You gain the @Compendium[pf2e.spells-srd.Ki Rush]{Ki Rush} ki spell and a focus pool of 1 Focus Point.</p>"
         },
         "featType": {
@@ -24,11 +22,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

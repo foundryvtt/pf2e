@@ -62,7 +62,7 @@
                 "value": 3
             },
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-05: Balancing the Scales"
             }
         },
         "resources": {},
@@ -79,10 +79,6 @@
                 "saveDetail": "",
                 "value": 5
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -104,13 +100,11 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
                     "label": "Positive",
                     "type": "positive",
                     "value": "10"
                 },
                 {
-                    "exceptions": "",
                     "label": "Slashing",
                     "type": "slashing",
                     "value": "10"
@@ -167,10 +161,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -190,7 +180,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spiked Club",
             "sort": 100000,
             "type": "melee"
@@ -220,11 +210,13 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text' data-visibility=\"gm\"><strong>Eye Throwing</strong> A fire-eye zombie can launch its eye at foes. While its eye is out of its head, the fire-eye zombie is @Compendium[pf2e.conditionitems.Blinded]{Blinded}. At the end of its turn, a fire-eye zombie's eye flies back into its eye socket.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -245,7 +237,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Eye",
             "sort": 200000,
             "type": "melee"
@@ -260,19 +252,15 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions .</p>"
+                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -293,7 +281,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
             "sort": 300000,
             "type": "action"
@@ -308,7 +296,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
@@ -317,10 +305,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "darkvision",
                 "source": {
                     "value": ""
@@ -345,7 +329,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 400000,
             "type": "action"
@@ -360,19 +344,24 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. The fire-eye zombie emits an @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d4 #fire]] damage as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
+                    "value": "<p>10 feet @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}.</p>\n<hr />\n<p>The fire-eye zombie emits an aura of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d4 #fire]]{1d4 fire damage} as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>Searing Aura</strong> On a critical hit a creature must immediately succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d4 #fire]]{1d4 fire damage} as its wounds burn.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -397,7 +386,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Searing Aura",
             "sort": 500000,
             "type": "action"
@@ -412,7 +401,7 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
@@ -421,10 +410,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -449,7 +434,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
             "sort": 600000,
             "type": "action"
@@ -458,13 +443,13 @@
             "_id": "W6noQhWuklyayC1t",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "value": "<p>A fire-eye zombie can launch its eye at foes. While its eye is out of its head, the fire-eye zombie is @Compendium[pf2e.conditionitems.Blinded]{Blinded}.</p>\n<p>At the end of its turn, a fire-eye zombie's eye flies back into its eye socket.</p>"
@@ -473,10 +458,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -497,7 +478,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Eye Throwing",
             "sort": 700000,
             "type": "action"
@@ -518,10 +499,6 @@
                     "value": 0
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""

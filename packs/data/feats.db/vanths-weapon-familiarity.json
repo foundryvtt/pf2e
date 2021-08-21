@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You seek to emulate vanth reapers' fighting styles. You are trained with @Compendium[pf2e.equipment-srd.Bo Staff]{Bo Staves}, @Compendium[pf2e.equipment-srd.Longbow]{Longbows}, @Compendium[pf2e.equipment-srd.Composite Longbow]{Composite Longbows}, @Compendium[pf2e.equipment-srd.Scythe]{Scythes}, and @Compendium[pf2e.equipment-srd.Staff]{Staves}.</p>"
         },
         "featType": {
@@ -25,11 +23,38 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-bo-staff.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-longbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-composite-longbow.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-scythe.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-staff.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,48 +68,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "d1YKEpj78yZg65LO",
-            "changes": [
-                {
-                    "key": "data.martial.weapon-base-bo-staff.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-longbow.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-composite-longbow.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-scythe.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-staff.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Vanth's Weapon Familiarity",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Vanth's Weapon Familiarity",

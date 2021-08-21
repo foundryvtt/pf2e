@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>Your armor has become akin to a second skin for you. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to master. When wearing light or medium armor, you can rest normally, rather than receiving poor rest that leaves you fatigued.</p>"
         },
         "featType": {
@@ -25,11 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmored.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,38 +56,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "IzeR5UfvaRDH3I0S",
-            "changes": [
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.medium.rank",
-                    "mode": 4,
-                    "value": "3"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "3"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/second-skin.webp",
-            "label": "Second Skin",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/second-skin.webp",
     "name": "Second Skin",

@@ -6,8 +6,9 @@ export class MystifiedTraits {
     static compile(): void {
         this.mystifiedTraits = new Set([
             ...Object.keys(CONFIG.PF2E.magicSchools),
-            ...Object.keys(CONFIG.PF2E.spellTraditions),
+            ...Object.keys(CONFIG.PF2E.magicTraditions),
             ...Object.keys(CONFIG.PF2E.consumableTraits).filter((trait) => trait !== "consumable"),
+            "cursed",
             "extradimensional",
             "invested",
         ]);

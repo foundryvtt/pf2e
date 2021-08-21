@@ -8,20 +8,6 @@
                 placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}"
             />
         </h1>
-        {{#if readonlySheet}}
-            <div class="editsheet">
-                <label>
-                    Edit?
-                </label>
-                <input
-                    class="isNPCEditable"
-                    name="flags.pf2e.editSheet.value"
-                    type="checkbox"
-                    data-dtype="Boolean"
-                    {{checked flags.pf2e.editSheet.value}}
-                />
-            </div>
-        {{/if}}
         <div class="dots">
             <h4>{{localize "PF2E.HeroPointsLabel"}}</h4>
             <span class="adjust-stat" data-property="data.attributes.heroPoints.rank" value="{{data.attributes.heroPoints.rank}}" title="{{localize data.attributes.heroPoints.hover}}">

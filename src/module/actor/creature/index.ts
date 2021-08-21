@@ -1,17 +1,11 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { WeaponData } from "@item/data";
-import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RollNotePF2e } from "@module/notes";
-import {
-    MultipleAttackPenaltyPF2e,
-    RuleElementSynthetics,
-    StrikingPF2e,
-    WeaponPotencyPF2e,
-} from "@module/rules/rules-data-definitions";
+import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
@@ -157,22 +151,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const actorData = this.data;
-        const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
-        const damageDice: Record<string, DamageDicePF2e[]> = {};
-        const strikes: WeaponData[] = [];
-        const rollNotes: Record<string, RollNotePF2e[]> = {};
-        const weaponPotency: Record<string, WeaponPotencyPF2e[]> = {};
-        const striking: Record<string, StrikingPF2e[]> = {};
-        const multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]> = {};
         const synthetics: RuleElementSynthetics = {
-            damageDice,
-            statisticsModifiers,
-            strikes,
-            rollNotes,
-            weaponPotency,
-            striking,
-            multipleAttackPenalties,
+            damageDice: {},
+            statisticsModifiers: {},
+            strikes: [],
+            rollNotes: {},
+            weaponPotency: {},
+            striking: {},
+            multipleAttackPenalties: {},
         };
+        const statisticsModifiers = synthetics.statisticsModifiers;
 
         for (const rule of rules) {
             try {
@@ -199,25 +187,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
             // Custom Modifiers (which affect d20 rolls and damage).
             data.customModifiers = data.customModifiers ?? {};
             for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-                statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+                statisticsModifiers[statistic] = (statisticsModifiers[statistic] ?? []).concat(modifiers);
             }
 
             // Damage Dice (which add dice to damage rolls).
             data.damageDice = data.damageDice ?? {};
+            const damageDice = synthetics.damageDice;
             for (const [attack, dice] of Object.entries(data.damageDice)) {
                 damageDice[attack] = (damageDice[attack] || []).concat(dice);
             }
         }
 
-        return {
-            statisticsModifiers,
-            damageDice,
-            strikes,
-            rollNotes,
-            weaponPotency,
-            striking,
-            multipleAttackPenalties,
-        };
+        return synthetics;
     }
 
     override async updateEmbeddedDocuments(
@@ -409,8 +390,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Clamp focus points when actor is updated
         const focus = data.data?.resources?.focus;
         if (focus) {
-            if (focus.max) {
-                focus.max = Math.clamped(Number(focus.max) || 0, 0, 3);
+            if (typeof focus.max === "number") {
+                focus.max = Math.clamped(focus.max, 0, 3);
             }
 
             const currentPoints = focus.value ?? this.data.data.resources.focus?.value ?? 0;

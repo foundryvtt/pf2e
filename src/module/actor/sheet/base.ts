@@ -7,7 +7,7 @@ import { isPhysicalData } from "@item/data/helpers";
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
 import { SpellPF2e } from "@item/spell";
-import { createConsumableFromSpell, SpellConsumableTypes } from "@item/consumable/spell-consumables";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { SpellSource } from "@item/spell/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import {
@@ -45,10 +45,9 @@ import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 import { ContainerPF2e } from "@item/container";
 import { ActorDataPF2e, SaveType } from "@actor/data";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
+import { AbilityString, RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
-import { MagicTradition } from "@item/spellcasting-entry/data";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 
@@ -159,7 +158,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected prepareTraits(traits: any): void {
         if (traits === undefined) return;
 
-        const map = {
+        const map: Record<string, Record<string, string | undefined>> = {
             languages: CONFIG.PF2E.languages,
             dr: CONFIG.PF2E.resistanceTypes,
             di: CONFIG.PF2E.immunityTypes,
@@ -176,7 +175,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 (trait as any).selected = {};
                 for (const entry of trait) {
                     if (typeof entry === "object") {
-                        const entryType = game.i18n.localize(choices[entry.type]);
+                        const entryType = game.i18n.localize(choices[entry.type] ?? "");
                         if ("exceptions" in entry && entry.exceptions !== "") {
                             const exceptions = entry.exceptions;
                             (trait as any).selected[entry.type] = `${entryType} (${entry.value}) [${exceptions}]`;
@@ -268,16 +267,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         html.find(".attribute-name").on("click", (event) => {
             event.preventDefault();
-            const attribute = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
+            const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
             const isSecret = event.currentTarget.getAttribute("data-secret");
-            if (this.actor.data.data.attributes[attribute]?.roll) {
-                const options = this.actor.getRollOptions(["all", attribute]);
-                if (isSecret) {
-                    options.push("secret");
-                }
-                this.actor.data.data.attributes[attribute].roll({ event, options });
+            const attributes: object = this.actor.data.data.attributes;
+            const attribute: unknown = objectHasKey(attributes, key) ? attributes[key] : null;
+            const isRollable = (property: unknown): property is { roll: RollFunction } =>
+                property instanceof Object && "roll" in property && typeof property["roll"] === "function";
+            if (isRollable(attribute)) {
+                const options = this.actor.getRollOptions(["all", key]);
+                if (isSecret) options.push("secret");
+                attribute.roll({ event, options });
             } else {
-                this.actor.rollAttribute(event, attribute);
+                this.actor.rollAttribute(event, key);
             }
         });
 
@@ -458,16 +459,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     },
                 ]);
             }
-        });
-
-        // Toggle Spell prepared value
-        html.find(".item-prepare").on("click", (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-            const item = this.actor.items.get(itemId ?? "");
-            if (!(item instanceof SpellPF2e)) {
-                throw new Error("Tried to update prepared on item that does not have prepared");
-            }
-            item.update({ "data.prepared.value": !item.data.data.prepared.value });
         });
 
         // Item Rolling
@@ -699,8 +690,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const dropSlotType = $(event.target).closest(".item").attr("data-item-type");
-        const dropContainerType = $(event.target).parents(".item-container").attr("data-container-type");
+        const $dropItemEl = $(event.target).closest(".item");
+        const $dropContainerEl = $(event.target).closest(".item-container");
+
+        const dropSlotType = $dropItemEl.attr("data-item-type");
+        const dropContainerType = $dropContainerEl.attr("data-container-type");
         const item = this.actor.items.get(itemData._id);
         if (!item) return [];
 
@@ -716,17 +710,25 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     }
                 }
             } else if (dropSlotType === "spell") {
-                const dropId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+                const dropId = $dropItemEl.attr("data-item-id") ?? "";
                 const target = this.actor.items.get(dropId);
                 if (target instanceof SpellPF2e && item.id !== dropId) {
-                    const sourceLevel = item.heightenedLevel;
                     const sourceLocation = item.data.data.location.value;
-                    const targetLevel = target.heightenedLevel;
                     const targetLocation = target.data.data.location.value;
-                    if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
+
+                    // Inner helper to test if two spells are siblings
+                    const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
+                        if (item.isCantrip !== test.isCantrip) return false;
+                        if (item.isCantrip && test.isCantrip) return true;
+                        if (item.isFocusSpell && test.isFocusSpell) return true;
+                        if (item.heightenedLevel === test.heightenedLevel) return true;
+                        return false;
+                    };
+
+                    if (sourceLocation === targetLocation && testSibling(item, target)) {
                         const entry = this.actor.items.get(sourceLocation);
                         if (entry instanceof SpellcastingEntryPF2e) {
-                            const siblings = entry.spells.filter((i) => i.heightenedLevel === sourceLevel);
+                            const siblings = entry.spells.filter((spell) => testSibling(item, spell));
                             const sortBefore = item.data.sort >= target.data.sort;
                             await item.sortRelative({ target, siblings, sortBefore });
                             return [target];
@@ -734,7 +736,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                             console.warn("PF2E System | Failed to load spellcasting entry");
                         }
                     } else {
-                        if (this.moveSpell(itemData, targetLocation, targetLevel)) {
+                        if (this.moveSpell(itemData, targetLocation, target.heightenedLevel)) {
                             return this.actor.updateEmbeddedDocuments("Item", [itemData]);
                         }
                     }
@@ -873,11 +875,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     this.actor,
                     {},
                     async (heightenedLevel, itemType, spellData) => {
-                        const consumableType =
-                            itemType == "wand" ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
-
-                        const item = await createConsumableFromSpell(consumableType, spellData, heightenedLevel);
-                        return this._onDropItemCreate(item);
+                        if (!(itemType === "scroll" || itemType === "wand")) return;
+                        const item = await createConsumableFromSpell(itemType, spellData, heightenedLevel);
+                        await this._onDropItemCreate(item);
                     },
                     itemData
                 );
@@ -956,9 +956,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         targetTokenId: string,
         itemId: string
     ): Promise<void> {
-        const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
-        const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
-        const item = sourceActor?.items?.get(itemId);
+        const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
+        const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
+        const item = sourceActor?.items.get(itemId);
 
         if (!sourceActor || !targetActor) {
             return Promise.reject(new Error("PF2e System | Unexpected missing actor(s)"));
@@ -1191,40 +1191,27 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
         createSpellcastingDialog(event, {
-            callback: (html) => {
+            callback: (result) => {
+                const { spellcastingType, tradition, ability } = result;
+
                 let name = "";
-                let magicTradition = "arcane";
-                const spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
                 if (spellcastingType === "ritual") {
-                    magicTradition = "";
                     name = game.i18n.localize(CONFIG.PF2E.preparationType["ritual"]);
                 } else {
-                    magicTradition = `${html.find('[name="magicTradition"]').val()}` as MagicTradition;
-                    const preparationType = game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType]);
-                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                     name = game.i18n.format("PF2E.SpellCastingFormat", {
-                        preparationType,
-                        tradition,
+                        preparationType: game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType] ?? ""),
+                        tradition: tradition ? game.i18n.localize(CONFIG.PF2E.magicTraditions[tradition]) : "",
                     });
                 }
 
                 // Define new spellcasting entry
                 const actor = this.actor;
                 if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
-                const actorAbilities = actor.data.data.abilities;
 
-                const candidateAbilities = ["int", "wis", "cha"] as const;
-                const bestAbility = (() => {
-                    if (spellcastingType === "innate") return "cha";
-
-                    return candidateAbilities.reduce((abilityA, abilityB) =>
-                        actorAbilities[abilityA].value > actorAbilities[abilityB].value ? abilityA : abilityB
-                    );
-                })();
                 const spellcastingEntity = {
-                    ability: { value: bestAbility },
+                    ability: { value: ability },
                     spelldc: { value: 0, dc: 0, mod: 0 },
-                    tradition: { value: magicTradition },
+                    tradition: { value: tradition },
                     prepared: { value: spellcastingType },
                     showUnpreparedSpells: { value: true },
                 };
@@ -1250,10 +1237,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         createSpellcastingDialog(event, {
             entry,
-            callback: ($html) => {
-                const tradition = $html.find('[name="magicTradition"]').val() as MagicTradition;
+            callback: (result) => {
                 entry.update({
-                    "data.tradition.value": tradition,
+                    "data.tradition.value": result.tradition,
+                    "data.ability.value": result.ability,
                 });
             },
         });

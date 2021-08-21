@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "value": "<p>You're a sharp-featured, big-eared gnoll about three feet tall. Many are skeptical that you are in fact a gnoll. Your size is Small instead of Medium. You are trained in Deception (or another skill if you were already trained in Deception). You gain a +1 circumstance bonus to Deception checks to Lie when specifically claiming innocence, to Deception DCs against Sense Motive checks to uncover such lies, and to initiative checks when you roll Deception for initiative.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill.</em></p>"
@@ -46,12 +46,18 @@
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "CreatureSize",
+                "value": "sm"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
             }
         ],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
         "source": {
             "value": ""
         },
@@ -66,33 +72,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "qdhfdbcsa27Gr9SI",
-            "changes": [
-                {
-                    "key": "data.traits.size.value",
-                    "mode": 5,
-                    "value": "sm"
-                },
-                {
-                    "key": "data.skills.dec.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/default-icons/feat.svg",
-            "label": "Ant Gnoll",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feat.svg",
     "name": "Ant Gnoll",

@@ -8,11 +8,9 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>The wild places of the world feel the touch of your patron.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Patron Skill</strong> Nature</p>\n<p><strong>Hex Cantrip</strong> @Compendium[pf2e.spells-srd.Clinging Ice]{Clinging Ice}</p>\n<p><strong>Granted Spell</strong> @Compendium[pf2e.spells-srd.Gust of Wind]{Gust of Wind}</p>"
         },
         "featType": {
@@ -25,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.nat.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,28 +44,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "77FqOKSIxfxab6CB",
-            "changes": [
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/winter-patron.webp",
-            "label": "Winter Patron",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/winter-patron.webp",
     "name": "Winter Patron",

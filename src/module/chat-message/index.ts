@@ -12,6 +12,15 @@ import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
+    /** Is this a damage (or a manually-inputed non-D20) roll? */
+    get isDamageRoll(): boolean {
+        const damageRoll = this.getFlag("pf2e", "damageRoll");
+        const fromRollTable = this.getFlag("core", "RollTable") !== undefined;
+        const isRoll = damageRoll || this.isRoll;
+        const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
+        return isRoll && !(isD20 || fromRollTable);
+    }
+
     /** Get the actor associated with this chat message */
     get actor(): ActorPF2e | null {
         const fromItem = ((): ActorPF2e | null => {
@@ -78,15 +87,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
 
-        ChatCards.listen($html);
-        InlineRollsLinks.listen($html);
-        DamageButtons.listen(this, $html);
-        DegreeOfSuccessHighlights.listen(this, $html);
-
-        // Append critical hit and fumble card buttons if the setting is enabled
-        if (this.isRoll) {
+        if (this.isDamageRoll) {
+            await DamageButtons.append(this, $html);
             CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
+
+        ChatCards.listen($html);
+        InlineRollsLinks.listen($html);
+        DegreeOfSuccessHighlights.listen(this, $html);
 
         $html.on("mouseenter", () => this.onHoverIn());
         $html.on("mouseleave", () => this.onHoverOut());
@@ -134,7 +142,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     get roll(): Rolled<Roll<RollDataPF2e>>;
 
     getFlag(scope: "core", key: "RollTable"): unknown;
-    getFlag(scope: "pf2e", key: "canReroll"): boolean | undefined;
     getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
     getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
     getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;

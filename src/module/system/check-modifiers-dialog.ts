@@ -34,6 +34,8 @@ export interface CheckModifiersContext {
     createMessage?: boolean;
     /** Skip the roll dialog regardless of user setting  */
     skipDialog?: boolean;
+    /** Is the roll a reroll? */
+    isReroll?: boolean;
 }
 
 /**
@@ -55,6 +57,7 @@ export class CheckModifiersDialog extends Application {
             classes: ["dice-checks", "dialog"],
             popOut: true,
             width: 380,
+            height: "auto",
         });
 
         this.check = check;
@@ -116,7 +119,7 @@ export class CheckModifiersDialog extends Application {
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
+        const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
 
         let flavor = `<strong>${check.name}</strong>`;
         if (ctx.type === "spell-attack-roll" && game.modules.get("pf2qr")?.active) {

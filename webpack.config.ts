@@ -51,7 +51,10 @@ const optimization: Optimization = isProductionBuild
 const config: Configuration = {
     context: __dirname,
     mode: buildMode,
-    entry: "./src/pf2e.ts",
+    entry: {
+        main: "./src/pf2e.ts",
+        tinymce: "./src/styles/tinymce.scss",
+    },
     module: {
         rules: [
             {
@@ -121,10 +124,7 @@ const config: Configuration = {
                 },
             ],
         }),
-        new MiniCssExtractPlugin({
-            filename: "styles/pf2e.css",
-            insert: "head",
-        }),
+        new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
         new WebpackBar({}),
     ],
     resolve: {
@@ -132,6 +132,7 @@ const config: Configuration = {
             "@actor": path.resolve(__dirname, "src/module/actor"),
             "@item": path.resolve(__dirname, "src/module/item"),
             "@module": path.resolve(__dirname, "src/module"),
+            "@scene": path.resolve(__dirname, "src/module/scene"),
             "@scripts": path.resolve(__dirname, "src/scripts"),
             "@system": path.resolve(__dirname, "src/module/system"),
         },

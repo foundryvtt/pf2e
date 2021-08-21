@@ -49,8 +49,8 @@ export abstract class RuleElementPF2e {
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
         this.data = {
-            ...data,
             priority: 100,
+            ...data,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
@@ -231,7 +231,7 @@ export abstract class RuleElementPF2e {
                 (Number(defaultValue) || 0);
         }
 
-        if (typeof value === "string") {
+        if (typeof value === "string" && value.includes("@")) {
             value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 
