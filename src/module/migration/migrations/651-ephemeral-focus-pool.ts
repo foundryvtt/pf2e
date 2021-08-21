@@ -55,6 +55,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
         "ki-form",
         "ki-rush",
         "ki-strike",
+        "leaf-order",
         "light-of-revelation",
         "lingering-composition",
         "litany-against-sloth",
