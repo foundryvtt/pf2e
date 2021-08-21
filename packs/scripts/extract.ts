@@ -316,7 +316,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, "g");
+        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}(?=\\])`, "g");
         return partiallyConverted.replace(replacePattern, entityName);
     }, entityJson);
 
