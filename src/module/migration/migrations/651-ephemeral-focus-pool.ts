@@ -82,6 +82,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
         "speaking-sky",
         "spellmasters-ward",
         "steal-the-sky",
+        "storm-order",
         "sun-blade",
         "suns-fury",
         "terrain-transposition",
