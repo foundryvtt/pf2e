@@ -1184,6 +1184,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** If necessary, migrate this actor before importing */
+    override async importFromJSON(json: string): Promise<this> {
+        const data: ActorSourcePF2e = JSON.parse(json);
+        this.data.update(this.collection.prepareForImport(data), { recursive: false });
+        await MigrationRunner.ensureSchemaVersion(
+            this,
+            Migrations.constructFromVersion(this.schemaVersion ?? undefined),
+            { preCreate: false }
+        );
+
+        return this.update(this.toObject(), { diff: false, recursive: false });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

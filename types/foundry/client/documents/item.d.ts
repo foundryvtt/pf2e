@@ -50,6 +50,8 @@ declare global {
 
         readonly parent: TParent | null;
 
+        get collection(): Items<this>;
+
         _sheet: ItemSheet<Item> | null;
 
         get sheet(): ItemSheet<Item>;

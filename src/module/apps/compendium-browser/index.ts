@@ -308,8 +308,8 @@ export class CompendiumBrowser extends Application {
 
     private loadedPacks(tab: TabName): string[] {
         if (tab === "settings") return [];
-        return (Object.entries(this.settings[tab] ?? []) as [string, PackInfo][]).flatMap(([collection, info]) => {
-            return info.load ? [collection] : [];
+        return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
+            return info ? [collection] : [];
         });
     }
 
@@ -1104,13 +1104,11 @@ export class CompendiumBrowser extends Application {
     }
 
     override getData() {
-        return mergeObject(
-            {
-                user: game.user,
-                settings: this.settings,
-            },
-            this.data as object
-        );
+        return {
+            user: game.user,
+            ...this.data,
+            settings: this.settings,
+        };
     }
 
     async filterItems(li: JQuery) {
