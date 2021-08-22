@@ -55,6 +55,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
         "ki-form",
         "ki-rush",
         "ki-strike",
+        "leaf-order",
         "light-of-revelation",
         "lingering-composition",
         "litany-against-sloth",
@@ -134,7 +135,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             }
 
             if (
-                ["composition-spells", "devotion-spells", "hexes"].includes(slug) ||
+                ["composition-spells", "devotion-spells", "druidic-order", "hexes"].includes(slug) ||
                 /^(?:arcane-school|bloodline)-/.test(slug)
             ) {
                 return {
