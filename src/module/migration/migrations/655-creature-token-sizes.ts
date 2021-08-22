@@ -23,6 +23,7 @@ export class Migration655CreatureTokenSizes extends MigrationBase {
     };
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
+        itemSource.data.rules ??= [];
         const rules: MaybeAELike[] = itemSource.data.rules;
         const actorSizeAELike = rules.find(this.isActorSizeAELike);
         const tokenSizeRE = rules.find(this.isTokenSizeRE);
