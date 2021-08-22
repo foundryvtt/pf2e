@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 38,
                 "details": "",
                 "value": 38
             },
@@ -30,7 +31,7 @@
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
-                "details": ")",
+                "details": "regeneration 20 (deactivated by acid or fire)",
                 "max": 240,
                 "temp": 0,
                 "value": 240
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb (Spider Climb)",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Monitor",
-            "flavorText": "Bounty hunters and investigators, morrignas seek out creatures that thwart death or interfere with the natural flow of souls. Morrignas dress in flowing spider silk and wear masks reminiscent of webs, as they consider patient and watchful spiders to be their spiritual kin.<br /><br />",
+            "flavorText": "<p>Bounty hunters and investigators, morrignas seek out creatures that thwart death or interfere with the natural flow of souls. Morrignas dress in flowing spider silk and wear masks reminiscent of webs, as they consider patient and watchful spiders to be their spiritual kin.</p>\n<hr />\n<p>Psychopomps are guardians and shepherds of the dead native to the Boneyard, the vast plane of graves where mortal souls are judged and sent on to their eternal rewards or damnations. Psychopomps ensure that the dead come to terms with their transition from mortality and are properly sorted into the appropriate afterlife. They also protect souls from being preyed upon by supernatural predators. Nearly all psychopomps wear masks, especially when they're likely to be interacting with mortals, although the types of masks they wear are as varied as the psychopomps themselves. The courts of the Boneyard preside in Requian, a somber yet melodic language spoken slowly with various tonal shifts.</p>",
             "level": {
                 "value": 15
             },
@@ -96,7 +98,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease"
                 ]
             },
@@ -114,7 +116,7 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "speak with animals, tongues",
+                "custom": "Speak with Animals, Tongues",
                 "selected": [],
                 "value": [
                     "abyssal",
@@ -151,7 +153,7 @@
             "_id": "ygeV8cxSWecZtHTD",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -271,7 +273,7 @@
             "_id": "hwQepphZQE2UmLhJ",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -367,7 +369,7 @@
                     "dc": "37",
                     "item": 0,
                     "mod": 0,
-                    "value": 27
+                    "value": 29
                 },
                 "tradition": {
                     "value": "divine"
@@ -391,7 +393,7 @@
             "_id": "fHZP2kgCDfYcNVmT",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -487,7 +489,7 @@
                     "dc": "37",
                     "item": 0,
                     "mod": 0,
-                    "value": 27
+                    "value": 29
                 },
                 "tradition": {
                     "value": "divine"
@@ -508,14 +510,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "U2jNCuRq2oI75Rxv",
+            "_id": "zAtU8ijhhsmaGIQZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "burst",
+                    "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -536,16 +541,19 @@
                     "value": "1d8"
                 },
                 "damageType": {
-                    "value": "positive"
+                    "value": "healing"
                 },
                 "description": {
-                    "value": "<p>A field of positive energy fills the area, exuding warmth and rejuvenating those within. Each living creature that starts its turn in the area regains 1d8 Hit Points, and any undead creature that starts its turn in the area takes 1d8 positive damage.</p>\n<hr />\n<p><strong>Heightened</strong> The healing and damage increase to 1d10.</p>\n<p><strong>Heightened</strong> The healing and damage increase to 1d12.</p>"
+                    "value": "<p>A field of positive energy fills the area, exuding warmth and rejuvenating those within. Each living creature that starts its turn in the area regains 1d8 Hit Points, and any undead creature that starts its turn in the area takes 1d8 positive damage.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The healing and damage increase to 1d10.</p>\n<p><strong>Heightened (9th)</strong> The healing and damage increase to 1d12.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 6
                 },
                 "level": {
                     "value": 6
@@ -557,6 +565,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -574,9 +585,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "field-of-life",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=114"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -609,14 +626,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.x5rGOmhDRDVQPrnW"
+                }
+            },
             "img": "systems/pf2e/icons/spells/field-of-life.webp",
             "name": "Field of Life",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "lpcFbOrEXvsNOm5V",
+            "_id": "qPTFGQE2JQM8FY2M",
             "data": {
                 "ability": {
                     "value": ""
@@ -625,114 +646,8 @@
                     "areaType": "",
                     "value": null
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
+                "areasize": {
                     "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "positive"
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "healing",
-                        "necromancy",
-                        "positive"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "tZqyTKcMx8C35nfb",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -756,13 +671,16 @@
                     "value": "force"
                 },
                 "description": {
-                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 6
                 },
                 "level": {
                     "value": 6
@@ -776,13 +694,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "scaling": {
                     "formula": "",
@@ -791,9 +712,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spirit-blast",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=301"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -825,14 +752,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.PHVHBbdHeQRfjLmE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 600000,
+            "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "BqrD5oDTA33xTVpp",
+            "_id": "jq0NA8Tilg1Ylcw3",
             "data": {
                 "ability": {
                     "value": ""
@@ -866,7 +797,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.<br /></p>\n<p><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.<br /><strong>Success</strong> You call the spirit.<br /><strong>Failure</strong> You fail to call a spirit.<br /><strong>Critical Failure</strong> One or more evil spirits appear and attack.</p>"
+                    "value": "<p>You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.</p>\n<hr />\n<p><span><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.</span></p>\n<p><span><strong>Success</strong> You call the spirit.</span></p>\n<p><span><strong>Failure</strong> You fail to call a spirit.</span></p>\n<p><span><strong>Critical Failure</strong> One or more evil spirits appear and attack.</span></p>"
                 },
                 "duration": {
                     "value": "up to 10 minutes"
@@ -910,7 +841,7 @@
                 "secondarycheck": {
                     "value": "Occultism or Religion (whichever isn't used for the primary check)"
                 },
-                "slug": null,
+                "slug": "call-spirit",
                 "source": {
                     "value": ""
                 },
@@ -942,121 +873,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/call-spirit.webp",
-            "name": "Call Spirit",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "rZjEyeubPTYgJ58O",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You shield a creature from the ravages of negative energy. It receives a +4 status bonus to saves against death and negative effects, gains negative resistance 10, and suppresses the effects of the @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=64"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 living creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "abjuration"
-                    ]
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gsYEuWv04XTDxe91"
                 }
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/death-ward.webp",
-            "name": "Death Ward",
-            "sort": 800000,
+            "img": "systems/pf2e/icons/spells/call-spirit.webp",
+            "name": "Call Spirit",
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "gVcm7QlVZZ1szsoB",
+            "_id": "VRsl00D00DUPqVqK",
             "data": {
                 "ability": {
                     "value": ""
@@ -1090,7 +918,133 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                    "value": "<p>You shield a creature from the ravages of negative energy.</p>\n<p>It receives a +4 status bonus to saves against death and negative effects, gains negative resistance 10, and suppresses the effects of the @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Death Ward]{Spell Effect: Death Ward}</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 5
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "death-ward",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.YvXKGlHOt7mdW2jZ"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/death-ward.webp",
+            "name": "Death Ward",
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "QmZ3ZQF4Ot7TbD8l",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You send the creature a mental message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1098,8 +1052,1275 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 5
+                },
                 "level": {
                     "value": 5
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "planetary"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sending",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature with whom you are familiar"
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divination",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.R9xqCBblkS5KE4y7"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/sending.webp",
+            "name": "Sending",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "hVeJqZQHsSl75Bys",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
+                },
+                "duration": {
+                    "value": "1 hour"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 5
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "hwQepphZQE2UmLhJ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tongues",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "divination"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/tongues.webp",
+            "name": "Tongues (Constant)",
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "uyzYyAP4hnfQmTNj",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
+            "name": "Freedom of Movement",
+            "sort": 1000000,
+            "type": "spell"
+        },
+        {
+            "_id": "Wa5eBX6S92G6emuP",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You peek into the future. Choose a particular goal or activity you plan to engage in within 1 week, or an event you expect might happen within 1 week. You learn a cryptic clue or piece of advice that could help with the chosen event, often in the form of a rhyme or omen.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-omens",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "divination",
+                        "prediction"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pkcOby5prOausy1k"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/read-omens.webp",
+            "name": "Read Omens",
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "gfiZcYbV1aAJzm9L",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You ward a creature against the effects of a single spell. Choose a spell and name it aloud as part of the verbal component. Spell immunity attempts to counteract that spell whenever spell immunity's target is the target of the named spell or in that spell's area. Successfully counteracting a spell that targets an area or multiple targets with spell immunity negates the effects only for the target affected by spell immunity.</p>"
+                },
+                "duration": {
+                    "value": "24 hours"
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spell-immunity",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tgIhRUFtgDSELpJE"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/spell-immunity.webp",
+            "name": "Spell Immunity",
+            "sort": 1200000,
+            "type": "spell"
+        },
+        {
+            "_id": "bWEoQhRgogmL1Als",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You grant the target corpse a semblance of life, which it uses to speak the answers to three questions posed to it. This spell calls on the physical body's latent memories rather than summoning back the deceased's spirit, so the corpse must be mostly intact for the spell to function. The more damage the corpse has taken, the more inaccurate or patchwork its answers are, and it must have a throat and mouth to speak at all. If anyone has previously cast this spell on the corpse in the last week, the spell automatically fails. The corpse can attempt a Will save to resist answering the questions using the statistics of the original creature at its time of death, with the following effects.</p>\n<hr /><strong>Critical Success</strong> The target can lie or refuse to answer your questions, and the target's spirit haunts you for 24 hours, bothering you and causing you to be unable to gain any rest for that time.\n<p><strong>Success</strong> The target can provide false information or refuse to answer your questions.</p>\n<p><strong>Failure</strong> The target must answer truthfully, but its answers can be brief, cryptic, and repetitive. It can still mislead you or attempt to stall so that the spell's duration runs out before you can ask all your questions.</p>\n<p><strong>Critical Failure</strong> As failure, but the target's answers are more direct and less repetitive, though still cryptic. It takes a -2 status penalty to Deception checks to deceive or mislead you.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "hwQepphZQE2UmLhJ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "talking-corpse",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 corpse"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.FM3SmEW8N1FCRjqt"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/talking-corpse.webp",
+            "name": "Talking Corpse",
+            "sort": 1300000,
+            "type": "spell"
+        },
+        {
+            "_id": "iXIvRP0vR98QQNpc",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is Blinded for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Blinded permanently.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 3
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blindness",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VosLNn2M8S7JH67D"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/blindness.webp",
+            "name": "Blindness",
+            "sort": 1400000,
+            "type": "spell"
+        },
+        {
+            "_id": "e7YYq3ozjcQcB7eE",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "6d6"
+                },
+                "damageType": {
+                    "value": "mental"
+                },
+                "description": {
+                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 3
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "2d6",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "crisis-of-faith",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "enchantment",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.3x6eUCm17n6ROzUa"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/crisis-of-faith.webp",
+            "name": "Crisis of Faith",
+            "sort": 1500000,
+            "type": "spell"
+        },
+        {
+            "_id": "oKM9kExTuEoBBQzy",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
+                },
+                "duration": {
+                    "value": "1 day"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 3
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "planetary"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dream-message",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature you know by name and have met in person"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "enchantment",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.yM3KTTSAIHhyuP14"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dream-message.webp",
+            "name": "Dream Message",
+            "sort": 1600000,
+            "type": "spell"
+        },
+        {
+            "_id": "FFIEwqlxI0AK7yDw",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "value": 10
+                },
+                "areasize": {
+                    "value": "10-foot burst"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 2
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "calm-emotions",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b515AZlB0sridKSq"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/calm-emotions.webp",
+            "name": "Calm Emotions",
+            "sort": 1700000,
+            "type": "spell"
+        },
+        {
+            "_id": "3p12mpO7SGaHTDSF",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 5
+                },
+                "level": {
+                    "value": 2
                 },
                 "location": {
                     "value": "ygeV8cxSWecZtHTD"
@@ -1134,9 +2355,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "dispel-magic",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1169,1088 +2390,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "WCTPb2jUZcOnz2fM",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "value": "<p>You send the creature a mental message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "planetary"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "divination"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=272"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature with whom you are familiar"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/sending.webp",
-            "name": "Sending",
-            "sort": 1000000,
-            "type": "spell"
-        },
-        {
-            "_id": "haFb3Wx1r6Bgxuvq",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened</strong> The duration is 8 hours.</p>"
-                },
-                "duration": {
-                    "value": "1 hour"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "hwQepphZQE2UmLhJ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "divination"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Tongues",
-            "sort": 1100000,
-            "type": "spell"
-        },
-        {
-            "_id": "uwOXNcbwoO5NnB8p",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "abjuration"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
-            "name": "Freedom of Movement",
-            "sort": 1200000,
-            "type": "spell"
-        },
-        {
-            "_id": "Vjxlr0v198zSrWp5",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You peek into the future. Choose a particular goal, event, or activity that will occur within 1 week. You learn a cryptic clue or piece of advice that could help with the chosen event, often in the form of a rhyme or omen.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "divination"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=247"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination",
-                        "prediction"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/read-omens.webp",
-            "name": "Read Omens",
-            "sort": 1300000,
-            "type": "spell"
-        },
-        {
-            "_id": "ypQwClSSQacR32Wy",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You ward a creature against the effects of a single spell. Choose a spell and name it aloud as part of the verbal component. Spell immunity attempts to counteract that spell whenever spell immunity's target is the target of the named spell or in that spell's area. Successfully counteracting a spell that targets an area or multiple targets with spell immunity negates the effects only for the target affected by spell immunity.</p>"
-                },
-                "duration": {
-                    "value": "24 hours"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=296"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "abjuration"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/spell-immunity.webp",
-            "name": "Spell Immunity",
-            "sort": 1400000,
-            "type": "spell"
-        },
-        {
-            "_id": "MxqxRN9g0KjyGkWq",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You grant the target corpse a semblance of life, which it uses to speak the answers to three questions posed to it. This spell calls on the physical body's latent memories rather than summoning back the deceased's spirit, so the corpse must be mostly intact for the spell to function. The more damage the corpse has taken, the more inaccurate or patchwork its answers are, and it must have a throat and mouth to speak at all. If anyone has previously cast this spell on the corpse in the last week, the spell automatically fails. The corpse can attempt a Will save to resist answering the questions using the statistics of the original creature at its time of death, with the following effects.</p>\n<hr /><strong>Critical Success</strong> The target can lie or refuse to answer your questions, and the target's spirit haunts you for 24 hours, bothering you and causing you to be unable to gain any rest for that time.\n<p><strong>Success</strong> The target can provide false information or refuse to answer your questions.</p>\n<p><strong>Failure</strong> The target must answer truthfully, but its answers can be brief, cryptic, and repetitive. It can still mislead you or attempt to stall so that the spell's duration runs out before you can ask all your questions.</p>\n<p><strong>Critical Failure</strong> As failure, but the target's answers are more direct and less repetitive, though still cryptic. It takes a -2 status penalty to Deception checks to deceive or mislead you.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "hwQepphZQE2UmLhJ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=329"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 corpse"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "necromancy"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/talking-corpse.webp",
-            "name": "Talking Corpse",
-            "sort": 1500000,
-            "type": "spell"
-        },
-        {
-            "_id": "OnnYVnJAVVdy0sZw",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=26"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "incapacitation",
-                        "necromancy"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/blindness.webp",
-            "name": "Blindness",
-            "sort": 1600000,
-            "type": "spell"
-        },
-        {
-            "_id": "HXM0HrueZPZooZFL",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": "6d6"
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=55"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "enchantment",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/crisis-of-faith.webp",
-            "name": "Crisis of Faith",
-            "sort": 1700000,
-            "type": "spell"
-        },
-        {
-            "_id": "HftU0c9IpPbW5aeL",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
-                },
-                "duration": {
-                    "value": "1 day"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "planetary"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=90"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature you know by name and have met in person"
-                },
-                "time": {
-                    "value": ""
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "enchantment",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dream-message.webp",
-            "name": "Dream Message",
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "VmvmT2rRzbskcVfc",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": 10
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>"
-                },
-                "duration": {
-                    "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "ygeV8cxSWecZtHTD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=31"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "emotion",
-                        "enchantment",
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/calm-emotions.webp",
-            "name": "Calm Emotions",
-            "sort": 1900000,
-            "type": "spell"
-        },
-        {
-            "_id": "XPoJpwM92nn2gfoU",
+            "_id": "GXjHvFFCSd2WHWNZ",
             "data": {
                 "ability": {
                     "value": ""
@@ -2259,6 +2410,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -2281,13 +2435,16 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 2
                 },
                 "level": {
                     "value": 2
@@ -2299,6 +2456,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2316,9 +2476,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "see-invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=271"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2351,14 +2517,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jwK43yKsHTkJQvQ9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "zK41ac39FOaMixxT",
+            "_id": "ZRnYTSYcO29NLAHu",
             "data": {
                 "ability": {
                     "value": ""
@@ -2366,6 +2536,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2389,13 +2562,16 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing or other senses alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<hr />\n<p><strong>Heightened</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
+                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing or other senses alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 2
                 },
                 "level": {
                     "value": 2
@@ -2407,6 +2583,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2424,9 +2603,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "silence",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=287"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2457,21 +2642,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gIdDLrbswTV3OBJy"
+                }
+            },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "wEvcXS2o8yrjEIV7",
+            "_id": "uR8p3smWahJRRawJ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2503,6 +2695,9 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
@@ -2513,6 +2708,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2530,9 +2728,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "speak-with-animals",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=293"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2562,21 +2766,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.BBvV7qoXGdw09q1C"
+                }
+            },
             "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
-            "name": "Speak with Animals",
-            "sort": 2200000,
+            "name": "Speak with Animals (Constant)",
+            "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "XSwevnlAdoQzrWT8",
+            "_id": "6ikYoQI5hlvnrqx3",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2600,13 +2811,16 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Tiny clinging hairs sprout across the creature's hands and feet, offering purchase on nearly any surface. The target gains a climb Speed equal to its Speed.</p>\n<hr />\n<p><strong>Heightened</strong> The duration increases to 1 hour.</p>"
+                    "value": "<p>Tiny clinging hairs sprout across the creature's hands and feet, offering purchase on nearly any surface. The target gains a climb Speed equal to its Speed.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The duration increases to 1 hour.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 2
                 },
                 "level": {
                     "value": 2
@@ -2618,6 +2832,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2635,9 +2852,15 @@
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spider-climb",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=299"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2668,14 +2891,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5KobTMrZeZxuXMgl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/spider-climb.webp",
-            "name": "Spider Climb",
-            "sort": 2300000,
+            "name": "Spider Climb (Constant)",
+            "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "C9wCOl235D9SDrDm",
+            "_id": "8HZNcX9R1E5AujGP",
             "data": {
                 "ability": {
                     "value": ""
@@ -2683,6 +2910,9 @@
                 "area": {
                     "areaType": "emanation",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2703,16 +2933,19 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
@@ -2724,6 +2957,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2741,9 +2977,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bane",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=18"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -2775,14 +3017,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7ZinJNzxq0XF0oMx"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
-            "sort": 2400000,
+            "sort": 2300000,
             "type": "spell"
         },
         {
-            "_id": "cB1JOLSh4M33Mi93",
+            "_id": "R9sJQguPZHaikKYb",
             "data": {
                 "ability": {
                     "value": ""
@@ -2790,6 +3036,9 @@
                 "area": {
                     "areaType": "emanation",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2810,16 +3059,19 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies in the area gain a +1 status bonus to attack rolls. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
@@ -2831,6 +3083,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2848,9 +3103,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bless",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=25"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2882,21 +3143,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XSujb7EsSwKl19Uu"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
-            "sort": 2500000,
+            "sort": 2400000,
             "type": "spell"
         },
         {
-            "_id": "2NmNVqMszmsqISPo",
+            "_id": "jNuuSCEGEX72UxGY",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2920,7 +3188,7 @@
                     "value": "negative"
                 },
                 "description": {
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2940,6 +3208,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -2955,9 +3226,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -2991,21 +3268,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
-            "name": "Chill Touch - Cantrips",
-            "sort": 2600000,
+            "name": "Chill Touch",
+            "sort": 2500000,
             "type": "spell"
         },
         {
-            "_id": "ltn3UbO9yM3sfmw9",
+            "_id": "fUxlN6aXqwvG5NXu",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3029,7 +3313,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3049,6 +3333,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -3064,7 +3351,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
                 "source": {
                     "value": ""
                 },
@@ -3075,7 +3368,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "30-foot emination"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -3102,21 +3395,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic - Cantrips",
-            "sort": 2700000,
+            "name": "Detect Magic",
+            "sort": 2600000,
             "type": "spell"
         },
         {
-            "_id": "eQ1VTjInFEX4VexN",
+            "_id": "Isug1LWdKBK0OE2n",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3126,21 +3426,21 @@
                 },
                 "components": {
                     "material": false,
-                    "somatic": false,
-                    "verbal": false
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
                 },
                 "damage": {
                     "applyMod": true,
-                    "value": "1d6 "
+                    "value": "1d6"
                 },
                 "damageType": {
                     "value": "positive"
                 },
                 "description": {
-                    "value": "<p>You lance the target with energy. You deal 1d6 positive damage plus your spellcasting ability modifier. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You lance the target with energy. You deal 1d6 positive damage plus your spellcasting ability modifier. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3160,6 +3460,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -3175,7 +3478,13 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "disrupt-undead",
                 "source": {
                     "value": ""
                 },
@@ -3211,14 +3520,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kcelf6IHl3L9VXXg"
+                }
+            },
             "img": "systems/pf2e/icons/spells/disrupt-undead.webp",
-            "name": "Disrupt Undead - Cantrips",
-            "sort": 2800000,
+            "name": "Disrupt Undead",
+            "sort": 2700000,
             "type": "spell"
         },
         {
-            "_id": "enawdNmPREJ8oTbl",
+            "_id": "1SgiUMHWXoFWqHLA",
             "data": {
                 "ability": {
                     "value": ""
@@ -3226,6 +3539,137 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "1d8"
+                },
+                "damageType": {
+                    "value": "positive"
+                },
+                "description": {
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 6
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "1d8",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "healing",
+                        "necromancy",
+                        "positive"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/heal.webp",
+            "name": "Heal",
+            "sort": 2800000,
+            "type": "spell"
+        },
+        {
+            "_id": "46wlJb27G2FN3hDv",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3249,13 +3693,16 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 3.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
@@ -3269,13 +3716,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
                     "formula": "",
@@ -3284,9 +3734,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -3319,14 +3775,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
             "sort": 2900000,
             "type": "spell"
         },
         {
-            "_id": "n3FHWMeth1M60XHH",
+            "_id": "UNR4MOoOn55E4Uk8",
             "data": {
                 "ability": {
                     "value": ""
@@ -3334,6 +3794,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3357,7 +3820,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3377,6 +3840,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -3392,7 +3858,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-aura",
                 "source": {
                     "value": ""
                 },
@@ -3430,14 +3902,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
+                }
+            },
             "img": "systems/pf2e/icons/spells/read-aura.webp",
-            "name": "Read Aura - Cantrips",
+            "name": "Read Aura",
             "sort": 3000000,
             "type": "spell"
         },
         {
-            "_id": "S43mioxFsYSACfsj",
+            "_id": "qUaO1rhavAbKwrhq",
             "data": {
                 "ability": {
                     "value": ""
@@ -3445,6 +3921,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3488,6 +3967,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -3503,7 +3985,13 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "stabilize",
                 "source": {
                     "value": ""
                 },
@@ -3517,10 +4005,14 @@
                     "value": "1 dying creature"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
                 },
                 "traits": {
                     "custom": "",
@@ -3536,16 +4028,32 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnjhtQYexDtNDdEg"
+                }
+            },
             "img": "systems/pf2e/icons/spells/stabelize.webp",
-            "name": "Stabilize - Cantrips",
+            "name": "Stabilize",
             "sort": 3100000,
             "type": "spell"
         },
         {
-            "_id": "zK3FKbVfvJEoylLa",
+            "_id": "VJCKIfyZx71flhrj",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "bo-staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -3558,13 +4066,25 @@
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This strong but slender staff is tapered at the ends and well balanced. It's designed to be an offensive and defensive weapon.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "club"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -3582,8 +4102,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+                        "name": "Unusual Bo Staff"
                     }
                 },
                 "invested": {
@@ -3598,49 +4118,105 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 2
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "bo-staff",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "monk",
+                        "parry",
+                        "reach",
+                        "trip"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+2 striking bo staff",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hMYdSFmMWzidzHih"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bo-staff.webp",
+            "name": "Bo Staff",
             "sort": 3200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "Jf6SQTejkZnEWA2T",
@@ -3649,8 +4225,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "spirit touch"
+                        "spirit-touch"
                     ]
                 },
                 "bonus": {
@@ -3700,9 +4277,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab",
-                        "spirit touch"
+                        "grab",
+                        "spirit-touch"
                     ]
                 },
                 "bonus": {
@@ -3744,7 +4322,7 @@
             "type": "melee"
         },
         {
-            "_id": "OZW2dJbK286GOKdu",
+            "_id": "oL6JyyShxXN8PigD",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -3756,13 +4334,61 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A psychopomp senses the vital essence of living and undead creatures within the listed range.<br />Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 3500000,
+            "type": "action"
+        },
+        {
+            "_id": "vfDqURmKtNWQI7IJ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A psychopomp senses the vital essence of living and undead creatures within the listed range.</p>\n<hr />\n<p>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lifesense",
                 "source": {
                     "value": ""
                 },
@@ -3784,10 +4410,174 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Lifesense",
-            "sort": 3500000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
+            "sort": 3600000,
+            "type": "action"
+        },
+        {
+            "_id": "h0WWEsFcTFj9dtG9",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 3700000,
+            "type": "action"
+        },
+        {
+            "_id": "vZVJQzztFpSjzbNW",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 3800000,
+            "type": "action"
+        },
+        {
+            "_id": "oDkPJwQC7jVjhBRN",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 20 (Deactivated by Acid or Fire)",
+            "sort": 3900000,
             "type": "action"
         },
         {
@@ -3803,7 +4593,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the morrigna's web wrappings uses an action to Strike or attempt a skill check. <strong>Effect</strong> The morrigna makes a web wrappings Strike against the triggering creature. If the strike is a critical hit, the triggering action is disrupted.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the morrigna's web wrappings uses an action to Strike or attempt a skill check.</p>\n<p><strong>Effect</strong> The morrigna makes a web wrappings Strike against the triggering creature. If the strike is a critical hit, the triggering action is disrupted.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3829,13 +4619,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Wrappings Lash",
-            "sort": 3600000,
+            "sort": 4000000,
             "type": "action"
         },
         {
-            "_id": "k72NCE13OurzqL7r",
+            "_id": "R5LM2Ijl78zvdKkF",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -3847,13 +4637,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A morrigna can take the appearance of any Small or Medium animal or humanoid. This doesn't change their Speed or their attack and damage modifiers with their Strikes, but it might change the damage type their Strikes deal. Unless they choose to manifest their web wrappings in their new form, they cannot make web wrappings Strikes.<br /> The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
+                    "value": "<p>A morrigna can take the appearance of any Small or Medium animal or humanoid. This doesn't change their Speed or their attack and damage modifiers with their Strikes, but it might change the damage type their Strikes deal.</p>\n<p>Unless they choose to manifest their web wrappings in their new form, they cannot make web wrappings Strikes.</p>\n<hr />\n<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @Compendium[pf2e.actionspf2e.Impersonate]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -3865,8 +4655,8 @@
                     "value": [
                         "concentrate",
                         "divine",
-                        "transmutation",
-                        "polymorph"
+                        "polymorph",
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -3877,10 +4667,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 3700000,
+            "sort": 4100000,
             "type": "action"
         },
         {
@@ -3896,7 +4690,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The morrigna summons a giant tarantula or spider swarm. These spiders have the summoned trait and remain for 10 minutes or until reduced to 0 Hit Points, whichever comes first. The morrigna does not need to Sustain the Spell to direct these summoned creatures, and the morrigna can have any number of summoned spiders in existence at once. The morrigna can see through the eyes of any of their summoned spiders at any time.</p>"
+                    "value": "<p>The morrigna summons a @Compendium[pf2e.pathfinder-bestiary.Giant Tarantula]{Giant Tarantula} or @Compendium[pf2e.pathfinder-bestiary.Spider Swarm]{Spider Swarm}. These spiders have the summoned trait and remain for 10 minutes or until reduced to 0 Hit Points, whichever comes first.</p>\n<p>The morrigna does not need to Sustain the Spell to direct these summoned creatures, and the morrigna can have any number of summoned spiders in existence at once.</p>\n<p>The morrigna can see through the eyes of any of their summoned spiders at any time.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3926,9 +4720,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Spider Minions",
-            "sort": 3800000,
+            "sort": 4200000,
             "type": "action"
         },
         {
@@ -3972,7 +4766,55 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spirit Touch",
-            "sort": 3900000,
+            "sort": 4300000,
+            "type": "action"
+        },
+        {
+            "_id": "XMcVGkoaO2Xaj18P",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 4400000,
             "type": "action"
         },
         {
@@ -4007,7 +4849,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 4000000,
+            "sort": 4500000,
             "type": "lore"
         },
         {
@@ -4042,7 +4884,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Boneyard Lore",
-            "sort": 4100000,
+            "sort": 4600000,
             "type": "lore"
         },
         {
@@ -4077,7 +4919,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 4200000,
+            "sort": 4700000,
             "type": "lore"
         },
         {
@@ -4112,7 +4954,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 4300000,
+            "sort": 4800000,
             "type": "lore"
         },
         {
@@ -4147,7 +4989,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 4400000,
+            "sort": 4900000,
             "type": "lore"
         },
         {
@@ -4182,7 +5024,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 4500000,
+            "sort": 5000000,
             "type": "lore"
         },
         {
@@ -4217,7 +5059,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 4600000,
+            "sort": 5100000,
             "type": "lore"
         }
     ],
