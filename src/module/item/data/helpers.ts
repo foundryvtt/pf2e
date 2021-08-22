@@ -1,3 +1,4 @@
+import { ItemPF2e } from '@item';
 import {
     FeatData,
     ItemDataPF2e,
@@ -68,4 +69,8 @@ export function isInventoryItem(type: string): boolean {
     }
 
     return false;
+}
+
+export function isEmbedded<T extends ItemPF2e>(item: T): item is Embedded<T> {
+    return !!item.parent;
 }

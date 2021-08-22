@@ -30,6 +30,9 @@
                         <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                     {{/if}}
                 {{/if}}
+                {{#if data.variants.enabled}}
+                    <a class="list-row" data-tab="variants">{{localize "PF2E.ItemVariants"}}</a>
+                {{/if}}
                 {{#if (and item.isPhysical user.isGM)}}
                     <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
                 {{/if}}
@@ -50,6 +53,13 @@
             {{#if hasDetails}}
                 <div class="tab item-details" data-tab="details">
                     {{> (detailsTemplate)}}
+                </div>
+            {{/if}}
+
+            <!-- Spell Variants -->
+            {{#if data.variants.enabled}}
+                <div class="tab item-details" data-tab="variants">
+                    {{> systems/pf2e/templates/items/spell-variants.html}}
                 </div>
             {{/if}}
 

@@ -86,6 +86,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/mystify-panel.html",
         "systems/pf2e/templates/items/spell-details.html",
         "systems/pf2e/templates/items/spell-sidebar.html",
+        "systems/pf2e/templates/items/spell-variants.html",
         "systems/pf2e/templates/items/melee-details.html",
         "systems/pf2e/templates/items/weapon-details.html",
         "systems/pf2e/templates/items/weapon-sidebar.html",

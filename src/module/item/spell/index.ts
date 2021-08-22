@@ -1,7 +1,24 @@
 import { ItemPF2e } from "@item/base";
+import { isEmbedded } from "@item/data/helpers";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { ordinal, toNumber } from "@module/utils";
-import { SpellData, SpellTrait } from "./data";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ErrorPF2e, ordinal, toNumber } from "@module/utils";
+import { SpellData, SpellSource, SpellTrait } from "./data";
+
+/**
+ * Document update Data in an unflattened form. Handlers like preUpdate() usually receieve it in this form.
+ */
+type UnflattenedDocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> = DeepPartial<
+    DocumentUpdateSubData<T["data"]["_source"]>
+>;
+
+type DocumentUpdateSubData<T> = T extends Function
+    ? never
+    : T extends Array<infer U>
+    ? Array<U>
+    : T extends object
+    ? { [K in keyof T]: DocumentUpdateSubData<T[K]> } & { [key in `-=${Extract<keyof T, string | number>}`]: null }
+    : T;
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
@@ -23,6 +40,19 @@ export class SpellPF2e extends ItemPF2e {
      */
     get heightenedLevel() {
         return this.data.data.heightenedLevel?.value ?? this.level;
+    }
+
+    loadVariant<T extends SpellPF2e>(this: T, id: string): T {
+        const variantEntries = this.data.data.variants?.value ?? {};
+        const variantEntry = variantEntries[id];
+        if (!variantEntry) {
+            throw ErrorPF2e(`Variant with id ${id} does not exist`);
+        }
+
+        const overrideData: DeepPartial<SpellSource> = { data: variantEntry.data };
+        const variant = this.clone(overrideData, { save: false, keepId: true });
+        variant.data.variantId = variantEntry.id;
+        return variant;
     }
 
     private computeCastLevel(castLevel?: number) {
@@ -138,6 +168,60 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
+    override async toMessage(
+        event?: JQuery.TriggeredEvent,
+        { create = true } = {},
+    ): Promise<ChatMessagePF2e | undefined> {
+        if (!isEmbedded(this)) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
+
+        // This spell is a variant, add to flags
+        if (this.data.variantId) {
+            const message = await super.toMessage(event, { create: false });
+            message?.data.update({ "flags.pf2e.origin.variantId": this.data.variantId });
+            if (create && message) {
+                return ChatMessagePF2e.create(message.toObject());
+            } else {
+                return message;
+            }
+        }
+
+        // This spell has variants, show a dialog
+        if (this.data.data.variants?.enabled) {
+            const variants = Object.values(this.data.data.variants?.value);
+            if (variants.length) {
+                const content = await renderTemplate("systems/pf2e/templates/actors/spell-variant-dialog.html", {
+                    variants,
+                });
+
+                return new Promise<ChatMessagePF2e | undefined>((resolve, reject) => {
+                    const dialog = new Dialog({
+                        content,
+                        title: this.name,
+                        render: (html) => {
+                            $(html)
+                                .find("button[data-variant-id]")
+                                .on("click", async (evt) => {
+                                    const { variantId } = evt.target.dataset;
+                                    try {
+                                        const variant = this.loadVariant(variantId ?? "");
+                                        resolve(variant.toMessage(event, { create }));
+                                    } catch (ex) {
+                                        reject(ex);
+                                    } finally {
+                                        dialog.close();
+                                    }
+                                });
+                        },
+                        buttons: {},
+                    }).render(true);
+                });
+            }
+        }
+
+        // Regular spell, defer to super
+        return super.toMessage(event, { create });
+    }
+
     override getChatData(
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
@@ -226,6 +310,20 @@ export class SpellPF2e extends ItemPF2e {
             areaType,
             areaUnit,
         });
+    }
+
+    override _preUpdate(
+        data: UnflattenedDocumentUpdateData<SpellPF2e>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser,
+    ) {
+        // If variants is being set to false, remove the entire thing to save memory
+        if (data.data?.variants?.enabled === false) {
+            delete data.data.variants;
+            data.data['-=variants'] = null;
+        }
+
+        return super._preUpdate(data, options, user);
     }
 }
 
