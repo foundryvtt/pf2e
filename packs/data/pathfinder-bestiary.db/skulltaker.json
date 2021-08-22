@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 42,
                 "details": "",
                 "value": 42
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "NE"
             },
             "creatureType": "Undead",
-            "flavorText": "Swirling down from misty peaks and through howling mountain passes like an evil wind, the vortex of bones known as a skulltaker is a terrible manifestation of the delirium and agony experienced by doomed climbers and lost trailblazers just before they met their end. In some places, a skulltaker is also known as a saxra.<br /><br />",
+            "flavorText": "<p>Swirling down from misty peaks and through howling mountain passes like an evil wind, the vortex of bones known as a skulltaker is a terrible manifestation of the delirium and agony experienced by doomed climbers and lost trailblazers just before they met their end. In some places, a skulltaker is also known as a saxra.</p>",
             "level": {
                 "value": 18
             },
@@ -118,7 +120,7 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "skeletal lore languages",
+                "custom": "Skeletal Lore Languages",
                 "selected": [],
                 "value": [
                     "necril",
@@ -150,7 +152,7 @@
             "_id": "c4Lb6fM4sdRHvEtu",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -246,7 +248,7 @@
                     "dc": "40",
                     "item": 0,
                     "mod": 0,
-                    "value": 30
+                    "value": 32
                 },
                 "tradition": {
                     "value": "divine"
@@ -270,7 +272,7 @@
             "_id": "v5mN261mCqfW7YV9",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -366,7 +368,7 @@
                     "dc": "40",
                     "item": 0,
                     "mod": 0,
-                    "value": 30
+                    "value": 32
                 },
                 "tradition": {
                     "value": "divine"
@@ -387,7 +389,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "2IDUTVOXHdvlRcUS",
+            "_id": "ua50Si2Sr3DUQQIG",
             "data": {
                 "ability": {
                     "value": ""
@@ -395,6 +397,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -412,19 +417,22 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "10d10"
                 },
                 "damageType": {
-                    "value": ""
+                    "value": "negative"
                 },
                 "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 10.</p>"
+                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 8
@@ -438,24 +446,33 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "horrid-wilting",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=116"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -464,14 +481,14 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 living creature"
+                    "value": "any number of living creatures"
                 },
                 "time": {
                     "value": "2"
                 },
                 "traditions": {
                     "value": [
-                        "divine",
+                        "arcane",
                         "primal"
                     ]
                 },
@@ -481,20 +498,24 @@
                         "value": "common"
                     },
                     "value": [
-                        "death",
-                        "necromancy"
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/finger-of-death.webp",
-            "name": "Finger of Death",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
+            "name": "Horrid Wilting",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "6GskLGRr0zDHhd0q",
+            "_id": "UzeNXRIU2xjsBVtz",
             "data": {
                 "ability": {
                     "value": ""
@@ -502,6 +523,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -519,19 +543,22 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "10d10"
                 },
                 "damageType": {
-                    "value": ""
+                    "value": "negative"
                 },
                 "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 10.</p>"
+                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 8
@@ -545,8 +572,137 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "1d10",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "horrid-wilting",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "any number of living creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
+            "name": "Horrid Wilting",
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "ZBl02QC1O9qTkQuv",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "30-foot radius, 100-foot-tall cylinder"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "c4Lb6fM4sdRHvEtu"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "100 feet"
                 },
                 "rules": [],
                 "save": {
@@ -558,11 +714,267 @@
                     "mode": "none"
                 },
                 "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "punishing-winds",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "air",
+                        "evocation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wi405lBjPcbF1DeR"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/punishing-winds.webp",
+            "name": "Punishing Winds",
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "sAlaBMTEO8IQr4nw",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "30-foot radius, 100-foot-tall cylinder"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "c4Lb6fM4sdRHvEtu"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "punishing-winds",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "air",
+                        "evocation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wi405lBjPcbF1DeR"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/punishing-winds.webp",
+            "name": "Punishing Winds",
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "MotJKStt5vV829ZN",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "70"
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "c4Lb6fM4sdRHvEtu"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "10",
+                    "mode": "level1"
+                },
+                "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "finger-of-death",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=116"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -594,341 +1006,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
+                }
+            },
             "img": "systems/pf2e/icons/spells/finger-of-death.webp",
             "name": "Finger of Death",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "gHq0AX08qJwLDv67",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": "10d10"
-                },
-                "damageType": {
-                    "value": "negative"
-                },
-                "description": {
-                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage.Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d10.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=152"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "any number of living creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "necromancy",
-                        "negative"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
-            "name": "Horrid Wilting",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "Yj1YRY577txJ2H11",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": "10d10"
-                },
-                "damageType": {
-                    "value": "negative"
-                },
-                "description": {
-                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage.Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d10.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=152"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "any number of living creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "necromancy",
-                        "negative"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
-            "name": "Horrid Wilting",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "XP0HltKpZIA6O4Ae",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
-                },
-                "duration": {
-                    "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "100 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=240"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "air",
-                        "evocation"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/punishing-winds.webp",
-            "name": "Punishing Winds",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "l7q44rKs0Scs4tqV",
+            "_id": "P0hTuTM15pzZIBrg",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -937,7 +1036,7 @@
                     "value": "spell"
                 },
                 "components": {
-                    "material": true,
+                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -946,22 +1045,25 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "70"
                 },
                 "damageType": {
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
                 },
                 "duration": {
-                    "value": "sustained up to 1 minute"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 8
+                },
+                "level": {
+                    "value": 7
                 },
                 "location": {
                     "value": "c4Lb6fM4sdRHvEtu"
@@ -972,39 +1074,49 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "100 feet"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "10",
+                    "mode": "level1"
                 },
                 "school": {
-                    "value": "evocation"
+                    "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "finger-of-death",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=240"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 living creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
+                        "divine",
                         "primal"
                     ]
                 },
@@ -1014,20 +1126,24 @@
                         "value": "common"
                     },
                     "value": [
-                        "air",
-                        "evocation"
+                        "death",
+                        "necromancy"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/punishing-winds.webp",
-            "name": "Punishing Winds",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/finger-of-death.webp",
+            "name": "Finger of Death",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "lv9d7pg0qqbTiUsr",
+            "_id": "2Cjm2Ma5pugMVQis",
             "data": {
                 "ability": {
                     "value": ""
@@ -1061,7 +1177,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You attempt to learn useful legends about a particular subject, which must be an important person, place, or thing. If the subject is present, increase the degree of success of your primary skill check by one step. If you have only vague information about the subject before attempting the ritual, decrease the degree of success of your primary skill check by one step. These modifiers cancel each other out if you have a subject present with little to no baseline information.<br /></p>\n<p><strong>Critical Success</strong> You recite legends, tales, and lore about the subject over the course of an hour after the ritual ends. The information is mostly coherent, emphasizing more accurate or useful legends over those exaggerated over time.<br /><strong>Success</strong> You recite mysterious legends, tales, and lore about the subject over the course of an hour after the ritual ends. These provide useful information for further inquiry but are generally incomplete or enigmatic. As is the nature of legends, you are likely to learn multiple contradictory versions.<br /><strong>Failure</strong> You fail to learn any useful legends.<br /><strong>Critical Failure</strong> Your mind becomes lost in the past. You can't sense or respond to anything in the present for 1 week except to perform necessities like breathing and sleeping. When you return, however, you can retrain one of your skills into a Lore based on the knowledge of the past you were uncontrollably viewing, as if you had spent 1 week retraining.</p>"
+                    "value": "<p>You attempt to learn useful legends about a particular subject, which must be an important person, place, or thing. If the subject is present, increase the degree of success of your primary skill check by one step. If you have only vague information about the subject before attempting the ritual, decrease the degree of success of your primary skill check by one step. These modifiers cancel each other out if you have a subject present with little to no baseline information.</p>\n<hr />\n<p><strong>Critical Success</strong> You recite legends, tales, and lore about the subject over the course of an hour after the ritual ends. The information is mostly coherent, emphasizing more accurate or useful legends over those exaggerated over time.</p>\n<p><strong>Success</strong> You recite mysterious legends, tales, and lore about the subject over the course of an hour after the ritual ends. These provide useful information for further inquiry but are generally incomplete or enigmatic. As is the nature of legends, you are likely to learn multiple contradictory versions.</p>\n<p><strong>Failure</strong> You fail to learn any useful legends.</p>\n<p><strong>Critical Failure</strong> Your mind becomes lost in the past. You can't sense or respond to anything in the present for 1 week except to perform necessities like breathing and sleeping. When you return, however, you can retrain one of your skills into a Lore based on the knowledge of the past you were uncontrollably viewing, as if you had spent 1 week retraining.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1082,7 +1198,7 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Occultism "
+                    "value": "Occultism (master)"
                 },
                 "range": {
                     "value": ""
@@ -1105,7 +1221,7 @@
                 "secondarycheck": {
                     "value": "Performance, Society"
                 },
-                "slug": null,
+                "slug": "legend-lore",
                 "source": {
                     "value": ""
                 },
@@ -1137,21 +1253,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.hp6Q64dl7xbdn4gQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/legend-lore.webp",
             "name": "Legend Lore",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "uLUFpmKprlOkxw0s",
+            "_id": "8h2ePVZ5n7YzQRQW",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1181,7 +1304,10 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 6
                 },
                 "level": {
                     "value": 6
@@ -1193,6 +1319,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1210,9 +1339,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1246,9 +1381,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
+            "name": "True Seeing (Constant)",
             "sort": 1000000,
             "type": "spell"
         },
@@ -1259,8 +1398,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "energy drain"
+                        "energy-drain"
                     ]
                 },
                 "bonus": {
@@ -1290,7 +1430,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly 2d12",
+                        "deadly-2d12",
                         "magical",
                         "reach-10"
                     ]
@@ -1313,8 +1453,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "energy drain"
+                        "energy-drain"
                     ]
                 },
                 "bonus": {
@@ -1345,7 +1486,7 @@
                     },
                     "value": [
                         "agile",
-                        "deadly 2d12",
+                        "deadly-2d12",
                         "magical",
                         "reach-15"
                     ]
@@ -1398,7 +1539,7 @@
                     },
                     "value": [
                         "magical",
-                        "thrown 100 feet"
+                        "thrown-100"
                     ]
                 },
                 "weaponType": {
@@ -1413,6 +1554,102 @@
             "type": "melee"
         },
         {
+            "_id": "V2i7t9iJ8lXHciEJ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "E6loJZBv9ViBwMXC",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
             "_id": "jj8vv07lGAp4FELU",
             "data": {
                 "actionCategory": {
@@ -1425,7 +1662,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A skulltaker taps into the memories of the creatures whose bones make up its body. This gives it the Skeletal Lore skill, which it can use to Recall Knowledge of any kind. In addition, it can speak and understand all the languages known by the creatures whose bones make up its body (typically including Common and the regional language of the skulltakerʼs home region). The skulltaker can use Skeletal Lore as the primary skill check for the legend lore ritual, and it can cast legend lore without secondary casters.</p>"
+                    "value": "<p>A skulltaker taps into the memories of the creatures whose bones make up its body. This gives it the Skeletal Lore skill, which it can use to Recall Knowledge of any kind.</p>\n<p>In addition, it can speak and understand all the languages known by the creatures whose bones make up its body (typically including Common and the regional language of the skulltakerʼs home region).</p>\n<p>The skulltaker can use Skeletal Lore as the primary skill check for the <em>@Compendium[pf2e.spells-srd.Legend Lore]{Legend Lore}</em> ritual, and it can cast <em>legend lore</em> without secondary casters.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1454,9 +1691,69 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Skeletal Lore",
-            "sort": 1400000,
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "fLmFPQXVcyjgRWCR",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "positive"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Positive",
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1472,7 +1769,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any death ward effect on the creature (+30 counteract modifier) and then deals [[/r 4d6 #slashing]]{4d6 slashing damage} and [[/r 4d6 #negative]]{4d6 negative damage} to the creature, with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"air,aura,divine,necromancy,damaging-effect\" data-pf2-label=\"Shard Storm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet.</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any <em>@Compendium[pf2e.spells-srd.Death Ward]{Death Ward}</em> effect on the creature ([[/r 1d20+30 #Counteract]]{+30 counteract modifier}) and then deals [[/r 4d6 #slashing]]{4d6 slashing damage} and [[/r 4d6 #negative]]{4d6 negative damage} to the creature, with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"air,aura,divine,necromancy,damaging-effect\" data-pf2-label=\"Shard Storm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1503,9 +1800,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shard Storm",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1521,7 +1818,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm. The creature must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Bonetaker DC\" data-pf2-show-dc=\"gm\">Will</span> save or rise as a skeletal champion in [[/br 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker.</p>"
+                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm.</p>\n<p>The creature must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Bonetaker DC\" data-pf2-show-dc=\"gm\">Will</span> save<span data-visibility=\"gm\"> or rise as a @Compendium[pf2e.pathfinder-bestiary.Skeletal Champion]{Skeletal Champion} in [[/br 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1550,9 +1847,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bonetaker",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1568,7 +1865,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Energy Drain DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become drained 2 and doomed 1.</p>"
+                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Energy Drain DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1597,9 +1894,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Drain",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1615,7 +1912,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a 100-foot emanation, except for surfaces of worked stone. A creature moving through the bones takes [[/r 10 #piercing]]{10 piercing damage} and [[/r 10 #negative]]{10 negative damage} for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a Reflex save or take a -10-foot circumstance penalty to all Speeds for 10 minutes, or a -15-foot circumstance penalty for 24 hours on a critical failure. The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>"
+                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a <span data-pf2-effect-area=\"emanation\" data-pf2-distance=\"100\">100-foot emanation</span>, except for surfaces of worked stone.</p>\n<p>A creature moving through the bones takes [[/r 10 #piercing]]{10 piercing damage} and [[/r 10 #negative]]{10 negative damage} for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-label=\"Splintered Ground DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or take a -10-foot circumstance penalty to all Speeds for 10 minutes, or a -15-foot circumstance penalty for 24 hours on a critical failure.</p>\n<p>The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground]{Effect: Splintered Ground}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground (Critical Failure)]{Effect: Splintered Ground (Critical Failure)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1641,9 +1938,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Splintered Ground",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1678,7 +1975,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1713,7 +2010,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1748,7 +2045,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1783,7 +2080,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Skeletal Lore",
-            "sort": 2200000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1818,7 +2115,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2300000,
+            "sort": 2600000,
             "type": "lore"
         }
     ],
