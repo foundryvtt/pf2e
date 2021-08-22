@@ -64,7 +64,13 @@
     <label>{{localize "PF2E.SpellFocusLabel"}}</label>
     <div class="details-container-flex-row">
         {{#if data.grants.focus}}
-            <input type="number" name="data.grants.focus.value" value="{{data.grants.focus.value}}" data-dtype="Number">
+            <select name="data.grants.focus.value" data-dtype="Number">
+                {{#select data.grants.focus.value}}
+                <option value="1">{{localize "PF2E.Focus.Points.1"}}</option>
+                <option value="2">{{localize "PF2E.Focus.Points.2"}}</option>
+                <option value="3">{{localize "PF2E.Focus.Points.3"}}</option>
+                {{/select}}
+            </select>
         {{/if}}
         <input type="checkbox" {{checked data.grants.focus}} data-action="toggle-focus"/>
     </div>
