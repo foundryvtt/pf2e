@@ -537,15 +537,11 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "positive"
-                            },
-                            "value": "1d8"
-                        }
-                    }
+                    "applyMod": false,
+                    "value": "1d8"
+                },
+                "damageType": {
+                    "value": "healing"
                 },
                 "description": {
                     "value": "<p>A field of positive energy fills the area, exuding warmth and rejuvenating those within. Each living creature that starts its turn in the area regains 1d8 Hit Points, and any undead creature that starts its turn in the area takes 1d8 positive damage.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The healing and damage increase to 1d10.</p>\n<p><strong>Heightened (9th)</strong> The healing and damage increase to 1d12.</p>"
@@ -707,6 +703,10 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1175,6 +1175,10 @@
                 "save": {
                     "basic": "",
                     "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -2335,6 +2339,128 @@
                     "value": {}
                 },
                 "description": {
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 5
+                },
+                "heightenedLevel": {
+                    "value": 2
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "ygeV8cxSWecZtHTD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dispel-magic",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 spell effect or unattended magic item"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
+            "name": "Dispel Magic",
+            "sort": 1800000,
+            "type": "spell"
+        },
+        {
+            "_id": "GXjHvFFCSd2WHWNZ",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
                     "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
                 },
                 "duration": {
@@ -2431,7 +2557,10 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -2568,7 +2697,11 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
                 },
                 "description": {
                     "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
@@ -2669,6 +2802,9 @@
                 "areasize": {
                     "value": ""
                 },
+                "areasize": {
+                    "value": "5-foot emanation"
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -2697,7 +2833,10 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "heightenedLevel": {
                     "value": 2
@@ -2845,6 +2984,10 @@
                 "save": {
                     "basic": "",
                     "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -3052,16 +3195,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": true,
-                            "type": {
-                                "categories": [],
-                                "value": "negative"
-                            },
-                            "value": "1d4"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
@@ -3088,21 +3222,15 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "touch"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
+                    "basic": "",
+                    "value": ""
                 },
                 "school": {
-                    "value": "necromancy"
+                    "value": "divination"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -3115,22 +3243,24 @@
                     "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 living or undead creature"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
                 "traditions": {
+                    "custom": "",
                     "value": [
                         "arcane",
                         "divine",
-                        "occult"
+                        "occult",
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -3139,8 +3269,8 @@
                         "value": "common"
                     },
                     "value": [
-                        "cantrip",
-                        "negative"
+                        "detection",
+                        "cantrip"
                     ]
                 }
             },
@@ -3183,7 +3313,11 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "applyMod": true,
+                    "value": "1d6"
+                },
+                "damageType": {
+                    "value": "positive"
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -3212,13 +3346,22 @@
                 "range": {
                     "value": ""
                 },
+                "range": {
+                    "value": "30 feet"
+                },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
-                    "value": "divination"
+                    "value": "necromancy"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -3231,7 +3374,7 @@
                     "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
@@ -3245,9 +3388,7 @@
                 "traditions": {
                     "custom": "",
                     "value": [
-                        "arcane",
                         "divine",
-                        "occult",
                         "primal"
                     ]
                 },
@@ -3257,7 +3398,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "detection",
+                        "positive",
                         "cantrip"
                     ]
                 }
@@ -3285,6 +3426,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "areasize": {
+                    "value": "varies"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -3316,6 +3460,9 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 1
                 },
@@ -3332,18 +3479,16 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "30 feet"
+                    "value": "varies"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": "fortitude"
+                    "value": ""
                 },
                 "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "necromancy"
@@ -3359,16 +3504,16 @@
                     "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "heal"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 undead creature"
+                    "value": "1 willing living creature or 1 undead"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "custom": "",
@@ -3383,8 +3528,9 @@
                         "value": "common"
                     },
                     "value": [
-                        "positive",
-                        "cantrip"
+                        "healing",
+                        "necromancy",
+                        "positive"
                     ]
                 }
             },
@@ -3591,6 +3737,10 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
