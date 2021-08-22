@@ -63,6 +63,7 @@ import { Migration652KillHalcyonTradition } from "@module/migration/migrations/6
 import { Migration653AEstoREs } from "./migrations/653-aes-to-res";
 import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654-action-type-count";
 import { Migration655CreatureTokenSizes } from "./migrations/655-creature-token-sizes";
+import { Migration656DruidFocusPool } from "./migrations/656-druid-focus-pool";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -130,6 +131,7 @@ export class Migrations {
         Migration653AEstoREs,
         Migration654ActionTypeAndCount,
         Migration655CreatureTokenSizes,
+        Migration656DruidFocusPool,
     ];
 
     static get latestVersion(): number {
