@@ -4,12 +4,30 @@ import { sluggify } from "@module/utils";
 import { MigrationBase } from "../base";
 
 /** Set focus pool for druids */
-export class Migration656DruidFocusPool extends MigrationBase {
+export class Migration656OtherFocusPoolSources extends MigrationBase {
     static override version = 0.656;
 
     private needsRuleElement(rules: Array<RuleElementSource & { path?: string }>): boolean {
         return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "data.resources.focus.max");
     }
+
+    private increasesByOne = new Set([
+        "additional-shadow-magic",
+        "basic-bloodline-spell",
+        "blessed-one-dedication",
+        "breath-of-the-dragon",
+        "crystal-ward-spells",
+        "domain-initiate",
+        "expanded-domain-initiate",
+        "gravity-weapon",
+        "heal-companion",
+        "leaf-order",
+        "magic-warrior-aspect",
+        "magic-warrior-transformation",
+        "shadow-illusion",
+        "storm-order",
+        "wings-of-the-dragon",
+    ]);
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "feat") return;
@@ -29,7 +47,7 @@ export class Migration656DruidFocusPool extends MigrationBase {
                 };
             }
 
-            if (["blessed-one-dedication", "leaf-order", "storm-order"].includes(slug)) {
+            if (this.increasesByOne.has(slug)) {
                 return {
                     key: "ActiveEffectLike",
                     path: "data.resources.focus.max",
