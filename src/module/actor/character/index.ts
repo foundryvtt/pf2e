@@ -95,7 +95,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const save of SAVE_TYPES) {
             saves[save] = {
                 ability: CONFIG.PF2E.savingThrowDefaultAbilities[save],
-                rank: saves[save]?.rank ?? 0,
+                rank: 0,
             };
         }
 
