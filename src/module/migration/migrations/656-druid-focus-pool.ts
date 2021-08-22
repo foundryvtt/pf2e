@@ -29,7 +29,7 @@ export class Migration656DruidFocusPool extends MigrationBase {
                 };
             }
 
-            if (["leaf-order", "storm-order"].includes(slug)) {
+            if (["blessed-one-dedication", "leaf-order", "storm-order"].includes(slug)) {
                 return {
                     key: "ActiveEffectLike",
                     path: "data.resources.focus.max",
