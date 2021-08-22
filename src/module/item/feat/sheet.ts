@@ -17,4 +17,19 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             traits: this.prepareOptions(CONFIG.PF2E.featTraits, data.data.traits),
         };
     }
+
+    override activateListeners(html: JQuery<HTMLElement>): void {
+        super.activateListeners(html);
+
+        html.find("[data-action='toggle-focus']").on("click", (evt) => {
+            evt.preventDefault();
+            evt.stopPropagation();
+
+            if (this.item.data.data.grants.focus) {
+                this.item.update({ "data.grants.-=focus": null });
+            } else {
+                this.item.update({ "data.grants.focus": { value: 1 } });
+            }
+        });
+    }
 }

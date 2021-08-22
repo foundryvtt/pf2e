@@ -163,6 +163,7 @@ export class CharacterPF2e extends CreaturePF2e {
         this.ancestry?.prepareActorData();
         this.background?.prepareActorData();
         this.class?.prepareActorData();
+        this.itemTypes.feat.map((feat) => feat.prepareActorData());
         super.applyActiveEffects();
     }
 

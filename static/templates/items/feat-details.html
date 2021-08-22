@@ -60,6 +60,16 @@
     <input type="text" name="data.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
 
+<div class="form-group">
+    <label>{{localize "PF2E.SpellFocusLabel"}}</label>
+    <div class="details-container-flex-row">
+        {{#if data.grants.focus}}
+            <input type="number" name="data.grants.focus.value" value="{{data.grants.focus.value}}" data-dtype="Number">
+        {{/if}}
+        <input type="checkbox" {{checked data.grants.focus}} data-action="toggle-focus"/>
+    </div>
+</div>
+
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}
