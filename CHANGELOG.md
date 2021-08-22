@@ -1,5 +1,36 @@
 # Patch Notes:
 
+## Version 2.12.1
+### Bug Fixes
+* (stwlam) Fix rendering of the Compendium Browser's settings tab
+* (stwlam) Ensure presence of rules array on item system data, to prevent crashing the creature token size migration
+* (stwlam) Restore presence of inventory quantity-adjustment buttons on PC sheet
+
+### Content Changes
+* (TMun) Correct dragonhide shield tables
+* (TMun) Remove AoE Skinstitch (duplicate of Bestiary 3)
+* (stwlam) Have Druidic Order start with one focus point, and increase focus pool by one for the following:
+    * Additional Shadow Magic
+    * Basic Bloodline Spell
+    * Blessed One Dedication
+    * Breath of the Dragon
+    * Crystal Ward Spells
+    * Domain Initiate
+    * Expanded Domain Initiate
+    * Gravity Weapon
+    * Heal Companion
+    * Leaf Order
+    * Magic Warrior Aspect
+    * Magic Warrior Transformation
+    * Shadow Illusion
+    * Storm Order
+    * Wings of the Dragon
+
+### Core System Improvements
+* (stwlam) Migrate actor and item on JSON importing
+* (stwlam) Clear invalid character-size data
+
+
 ## Version 2.12.0
 ### Bug Fixes
 * (stwlam) Ensure strike modifiers applied in the roll dialog are temporary
