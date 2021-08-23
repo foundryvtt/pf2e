@@ -1,36 +1,37 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "8tj6uI04HUI9FeYd",
     "data": {
         "description": {
-            "value": "<p>The creature gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p>The creature gains a +1 status bonus to damage rolls and to saving throws against @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
-            "value": 16
+            "value": 1
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "attack",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
+                "key": "FlatModifier",
+                "label": "Lantern of Hope",
                 "selector": "damage",
                 "type": "status",
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.TempHP",
-                "value": 5
+                "key": "FlatModifier",
+                "label": "Lantern of Hope (vs Crushing Despair)",
+                "predicate": {
+                    "all": [
+                        "crushingDespair"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
             }
         ],
         "source": {
@@ -54,7 +55,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/moonlight-bridge.webp",
+    "name": "Effect: Lantern of Hope",
     "type": "effect"
 }

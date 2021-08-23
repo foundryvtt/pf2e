@@ -1,36 +1,36 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "KTLxcklwXXstzc4S",
     "data": {
         "description": {
-            "value": "<p>The creature gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls.</p>"
+            "value": "<p>The creature gains a +4 status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 16
+            "value": 3
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "attack",
+                "label": "Blood Frenzy",
+                "selector": "damage",
                 "type": "status",
-                "value": 1
+                "value": 4
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Soul Siphon",
-                "selector": "damage",
+                "label": "Blood Frenzy",
+                "selector": "ac",
                 "type": "status",
-                "value": 1
+                "value": -2
             },
             {
                 "key": "PF2E.RuleElement.TempHP",
-                "value": 5
+                "value": 8
             }
         ],
         "source": {
@@ -54,7 +54,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/blood-ward.webp",
+    "name": "Effect: Blood Frenzy",
     "type": "effect"
 }
