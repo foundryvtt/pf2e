@@ -3,7 +3,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { DocumentSchemaRecord } from "@module/data";
 import { MigrationBase } from "@module/migration/base";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { ErrorPF2e } from "@module/utils";
 import { DateTime } from "luxon";
 
 interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e> {
@@ -86,7 +85,7 @@ export class MigrationRunnerBase {
                 console.error(err);
             }
         }
-        if ("game" in globalThis) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
+        if (migrations.length > 0) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -121,9 +120,8 @@ export class MigrationRunnerBase {
         return currentActor;
     }
 
-    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
-        if (!("game" in globalThis)) return;
-        if (!latestMigration) throw ErrorPF2e("No migrations in this run!");
+    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+        if (!("game" in globalThis && latestMigration)) return;
 
         const fromVersion = typeof schema.version === "number" ? schema.version : null;
         schema.version = latestMigration.version;
