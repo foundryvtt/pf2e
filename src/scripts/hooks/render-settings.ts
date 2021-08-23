@@ -4,13 +4,23 @@ export const RenderSettings = {
     listen: (): void => {
         Hooks.on("renderSettings", async (_app, $html) => {
             // Guide and Changelog
-            const $systemRow = $html.find("li.system");
-            const $guideLog = $systemRow.clone();
-            $guideLog.addClass("system-info").removeClass("system");
-            $guideLog.html(
-                '<a title="Guide" href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/Getting-Started-Guide/Getting-Started" style="color:#daa520;">Guide</a> | <a title="Changelog" href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release-0.8.x/CHANGELOG.md" style="color:#daa520;">Changelog</a>'
+            const $systemRow = $html.find("#game-details > li.system");
+            const $guideLog = $systemRow.clone().empty().removeClass("system").addClass("system-info");
+            const links = {
+                guide: {
+                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/Getting-Started-Guide/Getting-Started",
+                    label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Guide"),
+                },
+                changelog: {
+                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release-0.8.x/CHANGELOG.md",
+                    label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Changelog"),
+                },
+            };
+            $guideLog.append(
+                `<a href="${links.guide.url}">${links.guide.label}</a>`,
+                `<a href="${links.changelog.url}">${links.changelog.label}</a>`
             );
-            $("#game-details > li.system").after($guideLog);
+            $systemRow.after($guideLog);
 
             // Paizo License
             const $container = $("<div>").attr({ id: "pf2e-license" });
