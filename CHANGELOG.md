@@ -1,5 +1,17 @@
 # Patch Notes:
 
+## Version 2.12.2
+### Bug Fixes
+* (Chup) Fix visibility of + and - buttons for items in containers
+* (stwlam) Fix visibility of + and - buttons for items in vehicle sheet
+* (stwlam) Calculate saving throw proficiency ranks instead of pulling information from old stored data
+* (stwlam) Temporarily restore ability to manually adjust perception and save proficiencies
+* (Drental) Show icons correctly in the journal entries
+
+### Core System Improvements
+* (Drental) Remove repost button from check element on repost by players
+
+
 ## Version 2.12.1
 ### Bug Fixes
 * (stwlam) Fix rendering of the Compendium Browser's settings tab
