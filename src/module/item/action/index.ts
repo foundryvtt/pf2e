@@ -20,13 +20,9 @@ export class ActionPF2e extends ItemPF2e {
 
     override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
-        const associatedWeapon = this.actor?.items.get(data.weapon.value) ?? null;
 
         // Feat properties
-        const properties = [
-            CONFIG.PF2E.actionTypes[data.actionType.value],
-            associatedWeapon ? associatedWeapon.name : null,
-        ].filter((p) => p);
+        const properties = [CONFIG.PF2E.actionTypes[data.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }

@@ -1,9 +1,8 @@
 import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
-import { ItemPF2e } from "@item/base";
 import { LocalizePF2e } from "@module/system/localize";
-import { ConsumablePF2e } from "@item/consumable";
-import { CreaturePF2e } from "@actor/creature";
+import { ItemPF2e, ConsumablePF2e, SpellPF2e } from "@item";
+import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
@@ -84,6 +83,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.preventDefault();
             event.stopPropagation();
 
+            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
+
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
                 case "toggleHands":
@@ -93,26 +94,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     }
 
                     break;
-                case "weaponAttack":
-                    item.rollWeaponAttack(event);
-                    break;
-                case "weaponAttack2":
-                    item.rollWeaponAttack(event, 2);
-                    break;
-                case "weaponAttack3":
-                    item.rollWeaponAttack(event, 3);
-                    break;
-                case "weaponDamage":
-                    item.rollWeaponDamage(event);
-                    break;
-                case "weaponDamageCritical":
-                    item.rollWeaponDamage(event, true);
-                    break;
                 case "spellAttack":
-                    item.rollSpellAttack(event);
+                    spell?.rollAttack(event);
                     break;
                 case "spellDamage":
-                    item.rollSpellDamage(event);
+                    spell?.rollDamage(event);
                     break;
                 case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
