@@ -52,7 +52,7 @@ export class DicePF2e {
         speaker: foundry.data.ChatSpeakerSource;
         flavor?: any;
         onClose?: any;
-        dialogOptions?: object;
+        dialogOptions?: Partial<ApplicationOptions>;
         rollMode?: RollMode;
         rollType?: string;
     }) {

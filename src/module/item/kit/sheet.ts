@@ -6,7 +6,7 @@ import { ItemSheetPF2e } from "../sheet/base";
  * @category Other
  */
 export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
             scrollY: [".item-details"],

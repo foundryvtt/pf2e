@@ -8,7 +8,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
 
     constructor(
         object: ActorPF2e,
-        options: FormApplicationOptions,
+        options: Partial<FormApplicationOptions>,
         callback: ScrollWandCallback,
         spellData: SpellSource
     ) {

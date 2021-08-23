@@ -496,7 +496,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},
-        options: FormApplicationOptions = {}
+        options: Partial<FormApplicationOptions> = {}
     ): Promise<ItemPF2e | undefined> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(

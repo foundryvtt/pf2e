@@ -16,7 +16,7 @@ export class PlayerConfigPF2e extends FormApplication {
         darkvisionFilter: false,
     };
 
-    static override get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): Required<FormApplicationOptions> {
         return mergeObject(super.defaultOptions, {
             id: "pf2e-player-config-panel",
             title: "PF2e Player Settings",
@@ -61,7 +61,7 @@ export class PlayerConfigPF2e extends FormApplication {
         });
     }
 
-    async _updateObject(_event: Event, formData: FormData & UserSettingsPF2e): Promise<void> {
+    async _updateObject(_event: Event, formData: Record<string, unknown> & UserSettingsPF2e): Promise<void> {
         const settings = USER_SETTINGS_KEYS.reduce((currentSettings: Record<UserSettingsKey, unknown>, key) => {
             currentSettings[key] = formData[key] ?? this.settings[key];
             return currentSettings;

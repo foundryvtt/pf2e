@@ -109,7 +109,7 @@ interface TravelSpeedSheetOptions extends FormApplicationOptions {
 class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
     private formData?: TravelFormData = undefined;
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "travel-duration";
         options.classes = ["travel-duration"];
@@ -121,7 +121,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
         return options;
     }
 
-    async _updateObject(_event: Event, formData: FormData) {
+    async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         const data = expandObject(formData) as TravelFormData;
         data.actors = toArray(data.actors);
         this.formData = data;

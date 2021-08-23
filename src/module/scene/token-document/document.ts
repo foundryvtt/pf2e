@@ -1,12 +1,11 @@
 import { VisionLevels } from "@actor/creature/data";
 import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e } from "@actor";
-import { TokenPF2e } from "../canvas/token";
-import { ScenePF2e } from ".";
-import { UserPF2e } from "../user/document";
-import { TokenConfigPF2e } from "./token-config";
-import { LightLevels } from "./data";
+import { TokenPF2e } from "@module/canvas";
+import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
+import { UserPF2e } from "@module/user";
+import { LightLevels } from "../data";
 
-export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
+export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized: true | undefined;
 
@@ -15,7 +14,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         return this.parent;
     }
 
-    override _initialize(): void {
+    protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
     }
@@ -161,7 +160,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     }
 }
 
-export interface TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
+export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     readonly _object: TokenPF2e | null;
 
     get object(): TokenPF2e;

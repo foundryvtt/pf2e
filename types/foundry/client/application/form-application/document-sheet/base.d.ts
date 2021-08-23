@@ -27,14 +27,14 @@ declare global {
     > extends FormApplication<TDocument, TOptions> {
         constructor(object: TDocument, options: Partial<DocumentSheetOptions>);
 
-        static override get defaultOptions(): DocumentSheetOptions;
+        static override get defaultOptions(): Required<DocumentSheetOptions>;
 
         /**
          * A convenience accessor for the object property of the inherited FormApplication instance
          */
         get document(): TDocument;
 
-        override getData(options?: DocumentSheetOptions): DocumentSheetData<foundry.abstract.Document>;
+        override getData(options?: TOptions): DocumentSheetData<foundry.abstract.Document>;
 
         protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
     }

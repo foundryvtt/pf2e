@@ -17,7 +17,7 @@ declare type ClientDocumentMixin<T extends typeof foundry.abstract.Document> = {
      */
     createDialog(
         data?: { folder?: string },
-        options?: FormApplicationOptions
+        options?: Partial<FormApplicationOptions>
     ): Promise<ClientDocument<InstanceType<T>> | undefined>;
 
     /**

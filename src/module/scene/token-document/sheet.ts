@@ -1,6 +1,6 @@
-import { TokenDocumentPF2e } from "./token-document";
+import { TokenDocumentPF2e } from ".";
 
-export class TokenConfigPF2e extends TokenConfig<TokenDocumentPF2e> {
+export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends TokenConfig<TDocument> {
     /** Hide token-sight settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         if (game.settings.get("pf2e", "automation.rulesBasedVision")) {
