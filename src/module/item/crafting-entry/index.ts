@@ -87,6 +87,18 @@ export class CraftingEntryPF2e extends ItemPF2e {
         return this.data.data.entryType.value === "alchemical";
     }
 
+    get itemRestrictions() {
+        const itemRestrictions = this.data.data.itemRestrictions;
+
+        if (this.isAlchemical && itemRestrictions !== undefined) {
+            itemRestrictions.level =
+                (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]
+                    ?.advancedAlchemyLevel || 0;
+        }
+
+        return itemRestrictions;
+    }
+
     override prepareData() {
         super.prepareData();
 

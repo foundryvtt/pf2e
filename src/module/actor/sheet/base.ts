@@ -431,6 +431,36 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             );
         });
 
+        html.find(".toggle-entry-filters").on("click", (event) => {
+            const entryId = $(event.target).closest(".item").attr("data-item-id") ?? "";
+
+            if (!entryId) {
+                return;
+            }
+
+            const entry = this.actor.items.get(entryId);
+            if (!(entry instanceof CraftingEntryPF2e)) {
+                return;
+            }
+            const filters: { level: { min: number; max: number }; traits: { [key: string]: boolean } } = {
+                level: { min: 0, max: 20 },
+                traits: {},
+            };
+            const itemRestrictions = entry.itemRestrictions;
+            if (itemRestrictions?.traits) {
+                const traits: { [key: string]: boolean } = {};
+                itemRestrictions.traits.map((t) => (traits[t] = true));
+                filters.traits = traits;
+            }
+            if (itemRestrictions?.level !== undefined) {
+                const level = { min: 0, max: itemRestrictions.level };
+                filters.level = level;
+            }
+
+            this.actor.unsetFlag(game.system.id, "crafting.formulaFilters");
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters", filters);
+        });
+
         // reset formula filters
         html.find(".clear-formula-filters").on("click", () =>
             this.actor.unsetFlag(game.system.id, "crafting.formulaFilters")
@@ -561,22 +591,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             this.actor.setFlag(game.system.id, "crafting.formulaFilters.level.max", event.target.value);
         });
 
-        html.find<HTMLInputElement>(".filter-crafting-type").on("change", (event) => {
+        html.find<HTMLInputElement>(".filter-trait").on("change", (event) => {
             event.preventDefault();
 
             this.actor.setFlag(
                 game.system.id,
-                `crafting.formulaFilters.craftingType.${event.target.name}`,
-                event.target.checked
-            );
-        });
-
-        html.find<HTMLInputElement>(".filter-field-discovery").on("change", (event) => {
-            event.preventDefault();
-
-            this.actor.setFlag(
-                game.system.id,
-                `crafting.formulaFilters.fieldDiscovery.${event.target.name}`,
+                `crafting.formulaFilters.traits.${event.target.name}`,
                 event.target.checked
             );
         });

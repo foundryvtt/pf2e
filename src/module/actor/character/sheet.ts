@@ -16,8 +16,8 @@ import { ErrorPF2e } from "@module/utils";
 import { CraftingEntryPF2e, FormulaPF2e, LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CraftingForm, performRoll } from "@module/crafting";
-import { CraftingType, FieldDiscoveryType } from "@item/formula/data";
 import { PhysicalItemTrait } from "@item/physical/data";
+import { ItemTrait } from "@item/data/base";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -169,14 +169,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const formulaFilterFlags = this.actor.data.flags?.pf2e?.crafting?.formulaFilters;
         const formulaLevelMin: number = formulaFilterFlags?.level?.min;
         const formulaLevelMax: number = formulaFilterFlags?.level?.max;
-        const craftingTypeFlags: { [key in CraftingType]?: boolean } = formulaFilterFlags?.craftingType;
-        const craftingTypeFilters = craftingTypeFlags
-            ? Object.keys(craftingTypeFlags).filter((key) => craftingTypeFlags[key as CraftingType])
-            : [];
-        const fieldDiscoveryFlags: { [key in FieldDiscoveryType]?: boolean } = formulaFilterFlags?.fieldDiscovery;
-        const fieldDiscoveryFilters = fieldDiscoveryFlags
-            ? Object.keys(fieldDiscoveryFlags).filter((key) => fieldDiscoveryFlags[key as FieldDiscoveryType])
-            : [];
+        const traitFlags: { [key: string]: boolean } = formulaFilterFlags?.traits || {};
+        const formulaFilteredTraits: string[] = Object.keys(traitFlags).filter((k) => traitFlags[k]);
 
         // Feats
         interface FeatSlot {
@@ -304,19 +298,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             else if (itemData.type === "formula") {
                 const formulaData: FormulaData = itemData;
                 const formulaLevel = formulaData.data.level.value;
-                const craftingType = formulaData.data.craftingType.value;
-                const fieldDiscoveryType = formulaData.data.fieldDiscoveryType.value;
 
                 // Filters
                 // TODO - Change to be a trait selector rather than just crafting type + discovery
                 if (
                     (formulaLevelMin ? formulaLevelMin : 0) <= formulaLevel &&
                     (formulaLevelMax ? formulaLevelMax : 20) >= formulaLevel &&
-                    (!craftingTypeFilters.length ||
-                        craftingTypeFilters.some((v) => craftingType.includes(v as CraftingType)) ||
-                        (!craftingType.length && craftingTypeFilters.includes("mundane"))) &&
-                    (!fieldDiscoveryFilters.length ||
-                        fieldDiscoveryFilters.some((v) => fieldDiscoveryType.includes(v as FieldDiscoveryType)))
+                    (formulaFilteredTraits || []).every((t) => formulaData.data.traits.value.includes(t as ItemTrait))
                 ) {
                     if (knownFormulas[formulaLevel] === undefined) {
                         knownFormulas[formulaLevel] = [];

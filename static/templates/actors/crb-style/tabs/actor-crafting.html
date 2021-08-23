@@ -37,6 +37,15 @@
                         <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
                             {{entry.name}}
                         </h3>
+
+                        {{#if @root.owner}}
+                        <div class="item-controls">
+                            <a class="item-control toggle-entry-filters" title="{{localize " PF2E.Filters"}}"><i
+                                    class="fas fa-filter"></i></a>
+                            <a class="item-control clear-formula-filters" title="{{localize " PF2E.BrowserClearFilters"}}"><i
+                                    class="fas fa-undo"></i></a>
+                        </div>
+                        {{/if}}
                     </div>
 
                     <ol class="directory-list item-list formula-list">
@@ -131,15 +140,15 @@
                     </div>
                     <div class="form-group">
                         {{#each actor.craftingTypes}}
-                        <input type="checkbox" class="filter-crafting-type" name="{{@key}}" {{#if (lookup
-                            ../actor.flags.pf2e.crafting.formulaFilters.craftingType @key)}}checked{{/if}}>
+                        <input type="checkbox" class="filter-trait" name="{{@key}}" {{#if (lookup
+                            ../actor.flags.pf2e.crafting.formulaFilters.traits @key)}}checked{{/if}}>
                         <label for="{{@key}}">{{localize this}}</label>
                         {{/each}}
                     </div>
                     <div class="form-group">
                         {{#each actor.fieldDiscoveryTypes}}
-                        <input type="checkbox" class="filter-field-discovery" name="{{@key}}" {{#if (lookup
-                            ../actor.flags.pf2e.crafting.formulaFilters.fieldDiscovery @key)}}checked{{/if}}>
+                        <input type="checkbox" class="filter-trait" name="{{@key}}" {{#if (lookup
+                            ../actor.flags.pf2e.crafting.formulaFilters.traits @key)}}checked{{/if}}>
                         <label for="{{@key}}">{{localize this}}</label>
                         {{/each}}
                     </div>
