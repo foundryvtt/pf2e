@@ -18,7 +18,7 @@
             <ol class="item-list">
                 {{#each section.items as |item itemId|}}
                     {{#unless item.isInContainer}}
-                        {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item editable=@root.editable user=@root.user}}
+                        {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=@root.owner editable=@root.editable user=@root.user}}
                     {{/unless}}
                 {{/each}}
             </ol>

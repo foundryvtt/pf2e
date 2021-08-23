@@ -80,7 +80,11 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.ac = { modifiers: [] };
         attributes.classDC = { rank: 0 };
         attributes.dexCap = [{ value: Infinity, source: "" }];
-        attributes.perception = { ability: "wis", rank: 0 };
+
+        const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
+        perception.ability = "wis";
+        perception.rank ??= 0;
+
         attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4 };
