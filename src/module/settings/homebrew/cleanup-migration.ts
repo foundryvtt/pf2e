@@ -4,9 +4,12 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ConfigPF2eHomebrewList } from "./index";
 import { objectHasKey } from "@module/utils";
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
+        static override version = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
+
         override async updateActor(actorData: ActorSourcePF2e) {
             if (!(actorData.type === "character" || actorData.type === "npc")) {
                 return;
