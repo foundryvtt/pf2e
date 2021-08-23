@@ -5,7 +5,7 @@
     {{#each data.saves as |save sid|}}
         <li class="roll-data" data-save="{{sid}}">
             <h2 class="save-label">{{localize save.label}}</h2>
-            <div class="save-rank" data-property="data.saves.{{sid}}.rank" value="{{save.rank}}">
+            <div class="save-rank adjust-stat" data-property="data.saves.{{sid}}.rank" value="{{save.rank}}">
                 <h4><span>{{save.rankName}}</span></h4>
             </div>
             <div class="save-roll">
@@ -15,7 +15,7 @@
                 <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
             </div>
             <h4 class="button hover" data-tooltip-content="#{{../uid}}-{{sid}}-modifiers">
-                {{localize 'PF2E.ModifiersTitle'}}
+                {{localize "PF2E.ModifiersTitle"}}
             </h4>
             {{#with save}}
                 {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
