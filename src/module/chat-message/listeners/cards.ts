@@ -1,5 +1,5 @@
-import { ConsumablePF2e, MeleePF2e } from "@item/index";
-import { ActorPF2e } from "@actor/index";
+import { ConsumablePF2e, MeleePF2e, SpellPF2e } from "@item";
+import { ActorPF2e } from "@actor";
 import { StatisticModifier } from "@module/modifiers";
 
 export const ChatCards = {
@@ -25,6 +25,8 @@ export const ChatCards = {
             if (!actor) return;
 
             if (item) {
+                const spell =
+                    item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
                 const strike: StatisticModifier = actor.data.data.actions?.find(
                     (a: StatisticModifier) => a.item === item.id
                 );
@@ -33,32 +35,22 @@ export const ChatCards = {
                 if (action === "weaponAttack") {
                     if (strike && rollOptions) {
                         strike.variants[0].roll({ event: event, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(event);
                     }
                 } else if (action === "weaponAttack2") {
                     if (strike && rollOptions) {
                         strike.variants[1].roll({ event: event, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(event, 2);
                     }
                 } else if (action === "weaponAttack3") {
                     if (strike && rollOptions) {
                         strike.variants[2].roll({ event: event, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(event, 3);
                     }
                 } else if (action === "weaponDamage") {
                     if (strike && rollOptions) {
                         strike.damage({ event: event, options: rollOptions });
-                    } else {
-                        item.rollWeaponDamage(event);
                     }
                 } else if (action === "weaponDamageCritical" || action === "criticalDamage") {
                     if (strike && rollOptions) {
                         strike.critical({ event: event, options: rollOptions });
-                    } else {
-                        item.rollWeaponDamage(event, true);
                     }
                 } else if (action === "npcAttack" && item instanceof MeleePF2e) item.rollNPCAttack(event);
                 else if (action === "npcAttack2" && item instanceof MeleePF2e) item.rollNPCAttack(event, 2);
@@ -66,10 +58,10 @@ export const ChatCards = {
                 else if (action === "npcDamage" && item instanceof MeleePF2e) item.rollNPCDamage(event);
                 else if (action === "npcDamageCritical" && item instanceof MeleePF2e) item.rollNPCDamage(event, true);
                 // Spell actions
-                else if (action === "spellAttack") item.rollSpellAttack(event);
-                else if (action === "spellAttack2") item.rollSpellAttack(event, 2);
-                else if (action === "spellAttack3") item.rollSpellAttack(event, 3);
-                else if (action === "spellDamage") item.rollSpellDamage(event);
+                else if (action === "spellAttack") spell?.rollAttack(event);
+                else if (action === "spellAttack2") spell?.rollAttack(event, 2);
+                else if (action === "spellAttack3") spell?.rollAttack(event, 3);
+                else if (action === "spellDamage") spell?.rollDamage(event);
                 else if (action === "spellCounteract") item.rollCounteract(event);
                 else if (action === "spellTemplate") item.placeTemplate(event);
                 // Consumable usage
