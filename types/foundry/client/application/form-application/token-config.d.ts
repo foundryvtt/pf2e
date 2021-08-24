@@ -1,6 +1,8 @@
 /** A Token Configuration Application */
-declare class TokenConfig<TObject extends TokenDocument = TokenDocument> extends FormApplication<TObject> {
-    constructor(object: TObject, options?: Partial<FormApplicationOptions>);
+declare class TokenConfig<TDocument extends TokenDocument = TokenDocument> extends FormApplication<TDocument> {
+    constructor(object: TDocument, options?: Partial<FormApplicationOptions>);
+
+    token: TDocument;
 
     static override get defaultOptions(): FormApplicationOptions;
 
@@ -10,11 +12,11 @@ declare class TokenConfig<TObject extends TokenDocument = TokenDocument> extends
     get isPrototype(): boolean;
 
     /** Convenience access to the Actor document that this Token represents */
-    get actor(): TObject["actor"];
+    get actor(): TDocument["actor"];
 
     get title(): string;
 
-    override getData(options?: Partial<FormApplicationOptions>): TokenConfigData<TObject>;
+    override getData(options?: Partial<FormApplicationOptions>): TokenConfigData<TDocument>;
 
     override render(force?: boolean, options?: RenderOptions): Promise<this>;
 
@@ -32,7 +34,7 @@ declare class TokenConfig<TObject extends TokenDocument = TokenDocument> extends
     protected override _updateObject(
         event: Event,
         formData: Record<string, unknown>
-    ): Promise<TObject | TObject["parent"]>;
+    ): Promise<TDocument | TDocument["actor"]>;
 
     /**
      * Handle Token assignment requests to update the default prototype Token
