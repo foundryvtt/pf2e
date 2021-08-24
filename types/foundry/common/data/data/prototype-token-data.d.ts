@@ -57,6 +57,7 @@ declare namespace foundry {
             displayBars: number;
             bar1: TokenBarSource;
             bar2: TokenBarSource;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class PrototypeTokenData<
