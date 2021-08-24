@@ -1,13 +1,13 @@
 {
-    "_id": "SjrM6XVTLySToS12",
+    "_id": "S38CM3hyr7DnsmRR",
     "data": {
         "description": {
-            "value": "<p>An astradaemon draws power from the souls of the recently slain. If a Small or larger living creature dies within its aura, the astradaemon gains 5 temporary Hit Points and a status bonus to attack and damage rolls for 1 round.</p>"
+            "value": "<p>If the @Compendium[pf2e.pathfinder-bestiary.Astradaemon]{Astradaemon} successfully kills a creature with Devour Soul, the astradaemon gains 10 temporary Hit Points and a +2 status bonus to attack and damage rolls for 1 day.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "days",
             "value": 1
         },
         "level": {
@@ -16,23 +16,25 @@
         "rules": [
             {
                 "key": "TempHP",
-                "value": 5
+                "value": 10
             },
             {
                 "key": "FlatModifier",
+                "label": "Effect: Devour Soul",
                 "selector": "attack",
                 "type": "status",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "FlatModifier",
+                "label": "Effect: Devour Soul",
                 "selector": "damage",
                 "type": "status",
-                "value": 1
+                "value": 2
             }
         ],
         "source": {
-            "value": "Pathfinder Bestiary"
+            "value": ""
         },
         "start": {
             "initiative": null,
@@ -52,7 +54,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
-    "name": "Effect: Soul Siphon",
+    "img": "systems/pf2e/icons/spells/eject-soul.webp",
+    "name": "Effect: Devour Soul (Victim Level 15 or Higher)",
     "type": "effect"
 }
