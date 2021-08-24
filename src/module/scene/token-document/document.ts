@@ -4,6 +4,7 @@ import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { UserPF2e } from "@module/user";
 import { LightLevels } from "../data";
+import { TokenDataPF2e } from "./data";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -34,6 +35,10 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
+    get linkToActorSize(): boolean {
+        return this.data.flags.pf2e.linkToActorSize;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
@@ -49,6 +54,9 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        this.data.flags.pf2e ??= { linkToActorSize: true };
+        this.data.flags.pf2e.linkToActorSize ??= true;
         if (!(this.initialized && canvas.sight?.rulesBasedVision)) return;
 
         this.data.brightSight = 0;
@@ -77,12 +85,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     /** Set this token's dimensions from actor data */
     private prepareSize(): void {
-        if (!(this.actor instanceof CreaturePF2e)) return;
+        if (!(this.actor instanceof CreaturePF2e && this.linkToActorSize)) return;
         const { width, height } = this.data;
         mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
-        if (this.data.width == width && this.data.height === height) {
+        if (this.data.width === width && this.data.height === height) {
             const size = {
                 tiny: 0.5,
                 sm: 1,
@@ -161,6 +169,8 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 }
 
 export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
+    readonly data: TokenDataPF2e<this>;
+
     readonly _object: TokenPF2e | null;
 
     get object(): TokenPF2e;
