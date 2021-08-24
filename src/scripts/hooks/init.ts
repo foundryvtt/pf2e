@@ -78,6 +78,12 @@ export const Init = {
             CONFIG.Canvas.layers.sight = SightLayerPF2e;
             CONFIG.Canvas.layers.templates = TemplateLayerPF2e;
 
+            // Make darkness visibility a little more appropriate for basic map use
+            CONFIG.Canvas.lightLevels.dim = 0.25;
+            CONFIG.Canvas.darknessColor = PIXI.utils.rgb2hex([0.25, 0.25, 0.4]);
+            CONFIG.Canvas.exploredColor = PIXI.utils.rgb2hex([0.6, 0.6, 0.6]);
+            CONFIG.Canvas.unexploredColor = PIXI.utils.rgb2hex([0.2, 0.2, 0.2]);
+
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
             // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
