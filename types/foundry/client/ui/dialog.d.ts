@@ -65,7 +65,7 @@ interface ConfirmDialogParameters<Y extends unknown = true, N extends unknown = 
  * d.render(true);
  */
 declare class Dialog extends Application {
-    constructor(dialogData: DialogData, options?: ApplicationOptions);
+    constructor(dialogData: DialogData, options?: Partial<ApplicationOptions>);
 
     /* -------------------------------------------- */
     /*  Factory Methods                             */

@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor/base";
 import { NPCPF2e } from "@actor/npc";
 import { LabeledValue } from "@module/data";
-import { TagSelectorBase } from "./base";
+import { TagSelectorBase, TagSelectorOptions } from "./base";
 import { SelectableTagField } from "./index";
 
 export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.attributes.speed.otherSpeeds";
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/trait-selector/speed-types.html",
             title: "PF2E.SpeedTypes",
@@ -77,8 +77,4 @@ export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
         }
         return choices;
     }
-}
-
-export interface TraitSelectorSpeeds {
-    options: FormApplicationOptions;
 }

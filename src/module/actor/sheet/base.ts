@@ -1,15 +1,16 @@
-import { CharacterPF2e } from "@actor/character";
-import { NPCPF2e } from "@actor/npc";
-import { ItemPF2e } from "@item/base";
-import { ConditionPF2e } from "@item/condition";
-import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { CharacterPF2e, NPCPF2e } from "@actor";
+import {
+    ItemPF2e,
+    ConditionPF2e,
+    ContainerPF2e,
+    KitPF2e,
+    PhysicalItemPF2e,
+    SpellcastingEntryPF2e,
+    SpellPF2e,
+} from "@item";
+import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { KitPF2e } from "@item/kit";
-import { PhysicalItemPF2e } from "@item/physical";
-import { SpellPF2e } from "@item/spell";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { SpellSource } from "@item/spell/data";
-import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import {
     calculateTotalWealth,
     calculateValueOfCurrency,
@@ -19,21 +20,20 @@ import {
     sellTreasure,
 } from "@item/treasure/helpers";
 import {
+    BasicConstructorOptions,
     TagSelectorBasic,
     TraitSelectorResistances,
     TraitSelectorSenses,
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
+    TagSelectorType,
+    TAG_SELECTOR_TYPES,
+    SelectableTagField,
+    SELECTABLE_TAG_FIELDS,
+    TagSelectorOptions,
 } from "@module/system/trait-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@module/utils";
 import { LocalizePF2e } from "@system/localize";
-import {
-    BasicSelectorOptions,
-    SelectableTagField,
-    SELECTABLE_TAG_FIELDS,
-    TagSelectorType,
-    TAG_SELECTOR_TYPES,
-} from "@system/trait-selector";
 import type { ActorPF2e } from "../base";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
@@ -42,7 +42,6 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { ContainerPF2e } from "@item/container";
 import { ActorDataPF2e, SaveType } from "@actor/data";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString, RollFunction } from "@actor/data/base";
@@ -1355,13 +1354,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Construct and render a tag selection menu */
-    protected tagSelector(selectorType: Exclude<TagSelectorType, "basic">, options?: FormApplicationOptions): void;
-    protected tagSelector(selectorType: "basic", options: BasicSelectorOptions): void;
+    protected tagSelector(selectorType: Exclude<TagSelectorType, "basic">, options?: Partial<TagSelectorOptions>): void;
+    protected tagSelector(selectorType: "basic", options: BasicConstructorOptions): void;
     protected tagSelector(
         selectorType: TagSelectorType,
-        options: FormApplicationOptions | BasicSelectorOptions = {}
+        options?: Partial<TagSelectorOptions> | BasicConstructorOptions
     ): void {
-        if (selectorType === "basic" && "objectProperty" in options) {
+        if (selectorType === "basic" && options && "objectProperty" in options) {
             new TagSelectorBasic(this.object, options).render(true);
         } else if (selectorType === "basic") {
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");

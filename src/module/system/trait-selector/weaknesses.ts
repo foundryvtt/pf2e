@@ -1,5 +1,4 @@
-import { ActorPF2e } from "@actor/base";
-import { NPCPF2e } from "@actor/npc";
+import { ActorPF2e, NPCPF2e } from "@actor";
 import { LabeledValue } from "@module/data";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
@@ -57,11 +56,9 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
             });
     }
 
-    protected override async _updateObject(_event: Event, formData: Record<string, unknown>) {
+    protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         const update = this.getUpdateData(formData);
-        if (update) {
-            this.object.update({ [this.objectProperty]: update });
-        }
+        this.object.update({ [this.objectProperty]: update });
     }
 
     protected getUpdateData(formData: Record<string, unknown>) {
@@ -76,8 +73,4 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
         }
         return choices;
     }
-}
-
-export interface TraitSelectorWeaknesses {
-    options: FormApplicationOptions;
 }

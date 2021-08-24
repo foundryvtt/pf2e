@@ -1,23 +1,9 @@
-export { TagSelectorBasic } from "./basic";
+export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
 export { TraitSelectorResistances } from "./resistances";
 export { TraitSelectorSenses } from "./senses";
 export { TraitSelectorSpeeds } from "./speeds";
 export { TraitSelectorWeaknesses } from "./weaknesses";
-
-/* Basic trait selector options */
-export interface BasicSelectorOptions extends FormApplicationOptions {
-    /* The base property to update e.g. 'data.traits.languages' */
-    objectProperty: string;
-    /* An array of keys from CONFIG.PF2E */
-    configTypes: SelectableTagField[];
-    /* A custom window title. Defaults to 'PF2E.TraitsLabel'. */
-    title?: string;
-    /* Show the custom input field (defaults to true) */
-    allowCustom?: boolean;
-    /* Custom choices to add to the list of choices */
-    customChoices?: Record<string, string>;
-}
-export interface TagSelectorOptions extends FormApplicationOptions, Partial<BasicSelectorOptions> {}
+export { TagSelectorOptions } from "./base";
 
 export const TAG_SELECTOR_TYPES = ["basic", "resistances", "senses", "speed-types", "weaknesses"] as const;
 export type TagSelectorType = typeof TAG_SELECTOR_TYPES[number];

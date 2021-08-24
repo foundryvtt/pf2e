@@ -3,15 +3,25 @@ import { ActorPF2e } from "@actor/index";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemPF2e } from "@item/index";
 import { ValuesList } from "@module/data";
-import { TagSelectorBase } from "./base";
-import { BasicSelectorOptions, SelectableTagField } from "./index";
+import { TagSelectorBase, TagSelectorOptions } from "./base";
+import { SelectableTagField } from "./index";
+
+/* Basic trait selector options */
+export interface BasicSelectorOptions extends TagSelectorOptions {
+    /* The base property to update e.g. 'data.traits.languages' */
+    objectProperty: string;
+    /* An array of keys from CONFIG.PF2E */
+    configTypes: SelectableTagField[];
+}
+
+export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
 export class TagSelectorBasic extends TagSelectorBase {
     allowCustom: boolean;
     searchString = "";
     private filterTimeout: number | null = null;
 
-    constructor(object: ActorPF2e | ItemPF2e, options: BasicSelectorOptions) {
+    constructor(object: ActorPF2e | ItemPF2e, options: BasicConstructorOptions) {
         super(object, options);
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;

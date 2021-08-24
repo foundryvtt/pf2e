@@ -11,7 +11,7 @@ import "./client/application/base";
 import "./client/application/chat-popout";
 import "./client/application/compendium";
 import "./client/application/form-application/base";
-import "./client/application/form-application/combatant-config";
+import "./client/application/form-application/document-sheet/combatant-config";
 import "./client/application/form-application/document-sheet/active-effect-config";
 import "./client/application/form-application/document-sheet/actor-sheet";
 import "./client/application/form-application/document-sheet/base";

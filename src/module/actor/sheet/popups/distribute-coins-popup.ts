@@ -30,7 +30,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override async _updateObject(_event: Event, formData: PopupFormData): Promise<void> {
+    override async _updateObject(_event: Event, formData: Record<string, unknown> & PopupFormData): Promise<void> {
         const thisActor = this.object;
         const selectedActors: CharacterPF2e[] = formData.actorIds.flatMap((actorId) => {
             const maybeActor = game.actors.get(actorId);
