@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 42,
                 "details": "",
                 "value": 42
             },
@@ -30,7 +31,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "repair mode",
                 "max": 255,
                 "temp": 0,
                 "value": 255
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "Construct",
-            "flavorText": "Crafted from a nigh-indestructible metal of great rarity, adamantine golems can't be destroyed except by the most powerful foes. Crafting an adamantine golem requires a quantity of adamantine so massive that collecting it usually requires mounting a mining expedition to a distant planet, the Plane of Earth, or an Outer Plane.<br /><br />",
+            "flavorText": "<p>Crafted from a nigh-indestructible metal of great rarity, adamantine golems can't be destroyed except by the most powerful foes. Crafting an adamantine golem requires a quantity of adamantine so massive that collecting it usually requires mounting a mining expedition to a distant planet, the Plane of Earth, or an Outer Plane.</p>\n<hr />\n<p>Crafted of base materials and then magically animated into a powerful guardian, the legendary golem is a living construct that mindlessly obeys its creator's commands-often continuing to do so for years or even centuries after its creator's death. There exist two known methods of animating a golem. The traditional method involves harvesting and implanting an elemental soul or essence within the newly crafted host statue, a procedure seen as vile and blasphemous to those who value the sanctity of the soul; evil or amoral golem crafters tend to prefer this method. The other, less disreputable technique involves siphoning pure positive energy into the statue to artificially imitate the creation of a soul. The result does not give the golem a true soul and is generally a more costly and time-consuming method of creation. Regardless of the method used, the resulting golem functions the same. A golem's unique animating force leaves it susceptible to certain forms of magic, but apart from these few weaknesses, it is impervious to magic and difficult to damage with weapons.</p>\n<p>Golems work best in play as foes to vanquish rather than allies to accompany player characters on adventures. The process of creating a golem is time-consuming, expensive, and difficult, and only the most talented spellcasters or artisans can even hope to accomplish such an undertaking. While certain magical texts-so-called \"golem manuals\"-are said to aid golems crafters, for the most part the creation of a golem should be something left in the hands of the Game Master.</p>\n<p>Golems have components that can be harvested as trophies or magical components; the value depends on the golem in question. Examples of components that can be harvested from golems are listed in the sidebars.</p>",
             "level": {
                 "value": 18
             },
@@ -87,7 +88,7 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "doomed",
                     "drained",
@@ -97,7 +98,7 @@
                     "magic",
                     "mental",
                     "necromancy",
-                    "nonlethal attacks",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
                     "sickened",
@@ -106,7 +107,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "vorpal adamantine",
+                    "exceptions": "except vorpal adamantine",
                     "label": "Physical",
                     "type": "physical",
                     "value": "20"
@@ -148,8 +149,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "destructive strike"
+                        "destructive-strike"
                     ]
                 },
                 "bonus": {
@@ -175,7 +177,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly 3d12",
+                        "deadly-3d12",
                         "magical",
                         "reach-15"
                     ]
@@ -192,10 +194,10 @@
             "type": "melee"
         },
         {
-            "_id": "L4OGr85ZFnsYlmit",
+            "_id": "UAwztFhqjNiNuaU4",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -204,13 +206,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>harmed by acid (9d10, 2d10 from areas or persistent damage); healed by fire (area 2d10 HP); slowed by electricity <br /> A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem. <strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical. <strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical. <strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be slowed 1 for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round. <strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -229,10 +231,62 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "jeXNZcE1xj4v46C3",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>harmed by acid ([[/r 9d10 #damage]]{9d10 damage}, [[/r 2d10 #damage]]{2d10 damage} from areas or persistent damage); healed by fire (area [[/r 2d10 #Hit Points]]{2d10 Hit Points}); slowed by electricity</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem.</p>\n<ul>\n<li><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</li>\n<li><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</li>\n<li><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round.</li>\n<li><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</li>\n</ul>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "golem-golem-antimagic",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.r34QDwKiWZoVymJa"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Golem Antimagic",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -248,7 +302,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the adamantine golem is at 0 HP, it isn't destroyed. Instead, it enters repair mode, during which it is slowed 1, can't take reactions, and can take only the Self-Repair action. Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can't take any reactions until the start of its next turn. If a critical hit with an adamantine vorpal weapon reduces the golem to 0 HP, or if such a weapon hits it while it's already at 0 HP, then the golem is destroyed.</p>"
+                    "value": "<p>When the adamantine golem is at 0 HP, it isn't destroyed. Instead, it enters repair mode, during which it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, can't take reactions, and can take only the Self-Repair action.</p>\n<p>Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can't take any reactions until the start of its next turn.</p>\n<p>If a critical hit with an adamantine <em>vorpal</em> weapon reduces the golem to 0 HP, or if such a weapon hits it while it's already at 0 HP, then the golem is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -276,7 +330,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Repair Mode",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -292,7 +346,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The golem can be targeted by @Compendium[pf2e.spells-srd.Disjunction]{Disjunction} and @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}. If targeted by such a spell of 9th level or higher, the golem has its resistance to physical damage lowered to 15 and is slowed 1 (or slowed 2 if in repair mode) for [[/br 1d4 #rounds]]{1d4 rounds}. During this time, if the golem is reduced to 0 HP while already in repair mode, it is destroyed.</p>"
+                    "value": "<p>The golem can be targeted by <em>@Compendium[pf2e.spells-srd.Disjunction]{Disjunction}</em> and <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em>.</p>\n<p>If targeted by such a spell of 9th level or higher, the golem has its resistance to physical damage lowered to 15 and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (or @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} if in repair mode) for [[/br 1d4 #rounds]]{1d4 rounds}. During this time, if the golem is reduced to 0 HP while already in repair mode, it is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -320,7 +374,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerable to Dispelling",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -364,7 +418,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Destructive Strike",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -380,7 +434,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The adamantine golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"45\" data-pf2-label=\"Inexorable March DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.<br /> <strong>Critical Success</strong> The creature takes no damage and its armor takes no damage.<br /> <strong>Success</strong> The golem halts its movement and cannot enter the creature's square.<br /> <strong>Failure</strong> The resisting creature is damaged and its armor takes damage as if hit by the adamantine golem's fist.</p>"
+                    "value": "<p>The adamantine golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"45\" data-pf2-label=\"Inexorable March DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and its armor takes no damage.</p>\n<p><strong>Success</strong> The golem halts its movement and cannot enter the creature's square.</p>\n<p><strong>Failure</strong> The resisting creature is damaged and its armor takes damage as if hit by the adamantine golem's fist.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -406,9 +460,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Inexorable March",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -424,7 +478,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The golem repairs itself, regaining 30 Hit Points.</p>"
+                    "value": "<p>The golem repairs itself, regaining [[/r 30 #Hit Points]]{30 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -452,9 +506,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Self-Repair",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -470,7 +524,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The golem vents a 30-foot cone of superheated steam from its internal forge. This deals [[/r 15d6 #fire]]{15d6 fire damage} to all creatures in the cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Vent DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>). The golem can't use Vent again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The golem vents a <span data-pf2-effect-area=\"cone\" data-pf2-distance=\"30\">30-foot cone</span> of superheated steam from its internal forge. This deals [[/r 15d6 #fire]]{15d6 fire damage} to all creatures in the cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Vent DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>).</p>\n<p data-visibility=\"gm\">The golem can't use Vent again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -498,9 +552,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Vent",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -535,7 +589,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
