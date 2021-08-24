@@ -765,9 +765,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     private onSkillsEditClicked(event: JQuery.ClickEvent) {
         event.preventDefault();
-        const options = {};
-        const skillsEditor = new NPCSkillsEditor(this.actor, options);
-
+        const skillsEditor = new NPCSkillsEditor(this.actor);
         skillsEditor.render(true);
     }
 

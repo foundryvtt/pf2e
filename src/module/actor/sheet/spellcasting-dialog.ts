@@ -16,17 +16,18 @@ export interface SpellcastingDialogResult {
 
 class SpellcastingCreateAndEditDialog extends Application {
     private entry = this.dialogOptions.entry;
+
     result: SpellcastingDialogResult = {
         spellcastingType: this.entry?.data.data.prepared.value ?? "innate",
         tradition: this.entry?.tradition ?? "arcane",
         ability: this.entry?.ability ?? "cha",
     };
 
-    constructor(options: ApplicationOptions, private dialogOptions: SpellcastingDialogOptions) {
+    constructor(options: Partial<ApplicationOptions>, private dialogOptions: SpellcastingDialogOptions) {
         super(options);
     }
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): ApplicationOptions {
         const options = super.defaultOptions;
         options.id = "spellcasting-dialog";
         options.classes = [];

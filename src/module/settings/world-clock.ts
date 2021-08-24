@@ -33,7 +33,7 @@ interface UpdateData {
 }
 
 export class WorldClockSettings extends FormApplication {
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
@@ -133,7 +133,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    protected override async _updateObject(_event: Event, data: UpdateData): Promise<void> {
+    protected override async _updateObject(_event: Event, data: Record<string, unknown> & UpdateData): Promise<void> {
         const keys: (keyof UpdateData)[] = [
             "dateTheme",
             "timeConvention",

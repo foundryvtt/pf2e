@@ -1,31 +1,10 @@
-declare interface TokenConfigData<T extends TokenDocument | Token> extends FormApplicationData {
-    cssClasses: string;
-    isPrototype: boolean;
-    hasAlternates: boolean;
-    alternateImages: string[];
-    object: T;
-    options: FormApplicationOptions;
-    gridUnits: string;
-    barAttributes: string[];
-    bar1: string;
-    bar2: string;
-    displayModes: Record<string, string>;
-    actors: T["actor"][];
-    dispositions: Record<string, string>;
-    isGM: boolean;
-}
-
 /** A Token Configuration Application */
-declare class TokenConfig<
-    TObject extends TokenDocument | Token = TokenDocument | Token
-> extends FormApplication<TObject> {
-    constructor(object: TObject, options?: FormApplicationOptions);
+declare class TokenConfig<TObject extends TokenDocument = TokenDocument> extends FormApplication<TObject> {
+    constructor(object: TObject, options?: Partial<FormApplicationOptions>);
 
-    /** @inheritdoc */
-    static get defaultOptions(): FormApplicationOptions;
+    static override get defaultOptions(): FormApplicationOptions;
 
-    /** @inheritdoc */
-    get id(): `token-config-${string}`;
+    override get id(): `token-config-${string}`;
 
     /** A convenience accessor to test whether we are configuring the prototype Token for an Actor. */
     get isPrototype(): boolean;
@@ -35,27 +14,25 @@ declare class TokenConfig<
 
     get title(): string;
 
-    getData(options?: FormApplicationOptions): TokenConfigData<TObject>;
+    override getData(options?: Partial<FormApplicationOptions>): TokenConfigData<TObject>;
 
-    /** @inheritdoc */
-    render(force?: boolean, options?: RenderOptions): this;
+    override render(force?: boolean, options?: RenderOptions): Promise<this>;
 
-    /**
-     * Get an Object of image paths and filenames to display in the Token sheet
-     */
+    /** Get an Object of image paths and filenames to display in the Token sheet */
     protected _getAlternateTokenImages(): Promise<Record<string, string>>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** @inheritdoc */
-    activateListeners(html: JQuery): void;
+    override activateListeners(html: JQuery): void;
 
-    /** @inheritdoc */
-    protected _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
 
-    protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<TObject | TObject["parent"]>;
+    protected override _updateObject(
+        event: Event,
+        formData: Record<string, unknown>
+    ): Promise<TObject | TObject["parent"]>;
 
     /**
      * Handle Token assignment requests to update the default prototype Token
@@ -65,4 +42,21 @@ declare class TokenConfig<
 
     /** Handle changing the attribute bar in the drop-down selector to update the default current and max value */
     protected _onBarChange(event: Event): void;
+}
+
+declare interface TokenConfigData<T extends TokenDocument | Token> extends FormApplicationData {
+    cssClasses: string;
+    isPrototype: boolean;
+    hasAlternates: boolean;
+    alternateImages: string[];
+    object: T;
+    options: Partial<FormApplicationOptions>;
+    gridUnits: string;
+    barAttributes: string[];
+    bar1: string;
+    bar2: string;
+    displayModes: Record<string, string>;
+    actors: T["actor"][];
+    dispositions: Record<string, string>;
+    isGM: boolean;
 }

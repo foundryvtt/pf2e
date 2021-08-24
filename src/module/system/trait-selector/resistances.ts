@@ -6,15 +6,16 @@ import { SelectableTagField } from "./index";
 export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dr";
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): FormApplicationOptions {
+        return {
+            ...super.defaultOptions,
             id: "trait-selector",
             classes: ["pf2e"],
             template: "systems/pf2e/templates/system/trait-selector/resistances.html",
             title: "PF2E.ResistancesLabel",
             width: "auto",
             height: 700,
-        });
+        };
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
@@ -81,8 +82,4 @@ export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
         }
         return choices;
     }
-}
-
-export interface TraitSelectorResistances {
-    options: FormApplicationOptions;
 }
