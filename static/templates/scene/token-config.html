@@ -1,0 +1,293 @@
+<form class="flexcol {{cssClasses}}" autocomplete="off">
+
+    <!-- Token Configuration Tabs -->
+    <nav class="sheet-tabs tabs">
+        <a class="item" data-tab="character"><i class="fas fa-user"></i> {{localize "Character"}}</a>
+        <a class="item" data-tab="image"><i class="fas fa-expand"></i> {{localize "Image"}}</a>
+        <a class="item" data-tab="position"><i class="fas fa-map-marker-alt"></i> {{localize "Position"}}</a>
+        <a class="item" data-tab="vision"><i class="fas fa-eye"></i> {{localize "Vision"}}</a>
+        <a class="item" data-tab="resources"><i class="fas fa-heart"></i> {{localize "Resources"}}</a>
+    </nav>
+
+    <!-- Token Character -->
+    <div class="tab" data-tab="character">
+        <p class="notes">{{localize "TOKEN.CharInstructions"}}</p>
+        <div class="form-group">
+            <label>{{localize "TOKEN.CharNameplate"}}</label>
+            <input type="text" name="name" placeholder="{{ localize 'Name' }}" value="{{object.name}}"/>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.CharShowNameplate"}}</label>
+            <select name="displayName" data-dtype="Number">
+                {{selectOptions displayModes selected=object.displayName }}
+            </select>
+        </div>
+
+        {{#unless isPrototype}}
+            <div class="form-group">
+                <label>{{localize "TOKEN.CharActor"}}</label>
+                <select class="actor-template" name="actorId">
+                    {{#select object.actorId}}
+                        <option value="">{{ localize "None" }}</option>
+                        {{#each actors}}
+                            <option value="{{this._id}}">{{this.name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        {{/unless}}
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.CharLink"}}</label>
+            <input type="checkbox" name="actorLink" data-dtype="Boolean" {{checked object.actorLink}}/>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.CharDisposition"}}</label>
+            <select name="disposition" data-dtype="Number">
+                {{selectOptions dispositions selected=object.disposition }}
+            </select>
+        </div>
+    </div>
+
+    <!-- Token Image -->
+    <div class="tab" data-tab="image">
+        <fieldset class="size">
+            <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
+            <div class="form-group">
+                <label>{{localize "PF2E.Token.Size.LinkToActorSize.Label"}}</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="flags.pf2e.linkToActorSize" data-dtype="Boolean" {{checked object.flags.pf2e.linkToActorSize}} />
+                </div>
+                <p class="hint">{{localize "PF2E.Token.Size.LinkToActorSize.Hint"}}</p>
+            </div>
+            <div class="form-group">
+                <label>{{localize "PF2E.Token.Size.Dimensions"}} <span class="units">({{localize "GridUnits"}})</span></label>
+                <div class="form-fields">
+                    <label class="dimension">{{localize "Width"}}</label>
+                    <input type="number" min="0.5" step="0.5" name="width" placeholder="units" value="{{object.width}}" {{disabled object.flags.pf2e.linkToActorSize}} />
+                    <label class="dimension">{{localize "Height"}}</label>
+                    <input type="number" min="0.5" step="0.5" name="height" placeholder="units" value="{{object.height}}"  {{disabled object.flags.pf2e.linkToActorSize}} />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span></label>
+                <div class="form-fields">
+                    {{rangePicker name="scale" value=object.scale min="0.2" max="3.0" step="0.1"}}
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="appearance">
+            <legend>{{localize "PF2E.Token.Appearance"}}</legend>
+            <div class="form-group">
+                <label>{{localize "TOKEN.ImagePath"}}</label>
+                <div class="form-fields">
+                    {{filePicker target="img" type="imagevideo"}}
+                    <input class="image" type="text" name="img" placeholder="path/image.png" value="{{object.img}}"/>
+                </div>
+            </div>
+            {{#if isPrototype}}
+                <div class="form-group">
+                    <label>{{localize "TOKEN.RandomImg"}}</label>
+                    <input type="checkbox" name="randomImg" data-dtype="Boolean" {{checked object.randomImg}}/>
+                </div>
+            {{else if hasAlternates}}
+                <div class="form-group">
+                    <label>{{localize "TOKEN.ImageAlts"}}</label>
+                    <select class="alternate-images" name="alternateImages">
+                        <option value=""></option>
+                        {{#each alternateImages as |name path|}}
+                            <option value="{{path}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            {{/if}}
+            <div class="form-group">
+                <label>{{localize "TOKEN.MirrorX"}}</label>
+                <input type="checkbox" name="mirrorX" data-dtype="Boolean" {{checked object.mirrorX}}/>
+            </div>
+            <div class="form-group">
+                <label>{{localize "TOKEN.MirrorY"}}</label>
+                <input type="checkbox" name="mirrorY" data-dtype="Boolean" {{checked object.mirrorY}}/>
+            </div>
+            <div class="form-group">
+                <label>{{ localize "TOKEN.TintColor" }}</label>
+                <div class="form-fields">
+                    {{ colorPicker name="tint" value=object.tint }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize "TOKEN.Opacity"}}</label>
+                <div class="form-fields">
+                    {{ rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05" }}
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <!-- Token Position -->
+    <div class="tab" data-tab="position">
+        <p class="notes">{{localize "TOKEN.PositionInstructions"}}</p>
+        <div class="form-group">
+            <label>{{localize "XCoord"}} <span class="units">({{localize "Pixels"}})</span></label>
+            {{numberInput object.x name="x" step=1 disabled=(not isGM)}}
+        </div>
+        <div class="form-group">
+            <label>{{localize "YCoord"}} <span class="units">({{localize "Pixels"}})</span></label>
+            {{numberInput object.y name="y" step=1 disabled=(not isGM)}}
+        </div>
+        <div class="form-group">
+            <label>{{localize "Elevation"}} <span class="units">({{localize "Distance"}})</span></label>
+            <input type="number" name="elevation" placeholder="units" value="{{object.elevation}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "Rotation"}} <span class="units">({{localize "Degrees"}})</span></label>
+            <input type="number" name="rotation" value="{{object.rotation}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "TOKEN.PositionLock"}}</label>
+            <input type="checkbox" name="lockRotation" data-dtype="Boolean" {{checked object.lockRotation}}/>
+        </div>
+    </div>
+
+    <!-- Illumination and Vision -->
+    <div class="tab" data-tab="vision">
+        <p class="notes">{{localize "TOKEN.VisionInstructions"}}</p>
+        <div class="form-group">
+            <label>{{localize "TOKEN.VisionHas"}}</label>
+            <input type="checkbox" name="vision" data-dtype="Boolean" {{checked object.vision}}/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "TOKEN.VisionDimDist"}} <span class="units">({{localize "Distance"}})</span></label>
+            <input type="number" step="0.1" name="dimSight" placeholder="units" value="{{object.dimSight}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "TOKEN.VisionBrightDist"}} <span class="units">({{localize "Distance"}})</span></label>
+            <input type="number" step="0.1" name="brightSight" placeholder="units" value="{{object.brightSight}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "TOKEN.VisionSightAngle"}} <span class="units">({{localize "Degrees"}})</span></label>
+            <input type="number" name="sightAngle" placeholder="units" value="{{object.sightAngle}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.LightDim"}} <span class="units">({{localize "Distance"}})</span></label>
+            <input type="number" step="0.1" name="dimLight" placeholder="units" value="{{object.dimLight}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.LightBright"}} <span class="units">({{localize "Distance"}})</span></label>
+            <input type="number" step="0.1" name="brightLight" placeholder="units" value="{{object.brightLight}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.LightAngle"}} <span class="units">({{localize "Degrees"}})</span></label>
+            <input type="number" name="lightAngle" placeholder="units" value="{{object.lightAngle}}"/>
+        </div>
+        <div class="form-group">
+            <label>{{ localize "LIGHT.LightColor" }}</label>
+            <div class="form-fields">
+                {{ colorPicker name="lightColor" value=object.lightColor }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{ localize "LIGHT.LightAlpha" }}</label>
+            <div class="form-fields">
+                {{ rangePicker name="lightAlpha" value=lightAlpha min="0.0" max="1.0" step="0.05" }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationType"}}</label>
+            <div class="form-fields">
+                <select name="lightAnimation.type">
+                    {{selectOptions lightAnimations selected=object.lightAnimation.type}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationSpeed"}}</label>
+            <div class="form-fields">
+                {{ rangePicker name="lightAnimation.speed" value=object.lightAnimation.speed min="1" max="10" step="1" }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize "LIGHT.AnimationIntensity"}}</label>
+            <div class="form-fields">
+                {{ rangePicker name="lightAnimation.intensity" value=object.lightAnimation.intensity min="1" max="10" step="1" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Bars -->
+    <div class="tab" data-tab="resources">
+        <p class="notes">{{localize "TOKEN.ResourceInstructions"}}</p>
+        <div class="form-group">
+            <label>{{localize "TOKEN.ResourceDisplay"}}</label>
+            <div class="form-fields">
+                <select name="displayBars" data-dtype="Number">
+                    {{selectOptions displayModes selected=object.displayBars }}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.ResourceBar1A"}}</label>
+            <div class="form-fields">
+                <select class="bar-attribute" name="bar1.attribute">
+                    {{#select bar1.attribute}}
+                        <option value="">{{ localize "None" }}</option>
+                        {{#each barAttributes as |attrs label|}}
+                            <optgroup label="{{ label }}">
+                                {{#each attrs}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </optgroup>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.ResourceBar1D"}}</label>
+            <div class="form-fields">
+                <input type="number" class="bar1-value" value="{{bar1.value}}" disabled/>
+                <span class="sep">/</span>
+                <input type="number" class="bar1-max" value="{{bar1.max}}" disabled/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.ResourceBar2A"}}</label>
+            <div class="form-fields">
+                <select class="bar-attribute" name="bar2.attribute">
+                    {{#select bar2.attribute}}
+                        <option value="">{{ localize "None" }}</option>
+                        {{#each barAttributes as |attrs label|}}
+                            <optgroup label="{{localize label}}">
+                                {{#each attrs}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </optgroup>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "TOKEN.ResourceBar2D"}}</label>
+            <div class="form-fields">
+                <input type="number" class="bar2-value" value="{{bar2.value}}" disabled/>
+                <span class="sep">/</span>
+                <input type="number" class="bar2-max" value="{{bar2.max}}" disabled/>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token Sheet Footer -->
+    <footer class="sheet-footer flexrow">
+        {{#if isPrototype}}
+            <button type="button" class="assign-token"><i class="fas fa-user"></i> {{localize "TOKEN.Assign"}}</button>
+        {{/if}}
+        <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "TOKEN.Update"}}</button>
+    </footer>
+</form>

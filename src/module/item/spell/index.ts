@@ -1,6 +1,9 @@
 import { ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { OneToThree, TwoToThree } from "@module/data";
+import { ModifierPF2e } from "@module/modifiers";
 import { ordinal, toNumber } from "@module/utils";
+import { DicePF2e } from "@scripts/dice";
 import { SpellData, SpellTrait } from "./data";
 
 export class SpellPF2e extends ItemPF2e {
@@ -225,6 +228,120 @@ export class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
+        });
+    }
+
+    /**
+     * Roll Spell Damage
+     * Rely upon the DicePF2e.d20Roll logic for the core implementation
+     */
+    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
+        const itemData = this.data.toObject(false);
+
+        // Prepare roll data
+        const trickMagicItemData = itemData.data.trickMagicItemData;
+        const systemData = itemData.data;
+        const rollData = deepClone(this.actor.data.data);
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === systemData.location.value
+        )?.data;
+        const useTrickData = !spellcastingEntry;
+
+        if (useTrickData && !trickMagicItemData)
+            throw new Error("Spell points to location that is not a spellcasting type");
+
+        // calculate multiple attack penalty
+        const map = this.calculateMap();
+
+        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
+            const options = this.actor
+                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
+                .concat(...this.traits);
+            const modifiers: ModifierPF2e[] = [];
+            if (multiAttackPenalty > 1) {
+                modifiers.push(
+                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
+                );
+            }
+            spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
+        } else {
+            const spellAttack = useTrickData
+                ? trickMagicItemData?.data.spelldc.value
+                : spellcastingEntry?.data.spelldc.value;
+            const parts = [Number(spellAttack) || 0];
+            const title = `${this.name} - Spell Attack Roll`;
+
+            const traits = this.actor.data.data.traits.traits.value;
+            if (traits.some((trait) => trait === "elite")) {
+                parts.push(2);
+            } else if (traits.some((trait) => trait === "weak")) {
+                parts.push(-2);
+            }
+
+            if (multiAttackPenalty > 1) {
+                parts.push(map[`map${multiAttackPenalty as TwoToThree}` as const]);
+            }
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                item: this,
+                parts,
+                data: rollData,
+                rollType: "attack-roll",
+                title,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                dialogOptions: {
+                    width: 400,
+                    top: event.clientY - 80,
+                    left: window.innerWidth - 710,
+                },
+            });
+        }
+    }
+
+    /**
+     * Roll Spell Damage
+     * Rely upon the DicePF2e.damageRoll logic for the core implementation
+     */
+    rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent) {
+        const isHeal = this.data.data.spellType.value === "heal";
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
+        const castLevel = (() => {
+            const button = event.currentTarget;
+            const card = button.closest("*[data-spell-lvl]");
+            const cardData = card ? card.dataset : {};
+            return Number(cardData.spellLvl) || 1;
+        })();
+        const parts = this.computeDamageParts(castLevel);
+
+        // Append damage type to title
+        const damageLabel = game.i18n.localize(isHeal ? "PF2E.SpellTypeHeal" : "PF2E.DamageLabel");
+        let title = `${this.name} - ${damageLabel}`;
+        if (damageType && !isHeal) title += ` (${damageType})`;
+
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === "elite")) {
+            parts.push(4);
+        } else if (traits.some((trait) => trait === "weak")) {
+            parts.push(-4);
+        }
+
+        // Call the roll helper utility
+        DicePF2e.damageRoll({
+            event,
+            item: this,
+            parts,
+            data: this.getRollData(),
+            actor: this.actor,
+            title,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            dialogOptions: {
+                width: 400,
+                top: event.clientY - 80,
+                left: window.innerWidth - 710,
+            },
+            combineTerms: true,
         });
     }
 }

@@ -8,12 +8,11 @@ import {
 } from "@module/modifiers";
 import { ErrorPF2e } from "@module/utils";
 import { DicePF2e } from "@scripts/dice";
-import { ActorPF2e } from "../actor/base";
+import { ActorPF2e } from "@actor";
 import { RuleElementPF2e, RuleElements } from "../rules/rules";
 import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
 import { isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
-import { getAttackBonus, getStrikingDice } from "./runes";
 import { ItemSheetPF2e } from "./sheet/base";
 import { AbilityString } from "@actor/data/base";
 import { isCreatureData } from "@actor/data/helpers";
@@ -24,7 +23,6 @@ import { ItemTrait } from "./data/base";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { OneToThree, TwoToThree } from "@module/data";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -215,194 +213,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     /* -------------------------------------------- */
 
     /**
-     * Roll a Weapon Attack
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollWeaponAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        if (this.type !== "weapon" && this.type !== "melee") throw new Error("Wrong item type!");
-
-        // Prepare roll data
-        const itemData: any = this.getChatData();
-        const rollData = duplicate(this.actor.data.data) as any;
-        const isFinesse = itemData.isFinesse;
-        const abl =
-            isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod
-                ? "dex"
-                : itemData.ability.value || "str";
-        const prof = itemData.weaponType.value || "simple";
-        let parts = ["@itemBonus", `@abilities.${abl}.mod`];
-
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
-
-        if (this.actor.data.type === "npc") {
-            parts = ["@itemBonus"];
-        } else if (itemData.proficiency && itemData.proficiency.type === "skill") {
-            parts.push(itemData.proficiency.value);
-        } else {
-            parts.push(`@martial.${prof}.value`);
-        }
-
-        rollData.item = itemData;
-        rollData.itemBonus = getAttackBonus(itemData);
-        // if ( !itemData.proficient.value ) parts.pop();
-
-        if (multiAttackPenalty === 2) parts.push(itemData.map2);
-        else if (multiAttackPenalty === 3) parts.push(itemData.map3);
-
-        // TODO: Incorporate Elven Accuracy
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            actor: this.actor,
-            data: rollData,
-            rollType: "attack-roll",
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event && event.clientY ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
-     * Roll Weapon Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
-    rollWeaponDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
-        const localize: Function = game.i18n.localize.bind(game.i18n);
-
-        const item = this.data;
-        // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-        if (item.type !== "weapon") throw new Error("Wrong item type!");
-        const itemData = item.data;
-
-        // Get item and actor data and format it for the damage roll
-        const rollData = duplicate(this.actor.data.data) as any;
-        let rollDie = itemData.damage.die;
-        const abl = "str";
-        let abilityMod: number = rollData.abilities[abl].mod;
-        let parts: (string | number)[] = [];
-        const partsCritOnly: string[] = [];
-        const dtype: string = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
-
-        // Get detailed trait information from item
-        const traits = itemData.traits.value;
-        let critTrait = "";
-        let critDie = "";
-        let bonusDamage = 0;
-        let twohandedTrait = false;
-        let twohandedDie = "";
-        let thrownTrait = false;
-        const critRegex = /\b(deadly|fatal)-(d\d+)/;
-        const twohandedRegex = /\b(two-hand)-(d\d+)/;
-        const thrownRegex = /\b(thrown)-(\d+)/;
-        const hasThiefRacket = this.actor.itemTypes.feat.some((feat) => feat.slug === "thief-racket");
-        const strikingDice = getStrikingDice(itemData);
-
-        if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
-
-        // Find detailed trait information
-        for (const trait of traits) {
-            const critMatch = critRegex.exec(trait);
-            const twoHandedMatch = twohandedRegex.exec(trait);
-            const thrownMatch = thrownRegex.exec(trait);
-            if (Array.isArray(critMatch) && typeof critMatch[1] === "string" && typeof critMatch[2] === "string") {
-                critTrait = critMatch[1];
-                critDie = critMatch[2];
-            } else if (Array.isArray(twoHandedMatch) && typeof twoHandedMatch[2] === "string") {
-                twohandedTrait = true;
-                twohandedDie = twoHandedMatch[2];
-            } else if (Array.isArray(thrownMatch)) {
-                thrownTrait = true;
-            }
-        }
-
-        // If weapon has two-hand trait and wielded in two hands, apply the appropriate damage die
-        if (twohandedTrait && itemData.hands.value) {
-            rollDie = twohandedDie;
-        }
-
-        // Add bonus damage
-        if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value, 10);
-
-        // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-        const damageDice = itemData.damage.dice ?? 1;
-        let weaponDamage = damageDice + strikingDice + rollDie;
-        parts = [weaponDamage, "@itemBonus"];
-        rollData.itemBonus = bonusDamage;
-
-        // Apply critical damage and effects
-        if (critTrait === "deadly") {
-            // Deadly adds 3 dice with major Striking, 2 dice with greater Striking
-            // and 1 die otherwise
-            const deadlyDice = strikingDice > 0 ? strikingDice : 1;
-            const deadlyDamage = deadlyDice + critDie;
-            partsCritOnly.push(deadlyDamage);
-        } else if (critTrait === "fatal") {
-            if (critical === true) {
-                weaponDamage = damageDice + strikingDice + critDie;
-                parts = [weaponDamage, "@itemBonus"];
-            }
-            partsCritOnly.push(1 + critDie);
-        }
-
-        // Add abilityMod to the damage roll.
-        if (itemData.range.value === "melee" || itemData.range.value === "reach" || itemData.range.value === "") {
-            // if a melee attack
-            parts.push(abilityMod);
-        } else if (itemData.traits.value.includes("propulsive")) {
-            if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
-                const halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
-                parts.push(halfStr);
-            }
-        } else if (thrownTrait) {
-            parts.push(abilityMod);
-        }
-
-        // Add property rune damage
-
-        // add strike damage
-        if (itemData.property1.dice && itemData.property1.die && itemData.property1.damageType) {
-            const propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
-            parts.push(propertyDamage);
-        }
-        // add critical damage
-        if (itemData.property1.critDice && itemData.property1.critDie && itemData.property1.critDamageType) {
-            const propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
-            partsCritOnly.push(propertyDamage);
-        }
-
-        // Set the title of the roll
-        const critTitle = critTrait ? critTrait.toUpperCase() : "";
-        let title = critical
-            ? `${localize("PF2E.CriticalDamageLabel")} ${critTitle} ${localize("PF2E.DamageLabel")}: ${this.name}`
-            : `${localize("PF2E.DamageLabel")}: ${this.name}`;
-        if (dtype) title += ` (${dtype})`;
-
-        // Call the roll helper utility
-        rollData.item = itemData;
-        DicePF2e.damageRoll({
-            event,
-            parts,
-            partsCritOnly,
-            critical,
-            actor: this.actor ? this.actor : undefined,
-            data: rollData,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor ? this.actor : undefined }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
@@ -552,138 +362,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
-        if (this.data.type !== "spell") throw new Error("Wrong item type!");
-        const itemData = this.data.toObject(false);
-
-        // Prepare roll data
-        const trickMagicItemData = itemData.data.trickMagicItemData;
-        const systemData = itemData.data;
-        const rollData = deepClone(this.actor.data.data);
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === systemData.location.value
-        )?.data;
-        const useTrickData = !spellcastingEntry;
-
-        if (useTrickData && !trickMagicItemData)
-            throw new Error("Spell points to location that is not a spellcasting type");
-
-        // calculate multiple attack penalty
-        const map = this.calculateMap();
-
-        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
-            const options = this.actor
-                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
-                .concat(...this.traits);
-            const modifiers: ModifierPF2e[] = [];
-            if (multiAttackPenalty > 1) {
-                modifiers.push(
-                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
-                );
-            }
-            spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
-        } else {
-            const spellAttack = useTrickData
-                ? trickMagicItemData?.data.spelldc.value
-                : spellcastingEntry?.data.spelldc.value;
-            const parts = [Number(spellAttack) || 0];
-            const title = `${this.name} - Spell Attack Roll`;
-
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === "elite")) {
-                parts.push(2);
-            } else if (traits.some((trait) => trait === "weak")) {
-                parts.push(-2);
-            }
-
-            if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty as TwoToThree}` as const]);
-            }
-
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                item: this,
-                parts,
-                data: rollData,
-                rollType: "attack-roll",
-                title,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                dialogOptions: {
-                    width: 400,
-                    top: event.clientY - 80,
-                    left: window.innerWidth - 710,
-                },
-            });
-        }
-    }
-
-    /**
-     * The heightened level is not transferred correctly to spell chat cards.
-     * Therefore you have to look into the triggering's event proximity.
-     * @param event
-     */
-    static findSpellLevel(event: any): number {
-        const button = event.currentTarget;
-        const card = button.closest("*[data-spell-lvl]");
-        const cardData = card ? card.dataset : {};
-        return parseInt(cardData.spellLvl, 10);
-    }
-
-    /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
-    rollSpellDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        // If this is a consumable, roll spell damage on the consumable instead
-        if (this instanceof CONFIG.PF2E.Item.documentClasses.consumable && this.data.data.spell?.data) {
-            this.embeddedSpell?.rollSpellDamage(event);
-            return;
-        }
-
-        if (!(this instanceof CONFIG.PF2E.Item.documentClasses.spell)) {
-            throw new Error("Wrong item type!");
-        }
-
-        const isHeal = this.data.data.spellType.value === "heal";
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
-        const castLevel = ItemPF2e.findSpellLevel(event);
-        const parts = this.computeDamageParts(castLevel);
-
-        // Append damage type to title
-        const damageLabel = game.i18n.localize(isHeal ? "PF2E.SpellTypeHeal" : "PF2E.DamageLabel");
-        let title = `${this.name} - ${damageLabel}`;
-        if (damageType && !isHeal) title += ` (${damageType})`;
-
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === "elite")) {
-            parts.push(4);
-        } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(-4);
-        }
-
-        // Call the roll helper utility
-        DicePF2e.damageRoll({
-            event,
-            item: this,
-            parts,
-            data: this.getRollData(),
-            actor: this.actor,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-            combineTerms: true,
-        });
-    }
-
-    /**
      * Roll Counteract check
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
@@ -714,7 +392,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
         flavor += `<hr>`;
 
-        const spellLevel = ItemPF2e.findSpellLevel(event);
+        const spellLevel = (() => {
+            const button = event.currentTarget;
+            const card = button.closest("*[data-spell-lvl]");
+            const cardData = card ? card.dataset : {};
+            return Number(cardData.spellLvl) || 1;
+        })();
 
         const addFlavor = (success: string, level: number) => {
             const title = game.i18n.localize(`PF2E.${success}`);
@@ -813,7 +496,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},
-        options: FormApplicationOptions = {}
+        options: Partial<FormApplicationOptions> = {}
     ): Promise<ItemPF2e | undefined> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
@@ -884,6 +567,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
 interface ItemPF2e {
     readonly data: ItemDataPF2e;
+
     readonly parent: ActorPF2e | null;
 
     _sheet: ItemSheetPF2e<this> | null;

@@ -11,7 +11,7 @@ interface PopupData extends FormApplicationData<ActorPF2e> {
 }
 
 export class LootNPCsPopup extends FormApplication<ActorPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "loot-NPCs";
         options.classes = [];
@@ -25,7 +25,10 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         super.activateListeners(html);
     }
 
-    override async _updateObject(_event: Event, formData: FormData & { selection?: boolean }): Promise<void> {
+    override async _updateObject(
+        _event: Event,
+        formData: Record<string, unknown> & { selection?: boolean }
+    ): Promise<void> {
         const itemData: PhysicalItemSource[] = [];
         const selectionData = Array.isArray(formData.selection) ? formData.selection : [formData.selection];
         for (let i = 0; i < selectionData.length; i++) {

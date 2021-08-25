@@ -1,21 +1,28 @@
-import { ActorPF2e } from "@actor/index";
-import { ItemPF2e } from "@item/index";
-import { SelectableTagField, TagSelectorOptions } from "./index";
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { SelectableTagField } from "./index";
+
+export interface TagSelectorOptions extends FormApplicationOptions {
+    /* Show the custom input field (defaults to true) */
+    allowCustom?: boolean;
+    /* Custom choices to add to the list of choices */
+    customChoices?: Record<string, string>;
+}
 
 export abstract class TagSelectorBase<
-    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
-> extends FormApplication<EntityType> {
+    TDocument extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
+> extends FormApplication<TDocument> {
     choices: Record<string, string>;
     objectProperty = "";
 
-    constructor(object: EntityType, options: TagSelectorOptions = {}) {
+    constructor(object: TDocument, options: Partial<TagSelectorOptions> = {}) {
         super(object, options);
         this.choices = this.getChoices();
     }
 
     protected abstract get configTypes(): readonly SelectableTagField[];
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): TagSelectorOptions {
         return mergeObject(super.defaultOptions, {
             id: "trait-selector",
             classes: ["pf2e"],
@@ -51,5 +58,5 @@ export abstract class TagSelectorBase<
 }
 
 export interface TagSelectorBase {
-    options: TagSelectorOptions;
+    options: FormApplicationOptions;
 }

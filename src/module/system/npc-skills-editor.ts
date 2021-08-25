@@ -10,7 +10,7 @@ import { ErrorPF2e } from "@module/utils";
 export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     newItems: ItemPF2e[] = [];
 
-    constructor(actor: NPCPF2e, options: FormApplicationOptions) {
+    constructor(actor: NPCPF2e, options: Partial<FormApplicationOptions> = {}) {
         super(actor, options);
     }
 

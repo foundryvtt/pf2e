@@ -1,5 +1,28 @@
 # Patch Notes:
 
+## Version 2.12.3
+### Bug Fixes
+* (stwlam) Fix homebrew settings cleanup migration
+* (Arthana) Fix compendium browser dragging item icon. Closes #1659
+
+### Content Changes
+* (SpartanCPA) Add sources to Extinction Curse Player's Guide backgrounds
+* (SpartanCPA) Add sources, fix speeds in Extinction Curse book 1 through 5. Remove Living Graffiti, as it was reprinted in Bestiary 3
+* (SpartanCPA) Re-apply correct icon of familiar abilities
+* (SpartanCPA) Correct rule element key on Dire Warning effect
+* (stwlam) Normalize treasure usage and sluggify owned coins in pack JSON for stackability
+* (stwlam) Fix scaling of the _spirit song_ spell
+* (rectulo) Add clarification text for wyrmblessed and draconic bloodlines
+* (TMun) Update wounding rune to state bleed damage and corrects poisoners staff level. Closes #1654 and #1658
+* (TMun) Add St. Alkitrem's Eye necklace from Extinction Curse book 2
+* (Tikael) Correct Goliath Beetle size and traits
+
+### Core System Improvements
+* (stwlam) Make darkness shading/coloration a little more appropriate for basic use
+* (stwlam) Add token config option to decouple token dimensions from actor size
+* (Supe) Right align checkboxes in item sheets and scale select control
+
+
 ## Version 2.12.2
 ### Bug Fixes
 * (Chup) Fix visibility of + and - buttons for items in containers

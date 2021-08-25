@@ -3,11 +3,11 @@ import { getPropertySlots } from "../runes";
 import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
-import { ItemPF2e, LorePF2e } from "@item/index";
+import { ItemPF2e, LorePF2e } from "@item";
 import { RuleElementSource, RuleElementData } from "@module/rules/rules-data-definitions";
 import Tagify from "@yaireo/tagify";
 import {
-    BasicSelectorOptions,
+    BasicConstructorOptions,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorBasic,
@@ -300,7 +300,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             .split(",")
             .map((type) => type.trim())
             .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
-        const selectorOptions: BasicSelectorOptions = {
+        const selectorOptions: BasicConstructorOptions = {
             objectProperty,
             configTypes,
             title,

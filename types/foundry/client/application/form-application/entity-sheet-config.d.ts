@@ -21,27 +21,21 @@ declare interface RegisterSheetOptions {
  * @param options Additional Application options
  */
 declare class EntitySheetConfig extends FormApplication<foundry.abstract.DocumentData> {
-    /** @override */
-    static get defaultOptions(): FormApplicationOptions;
+    static override get defaultOptions(): FormApplicationOptions;
 
-    /**
-     * Add the Entity name into the window title
-     * @override
-     */
-    get title(): string;
+    override get title(): string;
 
-    /** @override */
-    getData(options: {}): EntitySheetConfigData;
+    override getData(options?: Partial<FormApplicationOptions>): EntitySheetConfigData;
 
     /**
      * This method is called upon form submission after form data is validated
      * @param event    The initial triggering submission event
      * @param formData The object of validated form data with which to update the object
      */
-    protected _updateObject(event: Event, formData: FormApplicationData): Promise<void>;
+    protected override _updateObject(event: Event, formData: FormApplicationData): Promise<void>;
 
     /* -------------------------------------------- */
-    /*  Configuration Methods
+    /*  Configuration Methods                       */
     /* -------------------------------------------- */
 
     /**
@@ -66,6 +60,6 @@ declare class EntitySheetConfig extends FormApplication<foundry.abstract.Documen
         entityClass: typeof foundry.abstract.Document,
         scope: string,
         sheetClass: typeof DocumentSheet,
-        { label, types, makeDefault }?: RegisterSheetOptions
+        options?: RegisterSheetOptions
     ): void;
 }
