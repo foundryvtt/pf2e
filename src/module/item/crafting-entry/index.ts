@@ -278,6 +278,7 @@ export class CraftingEntryPF2e extends ItemPF2e {
             formulas: this.formulas,
             reagentCost: this.reagentCost,
             maxSlots: this.maxSlots,
+            actionCost: this.actionCost,
         };
 
         return returnValue;
