@@ -527,6 +527,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulk,
             actorData.data?.traits?.size?.value ?? "med"
         );
+
+        // Hack to call update() without async
+        const updateEncumbrance = () => {
+            return new Promise((resolve) => {
+                resolve(this.actor.update({"data.attributes.encumbrance": actorData.data.attributes.encumbrance}));
+            });
+        }
+        updateEncumbrance();
     }
 
     protected prepareSpellcasting(sheetData: any) {
