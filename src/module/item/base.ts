@@ -429,7 +429,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         );
     }
 
-    placeTemplate(this: Embedded<ItemPF2e>, _event: JQuery.ClickEvent) {
+    createTemplate(this: Embedded<ItemPF2e>) {
         const itemData =
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
@@ -460,8 +460,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         templateData.user = game.user.id;
         templateData.fillColor = game.user.color;
         const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-        const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
-        ghostTemplate.drawPreview();
+        return new GhostTemplate(measuredTemplateDoc);
+    }
+
+    placeTemplate(this: Embedded<ItemPF2e>, _event: JQuery.ClickEvent) {
+        this.createTemplate().drawPreview();
     }
 
     calculateMap(): { label: string; map2: number; map3: number } {
