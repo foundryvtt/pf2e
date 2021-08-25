@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 2.12.4
+### Bug Fixes
+* (stwlam) Remove brightening of unexplored areas of a map
+
+
 ## Version 2.12.3
 ### Bug Fixes
 * (stwlam) Fix homebrew settings cleanup migration
