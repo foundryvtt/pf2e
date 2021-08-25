@@ -136,7 +136,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
             if (
                 ["composition-spells", "devotion-spells", "druidic-order", "hexes"].includes(slug) ||
-                /^(?:arcane-school|bloodline)-/.test(slug)
+                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.data.featType.value === "classfeature")
             ) {
                 return {
                     key: "ActiveEffectLike",
