@@ -644,6 +644,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     continue;
                 }
 
+                // Currently splitting between types. This only needs to be done for alchemical, getFormulaData should handle this
+
                 const entryType = entry.data.data.entryType.value;
                 if (entryType === "alchemical") {
                     /*
@@ -672,7 +674,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                      * - Allow items to be crafted for free when crafted
                      * - Do not have level restrictions on the slots (RAI, does not mean you can craft the snare though)
                      * - Snares: decreases crafting time of snare
+                     * - Currently exists on Ranger and Snarecrafter, and slots/abilities are cumulative with both
                      */
+                    sheetData.otherCraftingEntries.push({
+                        eid: sheetData.otherCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                        ...{ isSnare: entry.isSnare },
+                    });
                 } else if (entryType === "scroll") {
                     /*
                      * Scroll Entries (WIP - Rename to spellConsumables?):
@@ -1057,11 +1066,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             for (const entry of craftingEntries) {
                 if (entry.isDailyPrep) {
                     for (const formula of entry.formulas) {
+                        if (!formula) {
+                            return;
+                        }
                         const item = await fromUuid(formula.formula.data.data.craftedObjectUuid.value);
                         if (item === null || !(item instanceof PhysicalItemPF2e)) return;
 
                         const itemObject = item.toObject();
-                        itemObject.data.quantity.value = formula.quantity;
+                        itemObject.data.quantity.value = formula.quantity || 1;
 
                         if (entry.isAlchemical) {
                             const traits = itemObject.data.traits.value as PhysicalItemTrait[];

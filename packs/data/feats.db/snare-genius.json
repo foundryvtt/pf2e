@@ -29,7 +29,44 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.snare.maximumSlots",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 3
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": 5
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.CraftingEntry",
+                "type": "snare",
+                "label": "Snare Crafting",
+                "selector": "snare",
+                "itemRestrictions": {
+                    "traits": [
+                        "snare"
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

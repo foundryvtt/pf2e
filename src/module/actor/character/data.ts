@@ -229,6 +229,7 @@ export interface CharacterCraftingDetails {
         advancedAlchemyLevel?: number;
         maximumSlots?: number;
         fieldDiscovery?: string;
+        actions?: number;
     };
 }
 

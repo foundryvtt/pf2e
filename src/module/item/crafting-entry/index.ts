@@ -7,7 +7,8 @@ import { CraftingEntryData } from "./data";
 
 interface ActiveFormula {
     formula: Embedded<FormulaPF2e>;
-    quantity: number;
+    quantity?: number;
+    expended?: boolean;
 }
 
 export class CraftingEntryPF2e extends ItemPF2e {
@@ -15,7 +16,7 @@ export class CraftingEntryPF2e extends ItemPF2e {
         return CraftingEntryData;
     }
 
-    private _formulas: ActiveFormula[] | null = null;
+    private _formulas: (ActiveFormula | null)[] | null = null;
     private _reagentCost: number | null = null;
 
     /** A collection of all formulas prepared in this entry */
@@ -23,18 +24,40 @@ export class CraftingEntryPF2e extends ItemPF2e {
         if (!this._formulas) {
             this._formulas = [];
             if (this.actor) {
-                const formulas = this.actor.itemTypes.formula.filter((i) =>
-                    this.data.data.slots.prepared.find((p) => p.id === i.id)
-                );
-                for (const formula of formulas) {
-                    const formulaPrep = this.data.data.slots.prepared.find((p) => p.id === formula.id);
-                    this._formulas.push({
+                const actorFormulas = this.actor.itemTypes.formula;
+                const slots = this.data.data.slots.prepared;
+                const updatedArray = Object.assign([], this.data.data.slots.prepared);
+
+                slots.forEach((prepData, index) => {
+                    const formula = actorFormulas.find((f) => f.id === prepData.id);
+                    if (!formula) {
+                        //TODO, tidy up unknown formulas
+                        updatedArray.splice(index, 1);
+                        console.log(updatedArray);
+                        return;
+                    }
+                    this._formulas!.push({
                         formula: formula,
-                        quantity: formulaPrep?.quantity || 1,
+                        quantity: prepData?.quantity || undefined,
+                        expended: prepData?.expended || undefined,
                     });
+                });
+                if (JSON.stringify(slots) !== JSON.stringify(updatedArray)) {
+                    const key = `data.slots.prepared`;
+                    const updates: Record<string, unknown> = { [key]: updatedArray };
+                    this.update(updates);
                 }
             }
         }
+
+        if (this.isSnare) {
+            const fill = this.maxSlots - this._formulas.length;
+            if (fill > 0) {
+                const nulls = new Array(fill).fill(null);
+                this._formulas = this._formulas.concat(nulls);
+            }
+        }
+
         return this._formulas;
     }
 
@@ -57,13 +80,17 @@ export class CraftingEntryPF2e extends ItemPF2e {
         let formulaPrep = 0;
 
         for (const formula of formulas) {
+            if (!formula) {
+                return;
+            }
+
             if (
                 (fieldDiscovery && formula.formula.data.data.traits.value.includes(fieldDiscovery as ItemTrait)) ||
                 formula.formula.data.data.alchemist?.signatureItem
             ) {
-                fieldDiscoveryPrep += formula.quantity;
+                fieldDiscoveryPrep += formula.quantity || 0;
             } else {
-                formulaPrep += formula.quantity;
+                formulaPrep += formula.quantity || 0;
             }
         }
 
@@ -79,12 +106,33 @@ export class CraftingEntryPF2e extends ItemPF2e {
 
     // TODO getters for entry details. Will become useful for CUSTOM entries.
 
+    get actionCost() {
+        // Action Cost is only for snare entries
+        return (this.actor as CharacterPF2e)?.data.data.crafting["snare"]?.actions || 3;
+    }
+
+    get maxSlots() {
+        // Max slots for snares are CUMULATIVE.
+        if (this.isSnare) {
+            // Add up maximum slots
+            return (this.actor as CharacterPF2e)?.data.data.crafting["snare"]?.maximumSlots || 0;
+        } else {
+            return (
+                (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]?.maximumSlots || 0
+            );
+        }
+    }
+
     get isDailyPrep() {
         return !(this.data.data.entryType.value === "snare");
     }
 
     get isAlchemical() {
         return this.data.data.entryType.value === "alchemical";
+    }
+
+    get isSnare() {
+        return this.data.data.entryType.value === "snare";
     }
 
     get itemRestrictions() {
@@ -113,6 +161,10 @@ export class CraftingEntryPF2e extends ItemPF2e {
         // TODO: Compare formula traits/level against advanced alchemy level + item restrictions
         // - Must convert spells to formulas before adding
         // - Item limitations
+        if (!this.isAlchemical && this.data.data.slots.prepared.length >= this.maxSlots) {
+            return;
+        }
+
         const itemRestrictions = this.data.data.itemRestrictions;
         if (itemRestrictions) {
             // Specific items overrule trait requirements.
@@ -141,46 +193,31 @@ export class CraftingEntryPF2e extends ItemPF2e {
         }
 
         const updatedArray = this.data.data.slots.prepared;
-        const existingEntry = updatedArray.findIndex((s) => s.id === formula.id);
 
-        if (existingEntry < 0) {
-            updatedArray.push({ id: formula.id, quantity: 1 });
-        } else {
-            updatedArray[existingEntry].quantity += 1;
-        }
-        const key = `data.slots.prepared`;
-        const updates: Record<string, unknown> = { [key]: updatedArray };
-
-        return this.update(updates);
-    }
-
-    unprepareFormula(formulaId: string) {
-        const updatedArray = this.data.data.slots.prepared;
-        const existingEntry = updatedArray.findIndex((s) => s.id === formulaId);
-
-        if (existingEntry < 0) {
-            throw ErrorPF2e("Formual could not be found in crafting entry");
-        } else {
-            updatedArray.splice(existingEntry, 1);
-        }
-        const key = `data.slots.prepared`;
-        const updates: Record<string, unknown> = { [key]: updatedArray };
-        console.log(updates);
-
-        return this.update(updates);
-    }
-
-    decreaseQuantity(formulaId: string) {
-        const updatedArray = this.data.data.slots.prepared;
-        const existingEntry = updatedArray.findIndex((s) => s.id === formulaId);
-
-        if (existingEntry < 0) {
-            throw ErrorPF2e("Formual could not be found in crafting entry");
-        } else {
-            updatedArray[existingEntry].quantity -= 1;
-            if (!updatedArray[existingEntry].quantity) {
-                return this.unprepareFormula(formulaId);
+        // Alchemical entries use quantities, others use slots
+        if (this.isAlchemical) {
+            const existingEntry = updatedArray.findIndex((s) => s.id === formula.id);
+            if (existingEntry < 0) {
+                updatedArray.push({ id: formula.id, quantity: 1 });
+            } else {
+                updatedArray[existingEntry].quantity = (updatedArray[existingEntry].quantity || 0) + 1;
             }
+        } else if (this.isSnare) {
+            updatedArray.push({ id: formula.id, expended: false });
+        }
+
+        const key = `data.slots.prepared`;
+        const updates: Record<string, unknown> = { [key]: updatedArray };
+
+        return this.update(updates);
+    }
+
+    unprepareFormula(formulaId: string, slotKey: number) {
+        const updatedArray = this.data.data.slots.prepared;
+        if (updatedArray[slotKey]?.id === formulaId) {
+            updatedArray.splice(slotKey, 1);
+        } else {
+            throw ErrorPF2e("Formual could not be found in crafting entry");
         }
         const key = `data.slots.prepared`;
         const updates: Record<string, unknown> = { [key]: updatedArray };
@@ -188,14 +225,41 @@ export class CraftingEntryPF2e extends ItemPF2e {
         return this.update(updates);
     }
 
-    increaseQuantity(formulaId: string) {
+    decreaseQuantity(formulaId: string, slotKey: number) {
         const updatedArray = this.data.data.slots.prepared;
-        const existingEntry = updatedArray.findIndex((s) => s.id === formulaId);
-
-        if (existingEntry < 0) {
-            throw ErrorPF2e("Formual could not be found in crafting entry");
+        if (updatedArray[slotKey]?.id === formulaId) {
+            updatedArray[slotKey].quantity = (updatedArray[slotKey].quantity || 0) - 1;
+            if ((updatedArray[slotKey].quantity || 0) <= 0) {
+                return this.unprepareFormula(formulaId, slotKey);
+            }
         } else {
-            updatedArray[existingEntry].quantity += 1;
+            throw ErrorPF2e("Formual could not be found in crafting entry");
+        }
+        const key = `data.slots.prepared`;
+        const updates: Record<string, unknown> = { [key]: updatedArray };
+
+        return this.update(updates);
+    }
+
+    increaseQuantity(formulaId: string, slotKey: number) {
+        const updatedArray = this.data.data.slots.prepared;
+        if (updatedArray[slotKey]?.id === formulaId) {
+            updatedArray[slotKey].quantity = (updatedArray[slotKey].quantity || 0) + 1;
+        } else {
+            throw ErrorPF2e("Formual could not be found in crafting entry");
+        }
+        const key = `data.slots.prepared`;
+        const updates: Record<string, unknown> = { [key]: updatedArray };
+
+        return this.update(updates);
+    }
+
+    toggleExpended(formulaId: string, slotKey: number) {
+        const updatedArray = this.data.data.slots.prepared;
+        if (updatedArray[slotKey]?.id === formulaId) {
+            updatedArray[slotKey].expended = !updatedArray[slotKey].expended;
+        } else {
+            throw ErrorPF2e("Formual could not be found in crafting entry");
         }
         const key = `data.slots.prepared`;
         const updates: Record<string, unknown> = { [key]: updatedArray };
@@ -213,6 +277,7 @@ export class CraftingEntryPF2e extends ItemPF2e {
             name: this.name,
             formulas: this.formulas,
             reagentCost: this.reagentCost,
+            maxSlots: this.maxSlots,
         };
 
         return returnValue;

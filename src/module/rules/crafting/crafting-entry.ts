@@ -5,6 +5,9 @@ import { RuleElementPF2e } from "../rule-element";
 
 export class PF2CraftingEntryRuleElement extends RuleElementPF2e {
     override onCreate(): void {
+        if (this.actor.itemTypes.craftingEntry.find((c) => c.data.data.entrySelector.value === this.data.selector))
+            return;
+
         const source: PreCreate<CraftingEntrySource> = {
             _id: this.item.id,
             name: this.label,

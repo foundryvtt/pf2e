@@ -317,8 +317,24 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
             const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
             const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
             if (entry instanceof CraftingEntryPF2e) {
-                entry.unprepareFormula(formulaId);
+                entry.unprepareFormula(formulaId, slotKey);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        // Unprepare formula
+        html.find(".toggle-formula-expended").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.toggleExpended(formulaId, slotKey);
             } else {
                 console.warn("PF2E System | Failed to load crafting entry");
             }
@@ -329,8 +345,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
             const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
             const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
             if (entry instanceof CraftingEntryPF2e) {
-                entry.decreaseQuantity(formulaId);
+                entry.decreaseQuantity(formulaId, slotKey);
             } else {
                 console.warn("PF2E System | Failed to load crafting entry");
             }
@@ -340,8 +358,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
             const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
             const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
             if (entry instanceof CraftingEntryPF2e) {
-                entry.increaseQuantity(formulaId);
+                entry.increaseQuantity(formulaId, slotKey);
             } else {
                 console.warn("PF2E System | Failed to load crafting entry");
             }
@@ -1040,7 +1060,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         } else if (isPhysicalData(itemData) && craftingTab) {
             const formula = await this.createFormulaFromItem(itemData as PhysicalItemSource);
-            console.log(formula);
             return this._onDropItemCreate(formula);
         }
 
@@ -1501,7 +1520,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const index = uuid.indexOf(".");
         const itemLink = `@${uuid.substr(0, index)}[${uuid.substr(index + 1)}]`;
 
-        formulaData.data.description.value = `${itemLink}\n<hr/>${game.i18n.localize("PF2E.FormulaDescription")}`;
+        formulaData.data.description.value = `${itemLink}\n<hr>\n${game.i18n.localize("PF2E.FormulaDescription")}`;
 
         formulaData.data.rules = [];
 

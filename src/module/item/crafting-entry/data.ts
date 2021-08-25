@@ -1,7 +1,7 @@
-import { CraftingEntryPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { PhysicalItemTrait } from "@item/physical/data";
+import { CraftingEntryPF2e } from ".";
 
 export type CraftingEntrySource = BaseNonPhysicalItemSource<"craftingEntry", CraftingEntrySystemData>;
 
@@ -19,7 +19,8 @@ export type EntryType = "alchemical" | "snare" | "scroll" | "custom";
 
 export interface FormulaPrepData {
     id: string;
-    quantity: number;
+    quantity?: number;
+    expended?: boolean;
 }
 
 export interface CraftingSlotData {

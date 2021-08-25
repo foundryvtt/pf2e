@@ -40,6 +40,8 @@ export function loadPF2ETemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
+        "systems/pf2e/templates/actors/crafting-alchemical.html",
+        "systems/pf2e/templates/actors/crafting-snares.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/crb-style/icons/d20.html",
