@@ -111,8 +111,10 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
+            currentActor.data.schema ??= { version: null, lastMigration: null };
             this.updateSchemaRecord(currentActor.data.schema, latestMigration);
             for (const itemSource of currentActor.items) {
+                itemSource.data.schema ??= { version: null, lastMigration: null };
                 this.updateSchemaRecord(itemSource.data.schema, latestMigration);
             }
         }
