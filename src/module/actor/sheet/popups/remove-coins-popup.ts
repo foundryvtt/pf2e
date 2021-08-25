@@ -19,7 +19,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override async _updateObject(_event: Event, formData: PopupFormData) {
+    override async _updateObject(_event: Event, formData: Record<string, unknown> & PopupFormData) {
         const actor = this.object;
         const coinsToRemove = {
             pp: formData.pp,

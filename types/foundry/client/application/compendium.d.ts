@@ -5,7 +5,7 @@ declare class Compendium<TDocument extends CompendiumDocument> extends Applicati
     /** The CompendiumCollection instance which is represented in this Compendium interface. */
     collection: CompendiumCollection<TDocument>;
 
-    static get defaultOptions(): ApplicationOptions;
+    static get defaultOptions(): Required<ApplicationOptions>;
 
     get title(): string;
 

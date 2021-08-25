@@ -24,12 +24,12 @@ import {
     MeasuredTemplateDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
+    TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
 import { registerSettings } from "@module/settings";
 import { loadPF2ETemplates } from "@module/templates";
-import { TokenConfigPF2e } from "@module/scene/token-config";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
@@ -77,6 +77,12 @@ export const Init = {
             CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight = SightLayerPF2e;
             CONFIG.Canvas.layers.templates = TemplateLayerPF2e;
+
+            // Make darkness visibility a little more appropriate for basic map use
+            CONFIG.Canvas.lightLevels.dim = 0.25;
+            CONFIG.Canvas.darknessColor = PIXI.utils.rgb2hex([0.25, 0.25, 0.4]);
+            CONFIG.Canvas.exploredColor = PIXI.utils.rgb2hex([0.6, 0.6, 0.6]);
+            CONFIG.Canvas.unexploredColor = PIXI.utils.rgb2hex([0.2, 0.2, 0.2]);
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;

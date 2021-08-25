@@ -17,7 +17,7 @@ declare global {
         TObject extends {} = {},
         TOptions extends FormApplicationOptions = FormApplicationOptions
     > extends Application<TOptions> {
-        constructor(object?: TObject, options?: TOptions);
+        constructor(object?: TObject, options?: Partial<TOptions>);
 
         override options: TOptions;
 
@@ -41,17 +41,17 @@ declare global {
          */
         editors: Record<string, TinyMCEEditorData>;
 
-        /**
-         * Assign the default options which are supported by the entity edit sheet
-         */
+        /** Assign the default options which are supported by the entity edit sheet */
         static override get defaultOptions(): FormApplicationOptions;
 
-        /**
-         * Is the Form Application currently editable?
-         */
+        /** Is the Form Application currently editable? */
         get isEditable(): boolean;
 
-        getData(options?: TOptions): FormApplicationData<TObject>;
+        getData(options?: Partial<TOptions>): FormApplicationData<TObject>;
+
+        protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
+
+        protected override _renderInner(data: FormApplicationData<TObject>, options: RenderOptions): Promise<JQuery>;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
@@ -80,10 +80,7 @@ declare global {
          * @param [preventRender] Prevent the application from re-rendering as a result of form submission
          * @returns A promise which resolves to the validated update data
          */
-        protected _onSubmit(
-            event: Event,
-            { updateData, preventClose, preventRender }?: OnSubmitFormOptions
-        ): Promise<Record<string, unknown>>;
+        protected _onSubmit(event: Event, options?: OnSubmitFormOptions): Promise<Record<string, unknown>>;
 
         /**
          * Get an object of update data used to update the form's target object
@@ -104,7 +101,7 @@ declare global {
          * @param formData  The object of validated form data with which to update the object
          * @returns         A Promise which resolves once the update operation has completed
          */
-        protected abstract _updateObject(event: Event, formData: {}): Promise<unknown>;
+        protected abstract _updateObject(event: Event, formData: Record<string, unknown>): Promise<unknown>;
 
         /* -------------------------------------------- */
         /*  TinyMCE Editor                              */
@@ -154,12 +151,9 @@ declare global {
         toObject(): any;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface FormApplicationOptions extends ApplicationOptions {}
-
     interface FormApplicationData<O extends {} = {}> {
         object?: O;
-        options?: FormApplicationOptions;
+        options?: Partial<FormApplicationOptions>;
         title?: string;
     }
 
@@ -175,22 +169,25 @@ declare global {
          * be unlocked and the form can be submitted. If false, all form fields
          * will be disabled and the form cannot be submitted. Default is true.
          */
-        editable?: boolean;
+        editable: boolean;
+
         /**
          * Whether to automatically close the application when it's contained
          * form is submitted. Default is true.
          */
-        closeOnSubmit?: boolean;
+        closeOnSubmit: boolean;
+
         /**
          * Whether to automatically submit the contained HTML form when the
          * application window is manually closed. Default is false.
          */
-        submitOnClose?: boolean;
+        submitOnClose: boolean;
+
         /**
          * Whether to automatically submit the contained HTML form when an input
          * or select element is changed. Default is false.
          */
-        submitOnChange?: boolean;
+        submitOnChange: boolean;
     }
 
     interface TinyMCEEditorData {

@@ -78,7 +78,3 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         return choices;
     }
 }
-
-export interface TraitSelectorSenses {
-    options: FormApplicationOptions;
-}

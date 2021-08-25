@@ -12,7 +12,7 @@ export class RecallKnowledgePopup extends Application {
         return options;
     }
 
-    constructor(options: ApplicationOptions, private data: IdentifyCreatureData) {
+    constructor(options: Partial<ApplicationOptions>, private data: IdentifyCreatureData) {
         super(options);
     }
 

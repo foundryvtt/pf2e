@@ -4,7 +4,7 @@ import { NPCPF2e } from ".";
 import { identifyCreature } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { getActionIcon, objectHasKey } from "@module/utils";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { ConsumablePF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { SpellcastingSheetData } from "./sheet";
 import { ItemDataPF2e } from "@item/data";
 
@@ -250,50 +250,36 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
 
         // Melee Weapon Rolling
-        html.find("button:not(.recall-knowledge-breakdown)").on("click", (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        html.find("button:not(.recall-knowledge-breakdown)").on("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents(".item").attr("data-item-id") ?? "";
+            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId, { strict: true });
+            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
-                case "weaponAttack":
-                    item.rollWeaponAttack(ev);
-                    break;
-                case "weaponAttack2":
-                    item.rollWeaponAttack(ev, 2);
-                    break;
-                case "weaponAttack3":
-                    item.rollWeaponAttack(ev, 3);
-                    break;
-                case "weaponDamage":
-                    item.rollWeaponDamage(ev);
-                    break;
-                case "weaponDamageCritical":
-                    item.rollWeaponDamage(ev, true);
-                    break;
+            switch (event.target.dataset.action) {
                 case "npcAttack":
-                    item.rollNPCAttack(ev);
+                    item.rollNPCAttack(event);
                     break;
                 case "npcAttack2":
-                    item.rollNPCAttack(ev, 2);
+                    item.rollNPCAttack(event, 2);
                     break;
                 case "npcAttack3":
-                    item.rollNPCAttack(ev, 3);
+                    item.rollNPCAttack(event, 3);
                     break;
                 case "npcDamage":
-                    item.rollNPCDamage(ev);
+                    item.rollNPCDamage(event);
                     break;
                 case "npcDamageCritical":
-                    item.rollNPCDamage(ev, true);
+                    item.rollNPCDamage(event, true);
                     break;
                 case "spellAttack":
-                    item.rollSpellAttack(ev);
+                    spell?.rollAttack(event);
                     break;
                 case "spellDamage":
-                    item.rollSpellDamage(ev);
+                    spell?.rollDamage(event);
                     break;
                 case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();

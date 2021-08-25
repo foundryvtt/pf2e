@@ -1,44 +1,44 @@
 interface ApplicationOptions {
     /** A named "base application" which generates an additional hook */
-    baseApplication?: string;
+    baseApplication: string | null;
     /** The default pixel width for the rendered HTML */
-    width?: number | string;
+    width: number | string | null;
     /** The default pixel height for the rendered HTML */
-    height?: number | string;
+    height: number | string | null;
     /** The default offset-top position for the rendered HTML */
-    top?: number;
+    top: number | null;
     /** The default offset-left position for the rendered HTML */
-    left?: number;
+    left: number | null;
     /** Whether to display the application as a pop-out container */
-    popOut?: boolean;
+    popOut: boolean;
     /** Whether the rendered application can be minimized (popOut only) */
-    minimizable?: boolean;
+    minimizable: boolean;
     /** Whether the rendered application can be drag-resized (popOut only) */
-    resizable?: boolean;
+    resizable: boolean | null;
     /** The default CSS id to assign to the rendered HTML */
-    id?: string;
+    id: string;
     /** An array of CSS string classes to apply to the rendered HTML */
-    classes?: string[];
+    classes: string[];
     /** Track Tab navigation handlers which are active for this Application */
-    tabs?: TabsOptions[];
-    dragDrop?: {
+    tabs: TabsOptions[];
+    dragDrop: {
         callbacks?: {
-            dragover: Function;
-            dragstart: Function;
-            drop: Function;
+            dragover?: Function;
+            dragstart?: Function;
+            drop?: Function;
         };
         dragSelector?: string;
         dropSelector?: string;
     }[];
     /** A default window title string (popOut only) */
-    title?: string;
+    title: string;
     /** The default HTML template path to render for this Application */
-    template?: string;
+    template: string | null;
     /**
      * A list of unique CSS selectors which target containers that should
      * have their vertical scroll positions preserved during a re-render.
      */
-    scrollY?: string[];
+    scrollY: string[];
 }
 
 interface ApplicationHeaderButton {
@@ -81,9 +81,11 @@ declare let _appId: number;
 declare let _maxZ: number;
 
 /** The standard application window that is rendered for a large variety of UI elements in Foundry VTT */
-declare class Application<OptionsType extends ApplicationOptions = ApplicationOptions> {
+declare class Application<TOptions extends ApplicationOptions = ApplicationOptions> {
+    constructor(options?: Partial<TOptions>);
+
     /** The options provided to this application upon initialization */
-    options: OptionsType;
+    options: TOptions;
 
     /**
      * The application ID is a unique incrementing integer which is used to identify every application window
@@ -126,7 +128,6 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
         RENDERED: 2;
         ERROR: 3;
     };
-    constructor(options?: OptionsType);
 
     /**
      * Create drag-and-drop workflow handlers for this Application
@@ -179,7 +180,7 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
     get title(): string;
 
     /* -------------------------------------------- */
-    /* Application rendering
+    /* Application rendering                        */
     /* -------------------------------------------- */
 
     /**
@@ -198,7 +199,7 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
      * @param options   Additional rendering options which are applied to customize the way that the Application
      *                  is rendered in the DOM.
      */
-    render(force?: boolean, options?: RenderOptions): this;
+    render(force?: boolean, options?: RenderOptions): this | Promise<this>;
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
@@ -229,7 +230,7 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
      * @param data  The data used to render the inner template
      * @return      A promise resolving to the constructed jQuery object
      */
-    protected _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery>;
+    protected _renderInner(data: object, options: RenderOptions): Promise<JQuery>;
 
     /**
      * Customize how inner HTML is replaced when the application is refreshed
@@ -252,7 +253,7 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
     protected _getHeaderButtons(): ApplicationHeaderButton[];
 
     /* -------------------------------------------- */
-    /* Event Listeners and Handlers
+    /* Event Listeners and Handlers                 */
     /* -------------------------------------------- */
 
     /**
