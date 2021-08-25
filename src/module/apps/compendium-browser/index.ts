@@ -1002,7 +1002,7 @@ export class CompendiumBrowser extends Application {
         this.userIsDragging = true;
         this.element.animate({ opacity: 0.125 }, 250);
 
-        const $item = $(event.target);
+        const $item = $(event.currentTarget);
         const packName = $item.attr("data-entry-compendium");
         const itemPack = game.packs.find((pack) => pack.collection === packName);
         if (!itemPack) return;
