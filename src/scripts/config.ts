@@ -715,7 +715,7 @@ const conditionTypes: Record<ConditionType, string> = {
     invisible: "PF2E.ConditionTypeInvisible",
     observed: "PF2E.ConditionTypeObserved",
     paralyzed: "PF2E.ConditionTypeParalyzed",
-    persistent: "PF2E.ConditionTypePersistent",
+    "persistent-damage": "PF2E.ConditionTypePersistent",
     petrified: "PF2E.ConditionTypePetrified",
     prone: "PF2E.ConditionTypeProne",
     quickened: "PF2E.ConditionTypeQuickened",
