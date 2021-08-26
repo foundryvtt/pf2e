@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
-                "details": "construct armor",
+                "base": 39,
+                "details": "(35 when broken); construct armor",
                 "value": 39
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "Hardness 15",
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
-            "flavorText": "<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>\n<p>Animating a 100-foot-tall statue is worth the cost for spellcasters guarding immense dungeons.</p>",
+            "flavorText": "<p>Animating a 100-foot-tall statue is worth the cost for spellcasters guarding immense dungeons.</p>\n<hr />\n<p>Granted a semblance of life through the use of rituals or other strange magic, animated objects take many forms and serve a variety of uses. A few examples of typical animated objects are listed below. Many of these creatures serve as guardians, surprising unsuspecting adventurers when they suddenly attack. Others serve as idle distractions for the exceptionally rich, simple servants created to handle odd jobs, and the like.</p>",
             "level": {
                 "value": 15
             },
@@ -89,7 +90,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "doomed",
                     "drained",
@@ -97,7 +98,7 @@
                     "healing",
                     "mental",
                     "necromancy",
-                    "nonlethal attacks",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
                     "sickened",
@@ -142,7 +143,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Improved Grab"
+                        "improved-grab"
                     ]
                 },
                 "bonus": {
@@ -298,7 +299,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -320,7 +341,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
+            "name": "Construct Armor (Hardness 15)",
             "sort": 400000,
             "type": "action"
         },
@@ -381,7 +402,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The colossus can Grab a creature using only one hand.</p>\n<p>It can move normally with a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in its fist, carrying the creature along. If it has two creatures grabbed in this way, it can’t use its fist Strike.</p>"
+                    "value": "<p>The colossus can @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} a creature using only one hand.</p>\n<p>It can move normally with a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in its fist, carrying the creature along. If it has two creatures grabbed in this way, it can’t use its fist Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -410,102 +431,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Colossus’s Grasp",
             "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "H6JsIWqdd7uaB8pE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r 3d12+11 #bludgeoning]]{3d12+11 bludgeoning damage}, DC 36</p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "VnzBBT4i51MfYOw8",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "value": "<p><span style=\"color: var(--body);\">Huge or smaller, foot, DC 36.</span></p>\n<hr />\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "trample",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 800000,
             "type": "action"
         },
         {
@@ -553,6 +478,96 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "kqYUcLxSTkMrGpic",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "description": {
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Trample]{Trample}</p>\n<hr />\n<p><strong>Affected Creatures</strong> Huge or smaller</p>\n<p><strong>Attack</strong> Foot</p>\n<p><strong>Saving Throw</strong><span data-pf2-check=\"reflex\" data-pf2-dc=\"36\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.ocz7q4PvK4lK9xu8"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "DO5mR2HeELlAcqye",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Constrict]{Constrict}</p>\n<hr />\n<p><strong>Damage</strong> [[/r 3d12+11 #bludgeoning]]{3d12+11 bludgeoning damage}</p>\n<p><strong>Saving Throw</strong><span data-pf2-check=\"fortitude\" data-pf2-dc=\"36\" data-pf2-label=\"Constrict DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.GQwcmtVFRJ6v8sqF"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
             "sort": 900000,
             "type": "action"
         },
@@ -595,10 +610,10 @@
     "name": "Animated Colossus",
     "token": {
         "disposition": -1,
-        "height": 4,
+        "height": 6,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Animated Colossus",
-        "width": 4
+        "width": 6
     },
     "type": "npc"
 }
