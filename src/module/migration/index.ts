@@ -65,6 +65,7 @@ import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654
 import { Migration655CreatureTokenSizes } from "./migrations/655-creature-token-sizes";
 import { Migration656OtherFocusPoolSources } from "./migrations/656-other-focus-pool-sources";
 import { Migration657RemoveSetProperty } from "./migrations/657-remove-set-property";
+import { Migration658MonkUnarmoredProficiency } from "./migrations/658-monk-unarmored-proficiency";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -134,6 +135,7 @@ export class Migrations {
         Migration655CreatureTokenSizes,
         Migration656OtherFocusPoolSources,
         Migration657RemoveSetProperty,
+        Migration658MonkUnarmoredProficiency,
     ];
 
     static get latestVersion(): number {
