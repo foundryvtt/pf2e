@@ -5,7 +5,7 @@ import { FormulaPF2e } from ".";
 export type FormulaSource = BaseNonPhysicalItemSource<"formula", FormulaSystemData>;
 
 export class FormulaData extends BaseNonPhysicalItemData<FormulaPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/formula.svg";
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/lore.svg";
 }
 
 export interface FormulaData extends Omit<FormulaSource, "_id" | "effects"> {
