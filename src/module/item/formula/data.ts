@@ -1,6 +1,5 @@
 import { ItemLevelData, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
-import { ValuesList } from "@module/data";
 import { FormulaPF2e } from ".";
 
 export type FormulaSource = BaseNonPhysicalItemSource<"formula", FormulaSystemData>;
@@ -15,11 +14,10 @@ export interface FormulaData extends Omit<FormulaSource, "_id" | "effects"> {
     readonly _source: FormulaSource;
 }
 
-export type CraftingType = "alchemical" | "magical" | "snare";
+type ItemUUID = `Compendium.${string}.${string}` | `Item.${string}.${string}`;
 
 interface FormulaSystemData extends ItemSystemData, ItemLevelData {
-    craftingType: ValuesList<CraftingType>;
-    craftedObjectUuid: {
-        value: CompendiumUUID;
+    craftedItem: {
+        uuid: ItemUUID;
     };
 }
