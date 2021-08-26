@@ -11,6 +11,7 @@ import { MartialData } from "@item/deprecated";
 import type { EffectData, EffectSource } from "@item/effect/data";
 import type { EquipmentData, EquipmentSource } from "@item/equipment/data";
 import type { FeatData, FeatSource } from "@item/feat/data";
+import { FormulaData, FormulaSource } from "@item/formula/data";
 import type { KitData, KitSource } from "@item/kit/data";
 import type { LoreData, LoreSource } from "@item/lore/data";
 import type { MeleeData, MeleeSource } from "@item/melee/data";
@@ -50,7 +51,8 @@ export type ItemDataPF2e =
     | MartialData
     | MeleeData
     | SpellcastingEntryData
-    | SpellData;
+    | SpellData
+    | FormulaData;
 
 export type PhysicalItemSource = PhysicalItemData["_source"];
 export type ItemSourcePF2e = ItemDataPF2e["_source"];
@@ -82,6 +84,7 @@ export type {
     MeleeData,
     SpellcastingEntryData,
     SpellData,
+    FormulaData,
 };
 
 export {
@@ -103,4 +106,5 @@ export {
     MeleeSource,
     SpellcastingEntrySource,
     SpellSource,
+    FormulaSource,
 };

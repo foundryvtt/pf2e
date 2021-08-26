@@ -18,6 +18,7 @@ import {
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
+    FormulaPF2e,
 } from "@item/index";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
 import { ConditionType } from "@item/condition/data";
@@ -715,7 +716,7 @@ const conditionTypes: Record<ConditionType, string> = {
     invisible: "PF2E.ConditionTypeInvisible",
     observed: "PF2E.ConditionTypeObserved",
     paralyzed: "PF2E.ConditionTypeParalyzed",
-    persistent: "PF2E.ConditionTypePersistent",
+    "persistent-damage": "PF2E.ConditionTypePersistent",
     petrified: "PF2E.ConditionTypePetrified",
     prone: "PF2E.ConditionTypeProne",
     quickened: "PF2E.ConditionTypeQuickened",
@@ -2360,6 +2361,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             backpack: ContainerPF2e,
+            formula: FormulaPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,

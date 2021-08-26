@@ -18,6 +18,7 @@ import { Migration653AEstoREs } from "@module/migration/migrations/653-aes-to-re
 import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654-action-type-count";
 import { Migration655CreatureTokenSizes } from "@module/migration/migrations/655-creature-token-sizes";
 import { Migration656OtherFocusPoolSources } from "@module/migration/migrations/656-other-focus-pool-sources";
+import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-remove-set-property";
 
 const migrations: MigrationBase[] = [
     new Migration643HazardLevel(),
@@ -33,6 +34,7 @@ const migrations: MigrationBase[] = [
     new Migration654ActionTypeAndCount(),
     new Migration655CreatureTokenSizes(),
     new Migration656OtherFocusPoolSources(),
+    new Migration657RemoveSetProperty(),
 ];
 
 global.deepClone = function (original: any): any {
@@ -82,6 +84,7 @@ const itemTypes = [
     "status",
     "condition",
     "effect",
+    "formula",
 ];
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {

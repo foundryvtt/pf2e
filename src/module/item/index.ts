@@ -20,3 +20,4 @@ export { SpellPF2e } from "./spell";
 export { SpellcastingEntryPF2e } from "./spellcasting-entry";
 export { TreasurePF2e } from "./treasure";
 export { WeaponPF2e } from "./weapon";
+export { FormulaPF2e } from "./formula";
