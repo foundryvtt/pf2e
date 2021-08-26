@@ -214,7 +214,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const classHP = systemData.attributes.classhp;
             const hitPoints = systemData.attributes.hp;
             const modifiers = [
-                new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED, true, "ancestry"),
                 ...hitPoints.modifiers,
             ];
 
@@ -225,9 +225,13 @@ export class CharacterPF2e extends CreaturePF2e {
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(
+                    new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED, true, "class")
+                );
             } else {
-                modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(
+                    new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED, true, "class")
+                );
                 modifiers.push(
                     new ModifierPF2e(
                         "PF2E.AbilityCon",

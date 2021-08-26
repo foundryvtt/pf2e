@@ -65,7 +65,7 @@ export class ModifierPF2e implements RawModifier {
     type: ModifierType;
     enabled: boolean;
     /** The source which this modifier originates from, if any. */
-    source?: string;
+    source: string | null = null;
     /** Any notes about this modifier. */
     notes?: string;
     ignored: boolean;
@@ -91,7 +91,14 @@ export class ModifierPF2e implements RawModifier {
      * @param source The source which this modifier originates from, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(name: string, modifier: number, type: string, enabled = true, source?: string, notes?: string) {
+    constructor(
+        name: string,
+        modifier: number,
+        type: string,
+        enabled = true,
+        source: string | null = null,
+        notes?: string
+    ) {
         const isValidModifierType = (type: string): type is ModifierType =>
             Object.values(MODIFIER_TYPE).some((modifierType) => type === modifierType);
 
