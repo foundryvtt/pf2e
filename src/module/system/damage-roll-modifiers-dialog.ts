@@ -162,10 +162,9 @@ export class DamageRollModifiersDialog extends Application {
             return roll;
         })();
 
-        const speaker: { actor?: ActorPF2e } = {};
-        if (ctx.actor) {
-            speaker.actor = ctx.actor;
-        }
+        const speaker: { actor?: ActorPF2e } = {
+            actor: ctx.actor,
+        };
 
         const item: ItemPF2e | null = context.item ?? null;
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
