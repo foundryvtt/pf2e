@@ -40,6 +40,11 @@ export class Migration657RemoveSetProperty extends MigrationBase {
             const index = rules.indexOf(setPropertyRule);
             rules.splice(index, 1, aeLikes.shift()!);
         }
+
+        // Remove any surviving (likely malformed) SetProperty rule elements
+        itemSource.data.rules = itemSource.data.rules.filter(
+            (rule) => rule && typeof rule.key === "string" && !rule.key.trim().endsWith("SetProperty")
+        );
     }
 }
 
