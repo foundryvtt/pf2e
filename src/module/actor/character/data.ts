@@ -228,6 +228,7 @@ export interface CharacterCraftingDetails {
     [key: string]: {
         advancedAlchemyLevel?: number;
         maximumSlots?: number;
+        slotsByLevel?: Record<number, number>;
         fieldDiscovery?: string;
         actions?: number;
     };

@@ -317,10 +317,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
             const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
             const entry = this.actor.items.get(entryId);
-            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
-
+            const slotKey = $(event.target).parents(".item").attr("data-slot-id") ?? "";
             if (entry instanceof CraftingEntryPF2e) {
-                entry.unprepareFormula(formulaId, slotKey);
+                if (slotKey) {
+                    entry.unprepareFormula(formulaId, Number(slotKey));
+                } else {
+                    entry.unprepareFormula(formulaId);
+                }
             } else {
                 console.warn("PF2E System | Failed to load crafting entry");
             }
@@ -1024,6 +1027,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 );
                 popup.render(true);
                 return [item];
+            } else if (craftingTab) {
+                const popup = new ScrollWandPopup(
+                    this.actor,
+                    {},
+                    async (heightenedLevel, itemType, spellData) => {
+                        if (!(itemType === "scroll" || itemType === "wand")) return;
+                        const formula = await this.createFormulaFromSpell(itemType, spellData, heightenedLevel);
+                        await this._onDropItemCreate(formula);
+                    },
+                    itemData
+                );
+                popup.render(true);
+                return [item];
             } else {
                 return [];
             }
@@ -1525,6 +1541,40 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         formulaData.data.rules = [];
 
         return formulaData;
+    }
+
+    private async createFormulaFromSpell(
+        type: "scroll" | "wand",
+        spellData: SpellSource,
+        heightenedLevel?: number
+    ): Promise<FormulaSource> {
+        const item = await createConsumableFromSpell(type, spellData, heightenedLevel);
+
+        const formula: PreCreate<FormulaSource> = {
+            name: item.name,
+            type: "formula",
+            img: spellData.img,
+            data: {
+                cost: item.data.price,
+                craftDC: {
+                    value: adjustDCByRarity(calculateDC(item.data.level.value), item.data.traits.rarity.value),
+                },
+                craftedObjectUuid: {
+                    value: spellData.flags.core?.sourceId,
+                },
+                craftingType: {
+                    value: ["magical"],
+                },
+                description: item.data.description,
+                level: item.data.level,
+                traits: item.data.traits,
+                magicConsumable: {
+                    heightenedLevel: heightenedLevel,
+                    type: type,
+                },
+            },
+        };
+        return formula as FormulaSource;
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {

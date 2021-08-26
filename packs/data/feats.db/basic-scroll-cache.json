@@ -26,7 +26,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.CraftingEntry",
+                "type": "scroll",
+                "label": "Scroll Cache",
+                "selector": "scroll-cache",
+                "itemRestrictions": { "traits": ["scroll"] }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.scroll-cache.slotsByLevel.1",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.scroll-cache.slotsByLevel.2",
+                "value": { "brackets": [{ "start": 8, "value": 1 }] }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -35,9 +55,7 @@
             "rarity": {
                 "value": "common"
             },
-            "value": [
-                "archetype"
-            ]
+            "value": ["archetype"]
         }
     },
     "effects": [],

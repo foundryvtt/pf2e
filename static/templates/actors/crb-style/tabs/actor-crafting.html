@@ -6,8 +6,9 @@
         {{/if}}
         {{#each otherCraftingEntries as |entry eid|}}
             {{#if entry.isSnare}}
-                {{log entry}}
                 {{> systems/pf2e/templates/actors/crafting-snares.html entry=entry}}
+                {{else}}
+                {{> systems/pf2e/templates/actors/crafting-entry.html entry=entry}}
             {{/if}}
         {{/each}}
         <li class="knownFormulas-entry item-container" data-container-type="knownFormulas">

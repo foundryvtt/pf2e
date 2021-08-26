@@ -27,7 +27,37 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.CraftingEntry",
+                "type": "scroll",
+                "label": "Scroll Savant",
+                "selector": "scroll-savant",
+                "itemRestrictions": { "traits": ["scroll"] }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.scroll-savant.maximumSlots",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": 2
+                        },
+                        {
+                            "end": 18,
+                            "start": 16,
+                            "value": 3
+                        },
+                        {
+                            "start": 19,
+                            "value": 4
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

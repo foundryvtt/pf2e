@@ -35,4 +35,8 @@ interface FormulaSystemData extends ItemSystemData, ItemLevelData {
         signatureItem?: boolean;
         perpetualInfusion?: boolean;
     };
+    magicConsumable?: {
+        heightenedLevel?: number;
+        type: "scroll" | "wand";
+    };
 }

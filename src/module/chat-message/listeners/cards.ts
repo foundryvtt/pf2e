@@ -3,6 +3,7 @@ import { ActorPF2e, CharacterPF2e } from "@actor/index";
 import { StatisticModifier } from "@module/modifiers";
 import { attemptToRemoveCoinsByValue, coinsToString } from "@item/treasure/helpers";
 import { CraftingResult, performRoll } from "@module/crafting";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -93,9 +94,16 @@ export const ChatCards = {
 
                 if (action === "finish-crafting") {
                     const item = await fromUuid(formula.data.data.craftedObjectUuid.value);
-                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
 
-                    const itemObject = item.toObject();
+                    let itemObject;
+                    if (item instanceof SpellPF2e && formula.data.data.magicConsumable) {
+                        const data = formula.data.data.magicConsumable;
+                        itemObject = await createConsumableFromSpell(data.type, item.toObject(), data.heightenedLevel);
+                    } else if (item instanceof PhysicalItemPF2e) {
+                        itemObject = item.toObject();
+                    } else {
+                        return;
+                    }
                     itemObject.data.quantity.value = craftingResult.form.quantity;
 
                     const result = await actor.addItemToActor(itemObject, undefined);

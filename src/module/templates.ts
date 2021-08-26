@@ -42,6 +42,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
         "systems/pf2e/templates/actors/crafting-alchemical.html",
         "systems/pf2e/templates/actors/crafting-snares.html",
+        "systems/pf2e/templates/actors/crafting-entry.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/crb-style/icons/d20.html",

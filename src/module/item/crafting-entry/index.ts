@@ -50,7 +50,7 @@ export class CraftingEntryPF2e extends ItemPF2e {
             }
         }
 
-        if (this.isSnare) {
+        if (this.maxSlots) {
             const fill = this.maxSlots - this._formulas.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
@@ -59,6 +59,39 @@ export class CraftingEntryPF2e extends ItemPF2e {
         }
 
         return this._formulas;
+    }
+
+    // Organise entries with level limits into a level structure.
+    get formulaByLevel() {
+        if (!this.slotsByLevel) {
+            return null;
+        }
+
+        const formulaRecord: Record<number, (ActiveFormula | null)[]> = {};
+
+        // Init arrays
+        for (const key of Object.keys(this.slotsByLevel).map(Number)) {
+            formulaRecord[key] = [];
+        }
+
+        // Push to level
+        for (const formula of this.formulas) {
+            if (!formula) continue;
+            const key =
+                formula.formula.data.data.magicConsumable?.heightenedLevel || formula.formula.data.data.level.value;
+            formulaRecord[key].push(formula);
+        }
+
+        // Fill with nulls
+        for (const key of Object.keys(formulaRecord).map(Number)) {
+            const fill = (this.slotsByLevel[key] || 0) - formulaRecord[key].length;
+            if (fill > 0) {
+                const nulls = new Array(fill).fill(null);
+                formulaRecord[key] = formulaRecord[key].concat(nulls);
+            }
+        }
+
+        return formulaRecord;
     }
 
     /** The total cost in reagents to craft the prepared formulas */
@@ -115,12 +148,19 @@ export class CraftingEntryPF2e extends ItemPF2e {
         // Max slots for snares are CUMULATIVE.
         if (this.isSnare) {
             // Add up maximum slots
-            return (this.actor as CharacterPF2e)?.data.data.crafting["snare"]?.maximumSlots || 0;
+            return (this.actor as CharacterPF2e)?.data.data.crafting["snare"]?.maximumSlots || null;
         } else {
             return (
-                (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]?.maximumSlots || 0
+                (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]?.maximumSlots ||
+                null
             );
         }
+    }
+
+    get slotsByLevel() {
+        return (
+            (this.actor as CharacterPF2e)?.data.data.crafting[this.data.data.entrySelector.value]?.slotsByLevel || null
+        );
     }
 
     get isDailyPrep() {
@@ -161,8 +201,20 @@ export class CraftingEntryPF2e extends ItemPF2e {
         // TODO: Compare formula traits/level against advanced alchemy level + item restrictions
         // - Must convert spells to formulas before adding
         // - Item limitations
-        if (!this.isAlchemical && this.data.data.slots.prepared.length >= this.maxSlots) {
+        const updatedArray = this.data.data.slots.prepared;
+
+        if (this.maxSlots && updatedArray.length >= this.maxSlots) {
+            console.log("Max slots reached");
             return;
+        }
+
+        if (this.slotsByLevel) {
+            const key = formula.data.data.magicConsumable?.heightenedLevel || formula.data.data.level.value;
+            const formulasForLevel = (this.formulaByLevel?.[key] || []).filter((f) => f);
+            if (formulasForLevel.length >= this.slotsByLevel[key]) {
+                console.log("Max slots by level reached");
+                return;
+            }
         }
 
         const itemRestrictions = this.data.data.itemRestrictions;
@@ -192,8 +244,6 @@ export class CraftingEntryPF2e extends ItemPF2e {
             }
         }
 
-        const updatedArray = this.data.data.slots.prepared;
-
         // Alchemical entries use quantities, others use slots
         if (this.isAlchemical) {
             const existingEntry = updatedArray.findIndex((s) => s.id === formula.id);
@@ -202,7 +252,7 @@ export class CraftingEntryPF2e extends ItemPF2e {
             } else {
                 updatedArray[existingEntry].quantity = (updatedArray[existingEntry].quantity || 0) + 1;
             }
-        } else if (this.isSnare) {
+        } else {
             updatedArray.push({ id: formula.id, expended: false });
         }
 
@@ -212,12 +262,20 @@ export class CraftingEntryPF2e extends ItemPF2e {
         return this.update(updates);
     }
 
-    unprepareFormula(formulaId: string, slotKey: number) {
+    unprepareFormula(formulaId: string, slotKey?: number) {
         const updatedArray = this.data.data.slots.prepared;
-        if (updatedArray[slotKey]?.id === formulaId) {
+        if (slotKey === undefined) {
+            const index = updatedArray.findIndex((f) => f.id === formulaId);
+
+            if (index >= 0) {
+                updatedArray.splice(index, 1);
+            } else {
+                throw ErrorPF2e("Formula could not be found in crafting entry");
+            }
+        } else if (updatedArray[slotKey]?.id === formulaId) {
             updatedArray.splice(slotKey, 1);
         } else {
-            throw ErrorPF2e("Formual could not be found in crafting entry");
+            throw ErrorPF2e("Formula could not be found in crafting entry");
         }
         const key = `data.slots.prepared`;
         const updates: Record<string, unknown> = { [key]: updatedArray };
@@ -279,8 +337,8 @@ export class CraftingEntryPF2e extends ItemPF2e {
             reagentCost: this.reagentCost,
             maxSlots: this.maxSlots,
             actionCost: this.actionCost,
+            formulaByLevel: this.formulaByLevel,
         };
-
         return returnValue;
     }
 }

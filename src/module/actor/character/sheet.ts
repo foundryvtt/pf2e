@@ -18,6 +18,7 @@ import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CraftingForm, performRoll } from "@module/crafting";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { ItemTrait } from "@item/data/base";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -694,6 +695,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                      * - Slot limits determined by feats
                      * - Spell level limited slots
                      */
+                    sheetData.otherCraftingEntries.push({
+                        eid: sheetData.otherCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                    });
                 } else {
                     /**
                      * Custom Entries:
@@ -1069,10 +1075,23 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         if (!formula) {
                             return;
                         }
-                        const item = await fromUuid(formula.formula.data.data.craftedObjectUuid.value);
-                        if (item === null || !(item instanceof PhysicalItemPF2e)) return;
 
-                        const itemObject = item.toObject();
+                        const item = await fromUuid(formula.formula.data.data.craftedObjectUuid.value);
+                        let itemObject;
+                        if (item instanceof PhysicalItemPF2e) {
+                            itemObject = item.toObject();
+                        } else if (item instanceof SpellPF2e) {
+                            const consumableData = formula.formula.data.data.magicConsumable;
+                            if (consumableData) {
+                                itemObject = await createConsumableFromSpell(
+                                    consumableData.type,
+                                    item.toObject(),
+                                    consumableData.heightenedLevel
+                                );
+                            } else return;
+                        } else {
+                            return;
+                        }
                         itemObject.data.quantity.value = formula.quantity || 1;
 
                         if (entry.isAlchemical) {

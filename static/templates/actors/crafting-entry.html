@@ -1,7 +1,7 @@
 <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
     <div class="action-header">
         <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
-            Snare Specialist
+            {{entry.name}}
         </h3>
         {{#if @root.owner}}
         <div class="item-controls">
@@ -13,22 +13,62 @@
         {{/if}}
     </div>
     <ol class="directory-list item-list formula-list">
-        <li class="item inventory-header formula-level-header formula-header">
-            <div class="item-name flexrow maximum-slots">
-                <h3>Slots:</h3>
-                <div class="formula-number">
-                    {{this.maxSlots}}
+        {{#if entry.formulaByLevel}}
+
+
+        <!-- Add section for each formula level -->
+        {{#each entry.formulaByLevel as |section lvl|}}
+            {{#if section}}
+            <li class="item inventory-header formula-level-header formula-header" data-item-type="formulaLevel"
+                data-level="{{lvl}}">
+                <div class="item-name flexrow">
+                    <h3>{{localize 'PF2E.LevelN' level=lvl}}</h3>
                 </div>
-            </div>
+            </li>
+                <!-- Add formula items for each formula level -->
+                {{#each section}}
+                <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{this.formula._id}}"
+                    data-item-type="formula">
+                    <div class="item-name rollable">
+                        {{#if this}}
+                        <div class="item-image">
+                            <img class="item-icon" src="{{this.formula.img}}" alt="{{this.formula.name}}">
+                        </div>
+                        <h4>{{this.formula.name}}</h4>
+                        {{else}}
+                        <h4>Empty Slot (drag formula here)</h4>
+                        {{/if}} 
+                    </div>
 
-            <div class="item-name flexrow snare-actions">
-                <h3>Actions:
-                    <span class="activity-icon">{{this.actionCost}}</span>
-                </h3>
-            </div>
-        </li>
+                    {{#if this}}
+                    {{#if @root.owner}}
+                    <div class="item-controls">
+                        <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                    {{/if}}
+                    {{/if}}
+                </li>
+                {{/each}}
+            {{/if}}
+        {{/each}}
 
-        {{log entry.formulas}}
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {{else}}
         {{#each entry.formulas}}
         <li class="item formula-item" data-item-id="{{this.formula.id}}" data-item-type="formula" data-expended-state="{{this.expended}}" data-slot-id={{@key}}>
             <div class="item-name rollable">
@@ -49,12 +89,12 @@
             {{#if this}}
             {{#if @root.owner}}
             <div class="item-controls">
-                <a class="item-control toggle-formula-expended" title="{{localize "PF2E.ExpendSpellTitle"}}"><i class="fas fa-minus-square"></i></a>
                 <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-trash"></i></a>
             </div>
             {{/if}}
             {{/if}}
         </li>
         {{/each}}
+        {{/if}}
     </ol>
 </li>
