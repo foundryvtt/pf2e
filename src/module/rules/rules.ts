@@ -25,6 +25,7 @@ import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
 import { CreatureSizeRuleElement } from "./elements/creature-size";
+import { PF2CraftingEntryRuleElement } from "./crafting/crafting-entry";
 
 /**
  * @category RuleElement
@@ -54,6 +55,7 @@ export class RuleElements {
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
         ActiveEffectLike: AELikeRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
+        CraftingEntry: PF2CraftingEntryRuleElement,
     });
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};

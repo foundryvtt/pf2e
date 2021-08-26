@@ -8,7 +8,7 @@ import {
     SpellcastingEntryPF2e,
     SpellPF2e,
 } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -49,6 +49,11 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
+import { FormulaPF2e } from "@item/formula";
+import { adjustDCByRarity, calculateDC } from "@module/dc";
+import { ItemTrait } from "@item/data/base";
+import { CraftingType, FieldDiscoveryType, FormulaSource } from "@item/formula/data";
+import { CraftingEntryPF2e } from "@item";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -71,6 +76,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ".actions-pane",
                 ".spellbook-pane",
                 ".skillstab-pane",
+                ".crafting-pane",
                 ".pfs-pane",
                 ".tab.active",
             ],
@@ -306,6 +312,64 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
+        // Unprepare formula
+        html.find(".formula-unprepare").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            const slotKey = $(event.target).parents(".item").attr("data-slot-id") ?? "";
+            if (entry instanceof CraftingEntryPF2e) {
+                if (slotKey) {
+                    entry.unprepareFormula(formulaId, Number(slotKey));
+                } else {
+                    entry.unprepareFormula(formulaId);
+                }
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        // Unprepare formula
+        html.find(".toggle-formula-expended").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.toggleExpended(formulaId, slotKey);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        // Increase/Decrease Formula Prep Quantity
+        html.find(".formula-decrease-quantity").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.decreaseQuantity(formulaId, slotKey);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        html.find(".formula-increase-quantity").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            const slotKey = Number($(event.target).parents(".item").attr("data-slot-id"));
+
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.increaseQuantity(formulaId, slotKey);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
         // Remove Spell Slot
         html.find(".item-unprepare").on("click", (event) => {
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
@@ -380,6 +444,50 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 .siblings()
                 .toggle(100, () => {});
         });
+
+        // toggle visibility of formula filters
+        html.find(".toggle-formula-filters").on("click", () => {
+            this.actor.setFlag(
+                game.system.id,
+                "crafting.showFormulaFilters",
+                !this.actor.getFlag(game.system.id, "crafting.showFormulaFilters")
+            );
+        });
+
+        html.find(".toggle-entry-filters").on("click", (event) => {
+            const entryId = $(event.target).closest(".item").attr("data-item-id") ?? "";
+
+            if (!entryId) {
+                return;
+            }
+
+            const entry = this.actor.items.get(entryId);
+            if (!(entry instanceof CraftingEntryPF2e)) {
+                return;
+            }
+            const filters: { level: { min: number; max: number }; traits: { [key: string]: boolean } } = {
+                level: { min: 0, max: 20 },
+                traits: {},
+            };
+            const itemRestrictions = entry.itemRestrictions;
+            if (itemRestrictions?.traits) {
+                const traits: { [key: string]: boolean } = {};
+                itemRestrictions.traits.map((t) => (traits[t] = true));
+                filters.traits = traits;
+            }
+            if (itemRestrictions?.level !== undefined) {
+                const level = { min: 0, max: itemRestrictions.level };
+                filters.level = level;
+            }
+
+            this.actor.unsetFlag(game.system.id, "crafting.formulaFilters");
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters", filters);
+        });
+
+        // reset formula filters
+        html.find(".clear-formula-filters").on("click", () =>
+            this.actor.unsetFlag(game.system.id, "crafting.formulaFilters")
+        );
 
         /* -------------------------------------------- */
         /*  Inventory                                   */
@@ -491,6 +599,29 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     "data.ability.value": event.target.value,
                 },
             ]);
+        });
+
+        // Crafting Filters
+        html.find<HTMLInputElement>(".filter-level-min").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters.level.min", event.target.value);
+        });
+
+        html.find<HTMLInputElement>(".filter-level-max").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters.level.max", event.target.value);
+        });
+
+        html.find<HTMLInputElement>(".filter-trait").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(
+                game.system.id,
+                `crafting.formulaFilters.traits.${event.target.name}`,
+                event.target.checked
+            );
         });
 
         // Update max slots for Spell Items
@@ -779,6 +910,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     return [target];
                 }
             }
+        } else if (item instanceof FormulaPF2e && itemData.type === "formula") {
+            console.log("Dropping a formula");
+            if (dropContainerType === "craftingEntry") {
+                console.log("Dropping a formula on a crafting entry!");
+                const entryId = $(event.target).closest(".item-container").attr("data-container-id") ?? "";
+                const entry = this.actor.items.get(entryId);
+                if (entry instanceof CraftingEntryPF2e) {
+                    const allocated = await entry.prepareFormula(item);
+                    if (allocated) return [allocated];
+                } else {
+                    console.warn("PF2E System | Failed to load crafting entry");
+                }
+            }
         }
 
         const $container = $(event.target).closest('[data-item-is-container="true"]');
@@ -843,6 +987,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
+        const craftingTab = this._tabs[0]?.active === "crafting";
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -882,6 +1027,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 );
                 popup.render(true);
                 return [item];
+            } else if (craftingTab) {
+                const popup = new ScrollWandPopup(
+                    this.actor,
+                    {},
+                    async (heightenedLevel, itemType, spellData) => {
+                        if (!(itemType === "scroll" || itemType === "wand")) return;
+                        const formula = await this.createFormulaFromSpell(itemType, spellData, heightenedLevel);
+                        await this._onDropItemCreate(formula);
+                    },
+                    itemData
+                );
+                popup.render(true);
+                return [item];
             } else {
                 return [];
             }
@@ -916,6 +1074,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
+        } else if (isPhysicalData(itemData) && craftingTab) {
+            const formula = await this.createFormulaFromItem(itemData as PhysicalItemSource);
+            return this._onDropItemCreate(formula);
         }
 
         if (isPhysicalData(itemData)) {
@@ -1327,6 +1488,93 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
+    }
+
+    private async createFormulaFromItem(itemData: PhysicalItemSource): Promise<FormulaSource> {
+        const formulaId = "9a60c9b416221956";
+        const formula = await game.packs.get("pf2e.formulas")?.getDocument(formulaId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            throw ErrorPF2e("Failed to retrieve formula item");
+        }
+
+        const formulaData = formula.toObject();
+
+        formulaData.name = itemData.name;
+        formulaData.img = itemData.img;
+
+        const craftDC: number = adjustDCByRarity(
+            calculateDC(itemData.data.level.value),
+            itemData.data.traits.rarity.value
+        );
+        formulaData.data.craftDC.value = craftDC;
+
+        formulaData.data.cost.value = itemData.data.price.value;
+
+        formulaData.data.craftedObjectUuid.value = itemData.flags.core?.sourceId;
+
+        if (formulaData.data.craftedObjectUuid.value === undefined) {
+            throw ErrorPF2e("Failed to retrieve sourceId from item");
+        }
+
+        formulaData.data.traits = itemData.data.traits;
+        formulaData.data.level = itemData.data.level;
+
+        for (const key in CONFIG.PF2E.craftingTypes) {
+            if (formulaData.data.traits.value.includes(key as ItemTrait)) {
+                formulaData.data.craftingType.value.push(key as CraftingType);
+            }
+        }
+
+        for (const key in CONFIG.PF2E.fieldDiscoveryTypes) {
+            if (formulaData.data.traits.value.includes(key as ItemTrait)) {
+                formulaData.data.fieldDiscoveryType.value.push(key as FieldDiscoveryType);
+            }
+        }
+
+        const uuid = formulaData.data.craftedObjectUuid.value;
+        const index = uuid.indexOf(".");
+        const itemLink = `@${uuid.substr(0, index)}[${uuid.substr(index + 1)}]`;
+
+        formulaData.data.description.value = `${itemLink}\n<hr>\n${game.i18n.localize("PF2E.FormulaDescription")}`;
+
+        formulaData.data.rules = [];
+
+        return formulaData;
+    }
+
+    private async createFormulaFromSpell(
+        type: "scroll" | "wand",
+        spellData: SpellSource,
+        heightenedLevel?: number
+    ): Promise<FormulaSource> {
+        const item = await createConsumableFromSpell(type, spellData, heightenedLevel);
+
+        const formula: PreCreate<FormulaSource> = {
+            name: item.name,
+            type: "formula",
+            img: spellData.img,
+            data: {
+                cost: item.data.price,
+                craftDC: {
+                    value: adjustDCByRarity(calculateDC(item.data.level.value), item.data.traits.rarity.value),
+                },
+                craftedObjectUuid: {
+                    value: spellData.flags.core?.sourceId,
+                },
+                craftingType: {
+                    value: ["magical"],
+                },
+                description: item.data.description,
+                level: item.data.level,
+                traits: item.data.traits,
+                magicConsumable: {
+                    heightenedLevel: heightenedLevel,
+                    type: type,
+                },
+            },
+        };
+        return formula as FormulaSource;
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {

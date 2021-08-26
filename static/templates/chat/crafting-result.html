@@ -1,0 +1,37 @@
+<div class="pf2e chat-card" data-item-id="{{craftingResult.formula._id}}" data-crafting-result="{{craftingData}}">
+    <header class="card-header flexrow">
+        <img src="{{craftingResult.formula.img}}" title="Craft" width="36" height="36">
+        <h3>Craft: {{strings.itemLink}}</h3>
+    </header>
+    <div class="card-content">
+        {{#each craftingResult.requirements as |requirement|}}
+            <p><strong>{{requirement.label}}:</strong> {{#if requirement.value}}<i class="fa fa-check"></i>{{else}}<i class="fa fa-times"></i>{{/if}}</p>
+        {{/each}}
+        <p>Check item description for additional requirements.</p>
+        <hr>
+        <p><strong>Result</strong>: <span style="color: {{successColor}}">{{strings.degreeOfSuccess}} (DC: {{craftingResult.form.dc}}, Roll: {{craftingResult.roll.roll}})</span></p>
+        {{#if (compare craftingResult.form.quantity 1 operator=">")}}
+            <p><strong>Quantity:</strong> {{craftingResult.form.quantity}}</p>
+        {{/if}}
+        <p><strong>Total Cost:</strong> {{strings.itemCost}}</p>
+        <p><strong>Material Cost:</strong> {{strings.materialCost}}</p>
+        <p><strong>Minimum Time Spent:</strong> {{craftingResult.timeSpent.value}} {{craftingResult.timeSpent.unit}}</p>
+        <hr>
+        {{#if (compare craftingResult.roll.degreeOfSuccess 1 operator=">")}}
+            <p><strong>Discount per Day:</strong> {{strings.reductionPerDay}}</p>
+            <p><strong>Days until no Additional Cost:</strong> {{craftingResult.daysForZeroCost}}</p>
+        {{/if}}
+    </div>
+    <div class="card-buttons">
+        {{#if (compare craftingResult.roll.degreeOfSuccess 1 operator=">")}}
+            <button type="button" data-action="pay-crafting-costs" class="materials">Pay {{strings.materialCost}} Material Costs</button>
+            <button type="button" data-action="pay-crafting-costs" class="full">Pay {{strings.itemCost}} Full Costs</button>
+            <button type="button" data-action="finish-crafting">Craft {{craftingResult.formula.name}}</button>
+            {{else}}
+                {{#if (compare craftingResult.roll.degreeOfSuccess 1 operator="<")}}
+                    <button type="button" data-action="lose-materials">Lose {{strings.lostMaterials}} of Materials</button>
+                {{/if}}
+                <button type="button" data-action="retry-crafting">Retry Crafting</button>
+        {{/if}}
+    </div>
+</div>

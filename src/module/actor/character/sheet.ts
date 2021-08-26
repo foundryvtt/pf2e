@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
+import { ClassData, FeatData, FormulaData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellPF2e } from "@item/spell";
@@ -13,8 +13,12 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { LorePF2e } from "@item";
+import { CraftingEntryPF2e, FormulaPF2e, LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { CraftingForm, performRoll } from "@module/crafting";
+import { PhysicalItemTrait } from "@item/physical/data";
+import { ItemTrait } from "@item/data/base";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -125,6 +129,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        this.prepareCrafting(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -155,6 +160,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
         };
+
+        // Known Formulas
+        const knownFormulas: any[] = [];
+        const craftingTypes = CONFIG.PF2E.craftingTypes;
+        const fieldDiscoveryTypes = CONFIG.PF2E.fieldDiscoveryTypes;
+
+        // Crafting Filters
+        const formulaFilterFlags = this.actor.data.flags?.pf2e?.crafting?.formulaFilters;
+        const formulaLevelMin: number = formulaFilterFlags?.level?.min;
+        const formulaLevelMax: number = formulaFilterFlags?.level?.max;
+        const traitFlags: { [key: string]: boolean } = formulaFilterFlags?.traits || {};
+        const formulaFilteredTraits: string[] = Object.keys(traitFlags).filter((k) => traitFlags[k]);
 
         // Feats
         interface FeatSlot {
@@ -275,6 +292,28 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         attacks.weapon.items.push(itemData);
                     }
                     inventory[itemData.type].items.push(itemData);
+                }
+            }
+
+            // Formulas
+            else if (itemData.type === "formula") {
+                const formulaData: FormulaData = itemData;
+                const formulaLevel = formulaData.data.level.value;
+
+                // Filters
+                // TODO - Change to be a trait selector rather than just crafting type + discovery
+                if (
+                    (formulaLevelMin ? formulaLevelMin : 0) <= formulaLevel &&
+                    (formulaLevelMax ? formulaLevelMax : 20) >= formulaLevel &&
+                    (formulaFilteredTraits || []).every((t) => formulaData.data.traits.value.includes(t as ItemTrait))
+                ) {
+                    if (knownFormulas[formulaLevel] === undefined) {
+                        knownFormulas[formulaLevel] = [];
+                    }
+                    knownFormulas[formulaLevel].push({
+                        isAlchemical: formulaData.data.traits.value.includes("alchemical"),
+                        ...formulaData,
+                    });
                 }
             }
 
@@ -470,6 +509,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
 
+        // Crafting
+        actorData.knownFormulas = knownFormulas;
+        actorData.craftingTypes = craftingTypes;
+        actorData.fieldDiscoveryTypes = fieldDiscoveryTypes;
+
         // shield
         const equippedShield = this.actor.heldShield?.data;
         if (equippedShield === undefined) {
@@ -588,6 +632,95 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
+    protected prepareCrafting(sheetData: any) {
+        // Alchemical crafting entries share details, so will be grouped together.
+        // TODO: Consider sheetData.craftingEntries.alchemical and .other
+        sheetData.otherCraftingEntries = [];
+        sheetData.alchemicalCraftingEntries = [];
+
+        for (const itemData of sheetData.items) {
+            if (itemData.type === "craftingEntry") {
+                const entry = this.actor.items.get(itemData._id);
+                if (!(entry instanceof CraftingEntryPF2e)) {
+                    continue;
+                }
+
+                // Currently splitting between types. This only needs to be done for alchemical, getFormulaData should handle this
+
+                const entryType = entry.data.data.entryType.value;
+                if (entryType === "alchemical") {
+                    /*
+                     * Alchemical Entries:
+                     * - Share infused reagents
+                     * - Have individual Advanced Alchemy levels
+                     * - Spend infused reagents during daily preparations to make items
+                     * - No limit on slots, only limited by Infused Reagent maximum vs crafting cost
+                     */
+
+                    // Fetch AE values for Advanced Alchemy level
+                    const selector = entry.data.data.entrySelector.value;
+                    const advancedAlchemyLevel = this.actor.data.data.crafting[selector]?.advancedAlchemyLevel || 0;
+                    sheetData.alchemicalCraftingEntries.push({
+                        eid: sheetData.alchemicalCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                        ...{ advancedAlchemyLevel: advancedAlchemyLevel },
+                    });
+                } else if (entryType === "snare") {
+                    /*
+                     * Snare Entries (WIP - Rename to prepared entries?):
+                     * - Do not use resources
+                     * - Do not craft items during daily preparations
+                     * - Use slots that are expended like prepared casting
+                     * - Allow items to be crafted for free when crafted
+                     * - Do not have level restrictions on the slots (RAI, does not mean you can craft the snare though)
+                     * - Snares: decreases crafting time of snare
+                     * - Currently exists on Ranger and Snarecrafter, and slots/abilities are cumulative with both
+                     */
+                    sheetData.otherCraftingEntries.push({
+                        eid: sheetData.otherCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                        ...{ isSnare: entry.isSnare },
+                    });
+                } else if (entryType === "scroll") {
+                    /*
+                     * Scroll Entries (WIP - Rename to spellConsumables?):
+                     * - Do NOT need a formula to be known
+                     * - Do NOT need a spell to be known (scroll trickster)
+                     * - Prepared by dragging in a SPELL item, not a FORMULA
+                     * - COMPLICATION: Where is the Prepared item stored?
+                     * - Items granted during daily prep for free
+                     * - No resources
+                     * - Slot limits determined by feats
+                     * - Spell level limited slots
+                     */
+                    sheetData.otherCraftingEntries.push({
+                        eid: sheetData.otherCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                    });
+                } else {
+                    /**
+                     * Custom Entries:
+                     * - VERY WIP
+                     * - Need some easy to understand way of making totally custom entries through the RE
+                     * - Can have any combination of features of the other three slots?
+                     */
+                }
+            }
+        }
+
+        if (sheetData.alchemicalCraftingEntries) {
+            sheetData.infusedReagents = this.actor.data.data.resources.infusedReagents || { value: 0, max: 0 };
+            let totalInfusedCost = 0;
+            sheetData.alchemicalCraftingEntries.forEach((entry: any) => {
+                totalInfusedCost += entry.reagentCost;
+            });
+            sheetData.totalInfusedCost = totalInfusedCost;
+        }
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
     /* -------------------------------------------- */
@@ -616,6 +749,30 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
         html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
         html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
+
+        html.find("[data-selector][data-resource]").on("change", (event) => {
+            const { selector, resource, dtype } = event.target.dataset;
+            if (!selector || !resource) return;
+
+            console.log(`Dataset: ${event.target.dataset}`);
+            console.log(`Selector: ${selector}`);
+            console.log(`Resource: ${resource}`);
+            console.log(`dtype: ${dtype}`);
+
+            const value = (() => {
+                const value = $(event.target).val();
+                if (typeof value === "undefined" || value === null) {
+                    return 0;
+                }
+
+                if (dtype === "Number") {
+                    return Number(value);
+                } else {
+                    return 0;
+                }
+            })();
+            this.actor.update({ [`data.resources.${resource}.${selector}`]: value });
+        });
 
         {
             // ensure correct tab name is displayed after actor update
@@ -815,6 +972,142 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         html.find(".toggle-signature-spell").on("click", (event) => {
             this.onToggleSignatureSpell(event);
+        });
+
+        // Crafting handler
+        html.find(".craft-item").on("click", async (event) => {
+            const itemId = $(event.currentTarget).data().itemId;
+            const formula = this.actor.items.get(itemId);
+            const formulaData = formula?.data as FormulaData;
+
+            if (formula == null || formula.data.type !== "formula") {
+                console.log("Item is null or not a formula");
+                return;
+            }
+
+            const specialtyCrafting = CONFIG.PF2E.specialtyCrafting;
+            const defaultSpecialty = formulaData.data.craftingType.value.includes("alchemical") ? "alchemy" : "";
+            const actor = this.actor;
+
+            const batchCrafting = formulaData.data.traits.value.includes("consumable")
+                ? !formulaData.data.craftingType.value.includes("snare")
+                : false;
+
+            const content = await renderTemplate("systems/pf2e/templates/actors/crafting-form-dialog.html", {
+                formula: formulaData,
+                specialtyCrafting: specialtyCrafting,
+                batchCrafting: batchCrafting,
+                defaultSpecialty: defaultSpecialty,
+            });
+            new Dialog(
+                {
+                    title: "Craft Item",
+                    content,
+                    buttons: {
+                        cancel: {
+                            icon: '<i class="fas fa-times"></i>',
+                            label: "Cancel",
+                        },
+                        craft: {
+                            icon: '<i class="fa fa-hammer"></i>',
+                            label: "Craft",
+                            callback: (html: JQuery) => {
+                                const form: CraftingForm = {
+                                    dc: Number(html.find('[name="craftDC"]').val()),
+                                    cost: <string>html.find('[name="itemCost"]').val(),
+                                    quantity: Number(html.find('[name="quantity"]').val()),
+                                    specialtyCrafting: <string>html.find('[name="specialtyCrafting"]').val(),
+                                };
+                                performRoll(actor, formulaData, event, form);
+                            },
+                        },
+                    },
+                    default: "craft",
+                },
+                {
+                    width: 350,
+                    top: event.clientY - 80,
+                    left: window.innerWidth - 710,
+                }
+            ).render(true);
+        });
+
+        html.find(".toggle-signature-item").on("click", (event) => {
+            this.onToggleSignatureItem(event);
+        });
+
+        html.find(".toggle-perpetual-infusion").on("click", (event) => {
+            this.onTogglePerpetualInfusion(event);
+        });
+
+        // Crafting daily preparations
+        html.find(".prepare-daily-crafting").on("click", async () => {
+            const craftingEntries = this.actor.itemTypes.craftingEntry;
+            const physicalItems = this.actor.physicalItems;
+
+            let infusedReagentCost = 0;
+            for (const entry of craftingEntries) {
+                if (entry.isAlchemical) {
+                    infusedReagentCost += entry.reagentCost || 0;
+                }
+            }
+
+            const infusedReagents = this.actor.data.data.resources.infusedReagents?.value || 0;
+            if (infusedReagentCost) {
+                if (infusedReagentCost > infusedReagents) {
+                    ui.notifications.warn("Insufficient infused reagents to complete daily crafting");
+                    return;
+                } else {
+                    this.actor.update({ "data.resources.infusedReagents.value": infusedReagents - infusedReagentCost });
+                }
+            }
+
+            // TODO: Delete infused/temporary items
+            for (const item of physicalItems) {
+                if (item.data.flags.pf2e.temporary) {
+                    await item.delete();
+                }
+            }
+
+            for (const entry of craftingEntries) {
+                if (entry.isDailyPrep) {
+                    for (const formula of entry.formulas) {
+                        if (!formula) {
+                            return;
+                        }
+
+                        const item = await fromUuid(formula.formula.data.data.craftedObjectUuid.value);
+                        let itemObject;
+                        if (item instanceof PhysicalItemPF2e) {
+                            itemObject = item.toObject();
+                        } else if (item instanceof SpellPF2e) {
+                            const consumableData = formula.formula.data.data.magicConsumable;
+                            if (consumableData) {
+                                itemObject = await createConsumableFromSpell(
+                                    consumableData.type,
+                                    item.toObject(),
+                                    consumableData.heightenedLevel
+                                );
+                            } else return;
+                        } else {
+                            return;
+                        }
+                        itemObject.data.quantity.value = formula.quantity || 1;
+
+                        if (entry.isAlchemical) {
+                            const traits = itemObject.data.traits.value as PhysicalItemTrait[];
+                            traits.push("infused");
+                        }
+
+                        itemObject.flags.pf2e.temporary = true;
+
+                        const result = await this.actor.addItemToActor(itemObject, undefined);
+                        if (!result) {
+                            ui.notifications.warn("Could not add items");
+                        }
+                    }
+                }
+            }
         });
     }
 
@@ -1043,6 +1336,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
             spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
         }
+    }
+
+    private onToggleSignatureItem(event: JQuery.ClickEvent): void {
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!itemId) {
+            return;
+        }
+
+        const formula = this.actor.items.get(itemId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            return;
+        }
+
+        formula.update({ "data.alchemist.signatureItem": !formula.data.data.alchemist?.signatureItem });
+    }
+
+    private onTogglePerpetualInfusion(event: JQuery.ClickEvent): void {
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!itemId) {
+            return;
+        }
+
+        const formula = this.actor.items.get(itemId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            return;
+        }
+
+        formula.update({ "data.alchemist.perpetualInfusion": !formula.data.data.alchemist?.perpetualInfusion });
     }
 
     protected override async _onDropItem(

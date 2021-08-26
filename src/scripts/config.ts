@@ -18,6 +18,8 @@ import {
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
+    FormulaPF2e,
+    CraftingEntryPF2e,
 } from "@item/index";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
 import { ConditionType } from "@item/condition/data";
@@ -1576,6 +1578,29 @@ export const PF2ECONFIG = {
         lore: "PF2E.SkillLore",
     },
 
+    // TODO PF2E. for all strings
+    specialtyCrafting: {
+        alchemy: "Alchemy",
+        artistry: "Artistry",
+        blacksmithing: "Blacksmithing",
+        bookmaking: "Bookmaking",
+        glassmaking: "Glassmaking",
+        leatherworking: "Leatherworking",
+        pottery: "Pottery",
+        shipbuilding: "Shipbuilding",
+        stonemasonry: "Stonemasonry",
+        tailoring: "Tailoring",
+        weaving: "Weaving",
+        woodworking: "Woodworking",
+    },
+
+    fieldDiscoveryTypes: {
+        bomb: "Bomb",
+        elixir: "Elixir",
+        mutagen: "Mutagen",
+        poison: "Poison",
+    },
+
     spellComponents: {
         V: "PF2E.SpellComponentV",
         S: "PF2E.SpellComponentS",
@@ -1607,6 +1632,37 @@ export const PF2ECONFIG = {
         9: "PF2E.SpellLevel9",
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
+
+    formulaLevels: {
+        0: "PF2E.Level0",
+        1: "PF2E.Level1",
+        2: "PF2E.Level2",
+        3: "PF2E.Level3",
+        4: "PF2E.Level4",
+        5: "PF2E.Level5",
+        6: "PF2E.Level6",
+        7: "PF2E.Level7",
+        8: "PF2E.Level8",
+        9: "PF2E.Level9",
+        10: "PF2E.Level10",
+        11: "PF2E.Level11",
+        12: "PF2E.Level12",
+        13: "PF2E.Level13",
+        14: "PF2E.Level14",
+        15: "PF2E.Level15",
+        16: "PF2E.Level16",
+        17: "PF2E.Level17",
+        18: "PF2E.Level18",
+        19: "PF2E.Level19",
+        20: "PF2E.Level20",
+    },
+
+    craftingTypes: {
+        alchemical: "PF2E.CraftingType.alchemical",
+        magical: "PF2E.CraftingType.magical",
+        snare: "PF2E.CraftingType.snare",
+        mundane: "PF2E.CraftingType.mundane",
+    },
 
     featTypes: {
         ancestry: "PF2E.FeatTypeAncestry",
@@ -2360,6 +2416,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             backpack: ContainerPF2e,
+            formula: FormulaPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,
@@ -2378,6 +2435,7 @@ export const PF2ECONFIG = {
             spell: SpellPF2e,
             spellcastingEntry: SpellcastingEntryPF2e,
             condition: ConditionPF2e,
+            craftingEntry: CraftingEntryPF2e,
         },
     },
 };

@@ -31,6 +31,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html",
         "systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html",
         "systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html",
+        "systems/pf2e/templates/actors/crb-style/tabs/actor-crafting.html",
         "systems/pf2e/templates/actors/crb-style/tabs/item-line.html",
         "systems/pf2e/templates/actors/crb-style/character-traits.html",
         "systems/pf2e/templates/actors/crb-style/character-background.html",
@@ -39,6 +40,9 @@ export function loadPF2ETemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
+        "systems/pf2e/templates/actors/crafting-alchemical.html",
+        "systems/pf2e/templates/actors/crafting-snares.html",
+        "systems/pf2e/templates/actors/crafting-entry.html",
 
         // SVG icons
         "systems/pf2e/templates/actors/crb-style/icons/d20.html",
@@ -79,6 +83,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/equipment-sidebar.html",
         "systems/pf2e/templates/items/feat-details.html",
         "systems/pf2e/templates/items/feat-sidebar.html",
+        "systems/pf2e/templates/items/formula-details.html",
+        "systems/pf2e/templates/items/formula-sidebar.html",
         "systems/pf2e/templates/items/kit-details.html",
         "systems/pf2e/templates/items/kit-sidebar.html",
         "systems/pf2e/templates/items/lore-details.html",

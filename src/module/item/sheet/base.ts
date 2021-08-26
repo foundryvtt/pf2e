@@ -164,6 +164,18 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                         .map((item) => ({ id: item.id, name: item.name }));
                 }
             }
+        } else if (itemData.type === "formula") {
+            data.craftingTypes = CONFIG.PF2E.craftingTypes;
+            data.fieldDiscoveryTypes = CONFIG.PF2E.fieldDiscoveryTypes;
+            data.formulaTraits = Object.assign(
+                CONFIG.PF2E.armorTraits,
+                CONFIG.PF2E.consumableTraits,
+                CONFIG.PF2E.equipmentTraits,
+                CONFIG.PF2E.weaponTraits
+            );
+            data.traits = this.prepareOptions(data.formulaTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
         }
 
         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;

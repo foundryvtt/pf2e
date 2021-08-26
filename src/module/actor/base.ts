@@ -2,8 +2,8 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
-import type { ConditionPF2e, ArmorPF2e } from "@item";
-import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
+import type { ConditionPF2e, ArmorPF2e } from "@item/index";
+import { ConditionData, WeaponData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
@@ -828,22 +828,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = traits.has("invested") ? false : null;
         }
 
-        // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(targetActor, newItemData);
-        if (stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + quantity;
-            await stackItem.update({ "data.quantity.value": stackQuantity });
-            return stackItem;
-        }
+        const result = await targetActor.addItemToActor(newItemData, container);
 
-        // Otherwise create a new item
-        const result = await ItemPF2e.create(newItemData, { parent: targetActor });
         if (!result) {
             return null;
         }
-        const movedItem = targetActor.physicalItems.get(result.id);
-        if (!movedItem) return null;
-        await targetActor.stowOrUnstow(movedItem, container);
 
         return item;
     }
@@ -866,6 +855,30 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         } else {
             return stackCandidates[0];
         }
+    }
+
+    async addItemToActor(
+        itemData: PhysicalItemSource,
+        container?: Embedded<ContainerPF2e>
+    ): Promise<Embedded<PhysicalItemPF2e> | null> {
+        // Stack with an existing item if possible
+        const stackItem = this.findStackableItem(this, itemData);
+        if (stackItem && stackItem.data.type !== "backpack") {
+            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
+            await stackItem.update({ "data.quantity.value": stackQuantity });
+            return stackItem;
+        }
+
+        // Otherwise create a new item
+        const result = await ItemPF2e.create(itemData, { parent: this });
+        if (!result) {
+            return null;
+        }
+        const movedItem = this.physicalItems.get(result.id);
+        if (!movedItem) return null;
+        await this.stowOrUnstow(movedItem, container);
+
+        return movedItem;
     }
 
     /**

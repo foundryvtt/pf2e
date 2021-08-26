@@ -1,0 +1,16 @@
+<div class="form-group">
+    <label>{{localize "PF2E.EquipmentEquippedLabel"}}</label>
+    <input type="checkbox" name="data.equipped.value" data-dtype="Boolean" {{checked data.equipped.value}}/>
+</div>
+
+<div class="form-group-stacked">
+    <label>
+        {{localize "PF2E.TraitsLabel"}}
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="equipmentTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list pf-value pf-large">
+        {{#each traits as |trait|}}
+            <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
+        {{/each}}
+    </ul>
+</div>

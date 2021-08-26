@@ -1,0 +1,20 @@
+<div class="pf2e chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <h3>{{item.name}}</h3>
+    </header>
+
+    <div class="card-content">
+        {{item.description}}
+    </div>
+
+    <div class="card-buttons">
+        <button type="button" data-action="craft" data-dc="{{data.craftDC.value}}">Craft DC {{data.craftDC.value}}</button>
+    </div>
+
+    <footer class="card-footer">
+        <span>{{localize "PF2E.Item.Formula.LevelLabel" level=data.level.value}}</span>
+        <span>{{localize "PF2E.Item.Formula.CostLabel" cost=data.cost.value}}</span>
+        <span>{{localize (add 'PF2E.CraftingType.' data.craftingType.value)}}</span>
+    </footer>
+</div>
