@@ -5,12 +5,6 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration643HazardLevel } from "@module/migration/migrations/643-hazard-level";
-import { Migration644SpellcastingCategory } from "@module/migration/migrations/644-spellcasting-category";
-import { Migration646UpdateInlineLinks } from "@module/migration/migrations/646-update-inline-links";
-import { Migration647FixPCSenses } from "@module/migration/migrations/647-fix-pc-senses";
-import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
-import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
 import { Migration650StringifyWeaponProperties } from "@module/migration/migrations/650-stringify-weapon-properties";
 import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651-ephemeral-focus-pool";
 import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
@@ -19,12 +13,11 @@ import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654
 import { Migration655CreatureTokenSizes } from "@module/migration/migrations/655-creature-token-sizes";
 import { Migration656OtherFocusPoolSources } from "@module/migration/migrations/656-other-focus-pool-sources";
 import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-remove-set-property";
+import { Migration658MonkUnarmoredProficiency } from "@module/migration/migrations/658-monk-unarmored-proficiency";
+import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
+import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
 
 const migrations: MigrationBase[] = [
-    new Migration643HazardLevel(),
-    new Migration644SpellcastingCategory(),
-    new Migration646UpdateInlineLinks(),
-    new Migration647FixPCSenses(),
     new Migration648RemoveInvestedProperty(),
     new Migration649FocusToActor(),
     new Migration650StringifyWeaponProperties(),
@@ -35,6 +28,7 @@ const migrations: MigrationBase[] = [
     new Migration655CreatureTokenSizes(),
     new Migration656OtherFocusPoolSources(),
     new Migration657RemoveSetProperty(),
+    new Migration658MonkUnarmoredProficiency(),
 ];
 
 global.deepClone = function (original: any): any {
