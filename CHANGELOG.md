@@ -1,5 +1,17 @@
 # Patch Notes:
 
+## Version 2.12.5
+### Bug Fixes
+* (stwlam) Work around foundry server bug to ensure presence of document schema record
+* (stwlam) Ensure saves are displayed in a fixed order on the PC sheet
+
+### Content Changes
+* (stwlam) Remove focus-point rule elements accidentally added to feats with "bloodline" in the slug
+
+### Core System Improvements
+* (Supe) Add method to create a measued template without placing it, and add certain flags to the template from the origin item
+
+
 ## Version 2.12.4
 ### Bug Fixes
 * (stwlam) Remove brightening of unexplored areas of a map

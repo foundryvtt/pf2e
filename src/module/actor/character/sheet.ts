@@ -92,6 +92,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.attributes.perception.rankName = game.i18n.format(
             `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`
         );
+
+        // ensure saves are displayed in the following order:
+        sheetData.data.saves = {
+            fortitude: sheetData.data.saves.fortitude,
+            reflex: sheetData.data.saves.reflex,
+            will: sheetData.data.saves.will,
+        };
         for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
             save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
         }
