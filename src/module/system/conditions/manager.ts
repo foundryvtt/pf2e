@@ -1,9 +1,10 @@
-import { ModifierPF2e } from "./modifiers";
+import { ModifierPF2e } from "@module/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import type { ConditionData, ConditionSource } from "@item/condition/data";
-import { ConditionPF2e } from "@item/condition";
-import { ActorPF2e } from "@actor/base";
-import { TokenPF2e } from "./canvas/token";
+import type { ConditionData, ConditionSource } from "@item/data";
+import { ConditionPF2e } from "@item";
+import { ActorPF2e } from "@actor";
+import { TokenPF2e } from "@module/canvas";
+import { ConditionReference, FlattenedCondition } from "./types";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -547,184 +548,177 @@ export class ConditionManager {
         }
     }
 
-    static getFlattenedConditions(items: ConditionData[]): any[] {
-        const conditions = new Map<string, any>();
+    static getFlattenedConditions(items: ConditionPF2e[]): FlattenedCondition[] {
+        const conditions: Map<string, FlattenedCondition> = new Map();
 
-        items
-            .sort((a: ConditionData, b: ConditionData) => this.sortCondition(a, b))
-            .forEach((c: ConditionData) => {
-                // Sorted list of conditions.
-                // First by active, then by base (lexicographically), then by value (descending).
+        items.sort(this.sortCondition).forEach((condition) => {
+            // Sorted list of conditions.
+            // First by active, then by base (lexicographically), then by value (descending).
 
-                let name = `${c.data.base}`;
-                let condition: any;
+            const name = condition.value ? `${condition.name} ${condition.value}` : condition.name;
+            const flattened = conditions.get(name) ?? {
+                id: condition.id,
+                active: condition.isActive,
+                name,
+                value: condition.value,
+                description: condition.description,
+                img: condition.img,
+                references: false,
+                locked: false,
+                parents: [],
+                children: [],
+                overrides: [],
+                overriddenBy: [],
+                immunityFrom: [],
+            };
+            conditions.set(name, flattened);
 
-                if (c.data.value.isValued) {
-                    name = `${name} ${c.data.value.value}`;
-                }
+            // Update any references
+            const conditionData = condition.data;
+            if (conditionData.data.references.parent) {
+                const refCondition = items.find((other) => other.id === conditionData.data.references.parent?.id);
 
-                if (conditions.has(name)) {
-                    // Have already seen condition
-                    condition = conditions.get(name);
-                } else {
-                    // Have not seen condition
-                    condition = {
-                        id: c._id,
-                        active: c.data.active,
-                        name: name, // eslint-disable-line object-shorthand
-                        value: c.data.value.isValued ? c.data.value.value : undefined,
-                        description: c.data.description.value,
-                        img: c.img,
-                        references: false,
-                        parents: [],
-                        children: [],
-                        overrides: [],
-                        overriddenBy: [],
-                        immunityFrom: [],
+                if (refCondition) {
+                    const ref: ConditionReference = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: "",
                     };
 
-                    conditions.set(name, condition);
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
+
+                    flattened.references = true;
+                    flattened.locked = true;
+                    flattened.parents.push(ref);
                 }
+            }
 
-                // Update any references
-                if (c.data.references.parent) {
-                    const refCondition = items.find((i) => i._id === c.data.references.parent?.id);
+            conditionData.data.references.children.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
 
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: "",
-                        };
+                if (refCondition) {
+                    const ref: ConditionReference = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: "",
+                    };
 
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.parents.push(ref);
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
                     }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
+
+                    flattened.references = true;
+                    flattened.children.push(ref);
                 }
-
-                c.data.references.children.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: "",
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.children.push(ref);
-                    }
-                });
-
-                c.data.references.overrides.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: "",
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.overrides.push(ref);
-                    }
-                });
-
-                c.data.references.overriddenBy.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: "",
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.overriddenBy.push(ref);
-                    }
-                });
-
-                c.data.references.immunityFrom.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: "",
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.immunityFrom.push(ref);
-                    }
-                });
             });
+
+            conditionData.data.references.overrides.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: "",
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
+
+                    flattened.references = true;
+                    flattened.overrides.push(ref);
+                }
+            });
+
+            conditionData.data.references.overriddenBy.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: "",
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
+
+                    flattened.references = true;
+                    flattened.overriddenBy.push(ref);
+                }
+            });
+
+            conditionData.data.references.immunityFrom.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: "",
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, "");
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : "";
+
+                    flattened.references = true;
+                    flattened.immunityFrom.push(ref);
+                }
+            });
+        });
 
         return Array.from(conditions.values());
     }
 
-    private static sortCondition(a: ConditionData, b: ConditionData): number {
-        if (a.data.active === b.data.active) {
+    private static sortCondition(conditionA: ConditionPF2e, conditionB: ConditionPF2e): number {
+        if (conditionA.slug === conditionB.slug) {
             // Both are active or both inactive.
 
-            if (a.data.base === b.data.base) {
+            if (conditionA.slug === conditionB.slug) {
                 // Both are same base
 
-                if (a.data.value.isValued && b.data.value.isValued) {
+                if (conditionA.value && conditionB.value) {
                     // Valued condition
                     // Sort values by descending order.
-                    return b.data.value.value - a.data.value.value;
+                    return conditionB.value - conditionA.value;
                 } else {
                     // Not valued condition
                     return 0;
                 }
             } else {
                 // Different bases
-                return a.data.base.localeCompare(b.data.base);
+                return conditionA.slug.localeCompare(conditionB.slug);
             }
-        } else if (a.data.active && !b.data.active) {
+        } else if (conditionA.isActive && !conditionB.isActive) {
             // A is active, B is not
             // A should be before B.
             return -1;
-        } else if (!a.data.active && b.data.active) {
+        } else if (!conditionA.isActive && conditionB.isActive) {
             // B is active, A is not
             // Be should be before A.
             return 1;
