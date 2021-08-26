@@ -1064,7 +1064,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // TODO: Delete infused/temporary items
             for (const item of physicalItems) {
-                if (item.data.flags.temporary) {
+                if (item.data.flags.pf2e.temporary) {
                     await item.delete();
                 }
             }
@@ -1099,7 +1099,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                             traits.push("infused");
                         }
 
-                        itemObject.flags.temporary = true;
+                        itemObject.flags.pf2e.temporary = true;
 
                         const result = await this.actor.addItemToActor(itemObject, undefined);
                         if (!result) {
