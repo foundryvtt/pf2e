@@ -117,7 +117,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects = {};
 
         sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
-            sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === "condition")
+            this.actor.itemTypes.condition
         );
         // Show the PFS tab only if the setting for it is enabled.
         sheetData.showPFSTab = game.settings.get("pf2e", "pfsSheetTab");

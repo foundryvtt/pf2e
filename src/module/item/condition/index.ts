@@ -1,5 +1,5 @@
 import { ItemPF2e } from "../base";
-import { ConditionData } from "./data";
+import { ConditionData, ConditionType } from "./data";
 
 export class ConditionPF2e extends ItemPF2e {
     static override get schema(): typeof ConditionData {
@@ -39,6 +39,8 @@ export class ConditionPF2e extends ItemPF2e {
 
 export interface ConditionPF2e {
     readonly data: ConditionData;
+
+    get slug(): ConditionType;
 
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;
