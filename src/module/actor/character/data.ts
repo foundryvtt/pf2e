@@ -23,11 +23,12 @@ import {
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { ZeroToFour, ZeroToThree } from "@module/data";
+import { Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
+import { adjustDCByRarity, calculateDC } from "@module/dc";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -46,6 +47,51 @@ export interface CharacterSkillData extends SkillData {
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
     armor: boolean;
+}
+
+export interface CraftingFormulaData {
+    uuid: CompendiumUUID;
+    img: ImagePath;
+    name: string;
+    level?: number;
+    dc?: number;
+    description: string;
+    price: string;
+    rarity?: Rarity;
+}
+
+export class CraftingFormula implements CraftingFormulaData {
+    uuid: CompendiumUUID;
+    img: ImagePath;
+    name: string;
+    _level?: number;
+    _dc?: number;
+    description: string;
+    price: string;
+    _rarity?: Rarity;
+
+    constructor(data: CraftingFormulaData) {
+        this._dc = data.dc;
+        this._level = data.level;
+        this.name = data.name;
+        this._rarity = data.rarity;
+        this.uuid = data.uuid;
+        this.description = data.description;
+        this.price = data.price;
+        this.img = data.img;
+    }
+
+    get dc(): number {
+        return this._dc ?? adjustDCByRarity(calculateDC(this.level), this.rarity);
+    }
+
+    get level(): number {
+        return this._level ?? 0;
+    }
+
+    get rarity(): Rarity {
+        return this._rarity ?? "common";
+    }
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -123,6 +169,8 @@ export interface CharacterSystemData extends CreatureSystemData {
     };
 
     resources: CharacterResources;
+
+    formulas: CraftingFormulaData[];
 }
 
 interface CharacterSaveData extends SaveData {

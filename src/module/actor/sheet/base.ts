@@ -1,6 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ConditionPF2e, ContainerPF2e, KitPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
 import { isItemSystemData, isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -41,6 +41,8 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
+import { adjustDCByRarity, calculateDC } from "@module/dc";
+import { CraftingFormula } from "@actor/character/data";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -64,6 +66,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ".actions-pane",
                 ".spellbook-pane",
                 ".skillstab-pane",
+                ".crafting-pane",
                 ".pfs-pane",
                 ".tab.active",
             ],
@@ -331,6 +334,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
 
+        // Formula Create
+        html.find(".formula-create").on("click", (event) => this.onClickCreateItem(event));
+
         // Adding/Editing/Removing Spellcasting entries
         html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
         html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));
@@ -433,6 +439,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     "data.item.value": Number(event.target.value),
                 },
             ]);
+        });
+
+        // Delete Formula
+        html.find(".formula-delete").on("click", (event) => {
+            event.preventDefault();
+
+            const itemUuid = $(event.currentTarget).parents(".item").attr("data-item-id");
+            if (!itemUuid) return;
+
+            if (this.actor instanceof CharacterPF2e) {
+                const actorFormulas = this.actor.data.data.formulas;
+                actorFormulas.findSplice((f) => f.uuid === itemUuid);
+                this.actor.update({ "data.formulas": actorFormulas });
+            }
         });
 
         // Modify select element
@@ -809,6 +829,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
+        const craftingTab = this._tabs[0]?.active === "crafting";
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -871,6 +892,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
+        } else if (isPhysicalData(itemData) && craftingTab) {
+            if (actor instanceof CharacterPF2e) {
+                const formula = this.createFormulaFromItem(itemData);
+                const actorFormulas = actor.craftingFormulas;
+                if (formula && !actorFormulas.find((f) => f.uuid === formula.uuid)) {
+                    actorFormulas.push(formula);
+                    await (actor as CharacterPF2e).update(
+                        { "data.formulas": actorFormulas },
+                        { recursive: true, keepId: true }
+                    );
+                }
+            }
+            return [item];
         }
 
         if (isPhysicalData(itemData)) {
@@ -1263,6 +1297,23 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
+    }
+
+    private createFormulaFromItem(itemData: PhysicalItemSource): CraftingFormula | undefined {
+        if (itemData.flags.core?.sourceId) {
+            return {
+                dc: adjustDCByRarity(calculateDC(itemData.data.level.value), itemData.data.traits.rarity.value),
+                description: itemData.data.description.value,
+                img: itemData.img,
+                level: itemData.data.level.value,
+                name: itemData.name,
+                uuid: itemData.flags.core.sourceId as CompendiumUUID,
+                price: itemData.data.price.value,
+                rarity: itemData.data.traits.rarity.value,
+            };
+        } else {
+            return;
+        }
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {

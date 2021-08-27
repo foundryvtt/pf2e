@@ -1,4 +1,4 @@
-import { ItemLevelData, ItemSystemData } from "@item/data/base";
+import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { FormulaPF2e } from ".";
 
@@ -14,10 +14,16 @@ export interface FormulaData extends Omit<FormulaSource, "effects" | "flags"> {
     readonly _source: FormulaSource;
 }
 
-type ItemUUID = `Compendium.${string}.${string}` | `Item.${string}.${string}`;
+export interface CraftedItem {
+    uuid: `Compendium.${string}.${string}` | `Item.${string}.${string}`;
+    img: ImagePath;
+    name: string;
+    level: number;
+    dc: number | null;
+    description: string;
+    price: string;
+}
 
-interface FormulaSystemData extends ItemSystemData, ItemLevelData {
-    craftedItem: {
-        uuid: ItemUUID;
-    };
+interface FormulaSystemData extends ItemSystemData {
+    craftedItem: CraftedItem;
 }

@@ -14,7 +14,7 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e } from "@module/utils";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
-import { CharacterProficiency } from "./data";
+import { CharacterProficiency, CraftingFormulaData } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
@@ -216,6 +216,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores: LoreData[] = [];
+
+        // Formulas
+        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -545,6 +548,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulk,
             actorData.data?.traits?.size?.value ?? "med"
         );
+        const craftingFormulas = this.actor.craftingFormulas;
+        for (const formula of craftingFormulas) {
+            const level = formula.level || 0;
+            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
+        }
+        actorData.knownFormulas = knownFormulas;
     }
 
     protected prepareSpellcasting(sheetData: any) {
