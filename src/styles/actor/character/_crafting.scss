@@ -1,0 +1,462 @@
+.crafting {
+    .knownFormulas-entry,
+    .crafting-entry {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        background: none;
+        border: none;
+
+        &.item-container {
+            margin-bottom: 0.5em;
+        }
+
+        &:first-child {
+            .action-header {
+                margin-top: 0;
+            }
+        }
+
+        .action-header {
+            background: var(--primary);
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 0 1em;
+            border-radius: 0.25em;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+            cursor: pointer;
+
+            .item-controls {
+                color: white;
+                text-transform: uppercase;
+                font-size: 0.7em;
+                letter-spacing: 0.05em;
+                font-family: var(--sans-serif);
+                flex: 1 0 auto;
+
+                a {
+                    padding: 2px;
+                }
+            }
+
+            .title {
+                padding-left: 3px;
+                padding-right: 3px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                justify-self: flex-start;
+                color: white;
+                font-weight: 500;
+            }
+        }
+
+        .formula-filters {
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 0 1em;
+            border-radius: 0.25em;
+
+            .filter-level-min,
+            .filter-level-max {
+                text-align: center;
+            }
+        }
+
+        .formula-list {
+            @include p-reset;
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 1;
+
+            button:not(.item-summary button),
+            .knownFormulas-empty .item-control {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 8px;
+                background: var(--secondary);
+                border-radius: 2px;
+                border: black;
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+                color: white;
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 0.25px;
+                height: 18px;
+
+                font-family: var(--sans-serif);
+                font-size: 8px;
+                font-weight: 700;
+                line-height: 1;
+
+                i {
+                    margin-right: 4px;
+                }
+            }
+
+            .item {
+                display: grid;
+                grid:
+                    "name dc cost craft control" auto
+                    "content content content content content" auto
+                    / 8fr 1fr 3fr 1fr 64px;
+                align-items: center;
+                justify-items: center;
+                justify-content: center;
+
+                @include p-reset;
+                background: none;
+                border: none;
+                border-left: 1px solid var(--sub);
+                border-right: 1px solid var(--sub);
+                cursor: default;
+
+                &[data-expended-state='true'] {
+                    h4 {
+                        color: rgba($body-color, 0.5);
+                        text-decoration: line-through;
+                    }
+        
+                    .toggle-formula-expended {
+                        color: var(--primary);
+                    }
+                }
+
+                &:nth-child(odd) {
+                    background-color: rgba($alt-color, 0.1);
+                }
+
+                &:last-child {
+                    border-bottom: 1px solid var(--sub);
+                    .item-image {
+                        margin-bottom: 0;
+                        margin-top: 2px;
+                    }
+                }
+
+                &.formula-level-header {
+                    background: rgba($sub-color, 0.25);
+                    border: 1px solid var(--sub);
+                    @include p-reset;
+                    padding: 4px;
+                    color: var(--body);
+                    font-family: var(--sans-serif);
+                    font-size: 8px;
+                    font-weight: 700;
+                    line-height: 1;
+                    text-transform: uppercase;
+                    letter-spacing: 0.25px;
+
+                    h3 {
+                        text-transform: capitalize;
+                        font-size: 12px;
+                        margin-left: 0;
+                        padding: 4px 0;
+                    }
+
+                    .item-name {
+                        line-height: 1;
+                        gap: 0.5em;
+                        h3 {
+                            @include p-reset;
+                        }
+                    }
+                }
+
+                .item-name {
+                    grid-area: name;
+                    justify-self: start;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: nowrap;
+                    line-height: 1.5;
+                    cursor: pointer;
+                    min-height: 28px;
+
+                    h3 {
+                        white-space: nowrap;
+                    }
+                    + span:not(.flex0) {
+                        font-size: 12px;
+                    }
+
+                    .item-image {
+                        @include frame-icon;
+                        height: 24px;
+                        width: 24px;
+                        margin: 2px 0;
+                        border-radius: 0;
+                        margin-left: 4px;
+                        cursor: pointer;
+                        .item-icon {
+                            max-width: 23px;
+                        }
+
+                        &:hover {
+                            background: url("/icons/svg/d20-black.svg") no-repeat center, #f1eee9;
+                            background-size: contain;
+                            padding: 11px;
+                            img {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    h4 {
+                        @include p-reset;
+                        margin-left: 8px;
+                        line-height: 1;
+                        letter-spacing: -0.075em;
+                        &:hover {
+                            color: var(--secondary);
+                        }
+                    }
+
+                    .activity-icon {
+                        margin-left: 4px;
+                    }
+
+                    &.empty {
+                        grid-column: 1 / span 4;
+                    }
+                }
+
+                .formula-dc {
+                    grid-area: dc;
+                }
+
+                .formula-cost {
+                    grid-area: cost;
+                }
+
+                .formula-craft {
+                    grid-area: craft;
+                }
+
+                .maximum-slots {
+                    grid-area: name;
+                }
+
+                .snare-actions {
+                    grid-area: craft;
+                }
+
+                .item-controls {
+                    grid-area: control;
+                    justify-self: end;
+                    font-size: 10px;
+                    margin-right: 4px;
+                }
+
+                .formula-craft button {
+                    grid-area: cast;
+                    width: 32px;
+                }
+
+                .item-summary {
+                    grid-area: content;
+                    width: 100%;
+                    padding: 8px;
+                    border-bottom: 1px solid var(--sub);
+                    border-top: 1px solid lighten($sub-color, 30);
+                    background-color: var(--bg);
+
+                    p {
+                        margin-top: 0;
+                    }
+                    .item-buttons {
+                        button {
+                            @include p-reset;
+                            font-family: var(--serif);
+                            font-weight: 500;
+                            margin-top: 8px;
+                            background-color: var(--primary);
+                            color: white;
+                            border: none;
+                            box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+                            border-top: 1px solid lighten($primary-color, 50);
+                            border-bottom: 1px solid darken($primary-color, 40);
+                            cursor: pointer;
+                            &:hover {
+                                text-shadow: 0 0 2px white;
+                            }
+                        }
+                    }
+                }
+
+                .formula-number {
+                    height: 14px;
+                    background: var(--alt);
+                    color: white;
+                    text-align: center;
+                    border-radius: 3px;
+                    border: 1px solid var(--sub);
+                    font-size: 11px;
+                    width: 22px;
+                    padding-top: 2px;
+                }
+            }
+
+            .knownFormulas-empty {
+                display: flex;
+                align-items: center;
+                min-height: 28px;
+                justify-content: flex-end;
+                h4 {
+                    margin: 0;
+                    white-space: nowrap;
+                    margin-right: auto;
+                }
+                a {
+                    flex: 0 1 0;
+                    white-space: nowrap;
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+
+    .crafting-entry .alchemical-entry {
+        .action-header {
+            background: var(--secondary);
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 3;
+            padding: 0 1em;
+            border-radius: 0.25em;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+            cursor: pointer;
+
+            .item-controls {
+                color: white;
+                text-transform: uppercase;
+                font-size: 0.7em;
+                letter-spacing: 0.05em;
+                font-family: var(--sans-serif);
+                flex: 1 0 auto;
+
+                a {
+                    padding: 2px;
+                }
+            }
+
+            .title {
+                padding-left: 3px;
+                padding-right: 3px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                justify-self: flex-start;
+                color: white;
+                font-weight: 500;
+            }
+        }
+
+        .formula-list {
+            .item {
+                grid:
+                    "name dc cost craft control" auto
+                    "content content content content content" auto
+                    / 8fr 1fr 3fr 1fr 48px;
+            }
+
+            .formula-header {
+                flex-basis: 100%;
+
+                .reagent-cost {
+                    justify-self: flex-start;
+                }
+
+                .aa-level {
+                    justify-self: flex-end;
+                    grid-area: control;
+                }
+
+                .formula-number {
+                    height: 14px;
+                    background: var(--alt);
+                    color: white;
+                    text-align: center;
+                    border-radius: 3px;
+                    border: 1px solid var(--sub);
+                    font-size: 11px;
+                    width: 22px;
+                    padding-top: 2px;
+                }
+            }
+
+            .item-quantity {
+                flex: 0 0 60px;
+                font-family: var(--sans-serif);
+                @include flex-center;
+                @include flex-center;
+
+        
+                .formula-decrease-quantity,
+                .formula-increase-quantity {
+                    height: 100%;
+                    width: 18px;
+                    text-align: center;
+                    @include flex-center;
+                }
+            }
+        }
+    }
+
+    .crafting-entry .alchemicalEntry-list {
+        @include p-reset;
+        width: 100%;
+        flex-basis: 100%;
+        position: relative;
+        z-index: 1;
+
+        .entry-header {
+            background: rgba($sub-color, 0.25);
+            border: 1px solid var(--sub);
+            @include p-reset;
+            padding: 4px;
+            color: var(--body);
+            font-family: var(--sans-serif);
+            font-size: 8px;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.25px;
+            flex-basis: 100%;
+
+            h3 {
+                text-transform: capitalize;
+                font-size: 12px;
+                margin-left: 0;
+                padding: 4px 0;
+            }
+
+            .reagent-cost {
+                justify-self: flex-start;
+            }
+
+            .infused-reagents {
+                justify-self: flex-end;
+            }
+
+            .formula-number, .resource-value-input input {
+                height: 14px;
+                background: var(--alt);
+                color: white;
+                text-align: center;
+                border-radius: 3px;
+                border: 1px solid var(--sub);
+                font-size: 11px;
+                width: 22px;
+                padding-top: 2px;
+            }
+        }
+    }
+}

@@ -13,7 +13,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { LorePF2e } from "@item";
+import { LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
@@ -207,6 +207,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Skills
         const lores: LoreData[] = [];
 
+        // Known Formulas
+        const knownFormulas: Record<number, ItemPF2e[]> = {};
+
         // Iterate through items, allocating to containers
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
@@ -388,6 +391,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, "class");
                 featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, "skill");
                 featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, "general");
+            }
+
+            // Formulas
+            else if (itemData.type === "formula") {
+                (async () => await this.prepareFormula(itemData, knownFormulas))();
             }
         }
 
@@ -586,6 +594,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+    }
+
+    protected async prepareFormulas(sheetData: any, knownFormulas: Record<number, ItemPF2e>) {
+        // TODO Something
     }
 
     /* -------------------------------------------- */
