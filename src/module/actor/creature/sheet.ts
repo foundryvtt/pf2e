@@ -23,24 +23,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         super.renderItemSummary(div, item, chatData);
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.data.type) {
-            case "action":
-                if (chatData.weapon.value) {
-                    if (chatData.weapon.value) {
-                        buttons.append(
-                            `<button class="weapon_attack tag" data-action="weaponAttack">${game.i18n.localize(
-                                "PF2E.WeaponStrikeLabel"
-                            )}</button>`
-                        );
-                        buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
-                        buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
-                        buttons.append(
-                            `<button class="tag weapon_damage" data-action="weaponDamage">${game.i18n.localize(
-                                "PF2E.DamageLabel"
-                            )}</button>`
-                        );
-                    }
-                }
-                break;
             case "spell":
                 if (chatData.isSave) {
                     buttons.append(
