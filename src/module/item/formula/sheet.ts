@@ -16,7 +16,7 @@ export class FormulaSheetPF2e extends ItemSheetPF2e<FormulaPF2e> {
                 if (compendiumItem) {
                     const item = compendiumItem as ItemPF2e;
                     data.item.img = item.img;
-                    data.item.name = `${game.i18n.localize("PF2E.FormulaSheet.NamePrefix")} ${item.name}`;
+                    data.item.name = game.i18n.format("PF2E.FormulaSheet.NamePrefix", { name: item.name });
                     data.item.data.description.value = item.description;
                 }
             } catch {
