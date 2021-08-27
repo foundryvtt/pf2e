@@ -40,9 +40,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                             )}</button></span>`
                         );
                     }
-                    if (item.data.data.damage.value) {
+                    if (chatData.hasDamage) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`
+                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
                         );
                     }
                 }
