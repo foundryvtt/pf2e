@@ -1,3 +1,4 @@
+import { CharacterPF2e } from "@actor";
 import { ItemPF2e } from "../index";
 import { FeatData, FeatType } from "./data";
 import { OneToThree } from "@module/data";
@@ -12,6 +13,23 @@ export class FeatPF2e extends ItemPF2e {
             value: this.data.data.featType.value,
             label: game.i18n.localize(CONFIG.PF2E.featTypes[this.data.data.featType.value]),
         };
+    }
+
+    prepareActorData(this: Embedded<FeatPF2e>) {
+        if (!(this.actor instanceof CharacterPF2e)) {
+            console.error("Only a character can have a class");
+            return;
+        }
+
+        const grants = this.data.data.grants;
+        const resources = this.actor.data.data.resources;
+        if (grants.focus?.value) {
+            if (!resources.focus) {
+                resources.focus = { value: grants.focus.value, max: grants.focus.value };
+            } else {
+                resources.focus.max += grants.focus.value;
+            }
+        }
     }
 
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {

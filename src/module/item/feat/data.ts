@@ -40,4 +40,7 @@ interface FeatSystemData extends ItemSystemData, ItemLevelData {
         value: PrerequisiteTagData[];
     };
     location: string;
+    grants: {
+        focus?: { value: number };
+    };
 }
