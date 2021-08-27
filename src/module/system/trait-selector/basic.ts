@@ -24,7 +24,7 @@ export class TagSelectorBasic extends TagSelectorBase {
     constructor(object: ActorPF2e | ItemPF2e, options: BasicConstructorOptions) {
         super(object, options);
         this.objectProperty = options.objectProperty;
-        this.allowCustom = options.allowCustom ?? true;
+        this.allowCustom = (!options.flat && options.allowCustom) ?? true;
         if (options.customChoices) {
             mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
@@ -44,14 +44,21 @@ export class TagSelectorBasic extends TagSelectorBase {
     }
 
     override getData() {
-        const property: ValuesList = getProperty(
-            (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
-            this.objectProperty
-        );
+        const property = (() => {
+            const property: unknown = getProperty(
+                (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
+                this.objectProperty
+            );
+
+            if (this.options.flat) {
+                return { value: property as string[] | undefined, custom: null };
+            }
+
+            return property as ValuesList;
+        })();
+
         const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
-
         const custom = this.allowCustom ? property.custom : null;
-
         const choices = Object.keys(this.choices).reduce((accumulated, type) => {
             accumulated[type] = {
                 label: this.choices[type],
@@ -82,6 +89,8 @@ export class TagSelectorBasic extends TagSelectorBase {
         const value = this.getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
+        } else if (this.options.flat) {
+            this.object.update({ [this.objectProperty]: value });
         } else {
             this.object.update({ [`${this.objectProperty}.value`]: value });
         }

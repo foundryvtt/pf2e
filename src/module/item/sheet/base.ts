@@ -295,6 +295,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
         const objectProperty = $anchor.attr("data-property") ?? "";
+        const flat = $anchor.attr("data-flat") === "true";
         const title = $anchor.attr("data-title");
         const configTypes = ($anchor.attr("data-config-types") ?? "")
             .split(",")
@@ -304,6 +305,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             objectProperty,
             configTypes,
             title,
+            flat,
         };
 
         const noCustom = $anchor.attr("data-no-custom") === "true";
