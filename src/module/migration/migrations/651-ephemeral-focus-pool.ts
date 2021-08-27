@@ -99,7 +99,10 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const resources: { focus?: { max?: number; "-=max"?: null } } = actorSource.data.resources;
+        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = actorSource.data;
+        systemData.resources ??= {};
+
+        const resources = systemData.resources;
         if (typeof resources.focus?.max === "number" && "game" in globalThis) {
             resources.focus["-=max"] = null;
         } else {
@@ -136,7 +139,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
             if (
                 ["composition-spells", "devotion-spells", "druidic-order", "hexes"].includes(slug) ||
-                /^(?:arcane-school|bloodline)-/.test(slug)
+                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.data.featType.value === "classfeature")
             ) {
                 return {
                     key: "ActiveEffectLike",
