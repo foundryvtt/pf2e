@@ -55,8 +55,9 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.flags.pf2e ??= { linkToActorSize: true };
-        this.data.flags.pf2e.linkToActorSize ??= true;
+        const linkDefault = !["hazard", "loot", "vehicle"].includes(this.actor?.type ?? "");
+        this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
+        this.data.flags.pf2e.linkToActorSize ??= linkDefault;
         if (!(this.initialized && canvas.sight?.rulesBasedVision)) return;
 
         this.data.brightSight = 0;
