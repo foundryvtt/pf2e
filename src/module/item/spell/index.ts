@@ -57,6 +57,7 @@ export class SpellPF2e extends ItemPF2e {
     get components() {
         const components = this.data.data.components;
         const results: string[] = [];
+        if (components.focus) results.push(game.i18n.localize("PF2E.SpellComponentShortF"));
         if (components.material) results.push(game.i18n.localize("PF2E.SpellComponentShortM"));
         if (components.somatic) results.push(game.i18n.localize("PF2E.SpellComponentShortS"));
         if (components.verbal) results.push(game.i18n.localize("PF2E.SpellComponentShortV"));

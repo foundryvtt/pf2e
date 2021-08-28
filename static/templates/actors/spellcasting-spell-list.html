@@ -74,6 +74,9 @@
 
                     <div class="spell-range">{{spell.data.data.range.value}}</div>
                     <div class="spell-components">
+                        {{#if spell.data.data.components.focus}}
+                            <span class="tag">{{localize "PF2E.SpellComponentShortF"}}</span>
+                        {{/if}}
                         {{#if spell.data.data.components.material}}
                             <span class="tag">{{localize "PF2E.SpellComponentShortM"}}</span>
                         {{/if}}
