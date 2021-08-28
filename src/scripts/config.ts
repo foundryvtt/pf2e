@@ -18,6 +18,7 @@ import {
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
+    FormulaPF2e,
 } from "@item/index";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
 import { ConditionType } from "@item/condition/data";
@@ -1111,6 +1112,7 @@ export const PF2ECONFIG = {
         brutal: "PF2E.TraitBrutal",
         chaotic: "PF2E.TraitChaotic",
         climbing: "PF2E.TraitClimbing",
+        clockwork: "PF2E.TraitClockwork",
         cold: "PF2E.TraitCold",
         coldiron: "PF2E.TraitColdiron",
         concealable: "PF2E.TraitConcealable",
@@ -1281,6 +1283,7 @@ export const PF2ECONFIG = {
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         auditory: "PF2E.TraitAuditory",
+        clockwork: "PF2E.TraitClockwork",
         companion: "PF2E.TraitCompanion",
         chaotic: "PF2E.TraitChaotic",
         cold: "PF2E.TraitCold",
@@ -1531,6 +1534,7 @@ export const PF2ECONFIG = {
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
         75: "PF2E.AreaSize75",
+        80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
@@ -1580,6 +1584,7 @@ export const PF2ECONFIG = {
         V: "PF2E.SpellComponentV",
         S: "PF2E.SpellComponentS",
         M: "PF2E.SpellComponentM",
+        F: "PF2E.SpellComponentF",
     },
 
     spellCategories: {
@@ -2360,6 +2365,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             backpack: ContainerPF2e,
+            formula: FormulaPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,

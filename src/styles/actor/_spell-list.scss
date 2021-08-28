@@ -35,7 +35,7 @@
         grid:
             'name range components cast control' auto
             'content content content content content' auto
-            / 6fr 3fr 2fr 1fr 48px;
+            / 6fr 3fr 3fr 40px 48px;
         align-items: center;
         justify-items: center;
         justify-content: center;
@@ -191,17 +191,19 @@
         }
 
         .spell-components {
+            display: flex;
+            gap: 2px;
             grid-area: components;
             .tag {
-                float: left;
-                margin: 0 2px 2px 0;
+                height: 16px;
                 padding: 0 3px;
-                font-size: 10px;
+                font-size: 11px;
                 line-height: 16px;
                 border: 1px solid #999;
                 border-radius: 3px;
                 white-space: nowrap;
                 font-weight: 700;
+                font-family: var(--sans-serif-condensed);
             }
         }
 

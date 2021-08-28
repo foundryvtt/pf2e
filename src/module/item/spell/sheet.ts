@@ -61,6 +61,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     private formatSpellComponents(data: SpellSystemData): string[] {
         if (!data.components) return [];
         const comps: string[] = [];
+        if (data.components.focus) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.F));
         if (data.components.material) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.M));
         if (data.components.somatic) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.S));
         if (data.components.verbal) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.V));
