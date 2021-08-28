@@ -194,9 +194,12 @@ export class CharacterPF2e extends CreaturePF2e {
             99.5
         );
 
+        // Get the itemTypes object only once for the entire run of the method
+        const itemTypes = this.itemTypes;
+
         // Set dying, doomed, and wounded statuses according to embedded conditions
         for (const conditionName of ["dying", "doomed", "wounded"] as const) {
-            const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
+            const condition = itemTypes.condition.find((condition) => condition.slug === conditionName);
             const status = systemData.attributes[conditionName];
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
@@ -575,7 +578,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Lore skills
-        this.itemTypes.lore
+        itemTypes.lore
             .map((loreItem) => loreItem.data)
             .forEach((skill) => {
                 // normalize skill name to lower-case and dash-separated words
@@ -785,7 +788,7 @@ export class CharacterPF2e extends CreaturePF2e {
             };
 
             // powerful fist
-            const fistFeat = this.itemTypes.feat.find((feat) =>
+            const fistFeat = itemTypes.feat.find((feat) =>
                 ["powerful-fist", "martial-artist-dedication"].includes(feat.slug ?? "")
             );
             if (fistFeat) {
@@ -798,14 +801,14 @@ export class CharacterPF2e extends CreaturePF2e {
             return new WeaponPF2e(source, { parent: this }) as Embedded<WeaponPF2e>;
         })();
 
-        const ammos = this.itemTypes.consumable
+        const ammos = itemTypes.consumable
             .filter((item) => item.data.data.consumableType.value === "ammo")
             .map((ammo) => ammo.data);
 
         const coreCategories = ["simple", "martial", "unarmed", "advanced"] as const;
         const allCategories = coreCategories.concat(homebrewCategoryTags.map((tag) => tag.id));
 
-        const weapons = [unarmed, this.itemTypes.weapon, strikes].flat();
+        const weapons = [unarmed, itemTypes.weapon, strikes].flat();
         for (const weapon of weapons) {
             const itemData = weapon.data;
             const modifiers: ModifierPF2e[] = [];
@@ -1086,7 +1089,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     } else {
                         DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", item: weapon, outcome, options },
+                            { type: "damage-roll", item: weapon, actor: this, outcome, options },
                             args.event,
                             args.callback
                         );
@@ -1096,7 +1099,7 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.actions.push(action);
         }
 
-        this.itemTypes.spellcastingEntry.forEach((item) => {
+        itemTypes.spellcastingEntry.forEach((item) => {
             const spellcastingEntry = item.data;
             const tradition = item.tradition;
             const rank = item.rank;
@@ -1183,7 +1186,7 @@ export class CharacterPF2e extends CreaturePF2e {
         if (typeof resources.focus?.max === "number") {
             resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
             // Ensure the character has a focus pool of at least one point if they have focus spellcasting entries
-            if (resources.focus.max === 0 && this.itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
+            if (resources.focus.max === 0 && itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
                 resources.focus.max = 1;
             }
         }
