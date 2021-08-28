@@ -20,6 +20,7 @@
         "TypeEffect": "Effect",
         "TypeEquipment": "Equipment",
         "TypeFeat": "Feat",
+        "TypeFormula": "Formula",
         "TypeKit": "Kit",
         "TypeLore": "Lore Skill",
         "TypeMartial": "Armor and Weapon Proficiency",
@@ -50,7 +51,7 @@
         "Search": "Search Compendia"
     },
     "CONTROLS": {
-        "EffectPanel": "Effect Panel",
+        "EffectPanel": "Effects Panel",
         "WorldClock": "World Clock"
     },
     "SIDEBAR": {
@@ -133,8 +134,8 @@
                 "Notes": {
                     "criticalSuccess": "<b>Critical Success</b> The target gives you the information you seek or agrees to follow your directives so long as they aren't likely to harm the target in any way. The target continues to comply for an amount of time determined by the GM but not exceeding 1 day, at which point the target becomes unfriendly (if they weren't already unfriendly or hostile). However, the target is too scared of you to retaliate—at least in the short term.",
                     "success": "<b>Success</b> As critical success, but once the target becomes unfriendly, they might decide to act against you—for example, by reporting you to the authorities or assisting your enemies.",
-                    "failure": "<b>Failure</b> The target doesn’t do what you say, and if they were not already unfriendly or hostile, they become unfriendly.",
-                    "criticalFailure": "<b>Critical Failure</b> The target refuses to comply, becomes hostile if they weren’t already, and can’t be Coerced by you for at least 1 week."
+                    "failure": "<b>Failure</b> The target doesn't do what you say, and if they were not already unfriendly or hostile, they become unfriendly.",
+                    "criticalFailure": "<b>Critical Failure</b> The target refuses to comply, becomes hostile if they weren't already, and can't be Coerced by you for at least 1 week."
                 },
                 "Title": "Coerce"
             },
@@ -184,7 +185,7 @@
             },
             "Feint": {
                 "Notes": {
-                    "criticalSuccess": "<b>Critical Success</b> You throw your enemy’s defenses against you entirely off. The target is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against melee attacks that you attempt against it until the end of your next turn.",
+                    "criticalSuccess": "<b>Critical Success</b> You throw your enemy's defenses against you entirely off. The target is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against melee attacks that you attempt against it until the end of your next turn.",
                     "success": "<b>Success</b> Your foe is fooled, but only momentarily. The target is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against the next melee attack that you attempt against it before the end of your current turn.",
                     "criticalFailure": "<b>Critical Failure</b> Your feint backfires. You are @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against melee attacks the target attempts against you until the end of your next turn."
                 },
@@ -216,7 +217,7 @@
             },
             "Hide": {
                 "Notes": {
-                    "success": "<b>Success</b> If the creature could see you, you’re now @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from it instead of observed. If you were @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from or @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} by the creature, you retain that condition."
+                    "success": "<b>Success</b> If the creature could see you, you're now @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from it instead of observed. If you were @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from or @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} by the creature, you retain that condition."
                 },
                 "Title": "Hide"
             },
@@ -231,16 +232,16 @@
             },
             "Impersonate": {
                 "Notes": {
-                    "success": "<b>Success</b> You trick the creature into thinking you’re the person you’re disguised as. You might have to attempt a new check if your behavior changes.",
-                    "failure": "<b>Failure</b> The creature can tell you’re not who you claim to be.",
-                    "criticalFailure": "<b>Critical Failure</b> The creature can tell you’re not who you claim to be, and it recognizes you if it would know you without a disguise."
+                    "success": "<b>Success</b> You trick the creature into thinking you're the person you're disguised as. You might have to attempt a new check if your behavior changes.",
+                    "failure": "<b>Failure</b> The creature can tell you're not who you claim to be.",
+                    "criticalFailure": "<b>Critical Failure</b> The creature can tell you're not who you claim to be, and it recognizes you if it would know you without a disguise."
                 },
                 "Title": "Impersonate"
             },
             "Lie": {
                 "Notes": {
                     "success": "<b>Success</b> The target believes your lie.",
-                    "failure": "<b>Failure</b> The target doesn’t believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future."
+                    "failure": "<b>Failure</b> The target doesn't believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future."
                 },
                 "Title": "Lie"
             },
@@ -254,9 +255,9 @@
             },
             "MakeAnImpression": {
                 "Notes": {
-                    "criticalSuccess": "<b>Critical Success</b> The target’s attitude toward you improves by two steps.",
-                    "success": "<b>Success</b> The target’s attitude toward you improves by one step.",
-                    "criticalFailure": "<b>Critical Failure</b> The target’s attitude toward you decreases by one step."
+                    "criticalSuccess": "<b>Critical Success</b> The target's attitude toward you improves by two steps.",
+                    "success": "<b>Success</b> The target's attitude toward you improves by one step.",
+                    "criticalFailure": "<b>Critical Failure</b> The target's attitude toward you decreases by one step."
                 },
                 "Title": "Make an Impression"
             },
@@ -322,9 +323,9 @@
             },
             "Sneak": {
                 "Notes": {
-                    "success": "<b>Success</b> You’re undetected by the creature during your movement and remain undetected by the creature at the end of it.",
-                    "failure": "<b>Failure</b> A telltale sound or other sign gives your position away, though you still remain unseen. You’re hidden from the creature throughout your movement and remain so",
-                    "criticalFailure": "<b>Critical Failure</b> You’re spotted! You’re observed by the creature throughout your movement and remain so. If you’re invisible and were hidden from the creature, instead of being observed you’re hidden throughout your movement and remain so."
+                    "success": "<b>Success</b> You're undetected by the creature during your movement and remain undetected by the creature at the end of it.",
+                    "failure": "<b>Failure</b> A telltale sound or other sign gives your position away, though you still remain unseen. You're hidden from the creature throughout your movement and remain so",
+                    "criticalFailure": "<b>Critical Failure</b> You're spotted! You're observed by the creature throughout your movement and remain so. If you're invisible and were hidden from the creature, instead of being observed you're hidden throughout your movement and remain so."
                 },
                 "Title": "Sneak"
             },
@@ -477,6 +478,7 @@
         "AreaSize50": "50 Foot",
         "AreaSize60": "60 Foot",
         "AreaSize75": "75 Foot",
+        "AreaSize80": "80 Foot",
         "AreaSize90": "90 Foot",
         "AreaTypeBurst": "Burst",
         "AreaTypeCone": "Cone",
@@ -941,6 +943,12 @@
         },
         "Foot": "Foot",
         "FormulaPlaceholder": "Formula",
+        "FormulaSheet": {
+            "DescriptionUnknown": "This formula is completely filled with drawings of small stick men, stains from some unknown liquid, non-sensical rhymes written in children's letters, and other seemingly random markings. It must have been made by goblins, and makes no sense to you.<hr><b>Note:</b> This formula is referencing a missing or invalid item.",
+            "NameEmpty": "Empty Formula",
+            "NamePrefix": "Formula of {name}",
+            "NameUnknown": "Unknown Formula"
+        },
         "GenderPronoun": "Gender/Pronouns",
         "GenderPronounTitle": "Your gender/pronouns",
         "GeneralFeatLevels": "General Feat Levels",
@@ -1004,6 +1012,13 @@
                 }
             },
             "Effect": {
+                "Sustained": "Sustained",
+                "Expiry": {
+                    "ExpiresOn": "Expires On",
+                    "StartOfTurn": "Start of Turn",
+                    "EndOfTurn": "End of Turn",
+                    "EndOfCombat": "End of Combat"
+                },
                 "ShowTokenIcon": "Show token icon?"
             },
             "NameLabel": "Name",
@@ -1545,8 +1560,8 @@
             },
             "User": {
                 "EffectPanel": {
-                    "Name": "Show Effect Panel",
-                    "Hint": "Show the Effect Panel when a token is selected."
+                    "Name": "Show Effects Panel",
+                    "Hint": "Show the Effects Panel when a token is selected."
                 }
             },
             "WorldSchemaVersion": {
@@ -1607,7 +1622,7 @@
                 "Instructions": "Decide how much and what kinds of automation should apply to your game world.",
                 "RulesBasedVision": {
                     "Name": "Rules-based vision",
-                    "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will disable Unrestricted Global Vision and Token Vision configuration. WARNING: This feature is experimental and incompatible with the Perfect Vision module."
+                    "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii."
                 },
                 "EffectExpiration": {
                     "Name": "Effects auto-expire",
@@ -1943,9 +1958,11 @@
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
         "SpellCastingFormat": "{preparationType} {tradition} Spells",
+        "SpellComponentF": "Focus",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
         "SpellComponentV": "Verbal",
+        "SpellComponentShortF": "F",
         "SpellComponentShortM": "M",
         "SpellComponentShortS": "S",
         "SpellComponentShortV": "V",
@@ -2080,6 +2097,18 @@
         "TargetFlatFootedLabel": "Enable abilities that require a flat-footed target",
         "TempHPTitle": "The amount of temporary hit points you have",
         "TempHitPointsShortLabel": "Temp HP",
+        "Time": {
+            "Duration": "Duration",
+            "Unit": {
+                "Seconds": "Seconds",
+                "Rounds": "Rounds",
+                "Minutes": "Minutes",
+                "Hours": "Hours",
+                "Days": "Days",
+                "Weeks": "Weeks",
+                "Unlimited": "Unlimited"
+            }
+        },
         "TogglesLabel": "Toggles",
         "ToggleSignatureSpellTitle": "Toggle Signature Spell",
         "ToggleSpellVisibilityLevelTitle": "Toggle a chapter of your Spellbook",
@@ -2310,7 +2339,7 @@
         "TraitDescriptionIngested": "This poison is delivered when drunk or eaten.",
         "TraitDescriptionInhaled": "This poison is delivered when breathed in.",
         "TraitDescriptionInjury": "This poison is delivered by damaging the recipient.",
-        "TraitDescriptionInvested": "A character can wear only 10 magical items that have the invested trait. None of the magical effects of the item apply if the character hasn’t invested it, nor can it be activated, though the character still gains any normal benefits from wearing the physical item (like a hat keeping rain off their head).",
+        "TraitDescriptionInvested": "A character can wear only 10 magical items that have the invested trait. None of the magical effects of the item apply if the character hasn't invested it, nor can it be activated, though the character still gains any normal benefits from wearing the physical item (like a hat keeping rain off their head).",
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
         "TraitDescriptionJoustingD6": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKobold": "A creature with this trait is a member of the kobold ancestry.",
@@ -2348,7 +2377,7 @@
         "TraitDescriptionPossession": "Effects with this trait allow a creature to project its mind and spirit into a target. A creature immune to mental effects can't use a possession effect. While possessing a target, a possessor's true body is unconscious (and can't wake up normally), unless the possession effect allows the creature to physically enter the target. Whenever the target takes damage, the possessor takes half that amount of damage as mental damage. A possessor loses the benefits of any of its active spells or abilities that affect its physical body, though it gains the benefits of the target's active spells and abilities that affect their body. A possessor can use any of the target's abilities that are purely physical, and it can't use any of its own abilities except spells and purely mental abilities. The GM decides whether an ability is purely physical or purely mental. A possessor uses the target's attack modifier, AC, Fortitude save, Reflex save, Perception, and physical skills, and its own Will save, mental skills, spell attack roll, and spell DC; benefits of invested items apply where relevant (the possessor's invested items apply when using its own values, and the target's invested items apply when using the target's values). A possessor gains no benefit from casting spells that normally affect only the caster, since it isn't in its own body. The possessor must use its own actions to make the possessed creature act. If a possessor reaches 0 Hit Points through any combination of damage to its true body and mental damage from the possession, it is knocked out as normal and the possession immediately ends. If the target reaches 0 Hit Points first, the possessor can either fall unconscious with the body and continue the possession or end the effect as a free action and return to its body. If the target dies, the possession ends immediately and the possessor is stunned for 1 minute.",
         "TraitDescriptionPrecious": "Valuable materials with special properties have the precious trait. They can be substituted for base materials when you Craft items.",
         "TraitDescriptionPrediction": "Effects with this trait determine what is likely to happen in the near future. Most predictions are divinations.",
-        "TraitDescriptionPress": "Actions with this trait allow you to follow up earlier attacks. An action with the press trait can be used only if you are currently affected by a multiple attack penalty. You can’t use a press action when it’s not your turn, even if you use the Ready activity. Some actions with the press trait also grant an effect on a failure. The effects that are added on a failure don’t apply on a critical failure. If your press action succeeds, you can choose to apply the failure effect instead. (For example, you may wish to do this when an attack deals no damage due to resistance.)",
+        "TraitDescriptionPress": "Actions with this trait allow you to follow up earlier attacks. An action with the press trait can be used only if you are currently affected by a multiple attack penalty. You can't use a press action when it's not your turn, even if you use the Ready activity. Some actions with the press trait also grant an effect on a failure. The effects that are added on a failure don't apply on a critical failure. If your press action succeeds, you can choose to apply the failure effect instead. (For example, you may wish to do this when an attack deals no damage due to resistance.)",
         "TraitDescriptionPrimal": "This magic comes from the primal tradition, connecting to the natural world and instinct. Anything with this trait is magical.",
         "TraitDescriptionPropulsive": "You add half your Strength modifier (if positive) to damage rolls with a propulsive ranged weapon. If you have a negative Strength modifier, you add your full Strength modifier instead.",
         "TraitDescriptionRage": "You must be raging to use abilities with the rage trait, and they end automatically when you stop raging.",
@@ -2359,7 +2388,7 @@
         "TraitDescriptionRatfolk": "A creature with this trait is a member of the ratfolk ancestry.",
         "TraitDescriptionReach": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures. Weapons with this trait are long and can be used to attack creatures up to 10 feet away instead of only adjacent creatures. For creatures that already have reach with the limb or limbs that wield the weapon, the weapon increases their reach by 5 feet.",
         "TraitDescriptionReload": "While all weapons need some amount of time to get into position, many ranged weapons also need to be loaded and reloaded. This entry indicates how many Interact actions it takes to reload such weapons. This can be 0 if drawing ammunition and firing the weapon are part of the same action. If an item takes 2 or more actions to reload, the GM determines whether they must be performed together as an activity, or you can spend some of those actions during one turn and the rest during your next turn.",
-        "TraitDescriptionRepeating": "A repeating weapon is typically a type of crossbow that has a shorter reload time. These weapons can’t be loaded with individual bolts like other crossbows; instead, they require a magazine of specialized ammunition to be loaded into a special slot. Once that magazine is in place, the ammunition is automatically loaded each time the weapon is cocked to fire, reducing its reload to the value in its reload entry (typically 0). When the ammunition runs out, a new magazine must be loaded, which requires a free hand and 3 Interact actions (to remove the old magazine, retrieve the new magazine, and slot the new magazine in place). These actions don’t need to be consecutive.",
+        "TraitDescriptionRepeating": "A repeating weapon is typically a type of crossbow that has a shorter reload time. These weapons can't be loaded with individual bolts like other crossbows; instead, they require a magazine of specialized ammunition to be loaded into a special slot. Once that magazine is in place, the ammunition is automatically loaded each time the weapon is cocked to fire, reducing its reload to the value in its reload entry (typically 0). When the ammunition runs out, a new magazine must be loaded, which requires a free hand and 3 Interact actions (to remove the old magazine, retrieve the new magazine, and slot the new magazine in place). These actions don't need to be consecutive.",
         "TraitDescriptionRevelation": "Effects with this trait see things as they truly are.",
         "TraitDescriptionRogue": "This indicates abilities from the rogue class.",
         "TraitDescriptionSaggorak": "Ancient dwarven blacksmiths in Saggorak designed a series of spectacularly powerful runes. Only someone with legendary proficiency in Crafting, or a well-versed dwarven crafter from the city of Kovlar, can apply, transfer, or remove a rune with the Saggorak trait. Because of their considerable power, all Saggorak runes take up two property rune slots, and consequently they can be applied only to armor and weapons with at least a +2 potency rune.",
@@ -3147,14 +3176,6 @@
             },
             "Placeholder": "Number",
             "Title": "World Clock",
-            "Unit": {
-                "Seconds": "Seconds",
-                "Rounds": "Rounds",
-                "Minutes": "Minutes",
-                "Hours": "Hours",
-                "Days": "Days",
-                "Weeks": "Weeks"
-            },
             "AR": {
                 "Era": "AR",
                 "Months": {
@@ -3241,7 +3262,7 @@
             },
             "doomed": {
                 "name": "Doomed",
-                "rules": "<p>Your life is ebbing away, bringing you ever closer to death. Some powerful spells and evil creatures can inflict the doomed condition on you. Doomed always includes a value. The maximum dying value at which you die is reduced by your doomed value. For example, if you were doomed 1, you would die upon reaching dying 3 instead of dying 4. If your maximum dying value is ever reduced to 0, you instantly die. When you die, you’re no longer doomed.</p><p>Your doomed value decreases by 1 each time you get a full night’s rest.</p>",
+                "rules": "<p>Your life is ebbing away, bringing you ever closer to death. Some powerful spells and evil creatures can inflict the doomed condition on you. Doomed always includes a value. The maximum dying value at which you die is reduced by your doomed value. For example, if you were doomed 1, you would die upon reaching dying 3 instead of dying 4. If your maximum dying value is ever reduced to 0, you instantly die. When you die, you're no longer doomed.</p><p>Your doomed value decreases by 1 each time you get a full night's rest.</p>",
                 "summary": "With your soul in peril, you are now closer to death."
             },
             "drained": {
@@ -3276,7 +3297,7 @@
             },
             "flatFooted": {
                 "name": "Flat-Footed",
-                "rules": "<p>You're distracted or otherwise unable to focus your full attention on defense. You take a -2 circumstance penalty to AC. Some effects give you the flat-footed condition only to certain creatures or against certain attacks. Others- especially conditions-can make you universally flatfooted against everything. If a rule doesn't specify that the condition applies only to certain circumstances, it applies to all of them; for example, many effects simply say &quot;The target is flat-footed.&quot;</p>",
+                "rules": "<p>You're distracted or otherwise unable to focus your full attention on defense. You take a -2 circumstance penalty to AC. Some effects give you the flat-footed condition only to certain creatures or against certain attacks. Others- especially conditions-can make you universally flatfooted against everything. If a rule doesn't specify that the condition applies only to certain circumstances, it applies to all of them; for example, many effects simply say \"The target is flat-footed.\"</p>",
                 "summary": "You're unable to defend yourself to your full capability."
             },
             "fleeing": {
@@ -3341,7 +3362,7 @@
             },
             "persistentDamage": {
                 "name": "Persistent Damage",
-                "rules": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as &quot;X persistent [type] damage,&quot; where &quot;X&quot; is the amount of damage dealt and &quot;[type]&quot; is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a DC 15 flat check to see if you recover from the persistent damage. If you succeed, the condition ends.</p>",
+                "rules": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as \"X persistent [type] damage,\" where \"X\" is the amount of damage dealt and \"[type]\" is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a DC 15 flat check to see if you recover from the persistent damage. If you succeed, the condition ends.</p>",
                 "summary": "You keep taking damage every round."
             },
             "petrified": {
@@ -3376,7 +3397,7 @@
             },
             "stunned": {
                 "name": "Stunned",
-                "rules": "<p>You've become senseless. You can't act while stunned. Stunned usually includes a value, which indicates how many total actions you lose, possibly over multiple turns, from being stunned. Each time you regain actions (such as at the start of your turn), reduce the number you regain by your stunned value, then reduce your stunned value by the number of actions you lost. For example, if you were stunned 4, you would lose all 3 of your actions on your turn, reducing you to stunned 1; on your next turn, you would lose 1 more action, and then be able to use your remaining 2 actions normally. Stunned might also have a duration instead of a value, such as &quot;stunned for 1 minute.&quot; In this case, you lose all your actions for the listed duration.</p><p>Stunned overrides slowed. If the duration of your stunned condition ends while you are slowed, you count the actions lost to the stunned condition toward those lost to being slowed. So, if you were stunned 1 and slowed 2 at the beginning of your turn, you would lose 1 action from stunned, and then lose only 1 additional action by being slowed, so you would still have 1 action remaining to use that turn.</p>",
+                "rules": "<p>You've become senseless. You can't act while stunned. Stunned usually includes a value, which indicates how many total actions you lose, possibly over multiple turns, from being stunned. Each time you regain actions (such as at the start of your turn), reduce the number you regain by your stunned value, then reduce your stunned value by the number of actions you lost. For example, if you were stunned 4, you would lose all 3 of your actions on your turn, reducing you to stunned 1; on your next turn, you would lose 1 more action, and then be able to use your remaining 2 actions normally. Stunned might also have a duration instead of a value, such as \"stunned for 1 minute.\" In this case, you lose all your actions for the listed duration.</p><p>Stunned overrides slowed. If the duration of your stunned condition ends while you are slowed, you count the actions lost to the stunned condition toward those lost to being slowed. So, if you were stunned 1 and slowed 2 at the beginning of your turn, you would lose 1 action from stunned, and then lose only 1 additional action by being slowed, so you would still have 1 action remaining to use that turn.</p>",
                 "summary": "You can't use actions."
             },
             "stupefied": {

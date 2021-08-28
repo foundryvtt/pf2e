@@ -351,6 +351,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         "melee",
         "action",
         "lore",
+        "formula",
     ];
     if (!("items" in entityData)) {
         return [];
@@ -585,7 +586,9 @@ function populateIdNameMap() {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
-                    throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+                    if (error instanceof Error) {
+                        throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+                    }
                 }
             })();
             packMap.set(entityData._id, entityData.name);
