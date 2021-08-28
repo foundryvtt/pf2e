@@ -77,18 +77,22 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
-        <div class="details-container-flex-row">
+        <div class="details-container-flex-row spell-components">
+            <label>
+                <input type="checkbox" name="data.components.focus" {{checked data.components.focus}} data-dtype="Boolean"/>
+                <span>{{localize "PF2E.SpellComponentShortF"}}</span>
+            </label>
             <label>
                 <input type="checkbox" name="data.components.material" {{checked data.components.material}} data-dtype="Boolean"/>
-                <span>{{localize "PF2E.SpellComponentM"}}</span>
+                <span>{{localize "PF2E.SpellComponentShortM"}}</span>
             </label>
             <label>
                 <input type="checkbox" name="data.components.somatic" {{checked data.components.somatic}} data-dtype="Boolean"/>
-                <span>{{localize "PF2E.SpellComponentS"}}</span>
+                <span>{{localize "PF2E.SpellComponentShortS"}}</span>
             </label>
             <label>
                 <input type="checkbox" name="data.components.verbal" {{checked data.components.verbal}} data-dtype="Boolean"/>
-                <span>{{localize "PF2E.SpellComponentV"}}</span>
+                <span>{{localize "PF2E.SpellComponentShortV"}}</span>
             </label>
         </div>
     </div>
