@@ -14,7 +14,6 @@ import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
 import { PF2SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { PF2StrikeRuleElement } from "./elements/strike";
-import { PF2SetPropertyRuleElement } from "./elements/set-property";
 import { PF2RollNoteRuleElement } from "./elements/roll-note";
 import { PF2WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
@@ -31,7 +30,7 @@ import { CreatureSizeRuleElement } from "./elements/creature-size";
  * @category RuleElement
  */
 export class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor> = Object.freeze({
+    static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
         FlatModifier: PF2FlatModifierRuleElement,
         MageArmor: PF2MageArmorRuleElement,
         DexterityModifierCap: PF2DexterityModifierCapRuleElement,
@@ -44,7 +43,6 @@ export class RuleElements {
         TokenImage: PF2TokenImageRuleElement,
         BaseSpeed: PF2BaseSpeedRuleElement,
         Sense: PF2SenseRuleElement,
-        SetProperty: PF2SetPropertyRuleElement,
         Strike: PF2StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
         Note: PF2RollNoteRuleElement,
@@ -58,7 +56,7 @@ export class RuleElements {
         LoseHitPoints: LoseHitPointsRuleElement,
     });
 
-    static custom: Record<string, RuleElementConstructor> = {};
+    static custom: Record<string, RuleElementConstructor | undefined> = {};
 
     static fromOwnedItem(item: Embedded<ItemPF2e>): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];

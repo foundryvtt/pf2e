@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.656;
+    static LATEST_SCHEMA_VERSION = 0.658;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -111,8 +111,10 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
+            currentActor.data.schema ??= { version: null, lastMigration: null };
             this.updateSchemaRecord(currentActor.data.schema, latestMigration);
             for (const itemSource of currentActor.items) {
+                itemSource.data.schema ??= { version: null, lastMigration: null };
                 this.updateSchemaRecord(itemSource.data.schema, latestMigration);
             }
         }

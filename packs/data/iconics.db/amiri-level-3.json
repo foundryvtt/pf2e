@@ -1560,7 +1560,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> You aren’t fatigued or raging.</p>\n<p><strong>Grants</strong> @Compendium[pf2e.feature-effects.Effect: Rage]{Effect: Rage}</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall unconscious, whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can Seek while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> You aren't fatigued or raging.</p>\n<p><strong>Grants</strong> @Compendium[pf2e.feature-effects.Effect: Rage]{Effect: Rage}</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall unconscious, whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a -1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can Seek while raging.</li>\n</ul>\n<p>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p>"
                 },
                 "featType": {
                     "value": "classfeature"
@@ -1953,13 +1953,11 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.SetProperty",
-                        "on": {
-                            "added": true,
-                            "removed": false
-                        },
-                        "property": "flags.2e.rollOptions.all.sudden-charge",
-                        "retain": true
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rollOptions.all.sudden-charge",
+                        "priority": 10,
+                        "value": true
                     }
                 ],
                 "slug": "sudden-charge",
@@ -2511,7 +2509,7 @@
                     "value": "LY34rfJ1YLkNc65Y"
                 },
                 "description": {
-                    "value": "<p><span>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</span></p>"
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -4225,7 +4223,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><span>This pyramid-shaped spike is attached to an armor's chest piece. When you activate the spike, it shoots a strand of force to help you gain purchase. If you roll a success on the triggering attempt, you get a critical success instead (if you roll a critical failure, you get a failure instead). <br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Command; <strong>Trigger</strong> You attempt to Grab an Edge but haven't rolled; <strong>Requirements</strong> You're an expert in Reflex</span></p>"
+                    "value": "<p>This pyramid-shaped spike is attached to an armor's chest piece. When you activate the spike, it shoots a strand of force to help you gain purchase. If you roll a success on the triggering attempt, you get a critical success instead (if you roll a critical failure, you get a failure instead). <br /></p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Command; <strong>Trigger</strong> You attempt to Grab an Edge but haven't rolled; <strong>Requirements</strong> You're an expert in Reflex</p>"
                 },
                 "duration": {
                     "units": "",

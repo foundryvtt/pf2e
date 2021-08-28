@@ -37,10 +37,10 @@ export class MigrationRunner extends MigrationRunnerBase {
             // Consolidate this come Typescript 4.4
             if ("items" in source) {
                 const updated = await runner.getUpdatedActor(source, runner.migrations);
-                preCreate ? document.data.update(updated) : await document.update(updated);
+                document.data.update(updated);
             } else {
                 const updated = await runner.getUpdatedItem(source, runner.migrations);
-                preCreate ? document.data.update(updated) : await document.update(updated);
+                document.data.update(updated);
             }
         }
     }
