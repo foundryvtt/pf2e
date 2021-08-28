@@ -62,7 +62,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
-        return this.data.data.schema?.version ?? null;
+        return this.data.data.schema?.version || null;
     }
 
     get traits(): Set<string> {

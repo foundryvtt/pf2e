@@ -23,24 +23,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         super.renderItemSummary(div, item, chatData);
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.data.type) {
-            case "action":
-                if (chatData.weapon.value) {
-                    if (chatData.weapon.value) {
-                        buttons.append(
-                            `<button class="weapon_attack tag" data-action="weaponAttack">${game.i18n.localize(
-                                "PF2E.WeaponStrikeLabel"
-                            )}</button>`
-                        );
-                        buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
-                        buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
-                        buttons.append(
-                            `<button class="tag weapon_damage" data-action="weaponDamage">${game.i18n.localize(
-                                "PF2E.DamageLabel"
-                            )}</button>`
-                        );
-                    }
-                }
-                break;
             case "spell":
                 if (chatData.isSave) {
                     buttons.append(
@@ -58,9 +40,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                             )}</button></span>`
                         );
                     }
-                    if (item.data.data.damage.value) {
+                    if (chatData.hasDamage) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`
+                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
                         );
                     }
                 }
