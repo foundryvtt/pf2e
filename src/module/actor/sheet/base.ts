@@ -1339,10 +1339,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const formula: PreCreate<FormulaSource> = {
             name: itemData.name,
             type: "formula",
+            img: itemData.img,
             data: {
                 craftedItem: {
-                    uuid: itemData._id as any,
+                    uuid: itemData.flags.core?.sourceId as any,
                 },
+                description: itemData.data.description,
+                level: itemData.data.level,
             },
         };
         return formula as FormulaSource;

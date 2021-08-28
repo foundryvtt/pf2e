@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
+import { ClassData, FeatData, FormulaData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellPF2e } from "@item/spell";
@@ -13,7 +13,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { LorePF2e, PhysicalItemPF2e } from "@item";
+import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
@@ -208,7 +208,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const lores: LoreData[] = [];
 
         // Known Formulas
-        const knownFormulas: Record<number, ItemPF2e[]> = {};
+        const knownFormulas: Record<number, FormulaData[]> = {};
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -395,7 +395,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Formulas
             else if (itemData.type === "formula") {
-                (async () => await this.prepareFormula(itemData, knownFormulas))();
+                const formulaData = itemData as FormulaData;
+                const level = formulaData.data.level.value | 0;
+                knownFormulas[level] ? knownFormulas[level].push(formulaData) : (knownFormulas[level] = [formulaData]);
             }
         }
 
@@ -477,6 +479,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
+        actorData.knownFormulas = knownFormulas;
 
         // shield
         const equippedShield = this.actor.heldShield?.data;
@@ -594,10 +597,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
-    }
-
-    protected async prepareFormulas(sheetData: any, knownFormulas: Record<number, ItemPF2e>) {
-        // TODO Something
     }
 
     /* -------------------------------------------- */
