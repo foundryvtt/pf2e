@@ -1581,6 +1581,7 @@ export const PF2ECONFIG = {
         V: "PF2E.SpellComponentV",
         S: "PF2E.SpellComponentS",
         M: "PF2E.SpellComponentM",
+        F: "PF2E.SpellComponentF",
     },
 
     spellCategories: {
