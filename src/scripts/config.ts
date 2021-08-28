@@ -1532,6 +1532,7 @@ export const PF2ECONFIG = {
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
         75: "PF2E.AreaSize75",
+        80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
@@ -1581,6 +1582,7 @@ export const PF2ECONFIG = {
         V: "PF2E.SpellComponentV",
         S: "PF2E.SpellComponentS",
         M: "PF2E.SpellComponentM",
+        F: "PF2E.SpellComponentF"
     },
 
     spellCategories: {
