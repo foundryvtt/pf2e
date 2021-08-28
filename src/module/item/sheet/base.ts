@@ -148,22 +148,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         } else if (itemData.type === "lore") {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-        } else if (itemData.type === "effect") {
-            // Effect-specific data
-            if (this?.actor?.items) {
-                const scopes = new Set<string>();
-
-                data.item.data.rules
-                    .filter((rule: RuleElementData) => rule.key.replace(/^PF2E\.RuleElement\./, "") === "EffectTarget")
-                    .forEach((rule: RuleElementData) => {
-                        scopes.add(rule.scope as string);
-                    });
-                if (scopes) {
-                    data.targets = this.actor.items
-                        .filter((item) => scopes.has(item.type))
-                        .map((item) => ({ id: item.id, name: item.name }));
-                }
-            }
         }
 
         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
