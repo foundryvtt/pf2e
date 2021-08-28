@@ -106,7 +106,9 @@ export class SpellPF2e extends ItemPF2e {
 
         try {
             const scalingParts = this.computeHeightenedParts(castLevel);
-            parts.push(DicePF2e.combineTerms(scalingParts.join("+")).formula);
+            if (scalingParts?.length > 0) {
+                parts.push(scalingParts.join(" + "));
+            }
         } catch (ex) {
             console.error(`PF2e System | Failed to apply scaling, invalid formula in ${this.name}`, ex);
         }
@@ -118,7 +120,9 @@ export class SpellPF2e extends ItemPF2e {
             parts.push(-4);
         }
 
-        return parts.join("+");
+        // Return the final result, but turn all "+ -" into just "-"
+        // These must be padded to support - or roll parsing will fail (Foundry 0.8)
+        return DicePF2e.combineTerms(parts.join(" + ").replace(/[\s]*\+[\s]*-[\s]*/g, " - ")).formula;
     }
 
     get scaling() {
@@ -354,7 +358,6 @@ export class SpellPF2e extends ItemPF2e {
                 top: event.clientY - 80,
                 left: window.innerWidth - 710,
             },
-            combineTerms: true,
         });
     }
 }
