@@ -16,6 +16,10 @@ export interface BasicSelectorOptions extends TagSelectorOptions {
 
 export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
+function isValuesList(value: unknown): value is ValuesList {
+    return !!(value && typeof value === "object" && "value" in value);
+}
+
 export class TagSelectorBasic extends TagSelectorBase {
     allowCustom: boolean;
     searchString = "";
@@ -24,7 +28,7 @@ export class TagSelectorBasic extends TagSelectorBase {
     constructor(object: ActorPF2e | ItemPF2e, options: BasicConstructorOptions) {
         super(object, options);
         this.objectProperty = options.objectProperty;
-        this.allowCustom = (!options.flat && options.allowCustom) ?? true;
+        this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
             mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
@@ -50,15 +54,21 @@ export class TagSelectorBasic extends TagSelectorBase {
                 this.objectProperty
             );
 
-            if (this.options.flat) {
-                return { value: property as string[] | undefined, custom: null };
+            if (isValuesList(property)) {
+                const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
+                const custom = this.allowCustom ? property.custom : null;
+                return { chosen, custom };
             }
 
-            return property as ValuesList;
+            if (Array.isArray(property)) {
+                const chosen = property.map((prop) => String(prop));
+                return { chosen, custom: null, flat: true };
+            }
+
+            return { chosen: [], custom: null };
         })();
 
-        const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
-        const custom = this.allowCustom ? property.custom : null;
+        const { chosen, custom, flat } = property;
         const choices = Object.keys(this.choices).reduce((accumulated, type) => {
             accumulated[type] = {
                 label: this.choices[type],
@@ -70,8 +80,9 @@ export class TagSelectorBasic extends TagSelectorBase {
         return {
             ...super.getData(),
             choices,
-            allowCustom: this.allowCustom,
+            allowCustom: this.allowCustom && !flat,
             custom,
+            flat,
         };
     }
 
@@ -85,11 +96,12 @@ export class TagSelectorBasic extends TagSelectorBase {
         }
     }
 
-    protected async _updateObject(_event: Event, formData: Record<string, unknown>) {
+    protected async _updateObject(event: Event, formData: Record<string, unknown>) {
+        const { flat } = event.target ? $(event.target)?.data() : { flat: false };
         const value = this.getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
-        } else if (this.options.flat) {
+        } else if (flat) {
             this.object.update({ [this.objectProperty]: value });
         } else {
             this.object.update({ [`${this.objectProperty}.value`]: value });

@@ -7,8 +7,6 @@ export interface TagSelectorOptions extends FormApplicationOptions {
     allowCustom?: boolean;
     /* Custom choices to add to the list of choices */
     customChoices?: Record<string, string>;
-    /* If true, writes to the property directly instead of the value sub property. Disables custom. */
-    flat?: boolean;
 }
 
 export abstract class TagSelectorBase<
