@@ -71,6 +71,12 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.damage;
     }
 
+    /** Returns true if this spell has unlimited uses, false otherwise. */
+    get unlimited() {
+        // In the future handle at will and constant
+        return this.isCantrip;
+    }
+
     get damageValue() {
         if (this.damage.value && this.damage.value !== "" && this.damage.value !== "0") {
             return this.damage.value;
@@ -116,9 +122,9 @@ export class SpellPF2e extends ItemPF2e {
 
         const traits = this.actor?.data.data.traits.traits.value ?? [];
         if (traits.some((trait) => trait === "elite")) {
-            parts.push(4);
+            parts.push(this.unlimited ? 2 : 4);
         } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(-4);
+            parts.push(this.unlimited ? -2 : -4);
         }
 
         // Return the final result, but turn all "+ -" into just "-"
