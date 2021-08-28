@@ -135,6 +135,14 @@
             }
         }
 
+        & > label {
+            max-width: 140px;
+        }
+
+        & > input[type="checkbox"] {
+            margin-left: auto;
+        }
+
         input[type="checkbox"]:last-child {
             margin-right: 0;
         }
@@ -188,13 +196,19 @@
             white-space: nowrap;
         }
 
+        select {
+            flex: 1;
+        }
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            flex-basis: auto;
+        }
+
         input[type="checkbox"]:first-child:last-child {
             margin-left: auto;
             justify-self: flex-end;
-        }
-
-        select {
-            flex: 1;
         }
     }
 
@@ -272,5 +286,9 @@
             color: #353535;
             font-weight: bold;
         }
+    }
+
+    .spell-components label {
+        padding-right: 6px;
     }
 }
