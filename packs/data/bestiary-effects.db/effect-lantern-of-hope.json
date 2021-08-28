@@ -1,0 +1,60 @@
+{
+    "_id": "37wbBpPBi5eBtNqM",
+    "data": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to damage rolls and to saving throws against @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Lantern of Hope (vs Crushing Despair)",
+                "predicate": {
+                    "all": [
+                        "crushing-despair"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/moonlight-bridge.webp",
+    "name": "Effect: Lantern of Hope",
+    "type": "effect"
+}

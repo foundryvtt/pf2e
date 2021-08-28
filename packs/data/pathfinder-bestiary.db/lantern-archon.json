@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -49,8 +50,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 40 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "value": "Fly 40"
             }
         },
         "details": {
@@ -58,7 +65,7 @@
                 "value": "LG"
             },
             "creatureType": "Celestial",
-            "flavorText": "Friendly, curious, and eternally optimistic, lantern archons embody the virtue of hope. They are formed of living light given corporeal shape, and they serve as beacons, guiding mortals out of their darkest moments and toward the path of righteousness. Their luminous bodies can \u001e icker with the subtlety of a candle flame or flare up like a torch. Lantern archons can control all aspects of their light as easily as other creatures control their facial expressions, leading them to change color, twinkle, and otherwise dim and brighten in time with their actions and words. While effervescent and chipper in conversation, lantern archons are impressively stoic mobile support troops and guardians in times of con\u001e ict, and are capable of uniting to form powerful warriors of light called gestalts.<br /><br />",
+            "flavorText": "<p>Friendly, curious, and eternally optimistic, lantern archons embody the virtue of hope. They are formed of living light given corporeal shape, and they serve as beacons, guiding mortals out of their darkest moments and toward the path of righteousness. Their luminous bodies can flicker with the subtlety of a candle flame or flare up like a torch. Lantern archons can control all aspects of their light as easily as other creatures control their facial expressions, leading them to change color, twinkle, and otherwise dim and brighten in time with their actions and words. While effervescent and chipper in conversation, lantern archons are impressively stoic mobile support troops and guardians in times of conflict, and are capable of uniting to form powerful warriors of light called gestalts.</p>\n<hr />\n<p>Archons are guardians of Heaven and enemies of chaos and evil. They openly fight back the spread of fiends but also quietly nurture the seeds of virtue within mortals, teaching the denizens of the Material Plane how to act with honor and integrity, enact just laws, and cast off sin and temptation. Archons live in the immense seven-tiered mountain of Heaven. They manifest in the Garden at the mountain's peak from mortal souls who answer a mysterious voice. There they swear to forever serve the cause of justice and transform into their new archon forms. Intensely orderly in their metamorphosis, new archons begin as lantern archons or other lesser forms, transforming into ever-greater archons as their virtue and achievements grow. Each archon represents a particular virtue, such as hope, charity, justice, or courage, and they gain strength in the presence of mortals who exemplify this virtue. Due to their extremely lawful nature, archons sometimes find themselves at odds with azatas.</p>",
             "level": {
                 "value": 1
             },
@@ -94,6 +101,7 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Fire",
                     "type": "fire",
                     "value": "3"
@@ -138,10 +146,10 @@
     "img": "systems/pf2e/icons/bestiary-1/lantern_archon.webp",
     "items": [
         {
-            "_id": "iFmd9fShswOt8cVo",
+            "_id": "ysedjvzZfJH6LZ7I",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -149,11 +157,7 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
                     "value": "innate"
                 },
@@ -162,7 +166,7 @@
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -234,10 +238,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "17",
-                    "item": 0,
+                    "dc": 17,
                     "mod": 0,
-                    "value": 7
+                    "value": 9
                 },
                 "tradition": {
                     "value": "divine"
@@ -253,12 +256,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Innate Spells",
+            "name": "Innate Divine Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "bZRIf79U3QvbnXbm",
+            "_id": "eXzZ6rNp8bb780Lc",
             "data": {
                 "ability": {
                     "value": ""
@@ -267,6 +270,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -274,6 +280,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -289,7 +296,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You peek into the future. Choose a particular goal, event, or activity that will occur within 1 week. You learn a cryptic clue or piece of advice that could help with the chosen event, often in the form of a rhyme or omen.</p>"
+                    "value": "<p>You peek into the future. Choose a particular goal or activity you plan to engage in within 1 week, or an event you expect might happen within 1 week. You learn a cryptic clue or piece of advice that could help with the chosen event, often in the form of a rhyme or omen.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -297,16 +304,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "iFmd9fShswOt8cVo"
+                    "value": "ysedjvzZfJH6LZ7I"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -324,9 +337,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-omens",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=247"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -349,7 +368,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "divination",
@@ -358,21 +377,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pkcOby5prOausy1k"
+                }
+            },
             "img": "systems/pf2e/icons/spells/read-omens.webp",
             "name": "Read Omens",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "O3RT1r6rD76B5Cut",
+            "_id": "HYjg9Nf4le7LS2id",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -381,6 +407,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -396,7 +423,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened</strong> You learn each aura's location and strength.</p>"
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -404,16 +431,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "iFmd9fShswOt8cVo"
+                    "value": "ysedjvzZfJH6LZ7I"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -431,9 +464,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-alignment",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=65"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -456,7 +495,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "detection",
@@ -465,14 +504,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment",
+            "name": "Detect Alignment (At Will; Evil Only)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "NvxOSAjHGrBe6yfd",
+            "_id": "Xfrm0wtxoShdkeqs",
             "data": {
                 "ability": {
                     "value": ""
@@ -481,6 +524,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": "varies"
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -488,6 +534,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -503,7 +550,7 @@
                     "value": "positive"
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> (material, somatic, verbal) The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -511,16 +558,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "iFmd9fShswOt8cVo"
+                    "value": "ysedjvzZfJH6LZ7I"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -532,15 +585,21 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -552,7 +611,7 @@
                     "value": "1 willing living creature or 1 undead"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "custom": "",
@@ -574,21 +633,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "xiQUgDjGBK4LJ3Us",
+            "_id": "sVutsM7q0M9ijbFU",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -597,6 +663,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -612,7 +679,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -624,12 +691,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "iFmd9fShswOt8cVo"
+                    "value": "ysedjvzZfJH6LZ7I"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -647,7 +717,13 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -661,7 +737,7 @@
                     "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -685,9 +761,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.webp",
-            "name": "Light - Cantrips",
+            "name": "Light",
             "sort": 500000,
             "type": "spell"
         },
@@ -698,6 +778,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -728,10 +809,10 @@
                     },
                     "value": [
                         "agile",
-                        "good",
                         "fire",
+                        "good",
                         "magical",
-                        "range 30 feet"
+                        "range-increment-30"
                     ]
                 },
                 "weaponType": {
@@ -746,25 +827,25 @@
             "type": "melee"
         },
         {
-            "_id": "3aQmojgOn0OyqrYB",
+            "_id": "wiOHO5rJpYq0VoHn",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A lantern archon can also make a Retributive Strike with its light ray.<br /><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster. <strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -783,10 +864,107 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Retributive Strike",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
             "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "I9Ucvn7w6SzBbvLk",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "8Q4uaU2BHcl79ead",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Retributive Strike]{Retributive Strike}</p>\n<hr />\n<p><strong>Damage Reduction</strong> 3</p>\n<p>A lantern archon can also make a Retributive Strike with its Light Ray.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.RziFDXkF4LLmToDR"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -802,7 +980,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Nine lantern archons can use this activity, all within 1 round of the first, to merge together to form a composite being for 7 rounds that appears as a glowing warrior of light. The gestalt has the base statistics of a legion archon (AC, saving throws, attacks, skills, Speeds, and so on) but the spells and special abilities of a lantern archon. Additionally, it has a ranged light ray Strike (+18 attack, Damage 3d4 fire and 3d4 good), and the bonus from its Lantern of Hope increases to +3. When the gestalt separates, its remaining Hit Points are divided evenly among the lantern archons, and if the gestalt had fewer than 9 HP, some of the lantern archons die.</p>"
+                    "value": "<p>Nine lantern archons can use this activity, all within 1 round of the first, to merge together to form a composite being for 7 rounds that appears as a glowing warrior of light.</p>\n<p>The gestalt has the base statistics of a legion archon (AC, saving throws, attacks, skills, Speeds, and so on) but the spells and special abilities of a lantern archon. Additionally, it has a ranged light ray Strike ([[/r 1d20+18 #Light Ray]]{Light Ray +18}, Damage [[/r 3d4 #fire]]{3d4 fire} and [[/r 3d4 #good]]{3d4 good}), and the bonus from its Lantern of Hope increases to +3.</p>\n<p>When the gestalt separates, its remaining Hit Points are divided evenly among the lantern archons, and if the gestalt had fewer than 9 HP, some of the lantern archons die.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -832,9 +1010,10 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "mce_20": "<p>Nine lantern archons can use this activity, all within 1 round of the first, to merge together to form a composite being for 7 rounds that appears as a glowing warrior of light.</p>\n<p>The gestalt has the base statistics of a legion archon (AC, saving throws, attacks, skills, Speeds, and so on) but the spells and special abilities of a lantern archon. Additionally, it has a ranged light ray Strike ([[/r 1d20+18 #Light Ray]]{Light Ray +18}, Damage [[/r 3d4 #fire]]{3d4 fire} and [[/r 3d4 #good]]{3d4 good}), and the bonus from its Lantern of Hope increases to +3.</p>\n<p>When the gestalt separates, its remaining Hit Points are divided evenly among the lantern archons, and if the gestalt had fewer than 9 HP, some of the lantern archons die.</p>",
             "name": "Gestalt",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -850,7 +1029,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The lantern archon shines as a beacon of hope. Good allies within 30 feet gain a +1 status bonus to damage rolls and to saving throws against @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}.</p>"
+                    "value": "<p>The lantern archon shines as a beacon of hope.</p>\n<p>Good allies within <span data-pf2-effect-area=\"emanation\" data-pf2-template-data=\"{&quot;fillColor&quot;: &quot;#F6D21D&quot;, &quot;distance&quot;: 30}\">30 feet</span> gain a +1 status bonus to damage rolls and to saving throws against @Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -881,9 +1060,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lantern of Hope",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -918,7 +1097,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -953,7 +1132,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -988,7 +1167,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
