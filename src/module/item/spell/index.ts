@@ -57,6 +57,7 @@ export class SpellPF2e extends ItemPF2e {
     get components() {
         const components = this.data.data.components;
         const results: string[] = [];
+        if (components.focus) results.push(game.i18n.localize("PF2E.SpellComponentShortF"));
         if (components.material) results.push(game.i18n.localize("PF2E.SpellComponentShortM"));
         if (components.somatic) results.push(game.i18n.localize("PF2E.SpellComponentShortS"));
         if (components.verbal) results.push(game.i18n.localize("PF2E.SpellComponentShortV"));
@@ -68,6 +69,12 @@ export class SpellPF2e extends ItemPF2e {
 
     get damage() {
         return this.data.data.damage;
+    }
+
+    /** Returns true if this spell has unlimited uses, false otherwise. */
+    get unlimited() {
+        // In the future handle at will and constant
+        return this.isCantrip;
     }
 
     get damageValue() {
@@ -106,19 +113,23 @@ export class SpellPF2e extends ItemPF2e {
 
         try {
             const scalingParts = this.computeHeightenedParts(castLevel);
-            parts.push(DicePF2e.combineTerms(scalingParts.join("+")).formula);
+            if (scalingParts?.length > 0) {
+                parts.push(scalingParts.join(" + "));
+            }
         } catch (ex) {
             console.error(`PF2e System | Failed to apply scaling, invalid formula in ${this.name}`, ex);
         }
 
         const traits = this.actor?.data.data.traits.traits.value ?? [];
         if (traits.some((trait) => trait === "elite")) {
-            parts.push(4);
+            parts.push(this.unlimited ? 2 : 4);
         } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(-4);
+            parts.push(this.unlimited ? -2 : -4);
         }
 
-        return parts.join("+");
+        // Return the final result, but turn all "+ -" into just "-"
+        // These must be padded to support - or roll parsing will fail (Foundry 0.8)
+        return DicePF2e.combineTerms(parts.join(" + ").replace(/[\s]*\+[\s]*-[\s]*/g, " - ")).formula;
     }
 
     get scaling() {
@@ -354,7 +365,6 @@ export class SpellPF2e extends ItemPF2e {
                 top: event.clientY - 80,
                 left: window.innerWidth - 710,
             },
-            combineTerms: true,
         });
     }
 }
