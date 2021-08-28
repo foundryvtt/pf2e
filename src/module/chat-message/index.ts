@@ -89,8 +89,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         if (this.isDamageRoll) {
             await DamageButtons.append(this, $html);
-            CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
+
+        CriticalHitAndFumbleCards.appendButtons(this, $html);
 
         ChatCards.listen($html);
         InlineRollsLinks.listen($html);

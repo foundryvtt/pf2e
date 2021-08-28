@@ -477,7 +477,7 @@
                             {{#if chatData.isAttack}}
                             <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
                             {{/if}}
-                            {{#if spell.data.data.damage.value}}
+                            {{#if chatData.hasDamage}}
                             <span class="tag"><button data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.damage.value}}</button></span>
                             {{/if}}
                         </div>
