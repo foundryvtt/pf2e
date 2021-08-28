@@ -122,8 +122,8 @@ async function getAllFiles(): Promise<string[]> {
         try {
             // Create an array of files in the ./packs/data/[packname].db/ directory
             packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
-        } catch (e) {
-            console.error(e.message);
+        } catch (error) {
+            if (error instanceof Error) console.error(error.message);
             return [];
         }
 
@@ -147,8 +147,11 @@ async function migrate() {
         try {
             // Parse file content
             source = JSON.parse(content);
-        } catch (e) {
-            throw { message: `File ${filePath} could not be parsed. Error: ${e.message}` };
+        } catch (error) {
+            if (error instanceof Error) {
+                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`);
+            }
+            return;
         }
 
         // skip journal entries, rollable tables, and macros
@@ -175,7 +178,8 @@ async function migrate() {
                     return source;
                 }
             } catch (error) {
-                throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
+                if (error instanceof Error) throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
+                throw {};
             }
         })();
 
@@ -186,8 +190,10 @@ async function migrate() {
             console.log(`${filePath} is different. writing`);
             try {
                 await fs.writeFile(filePath, outData);
-            } catch (e) {
-                throw { message: `File ${filePath} could not be parsed. Error: ${e.message}` };
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw { message: `File ${filePath} could not be parsed. Error: ${error.message}` };
+                }
             }
         }
     }
