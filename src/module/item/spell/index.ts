@@ -22,12 +22,14 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get traditions(): Set<MagicTradition> {
-        return new Set(this.data.data.traditions.value);
+        return this.spellcasting?.tradition
+            ? new Set([this.spellcasting.tradition])
+            : new Set(this.data.data.traditions.value);
     }
 
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
-        return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+        return this.actor?.itemTypes?.spellcastingEntry.find((entry) => entry.id === spellcastingId);
     }
 
     /**
@@ -162,9 +164,10 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isFocusSpell = this.data.data.category.value === "focus";
         this.data.isRitual = this.data.data.category.value === "ritual";
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
+    }
 
-        const traditions = this.spellcasting?.tradition ? [this.spellcasting.tradition] : [...this.traditions];
-        this.data.data.traits.value.push(this.school, ...traditions);
+    prepareSiblingData(this: Embedded<SpellPF2e>): void {
+        this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
     override getChatData(
