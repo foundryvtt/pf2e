@@ -79,7 +79,7 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dv as |weakness key|}}
-            <div class="tag weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
+            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
         {{/each}}
     </div>
 </div>
@@ -97,7 +97,7 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dr as |resistance key|}}
-            <div class="tag resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+            <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
 </div>
@@ -116,7 +116,7 @@
 
     <div class="side-bar-section-content">
         {{#each immunities as |immunity key|}}
-            <div class="tag immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
+            <div class="tag-legacy immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
         {{/each}}
     </div>
 </div>
@@ -153,7 +153,7 @@
         <div class="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
                 {{#if speed.value }}
-                    <div class="tag speed" data-speed="{{localize speed.type}}">
+                    <div class="tag-legacy speed" data-speed="{{localize speed.type}}">
                         {{localize speed.label}} {{speed.value}}
                     </div>
                 {{/if}}

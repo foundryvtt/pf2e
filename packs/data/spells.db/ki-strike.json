@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d6"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "1d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Force)]{Spell Effect: Ki Strike (Force)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Lawful)]{Spell Effect: Ki Strike (Lawful)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Negative)]{Spell Effect: Ki Strike (Negative)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Positive)]{Spell Effect: Ki Strike (Positive)}</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1d6",
-            "mode": "level4"
+            "damage": {
+                "0": "1d6"
+            },
+            "interval": 4
         },
         "school": {
             "value": "transmutation"
@@ -98,8 +104,7 @@
                 "value": "uncommon"
             },
             "value": [
-                "monk",
-                "transmutation"
+                "monk"
             ]
         }
     },

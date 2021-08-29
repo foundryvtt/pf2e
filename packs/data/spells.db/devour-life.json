@@ -22,11 +22,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "60"
-        },
-        "damageType": {
-            "value": "negative"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "negative"
+                    },
+                    "value": "60"
+                }
+            }
         },
         "description": {
             "value": "<p>You attempt to utterly consume the target's life force. The target takes 60 negative damage with a basic Fortitude save. If this damage reduces the target to 0 Hit Points, it dies immediately. You regain Hit Points equal to half the negative damage the target takes (after applying resistance and the like). Any excess healing is gained as temporary Hit Points, which you lose after 1 minute.</p>"
@@ -61,8 +65,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "10",
-            "mode": "level1"
+            "damage": {
+                "0": "10"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
@@ -103,7 +109,6 @@
             "value": [
                 "death",
                 "healing",
-                "necromancy",
                 "negative"
             ]
         }

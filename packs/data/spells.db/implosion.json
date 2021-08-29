@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "75"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "75"
+                }
+            }
         },
         "description": {
             "value": "<p>You crush the target by causing it to collapse in on itself, dealing 75 damage. The first time each round you Sustain the Spell, you must choose a new target to be subject to the same effect; the same creature can never be targeted more than once with a single casting of this spell. You also can't affect more than one creature per turn with implosion. You can't target a creature that's incorporeal, gaseous, or liquid, or otherwise lacking a solid form.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "10",
-            "mode": "level1"
+            "damage": {
+                "0": "10"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -100,9 +106,7 @@
             "rarity": {
                 "value": "common"
             },
-            "value": [
-                "evocation"
-            ]
+            "value": []
         }
     },
     "effects": [],

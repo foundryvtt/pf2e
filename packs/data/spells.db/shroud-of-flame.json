@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "3d6"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "fire"
+                    },
+                    "value": "3d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You encircle yourself in an aura of protective flames. Each creature that hits you with an unarmed attack, Grapples you, or otherwise touches you takes [[/r 3 #fire]]{3 fire damage}. When you Cast the Spell and the first time you sustain it each round, each creature in the area takes [[/r 3d6 #fire]]{3d6 fire damage} (basic Reflex save).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage caused by touching you increases by 1, and the fire damage when you Cast the Spell or sustain it increases by 1d6.</p>"
@@ -59,8 +63,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "1d6",
-            "mode": "level1"
+            "damage": {
+                "0": "1d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
