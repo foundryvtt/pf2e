@@ -1340,7 +1340,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private createFormulaFromItem(itemData: PhysicalItemSource): FormulaSource {
         const formula: PreCreate<FormulaSource> = {
-            name: itemData.name,
+            name: game.i18n.format("PF2E.FormulaSheet.NamePrefix", { name: itemData.name }),
             type: "formula",
             img: itemData.img,
             data: {
