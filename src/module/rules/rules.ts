@@ -25,6 +25,7 @@ import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
 import { CreatureSizeRuleElement } from "./elements/creature-size";
+import { ImmunityRuleElement } from "./elements/immunity";
 
 /**
  * @category RuleElement
@@ -42,6 +43,7 @@ export class RuleElements {
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
         BaseSpeed: PF2BaseSpeedRuleElement,
+        Immunity: ImmunityRuleElement,
         Sense: PF2SenseRuleElement,
         Strike: PF2StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
