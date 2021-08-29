@@ -19,13 +19,15 @@ import {
     TreasurePF2e,
     WeaponPF2e,
     FormulaPF2e,
-} from "@item/index";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
+} from "@item";
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
 import { WeaponPropertyRuneType } from "@item/weapon/data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicSchool } from "@item/spell/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -133,14 +135,14 @@ const damageTypes = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const magicTraditions = {
+const magicTraditions: Record<MagicTradition, string> = {
     arcane: "PF2E.TraitArcane",
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
 };
 
-const magicSchools = {
+const magicSchools: Record<MagicSchool, string> = {
     abjuration: "PF2E.TraitAbjuration",
     conjuration: "PF2E.TraitConjuration",
     divination: "PF2E.TraitDivination",
@@ -569,7 +571,6 @@ const spellOtherTraits = {
 const spellTraits = {
     ...classTraits,
     ...damageTraits,
-    ...magicTraditions,
     ...spellOtherTraits,
 };
 

@@ -67,6 +67,7 @@ import { Migration656OtherFocusPoolSources } from "./migrations/656-other-focus-
 import { Migration657RemoveSetProperty } from "./migrations/657-remove-set-property";
 import { Migration658MonkUnarmoredProficiency } from "./migrations/658-monk-unarmored-proficiency";
 import { Migration659MultipleDamageRows } from "./migrations/659-multiple-damage-rows";
+import { Migration660DerivedSpellTraits } from "./migrations/660-derived-spell-traits";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -138,6 +139,7 @@ export class Migrations {
         Migration657RemoveSetProperty,
         Migration658MonkUnarmoredProficiency,
         Migration659MultipleDamageRows,
+        Migration660DerivedSpellTraits,
     ];
 
     static get latestVersion(): number {
