@@ -18,19 +18,16 @@ export class FormulaSheetPF2e extends ItemSheetPF2e<FormulaPF2e> {
                     data.item.img = item.img;
                     data.item.name = game.i18n.format("PF2E.FormulaSheet.NamePrefix", { name: item.name });
                     data.item.data.description.value = item.description;
-                    data.item.data.level.value = item.level;
                 }
             } catch {
                 data.item.img = "systems/pf2e/icons/default-icons/lore.svg";
                 data.item.name = game.i18n.localize("PF2E.FormulaSheet.NameUnknown");
                 data.item.data.description.value = game.i18n.localize("PF2E.FormulaSheet.DescriptionUnknown");
-                data.item.data.level.value = 0;
             }
         } else {
             data.item.img = "systems/pf2e/icons/default-icons/lore.svg";
             data.item.name = game.i18n.localize("PF2E.FormulaSheet.NameEmpty");
             data.item.data.description.value = "";
-            data.item.data.level.value = 0;
         }
     }
 }

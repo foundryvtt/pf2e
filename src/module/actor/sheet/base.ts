@@ -370,6 +370,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
 
+        // Formula Create
+        html.find(".formula-create").on("click", (event) => this.onClickCreateItem(event));
+
         // Adding/Editing/Removing Spellcasting entries
         html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
         html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));

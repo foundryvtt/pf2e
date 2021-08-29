@@ -643,7 +643,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        sheetData.knownFormulas = knownFormulas;
+        if (Object.keys(knownFormulas).length) {
+            sheetData.knownFormulas = knownFormulas;
+        }
     }
 
     /* -------------------------------------------- */
