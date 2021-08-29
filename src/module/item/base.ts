@@ -19,10 +19,10 @@ import { isCreatureData } from "@actor/data/helpers";
 import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
 import { CheckPF2e } from "@system/rolls";
-import { ItemTrait } from "./data/base";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { ItemTrait } from "./data/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {

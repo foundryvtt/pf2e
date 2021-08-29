@@ -1,24 +1,33 @@
 import { ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
-import { OneToThree, TwoToThree } from "@module/data";
+import { OneToTen, OneToThree, TwoToThree } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
 import { ordinal, toNumber, objectHasKey } from "@module/utils";
 import { DicePF2e } from "@scripts/dice";
-import { SpellData, SpellTrait } from "./data";
+import { MagicSchool, SpellData, SpellTrait } from "./data";
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
     }
 
+    get level(): OneToTen {
+        return this.data.data.level.value;
+    }
+
+    get school(): MagicSchool {
+        return this.data.data.school.value;
+    }
+
+    get traditions(): Set<MagicTradition> {
+        return new Set(this.data.data.traditions.value);
+    }
+
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
-    }
-
-    get level() {
-        return this.data.data.level.value;
     }
 
     /**
@@ -153,6 +162,9 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isFocusSpell = this.data.data.category.value === "focus";
         this.data.isRitual = this.data.data.category.value === "ritual";
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
+
+        const traditions = this.spellcasting?.tradition ? [this.spellcasting.tradition] : [...this.traditions];
+        this.data.data.traits.value.push(this.school, ...traditions);
     }
 
     override getChatData(
