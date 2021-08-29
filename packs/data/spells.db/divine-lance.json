@@ -23,11 +23,16 @@
             "value": ""
         },
         "damage": {
-            "applyMod": true,
-            "value": "1d4"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "applyMod": true,
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "1d4"
+                }
+            }
         },
         "description": {
             "value": "<p>You unleash a beam of divine energy. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or if your deity is true neutral. Make a ranged spell attack roll against the target's AC. On a hit, the target takes damage of the chosen alignment type equal to 1d4 + your spellcasting ability modifier (double damage on a critical hit). The spell gains the trait of the alignment you chose.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -62,8 +67,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1d4",
-            "mode": "level1"
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"

@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "14d6"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "fire"
+                    },
+                    "value": "14d6"
+                }
+            }
         },
         "description": {
             "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 3d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr /><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6."
@@ -62,8 +66,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
