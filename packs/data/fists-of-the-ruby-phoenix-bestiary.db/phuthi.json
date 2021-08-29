@@ -373,11 +373,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You free those who travel alongside you from environmental hindrances. Targets don't take circumstance penalties to Speed from vegetation, rubble, winds, or other properties of the environment, whether or not the environment is magical, and they ignore difficult terrain from such environmental properties.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The targets also ignore greater difficult terrain from environmental properties.</p>"
@@ -410,10 +406,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -494,11 +486,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You transform the target creature into a harmless animal appropriate to the area, with effects based on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's body gains minor features of the harmless animal. Its insides churn as they partially transform, causing it to be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. When it recovers from the Sickened condition, its features revert to normal.</p>\n<p><strong>Failure</strong> The target transforms for 1 minute but keeps its mind. If it spends all its actions on its turn concentrating on its original form, it can attempt a Will save to end the effect immediately.</p>\n<p><strong>Critical Failure</strong> The target is transformed into the chosen harmless animal, body and mind, for an unlimited duration.</p>"
@@ -531,10 +519,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -618,11 +602,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You try to turn the target's flesh into stone. The target must attempt a Fortitude save.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the Slowed condition increases by 1 (or 2 on a critical failure). A successful save reduces the Slowed condition by 1. When a creature is unable to act due to the Slowed condition from flesh to stone, the creature is permanently non-magically @Compendium[pf2e.conditionitems.Petrified]{Petrified}. The spell ends if the creature is Petrified or the Slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @Compendium[pf2e.conditionitems.Slowed]{Slowed 2}.</p>"
@@ -655,10 +635,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -740,11 +716,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "bludgeoning"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "bludgeoning"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
@@ -777,10 +757,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -862,11 +838,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Air)]{Air}</strong>\n<ul>\n<li>fly Speed 80 feet, movement doesn't trigger reactions;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Earth)]{Earth}</strong>\n<ul>\n<li>Speed 20 feet, burrow Speed 20 feet;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Fire)]{Fire}</strong>\n<ul>\n<li>Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tendril , <strong>Damage</strong> 1d8 fire plus [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @Compendium[pf2e.actionspf2e.Shove]{Shove}.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
@@ -899,10 +871,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -985,11 +953,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A feral aspect overcomes the targets, making them tough and savage. Targets gain 5 temporary Hit Points, a +10-foot status bonus to their Speeds, and weakness 5 to silver. They also grow vicious fangs and claws, which are unarmed attacks. The fangs deal 2d8 piercing damage; the claws deal 2d6 slashing damage and have the agile and finesse traits. The targets use their highest weapon or unarmed attack proficiency with these attacks, and if they have weapon specialization or greater weapon specialization, they add this damage as well. On a critical hit with one of these unarmed attacks, the creature struck takes [[/r 1d4 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.<br /></p>\n<p>The targets can't use concentrate actions unless those actions also have the rage trait, with the exception of Seek. A creature can attempt to end the spell's effect on itself by using a single action, which has the rage trait, to attempt a Will save against your spell DC; on a success, it ends the spell's effect on itself.<br /></p>\n<p>If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The temporary Hit Points increase to 10, the silver weakness to 10, and the damage dealt by the attacks to three dice.</p>\n<p><strong>Heightened (10th)</strong> The temporary Hit Points increase to 20, the silver weakness to 20, and the damage dealt by the attacks to four dice.</p>"
@@ -1022,10 +986,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1107,11 +1067,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
@@ -1144,10 +1100,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -1230,11 +1182,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration increases to 1 hour.</p>"
@@ -1267,10 +1215,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1353,11 +1297,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
@@ -1390,10 +1330,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1476,11 +1412,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
@@ -1513,10 +1445,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1599,11 +1527,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target's skin becomes covered in bark. The target gains resistance 2 to bludgeoning and piercing damage and weakness 3 to fire. After the target takes fire damage, it can Dismiss the spell as a free action triggered by taking the damage; doing so doesn't reduce the fire damage the target was dealt.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistances increase by 2, and the weakness increases by 3.</p>"
@@ -1636,10 +1560,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1721,11 +1641,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Enlarge]{Spell Effect: Enlarge}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @Compendium[pf2e.spell-effects.Spell Effect: Enlarge (Heightened 4th)]{Spell Effect: Enlarge (Heightened 4th)}</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
@@ -1758,10 +1674,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1844,11 +1756,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Creatures in the area are outlined by glittering dust. Each creature must attempt a Reflex save. If a creature has its invisibility negated by this spell, it is @Compendium[pf2e.conditionitems.Concealed]{Concealed} instead of @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This applies both if the creature was already Invisible and if it benefits from new invisibility effects before the end of the invisibility negation effect from this spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's invisibility is negated for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute and its invisibility is negated for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and Dazzled for 10 minutes. Its invisibility is negated for 10 minutes.</p>"
@@ -1881,10 +1789,6 @@
                 "save": {
                     "basic": "",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1966,11 +1870,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
@@ -2003,10 +1903,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -2088,11 +1984,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -2125,10 +2017,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -2215,11 +2103,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "electricity"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "electricity"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -2254,8 +2147,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -2340,11 +2235,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
@@ -2377,10 +2268,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -2467,11 +2354,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You gain a +30-foot status bonus to your Speed.</p>"
@@ -2504,10 +2387,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2589,11 +2468,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -2628,8 +2511,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -2714,11 +2599,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your legs surge with strength, ready to leap high and far. You jump 30 feet in any direction without touching the ground. You must land on a space of solid ground within 30 feet of you, or else you fall after using your next action.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range becomes touch, the target changes to one touched creature, and the duration becomes 1 minute, allowing the target to jump as described whenever it takes the Leap action.</p>"
@@ -2751,10 +2632,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2837,11 +2714,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
@@ -2874,10 +2747,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -2964,11 +2833,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You lengthen your stride beyond what should be possible. You gain a +10-foot status bonus to your Speed.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Longstrider]{Spell Effect: Longstrider}</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The duration increases to 8 hours.</p>"
@@ -3001,10 +2866,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -3086,11 +2947,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
@@ -3125,8 +2991,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -3212,11 +3080,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
@@ -3249,10 +3113,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -3337,11 +3197,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
@@ -3374,10 +3230,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -3460,11 +3312,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<p><strong>Unseen Servant</strong> [Creature] [-1] [No Alignment] [Medium]</p>\n<hr />\n<p><strong>AC</strong> 13, <strong>Fort</strong> +0, <strong>Ref</strong> +4, <strong>Will</strong> +0 <strong>HP</strong> 4;</p>\n<p><strong>Immunities</strong> disease, mental, non-magical attacks, paralysis, poison, precision, unconscious;</p>\n<p><strong>Resistances</strong> all damage 5 (except force or ghost touch)</p>\n<p><strong>Speed</strong> fly 30 feet</p>\n<p><strong>Force Body</strong> An unseen servant's physical body is made of force. It can't use attack actions. It can move and use Interact actions to do things such as fetch objects, open unstuck or unlocked doors, hold chairs, and clean. It can't pass through solid objects.</p>"
@@ -3497,10 +3345,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"

@@ -416,11 +416,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "6d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "6d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -455,8 +459,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -537,11 +543,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @Compendium[pf2e.conditionitems.Unfriendly]{Unfriendly} to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><strong>Heightened (6th)</strong> You can target up to 5 creatures."
@@ -574,10 +576,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -659,11 +657,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "acid"
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your touch afflicts the target with Abyssal plague, which siphons fragments of their soul away to empower the Abyss. The effect is based on the target's Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 2 evil damage per spell level, and takes a -2 status penalty to saves against Abyssal plague for 1 day or until the target contracts it, whichever comes first.</p>\n<p><strong>Failure</strong> The target is afflicted with Abyssal plague at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with Abyssal plague at stage 2.</p>\n<hr />\n<p><strong>Abyssal Plague</strong> (disease) <strong>Level 9</strong></p>\n<p>The target can't recover from the drained condition from Abyssal plague until the disease is cured;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day);</p>\n<p><strong>Stage 2</strong> Drained increases by 2 (1 day).</p>"
@@ -696,10 +690,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -784,11 +774,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
@@ -821,10 +807,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -910,11 +892,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You twist and stunt plants in the area, causing them to wither. In addition to other dangers from failing plant life, this decreases the crop yield for farms. If you cast this ritual in an area affected by plant growth, blight attempts to counteract plant growth instead of producing its usual effect.</p>\n<hr />\n<p><strong>Critical Success</strong> Completely spoil the crop yield in the area, or decrease the yield by half in an area with up to a 1-mile radius.</p>\n<p><strong>Success</strong> Decease the crop yield in the area by half.</p>\n<p><strong>Failure</strong> The ritual has no effect.</p>\n<p><strong>Critical Failure</strong> The flora in the area changes in an unexpected way, determined by the GM but generally as contradictory to your true desires as possible (for instance, enriching crops when you would prefer to blight them).</p>"
@@ -947,10 +925,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1032,11 +1006,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
@@ -1069,10 +1039,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -1155,11 +1121,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "4d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "4d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -1194,8 +1164,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1276,11 +1248,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target transforms into a vaporous state. In this state, the target is amorphous and loses any item bonus to AC. It gains resistance 8 to physical damage and is immune to precision damage. It can't cast spells, activate items, or use actions that have the attack or manipulate trait. It gains a fly Speed of 10 feet and can slip through tiny cracks. The target can Dismiss the spell.</p>"
@@ -1313,10 +1281,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1400,11 +1364,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
@@ -1437,10 +1397,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"

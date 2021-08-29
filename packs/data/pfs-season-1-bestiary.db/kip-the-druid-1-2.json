@@ -404,11 +404,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
@@ -443,8 +447,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -520,11 +526,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create a sticky web in the area that impedes creatures' movement each time they try to move through it. Squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws.</p>\n<p>Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt an Athletics check or Reflex save against your spell DC to avoid taking a circumstance penalty to its Speeds or becoming @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}. A creature that gets out of the web ceases to take a circumstance penalty to its Speed from the web.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and it doesn't need to attempt further Athletics checks or saving throws against the web this turn. If it used an Athletics check, it clears the web from every square it leaves after leaving the square.</p>\n<p><strong>Success</strong> The creature is unaffected during its action. If it used an Athletics check, it clears the web from every square it leaves after leaving the square.</p>\n<p><strong>Failure</strong> The creature takes a -10-foot circumstance penalty to its Speeds until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until the start of its next turn, after which it takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape to remove its @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's area increases to a 20-foot burst, and its range increases to 60 feet.</p>"
@@ -557,10 +559,6 @@
                 "save": {
                     "basic": "",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -635,11 +633,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You morph your body based on your training, choosing one of the following effects based on your wild order feats.</p>\n<ul>\n<li>If you have @Compendium[pf2e.feats-srd.Wild Shape]{Wild Shape}, you can morph your hands into wild claws. Your hands transform into incredibly sharp claws. These claws are an unarmed attack you're trained in and deal 1d6 slashing damage each (agile, finesse). You can still hold and use items with your hands while they're transformed by this spell, but you cannot hold an item while attacking. If you have @Compendium[pf2e.feats-srd.Insect Shape]{Insect Shape}, you can instead transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</li>\n<li>If you have @Compendium[pf2e.feats-srd.Elemental Shape]{Elemental Shape}, you can morph your body to be partially composed of elemental matter, granting you resistance 5 to critical hits and precision damage.</li>\n<li>If you have @Compendium[pf2e.feats-srd.Plant Shape]{Plant Shape}, you can morph your arms into long vines, increasing your reach to 10 feet (or 15 feet with a reach weapon).</li>\n<li>If you have @Compendium[pf2e.feats-srd.Soaring Shape]{Soaring Shape}, you can cast the spell as a two-action activity (<span class=\"pf2-icon\">D</span> somatic, verbal) to grow wings from your back. These wings allow you to fly with a fly Speed of 30 feet.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You can choose up to two of the effects from the list. Wild claws leave terrible, ragged wounds that also deal [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a hit, and wild jaws are envenomed, also dealing [[/r 2d6 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} on a hit.</p>\n<p><strong>Heightened (10th)</strong> You can choose up to three of the effects from the list. Wild claws deal [[/r 4d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a hit, and wild jaws deal [[/r 4d6 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} on a hit.</p>"
@@ -672,10 +666,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -749,11 +739,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -786,10 +772,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -869,11 +851,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -908,8 +894,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -987,11 +975,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "bludgeoning"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "bludgeoning"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
@@ -1026,8 +1018,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1104,11 +1098,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
@@ -1144,8 +1143,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1224,11 +1225,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "poison"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "poison"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You magically duplicate a spider's venomous sting. You deal 1d4 piercing damage to the touched creature and afflict it with spider venom. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Spider Venom</strong> (poison);</p>\n<p><strong>Level 1</strong> ; Maximum Duration 4 rounds.</p>\n<p><strong>Stage 1</strong> 1d4 poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> 1d4 poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 1d4 poison damage.</p>\n<p><strong>Failure</strong> The target is afflicted with spider venom at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with spider venom at stage 2.</p>"
@@ -1261,10 +1266,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1340,11 +1341,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Positive energy shuts death's door. The target loses the @Compendium[pf2e.conditionitems.Dying]{Dying} condition, though it remains @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} at 0 Hit Points.</p>"
@@ -1378,10 +1375,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1457,11 +1450,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.<br /><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br /><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.<br /><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
@@ -1492,10 +1481,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"

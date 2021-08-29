@@ -389,11 +389,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "6d6"
-                },
-                "damageType": {
-                    "value": "mental"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "6d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
@@ -428,8 +432,10 @@
                     "value": "will"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -507,11 +513,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You issue a diabolic edict, demanding the target perform a particular task and offering rewards for its fulfillment. It gains a +1 status bonus to attack rolls and skill checks related to performing the task. If it refuses to perform the task you proclaimed, it instead takes a -1 status penalty to all its attack rolls and skill checks.</p>"
@@ -544,10 +546,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -628,11 +626,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Devil horns grow from your skull, and your skin takes on features of the devil responsible for your diabolic bloodline. You gain resistance 10 to evil, fire, and poison, and resistance 3 to physical damage (except silver). You can take good damage, even if you aren't evil, and you gain weakness 10 to good damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance to evil, fire, and poison increases by 5, the resistance to physical damage (except silver) by 2, and the weakness to good damage by 5.</p>"
@@ -665,10 +659,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -753,11 +743,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Devil horns grow from your skull, and your skin takes on features of the devil responsible for your diabolic bloodline. You gain resistance 5 to evil, fire, and poison, and resistance 1 to physical damage (except silver). You can take good damage, even if you aren't evil, and you gain weakness 5 to good damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance to evil, fire, and poison increases by 5, the resistance to physical damage (except silver) by 2, and the weakness to good damage by 5.</p>"
@@ -790,10 +776,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -872,11 +854,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "4d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "4d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You call forth a plume of hellfire that erupts from below, dealing 5d6 fire damage and 5d6 evil damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6, and the evil damage increases by 1d6.</p>"
@@ -911,8 +897,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -996,11 +984,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes 2d12 persistent force damage. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}; the curse and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is 4d12.</p>"
@@ -1033,10 +1017,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1117,11 +1097,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "16d6"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "16d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -1154,10 +1138,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1236,11 +1216,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You conjure a fiend to fight on your behalf. This works like summon animal, except you summon a common creature that has the fiend trait and whose level is 5 or lower. You can't summon a creature unless its alignment is one of your deity's preferred alignments (or, if you don't have a deity, is within one step of your alignment). At the GM's discretion, some deities might restrict specific types of fiends, even if their alignments match.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
@@ -1273,10 +1249,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -1353,11 +1325,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
@@ -1390,10 +1358,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -1474,11 +1438,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send the target back to its home plane. The target must attempt a Will save. You can spend an extra action while Casting this Spell and add a material component to give the creature a -2 circumstance penalty to its save. The component must be a specially gathered object that is anathema to the creature, and not from a spell component pouch. This spell fails if you aren't on your home plane when you cast it.</p>\n<hr /><strong>Critical Success</strong> The target resists being banished and you are @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.\n<p><strong>Success</strong> The target resists being banished.</p>\n<p><strong>Failure</strong> The target is banished.</p>\n<p><strong>Critical Failure</strong> The target is banished and can't return by any means to the plane it's banished from for 1 week.</p>\n<hr /><strong>Heightened (9th)</strong> You can target up to 10 creatures. The extra material component affects targets to which it is anathema."
@@ -1511,10 +1471,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1595,11 +1551,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
@@ -1632,10 +1584,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -1717,11 +1665,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr /><strong>Heightened (7th)</strong> The area increases to a 60-foot cone."
@@ -1754,10 +1698,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -1837,11 +1777,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -1876,8 +1820,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1958,11 +1904,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You conjure a fiend to fight on your behalf. This works like summon animal, except you summon a common creature that has the fiend trait and whose level is 5 or lower. You can't summon a creature unless its alignment is one of your deity's preferred alignments (or, if you don't have a deity, is within one step of your alignment). At the GM's discretion, some deities might restrict specific types of fiends, even if their alignments match.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
@@ -1995,10 +1937,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -2075,11 +2013,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
@@ -2112,10 +2046,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2194,11 +2124,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The effect's duration is 1 minute.</p>\n<p><strong>Failure</strong> The effect's duration is 10 minutes.</p>\n<p><strong>Critical Failure</strong> The effect's duration is 1 hour.</p>"
@@ -2231,10 +2157,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -2313,11 +2235,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Falsehoods ring in your ears like discordant notes. You gain a +4 status bonus to Perception checks when someone Lies.</p>"
@@ -2350,10 +2268,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -2434,11 +2348,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
@@ -2471,10 +2381,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -2555,11 +2461,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>"
@@ -2592,10 +2494,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -2676,11 +2574,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "6d6"
-                },
-                "damageType": {
-                    "value": "mental"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "6d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
@@ -2715,8 +2617,10 @@
                     "value": "will"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -2791,11 +2695,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your words fascinate your targets. You speak or sing without interruption throughout the casting and duration. Targets who notice your speech or song might give their undivided attention; each target must attempt a Will save. The GM might grant a circumstance bonus (to a maximum of +4) if the target is of an opposing religion, ancestry, or political leaning, or is otherwise unlikely to agree with what you're saying.</p>\n<p>Each creature that comes within range has to attempt a save when you Sustain the Spell. If you're speaking, enthrall gains the linguistic trait.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and notices that you tried to use magic.</p>\n<p><strong>Success</strong> The target needn't pay attention but doesn't notice you tried to use magic (it might notice others are enthralled).</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with you. It can attempt another Will save if it witnesses actions or speech with which it disagrees. If it succeeds, it's no longer @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} and is temporarily immune for 1 hour. If the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it, the fascination ends immediately.</p>\n<p><strong>Critical Failure</strong> As failure, but the target can't attempt a save to end the fascination if it disagrees with you.</p>"
@@ -2825,10 +2725,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -2902,11 +2798,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened (3rd)</strong> You can target up to five creatures."
@@ -2939,10 +2831,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -3025,11 +2913,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You grant yourself supernatural sight in areas of darkness. You gain darkvision.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range is touch and it targets 1 willing creature.</p>\n<p><strong>Heightened (5th)</strong> The spell's range is touch and it targets 1 willing creature. The duration is until the next time you make your daily preparations.</p>"
@@ -3062,10 +2946,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -3145,11 +3025,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
@@ -3182,10 +3058,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -3264,11 +3136,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire. If the creatures are @Compendium[pf2e.conditionitems.Invisible]{Invisible}, they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire, rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>"
@@ -3301,10 +3169,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -3384,11 +3248,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half). (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
@@ -3423,8 +3291,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -3503,11 +3373,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
@@ -3540,10 +3406,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -3622,11 +3484,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
@@ -3659,10 +3517,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -3744,11 +3598,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
@@ -3781,10 +3631,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -3866,11 +3712,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -3903,10 +3745,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -3994,11 +3832,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
@@ -4031,10 +3865,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -4117,11 +3947,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
@@ -4154,10 +3980,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -4245,11 +4067,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and 1d4 persistent fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
@@ -4284,8 +4111,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -4373,11 +4202,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
@@ -4410,10 +4235,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -4493,11 +4314,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
@@ -4530,10 +4347,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -4619,11 +4432,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.<br /><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.<br /><strong>Heightened (7th)</strong> The sigil never fades.</p>"
@@ -4656,10 +4465,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"

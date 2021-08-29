@@ -429,11 +429,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You detect whether a creature is venomous or poisonous, or if an object is poison or has been poisoned. You do not ascertain whether the target is poisonous in multiple ways, nor do you learn the type or types of poison. Certain substances, like lead and alcohol, are poisons and so mask other poisons.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn the number and types of poison.</p>"
@@ -466,10 +462,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -553,11 +545,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
@@ -590,10 +578,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -676,11 +660,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "4d4"
-                },
-                "damageType": {
-                    "value": "mental"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "4d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Illusory pain wracks the target, dealing 4d4 mental damage and [[/r 2d4 #persistent mental]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
@@ -715,8 +703,10 @@
                     "value": "will"
                 },
                 "scaling": {
-                    "formula": "2d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -799,11 +789,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
@@ -836,10 +822,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -925,11 +907,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "0"
-                },
-                "damageType": {
-                    "value": "mental"
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -964,8 +942,10 @@
                     "value": "will"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level2"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -1051,11 +1031,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Forbidding Ward]{Spell Effect: Forbidding Ward}</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
@@ -1088,10 +1064,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1174,11 +1146,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
@@ -1211,10 +1179,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -1298,11 +1262,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d6+4"
-                },
-                "damageType": {
-                    "value": "healing"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "healing"
+                            },
+                            "value": "1d6+4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You imbue the target berry with the bounty of nature, turning it into a goodberry that can heal and sustain far beyond its normal capacity. A creature can eat the goodberry with an Interact action to regain 1d6+4 Hit Points. A berry not consumed during the duration withers away. Every six goodberries consumed gives as much nourishment as one square meal for a typical human.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Goodberry]{Spell Effect: Goodberry}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> You can target an additional berry. A creature can consume any number of goodberries from the same casting with a single Interact action.</p>"
@@ -1335,10 +1303,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1419,11 +1383,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
@@ -1456,10 +1416,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1546,11 +1502,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
@@ -1583,10 +1535,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1669,11 +1617,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You remove toxins and contaminations from food and drink, making them safe to consume. This spell doesn't prevent future contamination, natural decay, or spoilage. One cubic foot of liquid is roughly 8 gallons.</p>"
@@ -1706,10 +1650,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1791,11 +1731,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward a creature with protective energy that deters enemy attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr /><strong>Critical Success</strong> Sanctuary ends.\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of sanctuary's duration.</p>"
@@ -1828,10 +1764,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1913,11 +1845,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
@@ -1950,10 +1878,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -2038,11 +1962,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d10+4"
-                },
-                "damageType": {
-                    "value": "healing"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "healing"
+                            },
+                            "value": "1d10+4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
@@ -2077,8 +2005,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d10+4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"

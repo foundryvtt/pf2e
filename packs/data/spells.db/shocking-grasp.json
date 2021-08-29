@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "2d12"
-        },
-        "damageType": {
-            "value": "electricity"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "electricity"
+                    },
+                    "value": "2d12"
+                }
+            }
         },
         "description": {
             "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes [[/r 1d4 #persistent electricity]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} on a hit. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1d12",
-            "mode": "level1"
+            "damage": {
+                "0": "1d12"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"

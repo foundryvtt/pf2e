@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "3d4"
-        },
-        "damageType": {
-            "value": "negative"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "negative"
+                    },
+                    "value": "3d4"
+                }
+            }
         },
         "description": {
             "value": "<p>You close your hand and pull life energy from another creature into yourself. This deals 3d4 negative damage; the target must attempt a basic Fortitude save.</p>\n<p>You gain temporary Hit Points equal to the damage the target takes, after resolving its save and applying your blood magic if applicable. If the target's Hit Points were lower than the damage you dealt, you gain temporary Hit Points equal to their remaining Hit Points instead. The temporary Hit Points last for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "1d4",
-            "mode": "level1"
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
