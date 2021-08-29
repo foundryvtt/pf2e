@@ -1,11 +1,11 @@
 <h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeAncestry")}}</h4>
 
-<ol class="item-tags">
+<ol class="item-tags tags">
     {{#each traits}}
         {{#if this.selected}}
-            <li class="tag">{{localize this.label}}</li>
+            <li class="tag tag_transparent">{{localize this.label}}</li>
         {{/if}}
     {{/each}}
-    <li class="tag">{{#with (lookup sizes data.size)}}{{localize this.label}}{{/with}}</li>
-    <li class="tag">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
+    <li class="tag tag_transparent">{{#with (lookup sizes data.size)}}{{localize this.label}}{{/with}}</li>
+    <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
 </ol>

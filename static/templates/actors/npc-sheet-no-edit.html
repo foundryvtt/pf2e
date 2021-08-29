@@ -267,9 +267,9 @@
                 {{#if action.traits}}
                   {{#each action.traits as |trait tid|}}
                     {{#if trait.description}}
-                      <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                      <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                     {{else}}
-                      <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                      <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                     {{/if}}
                   {{/each}}
                 {{/if}}
@@ -316,13 +316,13 @@
                   {{#if item.traits}}
                     {{#each item.traits as |trait tid|}}
                       {{#if trait.description}}
-                        <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                        <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                        <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{/if}}
                     {{/each}}
                   {{/if}}
-                  <span class="tag"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+
+                  <span class="tag-legacy"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+
                         {{#if @root.notAdjusted}}
                                 {{item.data.bonus.total}}
                         {{else}}
@@ -331,9 +331,9 @@
                         {{/if}}
                     )
                     </button></span>
-                    <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
-                    <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
-                        <span class="tag">
+                    <span class="tag-legacy"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                    <span class="tag-legacy"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                        <span class="tag-legacy">
                           <button data-action="npcDamage">
                             {{localize "PF2E.DamageLabel"}} (
                             {{#if item.data.damageRolls}}
@@ -344,14 +344,14 @@
                             )
                           </button>
                         </span>
-                        <span class="tag"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
+                        <span class="tag-legacy"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
                     {{#if_all item.data item.data.attackEffects item.data.attackEffects.value}}
                         {{#each item.data.attackEffects.value as |attackEffect aID|}}
-                            <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
+                            <span class="tag-legacy"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
                         {{/each}}
                     {{/if_all}}
                     {{#if_all item.data item.data.attackEffects item.data.attackEffects.custom}}
-                      <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
+                      <span class="tag-legacy"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
                     {{/if_all}}
                 </div>
             </div>
@@ -373,9 +373,9 @@
                   {{#if action.traits}}
                     {{#each action.traits as |trait tid|}}
                       {{#if trait.description}}
-                        <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                        <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                        <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{/if}}
                     {{/each}}
                   {{/if}}
@@ -416,13 +416,13 @@
           </h4>
           <div class="melee-buttons">
             {{#each action.traits as |trait ti|}}
-            <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+            <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
             {{/each}}
             {{#each action.variants as |variant vi|}}
-            <span class="tag"><button type="button" class="tag variant-strike" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-variant-index="{{vi}}">{{variant.label}}</button></span>
+            <span class="tag-legacy"><button type="button" class="tag-legacy variant-strike" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-variant-index="{{vi}}">{{variant.label}}</button></span>
             {{/each}}
-            <span class="tag"><button type="button" class="tag damage-strike">{{localize 'Damage'}}</button></span>
-            <span class="tag"><button type="button" class="tag critical-strike">{{localize 'Critical'}}</button></span>
+            <span class="tag-legacy"><button type="button" class="tag-legacy damage-strike">{{localize 'Damage'}}</button></span>
+            <span class="tag-legacy"><button type="button" class="tag-legacy critical-strike">{{localize 'Critical'}}</button></span>
           </div>
         </div>
       </li>
@@ -465,20 +465,20 @@
                         <div class="melee-buttons spell-buttons">
                             {{#each chatData.traits as |trait tid|}}
                                 {{#if trait.description}}
-                                <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                                 {{else}}
-                                <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                                 {{/if}}
                             {{/each}}
 
                             {{#if chatData.isSave}}
-                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{chatData.save.dc}} {{chatData.save.basic}} {{localize chatData.save.str}}</span>
+                            <span class="tag-legacy">{{localize "PF2E.SaveDCLabel"}} {{chatData.save.dc}} {{chatData.save.basic}} {{localize chatData.save.str}}</span>
                             {{/if}}
                             {{#if chatData.isAttack}}
-                            <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
+                            <span class="tag-legacy"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
                             {{/if}}
                             {{#if chatData.hasDamage}}
-                            <span class="tag"><button data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.damage.value}}</button></span>
+                            <span class="tag-legacy"><button data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.damage.value}}</button></span>
                             {{/if}}
                         </div>
 
