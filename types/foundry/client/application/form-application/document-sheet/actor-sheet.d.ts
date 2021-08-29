@@ -46,7 +46,7 @@ declare global {
 
         override close(options?: { force?: boolean }): Promise<void>;
 
-        override getData(options?: ActorSheetOptions): ActorSheetData<TActor>;
+        override getData(options?: ActorSheetOptions): ActorSheetData<TActor> | Promise<ActorSheetData<TActor>>;
 
         protected override _getHeaderButtons(): ApplicationHeaderButton[];
 
