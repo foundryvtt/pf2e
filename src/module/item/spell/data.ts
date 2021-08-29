@@ -29,6 +29,19 @@ export type MagicSchool = keyof ConfigPF2e["PF2E"]["magicSchools"];
 
 export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"];
 export type SpellTraits = ItemTraits<SpellTrait>;
+type SpellDamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
+
+export interface SpellDamageType {
+    value: DamageType;
+    subtype?: "persistent" | "splash";
+    categories: SpellDamageCategory[];
+}
+
+export interface SpellDamage {
+    value: string;
+    applyMod?: boolean;
+    type: SpellDamageType;
+}
 
 export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
@@ -71,15 +84,11 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     damage: {
-        value: string;
-        applyMod: boolean;
+        value: Record<number, SpellDamage>;
     };
-    damageType: {
-        value: DamageType;
-    };
-    scaling: {
-        mode: string;
-        formula: string;
+    scaling?: {
+        interval: number;
+        damage: Record<number, string>;
     };
     save: {
         basic: string;

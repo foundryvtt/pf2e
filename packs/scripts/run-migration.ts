@@ -16,6 +16,7 @@ import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-
 import { Migration658MonkUnarmoredProficiency } from "@module/migration/migrations/658-monk-unarmored-proficiency";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
 import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
+import { Migration659MultipleDamageRows } from "@module/migration/migrations/659-multiple-damage-rows";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
@@ -29,6 +30,7 @@ const migrations: MigrationBase[] = [
     new Migration656OtherFocusPoolSources(),
     new Migration657RemoveSetProperty(),
     new Migration658MonkUnarmoredProficiency(),
+    new Migration659MultipleDamageRows(),
 ];
 
 global.deepClone = function (original: any): any {
