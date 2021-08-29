@@ -1348,7 +1348,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     uuid: itemData.flags.core?.sourceId as any,
                 },
                 description: itemData.data.description,
-                level: itemData.data.level,
             },
         };
         return formula as FormulaSource;
