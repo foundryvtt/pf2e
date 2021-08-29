@@ -73,18 +73,18 @@
                     </div>
 
                     <div class="spell-range">{{spell.data.data.range.value}}</div>
-                    <div class="spell-components">
-                        {{#if spell.data.data.components.focus}}
-                            <span class="tag">{{localize "PF2E.SpellComponentShortF"}}</span>
-                        {{/if}}
-                        {{#if spell.data.data.components.material}}
-                            <span class="tag-legacy">{{localize "PF2E.SpellComponentShortM"}}</span>
+                    <div class="spell-components tags">
+                        {{#if spell.data.data.components.verbal}}
+                            <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortV"}}</span>
                         {{/if}}
                         {{#if spell.data.data.components.somatic}}
-                            <span class="tag-legacy">{{localize "PF2E.SpellComponentShortS"}}</span>
+                            <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortS"}}</span>
                         {{/if}}
-                        {{#if spell.data.data.components.verbal}}
-                            <span class="tag-legacy">{{localize "PF2E.SpellComponentShortV"}}</span>
+                        {{#if spell.data.data.components.material}}
+                            <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortM"}}</span>
+                        {{/if}}
+                        {{#if spell.data.data.components.focus}}
+                            <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
                         {{/if}}
                     </div>
 
