@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "8d6"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "fire"
+                    },
+                    "value": "8d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You call a rain of divine fire that plummets down from above, dealing 8d6 fire damage. Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. Creatures that are immune to fire, instead of gaining the usual benefit of immunity, treat the results of their saving throws as one degree of success better.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -62,8 +66,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -100,7 +106,6 @@
                 "value": "common"
             },
             "value": [
-                "evocation",
                 "fire"
             ]
         }

@@ -12,18 +12,18 @@
 
 {{#if data.modifiers.length}}
 <span class="item-summary">{{localize 'PF2E.ModifiersTitle'}}</span>
-<ol class="item-tags">
+<ol class="item-tags tags">
     {{#each data.modifiers}}
-    <li class="tag">{{this.group}} {{this.type}} {{#if data.value.isValued}}{{data.value.value}}{{else}}{{this.value}}{{/if}}</li>
+    <li class="tag tag_transparent">{{this.group}} {{this.type}} {{#if data.value.isValued}}{{data.value.value}}{{else}}{{this.value}}{{/if}}</li>
     {{/each}}
 </ol>
 {{/if}}
 
 {{#if data.overrides.length}}
 <span class="item-summary">{{localize 'PF2E.OverridesTitle'}}</span>
-<ol class="item-tags">
+<ol class="item-tags tags">
     {{#each data.overrides}}
-    <li class="tag">{{this}}</li>
+    <li class="tag tag_transparent">{{this}}</li>
     {{/each}}
 </ol>
 {{/if}}

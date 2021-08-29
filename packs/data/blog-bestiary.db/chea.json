@@ -269,11 +269,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one @Compendium[pf2e.actionspf2e.Stride]{Stride} and one @Compendium[pf2e.actionspf2e.Step]{Step} (in either order). You gain the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition during this movement and until the start of your next turn.</p>"
@@ -306,10 +302,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -345,8 +337,7 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "monk",
-                        "transmutation"
+                        "monk"
                     ]
                 }
             },
@@ -386,11 +377,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "2d6"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "2d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn). You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
@@ -425,8 +420,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level4"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4
                 },
                 "school": {
                     "value": "transmutation"
@@ -462,8 +459,7 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "monk",
-                        "transmutation"
+                        "monk"
                     ]
                 }
             },
@@ -503,11 +499,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You travel on a rushing wind. Move two times: two Strides, two Steps, or one Stride and one Step (in either order). You can Stride or Step into the air during this movement, moving upward at a 45-degree angle at most; if you end your movement in the air, you fall after taking one action or when your turn ends, whichever comes first. A @Compendium[pf2e.spells-srd.Wall of Wind]{Wall of Wind} appears in all the spaces you left during this movement, lasting for 1 round.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The <em>wall of wind</em> lasts 3 rounds.</p>"
@@ -540,10 +532,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -580,8 +568,7 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "uncommon",
-                        "evocation"
+                        "uncommon"
                     ]
                 }
             },
@@ -959,7 +946,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Chea rolls initiative; <br />\n<strong>Effect</strong> Chea’s instincts kick in and she takes on an aggressive stance. Chea uses Change Shape to enter her hybrid form.</p>"
+                    "value": "<p><strong>Trigger</strong> Chea rolls initiative; <br />\n<strong>Effect</strong> Chea's instincts kick in and she takes on an aggressive stance. Chea uses Change Shape to enter her hybrid form.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1142,7 +1129,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Chea launches herself at a foe. She makes a Leap or attempts a High Jump or Long Jump. At the end of the jump, if she’s adjacent to a foe, she can immediately Strike that foe with an unarmed attack, even if the foe is in midair. She falls to the ground after the Strike. If the distance she falls is no more than the height of her jump, Chea lands upright and takes no damage.</p>"
+                    "value": "<p>Chea launches herself at a foe. She makes a Leap or attempts a High Jump or Long Jump. At the end of the jump, if she's adjacent to a foe, she can immediately Strike that foe with an unarmed attack, even if the foe is in midair. She falls to the ground after the Strike. If the distance she falls is no more than the height of her jump, Chea lands upright and takes no damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1230,7 +1217,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Chea’s fist Strikes are treated as cold iron and silver and don’t take penalties when making lethal attacks.</p>"
+                    "value": "<p>Chea's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
                 },
                 "requirements": {
                     "value": ""

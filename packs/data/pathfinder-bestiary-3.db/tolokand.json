@@ -426,11 +426,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "11d6"
-                },
-                "damageType": {
-                    "value": "bludgeoning"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "bludgeoning"
+                            },
+                            "value": "11d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
@@ -463,10 +467,6 @@
                 "save": {
                     "basic": "",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -505,8 +505,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "earth",
-                        "evocation"
+                        "earth"
                     ]
                 }
             },
@@ -549,11 +548,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "10d10"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "10d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -588,8 +591,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -628,7 +633,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -672,11 +676,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "14d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "14d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 16d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 4d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
@@ -711,8 +719,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -750,7 +760,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "fire"
                     ]
                 }
@@ -794,11 +803,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
@@ -831,10 +836,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -873,8 +874,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "air",
-                        "transmutation"
+                        "air"
                     ]
                 }
             },
@@ -917,11 +917,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You shield the target against dangerous temperatures. Choose severe cold or heat. The target is protected from the temperature you chose (but not extreme cold or heat).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The target is protected from severe cold and heat.</p>\n<p><strong>Heightened (5th)</strong> The target is protected from severe cold, severe heat, extreme cold, and extreme heat.</p>"
@@ -954,10 +950,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -996,9 +988,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1040,11 +1030,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
@@ -1077,10 +1063,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -1119,9 +1101,7 @@
                     "rarity": {
                         "value": "uncommon"
                     },
-                    "value": [
-                        "divination"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1163,11 +1143,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
@@ -1200,10 +1176,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1241,9 +1213,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "transmutation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1285,11 +1255,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
@@ -1322,10 +1288,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -1364,9 +1326,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "transmutation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1407,11 +1367,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "2d10"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "2d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes [[/r 2d10 #negative]]{2d10 negative damage} (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -1446,8 +1410,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1486,7 +1452,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -1562,7 +1527,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Smoke doesn’t impair a tolokand’s vision; it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p>Smoke doesn't impair a tolokand's vision; it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1750,7 +1715,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The tolokand recovers from the @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, and @Compendium[pf2e.conditionitems.Stunned]{Stunned} conditions at the end of its turn. It’s also immune to penalties to its Speeds and ignores difficult terrain and greater difficult terrain.</p>"
+                    "value": "<p>The tolokand recovers from the @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, and @Compendium[pf2e.conditionitems.Stunned]{Stunned} conditions at the end of its turn. It's also immune to penalties to its Speeds and ignores difficult terrain and greater difficult terrain.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1794,7 +1759,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature scores a critical hit against the tolokand with a piercing or slashing Strike, the tolokand’s poisonous, oily blood sprays forth. Any creature within 5 feet of the tolokand takes [[/r 3d6 #poison]]{3d6 poison damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"34\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Toxic Blood DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Any non-creature plants the blood spills on die.</p>"
+                    "value": "<p>When a creature scores a critical hit against the tolokand with a piercing or slashing Strike, the tolokand's poisonous, oily blood sprays forth. Any creature within 5 feet of the tolokand takes [[/r 3d6 #poison]]{3d6 poison damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"34\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Toxic Blood DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Any non-creature plants the blood spills on die.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1938,7 +1903,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The tolokand hasn’t cast any of its spontaneous spells this turn;</p>\n<p><strong>Effect</strong> The tolokand casts one of its spontaneous spells, using up the spell slot normally. The tolokand can’t cast any further spontaneous spells this turn and can’t use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The tolokand hasn't cast any of its spontaneous spells this turn;</p>\n<p><strong>Effect</strong> The tolokand casts one of its spontaneous spells, using up the spell slot normally. The tolokand can't cast any further spontaneous spells this turn and can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

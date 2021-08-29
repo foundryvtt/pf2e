@@ -171,9 +171,9 @@
                                 {{#if action.traits}}
                                     {{#each action.traits as |trait tid|}}
                                         {{#if trait.description}}
-                                            <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                            <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                                         {{else}}
-                                            <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                            <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                                         {{/if}}
                                     {{/each}}
                                 {{/if}}
@@ -207,21 +207,21 @@
                                 {{#if item.traits}}
                                     {{#each item.traits as |trait tid|}}
                                         {{#if trait.description}}
-                                            <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                            <span class="tag-legacy" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                                         {{else}}
-                                            <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                                            <span class="tag-legacy" style="padding: 0 3px;">{{localize trait.label}}</span>
                                         {{/if}}
                                     {{/each}}
                                 {{/if}}
-                                <span class="tag"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+{{item.data.bonus.total}})</button></span>
-                                <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
-                                <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                                <span class="tag-legacy"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+{{item.data.bonus.total}})</button></span>
+                                <span class="tag-legacy"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                                <span class="tag-legacy"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
                                 {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.damageRolls}}
                                     {{#each item.flags.pf2e_updatednpcsheet.damageRolls as |damageRoll dID|}}
-                                        <span class="tag"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">{{localize "PF2E.DamageLabel"}}: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>
+                                        <span class="tag-legacy"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">{{localize "PF2E.DamageLabel"}}: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>
                                     {{/each}}
                 {{else}}
-                                    <span class="tag">
+                                    <span class="tag-legacy">
                                         <button data-action="npcDamage">
                                             {{localize "PF2E.DamageLabel"}} (
                                             {{#if item.data.damageRolls}}
@@ -232,15 +232,15 @@
                                             )
                                         </button>
                                     </span>
-                                    <span class="tag"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
+                                    <span class="tag-legacy"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
                                 {{/if_all}}
                                 {{#if_all item.data item.data.attackEffects item.data.attackEffects.value}}
                                     {{#each item.data.attackEffects.value as |attackEffect aID|}}
-                                        <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
+                                        <span class="tag-legacy"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
                                     {{/each}}
                                 {{/if_all}}
                                 {{#if_all item.data item.data.attackEffects item.data.attackEffects.custom}}
-                                    <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
+                                    <span class="tag-legacy"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
                                 {{/if_all}}
                             </div>
                         </div>

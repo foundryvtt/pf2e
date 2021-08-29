@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "2d6"
-        },
-        "damageType": {
-            "value": "bludgeoning"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "bludgeoning"
+                    },
+                    "value": "2d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You create a powerful blast of air and a loud peal of thunder, dealing 2d6 bludgeoning damage and 2d6 sonic damage. Each creature in the area must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected<strong>.</strong></p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is<br />Deafened for 1 hour.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase each type of damage by 2d6 and the area by 5 feet.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level2"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 2
         },
         "school": {
             "value": "evocation"
@@ -100,7 +106,6 @@
             },
             "value": [
                 "air",
-                "evocation",
                 "oracle",
                 "sonic"
             ]

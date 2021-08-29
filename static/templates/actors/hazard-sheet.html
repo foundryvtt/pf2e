@@ -63,7 +63,7 @@
                     </label>
                     <ul class="traits-list pf-value">
                     {{#each data.traits.di.selected as |v k|}}
-                        <span class="tag {{k}}">{{localize v}}</span>
+                        <span class="tag-legacy {{k}}">{{localize v}}</span>
                     {{/each}}
                     </ul>
                 </div>
@@ -76,7 +76,7 @@
                     </label>
                     <ul id="actor-resistances" class="traits-list pf-value">
                     {{#each data.traits.dr.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
+                        <span class="tag-legacy {{k}}">{{v}}</span>
                     {{/each}}
                     </ul>
                 </div>
@@ -89,7 +89,7 @@
                     </label>
                     <ul id="actor-resistances" class="traits-list pf-value">
                     {{#each data.traits.dv.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
+                        <span class="tag-legacy {{k}}">{{v}}</span>
                     {{/each}}
                     </ul>
                 </div>
@@ -125,7 +125,7 @@
             </label>
             <ul class="traits-list pf-value pf-large">
                 {{#each data.traits.traits.value as |v k|}}
-                    <span class="tag {{k}}">{{v}}</span>
+                    <span class="tag-legacy {{k}}">{{v}}</span>
                 {{/each}}
             </ul>
         </div>
@@ -242,10 +242,10 @@
                         {{item.name}}
                     </h4>
                     <div class="melee-buttons">
-                        <span class="tag"><button data-action="npcAttack" >Strike (+{{item.data.bonus.total}})</button></span>
-                        <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
-                        <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
-                        <span class="tag"><button data-action="npcDamage">
+                        <span class="tag-legacy"><button data-action="npcAttack" >Strike (+{{item.data.bonus.total}})</button></span>
+                        <span class="tag-legacy"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                        <span class="tag-legacy"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                        <span class="tag-legacy"><button data-action="npcDamage">
                             {{localize "PF2E.DamageLabel"}} (
                             {{#if item.data.damageRolls}}
                               {{#each item.data.damageRolls as |dmg index|}}
