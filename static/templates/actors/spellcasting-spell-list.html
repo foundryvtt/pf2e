@@ -14,36 +14,34 @@
 
                 <h3>{{localize section.label}}</h3>
 
-                {{#if (and entry.isPrepared section.uses)}}
-                    <span class="spell-max-input">
-                        <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
-                    </span>
-                {{else}}
-                    {{#if section.isCantrip}}
-                        <span class="spell-slots">&infin;</span>
-                        <span class="flex0"> / </span>
-                        <span class="spell-max">&infin;</span>
-                    {{else if entry.isFocusPool}}
-                        <div class="focus-points" title="{{localize "PF2E.Focus.pointTitle"}}">
-                            {{~#times section.uses.max~}}
-                                {{~#if (gt section.uses.value this)~}}
-                                    <i class="fas fa-dot-circle"></i>
-                                {{~else~}}
-                                    <i class="far fa-circle"></i>
-                                {{~/if~}}
-                            {{/times}}
-                        </div>
-                    {{else if section.uses}}
+                {{#if (and section.isCantrip (not section.uses))}}
+                    <span class="spell-slots">&infin;</span>
+                    <span class="flex0"> / </span>
+                    <span class="spell-max">&infin;</span>
+                {{else if entry.isFocusPool}}
+                    <div class="focus-points" title="{{localize "PF2E.Focus.pointTitle"}}">
+                        {{~#times section.uses.max~}}
+                            {{~#if (gt section.uses.value this)~}}
+                                <i class="fas fa-dot-circle"></i>
+                            {{~else~}}
+                                <i class="far fa-circle"></i>
+                            {{~/if~}}
+                        {{/times}}
+                    </div>
+                {{else if section.uses}}
+                    {{#if section.uses.value includeZero=true}}
                         <span class="spell-slots-input">
                             <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses.value}}" placeholder="0" data-dtype="Number"/>
                         </span>
                         <span class="flex0"> / </span>
-                        <span class="spell-max-input">
-                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
-                        </span>
-                        {{#if @root.owner}}
-                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
-                        {{/if}}
+                    {{/if}}
+                    <span class="spell-max-input">
+                        <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
+                    </span>
+                    {{#if section.uses.value includeZero=true}}
+                    {{#if @root.owner}}
+                        <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
+                    {{/if}}
                     {{/if}}
                 {{/if}}
             </div>
@@ -97,6 +95,7 @@
                     {{/unless}}
 
                     {{#if @root.owner}}
+                        {{#unless (and entry.isFlexible (not section.isCantrip))}}
                         <div class="item-controls">
                             {{#if entry.isPrepared}}
                                 {{#unless section.isCantrip}}
@@ -106,18 +105,14 @@
                             {{else}}
                                 {{#if (and (eq entry.data.prepared.value "spontaneous") (not section.isCantrip))}}
                                     <a class="item-control toggle-signature-spell" title="{{localize 'PF2E.ToggleSignatureSpellTitle'}}">
-                                        {{#if signature}}
-                                            <i class="fas fa-star"></i>
-                                        {{else}}
-                                            <i class="far fa-star"></i>
-                                        {{/if}}
+                                        {{#if signature}}<i class="fas fa-star"></i>{{else}}<i class="far fa-star"></i>{{/if}}
                                     </a>
                                 {{/if}}
-
                                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                             {{/if}}
                         </div>
+                        {{/unless}}
                     {{/if}}
                 </li>
             {{else}}
@@ -130,6 +125,11 @@
         {{#if (and entry.data.showUnpreparedSpells.value section.displayPrepared)}}
             <header class="item-name pf-sub-category pf-actions level-prepared-header">
                 {{localize "PF2E.UnpreparedSpellsLabel"}}
+                {{#if (and entry.flexibleAvailable (not section.isCantrip))}}
+                    <div class="flexible-available">
+                        ({{entry.flexibleAvailable.value}} / {{entry.flexibleAvailable.max}})
+                    </div>
+                {{/if}}
             </header>
 
             <!-- Unprepared Spells -->
@@ -144,6 +144,13 @@
 
                     {{#if @root.owner}}
                         <div class="item-controls">
+                            {{#unless section.isCantrip}}
+                            {{#if entry.isFlexible}}
+                                <a class="item-control toggle-signature-spell" title="{{localize 'PF2E.ToggleSignatureSpellTitle'}}">
+                                    {{#if signature}}<i class="fas fa-star"></i>{{else}}<i class="far fa-star"></i>{{/if}}
+                                </a>
+                            {{/if}}
+                            {{/unless}}
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
                             <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                         </div>

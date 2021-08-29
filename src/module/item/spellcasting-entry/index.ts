@@ -9,15 +9,23 @@ export interface SpellcastingSlotLevel {
     label: string;
     level: ZeroToTen;
     isCantrip: boolean;
+
+    /**
+     * Number of uses and max slots or spells.
+     * If this is null, allowed usages are infinite.
+     * If value is undefined then it's not expendable, it's a count of total spells instead.
+     */
     uses?: {
         value?: number;
         max: number;
     };
+
     displayPrepared?: boolean;
     active: (ActiveSpell | null)[];
     spellPrepList?: {
         spell: Embedded<SpellPF2e>;
         chatData: Record<string, unknown>;
+        signature?: boolean;
     }[];
 }
 
@@ -74,6 +82,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     get isPrepared(): boolean {
         return this.data.data.prepared.value === "prepared";
+    }
+
+    get isFlexible(): boolean {
+        return this.isPrepared && !!this.data.data.prepared.flexible;
     }
 
     get isSpontaneous(): boolean {
@@ -162,6 +174,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return this.update({ [key]: isExpended });
     }
 
+    /** Returns rendering data to display the spellcasting entry in the sheet */
     getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
         if (!(this.actor instanceof CreaturePF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
@@ -169,34 +182,43 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
         const results: SpellcastingSlotLevel[] = [];
         const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
+        const signatureSpells = new Set(this.data.data.signatureSpells?.value ?? []);
+
         if (this.isPrepared) {
-            // Prepared Spells. Active spells are what's been prepped.
+            // Prepared Spells. Start by fetch the prep list. Active spells are what's been prepped.
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
 
-                // Populate prepared spells
-                const maxPrepared = Math.max(data.max, 0);
-                const active: (ActiveSpell | null)[] = Array(maxPrepared).fill(null);
-                for (const [key, value] of Object.entries(data.prepared)) {
-                    const spell = value.id ? this.spells.get(value.id) : null;
-                    if (spell) {
-                        active[Number(key)] = {
-                            spell,
-                            chatData: spell.getChatData(),
-                            expended: value.expended,
-                        };
+                // Detect which spells are active. If flexible, it will be set later via signature spells
+                const active: (ActiveSpell | null)[] = [];
+                if (level === 0 || !this.isFlexible) {
+                    const maxPrepared = Math.max(data.max, 0);
+                    active.push(...Array(maxPrepared).fill(null));
+                    for (const [key, value] of Object.entries(data.prepared)) {
+                        const spell = value.id ? this.spells.get(value.id) : null;
+                        if (spell) {
+                            active[Number(key)] = {
+                                spell,
+                                chatData: spell.getChatData(),
+                                expended: value.expended,
+                            };
+                        }
                     }
                 }
 
                 results.push({
                     label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
-                    uses: { max: data.max },
+                    uses: {
+                        value: level > 0 && this.isFlexible ? data.value || 0 : undefined,
+                        max: data.max,
+                    },
                     isCantrip: level === 0,
                     spellPrepList: spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
                         chatData: spell.getChatData(),
+                        signature: this.isFlexible && signatureSpells.has(spell.id),
                     })),
                     active,
                     displayPrepared:
@@ -229,7 +251,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 });
             }
         } else {
-            // Everything else
+            // Everything else (Innate/Spontaneous/Ritual)
             const alwaysShowHeader = !this.isRitual;
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.heightenedLevel));
             for (let level = 0; level <= this.highestLevel; level++) {
@@ -247,9 +269,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                     });
                 }
             }
+        }
 
-            // Handle spontaneous signature spells
-            const signatureSpells = new Set(this.data.data.signatureSpells?.value ?? []);
+        // Handle signature spells
+        if (this.isSpontaneous || this.isFlexible) {
             for (const spellId of signatureSpells) {
                 const spell = this.spells.get(spellId);
                 if (!spell) continue;
@@ -267,15 +290,27 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             }
         }
 
+        // If flexible, the limit is the number of slots, we need to notify the user
+        const flexibleAvailable = (() => {
+            if (!this.isFlexible) return undefined;
+            const totalSlots = results
+                .filter((level) => !level.isCantrip)
+                .map((level) => level.uses?.max || 0)
+                .reduce((first, second) => first + second, 0);
+            return { value: signatureSpells.size, max: totalSlots };
+        })();
+
         return {
             id: this.id,
             name: this.name,
             tradition: this.tradition,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
+            isFlexible: this.isFlexible,
             isInnate: this.isInnate,
             isFocusPool: this.isFocusPool,
             isRitual: this.isRitual,
+            flexibleAvailable,
             levels: results,
         };
     }

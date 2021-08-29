@@ -12,6 +12,7 @@ export interface SpellcastingDialogResult {
     spellcastingType: PreparationType;
     tradition: MagicTradition | "";
     ability: AbilityString | "";
+    flexible: boolean;
 }
 
 class SpellcastingCreateAndEditDialog extends Application {
@@ -21,6 +22,7 @@ class SpellcastingCreateAndEditDialog extends Application {
         spellcastingType: this.entry?.data.data.prepared.value ?? "innate",
         tradition: this.entry?.tradition ?? "arcane",
         ability: this.entry?.ability ?? "cha",
+        flexible: this.entry?.data.data.prepared.flexible ?? false,
     };
 
     constructor(options: Partial<ApplicationOptions>, private dialogOptions: SpellcastingDialogOptions) {
@@ -41,14 +43,20 @@ class SpellcastingCreateAndEditDialog extends Application {
         const typeField = $html.find('[name="spellcastingType"]');
         const traditionField = $html.find('[name="magicTradition"]');
         const abilityField = $html.find('[name="ability"]');
+        const flexibleField = $html.find('[name="flexible"]');
 
         const updateData = () => {
             this.result.spellcastingType = String(typeField.val()) as PreparationType;
             this.result.tradition = String(traditionField.val()) as MagicTradition | "";
             this.result.ability = String(abilityField.val()) as AbilityString | "";
+            this.result.flexible = Boolean(flexibleField.prop("checked"));
+
             if (this.result.spellcastingType === "ritual") {
                 this.result.tradition = "";
                 this.result.ability = "";
+            }
+            if (this.result.spellcastingType !== "prepared") {
+                this.result.flexible = false;
             }
         };
 

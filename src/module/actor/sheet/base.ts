@@ -1191,7 +1191,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         event.preventDefault();
         createSpellcastingDialog(event, {
             callback: (result) => {
-                const { spellcastingType, tradition, ability } = result;
+                const { spellcastingType, tradition, ability, flexible } = result;
 
                 let name = "";
                 if (spellcastingType === "ritual") {
@@ -1211,7 +1211,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     ability: { value: ability },
                     spelldc: { value: 0, dc: 0, mod: 0 },
                     tradition: { value: tradition },
-                    prepared: { value: spellcastingType },
+                    prepared: { value: spellcastingType, flexible: flexible ?? undefined },
                     showUnpreparedSpells: { value: true },
                 };
 
@@ -1240,6 +1240,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 entry.update({
                     "data.tradition.value": result.tradition,
                     "data.ability.value": result.ability,
+                    "data.prepared.flexible": result.flexible,
                 });
             },
         });
