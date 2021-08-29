@@ -93,7 +93,7 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     /** Calculates the full damage formula for a specific spell level */
-    getDamageFormula(castLevel?: number) {
+    getDamageFormula(castLevel?: number, rollData: object = {}) {
         castLevel = this.computeCastLevel(castLevel);
         const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
         const formulas = [];
@@ -138,7 +138,11 @@ export class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            formulas.push(DicePF2e.combineTerms(parts.join(" + ").replace(/[\s]*\+[\s]*-[\s]*/g, " - ")).formula);
+            // Return the final result, but turn all "+ -" into just "-"
+            // These must be padded to support - or roll parsing will fail (Foundry 0.8)
+            const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
+            const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
+            formulas.push(DicePF2e.combineTerms(baseFormulaFixed).formula);
         }
 
         return formulas.join(" + ");
@@ -179,7 +183,7 @@ export class SpellPF2e extends ItemPF2e {
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-        const formula = Roll.replaceFormulaData(this.getDamageFormula(level), this.getRollData());
+        const formula = this.getDamageFormula(level, this.getRollData());
         const hasDamage = formula && formula !== "0";
 
         // Spell saving throw text and DC
@@ -326,7 +330,8 @@ export class SpellPF2e extends ItemPF2e {
             return Number(cardData.spellLvl) || 1;
         })();
 
-        const formula = this.getDamageFormula(castLevel);
+        const rollData = this.getRollData();
+        const formula = this.getDamageFormula(castLevel, rollData);
 
         // This title creation is temporary, will change once damage cards are finished
         const title = (() => {
@@ -349,7 +354,7 @@ export class SpellPF2e extends ItemPF2e {
             event,
             item: this,
             parts: [formula],
-            data: this.getRollData(),
+            data: rollData,
             actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
