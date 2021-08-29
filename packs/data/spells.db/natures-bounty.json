@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "3d10+12"
-        },
-        "damageType": {
-            "value": "positive"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "positive"
+                    },
+                    "value": "3d10+12"
+                }
+            }
         },
         "description": {
             "value": "<p>A palm-sized raw fruit or vegetable appears in your open hand. You choose the specific type of food. A creature can consume the food with an Interact action to regain 3d10+12 Hit Points and be nourished as if it had eaten a meal. If uneaten, the food rots and crumbles to dust after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points restored increase by 6.</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "6",
-            "mode": "level1"
+            "damage": {
+                "0": "6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "conjuration"

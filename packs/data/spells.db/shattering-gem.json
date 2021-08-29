@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d8"
-        },
-        "damageType": {
-            "value": "slashing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "slashing"
+                    },
+                    "value": "1d8"
+                }
+            }
         },
         "description": {
             "value": "<p>A large gem floats around the target in an erratic pattern. The gem has 5 Hit Points. Each time a creature Strikes the target, the target attempts a DC 11 flat check. On a success, the gem blocks the attack, so the attack first damages the gem and then applies any remaining damage to the target. If the gem is reduced to 0 Hit Points, it shatters, immediately dealing the creature that destroyed it 1d8 slashing damage (basic Reflex save), as long as that creature is within 10 feet of the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The gem has 5 additional HP, and the damage dealt by its detonation increases by 1d8.</p>"
@@ -62,8 +66,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "1d8",
-            "mode": "level1"
+            "damage": {
+                "0": "1d8"
+            },
+            "interval": 1
         },
         "school": {
             "value": "abjuration"

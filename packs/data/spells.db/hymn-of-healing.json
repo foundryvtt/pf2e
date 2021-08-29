@@ -22,11 +22,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "2"
-        },
-        "damageType": {
-            "value": "temphp"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "temphp"
+                    },
+                    "value": "2"
+                }
+            }
         },
         "description": {
             "value": "<p>Your divine singing mends wounds and provides a temporary respite from harm. The target gains @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} 2.</p>\n<p>When you Cast this Spell and each time you Sustain the Spell, the target gains 2 temporary Hit Points, which last for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fast healing and temporary Hit Points<br />each increase by 2.</p>"
@@ -61,8 +65,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "2",
-            "mode": "level1"
+            "damage": {
+                "0": "2"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
