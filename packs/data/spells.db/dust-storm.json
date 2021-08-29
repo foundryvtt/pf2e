@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d6"
-        },
-        "damageType": {
-            "value": "slashing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "slashing"
+                    },
+                    "value": "1d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You call forth a swirling storm of dust. The <em>dust storm</em> obscures vision, with the effect of @Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}. The dust also makes the air unbreathable; creatures in the area must hold their breath, though wearing a scarf or similar clothing over the mouth increases the time the creature can hold its breath to 5 rounds. Creatures entering or starting their turn in the <em>dust storm</em> take 1d6 slashing damage. Creatures that have the water trait or that are made primarily of liquid take double damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1d6",
-            "mode": "level2"
+            "damage": {
+                "0": "1d6"
+            },
+            "interval": 2
         },
         "school": {
             "value": "conjuration"

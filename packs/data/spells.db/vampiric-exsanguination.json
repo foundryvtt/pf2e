@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "12d6"
-        },
-        "damageType": {
-            "value": "negative"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "negative"
+                    },
+                    "value": "12d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"

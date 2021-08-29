@@ -11,6 +11,13 @@
         flex: 1;
     }
 
+    .item-controls {
+        display: flex;
+        margin: 0 4px;
+        align-items: baseline;
+        gap: 2px;
+    }
+
     > header {
         flex: 0 0 70px;
         width: 100%;
@@ -111,13 +118,18 @@
         }
     }
 
+    h3 .item-controls {
+        float: right;
+        cursor: pointer;
+    }
+
     .form-list {
         border: 1px solid var(--secondary-background);
         border-radius: 5px;
         padding: 0.25em;
         h3 {
-          font-size: 1.05em;
-          margin-bottom: 0.25em;
+            font-size: 1.05em;
+            margin-bottom: 0.25em;
         }
     }
 
@@ -290,5 +302,31 @@
 
     .spell-components label {
         padding-right: 6px;
+    }
+
+    .damage-formulas {
+        margin-top: 8px;
+
+        .details-container-flex-row {
+            gap: 2px;
+            margin-top: 4px;
+        }
+
+        input[type="checkbox"] {
+            margin-left: 2px;
+        }
+
+        .traits-list {
+            display: flex;
+            margin-top: 2px;
+        }
+
+        .tag {
+            float: none; // remove when global rule is removed
+        }
+    }
+
+    button[data-action="damage-add"] {
+        margin-top: 4px;
     }
 }

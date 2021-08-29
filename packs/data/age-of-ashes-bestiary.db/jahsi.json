@@ -384,11 +384,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d6"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch. If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round. Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
@@ -421,10 +425,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -496,11 +496,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "good"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "good"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Your litany rails against the sin of wrath, punishing the target for attacking good creatures. The target must attempt a Will save. A particularly wrathful creature, such as a wrath demon, uses the outcome one degree of success worse than the result of its saving throw. The target then becomes temporarily immune to all of your litanies for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The first time the target uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<p><strong>Failure</strong> Each time the target uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}. Each time it uses an action that deals damage to at least one good creature, the target takes 3d6 good damage.</p>\n<hr /><strong>Heightened</strong> The damage increases by 1d6."
@@ -532,8 +536,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -599,11 +605,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create up to four floating lights, no two of which are more than 10 feet apart. Each sheds light like a torch. When you Sustain the Spell, you can move any number of lights up to 60 feet. Each light must remain within 120 feet of you and within 10 feet of all others, or it winks out.</p>"
@@ -633,10 +635,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -706,11 +704,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -740,10 +734,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -814,11 +804,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d6 "
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d6 "
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You lance the target with energy. You deal 1d6 positive damage plus your spellcasting ability modifier. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
@@ -850,8 +845,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -920,11 +917,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.<br /><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br /><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened</strong> The effects last for 2 rounds.<br /><strong>Heightened</strong> The effects last for 1 minute.</p>"
@@ -954,10 +947,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"

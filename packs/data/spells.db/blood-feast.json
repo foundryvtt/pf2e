@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "12d6"
-        },
-        "damageType": {
-            "value": "piercing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "piercing"
+                    },
+                    "value": "12d6"
+                }
+            }
         },
         "description": {
             "value": "<p>Your head splits vertically into an enormous maw, which feasts upon the target's blood, dealing 12d6 piercing damage, depending on your spell attack roll. After the spell, your head sews back together as if it had never split apart. You gain temporary Hit Points for 1 minute equal to half the piercing damage the target takes.</p>\n<p>If you are a gug, increase the piercing damage by 2d6 and increase the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} you deal on a critical hit by 1d8. This spell doesn't alter a gug's appearance.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes double damage and [[/r 1d8 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> You miss and the creature takes no damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 2d6, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a critical increases by 1.</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"

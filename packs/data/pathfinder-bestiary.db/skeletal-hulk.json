@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 25,
                 "details": "",
                 "value": 25
             },
@@ -30,7 +31,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 105,
                 "temp": 0,
                 "value": 105
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -58,7 +59,7 @@
                 "value": "NE"
             },
             "creatureType": "Undead",
-            "flavorText": "Huge giants and other enormous creatures make powerful skeletons.<br /><br />",
+            "flavorText": "<p>Huge giants and other enormous creatures make powerful skeletons.</p>\n<hr />\n<p>Made from bones held together by foul necromancy, skeletons are among the most common types of undead, found haunting old dungeons and forgotten cemeteries.</p>",
             "level": {
                 "value": 7
             },
@@ -86,7 +87,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "mental",
                     "paralyzed",
@@ -96,26 +97,31 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Cold",
                     "type": "cold",
                     "value": "5"
                 },
                 {
+                    "exceptions": "",
                     "label": "Electricity",
                     "type": "electricity",
                     "value": "5"
                 },
                 {
+                    "exceptions": "",
                     "label": "Fire",
                     "type": "fire",
                     "value": "5"
                 },
                 {
+                    "exceptions": "",
                     "label": "Piercing",
                     "type": "piercing",
                     "value": "5"
                 },
                 {
+                    "exceptions": "",
                     "label": "Slashing",
                     "type": "slashing",
                     "value": "5"
@@ -198,6 +204,102 @@
             "type": "melee"
         },
         {
+            "_id": "dRtVAtuxu9SD6zpN",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "HScepbVGbS75R0W3",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "Y1v59ZBvVAomH20U",
             "data": {
                 "actionCategory": {
@@ -210,7 +312,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>As skeletal giant, but with its claw Strike.</p>"
+                    "value": "<p>The giant makes two Strikes with its claw against two adjacent foes, both of whom are within its reach. The multiple attack penalty does not increase until after both attacks are resolved.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,9 +338,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Broad Swipe",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -254,12 +356,28 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The hulk Strides and makes a claw Strike with a [[/r +4 # circumstance bonus to damage]] circumstance bonus to damage. If the strike hits, the hulk automatically Shoves the target 10 feet.</p>"
+                    "value": "<p>The hulk Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the strike hits, the hulk automatically @Compendium[pf2e.actionspf2e.Shove]{Shoves} the target 10 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.massive-rush"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "massive-rush"
+                            ]
+                        },
+                        "selector": "claw-damage",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -280,9 +398,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Massive Rush",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -317,7 +435,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -352,7 +470,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
