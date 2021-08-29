@@ -8,7 +8,7 @@
             </div>
             <ol class="directory-list item-list formula-list">
                 <!-- Add section for each formula level -->
-                {{#each actor.knownFormulas as |section lvl|}}
+                {{#each knownFormulas as |section lvl|}}
                 <li class="item inventory-header formula-level-header formula-header" data-item-type="formulaLevel"
                     data-level="{{lvl}}">
                     <div class="item-name flexrow">
@@ -28,7 +28,7 @@
                 </li>
                     <!-- Add formula items for each formula level -->
                     {{#each section as |item i|}}
-                    <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{item._id}}"
+                    <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{item.id}}"
                         data-item-type="formula">
                         <div class="item-name rollable">
                             <div class="item-image">
@@ -37,20 +37,20 @@
                             <h4>{{item.name}}</h4>
                         </div>
 
-                        <div class="formula-dc">{{item.data.craftDC.value}}</div>
-                        <div class="formula-cost">{{item.data.cost.value}}</div>
+                        <div class="formula-dc">{{item.dc}}</div>
+                        <div class="formula-cost">{{item.price}}</div>
 
                         {{#if @root.owner}}
                         <div class="item-controls">
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="{{localize " PF2E.DeleteItemTitle"}}"><iclass="fas fa-trash"></i></a>
+                            <a class="item-control item-delete" title="{{localize " PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                         </div>
                         {{/if}}
                     </li>
                     {{/each}}
                 {{/each}}
 
-                {{#unless actor.knownFormulas}}
+                {{#unless knownFormulas}}
                 {{#if @root.owner}}
                 <li class="inventory-header formula-header knownFormulas-empty">
                     <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>

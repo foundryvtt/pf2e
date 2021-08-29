@@ -13,8 +13,9 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { LorePF2e } from "@item";
+import { LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { adjustDCByRarity, calculateDC } from "@module/dc";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -55,7 +56,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    override getData() {
+    override async getData() {
         const sheetData = super.getData();
 
         // ABC
@@ -125,6 +126,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        await this.prepareFormulas(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -206,9 +208,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores: LoreData[] = [];
-
-        // Known Formulas
-        const knownFormulas: Record<number, FormulaData[]> = {};
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -392,13 +391,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, "skill");
                 featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, "general");
             }
-
-            // Formulas
-            else if (itemData.type === "formula") {
-                const formulaData = itemData as FormulaData;
-                const level = formulaData.data.level.value | 0;
-                knownFormulas[level] ? knownFormulas[level].push(formulaData) : (knownFormulas[level] = [formulaData]);
-            }
         }
 
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
@@ -479,7 +471,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-        actorData.knownFormulas = knownFormulas;
 
         // shield
         const equippedShield = this.actor.heldShield?.data;
@@ -597,6 +588,62 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+    }
+
+    protected async prepareFormulas(sheetData: any) {
+        interface FormulaEntry {
+            id: string;
+            name: string;
+            description?: string;
+            itemUuid?: string;
+            img: string;
+            dc?: number;
+            price?: string;
+        }
+        const knownFormulas: Record<number, FormulaEntry[]> = {};
+
+        for (const itemData of sheetData.items) {
+            if (itemData.type === "formula") {
+                const formulaData = itemData as FormulaData;
+                if (formulaData.data.craftedItem.uuid) {
+                    try {
+                        const compendiumItem = await fromUuid(formulaData.data.craftedItem.uuid);
+                        if (compendiumItem) {
+                            const item = compendiumItem as PhysicalItemPF2e;
+                            const formula: FormulaEntry = {
+                                id: formulaData._id,
+                                name: item.name,
+                                description: item.description,
+                                itemUuid: formulaData.data.craftedItem.uuid,
+                                img: item.img,
+                                dc: adjustDCByRarity(calculateDC(item.level), item.rarity),
+                                price: item.price,
+                            };
+                            knownFormulas[item.level]
+                                ? knownFormulas[item.level].push(formula)
+                                : (knownFormulas[item.level] = [formula]);
+                        }
+                    } catch {
+                        const formula: FormulaEntry = {
+                            id: formulaData._id,
+                            name: game.i18n.localize("PF2E.FormulaSheet.NameUnknown"),
+                            description: game.i18n.localize("PF2E.FormulaSheet.DescriptionUnknown"),
+                            img: "systems/pf2e/icons/default-icons/lore.svg",
+                        };
+                        knownFormulas[0] ? knownFormulas[0].push(formula) : (knownFormulas[0] = [formula]);
+                    }
+                } else {
+                    const formula: FormulaEntry = {
+                        id: formulaData._id,
+                        name: game.i18n.localize("PF2E.FormulaSheet.NameEmpty"),
+                        img: "systems/pf2e/icons/default-icons/lore.svg",
+                    };
+                    knownFormulas[0] ? knownFormulas[0].push(formula) : (knownFormulas[0] = [formula]);
+                }
+            }
+        }
+
+        sheetData.knownFormulas = knownFormulas;
     }
 
     /* -------------------------------------------- */
