@@ -1,8 +1,13 @@
 import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e, SpellSheetData } from "../sheet/data-types";
-import { SpellSystemData } from "./data";
+import { SpellDamage, SpellSystemData } from "./data";
 import { objectHasKey } from "@module/utils";
+
+const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
+    interval: 0,
+    damage: {},
+};
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override getData(): SpellSheetData {
@@ -28,6 +33,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             magicTraditions: this.prepareOptions(CONFIG.PF2E.magicTraditions, data.data.traditions),
+            damageSubtypes: CONFIG.PF2E.damageSubtypes,
+            damageCategories: CONFIG.PF2E.damageCategories,
             traits: this.prepareOptions(CONFIG.PF2E.spellTraits, data.data.traits),
             rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity.value] }),
             spellComponents: this.formatSpellComponents(data.data),
@@ -55,6 +62,33 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const newTraits = this.item.data.data.traits.value.filter((t) => t !== trait);
                 this.item.update({ "data.traits.value": newTraits });
             }
+        });
+
+        html.find("[data-action='damage-create']").on("click", (event) => {
+            event.preventDefault();
+            const damage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
+            this.item.update({
+                "data.damage.value": { ...this.item.damage.concat(damage) },
+            });
+        });
+
+        html.find("[data-action='damage-delete']").on("click", (event) => {
+            event.preventDefault();
+            const idx = Number($(event.target).closest("[data-action='damage-delete']").attr("data-idx"));
+            const data = this.item.toObject();
+            delete data.data.damage.value[idx];
+            data.data.damage.value = { ...Object.values(data.data.damage.value) };
+            this.item.update(data, { recursive: false, diff: false });
+        });
+
+        html.find("[data-action='scaling-create']").on("click", (event) => {
+            event.preventDefault();
+            this.item.update({ "data.scaling": DEFAULT_INTERVAL_SCALING });
+        });
+
+        html.find("[data-action='scaling-delete']").on("click", (event) => {
+            event.preventDefault();
+            this.item.update({ "data.-=scaling": null });
         });
     }
 

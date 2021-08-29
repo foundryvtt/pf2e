@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "<p>These large birds of prey swoop down from incredible heights to snatch fish and small mammals in their powerful talons. Eagles nest atop high trees or steep cliffs that provide a commanding view of the surrounding area. They avoid nesting too near civilization, but some remote cultures train eagles as hunting companions.</p>",
+            "flavorText": "<p>These large birds of prey swoop down from incredible heights to snatch fish and small mammals in their powerful talons. Eagles nest atop high trees or steep cliffs that provide a commanding view of the surrounding area. They avoid nesting too near civilization, but some remote cultures train eagles as hunting companions.</p>\n<hr />\n<p>Few avian creatures can match the beauty and grace of the eagle.</p>",
             "level": {
                 "value": -1
             },
@@ -214,6 +216,54 @@
             "type": "melee"
         },
         {
+            "_id": "dZZfqVkrZJJMxi6A",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "63iXwIDFMddnz4kz",
             "data": {
                 "actionCategory": {
@@ -226,7 +276,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The eagle Flies up to double its fly Speed in a straight line, descending at least 10 feet, and then makes a talon Strike.</p>"
+                    "value": "<p>The eagle @Compendium[pf2e.actionspf2e.Fly]{Flies} up to double its fly Speed in a straight line, descending at least 10 feet, and then makes a talon Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -252,9 +302,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Eagle Dive",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -289,7 +339,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         }
     ],
