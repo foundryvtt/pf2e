@@ -6,6 +6,7 @@ import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
 import { ConsumableTrait } from "@item/consumable/data";
 import { Size } from "@module/data";
+import { SpellSource } from "@item/spell/data";
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
@@ -97,6 +98,15 @@ export interface IdentificationData {
 export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
 export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
 
+interface StaffSpellcastingData {
+    type: "staff";
+    charges: {
+        value: number;
+        max: number;
+    };
+    spells: Record<string, { data: SpellSource }>;
+}
+
 export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     traits: PhysicalItemTraits;
     quantity: {
@@ -161,4 +171,5 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     invested?: {
         value: boolean | null;
     };
+    spellcasting?: StaffSpellcastingData;
 }

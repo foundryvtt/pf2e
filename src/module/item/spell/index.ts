@@ -9,6 +9,11 @@ import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 
 export class SpellPF2e extends ItemPF2e {
+    /**
+     * The item containing this spell, if there is one
+     */
+    container?: ItemPF2e;
+
     static override get schema(): typeof SpellData {
         return SpellData;
     }
