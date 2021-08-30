@@ -1,5 +1,5 @@
 .crafting {
-    .knownFormulas-entry {
+    .known-formulas {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -11,10 +11,8 @@
             margin-bottom: 0.5em;
         }
 
-        &:first-child {
-            .action-header {
+        &:first-child .action-header {
                 margin-top: 0;
-            }
         }
 
         .action-header {
@@ -60,7 +58,7 @@
             z-index: 1;
 
             button:not(.item-summary button),
-            .knownFormulas-empty .item-control {
+            .empty .item-control {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -215,8 +213,7 @@
                     p {
                         margin-top: 0;
                     }
-                    .item-buttons {
-                        button {
+                    .item-buttons button {
                             @include p-reset;
                             font-family: var(--serif);
                             font-weight: 500;
@@ -231,12 +228,11 @@
                             &:hover {
                                 text-shadow: 0 0 2px white;
                             }
-                        }
                     }
                 }
             }
 
-            .knownFormulas-empty {
+            .empty {
                 display: flex;
                 align-items: center;
                 min-height: 28px;
