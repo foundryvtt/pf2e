@@ -1047,7 +1047,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         } else {
             const $summary = $('<div class="item-summary">');
-            this.renderItemSummary($summary, item);
+            const chatData = item.getChatData({ secrets: this.actor.isOwner }, $li.data());
+            this.renderItemSummary($summary, item, chatData);
             $li.append($summary);
             if (options.instant) {
                 InlineRollsLinks.listen($summary);
