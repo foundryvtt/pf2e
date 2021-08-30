@@ -295,11 +295,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
@@ -332,10 +328,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -374,7 +366,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "conjuration",
                         "water"
                     ]
                 }
@@ -418,11 +409,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
@@ -455,10 +442,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -498,7 +481,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "divination",
                         "revelation"
                     ]
                 }
@@ -542,11 +524,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward an area to alert you when creatures enter without your permission. When you cast alarm, select a password. Whenever a Small or larger corporeal creature enters the spell's area without speaking the password, alarm sends your choice of a mental alert (in which case the spell gains the mental trait) or an audible alarm with the sound and volume of a hand bell (in which case the spell gains the auditory trait). Either option automatically awakens you, and the bell allows each creature in the area to attempt a DC 15 Perception check to wake up. A creature aware of the alarm must succeed at a Stealth check against the spell's DC or trigger the spell when moving into the area.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can specify criteria for which creatures sound the alarm spell-for instance, orcs or masked people.</p>"
@@ -579,10 +557,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -622,9 +596,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -666,11 +638,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d10+4"
-                },
-                "damageType": {
-                    "value": "healing"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "healing"
+                            },
+                            "value": "1d10+4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
@@ -705,8 +681,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d10+4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -745,7 +723,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "healing",
                         "mental"
                     ]
@@ -921,7 +898,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The house drake succeeds at a saving throw against a magical mental effect;</p>\n<p><strong>Effect</strong> The house drake sends a blast of magical feedback at the effect’s source, dealing [[/r 2d6 #mental]]{2d6 mental damage} (<span data-pf2-check=\"will\" data-pf2-dc=\"16\" data-pf2-traits=\"abjuration,arcane,mental,damaging-effect\" data-pf2-label=\"Ferocious Will DC\" data-pf2-show-dc=\"gm\">basic Will</span> save) to that creature. On a failed save, the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> The house drake succeeds at a saving throw against a magical mental effect;</p>\n<p><strong>Effect</strong> The house drake sends a blast of magical feedback at the effect's source, dealing [[/r 2d6 #mental]]{2d6 mental damage} (<span data-pf2-check=\"will\" data-pf2-dc=\"16\" data-pf2-traits=\"abjuration,arcane,mental,damaging-effect\" data-pf2-label=\"Ferocious Will DC\" data-pf2-show-dc=\"gm\">basic Will</span> save) to that creature. On a failed save, the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -969,7 +946,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The house drake breathes a 10-foot cone of silver mist. Each creature within the mist must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"16\" data-pf2-traits=\"arcane,conjuration,mental\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p>The house drake can’t use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The house drake breathes a 10-foot cone of silver mist. Each creature within the mist must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"16\" data-pf2-traits=\"arcane,conjuration,mental\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p>The house drake can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

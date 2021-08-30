@@ -6,7 +6,8 @@ import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/n
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { ValuesList, OneToTen } from "@module/data";
-import type { SpellPF2e } from ".";
+import type { SpellPF2e } from "@item";
+import { MAGIC_SCHOOLS } from "./values";
 
 export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemData>;
 
@@ -25,10 +26,23 @@ export interface SpellData extends Omit<SpellSource, "_id" | "effects"> {
     readonly _source: SpellSource;
 }
 
-export type MagicSchool = keyof ConfigPF2e["PF2E"]["magicSchools"];
+export type MagicSchool = typeof MAGIC_SCHOOLS[number];
 
-export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"];
+export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"] | MagicSchool | MagicTradition;
 export type SpellTraits = ItemTraits<SpellTrait>;
+type SpellDamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
+
+export interface SpellDamageType {
+    value: DamageType;
+    subtype?: "persistent" | "splash";
+    categories: SpellDamageCategory[];
+}
+
+export interface SpellDamage {
+    value: string;
+    applyMod?: boolean;
+    type: SpellDamageType;
+}
 
 export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
@@ -71,15 +85,11 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     damage: {
-        value: string;
-        applyMod: boolean;
+        value: Record<number, SpellDamage>;
     };
-    damageType: {
-        value: DamageType;
-    };
-    scaling: {
-        mode: string;
-        formula: string;
+    scaling?: {
+        interval: number;
+        damage: Record<number, string>;
     };
     save: {
         basic: string;
@@ -117,5 +127,3 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: OneToTen | null;
     };
 }
-
-export const MAGIC_TRADITIONS = ["arcane", "divine", "occult", "primal"] as const;

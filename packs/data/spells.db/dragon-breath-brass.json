@@ -26,11 +26,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "5d6"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "fire"
+                    },
+                    "value": "5d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You spew energy from your mouth, dealing 5d6 fire damage in a 60-foot line. Affected creatures can make a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -65,8 +69,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -102,7 +108,6 @@
             },
             "value": [
                 "uncommon",
-                "evocation",
                 "sorcerer"
             ]
         }

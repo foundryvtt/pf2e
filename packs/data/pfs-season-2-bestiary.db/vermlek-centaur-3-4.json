@@ -285,11 +285,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
@@ -322,10 +318,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -367,7 +359,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "fear",
                         "mental"
                     ]
@@ -409,11 +400,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "1d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -448,8 +443,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -487,7 +484,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -1292,7 +1288,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Centaur Body;</p>\n<p><strong>Effect</strong> The vermlek crawls out of the body it is inhabiting, devouring much of the body’s remaining flesh and regaining 15 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
+                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Centaur Body;</p>\n<p><strong>Effect</strong> The vermlek crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 15 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1338,7 +1334,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>While most vermleks inhabit Medium humanoids, Urxehl has granted this demon the ability to inhabit centaurs instead.</p>\n<p>The vermlek crawls into the body of an adjacent dead centaur, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>The vermlek can wield weapons and use the centaur's Speed, hoof attack, and Trample ability. It also gains a +3 circumstance bonus to AC. While Inhabiting a Centaur body, a vermlek can’t burrow.</p>\n<p>It can’t use this ability if it's already Inhabiting a Centaur Body.</p>"
+                    "value": "<p>While most vermleks inhabit Medium humanoids, Urxehl has granted this demon the ability to inhabit centaurs instead.</p>\n<p>The vermlek crawls into the body of an adjacent dead centaur, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>The vermlek can wield weapons and use the centaur's Speed, hoof attack, and Trample ability. It also gains a +3 circumstance bonus to AC. While Inhabiting a Centaur body, a vermlek can't burrow.</p>\n<p>It can't use this ability if it's already Inhabiting a Centaur Body.</p>"
                 },
                 "requirements": {
                     "value": ""

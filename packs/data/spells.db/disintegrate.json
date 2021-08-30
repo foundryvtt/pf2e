@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "12d10"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "12d10"
+                }
+            }
         },
         "description": {
             "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "2d10",
-            "mode": "level1"
+            "damage": {
+                "0": "2d10"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -100,8 +106,7 @@
                 "value": "common"
             },
             "value": [
-                "attack",
-                "evocation"
+                "attack"
             ]
         }
     },

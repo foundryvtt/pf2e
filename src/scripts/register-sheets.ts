@@ -19,6 +19,7 @@ import { FeatSheetPF2e } from "@item/feat/sheet";
 import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
 import { FormulaSheetPF2e } from "@item/formula/sheet";
+import { EffectSheetPF2e } from "@item/effect/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -94,7 +95,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet("core", ItemSheet);
 
-    const itemTypes = ["condition", "effect", "lore", "martial", "melee", "spellcastingEntry"];
+    const itemTypes = ["condition", "lore", "martial", "melee", "spellcastingEntry"];
     for (const itemType of itemTypes) {
         Items.registerSheet("pf2e", ItemSheetPF2e, {
             types: [itemType],
@@ -123,6 +124,7 @@ export function registerSheets() {
         ["background", BackgroundSheetPF2e],
         ["class", ClassSheetPF2e],
         ["feat", FeatSheetPF2e],
+        ["effect", EffectSheetPF2e],
         ["spell", SpellSheetPF2e],
         ["kit", KitSheetPF2e],
         ["formula", FormulaSheetPF2e],

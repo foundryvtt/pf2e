@@ -22,11 +22,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "2d8"
-        },
-        "damageType": {
-            "value": "healing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "healing"
+                    },
+                    "value": "2d8"
+                }
+            }
         },
         "description": {
             "value": "<p>You call forth a magical mist of positive energy that envelops a creature.</p>\n<p>The mist restores [[/r 2d8 #Hit Points]]{2d8 Hit Points} to a target living creature and ends one source of persistent acid, bleed, fire, negative, or poison damage affecting it. If the creature is taking persistent damage from multiple sources, you select which one is removed.</p>\n<p>Against an undead target, you deal [[/r 2d8 #positive]]{2d8 positive damage} (basic Fortitude save); if it fails the save, it also takes [[/r 2 #persistent positive]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Positive Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing (or damage to an undead target) increases by [[/r 1d8]], and the persistent positive damage to an undead creature increases by 1.</p>"
@@ -61,8 +65,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "1d8",
-            "mode": "level1"
+            "damage": {
+                "0": "1d8"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
@@ -98,7 +104,6 @@
             },
             "value": [
                 "healing",
-                "necromancy",
                 "positive",
                 "ranger"
             ]
