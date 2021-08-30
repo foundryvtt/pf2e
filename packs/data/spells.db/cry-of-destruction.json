@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "sonic"
-                    },
-                    "value": "1d8"
-                }
-            }
+            "applyMod": false,
+            "value": "1d8"
+        },
+        "damageType": {
+            "value": "sonic"
         },
         "description": {
             "value": "<p>Your voice booms, smashing what's in front of you. Each creature and unattended object in the area takes 1d8 sonic damage. If you already dealt damage to an enemy this turn with a Strike or spell, increase the damage dice from this spell to d12s.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
@@ -62,11 +58,13 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.sonic-domain",
-                "priority": 10,
-                "value": true
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.sonic-domain",
+                "retain": true
             }
         ],
         "save": {
@@ -74,10 +72,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -113,6 +109,7 @@
             },
             "value": [
                 "cleric",
+                "evocation",
                 "sonic"
             ]
         }

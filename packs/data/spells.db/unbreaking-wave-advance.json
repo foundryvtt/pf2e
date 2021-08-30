@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "3d6"
-                }
-            }
+            "applyMod": false,
+            "value": "3d6"
+        },
+        "damageType": {
+            "value": ""
         },
         "description": {
             "value": "<p>You unleash a mighty wave from your hand that buffets back your foes. Each creature in the area must attempt a Fortitude saving throw. If a creature pushed by <em>unbreaking wave advance</em> would be pushed into a solid barrier or another creature, it stops at that point and takes 3d6 damage.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is pushed 10 feet.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 20 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage for pushing a creature into a solid barrier increases by 1d6.</p>"
@@ -66,10 +62,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -106,7 +100,8 @@
             },
             "value": [
                 "uncommon",
-                "water"
+                "water",
+                "evocation"
             ]
         }
     },

@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "healing"
-                    },
-                    "value": "3d6"
-                }
-            }
+            "applyMod": false,
+            "value": "3d6"
+        },
+        "damageType": {
+            "value": "healing"
         },
         "description": {
             "value": "<p>You snatch creatures from the jaws of death. You can spend 1 to 3 actions Casting this Spell, and you can target a number of creatures equal to the actions spent. Each target regains 3d6 Hit Points. If the target had the @Compendium[pf2e.conditionitems.Dying]{Dying} condition, coming back from Dying due to this healing doesn't increase its @Compendium[pf2e.conditionitems.Wounded]{Wounded} condition.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the healing by 1d6.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -106,6 +100,7 @@
             "value": [
                 "cleric",
                 "healing",
+                "necromancy",
                 "positive"
             ]
         }

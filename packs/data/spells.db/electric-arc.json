@@ -23,16 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "1d4"
-                }
-            }
+            "applyMod": true,
+            "value": "1d4"
+        },
+        "damageType": {
+            "value": "electricity"
         },
         "description": {
             "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -67,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d4"
-            },
-            "interval": 1
+            "formula": "1d4",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -110,7 +103,8 @@
             },
             "value": [
                 "electricity",
-                "cantrip"
+                "cantrip",
+                "evocation"
             ]
         }
     },

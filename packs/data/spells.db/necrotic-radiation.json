@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "negative"
-                    },
-                    "value": "2d6"
-                }
-            }
+            "applyMod": false,
+            "value": "2d6"
+        },
+        "damageType": {
+            "value": "negative"
         },
         "description": {
             "value": "<p>You imbue the touched object or space with slow-acting necrotic radiation. If you cast the spell on an object, any creature ending its turn holding or carrying the object takes 2d6 negative damage. If you cast the spell on an area, any creature ending its turn in the area takes 2d6 negative damage. You can attempt to use this spell on an attended object by touching the object. If you do, the creature attempts a Reflex save to reduce the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The object is unaffected.</p>\n<p><strong>Success</strong> The creature pulls the object away quickly. The spell only lasts 1 minute.</p>\n<p><strong>Failure</strong> The creature manages to slightly protect the object. The spell lasts 10 minutes.</p>\n<p><strong>Critical Failure</strong> The spell lasts the full 24 hours.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase the radiation's negative damage by 1d6</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 2
+            "formula": "1d6",
+            "mode": "level2"
         },
         "school": {
             "value": "necromancy"
@@ -109,6 +103,7 @@
                 "value": "uncommon"
             },
             "value": [
+                "necromancy",
                 "negative"
             ]
         }

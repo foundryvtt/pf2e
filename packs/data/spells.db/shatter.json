@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "sonic"
-                    },
-                    "value": "2d10"
-                }
-            }
+            "applyMod": false,
+            "value": "2d10"
+        },
+        "damageType": {
+            "value": "sonic"
         },
         "description": {
             "value": "<p>A high-frequency sonic attack shatters a nearby object. You deal 2d10 sonic damage to the object, ignoring the object's Hardness if it is 4 or lower.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the Hardness the spell ignores increases by 2.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d10"
-            },
-            "interval": 1
+            "formula": "1d10",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -107,6 +101,7 @@
                 "value": "common"
             },
             "value": [
+                "evocation",
                 "sonic"
             ]
         }

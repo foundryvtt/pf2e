@@ -26,15 +26,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "piercing"
-                    },
-                    "value": "1d8"
-                }
-            }
+            "applyMod": false,
+            "value": "1d8"
+        },
+        "damageType": {
+            "value": "piercing"
         },
         "description": {
             "value": "<p>You fling a hollow icicle filled with winter's wrath. Make a spell attack against a target within range. The bolt deals 1d8 piercing damage and lodges in the target. At the end of the target's next turn, the bolt shatters, releasing a whirl of snow and ice that deals 1d12 cold damage to the target and all adjacent creatures. The bolt can be removed with an Interact action, which causes it to melt harmlessly without detonating.</p>\n<hr />\n<p><strong>Critical Success</strong> The initial bolt deals full damage and is especially well anchored, taking 2 Interact actions to remove. The bolt's explosion deals double damage.</p>\n<p><strong>Success</strong> The bolt and its explosion deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d8 and the secondary damage increases by 1d12.</p>"
@@ -65,11 +61,13 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.cold-domain",
-                "priority": 10,
-                "value": true
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.cold-domain",
+                "retain": true
             }
         ],
         "save": {
@@ -77,10 +75,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -118,7 +114,8 @@
             "value": [
                 "attack",
                 "cleric",
-                "cold"
+                "cold",
+                "evocation"
             ]
         }
     },

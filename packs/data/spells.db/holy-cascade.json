@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "bludgeoning"
-                    },
-                    "value": "3d6"
-                }
-            }
+            "applyMod": false,
+            "value": "3d6"
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>You call upon sacred energy to amplify a vial of holy water, tossing it an incredible distance. It explodes in an enormous burst that deals 3d6 bludgeoning damage to creatures in the area from the cascade of water. The water deals an additional 6d6 positive damage to undead and 6d6 good damage to fiends.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d6, and the additional positive and good damage each increase by 2d6.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -106,6 +100,7 @@
                 "value": "common"
             },
             "value": [
+                "evocation",
                 "good",
                 "positive",
                 "water"

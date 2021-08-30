@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "fire"
-                    },
-                    "value": "6d6"
-                }
-            }
+            "applyMod": false,
+            "value": "6d6"
+        },
+        "damageType": {
+            "value": "fire"
         },
         "description": {
             "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -107,6 +101,7 @@
                 "value": "common"
             },
             "value": [
+                "evocation",
                 "fire"
             ]
         }

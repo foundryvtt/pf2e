@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "cold"
-                    },
-                    "value": "2d6"
-                }
-            }
+            "applyMod": false,
+            "value": "2d6"
+        },
+        "damageType": {
+            "value": "cold"
         },
         "description": {
             "value": "<p>You supercool the nearby air, forming a cloud of dancing ice crystals in an emanation around you. A creature other than you that enters the area or ends its turn within the area takes 2d6 cold damage. A creature can take this damage only once per turn. The crystals scatter and refract light; if a light effect enters diamond dust's area, any creatures that effect goes on to affect gain a +2 status bonus to AC and saves against it. While the spell persists, you can activate or deactivate this aura by using a single action, which has the concentrate trait. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -62,11 +58,13 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.cold-domain",
-                "priority": 10,
-                "value": true
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.cold-domain",
+                "retain": true
             }
         ],
         "save": {
@@ -74,10 +72,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 2
+            "formula": "1d6",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
@@ -114,7 +110,8 @@
             },
             "value": [
                 "cleric",
-                "cold"
+                "cold",
+                "evocation"
             ]
         }
     },

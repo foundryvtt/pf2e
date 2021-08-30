@@ -22,15 +22,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "1d10"
-                }
-            }
+            "applyMod": false,
+            "value": "1d10"
+        },
+        "damageType": {
+            "value": ""
         },
         "description": {
             "value": "<p>You harness positive energy to heal your animal companion's wounds. You restore [[/r 1d10]] Hit Points to your animal companion. The number of actions you spend @Compendium[pf2e.actionspf2e.Cast a Spell]{Casting this Spell} determines range and other parameters.</p>\n<ul>\n<li><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</li>\n<li><span class=\"pf2-icon\">2</span> (verbal) The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by [[/r 1d10]], and the additional healing for the 2-action version increases by 8.</p>"
@@ -65,10 +61,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d10"
-            },
-            "interval": 1
+            "formula": "1d10",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -104,6 +98,7 @@
             },
             "value": [
                 "healing",
+                "necromancy",
                 "positive",
                 "ranger"
             ]

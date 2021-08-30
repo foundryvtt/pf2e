@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "6d6"
-                }
-            }
+            "applyMod": false,
+            "value": "6d6"
+        },
+        "damageType": {
+            "value": ""
         },
         "description": {
             "value": "<p>You summon a crashing wave that sweeps away from you. You deal <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"bludgeoning\" data-formula=\"6d6\" title=\"bludgeoning\"><i class=\"fas fa-dice-d20\"></i> 6d6</a> bludgeoning damage to creatures in the area. The water also extinguishes non-magical fires in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"bludgeoning\" data-formula=\"2d6\" title=\"bludgeoning\"><i class=\"fas fa-dice-d20\"></i> 2d6</a>.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -107,6 +101,7 @@
                 "value": "common"
             },
             "value": [
+                "evocation",
                 "water"
             ]
         }

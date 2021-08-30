@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "healing"
-                    },
-                    "value": "8"
-                }
-            }
+            "applyMod": false,
+            "value": "8"
+        },
+        "damageType": {
+            "value": "healing"
         },
         "description": {
             "value": "<p>You heal yourself in one of the following ways, chosen by you when you cast the spell.</p>\n<ul>\n<li>You regain 8 Hit Points.</li>\n<li>You attempt to cure one poison or disease afflicting you; attempt to counteract the affliction.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> If you choose to regain Hit Points, the Hit Points regained increase by 8.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "8"
-            },
-            "interval": 1
+            "formula": "8",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -106,6 +100,7 @@
             "value": [
                 "healing",
                 "monk",
+                "necromancy",
                 "positive"
             ]
         }

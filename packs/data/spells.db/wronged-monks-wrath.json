@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "2d12"
-                }
-            }
+            "applyMod": false,
+            "value": "2d12"
+        },
+        "damageType": {
+            "value": "electricity"
         },
         "description": {
             "value": "<p>You unleash your ki as a powerful storm of force and lightning, dealing [[/r 2d6 #force]]{2d6 force damage} and [[/r 2d12 #electricity]]{2d12 electricity damage} to creatures in the area. If you use 2 actions to cast the spell, increase the size of the emanation to 10 feet and the damage to [[/r 3d6 #force]]{3d6 force damage} and [[/r 3d12 #electricity]]{3d12 electricity damage}. If you use 3 actions to cast the spell, increase the size of the emanation to 20 feet and the damage to [[/r 4d6 #force]]{4d6 force damage} and [[/r 4d12 #electricity]]{4d12 electricity damage}. Each creature attempts one basic Reflex save that applies to both types of damage On a failed save, the creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round; on a critical failure, the creature also takes [[/r 2d12 #persistent electricity]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} and is deafened for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The force damage increases by [[/r 1d6]] and the electricity damage by [[/r 1d12]], or [[/r 2d6]] and [[/r 2d12]] if you use 2 or 3 actions</p>"
@@ -63,10 +59,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d12"
-            },
-            "interval": 2
+            "formula": "1d12",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"

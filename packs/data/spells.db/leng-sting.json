@@ -22,15 +22,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "piercing"
-                    },
-                    "value": "2d6"
-                }
-            }
+            "applyMod": false,
+            "value": "2d6"
+        },
+        "damageType": {
+            "value": "piercing"
         },
         "description": {
             "value": "<p>You use the power of nightmares to magically replicate the venomous attack of the aberrant and cunning Leng spiders. You deal [[/r 2d6 #piercing]]{2d6 piercing damage} to the touched creature and afflict it with Leng spider venom. If the target takes piercing damage, they must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r 2d6 #poison]]{2d6 poison damage}.</p>\n<p><strong>Failure</strong> The target is afflicted with Leng Spider Venom at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with Leng spider venom at stage 2.</p>\n<hr />\n<p><strong>Leng Spider Venom</strong> (incapacitation, poison) <strong>Level 13</strong></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 3d6 #poison]]{3d6 poison damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 4d6 #poison]]{4d6 poison damage}, @Compendium[pf2e.conditionitems.Drained]{Drained 2}, and @Compendium[pf2e.conditionitems.Confused]{Confused} (1 round)</p>"
@@ -63,6 +59,10 @@
         "save": {
             "basic": "",
             "value": "fortitude"
+        },
+        "scaling": {
+            "formula": "",
+            "mode": "none"
         },
         "school": {
             "value": "necromancy"
@@ -102,6 +102,7 @@
             },
             "selected": [],
             "value": [
+                "necromancy",
                 "poison"
             ]
         }

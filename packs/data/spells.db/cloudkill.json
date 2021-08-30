@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "poison"
-                    },
-                    "value": "6d8"
-                }
-            }
+            "applyMod": false,
+            "value": "6d8"
+        },
+        "damageType": {
+            "value": "poison"
         },
         "description": {
             "value": "<p>You conjure a poisonous fog. This functions as @Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}, except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
@@ -66,10 +62,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -108,6 +102,7 @@
             },
             "value": [
                 "death",
+                "necromancy",
                 "poison"
             ]
         }

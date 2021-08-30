@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "force"
-                    },
-                    "value": "1d4+1"
-                }
-            }
+            "applyMod": false,
+            "value": "1d4+1"
+        },
+        "damageType": {
+            "value": "force"
         },
         "description": {
             "value": "<p>You fire an unerring dart of force from your fingertips. It automatically hits and deals 1d4+1 force damage to the target.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d4+1.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d4+1"
-            },
-            "interval": 2
+            "formula": "1d4+1",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
@@ -106,6 +100,7 @@
             "value": [
                 "uncommon",
                 "force",
+                "evocation",
                 "wizard"
             ]
         }

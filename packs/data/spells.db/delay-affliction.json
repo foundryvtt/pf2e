@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "positive"
-                    },
-                    "value": "3d8"
-                }
-            }
+            "applyMod": false,
+            "value": "3d8"
+        },
+        "damageType": {
+            "value": "positive"
         },
         "description": {
             "value": "<p>With a surge of healing energy, you push back against an affliction threatening the target and grant a small amount of healing. The target recovers 3d8 Hit Points.</p>\n<p>You attempt to counteract any one affliction you are aware the target has, suspending its effects for 1 hour on a success rather than removing it.</p>\n<p>The target is then temporarily immune to<em> delay affliction</em> for 1 day. You don't need to have identified the name of the specific affliction, but you do need to be aware of it; for instance, you couldn't delay an ingested poison during its onset period unless you were aware of the poison.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The target recovers an additional 1d8 Hit Points and you can attempt to suspend an additional affliction.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -106,6 +100,7 @@
             },
             "value": [
                 "healing",
+                "necromancy",
                 "oracle",
                 "positive",
                 "cursebound"
