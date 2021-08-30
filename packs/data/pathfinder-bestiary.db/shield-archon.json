@@ -2180,51 +2180,6 @@
             "type": "action"
         },
         {
-            "_id": "GxEPVdnGlJoKEDIH",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Retributive Strike]{Retributive Strike}</p>\n<hr />\n<p><strong>Damage Reduction</strong> 12</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Item.RziFDXkF4LLmToDR"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Retributive Strike",
-            "sort": 2100000,
-            "type": "action"
-        },
-        {
             "_id": "kv87nbUEMIcNOm0C",
             "data": {
                 "actionCategory": {
@@ -2269,6 +2224,54 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Shield Block",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "fe3fizHYthQB0oGu",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Damage Reduction</strong> 12</p>\n<hr />\n<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "retributive-strike",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.IQtb58p4EaeUzTN1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
             "sort": 2200000,
             "type": "action"
         },
@@ -2364,7 +2367,7 @@
             "_id": "PdmsYk3yrw570YoK",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2586,6 +2589,61 @@
             "name": "Survival",
             "sort": 3000000,
             "type": "lore"
+        },
+        {
+            "_id": "NR1hYP91wWDngCMQ",
+            "data": {
+                "description": {
+                    "value": "<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Raised Shield",
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "effect-raise-a-shield",
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
+            "name": "Effect: Raise a Shield",
+            "sort": 3100000,
+            "type": "effect"
         }
     ],
     "name": "Shield Archon",
