@@ -1,5 +1,6 @@
 import {
     AbilityString,
+    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
@@ -27,6 +28,7 @@ export class BaseCreatureData<
 export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "items" | "token"> {
     readonly type: CreatureType;
     data: BaseCreatureSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: BaseCreatureSource;
 }
 

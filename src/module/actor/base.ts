@@ -14,7 +14,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
-import { AbilityString, BaseActorDataPF2e } from "./data/base";
+import { AbilityString, ActorFlagsPF2e, BaseActorDataPF2e } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -192,10 +192,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Prepare baseline ephemeral data applicable to all actor types */
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.preparePrototypeToken();
+
+        // Setup the basic structure of pf2e flags with roll options
+        this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -1075,20 +1079,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return ActorPF2e.getRollOptions(this.data.flags, rollNames);
     }
 
-    static getRollOptions(flags: ActorPF2e["data"]["flags"], rollNames: string[]): string[] {
-        const flag: Record<string, Record<string, boolean>> = flags[game.system.id]?.rollOptions ?? {};
+    static getRollOptions(flags: ActorFlagsPF2e, rollNames: string[]): string[] {
+        const rollOptions = flags.pf2e.rollOptions;
         return rollNames
             .flatMap((rollName) =>
                 // convert flag object to array containing the names of all fields with a truthy value
-                Object.entries(flag[rollName] ?? {}).reduce(
-                    (opts, [key, value]) => opts.concat(value ? key : []),
-                    [] as string[]
+                Object.entries(rollOptions[rollName] ?? {}).reduce(
+                    (opts: string[], [key, value]) => opts.concat(value ? key : []),
+                    []
                 )
             )
-            .reduce((unique, option) => {
+            .reduce((unique: string[], option) => {
                 // ensure option entries are unique
                 return unique.includes(option) ? unique : unique.concat(option);
-            }, [] as string[]);
+            }, []);
     }
 
     getAbilityMod(ability: AbilityString): number {

@@ -25,7 +25,7 @@ export class Migration645TokenImageSize extends MigrationBase {
     }
 
     override async updateActor(actorSource: ActorSourcePF2e) {
-        const flags: Record<string, Record<string, Record<string, unknown> | null>> = actorSource.flags;
+        const flags = actorSource.flags;
         const originalImg = flags.pf2e?.token?.img;
         if (this.isTokenImageFlag(originalImg)) {
             this.imageOverrides.set(actorSource._id, originalImg);

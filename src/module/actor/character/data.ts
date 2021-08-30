@@ -12,6 +12,7 @@ import {
 } from "@actor/creature/data";
 import {
     AbilityString,
+    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     HitPointsData,
@@ -28,6 +29,7 @@ import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
+import { SENSE_TYPES } from "@actor/data/values";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -38,6 +40,7 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
 export interface CharacterData extends Omit<CharacterSource, "effects" | "items" | "token"> {
     readonly type: CharacterSource["type"];
     data: CharacterSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: CharacterSource;
 }
 
@@ -161,7 +164,9 @@ export interface ClassDCData extends StatisticModifier, RawSkillData {
 }
 
 /** The full data for a character action (used primarily for strikes.) */
-export type CharacterStrike = StatisticModifier & StrikeData;
+export interface CharacterStrike extends StatisticModifier, StrikeData {
+    slug: string | null;
+}
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
@@ -199,7 +204,7 @@ interface PathfinderSocietyData {
     reputation: PathfinderSocietyReputation;
 }
 
-export type CharacterArmorClass = Required<ArmorClassData>;
+export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
 interface CharacterResources extends BaseCreatureResources {
     investiture: {
@@ -298,15 +303,26 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     };
 
     /** Records the various land/swim/fly speeds that this actor has. */
-    speed: {
+    speed: StatisticModifier & {
         /** The actor's primary speed (usually walking/stride speed). */
         value: string;
         /** Other speeds that this actor can use (such as swim, climb, etc). */
-        otherSpeeds: LabeledValue[];
+        otherSpeeds: LabeledSpeed[];
         /** The derived value after applying modifiers, bonuses, and penalties */
         total: number;
+        /** A textual breakdown of the base speed and any modifiers applied to it */
+        breakdown?: string;
     };
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number };
+}
+
+export type SenseType = typeof SENSE_TYPES[number];
+
+export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
+interface LabeledSpeed extends LabeledValue {
+    type: Exclude<MovementType, "land">;
+    value: string;
+    label: string;
 }

@@ -941,6 +941,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const action: CharacterStrike = mergeObject(strikeStat, {
                 imageUrl: weapon.img,
                 item: weapon.id,
+                slug: weapon.slug,
                 ready: weapon.isEquipped,
                 glyph: "A",
                 type: "strike" as const,

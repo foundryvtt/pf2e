@@ -17,6 +17,7 @@ export interface BaseActorSourcePF2e<
     type: TActorType;
     data: TSystemData;
     items: ItemSourcePF2e[];
+    flags: DeepPartial<ActorFlagsPF2e>;
 }
 
 /** Base class for all actor data */
@@ -30,8 +31,21 @@ export interface BaseActorDataPF2e
     extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, "effects" | "items" | "token"> {
     type: BaseActorSourcePF2e["type"];
     data: BaseActorSourcePF2e["data"];
+    flags: ActorFlagsPF2e;
 
     readonly _source: BaseActorSourcePF2e;
+}
+
+interface RollOptionFlags {
+    all: Record<string, boolean | undefined>;
+    [key: string]: Record<string, boolean | undefined> | undefined;
+}
+
+export interface ActorFlagsPF2e extends foundry.data.ActorFlags {
+    pf2e: {
+        rollOptions: RollOptionFlags;
+        [key: string]: any;
+    };
 }
 
 /** Basic hitpoints data fields */

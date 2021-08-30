@@ -1,4 +1,5 @@
 import {
+    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorAttributes,
     BaseActorDataPF2e,
@@ -18,6 +19,7 @@ export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
 export interface VehicleData extends Omit<VehicleSource, "effects" | "items" | "token"> {
     type: VehicleSource["type"];
     data: VehicleSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: VehicleSource;
 }
 

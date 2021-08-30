@@ -8,6 +8,7 @@ import {
     SaveData,
 } from "@actor/creature/data";
 import {
+    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -28,6 +29,7 @@ export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
 export interface NPCData extends Omit<NPCSource, "effects" | "items" | "token"> {
     readonly type: NPCSource["type"];
     data: NPCSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: NPCSource;
 }
 
