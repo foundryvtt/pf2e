@@ -30,6 +30,9 @@
                         <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                     {{/if}}
                 {{/if}}
+                {{#if item.spellcasting}}
+                    <a class="list-row" data-tab="spells">{{localize "PF2E.ItemSpells"}}</a>
+                {{/if}}
                 {{#if (and item.isPhysical user.isGM)}}
                     <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
                 {{/if}}
@@ -50,6 +53,13 @@
             {{#if hasDetails}}
                 <div class="tab item-details" data-tab="details">
                     {{> (detailsTemplate)}}
+                </div>
+            {{/if}}
+
+            <!-- Spell Details -->
+            {{#if item.spellcasting}}
+                <div class="tab item-spells" data-tab="spells">
+                    {{> systems/pf2e/templates/items/spells-panel.html item=item}}
                 </div>
             {{/if}}
 

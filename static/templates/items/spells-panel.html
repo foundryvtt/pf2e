@@ -1,0 +1,23 @@
+<div class="spells">
+    <ol class="item-list item-details">
+        {{#each data.spellcasting.spells as |item idx|}}
+            <li class="item list-row" data-item-id="{{item._id}}">
+                <div class="item-name">
+                    <div class="item-image">
+                        <img class="item-icon" src="{{item.img}}"/>
+                    </div>
+                    <h4>{{item.name}}</h4>
+                </div>
+                <input type="number" name="data.spellcasting.spells.{{idx}}.data.heightenedLevel.value" value="{{item.data.heightenedLevel.value}}"/>
+                {{#if @root.owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                {{/if}}
+            </li>
+        {{/each}}
+        {{#unless data.spellcasting.spells}}
+        <div class="empty-spells">No Spells added</div>
+        {{/unless}}
+    </ol>
+</div>

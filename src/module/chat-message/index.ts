@@ -4,7 +4,7 @@ import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemType } from "@item/data";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
@@ -47,12 +47,19 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
-        const domItem = this.getItemFromDOM();
-        if (domItem) return domItem;
-
         const origin = this.data.flags.pf2e?.origin ?? null;
-        const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-        return this.actor?.items.get(match?.[1] ?? "") ?? null;
+        const baseItem = (() => {
+            const domItem = this.getItemFromDOM();
+            if (domItem) return domItem;
+            const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
+            return this.actor?.items.get(match?.[1] ?? "") ?? null;
+        })();
+
+        if (baseItem instanceof PhysicalItemPF2e && baseItem.spellcasting && origin?.spellId) {
+            return baseItem.spellcasting.spells.get(origin.spellId) as Embedded<SpellPF2e>;
+        }
+
+        return baseItem;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
@@ -157,7 +164,7 @@ interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.Ch
     flags: Record<string, Record<string, unknown>> & {
         pf2e?: {
             context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
-            origin?: { type: ItemType; uuid: string } | null;
+            origin?: { type: ItemType; uuid: string; spellId?: string } | null;
             modifierName?: string;
             modifiers?: ModifierPF2e[];
         } & Record<string, unknown>;

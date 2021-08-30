@@ -6,6 +6,7 @@ import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
 import { ConsumableTrait } from "@item/consumable/data";
 import { Size } from "@module/data";
+import { SpellSource } from "@item/spell/data";
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
@@ -160,5 +161,26 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     };
     invested?: {
         value: boolean | null;
+    };
+    spellcasting?: {
+        charges?: {
+            value: number;
+            max: number;
+        };
+        stats?: {
+            dc: number;
+            mod: number;
+        };
+        spells: Record<
+            string,
+            {
+                data: SpellSource;
+
+                /** If the spell has been consumed. Only relevant for certain casting types. */
+                consumed?: boolean;
+
+                // add an at-will flag of sorts
+            }
+        >;
     };
 }

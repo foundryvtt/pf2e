@@ -1,16 +1,30 @@
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { Rarity, Size } from "@module/data";
-import { ItemPF2e } from "@item/index";
+import { ItemPF2e, SpellPF2e } from "@item/index";
 import type { ContainerPF2e } from "@item/index";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 
+/**
+ * Interface over general item spellcasting. Depending on what type of item
+ * is housing the spells, different spellcasting implementations may be used.
+ */
+export interface ItemSpellcasting<T extends PhysicalItemPF2e> {
+    spells: Collection<SpellPF2e>;
+    get actor(): T['actor'];
+    addSpell(spell: SpellPF2e): Promise<void>;
+    removeSpell(spellId: string): Promise<void>;
+    cast(spell: string, options: { consume: boolean }): Promise<void>;
+}
+
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
     private _container: Embedded<ContainerPF2e> | null = null;
+
+    spellcasting?: ItemSpellcasting<this>;
 
     get level(): number {
         return this.data.data.level.value;
