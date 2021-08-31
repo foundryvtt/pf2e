@@ -207,6 +207,9 @@
             justify-self: end;
             font-size: 10px;
             margin-right: 4px;
+            display: flex;
+            gap: 2px;
+            align-items: center;
         }
 
         .spell-cast button {
@@ -261,6 +264,22 @@
         padding: 4px;
         text-align: center;
         background: var(--secondary);
+        position: relative;
+
+        .flexible-available {
+            font-size: 11px;
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    input.toggle-signature-spell[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+        margin: 0 2px 0 0;
+        flex: 0 0 auto;
     }
 
     .spellbook-empty {
