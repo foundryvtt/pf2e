@@ -1375,6 +1375,7 @@ export const PF2ECONFIG = {
         class: "PF2E.Class",
         dedication: "PF2E.TraitDedication",
         detection: "PF2E.TraitDetection",
+        eidolon: "PF2E.TraitEidolon",
         emotion: "PF2E.TraitEmotion",
         evolution: "PF2E.TraitEvolution",
         exploration: "PF2E.TraitExploration",
