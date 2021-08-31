@@ -146,9 +146,12 @@
                         <div class="item-controls">
                             {{#unless section.isCantrip}}
                             {{#if entry.isFlexible}}
-                                <a class="item-control toggle-signature-spell" title="{{localize 'PF2E.ToggleSignatureSpellTitle'}}">
-                                    {{#if signature}}<i class="fas fa-star"></i>{{else}}<i class="far fa-star"></i>{{/if}}
-                                </a>
+                                <input
+                                    type="checkbox"
+                                    class="toggle-signature-spell"
+                                    {{checked signature}}
+                                    title="{{#if signature}}{{localize 'PF2E.SpellCollectionRemove'}}{{else}}{{localize 'PF2E.SpellCollectionAdd'}}{{/if}}"
+                                />
                             {{/if}}
                             {{/unless}}
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
