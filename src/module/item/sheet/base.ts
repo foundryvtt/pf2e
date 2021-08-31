@@ -15,6 +15,7 @@ import {
 } from "@module/system/trait-selector";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@module/utils";
 import { ActiveEffectPF2e } from "@module/active-effect";
+import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -414,6 +415,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 editTags: 1,
             });
         }
+
+        InlineRollsLinks.listen(html);
 
         // Active Effect controls
         html.find('.tab.effects table th a[data-action="create"]').on("click", async () => {

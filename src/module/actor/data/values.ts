@@ -127,3 +127,17 @@ export const SUPPORTED_ROLL_OPTIONS = [
     "skill-check",
     "counteract-check",
 ];
+
+export const SENSE_TYPES = [
+    "darkvision",
+    "greaterDarkvision",
+    "lowLightVision",
+    "motionsense",
+    "scent",
+    "echolocation",
+    "tremorsense",
+    "lifesense",
+    "wavesense",
+] as const;
+
+export const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
