@@ -270,8 +270,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Default token dimensions as derived from actor size
-        this.data.token.flags.pf2e ??= { linkToActorSize: true };
-        this.data.token.flags.pf2e.linkToActorSize ??= true;
+        const linkToActorSize = !["hazard", "loot"].includes(this.type);
+        this.data.token.flags.pf2e ??= { linkToActorSize };
+        this.data.token.flags.pf2e.linkToActorSize ??= linkToActorSize;
 
         // Disable manually-configured vision settings on the prototype token
         if (canvas.sight?.rulesBasedVision) {
