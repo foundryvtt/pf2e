@@ -66,6 +66,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     };
     prepared: {
         value: PreparationType;
+        flexible?: boolean;
     };
     showUnpreparedSpells: {
         value: boolean;
