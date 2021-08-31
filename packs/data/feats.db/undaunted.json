@@ -22,9 +22,44 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a save against an emotion effect, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Character Guide"
         },
         "traits": {
             "custom": "",

@@ -8,7 +8,7 @@ import {
     SpellcastingEntryPF2e,
     SpellPF2e,
 } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -36,7 +36,7 @@ import { ErrorPF2e, objectHasKey, tupleHasValue } from "@module/utils";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { SKILL_DICTIONARY } from "@actor/data/values";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, ActorSheetOptionsPF2e } from "./data-types";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
@@ -49,6 +49,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
+import { FormulaSource } from "@item/formula/data";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -56,11 +57,12 @@ import { createSpellcastingDialog } from "./spellcasting-dialog";
  * @category Actor
  */
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptionsPF2e {
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             submitOnClose: false,
+            itemIdentificationAttributes: [],
             scrollY: [
                 ".sheet-sidebar",
                 ".spellcastingEntry-list",
@@ -71,6 +73,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ".actions-pane",
                 ".spellbook-pane",
                 ".skillstab-pane",
+                ".crafting-pane",
                 ".pfs-pane",
                 ".tab.active",
             ],
@@ -367,6 +370,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
+
+        // Formula Create
+        html.find(".formula-create").on("click", (event) => this.onClickCreateItem(event));
 
         // Adding/Editing/Removing Spellcasting entries
         html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
@@ -843,6 +849,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
+        const craftingTab = this._tabs[0]?.active === "crafting";
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -916,6 +923,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
+        } else if (isPhysicalData(itemData) && craftingTab) {
+            const formula = this.createFormulaFromItem(itemData as PhysicalItemSource);
+            return this._onDropItemCreate(formula);
         }
 
         if (isPhysicalData(itemData)) {
@@ -1047,7 +1057,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         } else {
             const $summary = $('<div class="item-summary">');
-            this.renderItemSummary($summary, item);
+            const chatData = item.getChatData({ secrets: this.actor.isOwner }, $li.data());
+            this.renderItemSummary($summary, item, chatData);
             $li.append($summary);
             if (options.instant) {
                 InlineRollsLinks.listen($summary);
@@ -1191,7 +1202,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         event.preventDefault();
         createSpellcastingDialog(event, {
             callback: (result) => {
-                const { spellcastingType, tradition, ability } = result;
+                const { spellcastingType, tradition, ability, flexible } = result;
 
                 let name = "";
                 if (spellcastingType === "ritual") {
@@ -1211,7 +1222,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     ability: { value: ability },
                     spelldc: { value: 0, dc: 0, mod: 0 },
                     tradition: { value: tradition },
-                    prepared: { value: spellcastingType },
+                    prepared: { value: spellcastingType, flexible: flexible ?? undefined },
                     showUnpreparedSpells: { value: true },
                 };
 
@@ -1240,6 +1251,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 entry.update({
                     "data.tradition.value": result.tradition,
                     "data.ability.value": result.ability,
+                    "data.prepared.flexible": result.flexible,
                 });
             },
         });
@@ -1327,6 +1339,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
+    }
+
+    private createFormulaFromItem(itemData: PhysicalItemSource): FormulaSource {
+        const formula: PreCreate<FormulaSource> = {
+            name: game.i18n.format("PF2E.FormulaSheet.NamePrefix", { name: itemData.name }),
+            type: "formula",
+            img: itemData.img,
+            data: {
+                craftedItem: {
+                    uuid: itemData.flags.core?.sourceId as any,
+                },
+                description: itemData.data.description,
+            },
+        };
+        return formula as FormulaSource;
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {
@@ -1423,13 +1450,29 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
         // Identify which item summaries are expanded currently
         const expandedItemElements = this.element.find(".item.expanded[data-item-id]");
-        const openItemIds = new Set(expandedItemElements.map((_i, el) => el.dataset.itemId));
 
+        // Create a list of records that act as identification keys for expanded entries
+        const sheetOptions = (this.constructor as typeof ActorSheetPF2e).defaultOptions;
+        const properties = ["data-item-id", ...sheetOptions.itemIdentificationAttributes];
+        const openItems: Record<string, string>[] = expandedItemElements
+            .map((_i, el) => {
+                const $el = $(el);
+                const pairs = properties.map((prop) => [prop, $el.attr(prop)]);
+                return Object.fromEntries(pairs.filter((pair) => typeof pair[1] !== "undefined"));
+            })
+            .get();
+
+        // Render the sheet
         const result = await super._renderInner(data, options);
 
         // Re-open hidden item summaries
-        for (const elementId of openItemIds) {
-            this.toggleItemSummary(result.find(`.item[data-item-id=${elementId}]`), { instant: true });
+        for (const itemProps of openItems) {
+            const searchProps = [".item"];
+            for (const [key, value] of Object.entries(itemProps)) {
+                searchProps.push(`[${key}=${value}]`);
+            }
+
+            this.toggleItemSummary(result.find(searchProps.join("")), { instant: true });
         }
 
         return result;
