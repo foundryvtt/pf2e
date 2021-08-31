@@ -113,8 +113,8 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         return super._onSubmit(event, options);
     }
 
-    override getData(): PopupData {
-        const sheetData: PopupData = super.getData();
+    override async getData(): Promise<PopupData> {
+        const sheetData: PopupData = await super.getData();
         const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof CharacterPF2e);
         sheetData.actorInfo = playerActors.map((actor) => ({
             id: actor.id,
