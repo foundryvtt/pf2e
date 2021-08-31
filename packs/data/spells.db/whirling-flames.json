@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "fire"
-                    },
-                    "value": "5d6"
-                }
-            }
+            "applyMod": false,
+            "value": "5d6"
+        },
+        "damageType": {
+            "value": "fire"
         },
         "description": {
             "value": "<p>You call forth a storm of whirling flames, engulfing all creatures in that area and dealing 5d6 fire damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 3d6, and you can add another non-overlapping 5-foot burst to the area.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "3d6"
-            },
-            "interval": 2
+            "formula": "3d6",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
@@ -105,6 +99,7 @@
                 "value": "uncommon"
             },
             "value": [
+                "evocation",
                 "fire",
                 "oracle"
             ]

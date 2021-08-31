@@ -23,16 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "2d8"
-                }
-            }
+            "applyMod": true,
+            "value": "2d8"
+        },
+        "damageType": {
+            "value": ""
         },
         "description": {
             "value": "<p>You bind a part of your essence to your surroundings, creating a warded area that grants you power within it, but drains you outside of it. While within the area, you can make nature's wrath Strikes by commanding plants, wind, rocks, and other natural features to attack enemies. These are melee Strikes that use your spell attack modifier, can target any creature within the ward, and deal bludgeoning, piercing, or slashing damage equal to [[/r 2d8]] plus your spellcasting ability modifier.</p>\n<p>Upon @Compendium[pf2e.actionspf2e.Cast a Spell]{Casting the Spell}, you can immediately make a single nature's wrath Strike. You are @Compendium[pf2e.conditionitems.Quickened]{Quickened} while inside the ward, and can use the additional action only to make nature's wrath Strikes. You are @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} while outside the area.</p>\n<hr />\n<p>Heightened (+2) The area increases by 5 feet, and the Strikes deal an additional [[/r 1d8]] damage.</p>"
@@ -67,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 2
+            "formula": "1d8",
+            "mode": "level2"
         },
         "school": {
             "value": "abjuration"
@@ -105,6 +98,7 @@
                 "value": "uncommon"
             },
             "value": [
+                "abjuration",
                 "sorcerer"
             ]
         }

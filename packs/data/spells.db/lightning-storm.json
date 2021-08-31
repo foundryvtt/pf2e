@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "4d12"
-                }
-            }
+            "applyMod": false,
+            "value": "4d12"
+        },
+        "damageType": {
+            "value": "electricity"
         },
         "description": {
             "value": "<p>You create a black, rumbling storm cloud and call down one lightning bolt. The bolt is a vertical line from the storm cloud to the ground below, dealing <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"electricity\" data-formula=\"4d12\" title=\"electricity\"><i class=\"fas fa-dice-d20\"></i> 4d12</a> electricity damage to creatures in the spell's area (basic Reflex save). The first time you @Compendium[pf2e.actionspf2e.Sustain a Spell]{Sustain the Spell} each round, you can call another lightning bolt within the area. If you @Compendium[pf2e.actionspf2e.Cast a Spell]{Cast this Spell} outdoors, you can create two non-overlapping clouds instead of one, though you can still call down only one bolt per turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage of each bolt increases by <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"electric\" data-formula=\"1d12\" title=\"electric\"><i class=\"fas fa-dice-d20\"></i> 1d12</a>.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d12"
-            },
-            "interval": 1
+            "formula": "1d12",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -106,7 +100,8 @@
                 "value": "common"
             },
             "value": [
-                "electricity"
+                "electricity",
+                "evocation"
             ]
         }
     },

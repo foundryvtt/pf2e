@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "negative"
-                    },
-                    "value": "4d8 persistent"
-                }
-            }
+            "applyMod": false,
+            "value": "4d8 persistent"
+        },
+        "damageType": {
+            "value": "negative"
         },
         "description": {
             "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8 #persistent negative]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8 #persistent negative]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8 #persistent negative]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8 #persistent negative]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a success, or by [[/r 2d8 #persistent negative]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Negative Damage} on a failure or critical failure.</p>"
@@ -66,10 +62,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "2d8"
-            },
-            "interval": 2
+            "formula": "2d8",
+            "mode": "level2"
         },
         "school": {
             "value": "necromancy"
@@ -108,6 +102,7 @@
                 "value": "common"
             },
             "value": [
+                "necromancy",
                 "negative"
             ]
         }

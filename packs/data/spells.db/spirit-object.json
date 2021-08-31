@@ -22,16 +22,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "bludgeoning"
-                    },
-                    "value": "1d4"
-                }
-            }
+            "applyMod": true,
+            "value": "1d4"
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>Using a sliver of Baba Yaga's power, you briefly bring an object to life. The object gains a means of locomotion, such as sprouting chicken legs, and Strides up to 25 feet to a space you decide within range. If you spent 2 actions Casting the Spell, the object then attacks one creature of your choice adjacent to its new space. Make a melee spell attack roll against the creature. On a success, the creature takes bludgeoning, piercing, or slashing damage (as appropriate for the object) equal to 1d4 plus your spellcasting ability modifier, and on a critical success, it takes double damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the maximum Bulk of the target by 1 and the damage by 1d4.</p>"
@@ -66,10 +61,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d4"
-            },
-            "interval": 1
+            "formula": "1d4",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -110,6 +103,7 @@
             },
             "value": [
                 "hex",
+                "necromancy",
                 "witch",
                 "cantrip"
             ]

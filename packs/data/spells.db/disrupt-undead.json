@@ -26,16 +26,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "applyMod": true,
-                    "type": {
-                        "categories": [],
-                        "value": "positive"
-                    },
-                    "value": "1d6"
-                }
-            }
+            "applyMod": true,
+            "value": "1d6"
+        },
+        "damageType": {
+            "value": "positive"
         },
         "description": {
             "value": "<p>You lance the target with energy. You deal 1d6 positive damage plus your spellcasting ability modifier. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
@@ -70,10 +65,8 @@
             "value": "fortitude"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -113,7 +106,8 @@
             },
             "value": [
                 "positive",
-                "cantrip"
+                "cantrip",
+                "necromancy"
             ]
         }
     },

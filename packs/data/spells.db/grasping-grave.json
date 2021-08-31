@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "slashing"
-                    },
-                    "value": "6d6"
-                }
-            }
+            "applyMod": false,
+            "value": "6d6"
+        },
+        "damageType": {
+            "value": "slashing"
         },
         "description": {
             "value": "<p>Hundreds of skeletal arms erupt from the ground in the area, clawing at creatures within and attempting to hold them in place. The skeletal arms deal 6d6 slashing damage. Each creature in the area must attempt a Reflex save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and a -10-foot circumstance penalty to its Speeds for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until it Escapes.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -104,6 +98,7 @@
                 "value": "uncommon"
             },
             "value": [
+                "necromancy",
                 "sorcerer"
             ]
         }

@@ -22,15 +22,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "bludgeoning"
-                    },
-                    "value": "2d6"
-                }
-            }
+            "applyMod": false,
+            "value": "2d6"
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>A ray of energy bludgeons your target into submission without causing lasting harm. When you cast this spell, you choose whether the ray feels like a strong punch or slap. Make a spell attack roll. The ray deals 2d6 bludgeoning damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -65,10 +61,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "necromancy"
@@ -113,6 +107,7 @@
             },
             "value": [
                 "attack",
+                "necromancy",
                 "nonlethal"
             ]
         }

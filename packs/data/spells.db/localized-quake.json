@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "bludgeoning"
-                    },
-                    "value": "4d6"
-                }
-            }
+            "applyMod": false,
+            "value": "4d6"
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>You shake the earth, toppling nearby creatures. Choose whether the spell's area is a 15-foot emanation or a 15-foot cone when you cast it. Each creature in the area standing on solid ground may take 4d6 bludgeoning damage and must attempt a Reflex saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and falls Prone.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 2d6.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "transmutation"
@@ -105,7 +99,8 @@
             },
             "value": [
                 "cleric",
-                "earth"
+                "earth",
+                "transmutation"
             ]
         }
     },

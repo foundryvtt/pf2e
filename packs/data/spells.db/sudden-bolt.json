@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "electricity"
-                    },
-                    "value": "4d12"
-                }
-            }
+            "applyMod": false,
+            "value": "4d12"
+        },
+        "damageType": {
+            "value": "electricity"
         },
         "description": {
             "value": "<p>You call down a small bolt of lightning on the target, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d12"
-            },
-            "interval": 1
+            "formula": "1d12",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -108,7 +102,8 @@
                 "value": "uncommon"
             },
             "value": [
-                "electricity"
+                "electricity",
+                "evocation"
             ]
         }
     },

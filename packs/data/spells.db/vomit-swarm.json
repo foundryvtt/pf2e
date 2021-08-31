@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "piercing"
-                    },
-                    "value": "2d8"
-                }
-            }
+            "applyMod": false,
+            "value": "2d8"
+        },
+        "damageType": {
+            "value": "piercing"
         },
         "description": {
             "value": "<p>You belch forth a swarm of magical vermin. You evoke and shape the creatures from your own imagination, allowing you to change the appearance of the creatures (typically a mix of centipedes, roaches, wasps, and worms), but this doesn't change the effect of the spell. The vermin swarm over anyone in the area, their bites and stings dealing [[/r 2d8 #piercing]]{2d8 piercing damage} (basic Reflex save). A creature that fails its saving throw also becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. Once the spell ends, the swarm disappears.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r 1d8 #piercing]]{1d8 piercing}.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -107,7 +101,9 @@
             "rarity": {
                 "value": "common"
             },
-            "value": []
+            "value": [
+                "evocation"
+            ]
         }
     },
     "effects": [],

@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "mental"
-                    },
-                    "value": "1d4"
-                }
-            }
+            "applyMod": false,
+            "value": "1d4"
+        },
+        "damageType": {
+            "value": "mental"
         },
         "description": {
             "value": "<p>You manifest a supernatural funerary mask, granting you a +1 status bonus to Will saving throws against emotion effects for 1 minute. Its somber countenance forces your foes to confront their regrets and sins. Each enemy in the area when you @Compendium[pf2e.actionspf2e.Cast a Spell]{Cast the Spell} or that starts its turn in the area takes [[/r 1d4 #mental]]{1d4 mental damage} and must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and takes a -1 status penalty to Will saves against emotion effects for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and a -1 status penalty to Will saves against emotion effects for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase the mental damage by [[/r 2d4 #mental]]{2d4 mental} and the emanation's radius by 5 feet.</p>"
@@ -66,10 +62,8 @@
             "value": "will"
         },
         "scaling": {
-            "damage": {
-                "0": "2d4"
-            },
-            "interval": 2
+            "formula": "2d4",
+            "mode": "level2"
         },
         "school": {
             "value": "divination"
@@ -104,6 +98,7 @@
                 "value": "uncommon"
             },
             "value": [
+                "divination",
                 "emotion",
                 "mental",
                 "sorcerer",

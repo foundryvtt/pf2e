@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "fire"
-                    },
-                    "value": "2d6"
-                }
-            }
+            "applyMod": false,
+            "value": "2d6"
+        },
+        "damageType": {
+            "value": "fire"
         },
         "description": {
             "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 1
+            "formula": "1d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -107,6 +101,7 @@
                 "value": "common"
             },
             "value": [
+                "evocation",
                 "fire"
             ]
         }

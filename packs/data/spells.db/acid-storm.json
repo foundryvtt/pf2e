@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "acid"
-                    },
-                    "value": "3d8"
-                }
-            }
+            "applyMod": false,
+            "value": "3d8"
+        },
+        "damageType": {
+            "value": "acid"
         },
         "description": {
             "value": "<p>You evoke a storm of acid rain that pelts the area for the spell's duration. A creature that begins its turn in the area takes 3d8 acid damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d8.</p>"
@@ -66,10 +62,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 2
+            "formula": "1d8",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
@@ -108,7 +102,8 @@
                 "value": "common"
             },
             "value": [
-                "acid"
+                "acid",
+                "evocation"
             ]
         }
     },

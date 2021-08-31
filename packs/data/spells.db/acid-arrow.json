@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "acid"
-                    },
-                    "value": "3d8"
-                }
-            }
+            "applyMod": false,
+            "value": "3d8"
+        },
+        "damageType": {
+            "value": "acid"
         },
         "description": {
             "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "2d8"
-            },
-            "interval": 2
+            "formula": "2d8",
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
@@ -108,7 +102,8 @@
             },
             "value": [
                 "acid",
-                "attack"
+                "attack",
+                "evocation"
             ]
         }
     },

@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "cold"
-                    },
-                    "value": "5d6"
-                }
-            }
+            "applyMod": false,
+            "value": "5d6"
+        },
+        "damageType": {
+            "value": "cold"
         },
         "description": {
             "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
@@ -66,10 +62,8 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -109,7 +103,8 @@
                 "attack",
                 "cold",
                 "darkness",
-                "evil"
+                "evil",
+                "evocation"
             ]
         }
     },

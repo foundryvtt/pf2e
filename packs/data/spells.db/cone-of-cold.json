@@ -26,15 +26,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "cold"
-                    },
-                    "value": "12d6"
-                }
-            }
+            "applyMod": false,
+            "value": "12d6"
+        },
+        "damageType": {
+            "value": "cold"
         },
         "description": {
             "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -69,10 +65,8 @@
             "value": "reflex"
         },
         "scaling": {
-            "damage": {
-                "0": "2d6"
-            },
-            "interval": 1
+            "formula": "2d6",
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"
@@ -110,7 +104,8 @@
                 "value": "common"
             },
             "value": [
-                "cold"
+                "cold",
+                "evocation"
             ]
         }
     },

@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "mental"
-                    },
-                    "value": "1d8"
-                }
-            }
+            "applyMod": false,
+            "value": "1d8"
+        },
+        "damageType": {
+            "value": "mental"
         },
         "description": {
             "value": "<p>You let out your negative emotions in a guttural wail that shakes your enemies' hearts and deals 1d8 mental damage (basic Will save). If you have any harmful conditions imposed by emotion effects, <em>lament</em> deals additional mental damage equal to the counteract level of the highest-level effect.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
@@ -66,10 +62,8 @@
             "value": "will"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 1
+            "formula": "1d8",
+            "mode": "level1"
         },
         "school": {
             "value": "enchantment"
@@ -107,6 +101,7 @@
             "value": [
                 "cleric",
                 "emotion",
+                "enchantment",
                 "mental"
             ]
         }

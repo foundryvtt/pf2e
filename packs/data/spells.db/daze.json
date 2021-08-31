@@ -23,7 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {}
+            "applyMod": true,
+            "value": "0"
+        },
+        "damageType": {
+            "value": "mental"
         },
         "description": {
             "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -58,10 +62,8 @@
             "value": "will"
         },
         "scaling": {
-            "damage": {
-                "0": "1d6"
-            },
-            "interval": 2
+            "formula": "1d6",
+            "mode": "level2"
         },
         "school": {
             "value": "enchantment"
@@ -101,6 +103,7 @@
             },
             "value": [
                 "cantrip",
+                "enchantment",
                 "mental",
                 "nonlethal"
             ]

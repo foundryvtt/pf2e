@@ -23,15 +23,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "mental"
-                    },
-                    "value": "2d4"
-                }
-            }
+            "applyMod": false,
+            "value": "2d4"
+        },
+        "damageType": {
+            "value": "mental"
         },
         "description": {
             "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r 1d4 #persistent mental]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
@@ -66,10 +62,8 @@
             "value": "will"
         },
         "scaling": {
-            "damage": {
-                "0": "2d4"
-            },
-            "interval": 1
+            "formula": "2d4",
+            "mode": "level1"
         },
         "school": {
             "value": "illusion"
@@ -106,6 +100,7 @@
                 "value": "common"
             },
             "value": [
+                "illusion",
                 "mental",
                 "nonlethal"
             ]
