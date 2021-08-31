@@ -312,7 +312,6 @@ const traitsDescriptions = {
     multiclass: "PF2E.TraitDescriptionMulticlass",
     oath: "PF2E.TraitDescriptionOath",
     open: "PF2E.TraitDescriptionOpen",
-    possession: "PF2E.TraitDescriptionPossession",
     polymorph: "PF2E.TraitDescriptionPolymorph",
     press: "PF2E.TraitDescriptionPress",
     rage: "PF2E.TraitDescriptionRage",
