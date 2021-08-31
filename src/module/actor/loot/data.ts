@@ -1,4 +1,4 @@
-import { ActorSystemData, BaseActorDataPF2e, BaseActorSourcePF2e } from "@actor/data/base";
+import { ActorFlagsPF2e, ActorSystemData, BaseActorDataPF2e, BaseActorSourcePF2e } from "@actor/data/base";
 import { LootPF2e } from ".";
 
 /** The stored source data of a loot actor */
@@ -12,6 +12,7 @@ export class LootData extends BaseActorDataPF2e<LootPF2e> {
 export interface LootData extends Omit<LootSource, "effects" | "items" | "token"> {
     type: LootSource["type"];
     data: LootSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: LootSource;
 }
 
