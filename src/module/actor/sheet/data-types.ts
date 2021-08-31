@@ -53,6 +53,11 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     totalWealthGold: string;
 }
 
+export interface ActorSheetOptionsPF2e extends ActorSheetOptions {
+    /** DOM attribute names used alongside data-item-id to identify an item entry between re-renders */
+    itemIdentificationAttributes: string[];
+}
+
 export interface LootSheetDataPF2e extends ActorSheetDataPF2e<LootPF2e> {
     isLoot: boolean;
 }
