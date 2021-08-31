@@ -92,14 +92,12 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
      */
-    async toMessage(
-        this: Embedded<ItemPF2e>,
-        event?: JQuery.TriggeredEvent,
-        { create = true } = {}
-    ): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(event?: JQuery.TriggeredEvent, { create = true } = {}): Promise<ChatMessagePF2e | undefined> {
+        if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
+
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
-        const { token } = this.actor;
+        const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = nearestItem.dataset || {};
         const templateData = {
@@ -140,7 +138,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
-    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toChat(event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
         return this.toMessage(event, { create: true });
     }
 
@@ -162,7 +160,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(this: Embedded<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
@@ -175,11 +173,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         return data;
     }
 
-    getChatData(
-        this: Embedded<ItemPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
-        _rollOptions: Record<string, any> = {}
-    ): Record<string, unknown> {
+    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): Record<string, unknown> {
+        if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
             traits: this.traitChatData(),
