@@ -31,6 +31,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html",
         "systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html",
         "systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html",
+        "systems/pf2e/templates/actors/crb-style/tabs/actor-crafting.html",
         "systems/pf2e/templates/actors/crb-style/tabs/item-line.html",
         "systems/pf2e/templates/actors/crb-style/character-traits.html",
         "systems/pf2e/templates/actors/crb-style/character-background.html",
