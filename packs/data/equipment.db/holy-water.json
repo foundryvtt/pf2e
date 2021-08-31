@@ -67,8 +67,8 @@
                         "value": ""
                     }
                 },
-                "img": "",
-                "name": ""
+                "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+                "name": "Unusual Object"
             }
         },
         "level": {
@@ -97,7 +97,30 @@
             "units": "",
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "ability": "dex",
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "good",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "key": "Strike",
+                "label": "Holy Water",
+                "range": "20",
+                "traits": [
+                    "thrown-20,good,divine,consumable,splash"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "damage",
+                "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p><p>[[/r 1 #good]]{1 good splash damage}<p/>"
+            }
+        ],
         "size": {
             "value": "med"
         },
