@@ -34,14 +34,11 @@ export class MigrationRunner extends MigrationRunnerBase {
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
             const source = document.data._source;
-            // Consolidate this come Typescript 4.4
-            if ("items" in source) {
-                const updated = await runner.getUpdatedActor(source, runner.migrations);
-                document.data.update(updated);
-            } else {
-                const updated = await runner.getUpdatedItem(source, runner.migrations);
-                document.data.update(updated);
-            }
+            const updated =
+                "items" in source
+                    ? await runner.getUpdatedActor(source, runner.migrations)
+                    : await runner.getUpdatedItem(source, runner.migrations);
+            document.data.update(updated);
         }
     }
 

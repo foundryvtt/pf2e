@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "4d6"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "4d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You evoke the energy of an Abyssal realm. The damage types of the spell (one energy and one physical) are based on the result of rolling on the table below.</p>\n<h2>Abyssal Wrath</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>[[/r 1D4]]</th>\n<th>Realm</th>\n<th>Manifestation</th>\n<th>Damage and type</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Skies</td>\n<td>Bolts and lightning and flying debris</td>\n<td>Bludgeoning and electricity</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Depths</td>\n<td>Acid and demonic shells</td>\n<td>Acid and slashing</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Frozen</td>\n<td>Frigid air and ice</td>\n<td>Bludgeoning and cold</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Volcanic</td>\n<td>Jagged volcanic rocks and magma</td>\n<td>Fire and piercing</td>\n</tr>\n</tbody>\n</table>\n<p>You deal 4d6 damage of each of the corresponding damage types to each creature in the cone (8d6 total damage).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage for each type increases by 1d6.</p>"
@@ -62,8 +66,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "1d6",
-            "mode": "level1"
+            "damage": {
+                "0": "1d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -99,7 +105,6 @@
             },
             "value": [
                 "uncommon",
-                "evocation",
                 "sorcerer"
             ]
         }

@@ -16,6 +16,8 @@ import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-
 import { Migration658MonkUnarmoredProficiency } from "@module/migration/migrations/658-monk-unarmored-proficiency";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
 import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
+import { Migration659MultipleDamageRows } from "@module/migration/migrations/659-multiple-damage-rows";
+import { Migration660DerivedSpellTraits } from "@module/migration/migrations/660-derived-spell-traits";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
@@ -29,6 +31,8 @@ const migrations: MigrationBase[] = [
     new Migration656OtherFocusPoolSources(),
     new Migration657RemoveSetProperty(),
     new Migration658MonkUnarmoredProficiency(),
+    new Migration659MultipleDamageRows(),
+    new Migration660DerivedSpellTraits(),
 ];
 
 global.deepClone = function (original: any): any {
@@ -122,8 +126,8 @@ async function getAllFiles(): Promise<string[]> {
         try {
             // Create an array of files in the ./packs/data/[packname].db/ directory
             packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
-        } catch (e) {
-            console.error(e.message);
+        } catch (error) {
+            if (error instanceof Error) console.error(error.message);
             return [];
         }
 
@@ -147,8 +151,11 @@ async function migrate() {
         try {
             // Parse file content
             source = JSON.parse(content);
-        } catch (e) {
-            throw { message: `File ${filePath} could not be parsed. Error: ${e.message}` };
+        } catch (error) {
+            if (error instanceof Error) {
+                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`);
+            }
+            return;
         }
 
         // skip journal entries, rollable tables, and macros
@@ -175,7 +182,8 @@ async function migrate() {
                     return source;
                 }
             } catch (error) {
-                throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
+                if (error instanceof Error) throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
+                throw {};
             }
         })();
 
@@ -186,8 +194,10 @@ async function migrate() {
             console.log(`${filePath} is different. writing`);
             try {
                 await fs.writeFile(filePath, outData);
-            } catch (e) {
-                throw { message: `File ${filePath} could not be parsed. Error: ${e.message}` };
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw { message: `File ${filePath} could not be parsed. Error: ${error.message}` };
+                }
             }
         }
     }

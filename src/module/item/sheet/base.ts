@@ -19,7 +19,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.width = 630;
+        options.width = 650;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
         options.template = "systems/pf2e/templates/items/item-sheet.html";
@@ -526,9 +526,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     try {
                         rules.push(JSON.parse(value as string));
                     } catch (error) {
-                        ui.notifications.error(`Syntax error in rule element definition: ${error.message}`);
-                        console.warn("Syntax error in rule element definition.", error.message, value);
-                        throw error;
+                        if (error instanceof Error) {
+                            ui.notifications.error(`Syntax error in rule element definition: ${error.message}`);
+                            console.warn("Syntax error in rule element definition.", error.message, value);
+                            throw error;
+                        }
                     }
                 });
             formData["data.rules"] = rules;

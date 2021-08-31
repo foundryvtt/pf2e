@@ -25,6 +25,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "weaponPropertyRunes",
     "rarityTraits",
     "damageTypes",
+    "damageCategories",
     "weaponDamage",
     "healingTypes",
     "weaponTypes",

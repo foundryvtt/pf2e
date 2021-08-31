@@ -1,6 +1,7 @@
 import { AbilityString } from "@actor/data/base";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { OneToTen, ZeroToEleven } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import { SpellcastingEntryPF2e } from "..";
@@ -46,7 +47,7 @@ interface SpellSlotData {
     max: number;
 }
 
-export type MagicTradition = keyof ConfigPF2e["PF2E"]["magicTraditions"];
+export type MagicTradition = typeof MAGIC_TRADITIONS[number];
 export type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 export interface SpellcastingEntrySystemData extends ItemSystemData {

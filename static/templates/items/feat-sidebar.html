@@ -3,24 +3,24 @@
 <span class="item-summary">{{localize (lookup featTypes data.featType.value)}}</span>
 {{# if data.requirements.value }}<span class="item-summary">{{data.requirements.value}}</span>{{/if}}
 
-<ol class="item-tags">
+<ol class="item-tags tags">
     <div class="form-group">
         <label>{{localize "PF2E.FeatLevelLabel"}}</label>
         <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
     </div>
-  <li class="tag">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
+  <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
   {{#each traits as |trait|}}
       {{#if trait.selected}}
-          <li class="tag">{{localize trait.label}}</li>
+          <li class="tag tag_transparent">{{localize trait.label}}</li>
       {{/if}}
   {{/each}}
 </ol>
 
 {{#unless (any (eq data.featType.value "classfeature") (eq data.featType.value "ancestryfeature") (eq data.featType.value "curse") (eq data.featType.value "dietyboon") )}}
   <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
-  <ol class="item-tags">
+  <ol class="item-tags tags">
   {{#each data.prerequisites.value as |v k|}}
-      <li class="tag {{k}}">{{v.value}}</li>
+      <li class="tag tag_transparent {{k}}">{{v.value}}</li>
   {{/each}}
   </ol>
 {{/unless}}

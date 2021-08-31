@@ -60,7 +60,7 @@
         <ul class="traits-list" style="margin: 3px 0; padding: 0;">
             {{#each magicTraditions as |tradition|}}
                 {{#if tradition.selected}}
-                    <li class="tag" data-tradition="{{tradition.value}}">{{localize tradition.label}}</li>
+                    <li class="tag-legacy" data-tradition="{{tradition.value}}">{{localize tradition.label}}</li>
                 {{/if}}
             {{/each}}
         </ul>
@@ -204,43 +204,85 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.SpellDamageLabel"}}</label>
-        <div class="details-container-flex-row">
-            <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="String"/>
-            <label>
-                <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="Boolean" {{checked data.damage.applyMod}}/>
-            </label>
-        </div>
-    </div>
+    <div class="damage-formulas">
+        <h3>
+            {{localize "PF2E.FormulaPlaceholder"}}
+            <div class="item-controls">
+                <i class="fas fa-plus" data-action="damage-create"></i>
+            </div>
+        </h3>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.SpellDamageTypeLabel"}}</label>
-        <select name="data.damageType.value" data-dtype="String">
-            {{#select data.damageType.value}}
-                <option value=""></option>
-                {{#each damageTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
+        {{#each data.damage.value as |damage idx|}}
+            <div class="formula-section">
+                <div class="details-container-flex-row">
+                    <input type="text" name="data.damage.value.{{idx}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                    <label>
+                        <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                        <input type="checkbox" name="data.damage.value.{{idx}}.applyMod" value="0" data-dtype="Boolean" {{checked damage.applyMod}}/>
+                    </label>
+                    <select name="data.damage.value.{{idx}}.type.subtype" data-dtype="String">
+                        {{#select damage.type.subtype}}
+                            <option></option>
+                            {{#each @root.damageSubtypes as |name type|}}
+                                <option value="{{type}}">{{localize name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <select name="data.damage.value.{{idx}}.type.value" data-dtype="String">
+                        {{#select damage.type.value}}
+                            <option value=""></option>
+                            {{#each @root.damageTypes as |name type|}}
+                                <option value="{{type}}">{{localize name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <div class="item-controls">
+                        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.DamageCategoriesLabel" data-config-types="damageCategories" data-property="data.damage.value.{{idx}}.type.categories"><i class="fas fa-edit"></i></a>
+                        <a data-action="damage-delete" data-idx="{{idx}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+                {{#if damage.type.categories}}
+                    <div class="traits-list">
+                        {{#each damage.type.categories}}
+                            <div class="tag">{{localize (lookup @root.damageCategories this)}}</div>
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
     </div>
+</ol>
 
-    <div class="form-group">
-        <label>{{localize "PF2E.SpellScalingLabel"}}</label>
-        <div class="details-container-flex-row">
-            <select name="data.scaling.mode">
-                {{#select data.scaling.mode}}
-                    {{#each spellScalingModes as |name key|}}
+{{#if data.scaling}}
+    <div class="form-list">
+        <h3>
+            {{localize "PF2E.SpellScalingInterval.Header"}}
+            <div class="item-controls">
+                <i class="fas fa-trash" data-action="scaling-delete" data-idx="{{idx}}"></i>
+            </div>
+        </h3>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
+            <select name="data.scaling.interval" data-dtype="Number">
+                {{#select data.scaling.interval}}
+                    {{#each @root.spellScalingModes as |name key|}}
                         <option value="{{key}}">{{localize name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
-            <input type="text" data-dtype="String" name="data.scaling.formula" value="{{data.scaling.formula}}" placeholder="Formula" />
         </div>
+
+        {{#each data.damage.value as |damage idx|}}
+            <div class="form-group">
+                <label>{{localize (lookup @root.damageTypes damage.type.value)}}</label>
+                <input type="text" name="data.scaling.damage.{{idx}}" value="{{lookup ../data.scaling.damage idx}}"/>
+            </div>
+        {{/each}}
     </div>
-</ol>
+{{else}}
+    <button data-action="scaling-create"><i class="fas fa-plus"></i> {{ localize "PF2E.SpellScalingInterval.Add" }}</button>
+{{/if}}
 
 <div class="form-group">
     <label>{{localize "PF2E.Counteract"}}</label>
@@ -255,7 +297,7 @@
     <ul class="traits-list pf-value pf-large">
         {{#each traits as |trait|}}
             {{#if trait.selected}}
-                <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
+                <li class="tag-legacy" data-trait="{{trait.value}}">{{localize trait.label}}</li>
             {{/if}}
         {{/each}}
     </ul>

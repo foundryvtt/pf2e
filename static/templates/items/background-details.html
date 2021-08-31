@@ -18,7 +18,7 @@
 
         <ul class="abc-traits-list">
             {{#each (lookup ../selectedBoosts idx) as |v k|}}
-                <span class="tag {{k}}">{{localize v}}</span>
+                <span class="tag-legacy {{k}}">{{localize v}}</span>
             {{/each}}
         </ul>
     </div>
@@ -33,7 +33,7 @@
     <ul class="abc-traits-list">
         {{#each trainedSkills}}
             {{#if this.selected}}
-                <span class="tag {{@key}}">{{localize this.label}}</span>
+                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
             {{/if}}
         {{/each}}
     </ul>

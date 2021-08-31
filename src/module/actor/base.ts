@@ -207,11 +207,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
         // Prepare container contents now that this actor's embedded documents are ready
-        const containers = physicalItems.filter(
-            (item): item is Embedded<ContainerPF2e> => item instanceof ContainerPF2e
-        );
-        for (const container of containers) {
-            container.prepareContents();
+        for (const item of this.items) {
+            item.prepareSiblingData?.();
         }
 
         // Rule elements

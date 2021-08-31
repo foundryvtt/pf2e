@@ -19,13 +19,15 @@ import {
     TreasurePF2e,
     WeaponPF2e,
     FormulaPF2e,
-} from "@item/index";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
+} from "@item";
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
 import { WeaponPropertyRuneType } from "@item/weapon/data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicSchool } from "@item/spell/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -133,14 +135,14 @@ const damageTypes = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const magicTraditions = {
+const magicTraditions: Record<MagicTradition, string> = {
     arcane: "PF2E.TraitArcane",
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
 };
 
-const magicSchools = {
+const magicSchools: Record<MagicSchool, string> = {
     abjuration: "PF2E.TraitAbjuration",
     conjuration: "PF2E.TraitConjuration",
     divination: "PF2E.TraitDivination",
@@ -569,7 +571,6 @@ const spellOtherTraits = {
 const spellTraits = {
     ...classTraits,
     ...damageTraits,
-    ...magicTraditions,
     ...spellOtherTraits,
 };
 
@@ -901,6 +902,19 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
+    damageSubtypes: {
+        persistent: "PF2E.ConditionTypePersistentShort",
+        splash: "PF2E.TraitSplash",
+    },
+    damageCategories: {
+        adamantine: "PF2E.PreciousMaterialAdamantine",
+        coldiron: "PF2E.PreciousMaterialColdIron",
+        darkwood: "PF2E.PreciousMaterialDarkwood",
+        mithral: "PF2E.PreciousMaterialMithral",
+        salt: "PF2E.TraitSalt",
+        silver: "PF2E.PreciousMaterialSilver",
+        warpglass: "PF2E.PreciousMaterialWarpglass",
+    },
 
     resistanceTypes: {
         acid: "PF2E.TraitAcid",
@@ -1972,11 +1986,14 @@ export const PF2ECONFIG = {
     },
 
     spellScalingModes: {
-        none: "PF2E.SpellScalingModeNone",
-        level1: "PF2E.SpellScalingModeLevel1",
-        level2: "PF2E.SpellScalingModeLevel2",
-        level3: "PF2E.SpellScalingModeLevel3",
-        level4: "PF2E.SpellScalingModeLevel4",
+        0: "PF2E.SpellScalingModeNone",
+        1: "PF2E.SpellScalingModeLevel1",
+        2: "PF2E.SpellScalingModeLevel2",
+        3: "PF2E.SpellScalingModeLevel3",
+        4: "PF2E.SpellScalingModeLevel4",
+    },
+
+    spellHeightenedLevels: {
         levelsecond: "PF2E.SpellScalingModeLevelsecond",
         levelthird: "PF2E.SpellScalingModeLevelthird",
         levelfourth: "PF2E.SpellScalingModeLevelfourth",

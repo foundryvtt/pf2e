@@ -19,10 +19,10 @@ import { isCreatureData } from "@actor/data/helpers";
 import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
 import { CheckPF2e } from "@system/rolls";
-import { ItemTrait } from "./data/base";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { ItemTrait } from "./data/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -587,6 +587,8 @@ interface ItemPF2e {
     _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
+
+    prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
     getFlag(scope: "core", key: "sourceId"): string;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;

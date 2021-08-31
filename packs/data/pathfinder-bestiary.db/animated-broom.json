@@ -23,7 +23,8 @@
         },
         "attributes": {
             "ac": {
-                "details": "; construct armor",
+                "base": 16,
+                "details": "(14 when broken); construct armor",
                 "value": 16
             },
             "allSaves": {
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "15 feet"
+                "value": "15"
             }
         },
         "details": {
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "Construct",
-            "flavorText": "Animated brooms perform menial tasks of cleaning and upkeep, but they can step in to defend a room from intrusion if needed. These simple animated objects can be found with greater frequency than more complicated and costly objects.<br /><br />",
+            "flavorText": "<p>Animated brooms perform menial tasks of cleaning and upkeep, but they can step in to defend a room from intrusion if needed. These simple animated objects can be found with greater frequency than more complicated and costly objects.</p>\n<hr />\n<p>Granted a semblance of life through the use of rituals or other strange magic, animated objects take many forms and serve a variety of uses. A few examples of typical animated objects are listed below. Many of these creatures serve as guardians, surprising unsuspecting adventurers when they suddenly attack. Others serve as idle distractions for the exceptionally rich, simple servants created to handle odd jobs, and the like.</p>",
             "level": {
                 "value": -1
             },
@@ -87,7 +88,7 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "doomed",
                     "drained",
@@ -95,7 +96,7 @@
                     "healing",
                     "mental",
                     "necromancy",
-                    "nonlethal attacks",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
                     "sickened",
@@ -138,6 +139,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "dust"
                     ]
@@ -166,8 +168,8 @@
                     },
                     "value": [
                         "agile",
-                        "magical",
-                        "finesse"
+                        "finesse",
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -180,6 +182,54 @@
             "name": "Bristles",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "lLsSuZ6Tev4yEFrU",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "3SNH7v25J8TbPWvC",
@@ -199,7 +249,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -221,8 +291,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
-            "sort": 200000,
+            "name": "Construct Armor (Hardness 2)",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -238,7 +308,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by an animated broom's bristles must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-label=\"Dust DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or spend its next action coughing. Even if hit by multiple dust attacks, the creature has to spend only 1 action coughing to clear the dust out. A creature that doesn't breathe is immune to this effect.</p>"
+                    "value": "<p>A creature hit by an animated broom's bristles must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-label=\"Dust DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or spend its next action coughing. Even if hit by multiple dust attacks, the creature has to spend only 1 action coughing to clear the dust out.</p>\n<p>A creature that doesn't breathe is immune to this effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -266,7 +336,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dust",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -301,7 +371,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         }
     ],

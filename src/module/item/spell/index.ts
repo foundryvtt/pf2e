@@ -1,23 +1,35 @@
 import { ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { OneToThree, TwoToThree } from "@module/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
+import { DamageType } from "@module/damage-calculation";
+import { OneToTen, OneToThree, TwoToThree } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
-import { ordinal, toNumber } from "@module/utils";
+import { ordinal, toNumber, objectHasKey } from "@module/utils";
 import { DicePF2e } from "@scripts/dice";
-import { SpellData, SpellTrait } from "./data";
+import { MagicSchool, SpellData, SpellTrait } from "./data";
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
     }
 
-    get spellcasting(): SpellcastingEntryPF2e | undefined {
-        const spellcastingId = this.data.data.location.value;
-        return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+    get level(): OneToTen {
+        return this.data.data.level.value;
     }
 
-    get level() {
-        return this.data.data.level.value;
+    get school(): MagicSchool {
+        return this.data.data.school.value;
+    }
+
+    get traditions(): Set<MagicTradition> {
+        return this.spellcasting?.tradition
+            ? new Set([this.spellcasting.tradition])
+            : new Set(this.data.data.traditions.value);
+    }
+
+    get spellcasting(): SpellcastingEntryPF2e | undefined {
+        const spellcastingId = this.data.data.location.value;
+        return this.actor?.itemTypes?.spellcastingEntry.find((entry) => entry.id === spellcastingId);
     }
 
     /**
@@ -39,7 +51,7 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         // Spells cannot go lower than base level
-        return Math.max(this.level, castLevel ?? this.level);
+        return Math.max(this.level, castLevel ?? this.heightenedLevel);
     }
 
     get isCantrip(): boolean {
@@ -68,20 +80,13 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get damage() {
-        return this.data.data.damage;
+        return Object.values(this.data.data.damage.value ?? {});
     }
 
     /** Returns true if this spell has unlimited uses, false otherwise. */
     get unlimited() {
         // In the future handle at will and constant
         return this.isCantrip;
-    }
-
-    get damageValue() {
-        if (this.damage.value && this.damage.value !== "" && this.damage.value !== "0") {
-            return this.damage.value;
-        }
-        return null;
     }
 
     override getRollData(): Record<string, unknown> {
@@ -98,66 +103,60 @@ export class SpellPF2e extends ItemPF2e {
         return rollData;
     }
 
-    getDamageFormula(castLevel?: number) {
+    /** Calculates the full damage formula for a specific spell level */
+    getDamageFormula(castLevel?: number, rollData: object = {}) {
         castLevel = this.computeCastLevel(castLevel);
-        const parts: (string | number)[] = [];
-        if (this.damageValue) parts.push(this.damage.value);
-        if (this.damage.applyMod && this.actor) parts.push("@mod");
-        if (this.data.data.duration.value === "" && this.actor) {
-            const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
-            if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
-                console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
-                parts.push(castLevel);
+        const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
+        const formulas = [];
+        for (const [idx, damage] of this.damage.entries()) {
+            if (!damage.value || damage.value === "0") continue;
+
+            // Persistent / Splash are currently not supported
+            if (damage.type.subtype === "persistent" || damage.type.subtype === "splash") {
+                continue;
             }
-        }
 
-        try {
-            const scalingParts = this.computeHeightenedParts(castLevel);
-            if (scalingParts?.length > 0) {
-                parts.push(scalingParts.join(" + "));
-            }
-        } catch (ex) {
-            console.error(`PF2e System | Failed to apply scaling, invalid formula in ${this.name}`, ex);
-        }
+            const parts: (string | number)[] = [damage.value];
+            if (damage.applyMod && this.actor) parts.push("@mod");
 
-        const traits = this.actor?.data.data.traits.traits.value ?? [];
-        if (traits.some((trait) => trait === "elite")) {
-            parts.push(this.unlimited ? 2 : 4);
-        } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(this.unlimited ? -2 : -4);
-        }
-
-        // Return the final result, but turn all "+ -" into just "-"
-        // These must be padded to support - or roll parsing will fail (Foundry 0.8)
-        return DicePF2e.combineTerms(parts.join(" + ").replace(/[\s]*\+[\s]*-[\s]*/g, " - ")).formula;
-    }
-
-    get scaling() {
-        return this.data.data?.scaling || { formula: "", mode: "" };
-    }
-
-    private computeHeightenedParts(castLevel: number) {
-        const heighteningModes: Record<string, number> = {
-            level1: 1,
-            level2: 2,
-            level3: 3,
-            level4: 4,
-        };
-
-        let parts: string[] = [];
-        if (this.scaling.formula !== "") {
-            const heighteningDivisor: number = heighteningModes[this.scaling.mode];
-            if (heighteningDivisor) {
-                let effectiveSpellLevel = 1;
-                if (this.level > 0 && this.level < 11) {
-                    effectiveSpellLevel = this.level;
+            // Add certain parts (like dangerous sorcerer/elite/weak) if its the first damage entry only
+            if (formulas.length === 0) {
+                if (this.data.data.duration.value === "" && this.actor) {
+                    if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
+                        console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
+                        parts.push(String(castLevel));
+                    }
                 }
-                let partCount = castLevel - effectiveSpellLevel;
-                partCount = Math.floor(partCount / heighteningDivisor);
-                parts = Array(partCount).fill(this.scaling.formula);
+
+                const traits = this.actor?.data.data.traits.traits.value ?? [];
+                if (traits.some((trait) => trait === "elite")) {
+                    parts.push(this.unlimited ? 2 : 4);
+                } else if (traits.some((trait) => trait === "weak")) {
+                    parts.push(this.unlimited ? -2 : -4);
+                }
             }
+
+            // Spell scaling
+            const scaling = this.data.data.scaling;
+            if (scaling) {
+                const scalingFormula = scaling.damage[idx];
+                if (scalingFormula && scaling.interval) {
+                    const partCount = Math.floor((castLevel - this.level) / scaling.interval);
+                    if (partCount > 0) {
+                        const scalingParts = Array(partCount).fill(scalingFormula);
+                        parts.push(scalingParts.join("+"));
+                    }
+                }
+            }
+
+            // Return the final result, but turn all "+ -" into just "-"
+            // These must be padded to support - or roll parsing will fail (Foundry 0.8)
+            const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
+            const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
+            formulas.push(DicePF2e.combineTerms(baseFormulaFixed).formula);
         }
-        return parts;
+
+        return formulas.join(" + ");
     }
 
     override prepareBaseData() {
@@ -165,6 +164,10 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isFocusSpell = this.data.data.category.value === "focus";
         this.data.isRitual = this.data.data.category.value === "ritual";
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
+    }
+
+    prepareSiblingData(this: Embedded<SpellPF2e>): void {
+        this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
     override getChatData(
@@ -195,7 +198,7 @@ export class SpellPF2e extends ItemPF2e {
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-        const formula = Roll.replaceFormulaData(this.getDamageFormula(level), this.getRollData());
+        const formula = this.getDamageFormula(level, this.getRollData());
         const hasDamage = formula && formula !== "0";
 
         // Spell saving throw text and DC
@@ -335,8 +338,6 @@ export class SpellPF2e extends ItemPF2e {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent) {
-        const isHeal = this.data.data.spellType.value === "heal";
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
         const castLevel = (() => {
             const button = event.currentTarget;
             const card = button.closest("*[data-spell-lvl]");
@@ -344,19 +345,31 @@ export class SpellPF2e extends ItemPF2e {
             return Number(cardData.spellLvl) || 1;
         })();
 
-        const formula = this.getDamageFormula(castLevel);
+        const rollData = this.getRollData();
+        const formula = this.getDamageFormula(castLevel, rollData);
 
-        // Append damage type to title
-        const damageLabel = game.i18n.localize(isHeal ? "PF2E.SpellTypeHeal" : "PF2E.DamageLabel");
-        let title = `${this.name} - ${damageLabel}`;
-        if (damageType && !isHeal) title += ` (${damageType})`;
+        // This title creation is temporary, will change once damage cards are finished
+        const title = (() => {
+            const isHeal = this.data.data.spellType.value === "heal";
+            if (isHeal) {
+                return `${this.name} - ${game.i18n.localize("PF2E.SpellTypeHeal")}`;
+            } else {
+                const damageType = this.damage
+                    .filter((damage) => damage.type.subtype !== "persistent" && damage.type.subtype !== "splash")
+                    .map((damage) => damage.type.value)
+                    .filter((type): type is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, type))
+                    .map((type) => game.i18n.localize(CONFIG.PF2E.damageTypes[type]))
+                    .join("/");
+                return `${this.name} - ${game.i18n.localize("PF2E.DamageLabel")} (${damageType})`;
+            }
+        })();
 
         // Call the roll helper utility
         DicePF2e.damageRoll({
             event,
             item: this,
             parts: [formula],
-            data: this.getRollData(),
+            data: rollData,
             actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),

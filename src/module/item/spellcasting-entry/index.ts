@@ -55,7 +55,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     get tradition() {
-        return this.data.data.tradition.value;
+        return this.data.data.tradition.value || null;
     }
 
     /**

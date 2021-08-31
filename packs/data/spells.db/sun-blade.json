@@ -26,11 +26,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d4"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "fire"
+                    },
+                    "value": "1d4"
+                }
+            }
         },
         "description": {
             "value": "<p>You fire a ray of burning sunlight from your weapon. You must be wielding a sword or spear to cast <em>sun blade</em>, and you perform this spell's somatic component with the weapon. Make a spell attack roll. The ray deals 1d4 fire damage. If the target is evil, the ray deals an additional 1d4 good damage, and if the target is undead, the ray deals an additional 1d4 positive damage (both effects apply against creatures that are both evil and undead). If you are in an area of bright natural sunlight, increase the die size of each damage die by one step (from d4 to d6).</p>\n<hr />\n<p><strong>Critical Success</strong> The ray deals double damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4 fire, 1d4 good, and 1d4 positive (or 1d6 of each type of damage in bright natural sunlight).</p>"
@@ -65,8 +69,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1d4",
-            "mode": "level1"
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -105,8 +111,7 @@
                 "uncommon",
                 "light",
                 "fire",
-                "positive",
-                "evocation"
+                "positive"
             ]
         }
     },

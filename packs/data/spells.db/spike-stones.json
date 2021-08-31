@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "3"
-        },
-        "damageType": {
-            "value": "piercing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "piercing"
+                    },
+                    "value": "3"
+                }
+            }
         },
         "description": {
             "value": "<p>Long, sharp spikes of solid rock thrust up from the ground in the area. The area becomes difficult terrain and hazardous terrain. A creature that moves on the ground through the area takes 3 piercing damage for every square of that area it moves into.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1.</p>"
@@ -62,8 +66,10 @@
             "value": ""
         },
         "scaling": {
-            "formula": "1",
-            "mode": "level1"
+            "damage": {
+                "0": "1"
+            },
+            "interval": 1
         },
         "school": {
             "value": "conjuration"
@@ -100,7 +106,6 @@
                 "value": "common"
             },
             "value": [
-                "conjuration",
                 "earth"
             ]
         }

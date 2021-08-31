@@ -19,7 +19,7 @@
         </div>
         <div class="section-body">
             {{#if identificationSkills}}
-                <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                <div class="tag-legacy identification-skills" title="{{identifySkillProgression}}">
                     <ul>
                         {{#each identificationSkills as |skill|}}
                             <li>{{localize skill}}</li>
@@ -28,10 +28,10 @@
                     {{identifySkillDC}} ({{localize identifySkillAdjustment}})
                 </div>
             {{/if}}
-            <div class="unspecified-lore tag" title="{{unspecificLoreProgression}}">
+            <div class="unspecified-lore tag-legacy" title="{{unspecificLoreProgression}}">
                 {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
             </div>
-            <div class="specific-lore tag" title="{{specificLoreProgression}}">
+            <div class="specific-lore tag-legacy" title="{{specificLoreProgression}}">
                 {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
             </div>
         </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="section-body">
             {{#each languages as |language|}}
-                <div class="tag language">{{localize language}}</div>
+                <div class="tag-legacy language">{{localize language}}</div>
             {{/each}}
         </div>
     </div>
@@ -103,7 +103,7 @@
             <div class="list">
                 {{#each data.sortedSkills as |skill id|}}
                     {{#if skill.visible }}
-                        <div class="skill-entry tag" data-skill="{{id}}">
+                        <div class="skill-entry tag-legacy" data-skill="{{id}}">
                             <a class="rollable">{{skill.label}} {{numberFormat skill.value decimals=0 sign=true}}</a>
                             {{#if skill.variants}}
                                 {{#each skill.variants as |variant variantId|}}
