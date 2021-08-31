@@ -1876,7 +1876,7 @@ export const PF2ECONFIG = {
         spellDeflection: "PF2E.TraitSpellDeflection",
         stunned: "PF2E.ConditionTypeStunned",
         stupefied: "PF2E.ConditionTypeStupefied",
-        "swarm attacks": "PF2E.TraitSwarmAttacks",
+        "swarm-attacks": "PF2E.TraitSwarmAttacks",
         "swarm-mind": "PF2E.TraitSwarmMind",
         trip: "PF2E.TraitTrip",
         unconscious: "PF2E.ConditionTypeUnconscious",
