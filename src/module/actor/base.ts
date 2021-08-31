@@ -50,8 +50,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
+            if (data.type !== undefined) {
+                const ready = { pf2e: { ready: true } };
+                return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
+            }
         }
     }
 
