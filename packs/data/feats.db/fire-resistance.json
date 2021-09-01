@@ -1,5 +1,5 @@
 {
-    "_id": "N7dTFxpjXGn4ddq8",
+    "_id": "qbH9ns3HMYBxIvEQ",
     "data": {
         "actionCategory": {
             "value": ""
@@ -8,30 +8,36 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
-            "value": "<p>You infuse your familiar with additional primal energy, increasing its abilities. You can select four familiar or master abilities each day, instead of two.</p>"
+            "value": "<p>Your connection to heat and flame means that fire is reluctant to bring its full force to bear against you. You gain fire resistance equal to half your level, and you gain a +1 circumstance bonus to saving throws against fire effects.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": 2
+            "value": 4
         },
         "location": "",
         "prerequisites": {
             "value": [
                 {
-                    "value": "a familiar"
+                    "value": "flame order"
                 }
             ]
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "selector": "familiar-abilities",
-                "value": 2
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "fire"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "source": {
@@ -43,17 +49,13 @@
                 "value": "common"
             },
             "value": [
-                "druid",
-                "magus",
-                "sorcerer",
-                "witch",
-                "wizard"
+                "druid"
             ]
         }
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Enhanced Familiar",
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Fire Resistance",
     "type": "feat"
 }
