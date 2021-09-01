@@ -777,7 +777,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
 
-                const data = duplicate(item.data);
+                const data = item.toObject();
                 data.data.slots[slotLevel].value -= 1;
                 if (data.data.slots[slotLevel].value < 0) {
                     data.data.slots[slotLevel].value = 0;
@@ -794,19 +794,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemLevel = target.data().level;
             const actor = this.actor;
             const item = actor.items.get(itemId);
+            if (item?.data.type !== "spellcastingEntry") return;
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== "spellcastingEntry") {
-                return;
-            }
-
-            const data = duplicate(item.data);
-
-            if (data.data.slots == null) {
-                return;
-            }
+            const data = item.data.toObject();
+            if (data.data.slots == null) return;
             const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 

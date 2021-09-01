@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -136,6 +136,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
+
+        // Instantiate raw custom modifiers
+        const customModifiers = (this.data.data.customModifiers ??= {});
+        Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
+            [...modifiers].forEach((modifier: RawModifier) => {
+                const index = modifiers.indexOf(modifier);
+                modifiers[index] = ModifierPF2e.fromObject(modifier);
+                modifiers[index].predicate = new ModifierPredicate(modifier.predicate);
+            });
+        });
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -230,10 +240,46 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /**
+     * Adds a custom modifier that will be included when determining the final value of a stat. The
+     * name parameter must be unique for the custom modifiers for the specified stat, or it will be
+     * ignored.
+     */
+    async addCustomModifier(
+        stat: string,
+        name: string,
+        value: number,
+        type: string,
+        predicate?: RawPredicate,
+        damageType?: string,
+        damageCategory?: string
+    ): Promise<void> {
+        // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
+        // similar to how addDamageDice operates.
+        const customModifiers = this.toObject().data.customModifiers ?? {};
+        if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
+            const modifier = new ModifierPF2e(name, value, type);
+            if (damageType) {
+                modifier.damageType = damageType;
+            }
+            if (damageCategory) {
+                modifier.damageCategory = damageCategory;
+            }
+            modifier.custom = true;
+
+            // modifier predicate
+            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.ignored = !modifier.predicate.test!();
+
+            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
+            await this.update({ "data.customModifiers": customModifiers });
+        }
+    }
+
+    /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollRecovery() {
+    rollRecovery(): void {
         if (this.data.type !== "character") {
             throw Error("Recovery rolls are only applicable to characters");
         }

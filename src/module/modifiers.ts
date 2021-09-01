@@ -36,18 +36,28 @@ export interface RawModifier {
     name: string;
     /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
     label?: string;
+    /** The actual numeric benefit/penalty that this modifier provides. */
+    modifier?: number;
+    /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
+    type?: ModifierType;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
     ignored: boolean;
+    /** The source from which this modifier originates, if any. */
+    source?: string;
     /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: string;
+    /** The damage category */
+    damageCategory?: string;
     /** A predicate which determines when this modifier is active. */
-    predicate: RawPredicate;
+    predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean;
+    /** Any notes about this modifier. */
+    notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
 }
@@ -59,23 +69,18 @@ export interface RawModifier {
 export class ModifierPF2e implements RawModifier {
     name: string;
     label?: string;
-    /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
-    /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type: ModifierType;
     enabled: boolean;
-    /** The source which this modifier originates from, if any. */
-    source?: string;
-    /** Any notes about this modifier. */
-    notes?: string;
     ignored: boolean;
+    source?: string;
     custom: boolean;
     damageType?: string;
-    /** The damage category */
     damageCategory?: string;
     predicate: RawPredicate = new ModifierPredicate();
     critical?: boolean;
     traits?: string[];
+    notes?: string;
     /** Status of automation (rules or active effects) applied to this modifier */
     automation: { key: string | null; enabled: boolean } = {
         key: null,
@@ -103,6 +108,34 @@ export class ModifierPF2e implements RawModifier {
         this.custom = false;
         this.source = source;
         this.notes = notes;
+    }
+
+    /** Create a ModifierPF2e instance from a RawModifier */
+    static fromObject(data: RawModifier): ModifierPF2e {
+        if (data instanceof ModifierPF2e) return data.clone();
+
+        const modifier = new ModifierPF2e(
+            data.name,
+            data.modifier ?? 0,
+            data.type ?? "untyped",
+            data.enabled ?? true,
+            data.source,
+            data.notes
+        );
+
+        modifier.custom = data.custom ?? false;
+        if (data.predicate) modifier.predicate = Object.create(data.predicate);
+        if (data.damageCategory) modifier.damageCategory = data.damageCategory;
+        if (data.damageType) modifier.damageType = data.damageType;
+
+        return modifier;
+    }
+
+    /** Return a copy of this ModifierPF2e instance */
+    clone(): this {
+        const clone = Object.create(this);
+        clone.predicate = Object.create(this.predicate);
+        return clone;
     }
 }
 
