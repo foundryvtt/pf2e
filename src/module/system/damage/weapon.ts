@@ -283,7 +283,7 @@ export class WeaponDamagePF2e {
                 modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
             }
 
-            if (ability) {
+            if (ability && !actor.flags.pf2e.rollOptions.all["mundane-damage:ignoreAbilityModifier"]) {
                 numericModifiers.push(
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
                 );
