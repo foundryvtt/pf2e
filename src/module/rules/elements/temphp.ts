@@ -3,7 +3,7 @@ import { RuleElementPF2e } from "../rule-element";
 /**
  * @category RuleElement
  */
-export class PF2TempHPRuleElement extends RuleElementPF2e {
+export class TempHPRuleElement extends RuleElementPF2e {
     override onCreate(actorUpdates: Record<string, unknown>) {
         const updatedActorData = mergeObject(this.actor.data, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.data.value);
