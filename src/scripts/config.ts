@@ -1064,6 +1064,7 @@ export const PF2ECONFIG = {
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
+        "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
         bonded: "PF2E.TraitBonded",
