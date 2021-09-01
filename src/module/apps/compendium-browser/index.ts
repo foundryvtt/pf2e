@@ -683,11 +683,21 @@ export class CompendiumBrowser extends Application {
             ancestryObj[ancestryStr] = ancestryTraits[ancestryStr];
         }
 
+        // Exclude ancestry and class traits since they're separately searchable
+        const excludedTraits = new Set([...ancestries, ...classes]);
+        const featTraits = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.featTraits)
+                .filter(([key]) => !excludedTraits.has(key))
+                .map(([key, name]): [string, string] => [key, game.i18n.localize(name)])
+                .sort((traitA, traitB) => traitA[1].localeCompare(traitB[1]))
+        );
+
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
         return {
             feats: sortedIndexByName(feats),
             featClasses: CONFIG.PF2E.classTraits,
             featSkills: CONFIG.PF2E.skillList,
+            featTraits,
             featAncestry: ancestryObj,
             featTimes: [...times].sort(),
             rarities: CONFIG.PF2E.rarityTraits,
