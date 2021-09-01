@@ -351,19 +351,39 @@ export class StatisticModifier {
         return Object.freeze([...this._modifiers]);
     }
 
-    /** Add a modifier to this collection. */
-    push(modifier: ModifierPF2e) {
+    /** Add a modifier to the end of this collection. */
+    push(modifier: ModifierPF2e): number {
         // de-duplication
         if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
             this._modifiers.push(modifier);
             this.applyStackingRules();
         }
+        return this._modifiers.length;
     }
 
-    /** Delete a modifier from this collection by name. */
-    delete(modifierName: string) {
-        this._modifiers = this._modifiers.filter((m) => m.name !== modifierName);
-        this.applyStackingRules();
+    /** Add a modifier to the beginning of this collection. */
+    unshift(modifier: ModifierPF2e): number {
+        // de-duplication
+        if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
+            this._modifiers.unshift(modifier);
+            this.applyStackingRules();
+        }
+        return this._modifiers.length;
+    }
+
+    /** Delete a modifier from this collection by name or reference */
+    delete(modifierName: string | ModifierPF2e): boolean {
+        const toDelete =
+            typeof modifierName === "object"
+                ? modifierName
+                : this._modifiers.find((modifier) => modifier.name === modifierName);
+        const wasDeleted =
+            toDelete && this._modifiers.includes(toDelete)
+                ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
+                : false;
+        if (wasDeleted) this.applyStackingRules();
+
+        return wasDeleted;
     }
 
     /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
