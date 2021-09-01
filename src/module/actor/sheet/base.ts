@@ -8,7 +8,7 @@ import {
     SpellcastingEntryPF2e,
     SpellPF2e,
 } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource, SpellSource } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -49,7 +49,6 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
-import { FormulaSource } from "@item/formula/data";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -73,7 +72,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ".actions-pane",
                 ".spellbook-pane",
                 ".skillstab-pane",
-                ".crafting-pane",
                 ".pfs-pane",
                 ".tab.active",
             ],
@@ -370,9 +368,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
-
-        // Formula Create
-        html.find(".formula-create").on("click", (event) => this.onClickCreateItem(event));
 
         // Adding/Editing/Removing Spellcasting entries
         html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
@@ -849,7 +844,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
-        const craftingTab = this._tabs[0]?.active === "crafting";
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -923,9 +917,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
-        } else if (isPhysicalData(itemData) && craftingTab) {
-            const formula = this.createFormulaFromItem(itemData as PhysicalItemSource);
-            return this._onDropItemCreate(formula);
         }
 
         if (isPhysicalData(itemData)) {
@@ -1339,21 +1330,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
-    }
-
-    private createFormulaFromItem(itemData: PhysicalItemSource): FormulaSource {
-        const formula: PreCreate<FormulaSource> = {
-            name: game.i18n.format("PF2E.FormulaSheet.NamePrefix", { name: itemData.name }),
-            type: "formula",
-            img: itemData.img,
-            data: {
-                craftedItem: {
-                    uuid: itemData.flags.core?.sourceId as any,
-                },
-                description: itemData.data.description,
-            },
-        };
-        return formula as FormulaSource;
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {
