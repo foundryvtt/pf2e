@@ -651,6 +651,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 };
 
 const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
+    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
     kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
     returning: "PF2E.WeaponPropertyRuneReturning",
     ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
@@ -684,9 +685,15 @@ const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
     greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
     greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
     greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
     speed: "PF2E.WeaponPropertyRuneSpeed",
     vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    bane: "PF2E.WeaponPropertyRuneBane",
+    brilliant: "PF2E.WeaponPropertyRuneBrilliant",
+    extending: "PF2E.WeaponPropertyRuneExtending",
+    greaterBrilliant: "PF2E.WeaponPropertyRuneGreaterBrilliant",
+    greaterExtending: "PF2E.WeaponPropertyRuneGreaterExtending",
+    greaterImpactful: "PF2E.WeaponPropertyRuneGreaterImpactful",
+    impactful: "PF2E.WeaponPropertyRuneImpactful",
 };
 
 const conditionTypes: Record<ConditionType, string> = {
