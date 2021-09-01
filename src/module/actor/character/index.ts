@@ -30,9 +30,13 @@ import {
     MagicTraditionProficiencies,
 } from "./data";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
+import {
+    MultipleAttackPenaltyPF2e,
+    RuleElementSynthetics,
+    WeaponPotencyPF2e,
+} from "@module/rules/rules-data-definitions";
 import { ErrorPF2e, toNumber } from "@module/utils";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, WeaponPF2e } from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../index";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
@@ -46,6 +50,8 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 
 export class CharacterPF2e extends CreaturePF2e {
+    proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
+
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -186,7 +192,7 @@ export class CharacterPF2e extends CreaturePF2e {
             AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
         // Extract as separate variables for easier use in this method.
-        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { statisticsModifiers, strikes, rollNotes } = synthetics;
 
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
@@ -516,33 +522,34 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             const notes: RollNotePF2e[] = [];
-            const ignoreArmorCheckPenalty = !(
-                worn &&
-                worn.data.traits.value.includes("flexible") &&
-                ["acr", "ath"].includes(shortForm)
-            );
-            if (
-                skill.armor &&
-                systemData.attributes.ac.check &&
-                systemData.attributes.ac.check < 0 &&
-                ignoreArmorCheckPenalty
-            ) {
+            // workaround for the shortform skill names
+            const longForm = SKILL_DICTIONARY[shortForm];
+
+            const strongEnough = this.data.data.abilities.str.value >= (worn?.data.strength.value ?? 0);
+
+            if (strongEnough && worn?.data.traits.value.includes("flexible") && ["acr", "ath"].includes(shortForm)) {
+                this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignoreCheckPenalty": true };
+            }
+            if (skill.armor && systemData.attributes.ac.check && systemData.attributes.ac.check < 0) {
                 const armorCheckPenalty = new ModifierPF2e(
                     "PF2E.ArmorCheckPenalty",
                     systemData.attributes.ac.check,
                     MODIFIER_TYPE.UNTYPED
                 );
-                armorCheckPenalty.predicate.not = ["attack"];
+                armorCheckPenalty.predicate.not = ["attack", "armor:ignoreCheckPenalty"];
                 modifiers.push(armorCheckPenalty);
             }
-
-            // workaround for the shortform skill names
-            const longForm = SKILL_DICTIONARY[shortForm];
 
             [longForm, `${skill.ability}-based`, "skill-check", "all"].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
+
+            for (const modifier of modifiers) {
+                modifier.ignored = !modifier.predicate.test?.(
+                    this.getRollOptions([longForm, `${skill.ability}-based`, "skill-check", "all"])
+                );
+            }
 
             const stat = mergeObject(new StatisticModifier(longForm, modifiers), skill, {
                 overwrite: false,
@@ -738,11 +745,7 @@ export class CharacterPF2e extends CreaturePF2e {
             {}
         );
 
-        interface BaseProficiencyData {
-            name: string;
-            rank: ZeroToFour;
-        }
-        const proficiencies: Record<string, BaseProficiencyData> = {
+        this.proficiencies = {
             simple: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
                 rank: systemData.martial.simple.rank ?? 0,
@@ -772,6 +775,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 data: {
+                    slug: "unarmed",
                     baseItem: null,
                     ability: { value: "str" },
                     weaponType: { value: "unarmed" },
@@ -800,305 +804,14 @@ export class CharacterPF2e extends CreaturePF2e {
 
             return new WeaponPF2e(source, { parent: this }) as Embedded<WeaponPF2e>;
         })();
+        synthetics.strikes.unshift(unarmed);
 
-        const ammos = itemTypes.consumable
-            .filter((item) => item.data.data.consumableType.value === "ammo")
-            .map((ammo) => ammo.data);
-
-        const coreCategories = ["simple", "martial", "unarmed", "advanced"] as const;
-        const allCategories = coreCategories.concat(homebrewCategoryTags.map((tag) => tag.id));
-
-        const weapons = [unarmed, itemTypes.weapon, strikes].flat();
-        for (const weapon of weapons) {
-            const itemData = weapon.data;
-            const modifiers: ModifierPF2e[] = [];
-            const weaponTraits = weapon.traits;
-
-            // Determine the base ability score for this attack.
-            let ability: AbilityString;
-            {
-                ability = itemData.data.ability.value || "str"; // default to Str
-                let score = systemData.abilities[ability]?.value ?? 0;
-                // naive check for finesse, which should later be changed to take conditions like
-                // enfeebled and clumsy into consideration
-                if (weaponTraits.has("finesse") && systemData.abilities.dex.mod > systemData.abilities[ability].mod) {
-                    ability = "dex";
-                    score = systemData.abilities.dex.value;
-                }
-                modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
-            }
-
-            // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
-            // trait also count as a weapon of different category
-            const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
-            const familiarityRank = (() => {
-                const familiarity = allCategories.find((category) => {
-                    const maybeFamiliarity = systemData.martial[category]?.familiarity;
-                    return (
-                        maybeFamiliarity &&
-                        maybeFamiliarity.category === weapon.category &&
-                        weaponTraits.has(maybeFamiliarity.trait)
-                    );
-                });
-                return familiarity ? systemData.martial[familiarity]?.rank ?? 0 : 0;
-            })();
-
-            const groupRank = proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
-            const baseWeapon = weapon.baseType ?? weapon.slug;
-            const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-
-            const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
-            modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
-
-            const selectors = [
-                "attack",
-                "mundane-attack",
-                `${ability}-attack`,
-                `${ability}-based`,
-                `${weapon.id}-attack`,
-                `${weapon.name.slugify("-", true)}-attack`,
-                "attack-roll",
-                "all",
-            ];
-            if (weapon.baseType && !selectors.includes(`${weapon.baseType}-attack`)) {
-                selectors.push(`${weapon.baseType}-attack`);
-            }
-
-            if (weapon.group) {
-                selectors.push(`${weapon.group}-weapon-group-attack`);
-            }
-
-            const melee =
-                ["melee", "reach", ""].includes(itemData.data.range?.value?.trim()) ||
-                [...weaponTraits].some((thrown) => thrown.startsWith("thrown"));
-            const defaultOptions = this.getRollOptions(["all", "attack-roll"])
-                .concat(...weaponTraits) // always add weapon traits as options
-                .concat(melee ? "melee" : "ranged")
-                .concat(`${ability}-attack`);
-            ensureProficiencyOption(defaultOptions, proficiencyRank);
-            ensureWeaponCategory(defaultOptions, weapon.category);
-            ensureWeaponSize(defaultOptions, weapon.size, this.size);
-            const notes: RollNotePF2e[] = [];
-
-            if (weapon.group === "bomb") {
-                const attackBonus = toNumber(itemData.data.bonus?.value) ?? 0;
-                if (attackBonus !== 0) {
-                    modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
-                }
-            }
-
-            // Conditions and Custom modifiers to attack rolls
-            let weaponPotency: { label: string; bonus: number };
-            const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
-            {
-                const potency: WeaponPotencyPF2e[] = [];
-                const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
-                selectors.forEach((key) => {
-                    (statisticsModifiers[key] ?? [])
-                        .map((m) => duplicate(m))
-                        .forEach((m) => {
-                            m.ignored = !ModifierPredicate.test(m.predicate, defaultOptions);
-                            modifiers.push(m);
-                        });
-                    (synthetics.weaponPotency[key] ?? [])
-                        .filter((wp) => ModifierPredicate.test(wp.predicate, defaultOptions))
-                        .forEach((wp) => potency.push(wp));
-                    (synthetics.multipleAttackPenalties[key] ?? [])
-                        .filter((map) => ModifierPredicate.test(map.predicate, defaultOptions))
-                        .forEach((map) => multipleAttackPenalties.push(map));
-                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-                });
-
-                // find best weapon potency
-                const potencyRune = toNumber(itemData.data?.potencyRune?.value) ?? 0;
-                if (potencyRune) {
-                    potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune });
-                }
-                if (potency.length > 0) {
-                    weaponPotency = potency.reduce(
-                        (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                        potency[0]
-                    );
-                    modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
-                }
-
-                // find lowest multiple attack penalty
-                multipleAttackPenalties.push({
-                    label: "PF2E.MultipleAttackPenalty",
-                    penalty: multipleAttackPenalty.map2,
-                });
-                const { label, penalty } = multipleAttackPenalties.reduce(
-                    (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
-                    multipleAttackPenalties[0]
-                );
-                multipleAttackPenalty.label = label;
-                multipleAttackPenalty.map2 = penalty;
-                multipleAttackPenalty.map3 = penalty * 2;
-            }
-
-            const flavor = this.getStrikeDescription(itemData);
-            const strikeStat = new StatisticModifier(weapon.name, modifiers);
-            const action: CharacterStrike = mergeObject(strikeStat, {
-                imageUrl: weapon.img,
-                item: weapon.id,
-                slug: weapon.slug,
-                ready: weapon.isEquipped,
-                glyph: "A",
-                type: "strike" as const,
-                description: flavor.description,
-                criticalSuccess: flavor.criticalSuccess,
-                success: flavor.success,
-                options: itemData.data.options?.value ?? [],
-                traits: [],
-                variants: [],
-                selectedAmmoId: itemData.data.selectedAmmoId,
-            });
-
-            if (weapon.group && ["bow", "sling", "dart"].includes(weapon.group)) {
-                action.ammo = ammos.map((ammo) => ammo.toObject(false));
-            }
-
-            action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(
-                [...weaponTraits].map((trait) => {
-                    const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
-                    const option: StrikeTrait = {
-                        name: trait,
-                        label: game.i18n.localize(key),
-                        toggle: false,
-                        description:
-                            CONFIG.PF2E.traitsDescriptions[trait as keyof ConfigPF2e["PF2E"]["traitsDescriptions"]] ??
-                            "",
-                    };
-
-                    // look for toggleable traits
-                    if (trait.startsWith("two-hand-")) {
-                        option.rollName = "damage-roll";
-                        option.rollOption = "two-handed";
-                    } else if (trait.startsWith("versatile-")) {
-                        option.rollName = "damage-roll";
-                        option.rollOption = trait;
-                    }
-
-                    // trait can be toggled on/off
-                    if (option.rollName && option.rollOption) {
-                        option.toggle = true;
-                        option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption)
-                            ? "toggled-on"
-                            : "toggled-off";
-                    }
-                    return option;
-                })
-            );
-
-            action.breakdown = action.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-
-            const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-
-            // Add the base attack roll (used for determining on-hit)
-            action.attack = (args: RollParameters) => {
-                const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
-                ctx.options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
-                const dc = args.dc ?? ctx.dc;
-                if (dc !== undefined && action.adjustments !== undefined) {
-                    dc.adjustments = action.adjustments;
-                }
-                CheckPF2e.roll(
-                    new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                    { actor: this, type: "attack-roll", options: ctx.options, notes, dc },
-                    args.event,
-                    args.callback
-                );
-            };
-            action.roll = action.attack;
-
-            const labels: [string, string, string] = [
-                `${game.i18n.localize("PF2E.RuleElement.Strike")} ${action.totalModifier < 0 ? "" : "+"}${
-                    action.totalModifier
-                }`,
-                game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
-                game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
-            ];
-            const checkModifiers = [
-                () => new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                () =>
-                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                        new ModifierPF2e(
-                            multipleAttackPenalty.label,
-                            multipleAttackPenalty.map2,
-                            MODIFIER_TYPE.UNTYPED
-                        ),
-                    ]),
-                () =>
-                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                        new ModifierPF2e(
-                            multipleAttackPenalty.label,
-                            multipleAttackPenalty.map3,
-                            MODIFIER_TYPE.UNTYPED
-                        ),
-                    ]),
-            ];
-            const variances: [string, () => CheckModifier][] = [0, 1, 2].map((index) => [
-                labels[index],
-                checkModifiers[index],
-            ]);
-
-            action.variants = variances.map(([label, constructModifier]) => ({
-                label,
-                roll: (args: RollParameters) => {
-                    const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
-                    const options = (args.options ?? [])
-                        .concat(ctx.options)
-                        .concat(action.options)
-                        .concat(defaultOptions);
-                    const dc = args.dc ?? ctx.dc;
-                    if (dc !== undefined && action.adjustments !== undefined) {
-                        dc.adjustments = action.adjustments;
-                    }
-                    CheckPF2e.roll(
-                        constructModifier(),
-                        { actor: this, item: weapon, type: "attack-roll", options, notes, dc },
-                        args.event,
-                        args.callback
-                    );
-                },
-            }));
-            for (const method of ["damage", "critical"] as const) {
-                action[method] = (args: RollParameters): string | void => {
-                    const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? [])
-                        .concat(ctx.options)
-                        .concat(action.options)
-                        .concat(defaultOptions);
-                    const damage = WeaponDamagePF2e.calculate(
-                        itemData,
-                        this.data,
-                        action.traits,
-                        statisticsModifiers,
-                        damageDice,
-                        proficiencyRank,
-                        options,
-                        rollNotes,
-                        weaponPotency,
-                        synthetics.striking
-                    );
-                    const outcome = method === "damage" ? "success" : "criticalSuccess";
-                    if (args.getFormula) {
-                        return damage.formula[outcome].formula;
-                    } else {
-                        DamageRollPF2e.roll(
-                            damage,
-                            { type: "damage-roll", item: weapon, actor: this, outcome, options },
-                            args.event,
-                            args.callback
-                        );
-                    }
-                };
-            }
-            systemData.actions.push(action);
-        }
+        const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
+        const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
+        const weapons = [itemTypes.weapon, strikes].flat();
+        systemData.actions = weapons.map((weapon) =>
+            this.prepareStrike(weapon, { categories: offensiveCategories, synthetics, ammos })
+        );
 
         itemTypes.spellcastingEntry.forEach((item) => {
             const spellcastingEntry = item.data;
@@ -1202,6 +915,295 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+    }
+
+    /** Prepare a strike action from a weapon */
+    prepareStrike(
+        weapon: Embedded<WeaponPF2e>,
+        options: {
+            categories: WeaponCategory[];
+            synthetics: RuleElementSynthetics;
+            ammos?: Embedded<ConsumablePF2e>[];
+        }
+    ): CharacterStrike {
+        const itemData = weapon.data;
+        const modifiers: ModifierPF2e[] = [];
+        const weaponTraits = weapon.traits;
+        const systemData = this.data.data;
+        const { categories, synthetics } = options;
+        const ammos = options.ammos ?? [];
+
+        // Determine the base ability score for this attack.
+        let ability: AbilityString;
+        {
+            ability = weapon.ability || "str"; // default to Str
+            let score = systemData.abilities[ability]?.value ?? 0;
+            // naive check for finesse, which should later be changed to take conditions like
+            // enfeebled and clumsy into consideration
+            if (weaponTraits.has("finesse") && systemData.abilities.dex.mod > systemData.abilities[ability].mod) {
+                ability = "dex";
+                score = systemData.abilities.dex.value;
+            }
+            modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+        }
+
+        // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
+        // trait also count as a weapon of different category
+        const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
+        const familiarityRank = (() => {
+            const familiarity = categories.find((category) => {
+                const maybeFamiliarity = systemData.martial[category]?.familiarity;
+                return (
+                    maybeFamiliarity &&
+                    maybeFamiliarity.category === weapon.category &&
+                    weaponTraits.has(maybeFamiliarity.trait)
+                );
+            });
+            return familiarity ? systemData.martial[familiarity]?.rank ?? 0 : 0;
+        })();
+
+        const groupRank = this.proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
+        const baseWeapon = weapon.baseType ?? weapon.slug;
+        const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+
+        const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
+
+        const selectors = [
+            "attack",
+            "mundane-attack",
+            `${ability}-attack`,
+            `${ability}-based`,
+            `${weapon.id}-attack`,
+            `${weapon.name.slugify("-", true)}-attack`,
+            "attack-roll",
+            "all",
+        ];
+        if (weapon.baseType && !selectors.includes(`${weapon.baseType}-attack`)) {
+            selectors.push(`${weapon.baseType}-attack`);
+        }
+
+        if (weapon.group) {
+            selectors.push(`${weapon.group}-weapon-group-attack`);
+        }
+
+        const melee =
+            ["melee", "reach", ""].includes(itemData.data.range?.value?.trim()) ||
+            [...weaponTraits].some((thrown) => thrown.startsWith("thrown"));
+        const defaultOptions = this.getRollOptions(["all", "attack-roll"])
+            .concat(...weaponTraits) // always add weapon traits as options
+            .concat(melee ? "melee" : "ranged")
+            .concat(`${ability}-attack`);
+        ensureProficiencyOption(defaultOptions, proficiencyRank);
+        ensureWeaponCategory(defaultOptions, weapon.category);
+        ensureWeaponSize(defaultOptions, weapon.size, this.size);
+        const notes: RollNotePF2e[] = [];
+
+        if (weapon.group === "bomb") {
+            const attackBonus = toNumber(itemData.data.bonus?.value) ?? 0;
+            if (attackBonus !== 0) {
+                modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
+            }
+        }
+
+        // Conditions and Custom modifiers to attack rolls
+        let weaponPotency: { label: string; bonus: number };
+        const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
+        {
+            const potency: WeaponPotencyPF2e[] = [];
+            const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
+            const { statisticsModifiers, rollNotes } = synthetics;
+            selectors.forEach((key) => {
+                (statisticsModifiers[key] ?? [])
+                    .map((m) => duplicate(m))
+                    .forEach((m) => {
+                        m.ignored = !ModifierPredicate.test(m.predicate, defaultOptions);
+                        modifiers.push(m);
+                    });
+                (synthetics.weaponPotency[key] ?? [])
+                    .filter((wp) => ModifierPredicate.test(wp.predicate, defaultOptions))
+                    .forEach((wp) => potency.push(wp));
+                (synthetics.multipleAttackPenalties[key] ?? [])
+                    .filter((map) => ModifierPredicate.test(map.predicate, defaultOptions))
+                    .forEach((map) => multipleAttackPenalties.push(map));
+                (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+            });
+
+            // find best weapon potency
+            const potencyRune = toNumber(itemData.data?.potencyRune?.value) ?? 0;
+            if (potencyRune) {
+                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune });
+            }
+            if (potency.length > 0) {
+                weaponPotency = potency.reduce(
+                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
+                    potency[0]
+                );
+                modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
+            }
+
+            // find lowest multiple attack penalty
+            multipleAttackPenalties.push({
+                label: "PF2E.MultipleAttackPenalty",
+                penalty: multipleAttackPenalty.map2,
+            });
+            const { label, penalty } = multipleAttackPenalties.reduce(
+                (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
+                multipleAttackPenalties[0]
+            );
+            multipleAttackPenalty.label = label;
+            multipleAttackPenalty.map2 = penalty;
+            multipleAttackPenalty.map3 = penalty * 2;
+        }
+
+        const flavor = this.getStrikeDescription(itemData);
+        const strikeStat = new StatisticModifier(weapon.name, modifiers);
+        const action: CharacterStrike = mergeObject(strikeStat, {
+            imageUrl: weapon.img,
+            item: weapon.id,
+            slug: weapon.slug,
+            ready: weapon.isEquipped,
+            glyph: "A",
+            type: "strike" as const,
+            description: flavor.description,
+            criticalSuccess: flavor.criticalSuccess,
+            success: flavor.success,
+            options: itemData.data.options?.value ?? [],
+            traits: [],
+            variants: [],
+            selectedAmmoId: itemData.data.selectedAmmoId,
+        });
+
+        if (weapon.group && ["bow", "sling", "dart"].includes(weapon.group)) {
+            action.ammo = ammos.map((ammo) => ammo.toObject(false));
+        }
+
+        action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(
+            [...weaponTraits].map((trait) => {
+                const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
+                const option: StrikeTrait = {
+                    name: trait,
+                    label: game.i18n.localize(key),
+                    toggle: false,
+                    description:
+                        CONFIG.PF2E.traitsDescriptions[trait as keyof ConfigPF2e["PF2E"]["traitsDescriptions"]] ?? "",
+                };
+
+                // look for toggleable traits
+                if (trait.startsWith("two-hand-")) {
+                    option.rollName = "damage-roll";
+                    option.rollOption = "two-handed";
+                } else if (trait.startsWith("versatile-")) {
+                    option.rollName = "damage-roll";
+                    option.rollOption = trait;
+                }
+
+                // trait can be toggled on/off
+                if (option.rollName && option.rollOption) {
+                    option.toggle = true;
+                    option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption)
+                        ? "toggled-on"
+                        : "toggled-off";
+                }
+                return option;
+            })
+        );
+
+        action.breakdown = action.modifiers
+            .filter((m) => m.enabled)
+            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+            .join(", ");
+
+        const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
+
+        // Add the base attack roll (used for determining on-hit)
+        action.attack = (args: RollParameters) => {
+            const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+            ctx.options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
+            const dc = args.dc ?? ctx.dc;
+            if (dc !== undefined && action.adjustments !== undefined) {
+                dc.adjustments = action.adjustments;
+            }
+            CheckPF2e.roll(
+                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
+                { actor: this, type: "attack-roll", options: ctx.options, notes, dc },
+                args.event,
+                args.callback
+            );
+        };
+        action.roll = action.attack;
+
+        const labels: [string, string, string] = [
+            `${game.i18n.localize("PF2E.RuleElement.Strike")} ${action.totalModifier < 0 ? "" : "+"}${
+                action.totalModifier
+            }`,
+            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
+            game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
+        ];
+        const checkModifiers = [
+            () => new CheckModifier(`${strikeLabel}: ${action.name}`, action),
+            () =>
+                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+                ]),
+            () =>
+                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
+                ]),
+        ];
+        const variances: [string, () => CheckModifier][] = [0, 1, 2].map((index) => [
+            labels[index],
+            checkModifiers[index],
+        ]);
+
+        action.variants = variances.map(([label, constructModifier]) => ({
+            label,
+            roll: (args: RollParameters) => {
+                const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                const options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
+                const dc = args.dc ?? ctx.dc;
+                if (dc !== undefined && action.adjustments !== undefined) {
+                    dc.adjustments = action.adjustments;
+                }
+                CheckPF2e.roll(
+                    constructModifier(),
+                    { actor: this, item: weapon, type: "attack-roll", options, notes, dc },
+                    args.event,
+                    args.callback
+                );
+            },
+        }));
+        for (const method of ["damage", "critical"] as const) {
+            action[method] = (args: RollParameters): string | void => {
+                const ctx = this.createDamageRollContext(args.event!);
+                const options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
+                const damage = WeaponDamagePF2e.calculate(
+                    itemData,
+                    this.data,
+                    action.traits,
+                    synthetics.statisticsModifiers,
+                    synthetics.damageDice,
+                    proficiencyRank,
+                    options,
+                    synthetics.rollNotes,
+                    weaponPotency,
+                    synthetics.striking
+                );
+                const outcome = method === "damage" ? "success" : "criticalSuccess";
+                if (args.getFormula) {
+                    return damage.formula[outcome].formula;
+                } else {
+                    DamageRollPF2e.roll(
+                        damage,
+                        { type: "damage-roll", item: weapon, actor: this, outcome, options },
+                        args.event,
+                        args.callback
+                    );
+                }
+            };
+        }
+
+        return action;
     }
 
     private prepareInitiative(

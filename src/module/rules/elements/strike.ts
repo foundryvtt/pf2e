@@ -7,7 +7,7 @@ import { RuleElementData, RuleElementSynthetics } from "../rules-data-definition
 /**
  * @category RuleElement
  */
-export class PF2StrikeRuleElement extends RuleElementPF2e {
+export class StrikeRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics) {
         const source: PreCreate<WeaponSource> = {
             _id: this.item.id,
@@ -15,6 +15,7 @@ export class PF2StrikeRuleElement extends RuleElementPF2e {
             type: "weapon",
             img: this.data.img ?? this.item.img,
             data: {
+                slug: this.data.slug ?? null,
                 description: { value: "" },
                 ability: { value: this.data.ability || "str" },
                 weaponType: { value: this.data.category || "unarmed" },
@@ -30,8 +31,9 @@ export class PF2StrikeRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface PF2StrikeRuleElement {
+export interface StrikeRuleElement {
     data: RuleElementData & {
+        slug?: string | null;
         img?: ImagePath;
         ability?: AbilityString;
         category?: WeaponCategory;
