@@ -13,7 +13,7 @@ import { PF2TokenImageRuleElement } from "./elements/token-image";
 import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
 import { PF2SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
-import { PF2StrikeRuleElement } from "./elements/strike";
+import { StrikeRuleElement } from "./elements/strike";
 import { PF2RollNoteRuleElement } from "./elements/roll-note";
 import { PF2WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
@@ -45,7 +45,7 @@ export class RuleElements {
         BaseSpeed: PF2BaseSpeedRuleElement,
         Immunity: ImmunityRuleElement,
         Sense: PF2SenseRuleElement,
-        Strike: PF2StrikeRuleElement,
+        Strike: StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
         Note: PF2RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
