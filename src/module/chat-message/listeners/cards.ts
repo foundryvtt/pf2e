@@ -11,18 +11,17 @@ export const ChatCards = {
             const button = $(event.currentTarget);
             const messageId = button.parents(".message").attr("data-message-id") ?? "";
             const message = game.messages.get(messageId);
-            const senderId = message?.user?.id ?? "";
             const card = button.parents(".chat-card");
             const action = button.attr("data-action");
-
-            // Confirm roll permission
-            if (!game.user.isGM && game.user.id !== senderId && action !== "save") return;
 
             // Get the actor and item from the chat message
             const item = message?.item;
             const actor = item?.actor ?? message?.actor;
 
             if (!actor) return;
+
+            // Confirm roll permission
+            if (!game.user.isGM && !actor.isOwner && action !== "save") return;
 
             if (item) {
                 const spell =

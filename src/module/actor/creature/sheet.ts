@@ -15,6 +15,12 @@ import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
+    static override get defaultOptions() {
+        const options = super.defaultOptions;
+        options.itemIdentificationAttributes.push("data-spell-lvl", "data-slot-id");
+        return options;
+    }
+
     protected override renderItemSummary(
         div: JQuery,
         item: Embedded<ItemPF2e>,

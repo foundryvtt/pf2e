@@ -1,6 +1,12 @@
 import { SaveData } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
-import { ActorSystemData, BaseActorDataPF2e, BaseActorSourcePF2e, BaseTraitsData } from "@actor/data/base";
+import {
+    ActorFlagsPF2e,
+    ActorSystemData,
+    BaseActorDataPF2e,
+    BaseActorSourcePF2e,
+    BaseTraitsData,
+} from "@actor/data/base";
 import { HazardPF2e } from ".";
 
 /** The stored source data of a hazard actor */
@@ -14,6 +20,7 @@ export class HazardData extends BaseActorDataPF2e<HazardPF2e> {
 export interface HazardData extends Omit<HazardSource, "effects" | "items" | "token"> {
     type: HazardSource["type"];
     data: HazardSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: HazardSource;
 }
 
