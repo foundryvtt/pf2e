@@ -1,0 +1,61 @@
+{
+    "_id": "7zJPd2BsFl82qFRV",
+    "data": {
+        "description": {
+            "value": "<p>You gain a +3 status bonus to AC against the foe for 1 round</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "wardingAggression"
+                    ]
+                },
+                "roll-options": [
+                    "ac"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Attacked by Warded Foe",
+                "property": "flags.pf2e.rollOptions.ac.wardingAggression"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Warding Aggression (+3)",
+    "type": "effect"
+}

@@ -1,0 +1,85 @@
+{
+    "_id": "zPGVOLz6xhsQN35C",
+    "data": {
+        "description": {
+            "value": "<p>You envenom your companion or eidolon's attacks, which drip with highly toxic venom for the spell’s duration. The first time each round the target hits a creature with an unarmed Strike that deals piercing or slashing damage, that Strike deals an additional 1d8 poison damage. A creature that is damaged by this poison must attempt a Fortitude save. On a failure, it’s also @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round. This spell can’t target familiars.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The poison damage increases by 1d8 and the clumsy value imposed on a failed save increases by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "rules": [
+            {
+                "damageType": "poison",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "label": "Envenom Companion",
+                "predicate": {
+                    "all": [
+                        "firstHit",
+                        "unarmed"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "First hit of the round",
+                "property": "flags.pf2e.rollOptions.damage-roll.firstHit"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Envenom Companion",
+    "type": "effect"
+}

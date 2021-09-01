@@ -1,0 +1,71 @@
+{
+    "_id": "0OC945wcZ4H4akLz",
+    "data": {
+        "description": {
+            "value": "<p>Your eidolon gains a +4 status bonus to Deception checks to Impersonate you and can add its level to such checks even if it's untrained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "name": "summoners-visage-status",
+                "predicate": {
+                    "all": [
+                        "impersonatingSummoner"
+                    ]
+                },
+                "selector": "deception",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "name": "summoners-visage-proficiency",
+                "predicate": {
+                    "all": [
+                        "impersonatingSummoner"
+                    ]
+                },
+                "selector": "deception",
+                "type": "proficiency",
+                "value": "@details.level.value"
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Impersonate Master (Summoner's Visage)",
+                "property": "flags.pf2e.rollOptions.all.impersonatingSummoner"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell effect: Summoner's Visage",
+    "type": "effect"
+}
