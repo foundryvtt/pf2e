@@ -66,7 +66,37 @@
         "quantity": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.trailWardingTattoo"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "trailWardingTattoo"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "trailWardingTattoo"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -82,7 +112,7 @@
                 "value": "common"
             },
             "usage": {
-                "value": "held-in-one-hand"
+                "value": "tattooed-on-the-body"
             },
             "value": [
                 "abjuration",

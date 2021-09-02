@@ -25,7 +25,24 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "9d6"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "cold"
+                    },
+                    "value": "9d6"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "slashing"
+                    },
+                    "value": "9d6"
+                }
+            }
         },
         "damageType": {
             "value": "cold"
@@ -57,7 +74,12 @@
             "value": "reflex"
         },
         "scaling": {
+            "damage": {
+                "0": "1d6",
+                "1": "1d6"
+            },
             "formula": "1d6",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {

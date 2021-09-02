@@ -8,10 +8,10 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "value": "<p>Your connection to one of the great elemental aspects of nature deepens, allowing you further control over its powers.</p>\n<p>You gain the advanced order spell associated with your order:</p>\n<ul>\n<li>if you're a member of the flame order, you gain combustion;</li>\n<li>if you're a member of the stone order, you gain stone lance;</li>\n<li>if you're a member of the storm order, you gain powerful inhalation;</li>\n<li>if you're a member of the wave order, you gain pulverizing cascade</li>\n</ul>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
+            "value": "<p>Your connection to one of the great elemental aspects of nature deepens, allowing you further control over its powers.</p>\n<p>You gain the advanced order spell associated with your order:</p>\n<ul>\n<li>if you're a member of the flame order, you gain @Compendium[pf2e.spells-srd.Combustion]{Combustion};</li>\n<li>if you're a member of the stone order, you gain @Compendium[pf2e.spells-srd.Stone Lance]{Stone Lance};</li>\n<li>if you're a member of the storm order, you gain @Compendium[pf2e.spells-srd.Powerful Inhalation]{Powerful Inhalation};</li>\n<li>if you're a member of the wave order, you gain @Compendium[pf2e.spells-srd.Pulverizing Cascade]{Pulverizing Cascade}.</li>\n</ul>\n<p>Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
             "value": "class"
@@ -27,7 +27,14 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

@@ -25,7 +25,17 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "3d4"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "",
+                        "value": "piercing"
+                    },
+                    "value": "3d4"
+                }
+            }
         },
         "damageType": {
             "value": "piercing"
@@ -60,8 +70,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "3d4",
-            "mode": "level1"
+            "damage": {
+                "0": "3d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "conjuration"

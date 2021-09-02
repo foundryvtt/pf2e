@@ -25,7 +25,16 @@
         },
         "damage": {
             "applyMod": true,
-            "value": "1d4"
+            "value": {
+                "0": {
+                    "applyMod": true,
+                    "type": {
+                        "subtype": "",
+                        "value": "bludgeoning"
+                    },
+                    "value": "1d4"
+                }
+            }
         },
         "damageType": {
             "value": "bludgeoning"
@@ -57,7 +66,11 @@
             "value": "reflex"
         },
         "scaling": {
+            "damage": {
+                "0": "1d4"
+            },
             "formula": "1d4",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {
