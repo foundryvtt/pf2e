@@ -411,11 +411,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A living creature within 20 feet of you dies, or an undead creature within 20 feet of you is destroyed.</p>\n<hr />\n<p>Seeing another pass from this world to the next invigorates you. You gain temporary Hit Points equal to the triggering creature's level plus your spellcasting ability modifier. If the triggering creature was undead, double the number of temporary Hit Points you gain . These last for the duration of the spell, and the spell ends if all the temporary Hit Points are depleted earlier.</p>"
@@ -448,10 +444,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -488,7 +480,6 @@
                     },
                     "value": [
                         "uncommon",
-                        "necromancy",
                         "cleric"
                     ]
                 }
@@ -532,11 +523,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "1d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -571,8 +566,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -610,7 +607,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -918,7 +914,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Heretic’s Smite"
+                        "Heretic's Smite"
                     ]
                 },
                 "bonus": {
@@ -1020,7 +1016,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the herexen is destroyed, it explodes in a wave of negative energy with the effects of a 3-action @Compendium[pf2e.spells-srd.Harm]{Harm} spell (DC 20).</p>\n<p>The herexen is destroyed, so it doesn’t gain any Hit Points from this use of <em>harm</em>, and it doesn’t need to have any <em>harm</em> spells remaining to use this ability.</p>"
+                    "value": "<p>When the herexen is destroyed, it explodes in a wave of negative energy with the effects of a 3-action @Compendium[pf2e.spells-srd.Harm]{Harm} spell (DC 20).</p>\n<p>The herexen is destroyed, so it doesn't gain any Hit Points from this use of <em>harm</em>, and it doesn't need to have any <em>harm</em> spells remaining to use this ability.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1116,7 +1112,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While wielding the favored weapon of its former deity (such as a dagger for an ex-Pharasmin herexen), the herexen’s Strikes deal an additional [[/r 1d6 #evil]]{1d6 evil damage} against creatures that can cast divine spells.</p>"
+                    "value": "<p>While wielding the favored weapon of its former deity (such as a dagger for an ex-Pharasmin herexen), the herexen's Strikes deal an additional [[/r 1d6 #evil]]{1d6 evil damage} against creatures that can cast divine spells.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1146,7 +1142,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Heretic’s Smite",
+            "name": "Heretic's Smite",
             "sort": 1100000,
             "type": "action"
         },

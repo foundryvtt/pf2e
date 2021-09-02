@@ -8,7 +8,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import TerserPlugin from "terser-webpack-plugin";
-import WebpackBar from "webpackbar";
+import SimpleProgressWebpackPlugin from "simple-progress-webpack-plugin";
 
 const buildMode = process.argv[3] == "production" ? "production" : "development";
 const isProductionBuild = buildMode === "production";
@@ -125,7 +125,7 @@ const config: Configuration = {
             ],
         }),
         new MiniCssExtractPlugin({ filename: "styles/[name].css" }),
-        new WebpackBar({}),
+        new SimpleProgressWebpackPlugin({ format: "compact" }),
     ],
     resolve: {
         alias: {

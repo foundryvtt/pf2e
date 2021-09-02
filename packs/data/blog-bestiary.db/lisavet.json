@@ -414,11 +414,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Blessings from beyond help your companions strike true. You and your allies in the area gain a +1 status bonus to attack rolls. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>\n\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
@@ -451,10 +447,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -493,7 +485,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "enchantment",
                         "mental"
                     ]
                 }
@@ -534,11 +525,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "2d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "2d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -573,8 +568,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -613,7 +610,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "fire"
                     ]
                 }
@@ -654,11 +650,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You raise your religious symbol and create a blinding flash of light. Each creature in the area must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and Dazzled for 1 minute. The creature can spend an Interact action rubbing its eyes to end the Blinded condition.</p>\n<p><strong>Critical Failure</strong> The creature is Blinded for 1 round and Dazzled for 1 hour.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The area increases to a 30-foot cone.</p>"
@@ -691,10 +683,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -732,7 +720,6 @@
                     },
                     "value": [
                         "cleric",
-                        "evocation",
                         "light",
                         "visual"
                     ]
@@ -774,11 +761,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -811,10 +794,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -857,8 +836,7 @@
                     },
                     "value": [
                         "detection",
-                        "cantrip",
-                        "divination"
+                        "cantrip"
                     ]
                 }
             },
@@ -898,11 +876,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You unleash a beam of divine energy. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or if your deity is true neutral. Make a ranged spell attack roll against the target's AC. On a hit, the target takes damage of the chosen alignment type equal to 1d4 + your spellcasting ability modifier (double damage on a critical hit). The spell gains the trait of the alignment you chose.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -937,8 +920,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -977,8 +962,7 @@
                     },
                     "value": [
                         "attack",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -1018,11 +1002,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d10"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -1057,8 +1045,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1099,7 +1089,6 @@
                     },
                     "value": [
                         "healing",
-                        "necromancy",
                         "positive"
                     ]
                 }
@@ -1140,11 +1129,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d10"
-                },
-                "damageType": {
-                    "value": "positive"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
@@ -1179,8 +1172,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1221,7 +1216,6 @@
                     },
                     "value": [
                         "healing",
-                        "necromancy",
                         "positive"
                     ]
                 }
@@ -1262,11 +1256,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
@@ -1299,10 +1289,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1345,8 +1331,7 @@
                     },
                     "value": [
                         "light",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -1386,11 +1371,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward a creature with protective energy that deters enemy attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr /><strong>Critical Success</strong> Sanctuary ends.\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of sanctuary's duration.</p>"
@@ -1423,10 +1404,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1464,9 +1441,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1505,11 +1480,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
@@ -1542,10 +1513,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1585,7 +1552,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "abjuration",
                         "cantrip",
                         "force"
                     ]
@@ -1627,11 +1593,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Positive energy shuts death's door. The target loses the @Compendium[pf2e.conditionitems.Dying]{Dying} condition, though it remains @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} at 0 Hit Points.</p>"
@@ -1664,10 +1626,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1709,8 +1667,7 @@
                     "value": [
                         "positive",
                         "healing",
-                        "cantrip",
-                        "necromancy"
+                        "cantrip"
                     ]
                 }
             },

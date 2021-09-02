@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "8d10"
-        },
-        "damageType": {
-            "value": "cold"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "cold"
+                    },
+                    "value": "8d10"
+                }
+            }
         },
         "description": {
             "value": "<p>A globe of freezing darkness explodes in the area, dealing 8d10 cold damage to creatures in the area, plus 8d4 additional negative damage to living creatures. Each creature in the area must attempt a Reflex save. If the globe overlaps with an area of magical light or affects a creature affected by magical light, eclipse burst attempts to counteract the light effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} by the darkness for an unlimited duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 1d10 and the negative damage against the living increases by 1d4.</p>"
@@ -62,8 +66,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "1d10",
-            "mode": "level1"
+            "damage": {
+                "0": "1d10"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
@@ -104,7 +110,6 @@
             "value": [
                 "cold",
                 "darkness",
-                "necromancy",
                 "negative"
             ]
         }

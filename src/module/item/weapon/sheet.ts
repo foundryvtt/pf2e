@@ -2,6 +2,7 @@ import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/va
 import { PreciousMaterialGrade } from "@item/physical/data";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
+import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
@@ -79,12 +80,19 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }
         }
 
+        const weaponPropertyRunes = Object.fromEntries(
+            WEAPON_PROPERTY_RUNE_TYPES.map((key): [string, string] => [
+                key,
+                game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[key]),
+            ]).sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
+        );
+
         return {
             ...sheetData,
             preciousMaterials,
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
-            weaponPropertyRunes: CONFIG.PF2E.weaponPropertyRunes,
+            weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
             hasModifiedPrice,

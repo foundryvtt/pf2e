@@ -275,11 +275,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "11d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "11d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You shoot a blazing ray of light tinged with holy energy. Make a ranged spell attack. The ray deals 5d6 fire damage. If the target is a fiend or undead, you deal an extra 5d6 good damage.</p>\n<p>If the light passes through an area of magical darkness or targets a creature affected by magical darkness, searing light attempts to counteract the darkness. If you need to determine whether the light passes through an area of darkness, draw a line between yourself and the spell's target</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double fire damage, as well as double good damage if a fiend or undead.</p>\n<p><strong>Success</strong> The target takes full damage</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 2d6, and the good damage against fiends and undead increases by 2d6.</p>"
@@ -314,8 +318,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -362,7 +368,6 @@
                     },
                     "value": [
                         "attack",
-                        "evocation",
                         "fire",
                         "good",
                         "light"
@@ -1591,7 +1596,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Ginjana critically succeeds at an attack roll, the target of the attack is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1 and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of Ginjana's next turn.</p>"
+                    "value": "<p>When Ginjana critically succeeds at an attack roll, the target of the attack is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of Ginjana's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1726,7 +1731,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"poison\" data-pf2-label=\"Shadow Essence DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <br /><strong>Maximum Duration</strong> 6 rounds; <br /><strong>Stage 1</strong> [[/r 3d6 #negative]]{3d6 negative damage} and [[/r 2d6 #poison]]{2d6 poison damage} (1 round); <br /><strong>Stage 2</strong> [[/r 3d6 #negative]]{3d6 negative damage}, [[/r 2d6 #poison]]{2d6 poison damage}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <br /><strong>Stage 3</strong> [[/r 3d6 #negative]]{3d6 negative damage}; [[/r 2d6 #poison]]{2d6 poison damage}; and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"poison\" data-pf2-label=\"Shadow Essence DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <br /><strong>Maximum Duration</strong> 6 rounds; <br /><strong>Stage 1</strong> [[/r 3d6 #negative]]{3d6 negative damage} and [[/r 2d6 #poison]]{2d6 poison damage} (1 round); <br /><strong>Stage 2</strong> [[/r 3d6 #negative]]{3d6 negative damage}, [[/r 2d6 #poison]]{2d6 poison damage}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round); <br /><strong>Stage 3</strong> [[/r 3d6 #negative]]{3d6 negative damage}; [[/r 2d6 #poison]]{2d6 poison damage}; and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""

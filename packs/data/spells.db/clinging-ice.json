@@ -22,11 +22,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d4"
-        },
-        "damageType": {
-            "value": "cold"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "cold"
+                    },
+                    "value": "1d4"
+                }
+            }
         },
         "description": {
             "value": "<p>Freezing sleet and heavy snowfall collect on the target's feet and legs, dealing [[/r 1d4 #cold]]{1d4 cold damage} and other effects depending on its Reflex save. Once this spell ends, the target becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage, and takes a -5-foot circumstance penalty to its Speeds until the spell ends</p>\n<p><strong>Critical Failure</strong> The target takes double damage and a -10-foot circumstance penalty to its Speeds until the spell ends.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d4 #cold]].</p>"
@@ -61,8 +65,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "1d4",
-            "mode": "level1"
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "conjuration"
@@ -99,7 +105,6 @@
             "value": [
                 "cantrip",
                 "cold",
-                "conjuration",
                 "witch"
             ]
         }

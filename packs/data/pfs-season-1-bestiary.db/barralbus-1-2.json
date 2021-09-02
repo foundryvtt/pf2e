@@ -313,11 +313,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target's form appears blurry. It becomes @Compendium[pf2e.conditionitems.Concealed]{Concealed}. As the nature of this effect still leaves the target's location obvious, the target can't use this concealment to Hide or Sneak.</p>"
@@ -350,10 +346,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -392,7 +384,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "illusion",
                         "visual"
                     ]
                 }
@@ -429,11 +420,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
@@ -468,8 +463,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -508,7 +505,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "fire"
                     ]
                 }
@@ -545,11 +541,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
@@ -582,10 +574,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -625,9 +613,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -662,11 +648,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
@@ -699,10 +681,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -743,7 +721,6 @@
                     },
                     "value": [
                         "auditory",
-                        "enchantment",
                         "linguistic",
                         "mental"
                     ]
@@ -781,11 +758,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "electricity"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "electricity"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -820,8 +802,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -862,8 +846,7 @@
                     },
                     "value": [
                         "electricity",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -899,11 +882,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You conjure grease, with effects based on choosing area or target.</p>\n<ul>\n<li><strong>Area</strong> <strong>[4 contiguous 5-foot squares]</strong> All solid ground in the area is covered with grease. Each creature standing on the greasy surface must succeed at a Reflex save or an Acrobatics check against your spell DC or fall @Compendium[pf2e.conditionitems.Prone]{Prone}. Creatures using an action to move onto the greasy surface during the spell's duration must attempt either a Reflex save or an Acrobatics check to Balance. A creature that Steps or Crawls doesn't have to attempt a check or save.</li>\n<li><strong>Target</strong> <strong>[1 object of Bulk 1 or less]</strong> If you cast the spell on an unattended object, anyone trying to pick up the object must succeed at an Acrobatics check or Reflex save against your spell DC to do so. If you target an attended object, the creature that has the object must attempt an Acrobatics check or Reflex save. On a failure, the holder or wielder takes a -2 circumstance penalty to all checks that involve using the object; on a critical failure, the holder or wielder releases the item. The object lands in an adjacent square of the GM's choice. If you cast this spell on a worn object, the wearer gains a +2 circumstance bonus to Fortitude saves against attempts to grapple them.</li>\n</ul>"
@@ -936,10 +915,6 @@
                 "save": {
                     "basic": "",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -977,9 +952,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "conjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1014,11 +987,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionitems.Prone]{Prone}, and takes 2d6 bludgeoning damage.</p>"
@@ -1051,10 +1020,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1093,8 +1058,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "air",
-                        "evocation"
+                        "air"
                     ]
                 }
             },
@@ -1127,11 +1091,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
@@ -1162,10 +1122,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1198,8 +1154,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -1234,11 +1189,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": ""
@@ -1271,10 +1222,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1345,11 +1292,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4+1"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
@@ -1382,10 +1333,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1424,7 +1371,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -1461,11 +1407,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4+1"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
@@ -1498,10 +1448,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1540,7 +1486,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -1577,11 +1522,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4+1"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
@@ -1614,10 +1563,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1656,7 +1601,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -1693,11 +1637,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4+1"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
@@ -1730,10 +1678,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1772,7 +1716,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -1809,11 +1752,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
@@ -1849,8 +1797,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1892,8 +1842,7 @@
                     "value": [
                         "attack",
                         "fire",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -1929,11 +1878,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "cold"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "cold"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.<br /><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -1969,8 +1923,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -2012,8 +1968,7 @@
                     "value": [
                         "attack",
                         "cold",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -2049,11 +2004,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.<br /><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.<br /><strong>Heightened (7th)</strong> The sigil never fades.</p>"
@@ -2087,10 +2038,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2132,8 +2079,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "cantrip",
-                        "transmutation"
+                        "cantrip"
                     ]
                 }
             },

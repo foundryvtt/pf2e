@@ -32,12 +32,7 @@ declare module foundry {
             folder: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: {
-                core?: {
-                    sourceId: string;
-                };
-                [key: string]: any;
-            };
+            flags: ActorFlags;
         }
 
         class ActorData<
@@ -70,6 +65,13 @@ declare module foundry {
             TItem extends documents.BaseItem
         > extends Omit<ActorSource, "effects" | "items" | "token"> {
             readonly _source: ActorSource;
+        }
+
+        interface ActorFlags {
+            core?: {
+                sourceId: string;
+            };
+            [key: string]: Record<string, any> | undefined;
         }
     }
 }

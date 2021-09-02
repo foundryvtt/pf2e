@@ -300,11 +300,7 @@
                     "value": "6 gp of ruby dust"
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>A magical flame springs up from the object, as bright as a torch. It doesn't need oxygen, react to water, or generate heat.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cost increases as follows:</p>\n<ul>\n<li>16 gp for 3rd level;</li>\n<li>30 gp for 4th,</li>\n<li>60 gp for 5th,</li>\n<li>120 gp for 6th,</li>\n<li>270 gp for 7th,</li>\n<li>540 gp for 8th,</li>\n<li>1,350 gp for 9th, and</li>\n<li>3,350 gp for 10th.</li>\n</ul>"
@@ -337,10 +333,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -381,7 +373,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "light"
                     ]
                 }
@@ -425,11 +416,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "4d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "4d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
@@ -464,8 +459,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -504,7 +501,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "fire"
                     ]
                 }
@@ -548,11 +544,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -585,10 +577,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -631,8 +619,7 @@
                     },
                     "value": [
                         "detection",
-                        "cantrip",
-                        "divination"
+                        "cantrip"
                     ]
                 }
             },
@@ -1018,7 +1005,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Smoke doesn’t impair an underworld dragon’s vision; they ignore the concealed condition from smoke.</p>"
+                    "value": "<p>Smoke doesn't impair an underworld dragon's vision; they ignore the concealed condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1062,7 +1049,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the underworld dragon takes damage from a spell with the cold or water trait, the elemental magic of fire within them is momentarily dampened.</p>\n<p>Until the end of their next turn, they take a -1 circumstance penalty to attack rolls, and their jaws Strikes don’t deal fire damage, and they lose their sweltering heat aura.</p>\n<p>This limitation ends if the dragon uses Breath Weapon.</p>"
+                    "value": "<p>If the underworld dragon takes damage from a spell with the cold or water trait, the elemental magic of fire within them is momentarily dampened.</p>\n<p>Until the end of their next turn, they take a -1 circumstance penalty to attack rolls, and their jaws Strikes don't deal fire damage, and they lose their sweltering heat aura.</p>\n<p>This limitation ends if the dragon uses Breath Weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1106,7 +1093,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When an underworld dragon is struck by a weapon made primarily of wood or affected by a spell with the plant trait, the dragon’s internal fiery essences are stoked with the added fuel. Their breath weapon recharges, and the fire damage from the dragon’s jaws increases by one die until the end of the dragon’s next turn.</p>"
+                    "value": "<p>When an underworld dragon is struck by a weapon made primarily of wood or affected by a spell with the plant trait, the dragon's internal fiery essences are stoked with the added fuel. Their breath weapon recharges, and the fire damage from the dragon's jaws increases by one die until the end of the dragon's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1343,7 +1330,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a blast of fire that explodes in a 25-foot burst within 50 feet, dealing [[/r 10d6 #fire]]{10d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"arcane,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Creatures that fail the save also take [[/r 2d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<p>The dragon can’t use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a blast of fire that explodes in a 25-foot burst within 50 feet, dealing [[/r 10d6 #fire]]{10d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"arcane,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Creatures that fail the save also take [[/r 2d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1391,7 +1378,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dragon’s claws are infused with adamantine. Their claw Strikes ignore half the Hardness of any object hit.</p>"
+                    "value": "<p>The dragon's claws are infused with adamantine. Their claw Strikes ignore half the Hardness of any object hit.</p>"
                 },
                 "requirements": {
                     "value": ""

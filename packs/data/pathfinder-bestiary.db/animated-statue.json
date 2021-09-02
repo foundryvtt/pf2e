@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 19,
                 "details": "(15 when broken); construct armor",
                 "value": 19
             },
@@ -89,20 +90,20 @@
             "di": {
                 "custom": "",
                 "value": [
+                    "bleed",
+                    "death-effects",
+                    "disease",
                     "doomed",
                     "drained",
                     "fatigued",
-                    "paralyzed",
-                    "sickened",
-                    "unconscious",
-                    "bleed",
-                    "mental",
-                    "poison",
-                    "death effects",
-                    "disease",
                     "healing",
+                    "mental",
                     "necromancy",
-                    "nonlethal attacks"
+                    "nonlethal-attacks",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "unconscious"
                 ]
             },
             "dr": [],
@@ -252,12 +253,12 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
-                        "label": "Broken",
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
                         "property": "flags.pf2e.rollOptions.all.construct-armor"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "all": [
                                 "construct-armor"

@@ -31,6 +31,12 @@
                     {{/select}}
                 </select>
             </div>
+            {{#if (eq data.spellcastingType "prepared")}}
+                <div class="form-group">
+                    <label>{{localize "PF2E.SpellFlexibleLabel"}}</label>
+                    <input name="flexible" type="checkbox" {{checked data.flexible}}/>
+                </div>
+            {{/if}}
         {{/unless}}
     </form>
 </div>

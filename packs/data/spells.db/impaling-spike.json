@@ -22,11 +22,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "8d6"
-        },
-        "damageType": {
-            "value": "piercing"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "piercing"
+                    },
+                    "value": "8d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You conjure a spike that thrusts up from the earth beneath a target creature, potentially impaling it. The spike is made of cold iron and deals [[/r 8d6 #piercing (cold iron)]] piercing damage. The target must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target dodges the spike and is unaffected.</p>\n<p><strong>Success</strong>: The target is struck by the spike and takes half damage.</p>\n<p><strong>Failure</strong>: The target is impaled through a leg or another non - vital body part. The creature takes full damage and, if it's standing on solid ground, becomes @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}. It can attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape}(the DC is your spell DC). While it remains impaled, it takes damage from any weakness to cold iron it has at the end of each of its turns.</p>\n<p><strong>Critical Failure</strong>: As failure, but the creature is impaled through a vital organ or its center of mass, taking double damage, and it is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} as long as it's impaled.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 2d6 #piercing (cold iron)]].</p>"
@@ -61,8 +65,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "conjuration"
@@ -99,9 +105,7 @@
             "rarity": {
                 "value": "common"
             },
-            "value": [
-                "conjuration"
-            ]
+            "value": []
         }
     },
     "effects": [],

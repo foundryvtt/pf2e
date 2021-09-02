@@ -100,6 +100,8 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
     magicTraditions: SheetOptions;
+    damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
+    damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
     spellComponents: string[];
     traits: SheetOptions;
     rarities: SheetOptions;

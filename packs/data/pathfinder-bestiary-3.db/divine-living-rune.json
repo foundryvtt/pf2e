@@ -285,11 +285,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "7d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "7d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You utter a potent litany from your faith, a mandate that harms those who oppose your ideals. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 7d10 damage to creatures in the area; each creature must attempt a Fortitude save. Creatures with an alignment that matches the one you chose are unaffected by the spell. Those that neither match nor oppose it treat the result of their saving throw as one degree better and don't suffer effects other than damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute. On your home plane, a creature that critically fails is banished with the effect of a failed @Compendium[pf2e.spells-srd.Banishment]{Banishment} save. A 10th-level creature or lower must attempt a Will save. On a failure, it's @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 minute; on a critical failure, it dies.</p>"
@@ -322,10 +326,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -362,9 +362,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "evocation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -406,11 +404,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "7d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "7d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You utter a potent litany from your faith, a mandate that harms those who oppose your ideals. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 7d10 damage to creatures in the area; each creature must attempt a Fortitude save. Creatures with an alignment that matches the one you chose are unaffected by the spell. Those that neither match nor oppose it treat the result of their saving throw as one degree better and don't suffer effects other than damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 minute. On your home plane, a creature that critically fails is banished with the effect of a failed @Compendium[pf2e.spells-srd.Banishment]{Banishment} save. A 10th-level creature or lower must attempt a Will save. On a failure, it's @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 minute; on a critical failure, it dies.</p>"
@@ -443,10 +445,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -483,9 +481,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "evocation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -527,11 +523,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "7d8"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "7d8"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>Blades of force form a churning wall. The wall is a straight line 20 feet high, 120 feet long, and 2 inches thick, and it provides cover. The wall deals 7d8 force damage to each creature that's in the wall's space when it is created, that attempts to pass through the wall, or that ends its turn inside the wall. A basic Reflex save reduces the damage. A creature that succeeds at this save when the wall is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the wall fail to do so if they critically fail the save, ending their movement adjacent to the wall.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
@@ -566,8 +566,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d8",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -605,7 +607,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -649,11 +650,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
@@ -686,10 +683,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -729,9 +722,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -773,11 +764,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You manifest an aura that prevents creatures from approaching you. When casting the spell, you can make the area any radius you choose, up to 40 feet. A creature must attempt a Will save if it's within the area when you cast the spell or as soon as it enters the area while the spell is in effect. Once a creature has attempted the save, it uses the same result for that casting of repulsion. Any restrictions on a creature's movement apply only if it voluntarily moves toward you. For example, if you move closer to a creature, it doesn't then need to move away.</p>\n<hr /><strong>Critical Success</strong> The creature's movement is not restricted.\n<p><strong>Success</strong> The creature treats each square in the area as difficult terrain when moving closer to you.</p>\n<p><strong>Failure</strong> The creature can't move closer to you within the area.</p>"
@@ -810,10 +797,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -853,7 +836,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "abjuration",
                         "aura",
                         "mental"
                     ]
@@ -898,11 +880,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "16d6"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "16d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -935,10 +921,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -977,8 +959,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "force",
-                        "necromancy"
+                        "force"
                     ]
                 }
             },
@@ -1021,11 +1002,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "5d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "5d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -1060,8 +1045,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1098,9 +1085,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "evocation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1142,11 +1127,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "5d10"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "5d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -1181,8 +1170,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1219,9 +1210,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "evocation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -1263,11 +1252,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "8d6"
-                },
-                "damageType": {
-                    "value": "fire"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "fire"
+                            },
+                            "value": "8d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You call a rain of divine fire that plummets down from above, dealing 8d6 fire damage. Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. Creatures that are immune to fire, instead of gaining the usual benefit of immunity, treat the results of their saving throws as one degree of success better.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -1302,8 +1295,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1341,7 +1336,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "fire"
                     ]
                 }
@@ -1385,11 +1379,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -1422,10 +1412,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -1468,8 +1454,7 @@
                     },
                     "value": [
                         "detection",
-                        "cantrip",
-                        "divination"
+                        "cantrip"
                     ]
                 }
             },
@@ -1642,7 +1627,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living rune can’t speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1686,7 +1671,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature attempts to Strike an arcane living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the arcane living rune. This might damage the surface or the attacker’s weapon, at the GM’s discretion.</p>"
+                    "value": "<p>When a creature attempts to Strike an arcane living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the arcane living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1730,7 +1715,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A divine living rune can move only along flat surfaces. If the surface it’s on is destroyed (such as a portrait hit by a @Compendium[pf2e.spells-srd.Fireball]{Fireball} spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
+                    "value": "<p>A divine living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a @Compendium[pf2e.spells-srd.Fireball]{Fireball} spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""

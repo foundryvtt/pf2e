@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
+                "base": 19,
                 "details": "",
                 "value": 19
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -58,6 +59,7 @@
                 "value": "CE"
             },
             "creatureType": "",
+            "flavorText": "<p>Wrecker demons, also known as abrikandilus, despise beautiful things and do everything in their power to destroy both people and objects regarded as such. An abrikandilu forms from the souls mortals who were vandals, misanthropes, or defacers of artwork, particularly if their destructive actions stemmed from feelings of powerful envy.</p>\n<p>An abrikandilu loathes only one thing more than beauty: their own visage. The mere sight of their face-reflected in a mirror, a shield, or even a pool of water- can send a wrecker demon into a rage. Many demon slayers leverage tactic to their advantage, venturing into battle with polished steel shields and cold iron blades at the ready.</p>\n<hr />\n<p>Mortal souls that have been twisted and corrupted by sin sometimes arise in the afterlife as demons. These powerful and destructive fiends seek to spread their particular sin to warp more souls, thereby bolstering their numbers and continuing the cycle.</p>",
             "level": {
                 "value": 4
             },
@@ -402,6 +404,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -410,11 +413,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
@@ -447,10 +446,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -486,9 +481,7 @@
                     "rarity": {
                         "value": "uncommon"
                     },
-                    "value": [
-                        "conjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -522,6 +515,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -530,11 +524,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
@@ -567,10 +557,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -612,7 +598,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "fear",
                         "mental"
                     ]
@@ -649,6 +634,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -657,11 +643,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
@@ -694,10 +676,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -739,7 +717,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "fear",
                         "mental"
                     ]
@@ -1010,7 +987,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An abrikandilu loathes the sight of their reflection. When a creature Interacts with a mirror within sight of the wrecker demon, the demon takes a -2 penalty to Will saves against Intimidation checks.</p>\n<p>An abrikandilu that ends their turn adjacent to a mirror or that’s attacked by a creature holding a mirror takes [[/r 1d6 #mental]]{1d6 mental damage} (this usually leads abrikandilus to focus their efforts on destroying nearby mirrors using Wreck).</p>"
+                    "value": "<p>An abrikandilu loathes the sight of their reflection. When a creature Interacts with a mirror within sight of the wrecker demon, the demon takes a -2 penalty to Will saves against Intimidation checks.</p>\n<p>An abrikandilu that ends their turn adjacent to a mirror or that's attacked by a creature holding a mirror takes [[/r 1d6 #mental]]{1d6 mental damage} (this usually leads abrikandilus to focus their efforts on destroying nearby mirrors using Wreck).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1102,7 +1079,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The abrikandilu makes two claw Strikes against an unattended object or held mirror. Held mirrors use the holding character’s AC.</p>\n<p>If both Strikes hit, combine their damage for the purpose of overcoming any Hardness or resistance.</p>\n<p>These Strikes don’t count toward the abrikandilu’s multiple attack penalty, nor does that penalty apply to these Strikes.</p>"
+                    "value": "<p>The abrikandilu makes two claw Strikes against an unattended object or held mirror. Held mirrors use the holding character's AC.</p>\n<p>If both Strikes hit, combine their damage for the purpose of overcoming any Hardness or resistance.</p>\n<p>These Strikes don't count toward the abrikandilu's multiple attack penalty, nor does that penalty apply to these Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""

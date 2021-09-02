@@ -124,12 +124,12 @@
         </h4>
         <ol class="tags">
             {{#each data.attributes.speed.otherSpeeds as |speed k|}}
-            <li class="tag {{k}}" title="{{speed.breakdown}}">
+            <li class="tag tag_alt {{k}}" title="{{speed.breakdown}}">
                 {{localize speed.label}} ({{speed.total}})
             </li>
             {{/each}}
             {{#if @root.owner}}
-                <li class="tag edit-btn">
+                <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="speed-types">
                         {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
                     </a>
@@ -143,12 +143,12 @@
         </h4>
         <ol class="tags">
             {{#each data.traits.senses as |sense k|}}
-            <li class="tag {{k}}">
+            <li class="tag tag_alt {{k}}">
                 {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
             </li>
             {{/each}}
             {{#if @root.owner}}
-                <li class="tag edit-btn">
+                <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="senses">
                         {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
                     </a>
@@ -163,12 +163,12 @@
     </h4>
     <ul class="tags">
         {{#each data.traits.languages.selected as |v k|}}
-        <li class="tag {{k}}">
+        <li class="tag tag_alt {{k}}">
             {{localize v}}
         </li>
         {{/each}}
         {{#if @root.owner}}
-            <li class="tag edit-btn">
+            <li class="tag tag_secondary edit-btn">
                 <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
                     {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
                 </a>
@@ -183,12 +183,12 @@
     </h4>
     <ul class="tags">
         {{#each data.traits.traits.selected as |v k|}}
-        <li class="tag {{k}}">
+        <li class="tag tag_alt {{k}}">
             {{localize v}}
         </li>
         {{/each}}
         {{#if @root.owner}}
-            <li class="tag edit-btn">
+            <li class="tag tag_secondary edit-btn">
                 <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
                     {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
                 </a>

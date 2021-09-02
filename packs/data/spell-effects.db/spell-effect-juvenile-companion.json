@@ -1,0 +1,51 @@
+{
+    "_id": "0bfqYkNaWsdTmtrc",
+    "data": {
+        "description": {
+            "value": "<p>You transform your companion into its juvenile form, such as a cub, foal, kitten, puppy, or piglet, making the target appear harmless. It becomes Tiny (if it was larger), and its reach is reduced to 0 feet. All of its Speeds are halved (to a minimum Speed of 5 feet), and it gains weakness 5 to physical damage. In all other ways, its abilities and statistics are unchanged.</p>\n<p>If your companion uses a hostile action, <em>juvenile companion</em> ends. This spell has no effect on a companion that doesn't have a juvenile form.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The duration increases to 1 hour.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "tiny"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "land-speed",
+                "value": "max(5*floor(floor(@attributes.speed.value/2)/5),5)"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Juvenile Companion",
+    "type": "effect"
+}
