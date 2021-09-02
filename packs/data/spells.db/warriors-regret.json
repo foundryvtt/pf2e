@@ -24,15 +24,11 @@
             "value": ""
         },
         "damage": {
-            "value": {
-                "0": {
-                    "type": {
-                        "categories": [],
-                        "value": "untyped"
-                    },
-                    "value": "1d8"
-                }
-            }
+            "applyMod": false,
+            "value": "1d8"
+        },
+        "damageType": {
+            "value": "untyped"
         },
         "description": {
             "value": "<p>Regret eats away at the target's mind, punishing it for its violence until it ceases its hostility. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> At the end of its next turn, the target takes 1d8 damage per different creature it intentionally damaged on that turn (1d8 if it damaged one creature, 2d8 if it damaged two different creatures, and so on). The maximum is 4d8 if it damaged 4 different creatures.</p>\n<p><strong>Failure</strong> As success, except the curse damages the target at the end of each of its turns and lasts until the target spends a complete round without intentionally damaging another creature.</p>\n<p><strong>Critical Failure</strong> As success, except the curse damages the target at the end of each of its turns and lasts until the target spends 24 hours atoning for its perceived sins.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The amount of mental damage the target takes for each creature it damaged that turn increases by 1d8, and the maximum damage the target can take per turn increases by 4d8.</p>"
@@ -61,10 +57,8 @@
             "value": "will"
         },
         "scaling": {
-            "damage": {
-                "0": "1d8"
-            },
-            "interval": 2
+            "formula": "1d8",
+            "mode": "level2"
         },
         "school": {
             "value": "enchantment"

@@ -24,7 +24,29 @@
             "value": ""
         },
         "damage": {
-            "value": {}
+            "applyMod": false,
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "bludgeoning"
+                    },
+                    "value": "3d4"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "3d6"
+                }
+            }
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>Superheated air collects under you, buoying you high into the sky before you plummet back down in a fiery comet. You Fly 15 feet straight up into the air, then Fly in a straight line to an empty space of your choice on the ground within 60 feet. When you land, the blistering air blasts out from you, dealing 3d4 bludgeoning damage and 3d6 fire damage (basic Reflex save) to all creatures in a 10-foot emanation.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4 bludgeoning and 1d6 fire.</p>"
@@ -57,9 +79,12 @@
         },
         "scaling": {
             "damage": {
-                "0": "1d4"
+                "0": "1d4",
+                "1": "1d6"
             },
-            "interval": 1
+            "formula": "1d4",
+            "interval": 1,
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"

@@ -24,7 +24,28 @@
             "value": ""
         },
         "damage": {
-            "value": {}
+            "applyMod": false,
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "bludgeoning"
+                    },
+                    "value": "4d6"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "6d6"
+                }
+            }
+        },
+        "damageType": {
+            "value": "bludgeoning"
         },
         "description": {
             "value": "<p>A thin crack rips through the earth, erupting with magma, then swiftly seals up. Each creature along the line and on solid ground takes 4d6 bludgeoning damage and 6d6 fire damage with a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage, and it falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, and it falls prone.</p>\n<hr />\n<p>Heightened (+1) The damage increases by 1d6 bludgeoning and 1d6 fire</p>"
@@ -57,9 +78,12 @@
         },
         "scaling": {
             "damage": {
-                "0": "1d6"
+                "0": "1d6",
+                "1": "1d6"
             },
-            "interval": 1
+            "formula": "1d6",
+            "interval": 1,
+            "mode": "level1"
         },
         "school": {
             "value": "evocation"

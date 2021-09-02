@@ -24,7 +24,11 @@
             "value": ""
         },
         "damage": {
+            "applyMod": false,
             "value": {}
+        },
+        "damageType": {
+            "value": "fire"
         },
         "description": {
             "value": "<p>Three faintly glowing wisps of fire float around your head. Each time you hit a creature with a Strike, one of the wisps goes hurtling towards that creature, dealing 1d4 fire damage. If you Cast a Spell with the fire trait while you have fewer than three wisps, a new wisp appears.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Flame Wisp]{Spell Effect: Flame Wisp}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d4.</p>"
@@ -53,10 +57,9 @@
             "value": ""
         },
         "scaling": {
-            "damage": {
-                "0": "1d4"
-            },
-            "interval": 2
+            "formula": "1d4",
+            "interval": 0,
+            "mode": "level2"
         },
         "school": {
             "value": "evocation"
