@@ -1,5 +1,80 @@
 # Patch Notes:
 
+## Version 2.13.0
+### Bug Fixes
+* (Manuel Hegner) Fix that damage rolls were posted as selected token instead of actor. Closes #1012
+* (stwlam) Fix action description expands in Actions tab for new actions
+* (stwlam) Work around Foundry bug causing bad linked-condition references on synthetic actors
+* (Arthana) Fix display of crit & fumble card draw buttons on attack rolls. Closes #1662
+* (Supe) Fix item summary expanded state preservation for prepared spell lists and signature spells
+* (Drental) Fix DC replacement on inline roll reposts for non-English languages with different grammar, like French
+* (Friz) Fix for the identify item send to chat when other tables are visible on the screen
+
+### New Features
+* (TMun) Secrets of Magic content
+
+### Content Changes
+* (Abaddon) Update for animated objects, eagles, skeletons, and bloodseeker
+* (Abaddon & SpartanCPA) Update Change Shape monster ability description to link to the Impersonate action
+* (SpartanCPA) Add monsters and hazards from Extinction Curse book 6
+* (SpartanCPA) Review the hazards in Extinction Curse book 1
+* (SpartanCPA) Audit Shanrigol Behemoth. Closes #1655
+* (SpartanCPA) Add the two missing Secrets of Magic traits
+* (SpartanCPA) Add `Clockwork` to weapon and equipment traits
+* (SpartanCPA) Make Sturdy Satchel a container. Closes #1666
+* (SpartanCPA) Ravithra and Naga domain spells
+* (SpartanCPA) Fix condition links with values (adventure path bestiaries, boons, feats, equipment, game mastery guide, core bestiaries, Pathfinder Society, iconics, and pre-generated characters)
+* (SpartanCPA) Standardize formatting: Align single quotes from ’ to ', align double quotes from HTML entity codes to escaped quotes, ensure paragraph tags for flavor text
+* (SpartanCPA) Audit Black Dragons, and add tail lash effect
+* (SpartanCPA) Fix weird `<em>` tag on Bracers of Armor
+* (SpartanCPA) Add rule element to Undaunted feat. Closes #1668
+* (SpartanCPA) Add Black Dragon spellcaster variants
+* (SpartanCPA) Reorder Skeleton Guard weapons to match stat block
+* (SpartanCPA) Correct damage type and scaling of _finger of death_
+* (SpartanCPA) Add flavor text to several monsters missing information. Closes #1669
+* (Drental) Add inline Fortitude saving throws to constrict monster abilities
+* (Drental) Add inline Reflex saving throws to trample monster abilities
+* (stwlam) Fix monk starting unarmored proficiency
+* (stwlam) Add new property runes from Secrets of Magic
+* (stwlam) Fix ability on the NPC Gallery necromancer's spellcasting entries
+* (Tikael) Default effect icon to on for _righteous might_
+* (InfamousSky) Add Fungal Armor from Agents of Edgewatch. Closes #1319
+* (InfamousSky) Fix ability description in Stinkweed Shambler
+* (InfamousSky) Add source to Succubus and Balisse. Closes #1356
+* (InfamousSky) Add heightening to _elemental motion_ spell effects
+* (InfamousSky) Fix level of Damurdiel's Vengance from Age of Ashes. Closes #1670
+* (rectulo) Correct the persistent piercing damage of the barbed vest
+* (rectulo) Correct interact and frequency on _whispering reeds_
+* (rectulo) Consolidate disrupting greater rune
+* (kageru) Set Magus class feat levels as numbers instead of text
+
+### Core System Improvements
+* (stwlam) Retire SetProperty rule element in favor of AE-likes
+* (stwlam) More actor import from JSON more resilient by doing a single document update rather than two
+* (stwlam) Default not linkinking token size to actor size for hazards, vehicles, and loot actors. Closes #1667
+* (stwlam) Add some blending to overlapping light sources
+* (stwlam) Remove Perfect Vision compatibility warning
+* (stwlam) Show magic school and magic tradition as traits on spell chat cards
+* (stwlam) Add a basic Immunity rule element
+* (stwlam) Enable inline rolls on item sheets
+* (stwlam) Add icons for bsttle form attacks
+* (stwlam) Fix dimensions of Magus class icon
+* (stwlam) Add a BattleForm rule element
+* (stwlam) Preserve numeric values when updating from the tag selector
+* (stwlam) Add a traits filter to the compendium browser feat section
+* (stwlam) Numify vehicle dimensions, correctly translate to token dimensions
+* (Manuel Hegner) Prevent layout change on journal title hover
+* (Supe) Show upscaled damage in summary
+* (Supe) Expand trait selector to work with more field types
+* (Supe) Support Focus spell component
+* (Supe) For Elite/Weak templates, apply +2/-2 instead for cantrips
+* (Supe) Add rudimentary support for flexible casting
+* (Supe) Make strike and damage buttons in spell/strike chat cards only visible for owners, and allow all owners of the actor to roll from chat card
+* (Supe) Pass data properties to summary chat data. Fix heightened damage formula labels for prepared casters
+* (Chup) Start consolidating CSS for tags like traits or senses
+* (Chup) Improve styling of spell components in spell list
+
+
 ## Version 2.12.5
 ### Bug Fixes
 * (stwlam) Work around foundry server bug to ensure presence of document schema record
