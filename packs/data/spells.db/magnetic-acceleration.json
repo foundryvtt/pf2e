@@ -25,7 +25,25 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "3d6"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "bludgeoning"
+                    },
+                    "value": "3d6"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "",
+                        "value": "piercing"
+                    },
+                    "value": "3d6"
+                }
+            }
         },
         "damageType": {
             "value": "bludgeoning"
@@ -57,7 +75,12 @@
             "value": ""
         },
         "scaling": {
+            "damage": {
+                "0": "1d6",
+                "1": "1d6"
+            },
             "formula": "1d6",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {
@@ -67,7 +90,7 @@
             "value": ""
         },
         "spellType": {
-            "value": "utility"
+            "value": "attack"
         },
         "sustained": {
             "value": false

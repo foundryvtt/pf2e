@@ -25,7 +25,16 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "2d4"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "2d4"
+                }
+            }
         },
         "damageType": {
             "value": "fire"
@@ -60,7 +69,11 @@
             "value": "fortitude"
         },
         "scaling": {
+            "damage": {
+                "0": "1d4"
+            },
             "formula": "1d4",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {

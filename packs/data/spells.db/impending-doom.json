@@ -25,7 +25,16 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "6d6"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "mental"
+                    },
+                    "value": "6d6"
+                }
+            }
         },
         "damageType": {
             "value": "mental"
@@ -57,7 +66,11 @@
             "value": "will"
         },
         "scaling": {
+            "damage": {
+                "0": "2d6"
+            },
             "formula": "2d6",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {
