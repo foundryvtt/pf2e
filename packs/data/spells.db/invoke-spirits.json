@@ -25,7 +25,24 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "2d4"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "mental"
+                    },
+                    "value": "2d4"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "negative"
+                    },
+                    "value": "2d4"
+                }
+            }
         },
         "damageType": {
             "value": ""
@@ -53,11 +70,16 @@
         },
         "rules": [],
         "save": {
-            "basic": "",
+            "basic": "basic",
             "value": "will"
         },
         "scaling": {
+            "damage": {
+                "0": "1d4",
+                "1": "1d4"
+            },
             "formula": "1d4",
+            "interval": 2,
             "mode": "level2"
         },
         "school": {

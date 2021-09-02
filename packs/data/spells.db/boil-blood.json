@@ -25,7 +25,16 @@
         },
         "damage": {
             "applyMod": false,
-            "value": "10d10"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "10d10"
+                }
+            }
         },
         "damageType": {
             "value": "fire"
@@ -60,7 +69,11 @@
             "value": "fortitude"
         },
         "scaling": {
+            "damage": {
+                "0": "1d10"
+            },
             "formula": "1d10",
+            "interval": 1,
             "mode": "level1"
         },
         "school": {
