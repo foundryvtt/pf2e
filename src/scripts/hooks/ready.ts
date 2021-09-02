@@ -27,13 +27,14 @@ export function listen(): void {
 
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
+        const migrateFrom = currentVersion < MigrationRunner.LATEST_SCHEMA_VERSION ? 0.642 : currentVersion;
 
         // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
         if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
             // Perform the migration
-            const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
+            const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(migrateFrom));
             if (migrationRunner.needsMigration()) {
-                if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
+                if (migrateFrom && migrateFrom < MigrationRunner.MINIMUM_SAFE_VERSION) {
                     ui.notifications.error(
                         `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
                         { permanent: true }
