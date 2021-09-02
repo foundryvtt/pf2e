@@ -1247,7 +1247,7 @@ export const PF2ECONFIG = {
         repeating: "PF2E.TraitRepeating",
         resonant: "PF2E.TraitResonant",
         saggorak: "PF2E.TraitSaggorak",
-	shadow: "PF2E.TraitShadow",
+        shadow: "PF2E.TraitShadow",
         shove: "PF2E.TraitShove",
         silver: "PF2E.PreciousMaterialSilver",
         staff: "PF2E.TraitStaff",
