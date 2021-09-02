@@ -14,7 +14,8 @@ export type NonPhysicalItemType =
     | "martial"
     | "melee"
     | "spell"
-    | "spellcastingEntry";
+    | "spellcastingEntry"
+    | "formula";
 
 export type BaseNonPhysicalItemSource<
     TItemType extends NonPhysicalItemType = NonPhysicalItemType,

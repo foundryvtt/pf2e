@@ -6,15 +6,19 @@
         },
         "area": {
             "areaType": "burst",
-            "value": 20
+            "value": "20"
         },
         "areasize": {
             "value": "20-foot burst"
+        },
+        "autoHeightenLevel": {
+            "value": null
         },
         "category": {
             "value": "spell"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": true
@@ -23,11 +27,17 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "6d6"
-        },
-        "damageType": {
-            "value": "fire"
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "6d6"
+                }
+            }
         },
         "description": {
             "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -62,8 +72,10 @@
             "value": "reflex"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -101,7 +113,6 @@
                 "value": "common"
             },
             "value": [
-                "evocation",
                 "fire"
             ]
         }

@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
+                "base": 25,
                 "details": "",
                 "value": 25
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -58,6 +59,7 @@
                 "value": "NE"
             },
             "creatureType": "",
+            "flavorText": "<p>Kishis are duplicitous and murderous fey who dwell on the edges of Golarion's densest jungles. At first glance, kishis appear to be attractive humans, usually of a local ethnicity, but their full heads of thick hair conceal a second face: that of a snarling hyena. When a kishi lures their prey into a vulnerable situation, their head swivels around, revealing this fearsome visage. In this form, a kishi's powerful jaws are almost impossible to pry loose and can crush a victim's bones in a matter of moments.</p>\n<p>Kishi range widely in their physical features, and their height and weight vary as much as the people whose communities they infiltrate. They dress in fine clothing aligned with the latest fashion trends, and they wear flashy jewelry with the intention of drawing onlookers' eyes.</p>\n<p>Like most fey, a kishi has inscrutable motives, though to their victims, the kishi's goal seems simple-to revel in the expression of shock, betrayal, and terror on a victim's face. Although kishis can cast charm to make unwitting companions complacent, most of these sinister creatures prefer to trick their prey using guile, gifts, and their dashing good looks. These ultimate sadists derive pleasure from the thrill of the hunt as well as the delicious reward at the end. The more uptight, prudish, or haughty a target, the better-for nothing satisfies kishis as much as earning (and destroying) the trust of someone who rarely grants it.</p>\n<p>When kishis get their new friends or lovers alone, they choose the most dramatic moments to reveal their true monstrous forms and clamp their jaws down on their victim. Kishis have no desire to share their true nature with the entire community, so they typically aim for the throats of their victims, who can no longer cry out for help after being cut off from air. Kishis consume every part of their victims' bodies, leaving no trace of the crime-even lapping up any spilled blood, claiming the victim's treasures as their own, and cleaning the murder scene as much as possible.</p>\n<p>Few things can bind a community together as swiftly as uncovering a kishi. Once found out, a kishi flees, hoping to find a new community to prey upon.</p>",
             "level": {
                 "value": 8
             },
@@ -275,6 +277,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -283,11 +286,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
@@ -320,10 +319,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -364,7 +359,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "incapacitation",
                         "mental"
                     ]
@@ -584,13 +578,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r 1d10+9 #piercing]]{1d10+9 piercing damage}, DC 26 (@Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by jaws only)</p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures grabbed or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 1d10+9 #piercing]]{1d10+9 piercing damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
@@ -609,7 +603,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
             "sort": 700000,
@@ -716,7 +714,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature grabbed in the kishi’s jaws can barely speak; a creature must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"8\" data-pf2-label=\"Vicelike Jaws DC\" data-pf2-show-dc=\"gm\">flat check</span> to provide verbal components for spells, doing so in a choked whisper.</p>"
+                    "value": "<p>A creature grabbed in the kishi's jaws can barely speak; a creature must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"8\" data-pf2-label=\"Vicelike Jaws DC\" data-pf2-show-dc=\"gm\">flat check</span> to provide verbal components for spells, doing so in a choked whisper.</p>"
                 },
                 "requirements": {
                     "value": ""

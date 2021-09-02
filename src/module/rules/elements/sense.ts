@@ -7,7 +7,7 @@ import { ItemPF2e } from "@item";
 /**
  * @category RuleElement
  */
-export class PF2SenseRuleElement extends RuleElementPF2e {
+export class SenseRuleElement extends RuleElementPF2e {
     constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
         super(data, item);
         if (!(item.actor instanceof CharacterPF2e || item.actor instanceof FamiliarPF2e)) {
@@ -39,7 +39,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
                     existing.source = source;
                     existing.value = range;
                 }
-                if (this.data.acuity && PF2SenseRuleElement.isMoreAcute(this.data.acuity, existing.acuity)) {
+                if (this.data.acuity && SenseRuleElement.isMoreAcute(this.data.acuity, existing.acuity)) {
                     existing.source = source;
                     existing.acuity = this.data.acuity;
                 }
@@ -64,7 +64,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface PF2SenseRuleElement {
+export interface SenseRuleElement {
     get actor(): CharacterPF2e | FamiliarPF2e;
 
     data: RuleElementData & {

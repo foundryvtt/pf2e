@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 27,
                 "details": "all-around vision",
                 "value": 27
             },
@@ -51,12 +52,14 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     },
                     {
-                        "type": "Swim",
-                        "value": "20 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
                     }
                 ],
                 "value": "30"
@@ -67,6 +70,7 @@
                 "value": "N"
             },
             "creatureType": "",
+            "flavorText": "<p>Shanrigols that grow with the additions of many living victims can become truly enormous in size and pose a greater danger in their expanding hunting territories. Subterranean communities have collapsed entire tunnels to prevent the creatures from reaching their settlements.</p>\n<p>Many shanrigol behemoths absorb enough brain matter to form crude intelligences and take a serpentine or humanoid shape. They're more varied in their abilities than shanrigol heaps, as they often gain abilities from their constituent creatures. The shanrigol behemoth presented below contains flesh from driders and urdefhans, giving it a web attack and necrotic decay ability. Not all shanrigol behemoths have these two abilities, but should have other abilities to replace them.</p>\n<hr />\n<p>Fleshwarpers, regardless of their origin or training, create a shocking amount of waste. When the discarded remnants of aberrant flesh are heaped together with an accidental mixture of alchemical compounds or odious energy, the mass can quicken and regain life. Without the guidance of a fleshwarper, these aberrant body parts form into a shanrigol, a mess of bone, muscle, and sinew.</p>",
             "level": {
                 "value": 9
             },
@@ -94,7 +98,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -103,13 +107,15 @@
             },
             "dr": [
                 {
-                    "label": "Slashing",
-                    "type": "slashing",
+                    "exceptions": "",
+                    "label": "Piercing",
+                    "type": "piercing",
                     "value": "10"
                 },
                 {
-                    "label": "Piercing 10; Weaknesses Positive",
-                    "type": "piercing 10; Weaknesses positive",
+                    "exceptions": "",
+                    "label": "Slashing",
+                    "type": "slashing",
                     "value": "10"
                 }
             ],
@@ -154,8 +160,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -168,7 +175,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(forceful, reach 15 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -182,7 +189,7 @@
                     },
                     "value": [
                         "forceful",
-                        "reach 15 feet"
+                        "reach-15"
                     ]
                 },
                 "weaponType": {
@@ -215,7 +222,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, range increment 30 feet, versatile P)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -229,8 +236,8 @@
                     },
                     "value": [
                         "agile",
-                        "range increment 30 feet",
-                        "versatile P"
+                        "range-increment-30",
+                        "versatile-p"
                     ]
                 },
                 "weaponType": {
@@ -251,8 +258,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "web trap"
+                        "web-trap"
                     ]
                 },
                 "bonus": {
@@ -260,7 +268,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p>(range increment 30 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -273,7 +281,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range increment 30 feet"
+                        "range-increment-30"
                     ]
                 },
                 "weaponType": {
@@ -288,6 +296,198 @@
             "type": "melee"
         },
         {
+            "_id": "ilmZPmHmepXYTxvH",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "DSrNZqWdWeSwaoHn",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "JWaz3QBxwko5mr6p",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>This monster can see in all directions simultaneously, and therefore can't be flanked.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "all-around-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "suH8X7mzPkWz69ZK",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "k2PMRhPXO7eus3sg",
             "data": {
                 "actionCategory": {
@@ -300,7 +500,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body. This gas deals [[/r 9d6 #negative]]{9d6 negative damage} to creatures in this area as their flesh curdles and rots as well (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Necrotic Decay DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>"
+                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a <span data-pf2-effect-area=\"emanation\" data-pf2-distance=\"5\">5-foot emanation</span> around the body.</p>\n<p>This gas deals [[/r 9d6 #negative]]{9d6 negative damage} to creatures in this area as their flesh curdles and rots as well (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Necrotic Decay DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -330,9 +530,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Necrotic Decay",
-            "sort": 400000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -348,7 +548,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>As shanrigol heap, but 1d10+11 bludgeoning and [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}, DC 25. Shred Flesh A shanrigol behemoth’s attacks brutally rend its foes. Creatures critically hit by the shanrigol’s fleshy slap Strike take an additional [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed};</p>\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r 1d10+11 #bludgeoning]]{1d10+11 bludgeoning} and [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Sapping Squeeze DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -374,9 +574,59 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sapping Squeeze",
-            "sort": 500000,
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "tce3ovXnnblqwD77",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A shanrigol behemoth's attacks brutally rend its foes.</p>\n<p>Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "fleshy-slap-damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}<span data-visibility='gm'> for as long as they are bleeding</span>.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shred Flesh",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -392,7 +642,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The shanrigol separates its flesh from its bones to fit through small spaces. It Strides, ignoring difficult terrain and fitting through tight spaces as though it were a Tiny creature.<br />\nIt can’t use any actions other than Undulating Step until it occupies an area large enough for its normal form.</p>"
+                    "value": "<p>The shanrigol separates its flesh from its bones to fit through small spaces. It Strides, ignoring difficult terrain and fitting through tight spaces as though it were a Tiny creature.</p>\n<p>It can't use any actions other than Undulating Step until it occupies an area large enough for its normal form.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -418,9 +668,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Undulating Step",
-            "sort": 600000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -436,7 +686,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the shanrigol behemoth’s web attack is immobilized and stuck to the nearest surface until it can Escape (DC 25).</p>"
+                    "value": "<p>A creature hit by the shanrigol behemoth's web attack is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it can Escape (DC 25).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -464,7 +714,55 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Trap",
-            "sort": 700000,
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "icwjyvHiOYhYD0xr",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -499,7 +797,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -534,7 +832,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],

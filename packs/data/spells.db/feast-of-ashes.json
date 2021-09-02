@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "1d4"
-        },
-        "damageType": {
-            "value": ""
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "untyped"
+                    },
+                    "value": "1d4"
+                }
+            }
         },
         "description": {
             "value": "<p>You curse the target with a hunger no food can sate. You can Dismiss the spell. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for 1 round.</p>\n<p><strong>Failure</strong> The creature is immediately afflicted by hunger as if it hadn't eaten food in days. It becomes Fatigued and takes 1d4 damage each day that can't be healed until it sates its hunger. No amount of eating can sate the creature's hunger during the spell's duration. After the spell's duration, the creature takes damage from starvation.</p>\n<p><strong>Critical Failure</strong> As failure but the creature takes 2d4 damage each day, twice as much as usual for hunger.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The hunger becomes more unbearable, increasing the damage each day by 1d4, or by 2d4 on a critical failure.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "1d4",
-            "mode": "level1"
+            "damage": {
+                "0": "1d4"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
@@ -103,7 +109,6 @@
                 "value": "common"
             },
             "value": [
-                "necromancy",
                 "curse"
             ]
         }

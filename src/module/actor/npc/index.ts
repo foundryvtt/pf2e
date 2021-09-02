@@ -729,7 +729,7 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                     DamageRollPF2e.roll(
                         damage,
-                        { type: "damage-roll", item: meleeItem, outcome: "success", options },
+                        { type: "damage-roll", item: meleeItem, actor: this, outcome: "success", options },
                         args.event,
                         args.callback
                     );
@@ -749,7 +749,7 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                     DamageRollPF2e.roll(
                         damage,
-                        { type: "damage-roll", item: meleeItem, outcome: "criticalSuccess", options },
+                        { type: "damage-roll", item: meleeItem, actor: this, outcome: "criticalSuccess", options },
                         args.event,
                         args.callback
                     );

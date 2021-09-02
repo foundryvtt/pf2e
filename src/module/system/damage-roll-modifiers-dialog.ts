@@ -3,6 +3,7 @@ import { RollNotePF2e } from "@module/notes";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier } from "@module/modifiers";
 import { DamageTemplate } from "@system/damage/weapon";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { ActorPF2e } from "@actor/index";
 import type { ItemPF2e } from "@item";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
@@ -161,12 +162,16 @@ export class DamageRollModifiersDialog extends Application {
             return roll;
         })();
 
+        const speaker: { actor?: ActorPF2e } = {
+            actor: ctx.actor,
+        };
+
         const item: ItemPF2e | null = context.item ?? null;
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessagePF2e.getSpeaker(),
+                speaker: ChatMessagePF2e.getSpeaker(speaker),
                 flavor,
                 content: content.trim(),
                 roll,

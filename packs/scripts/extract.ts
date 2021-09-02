@@ -49,7 +49,7 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
                 })
                 .positional("foundryConfig", {
                     describe: "The path to your local Foundry server's config.json file",
-                    default: ".\\foundryconfig.json",
+                    default: "./foundryconfig.json",
                 })
                 .option("disablePresort", {
                     describe: "Turns off data item presorting.",
@@ -351,6 +351,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         "melee",
         "action",
         "lore",
+        "formula",
     ];
     if (!("items" in entityData)) {
         return [];
@@ -585,7 +586,9 @@ function populateIdNameMap() {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
-                    throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+                    if (error instanceof Error) {
+                        throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+                    }
                 }
             })();
             packMap.set(entityData._id, entityData.name);

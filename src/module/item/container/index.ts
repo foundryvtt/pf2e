@@ -11,7 +11,7 @@ export class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
-    prepareContents(this: Embedded<ContainerPF2e>): void {
+    prepareSiblingData(this: Embedded<ContainerPF2e>): void {
         this.contents = new Collection(
             this.actor.physicalItems.filter((item) => item.container?.id === this.id).map((item) => [item.id, item])
         );

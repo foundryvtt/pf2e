@@ -18,13 +18,16 @@ import {
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
-} from "@item/index";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
+    FormulaPF2e,
+} from "@item";
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
 import { WeaponPropertyRuneType } from "@item/weapon/data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
+import { MagicSchool } from "@item/spell/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -132,14 +135,14 @@ const damageTypes = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const magicTraditions = {
+const magicTraditions: Record<MagicTradition, string> = {
     arcane: "PF2E.TraitArcane",
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
 };
 
-const magicSchools = {
+const magicSchools: Record<MagicSchool, string> = {
     abjuration: "PF2E.TraitAbjuration",
     conjuration: "PF2E.TraitConjuration",
     divination: "PF2E.TraitDivination",
@@ -529,6 +532,7 @@ const spellOtherTraits = {
     detection: "PF2E.TraitDetection",
     disease: "PF2E.TraitDisease",
     earth: "PF2E.TraitEarth",
+    eidolon: "PF2E.TraitEidolon",
     emotion: "PF2E.TraitEmotion",
     extradimensional: "PF2E.TraitExtradimensional",
     fear: "PF2E.TraitFear",
@@ -568,7 +572,6 @@ const spellOtherTraits = {
 const spellTraits = {
     ...classTraits,
     ...damageTraits,
-    ...magicTraditions,
     ...spellOtherTraits,
 };
 
@@ -648,6 +651,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 };
 
 const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
+    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
     kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
     returning: "PF2E.WeaponPropertyRuneReturning",
     ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
@@ -681,9 +685,15 @@ const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
     greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
     greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
     greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
     speed: "PF2E.WeaponPropertyRuneSpeed",
     vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    bane: "PF2E.WeaponPropertyRuneBane",
+    brilliant: "PF2E.WeaponPropertyRuneBrilliant",
+    extending: "PF2E.WeaponPropertyRuneExtending",
+    greaterBrilliant: "PF2E.WeaponPropertyRuneGreaterBrilliant",
+    greaterExtending: "PF2E.WeaponPropertyRuneGreaterExtending",
+    greaterImpactful: "PF2E.WeaponPropertyRuneGreaterImpactful",
+    impactful: "PF2E.WeaponPropertyRuneImpactful",
 };
 
 const conditionTypes: Record<ConditionType, string> = {
@@ -715,7 +725,7 @@ const conditionTypes: Record<ConditionType, string> = {
     invisible: "PF2E.ConditionTypeInvisible",
     observed: "PF2E.ConditionTypeObserved",
     paralyzed: "PF2E.ConditionTypeParalyzed",
-    persistent: "PF2E.ConditionTypePersistent",
+    "persistent-damage": "PF2E.ConditionTypePersistent",
     petrified: "PF2E.ConditionTypePetrified",
     prone: "PF2E.ConditionTypeProne",
     quickened: "PF2E.ConditionTypeQuickened",
@@ -900,6 +910,19 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
+    damageSubtypes: {
+        persistent: "PF2E.ConditionTypePersistentShort",
+        splash: "PF2E.TraitSplash",
+    },
+    damageCategories: {
+        adamantine: "PF2E.PreciousMaterialAdamantine",
+        coldiron: "PF2E.PreciousMaterialColdIron",
+        darkwood: "PF2E.PreciousMaterialDarkwood",
+        mithral: "PF2E.PreciousMaterialMithral",
+        salt: "PF2E.TraitSalt",
+        silver: "PF2E.PreciousMaterialSilver",
+        warpglass: "PF2E.PreciousMaterialWarpglass",
+    },
 
     resistanceTypes: {
         acid: "PF2E.TraitAcid",
@@ -1041,9 +1064,11 @@ export const PF2ECONFIG = {
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
+        "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
         bonded: "PF2E.TraitBonded",
+        "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
         wornamulet: "PF2E.TraitWornAmulet",
         wornanklets: "PF2E.TraitWornAnklets",
@@ -1111,6 +1136,7 @@ export const PF2ECONFIG = {
         brutal: "PF2E.TraitBrutal",
         chaotic: "PF2E.TraitChaotic",
         climbing: "PF2E.TraitClimbing",
+        clockwork: "PF2E.TraitClockwork",
         cold: "PF2E.TraitCold",
         coldiron: "PF2E.TraitColdiron",
         concealable: "PF2E.TraitConcealable",
@@ -1221,6 +1247,7 @@ export const PF2ECONFIG = {
         repeating: "PF2E.TraitRepeating",
         resonant: "PF2E.TraitResonant",
         saggorak: "PF2E.TraitSaggorak",
+        shadow: "PF2E.TraitShadow",
         shove: "PF2E.TraitShove",
         silver: "PF2E.PreciousMaterialSilver",
         staff: "PF2E.TraitStaff",
@@ -1260,6 +1287,7 @@ export const PF2ECONFIG = {
         comfort: "PF2E.TraitComfort",
         cursed: "PF2E.TraitCursed",
         evil: "PF2E.TraitEvil",
+        extradimensional: "PF2E.TraitExtradimensional",
         force: "PF2E.TraitForce",
         flexible: "PF2E.TraitFlexible",
         good: "PF2E.TraitGood",
@@ -1281,6 +1309,7 @@ export const PF2ECONFIG = {
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         auditory: "PF2E.TraitAuditory",
+        clockwork: "PF2E.TraitClockwork",
         companion: "PF2E.TraitCompanion",
         chaotic: "PF2E.TraitChaotic",
         cold: "PF2E.TraitCold",
@@ -1289,6 +1318,7 @@ export const PF2ECONFIG = {
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
         earth: "PF2E.TraitEarth",
+        eidolon: "PF2E.TraitEidolon",
         electricity: "PF2E.TraitElectricity",
         emotion: "PF2E.TraitEmotion",
         evil: "PF2E.TraitEvil",
@@ -1312,6 +1342,7 @@ export const PF2ECONFIG = {
         misfortune: "PF2E.TraitMisfortune",
         negative: "PF2E.TraitNegative",
         nonlethal: "PF2E.TraitNonlethal",
+        plant: "PF2E.TraitPlant",
         poison: "PF2E.TraitPoison",
         positive: "PF2E.TraitPositive",
         precious: "PF2E.TraitPrecious",
@@ -1354,16 +1385,13 @@ export const PF2ECONFIG = {
         air: "PF2E.TraitAir",
         archetype: "PF2E.TraitArchetype",
         auditory: "PF2E.TraitAuditory",
-        class: "PF2E.Class",
         dedication: "PF2E.TraitDedication",
         detection: "PF2E.TraitDetection",
-        eidolon: "PF2E.TraitEidolon",
         emotion: "PF2E.TraitEmotion",
         evolution: "PF2E.TraitEvolution",
         exploration: "PF2E.TraitExploration",
         fear: "PF2E.TraitFear",
         flourish: "PF2E.TraitFlourish",
-        magic: "PF2E.TraitMagic",
         magical: "PF2E.TraitMagical",
         metamagic: "PF2E.TraitMetamagic",
         multiclass: "PF2E.TraitMulticlass",
@@ -1402,7 +1430,6 @@ export const PF2ECONFIG = {
         haunt: "PF2E.TraitHaunt",
         inhaled: "PF2E.TraitInhaled",
         kaiju: "PF2E.TraitKaiju",
-        magic: "PF2E.TraitMagic",
         magical: "PF2E.TraitMagical",
         mechanical: "PF2E.TraitMechanical",
         summon: "PF2E.TraitSummon",
@@ -1531,6 +1558,7 @@ export const PF2ECONFIG = {
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
         75: "PF2E.AreaSize75",
+        80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
@@ -1580,6 +1608,7 @@ export const PF2ECONFIG = {
         V: "PF2E.SpellComponentV",
         S: "PF2E.SpellComponentS",
         M: "PF2E.SpellComponentM",
+        F: "PF2E.SpellComponentF",
     },
 
     spellCategories: {
@@ -1828,7 +1857,6 @@ export const PF2ECONFIG = {
         invisible: "PF2E.ConditionTypeInvisible",
         lawful: "PF2E.TraitLawful",
         light: "PF2E.TraitLight",
-        magic: "PF2E.TraitMagic",
         mental: "PF2E.TraitMental",
         necromancy: "PF2E.TraitNecromancy",
         negative: "PF2E.TraitNegative",
@@ -1857,7 +1885,7 @@ export const PF2ECONFIG = {
         spellDeflection: "PF2E.TraitSpellDeflection",
         stunned: "PF2E.ConditionTypeStunned",
         stupefied: "PF2E.ConditionTypeStupefied",
-        "swarm attacks": "PF2E.TraitSwarmAttacks",
+        "swarm-attacks": "PF2E.TraitSwarmAttacks",
         "swarm-mind": "PF2E.TraitSwarmMind",
         trip: "PF2E.TraitTrip",
         unconscious: "PF2E.ConditionTypeUnconscious",
@@ -1967,11 +1995,14 @@ export const PF2ECONFIG = {
     },
 
     spellScalingModes: {
-        none: "PF2E.SpellScalingModeNone",
-        level1: "PF2E.SpellScalingModeLevel1",
-        level2: "PF2E.SpellScalingModeLevel2",
-        level3: "PF2E.SpellScalingModeLevel3",
-        level4: "PF2E.SpellScalingModeLevel4",
+        0: "PF2E.SpellScalingModeNone",
+        1: "PF2E.SpellScalingModeLevel1",
+        2: "PF2E.SpellScalingModeLevel2",
+        3: "PF2E.SpellScalingModeLevel3",
+        4: "PF2E.SpellScalingModeLevel4",
+    },
+
+    spellHeightenedLevels: {
         levelsecond: "PF2E.SpellScalingModeLevelsecond",
         levelthird: "PF2E.SpellScalingModeLevelthird",
         levelfourth: "PF2E.SpellScalingModeLevelfourth",
@@ -2360,6 +2391,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             backpack: ContainerPF2e,
+            formula: FormulaPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,

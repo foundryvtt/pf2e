@@ -63,7 +63,7 @@
                 "value": "LN"
             },
             "creatureType": "Elemental",
-            "flavorText": "Quatoids are peculiar, mysterious elementals native to the Plane of Water that resemble four-tentacled octopuses with eerily humanoid faces on their mantles.<br /><br />",
+            "flavorText": "<p>Quatoids are peculiar, mysterious elementals native to the Plane of Water that resemble four-tentacled octopuses with eerily humanoid faces on their mantles.</p>",
             "level": {
                 "value": 7
             },
@@ -291,11 +291,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "6d6"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "6d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d6."
@@ -325,10 +329,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -362,7 +362,6 @@
                     },
                     "value": [
                         "attack",
-                        "evocation",
                         "water"
                     ]
                 }
@@ -484,13 +483,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>1d12+6 bludgeoning, DC 25<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>1d12+6 bludgeoning, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
@@ -509,8 +508,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
             "sort": 500000,
             "type": "action"

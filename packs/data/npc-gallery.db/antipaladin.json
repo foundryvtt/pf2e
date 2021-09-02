@@ -268,11 +268,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>The antipaladin infuses the target with negative energy. If the target is living, this deals [[/r 3d6 #negative]]{3d6 negative damage} (basic Fortitude save); on a failed saving throw, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>If the target is a willing undead creature, the target regains 18 Hit Points, and if it is one of the antipaladin's allies, it also gains a +2 status bonus to damage rolls for 1 round.</p>"
@@ -305,10 +309,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "necromancy"
@@ -344,7 +344,6 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -1172,7 +1171,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The antipaladin makes a melee @Compendium[pf2e.actionspf2e.Strike]{Strike}. If they hit and deal damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1, or @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2 on a critical hit.</p>"
+                    "value": "<p>The antipaladin makes a melee @Compendium[pf2e.actionspf2e.Strike]{Strike}. If they hit and deal damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""

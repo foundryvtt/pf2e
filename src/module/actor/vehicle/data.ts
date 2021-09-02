@@ -1,4 +1,5 @@
 import {
+    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorAttributes,
     BaseActorDataPF2e,
@@ -18,6 +19,7 @@ export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
 export interface VehicleData extends Omit<VehicleSource, "effects" | "items" | "token"> {
     type: VehicleSource["type"];
     data: VehicleSource["data"];
+    flags: ActorFlagsPF2e;
     readonly _source: VehicleSource;
 }
 
@@ -65,4 +67,15 @@ interface VehicleSystemData extends ActorSystemData {
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
+}
+
+export interface VehicleDimensions {
+    length: number;
+    width: number;
+    height: number;
+}
+
+export interface TokenDimensions {
+    width: number;
+    height: number;
 }

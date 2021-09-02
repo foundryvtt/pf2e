@@ -23,11 +23,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "8d6"
-        },
-        "damageType": {
-            "value": "bludgeoning"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "bludgeoning"
+                    },
+                    "value": "8d6"
+                }
+            }
         },
         "description": {
             "value": "<p>A swirling torrent of water manifests along a straight line, battering creatures and unattended objects in its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save; unattended objects automatically fail. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
@@ -62,8 +66,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "2d6",
-            "mode": "level1"
+            "damage": {
+                "0": "2d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "evocation"
@@ -100,7 +106,6 @@
                 "value": "common"
             },
             "value": [
-                "evocation",
                 "water"
             ]
         }

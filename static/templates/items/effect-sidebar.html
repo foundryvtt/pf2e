@@ -9,37 +9,37 @@
     </div>
     <hr>
     <div class="form-group">
-        <label for="{{#if (eq data.duration.unit 'unlimited')}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize 'Duration'}}</label>
+        <label for="{{#if (eq data.duration.unit "unlimited")}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize "PF2E.Time.Duration"}}</label>
         <div class="form-fields">
-            {{#if (eq data.duration.unit 'unlimited')}}
+            {{#if (eq data.duration.unit "unlimited")}}
                 <input type="hidden" name="data.duration.value" value="-1" data-dtype="Number"/>
             {{else}}
-                <input type="number" name="data.duration.value" value="{{data.duration.value}}" data-dtype="Number"/>
+                <input type="number" name="data.duration.value" class="left-of-select" value="{{data.duration.value}}" data-dtype="Number"/>
             {{/if}}
             <select name="data.duration.unit">
                 {{#select data.duration.unit}}
-                    <option value="rounds">rounds</option>
-                    <option value="minutes">minutes</option>
-                    <option value="hours">hours</option>
-                    <option value="days">days</option>
-                    <option value="unlimited">unlimited</option>
+                    <option value="rounds">{{localize "PF2E.Time.Unit.Rounds"}}</option>
+                    <option value="minutes">{{localize "PF2E.Time.Unit.Minutes"}}</option>
+                    <option value="hours">{{localize "PF2E.Time.Unit.Hours"}}</option>
+                    <option value="days">{{localize "PF2E.Time.Unit.Days"}}</option>
+                    <option value="unlimited">{{localize "PF2E.Time.Unit.Unlimited"}}</option>
                 {{/select}}
             </select>
         </div>
     </div>
     <div class="form-group">
-        <label for="effect-duration-sustained">{{localize "Sustained"}}</label>
+        <label for="effect-duration-sustained">{{localize "PF2E.Item.Effect.Sustained"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="data.duration.sustained" data-dtype="Boolean" {{checked data.duration.sustained}} />
         </div>
     </div>
     <div class="form-group">
-        <label for="effect-duration-expiry">{{localize 'Expires on'}}</label>
+        <label for="effect-duration-expiry">{{localize "PF2E.Item.Effect.Expiry.ExpiresOn"}}</label>
         <div class="form-fields">
             <select name="data.duration.expiry">
                 {{#select data.duration.expiry}}
-                    <option value="turn-start">{{localize 'start of turn'}}</option>
-                    <option value="turn-end">{{localize 'end of turn'}}</option>
+                    <option value="turn-start">{{localize "PF2E.Item.Effect.Expiry.StartOfTurn"}}</option>
+                    <option value="turn-end">{{localize "PF2E.Item.Effect.Expiry.EndOfTurn"}}</option>
                 {{/select}}
             </select>
         </div>
@@ -53,7 +53,7 @@
     <hr />
     {{#if targets}}
         <div class="form-group">
-            <label for="effect-target">{{localize 'Target'}}</label>
+            <label for="effect-target">{{localize "Target"}}</label>
             <div class="form-fields">
                 <select name="data.target" data-dtype="String">
                     {{#select data.target}}

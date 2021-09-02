@@ -1,4 +1,4 @@
-import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from "../modifiers";
+import { DamageDicePF2e, ProficiencyModifier } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
@@ -14,7 +14,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
-import { AbilityString, BaseActorDataPF2e } from "./data/base";
+import { AbilityString, ActorFlagsPF2e, BaseActorDataPF2e } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -50,8 +50,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
+            if (data.type) {
+                const ready = { pf2e: { ready: true } };
+                return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
+            }
         }
     }
 
@@ -62,7 +64,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
-        return this.data.data.schema?.version ?? null;
+        return this.data.data.schema?.version || null;
     }
 
     get traits(): Set<string> {
@@ -192,10 +194,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Prepare baseline ephemeral data applicable to all actor types */
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.preparePrototypeToken();
+
+        // Setup the basic structure of pf2e flags with roll options
+        this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -207,11 +213,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
         // Prepare container contents now that this actor's embedded documents are ready
-        const containers = physicalItems.filter(
-            (item): item is Embedded<ContainerPF2e> => item instanceof ContainerPF2e
-        );
-        for (const container of containers) {
-            container.prepareContents();
+        for (const item of this.items) {
+            item.prepareSiblingData?.();
         }
 
         // Rule elements
@@ -267,8 +270,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Default token dimensions as derived from actor size
-        this.data.token.flags.pf2e ??= { linkToActorSize: true };
-        this.data.token.flags.pf2e.linkToActorSize ??= true;
+        const linkToActorSize = !["hazard", "loot"].includes(this.type);
+        this.data.token.flags.pf2e ??= { linkToActorSize };
+        this.data.token.flags.pf2e.linkToActorSize ??= linkToActorSize;
 
         // Disable manually-configured vision settings on the prototype token
         if (canvas.sight?.rulesBasedVision) {
@@ -942,64 +946,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Adds a custom modifier that will be included when determining the final value of a stat. The
-     * name parameter must be unique for the custom modifiers for the specified stat, or it will be
-     * ignored.
-     */
-    async addCustomModifier(
-        stat: string,
-        name: string,
-        value: number,
-        type: string,
-        predicate?: RawPredicate,
-        damageType?: string,
-        damageCategory?: string
-    ) {
-        // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
-        // similar to how addDamageDice operates.
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom modifiers only work for characters, NPCs, and familiars");
-        }
-
-        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
-        if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-            const modifier = new ModifierPF2e(name, value, type);
-            if (damageType) {
-                modifier.damageType = damageType;
-            }
-            if (damageCategory) {
-                modifier.damageCategory = damageCategory;
-            }
-            modifier.custom = true;
-
-            // modifier predicate
-            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
-            modifier.ignored = !modifier.predicate.test!();
-
-            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ "data.customModifiers": customModifiers });
-        }
-    }
-
-    /** Removes a custom modifier by name. */
-    async removeCustomModifier(stat: string, modifier: number | string) {
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom modifiers only work for characters, NPCs, and familiars");
-        }
-
-        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
-        if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
-            customModifiers[stat].splice(modifier, 1);
-            await this.update({ "data.customModifiers": customModifiers });
-        } else if (typeof modifier === "string" && customModifiers[stat]) {
-            customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
-            await this.update({ "data.customModifiers": customModifiers });
-        } else {
-            throw Error("Custom modifiers can only be removed by name (string) or index (number)");
-        }
-    }
-
     /** Adds custom damage dice. */
     async addDamageDice(param: DamageDicePF2e) {
         if (!isCreatureData(this.data)) {
@@ -1078,20 +1024,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return ActorPF2e.getRollOptions(this.data.flags, rollNames);
     }
 
-    static getRollOptions(flags: ActorPF2e["data"]["flags"], rollNames: string[]): string[] {
-        const flag: Record<string, Record<string, boolean>> = flags[game.system.id]?.rollOptions ?? {};
+    static getRollOptions(flags: ActorFlagsPF2e, rollNames: string[]): string[] {
+        const rollOptions = flags.pf2e.rollOptions;
         return rollNames
             .flatMap((rollName) =>
                 // convert flag object to array containing the names of all fields with a truthy value
-                Object.entries(flag[rollName] ?? {}).reduce(
-                    (opts, [key, value]) => opts.concat(value ? key : []),
-                    [] as string[]
+                Object.entries(rollOptions[rollName] ?? {}).reduce(
+                    (opts: string[], [key, value]) => opts.concat(value ? key : []),
+                    []
                 )
             )
-            .reduce((unique, option) => {
+            .reduce((unique: string[], option) => {
                 // ensure option entries are unique
                 return unique.includes(option) ? unique : unique.concat(option);
-            }, [] as string[]);
+            }, []);
     }
 
     getAbilityMod(ability: AbilityString): number {

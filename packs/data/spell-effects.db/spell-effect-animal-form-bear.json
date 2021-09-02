@@ -15,283 +15,232 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FixedProficiency",
-                "label": "Animal Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": "16 + @details.level.value"
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": "17 + @details.level.value"
-                        },
-                        {
-                            "start": 4,
-                            "value": "18 + @details.level.value"
+                "key": "BattleForm",
+                "label": "Animal Form (Bear)",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true
+                    },
+                    "ownModifier": {
+                        "skills": true,
+                        "strikes": true
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.TempHP",
-                "label": "Animal Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 5
+                    },
+                    "speeds": {
+                        "land": 30
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.claw",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
                         },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 10
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 15
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "traits": [
+                                "unarmed"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "PF2E.RuleElement.Sense",
-                "label": "PF2E.SensesScent",
-                "range": 30,
-                "selector": "scent"
-            },
-            {
-                "ability": "str",
-                "key": "PF2E.RuleElement.FixedProficiency",
-                "label": "Animal Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 9
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 14
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 18
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "PF2E.RuleElement.FixedProficiency",
-                "label": "Animal Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 1
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 5
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 9
-                        },
-                        {
-                            "start": 5,
-                            "value": 7
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.FixedProficiency",
-                "label": "Animal Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 2,
-                            "value": 9
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 14
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 1,
-                            "value": "med"
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 5,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.BaseSpeed",
-                "selector": "land-speed",
-                "value": 30
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "PF2E.RuleElement.Strike",
-                "label": "Bear Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "slashing",
-                        "dice": 1,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "PF2E.RuleElement.Strike",
-                "label": "Bear Claw",
-                "range": "melee",
-                "traits": [
-                    "agile",
-                    "melee"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "PF2E.RuleElement.DamageDice",
-                "label": "Animal Form",
-                "predicate": {
-                    "not": [
-                        "agile"
+                    },
+                    "traits": [
+                        "animal"
                     ]
                 },
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "16 + @details.level.value"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 9
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "ability": "str",
+                                        "baseType": "claw",
+                                        "category": "unarmed",
+                                        "damage": {
+                                            "damageType": "slashing",
+                                            "dice": 1,
+                                            "die": "d8",
+                                            "modifier": 1
+                                        },
+                                        "group": "brawling",
+                                        "img": null,
+                                        "label": "PF2E.Weapon.Base.claw",
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "ability": "str",
+                                        "baseType": "jaws",
+                                        "category": "unarmed",
+                                        "damage": {
+                                            "damageType": "piercing",
+                                            "dice": 2,
+                                            "die": "d8",
+                                            "modifier": 1
+                                        },
+                                        "group": "brawling",
+                                        "img": null,
+                                        "label": "PF2E.Weapon.Base.jaws",
+                                        "modifier": 9,
+                                        "traits": [
+                                            "unarmed"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "17 + @details.level.value"
+                                },
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 14
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 14
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 14
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
                         {
                             "start": 5,
                             "value": {
-                                "diceNumber": 2
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 7
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 7
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
                             }
                         }
                     ],
                     "field": "item|data.level.value"
                 }
-            },
-            {
-                "critical": false,
-                "key": "PF2E.RuleElement.DamageDice",
-                "label": "Animal Form",
-                "predicate": {
-                    "all": [
-                        "agile"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.SetProperty",
-                "on": {
-                    "added": true,
-                    "removed": false
-                },
-                "property": "flags.pf2e.rollOptions.all.polymorph",
-                "retain": true
             }
         ],
         "source": {
@@ -315,7 +264,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/animal-form.webp",
+    "img": "systems/pf2e/icons/spells/animal-form-bear.webp",
     "name": "Spell Effect: Animal Form (Bear)",
     "type": "effect"
 }

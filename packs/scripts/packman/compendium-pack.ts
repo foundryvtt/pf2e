@@ -128,7 +128,9 @@ export class CompendiumPack {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
-                    throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
+                    if (error instanceof Error) {
+                        throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
+                    }
                 }
             })();
 

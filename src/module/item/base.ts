@@ -19,10 +19,10 @@ import { isCreatureData } from "@actor/data/helpers";
 import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
 import { CheckPF2e } from "@system/rolls";
-import { ItemTrait } from "./data/base";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { ItemTrait } from "./data/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -44,8 +44,10 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.rules = [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
+            if (data.type) {
+                const ready = { pf2e: { ready: true } };
+                return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
+            }
         }
     }
 
@@ -92,14 +94,12 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
      */
-    async toMessage(
-        this: Embedded<ItemPF2e>,
-        event?: JQuery.TriggeredEvent,
-        { create = true } = {}
-    ): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(event?: JQuery.TriggeredEvent, { create = true } = {}): Promise<ChatMessagePF2e | undefined> {
+        if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
+
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
-        const { token } = this.actor;
+        const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = nearestItem.dataset || {};
         const templateData = {
@@ -140,7 +140,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
-    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toChat(event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
         return this.toMessage(event, { create: true });
     }
 
@@ -162,7 +162,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(this: Embedded<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
@@ -175,11 +175,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         return data;
     }
 
-    getChatData(
-        this: Embedded<ItemPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
-        _rollOptions: Record<string, any> = {}
-    ): Record<string, unknown> {
+    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): Record<string, unknown> {
+        if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
             traits: this.traitChatData(),
@@ -555,9 +552,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
             const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) {
-                rule.onCreate(actorUpdates);
-            }
+            for (const rule of this.rules) rule.onCreate?.(actorUpdates);
             this.actor.update(actorUpdates);
         }
 
@@ -568,11 +563,8 @@ class ItemPF2e extends Item<ActorPF2e> {
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
-            const tokens = this.actor.getAllTokens();
             const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
-            for (const rule of this.rules) {
-                rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
-            }
+            for (const rule of this.rules) rule.onDelete?.(actorUpdates);
             this.actor.update(actorUpdates);
         }
         super._onDelete(options, userId);
@@ -587,6 +579,8 @@ interface ItemPF2e {
     _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
+
+    prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
     getFlag(scope: "core", key: "sourceId"): string;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;

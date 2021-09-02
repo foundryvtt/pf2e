@@ -558,11 +558,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
@@ -595,10 +591,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "divination"
@@ -641,8 +633,7 @@
                     },
                     "value": [
                         "detection",
-                        "cantrip",
-                        "divination"
+                        "cantrip"
                     ]
                 }
             },
@@ -682,11 +673,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
@@ -719,10 +706,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -762,8 +745,7 @@
                     },
                     "value": [
                         "auditory",
-                        "cantrip",
-                        "illusion"
+                        "cantrip"
                     ]
                 }
             },
@@ -803,11 +785,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
@@ -840,10 +818,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -882,8 +856,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -923,11 +896,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": true,
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "value": "cold"
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "cold"
+                            },
+                            "value": "1d4"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
@@ -962,8 +940,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1005,8 +985,7 @@
                     "value": [
                         "attack",
                         "cold",
-                        "cantrip",
-                        "evocation"
+                        "cantrip"
                     ]
                 }
             },
@@ -1046,11 +1025,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
@@ -1083,10 +1058,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -1126,7 +1097,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "abjuration",
                         "cantrip",
                         "force"
                     ]
@@ -1286,11 +1256,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "3d6"
-                },
-                "damageType": {
-                    "value": "bludgeoning"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "bludgeoning"
+                            },
+                            "value": "3d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
@@ -1325,8 +1299,10 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1366,7 +1342,6 @@
                     },
                     "value": [
                         "attack",
-                        "evocation",
                         "water"
                     ]
                 }
@@ -1407,11 +1382,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the Impersonate use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
@@ -1444,10 +1415,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -1486,7 +1453,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "illusion",
                         "visual"
                     ]
                 }
@@ -1527,11 +1493,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using detect magic or read aura of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
@@ -1564,10 +1526,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -1606,8 +1564,7 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "uncommon",
-                        "illusion"
+                        "uncommon"
                     ]
                 }
             },
@@ -1647,11 +1604,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "1d4+1"
-                },
-                "damageType": {
-                    "value": "force"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "force"
+                            },
+                            "value": "1d4+1"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
@@ -1684,10 +1645,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "evocation"
@@ -1726,7 +1683,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "force"
                     ]
                 }
@@ -1767,14 +1723,10 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1804,10 +1756,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -1847,7 +1795,6 @@
                     },
                     "value": [
                         "emotion",
-                        "enchantment",
                         "mental"
                     ]
                 }
@@ -1888,11 +1835,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
@@ -1925,10 +1868,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -1966,9 +1905,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "illusion"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -2007,11 +1944,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
@@ -2044,10 +1977,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -2086,7 +2015,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "conjuration",
                         "water"
                     ]
                 }
@@ -2127,11 +2055,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target can walk on the surface of water and other liquids without falling through. It can go underwater if it wishes, but in that case it must Swim normally. This spell doesn't grant the ability to breathe underwater.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's range increases to 30 feet, the duration increases to 1 hour, and you can target up to 10 creatures.</p>"
@@ -2164,10 +2088,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2206,9 +2126,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "transmutation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -2247,11 +2165,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Your words fascinate your targets. You speak or sing without interruption throughout the casting and duration. Targets who notice your speech or song might give their undivided attention; each target must attempt a Will save. The GM might grant a circumstance bonus (to a maximum of +4) if the target is of an opposing religion, ancestry, or political leaning, or is otherwise unlikely to agree with what you're saying.</p>\n<p>Each creature that comes within range has to attempt a save when you Sustain the Spell. If you're speaking, enthrall gains the linguistic trait.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and notices that you tried to use magic.</p>\n<p><strong>Success</strong> The target needn't pay attention but doesn't notice you tried to use magic (it might notice others are enthralled).</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with you. It can attempt another Will save if it witnesses actions or speech with which it disagrees. If it succeeds, it's no longer Fascinated and is temporarily immune for 1 hour. If the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it, the fascination ends immediately.</p>\n<p><strong>Critical Failure</strong> As failure, but the target can't attempt a save to end the fascination if it disagrees with you.</p>"
@@ -2284,10 +2198,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "enchantment"
@@ -2327,8 +2237,7 @@
                     },
                     "value": [
                         "auditory",
-                        "emotion",
-                        "enchantment"
+                        "emotion"
                     ]
                 }
             },
@@ -2368,11 +2277,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
@@ -2405,10 +2310,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "transmutation"
@@ -2447,9 +2348,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "transmutation"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -2488,11 +2387,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "4d12"
-                },
-                "damageType": {
-                    "value": "electricity"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "electricity"
+                            },
+                            "value": "4d12"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
@@ -2527,8 +2430,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "1d12",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -2567,8 +2472,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "electricity",
-                        "evocation"
+                        "electricity"
                     ]
                 }
             },
@@ -2607,11 +2511,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within range is attacked.</p>\n<hr />\n<p>With a flourish, you fulfill a creature's wish for protection, bending reality to keep them from harm. The target vanishes in a burst of brightly colored smoke and sparkles, reappearing an instant later. They become @Compendium[pf2e.conditionitems.Concealed]{Concealed} against the triggering attack and until the end of the current creature's turn.</p>"
@@ -2644,10 +2544,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -2683,7 +2579,6 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "abjuration",
                         "sorcerer"
                     ]
                 }
@@ -2905,7 +2800,7 @@
                     "sp": 0
                 },
                 "description": {
-                    "value": "<p><span>Though it appears to be a cloth sack decorated with panels of richly colored silk or stylish embroidery, a <em>bag of holding</em> opens into an extradimensional space larger than its outside dimensions. The Bulk held inside the bag doesn't change the Bulk of the <em>bag of holding</em> itself. The amount of Bulk the bag's extradimensional space can hold depends on its type.<br /></span></p>\n<p><span>You can Interact with the <em>bag of holding</em> to put items in or remove them just like a mundane sack. Though the bag can hold a great amount of material, an object still needs to be able to fit through the opening of the sack to be stored inside.<br /></span></p>\n<p><span>If the bag is overloaded or broken, it ruptures and is ruined, causing the items inside to be lost forever. If it's turned inside out, the items inside spill out unharmed, but the bag must be put right before it can be used again. A living creature placed inside the bag has enough air for 10 minutes before it begins to suffocate, and it can attempt to Escape against a DC of 13. An item inside the bag provides no benefits unless it's retrieved first. An item in the bag can't be detected by magic that detects only things on the same plane.</span></p>\n<p><span><strong>Capacity</strong> 25 Bulk</span></p>"
+                    "value": "<p>Though it appears to be a cloth sack decorated with panels of richly colored silk or stylish embroidery, a <em>bag of holding</em> opens into an extradimensional space larger than its outside dimensions. The Bulk held inside the bag doesn't change the Bulk of the <em>bag of holding</em> itself. The amount of Bulk the bag's extradimensional space can hold depends on its type.<br /></p>\n<p>You can Interact with the <em>bag of holding</em> to put items in or remove them just like a mundane sack. Though the bag can hold a great amount of material, an object still needs to be able to fit through the opening of the sack to be stored inside.<br /></p>\n<p>If the bag is overloaded or broken, it ruptures and is ruined, causing the items inside to be lost forever. If it's turned inside out, the items inside spill out unharmed, but the bag must be put right before it can be used again. A living creature placed inside the bag has enough air for 10 minutes before it begins to suffocate, and it can attempt to Escape against a DC of 13. An item inside the bag provides no benefits unless it's retrieved first. An item in the bag can't be detected by magic that detects only things on the same plane.</p>\n<p><strong>Capacity</strong> 25 Bulk</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3342,7 +3237,7 @@
                     "value": "M2xgbQHQ59IIfeuO"
                 },
                 "description": {
-                    "value": "<p><span>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</span></p>"
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -4713,7 +4608,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Warding Sign [reaction] (concentrate) Frequency once per minute;</p>\n<p>Trigger You attempt a saving throw against a magical effect,</p>\n<p>but you haven’t rolled yet; Effect You call on the power of</p>\n<p>a personal, eldritch sign of protection, which flares brightly</p>\n<p>before slowly fading. You gain a +2 circumstance bonus to</p>\n<p>the triggering saving throw, or a +3 circumstance bonus if</p>\n<p>the effect is a curse.</p>"
+                    "value": "<p>Warding Sign [reaction] (concentrate) Frequency once per minute;</p>\n<p>Trigger You attempt a saving throw against a magical effect,</p>\n<p>but you haven't rolled yet; Effect You call on the power of</p>\n<p>a personal, eldritch sign of protection, which flares brightly</p>\n<p>before slowly fading. You gain a +2 circumstance bonus to</p>\n<p>the triggering saving throw, or a +3 circumstance bonus if</p>\n<p>the effect is a curse.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4869,11 +4764,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "6d6"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "untyped"
+                            },
+                            "value": "6d6"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You summon a crashing wave that sweeps away from you. You deal <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"bludgeoning\" data-formula=\"6d6\" title=\"bludgeoning\"><i class=\"fas fa-dice-d20\"></i> 6d6</a> bludgeoning damage to creatures in the area. The water also extinguishes non-magical fires in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"bludgeoning\" data-formula=\"2d6\" title=\"bludgeoning\"><i class=\"fas fa-dice-d20\"></i> 2d6</a>.</p>"
@@ -4908,8 +4807,10 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -4948,7 +4849,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
                         "water"
                     ]
                 }
@@ -5006,7 +4906,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><span>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.<br /></span></p>\n<p><span>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).<br /></span></p>\n<p><span>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</span></p>"
+                    "value": "<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.<br /></p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).<br /></p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -5097,11 +4997,7 @@
                                 "value": ""
                             },
                             "damage": {
-                                "applyMod": false,
-                                "value": ""
-                            },
-                            "damageType": {
-                                "value": ""
+                                "value": {}
                             },
                             "description": {
                                 "value": "<p>The target's form appears blurry. It becomes @Compendium[pf2e.conditionitems.Concealed]{Concealed}. As the nature of this effect still leaves the target's location obvious, the target can't use this concealment to Hide or Sneak.</p>"
@@ -5134,10 +5030,6 @@
                             "save": {
                                 "basic": "",
                                 "value": ""
-                            },
-                            "scaling": {
-                                "formula": "",
-                                "mode": "none"
                             },
                             "school": {
                                 "value": "illusion"
@@ -5176,7 +5068,6 @@
                                     "value": "common"
                                 },
                                 "value": [
-                                    "illusion",
                                     "visual"
                                 ]
                             }
@@ -5375,11 +5266,7 @@
                                 "value": ""
                             },
                             "damage": {
-                                "applyMod": false,
-                                "value": ""
-                            },
-                            "damageType": {
-                                "value": ""
+                                "value": {}
                             },
                             "description": {
                                 "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
@@ -5412,10 +5299,6 @@
                             "save": {
                                 "basic": "",
                                 "value": ""
-                            },
-                            "scaling": {
-                                "formula": "",
-                                "mode": "none"
                             },
                             "school": {
                                 "value": "illusion"
@@ -5454,7 +5337,6 @@
                                     "value": "common"
                                 },
                                 "value": [
-                                    "illusion",
                                     "visual"
                                 ]
                             }
@@ -5652,11 +5534,7 @@
                                 "value": ""
                             },
                             "damage": {
-                                "applyMod": false,
-                                "value": ""
-                            },
-                            "damageType": {
-                                "value": ""
+                                "value": {}
                             },
                             "description": {
                                 "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>\n<p>&nbsp;</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Mage Armor]{Spell Effect: Mage Armor}</p>"
@@ -5689,10 +5567,6 @@
                             "save": {
                                 "basic": "",
                                 "value": ""
-                            },
-                            "scaling": {
-                                "formula": "",
-                                "mode": "none"
                             },
                             "school": {
                                 "value": "abjuration"
@@ -5730,9 +5604,7 @@
                                 "rarity": {
                                     "value": "common"
                                 },
-                                "value": [
-                                    "abjuration"
-                                ]
+                                "value": []
                             }
                         },
                         "effects": [],
@@ -5952,11 +5824,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
@@ -5989,10 +5857,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -6031,7 +5895,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "illusion",
                         "visual"
                     ]
                 }
@@ -6072,11 +5935,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>\n\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Mage Armor]{Spell Effect: Mage Armor}</p>"
@@ -6109,10 +5968,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "abjuration"
@@ -6150,9 +6005,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "abjuration"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
@@ -6191,11 +6044,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>The target's form appears blurry. It becomes @Compendium[pf2e.conditionitems.Concealed]{Concealed}. As the nature of this effect still leaves the target's location obvious, the target can't use this concealment to Hide or Sneak.</p>"
@@ -6228,10 +6077,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
                 },
                 "school": {
                     "value": "illusion"
@@ -6270,7 +6115,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "illusion",
                         "visual"
                     ]
                 }
@@ -6338,7 +6182,7 @@
                     "unarmored": 1
                 },
                 "description": {
-                    "value": "<p><em>You didn't choose to become a spellcaster-you were born one. There's magic in your blood, whether a divinity touched one of your ancestors, a forebear communed with a primal creature, or a powerful occult ritual influenced your line. Self-reflection and study allow you to refine your inherent magical skills and unlock new, more powerful abilities. The power in your blood carries a risk, however, and you constantly face the choice of whether you'll rise to become a master spellcaster or fall into destruction.</em><br /><br /><strong>Key Ability: CHARISMA</strong><br />At 1st level, your class gives you an ability boost to Charisma.<br /><br /><strong>Hit Points: 6 plus your Constitution modifier</strong><br />You increase your maximum number of HP by this number at 1st level and every level thereafter.</p>\n<h1 class=\"title\">Roleplaying the Sorcerer</h1>\n<h2 class=\"title\">During Combat Encounters...</h2>\n<p>You use spells to injure your enemies, influence their minds, and hamper their movements. You might be too vulnerable to get into melee combat, or your bloodline might give you abilities that help you hold your own in a brawl. While your magic is powerful, to conserve your best spells-or when you've used them all up-you also rely on cantrips.</p>\n<h2 class=\"title\">During Social Encounters...</h2>\n<p>Your natural charisma makes you good at interacting with people.</p>\n<h2 class=\"title\">While Exploring...</h2>\n<p>You detect the magic around you, finding treasures and warning your adventuring group of magical traps. When the group encounters mysteries or problems related to your bloodline, you try to solve them.</p>\n<h2 class=\"title\">In Downtime...</h2>\n<p>You craft magic items or scribe scrolls. Your bloodline might drive you to research your ancestry or associate with affiliated people or creatures.</p>\n<h2 class=\"title\">You Might...</h2>\n<ul>\n<li>Have a strong independent streak, and whether you embrace or reject your magical heritage, you long to distinguish yourself both as a spellcaster and as an individual.</li>\n<li>View your lineage with fascination, fear, or something in between-anything from wholehearted acceptance to vehement rejection.</li>\n<li>Rely on magic items, such as scrolls and wands, to supplement your limited selection of spells.</li>\n</ul>\n<h2 class=\"title\">Others Probably...</h2>\n<ul>\n<li>Marvel at your ability to create magic from thin air and view your abilities with equal parts admiration and mistrust.</li>\n<li>Consider you less dedicated than studious wizards, devoted clerics, and other practitioners of magic, since power comes to you naturally.</li>\n<li>Assume you're as unpredictable as the magic you bring forth, even if your personality proves otherwise.</li>\n</ul>\n<h1 class=\"title\">Initial Proficiencies</h1>\n<p>At 1st level, you gain the listed proficiency ranks in the following statistics. You are untrained in anything not listed unless you gain a better proficiency rank in some other way.</p>\n<h2 class=\"title\">Perception</h2>\n<p>Trained in Perception</p>\n<h2 class=\"title\">Saving Throws</h2>\n<p>Trained in Fortitude<br />Trained in Reflex<br />Expert in Will</p>\n<h2 class=\"title\">Skills</h2>\n<p>Trained in one or more skills determined by your bloodline<br />Trained in a number of additional skills equal to 2 plus your Intelligence modifier</p>\n<h2 class=\"title\">Attacks</h2>\n<p>Trained in simple weapons<br />Trained in unarmed attacks</p>\n<h2 class=\"title\">Defenses</h2>\n<p>Untrained in all armor<br />Trained in unarmored defense</p>\n<h2 class=\"title\">Spells</h2>\n<p>Trained in spell attack rolls of your spellcasting tradition, as indicated by your bloodline<br />Trained in spell DCs of your spellcasting tradition, as indicated by your bloodline</p>\n<h1 class=\"title\">Class Features</h1>\n<p>You gain these features as a Sorcerer. Abilities gained at higher levels list the levels at which you gain them next to the features' names.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Class Features</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Ancestry and background, initial proficiencies, bloodline, sorcerer spellcasting, spell repertoire</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>3</td>\n<td>2nd-level spells, general feat, signature spells, skill increase</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>5</td>\n<td>3rd-level spells, ability boosts, ancestry feat, magical fortitude, skill increase</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>7</td>\n<td>4th-level spells, expert spellcaster, general feat, skill increase</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5th-level spells, ancestry feat, lightning reflexes, skill increase</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Ability boosts, skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>11</td>\n<td>6th-level spells, alertness, general feat, weapon expertise, skill increase</td>\n</tr>\n<tr>\n<td>12</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>13</td>\n<td>7th-level spells, ancestry feat, defensive robes, skill increase, weapon specialization</td>\n</tr>\n<tr>\n<td>14</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>15</td>\n<td>8th-level spells, ability boosts, general feat, master spellcaster, skill increase</td>\n</tr>\n<tr>\n<td>16</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>17</td>\n<td>9th-level spells, ancestry feat, skill increase</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>19</td>\n<td>Bloodline paragon, general feat, legendary spellcaster, skill increase</td>\n</tr>\n<tr>\n<td>20</td>\n<td>Ability boosts, skill feat, sorcerer feat</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Ancestry and Background</h2>\n<p>In addition to the abilities provided by your class at 1st level, you have the benefits of your selected ancestry and background.</p>\n<h2 class=\"title\">Bloodline</h2>\n<p>Choose a bloodline that gives you your spellcasting talent. This choice determines the type of spells you cast and the spell list you choose them from, additional spells you learn, and additional trained skills. You also gain Focus Points and special focus spells based on your bloodline. The bloodlines presented in this book are as follows. <br /><br /></p>\n<ul>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Aberrant]{Aberrant}</strong>: A strange and unknowable influence gives you occult spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Angelic]{Angelic}</strong>: Holy grace bestows divine spells upon you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Demonic]{Demonic}</strong>: A sinful corruption gives you divine spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Diabolic]{Diabolic}</strong>: A bond with devils gives you divine spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Draconic]{Draconic}</strong>: The blood of dragons grants you arcane spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Elemental]{Elemental}</strong>: The power of the elements manifests in you as primal spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Fey]{Fey}</strong>: Influence from the fey gives you primal spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Genie]{Genie}</strong>: Through lineage, magic, or wishes made real, the blood of a noble genie flows through your veins.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Hag]{Hag}</strong>: The blight of a hag has given you occult spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Imperial]{Imperial}</strong>: An ancient power grants you arcane spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Nymph]{Nymph}</strong>: One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Psychopomp]{Psychopomp}</strong>: For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Shadow]{Shadow}</strong>: Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Undead]{Undead}</strong>: The touch of death gives you divine spells.<br /><br /></li>\n</ul>\n<h2 class=\"title\">Bloodline Spells</h2>\n<p>Your bloodline grants you bloodline spells, special spells unique to your lineage. Bloodline spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity. Unlike other characters, you don't need to do anything specific to Refocus, as the power flowing through your veins naturally replenishes your focus pool.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Focus spells don't require spell slots, nor can you cast them using spell slots. Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 points. The full rules can be found here.</p>\n<h3>Reading A Bloodline Entry</h3>\n<p>A bloodline entry contains the following information:</p>\n<p><strong>Spell List</strong> You use this magical tradition and spell list.</p>\n<p><strong>Bloodline Skills</strong> You become trained in the listed skills.</p>\n<p><strong>Granted Spells</strong> You automatically add the spells listed here to your spell repertoire, as described in the Spell Repertoire class feature. At 1st level, you gain a cantrip and a 1st-level spell. You learn the other spells on the list as soon as you gain the ability to cast sorcerer spells of that level.</p>\n<p><strong>Bloodline Spells</strong> You automatically gain the initial bloodline spell at 1st level and can gain more by selecting the Advanced Bloodline and Greater Bloodline feats.</p>\n<p><strong>Blood Magic</strong> Whenever you cast a bloodline spell using Focus Points or a granted spell from your bloodline using a spell slot, you gain a blood magic effect. If the blood magic offers a choice, make it before resolving the spell. The blood magic effect occurs after resolving any checks for the spell's initial effects and, against a foe, applies only if the spell is a successful attack or the foe fails its saving throw. If the spell has an area, you must designate yourself or one target in the area when you cast the spell to be the target of the blood magic effect. All references to spell level refer to the level of the spell you cast.</p>\n<h2 class=\"title\">Initial Proficiencies</h2>\n<p>At 1st level, you gain a number of proficiencies that represent your basic training, noted at the start of this class.</p>\n<h2 class=\"title\">Sorcerer Spellcasting</h2>\n<p>Your bloodline provides you with incredible magical power. You can cast spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a sorcerer, you can usually replace material components with somatic components, so you don't need to use a spell component pouch.<br /><br />Each day, you can cast up to three 1st-level spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.<br /><br />As you increase in level as a sorcerer, your number of spells per day increases, as does the highest level of spells you can cast, as shown on Table 3-17: Sorcerer Spells per Day.<br /><br />Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>\n<h3 class=\"title\"><strong>Heightening Spells</strong></h3>\n<p>When you get spell slots of 2nd level and higher, you can fill those slots with stronger versions of lower-level spells. This increases the spell's level to match the spell slot. You must have a spell in your spell repertoire at the level you want to cast in order to heighten it to that level. Many spells have specific improvements when they are heightened to certain levels. The signature spells class feature lets you heighten certain spells freely.</p>\n<h3 class=\"title\"><strong>Cantrips</strong></h3>\n<p>A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up-this is usually equal to the highest level of spell you can cast as a sorcerer. For example, as a 1st-level sorcerer, your cantrips are 1st-level spells, and as a 5th-level sorcerer, your cantrips are 3rd-level spells.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Cantrips</th>\n<th>1st</th>\n<th>2nd</th>\n<th>3rd</th>\n<th>4th</th>\n<th>5th</th>\n<th>6th</th>\n<th>7th</th>\n<th>8th</th>\n<th>9th</th>\n<th>10th</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>5</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>2</td>\n<td>5</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>3</td>\n<td>5</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>4</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>5</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>8</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>10</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>11</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>12</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>13</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>14</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>15</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>16</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>17</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n</tr>\n<tr>\n<td>18</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n</tr>\n<tr>\n<td>19</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>1*</td>\n</tr>\n<tr>\n<td>20</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>1*</td>\n</tr>\n<tr>\n<td style=\"color: white; width: 120px; background-color: #522e2c; text-align: center; height: 25px;\" colspan=\"12\">* The bloodline paragon class feature gives you a 10th-level spell slot that works a bit differently from other spell slots.</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Spell Repertoire</h2>\n<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and four cantrips of your choice, as well as an additional spell and cantrip from your bloodline. You choose these from the common spells from the tradition corresponding to your bloodline, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level.<br /><br />You add to this spell repertoire as you increase in level. Each time you get a spell slot (see Table 3-17), you add a spell of the same level to your spell repertoire. When you gain access to a new level of spells, your first new spell is always your bloodline spell, but you can choose the other spells you gain. At 2nd level, you select another 1st-level spell; at 3rd level, you gain a new bloodline spell and two other 2nd-level spells, and so on. When you add spells, you might select a higher-level version of a spell you already have so that you can cast a heightened version of that spell.<br /><br />Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\">Swapping Spells in your Repertoire</h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip, but you can't swap out bloodline spells. You can also swap out spells by retraining during downtime.</p>\n<h2 class=\"title\">Skill Feats<span style=\"float: right;\">Level 2</span></h2>\n<p>At 2nd level and every 2 levels thereafter, you gain a skill feat. You must be trained or better in the corresponding skill to select a skill feat.</p>\n<h2 class=\"title\">Sorcerer Feats<span style=\"float: right;\">Level 2</span></h2>\n<p>At 2nd level and every even-numbered level, you gain a sorcerer class feat.</p>\n<h2 class=\"title\">General Feats<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 4 levels thereafter, you gain a general feat.</p>\n<h2 class=\"title\">Signature Spells<span style=\"float: right;\">Level 3</span></h2>\n<p>You've learned to cast some of your spells more flexibly. For each spell level you have access to, choose one spell of that level to be a signature spell. You don't need to learn heightened versions of signature spells separately; instead, you can heighten these spells freely. If you've learned a signature spell at a higher level than its minimum, you can also cast all its lower-level versions without learning those separately. If you swap out a signature spell, you can choose a replacement signature spell of the same spell level at which you learned the previous spell. You can also retrain specifically to change a signature spell to a different spell of that level without swapping any spells; this takes as much time as retraining a spell normally does.</p>\n<h2 class=\"title\">Skill Increases<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 2 levels thereafter, you gain a skill increase. You can use an increase to either become trained in one skill you're untrained in, or to increase your proficiency rank in one skill in which you're already trained to expert.<br /><br />At 7th level, you can use skill increases to become a master in a skill in which you're already an expert, and at 15th level, you can use them to become legendary in a skill in which you're already a master.</p>\n<h2 class=\"title\">Ability Boosts<span style=\"float: right;\">Level 5</span></h2>\n<p>At 5th level and every 5 levels thereafter, you boost four different ability scores. You can use these ability boosts to increase your ability scores above 18. Boosting an ability score increases it by 1 if it's already 18 or above, or by 2 if it starts out below 18.</p>\n<h2 class=\"title\">Ancestry Feats<span style=\"float: right;\">Level 5</span></h2>\n<p>In addition to the ancestry feat you started with, you gain an ancestry feat at 5th level and every 4 levels thereafter.</p>\n<h2 class=\"title\">Magical Fortitude<span style=\"float: right;\">Level 5</span></h2>\n<p>Magical power has improved your body's resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>\n<h2 class=\"title\">Expert Spellcaster<span style=\"float: right;\">Level 7</span></h2>\n<p>Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to expert.</p>\n<h2 class=\"title\">Lightning Reflexes<span style=\"float: right;\">Level 9</span></h2>\n<p>Your reflexes are lightning fast. Your proficiency rank for Reflex saves increases to expert.</p>\n<h2 class=\"title\">Alertness<span style=\"float: right;\">Level 11</span></h2>\n<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>\n<h2 class=\"title\">Weapon Expertise<span style=\"float: right;\">Level 11</span></h2>\n<p>You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increase to expert.</p>\n<h2 class=\"title\">Defensive Robes<span style=\"float: right;\">Level 13</span></h2>\n<p>The flow of magic and your defensive training combine to help you get out of the way before an attack. Your proficiency rank in unarmored defense increases to expert.</p>\n<h2 class=\"title\">Weapon Specialization<span style=\"float: right;\">Level 13</span></h2>\n<p>You've learned to inflict grave wounds with your most practiced weapons. You deal 2 additional damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 if you're a master, and 4 if you're legendary.</p>\n<h2 class=\"title\">Master Spellcaster<span style=\"float: right;\">Level 15</span></h2>\n<p>You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to master.</p>\n<h2 class=\"title\">Resolve<span style=\"float: right;\">Level 17</span></h2>\n<p>You've steeled you mind with resolve. Your proficiency rank for Will saves increase to master. When you roll a success at a Will save, you get a critical success instead.</p>\n<h2 class=\"title\">Bloodline Paragon<span style=\"float: right;\">Level 19</span></h2>\n<p>You have perfected the magic in your bloodline. Add two common 10th-level spells of your tradition to your repertoire. You gain a single 10th-level spell slot you can use to cast these spells, using sorcerer spellcasting. Unlike other spell slots, you don't gain more 10th-level spells as you level up, and they can't be used for abilities that let you cast spells without expending spell slots or abilities that give you more spell slots. You can take the @Compendium[pf2e.feats-srd.Bloodline Perfection]{Bloodline Perfection} sorcerer feat to gain a second slot.</p>\n<h2 class=\"title\">Legendary Spellcaster<span style=\"float: right;\">Level 19</span></h2>\n<p>You demonstrate prodigious talent for spellcasting. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to legendary.</p>"
+                    "value": "<p><em>You didn't choose to become a spellcaster-you were born one. There's magic in your blood, whether a divinity touched one of your ancestors, a forebear communed with a primal creature, or a powerful occult ritual influenced your line. Self-reflection and study allow you to refine your inherent magical skills and unlock new, more powerful abilities. The power in your blood carries a risk, however, and you constantly face the choice of whether you'll rise to become a master spellcaster or fall into destruction.</em><br /><br /><strong>Key Ability: CHARISMA</strong><br />At 1st level, your class gives you an ability boost to Charisma.<br /><br /><strong>Hit Points: 6 plus your Constitution modifier</strong><br />You increase your maximum number of HP by this number at 1st level and every level thereafter.</p>\n<h1 class=\"title\">Roleplaying the Sorcerer</h1>\n<h2 class=\"title\">During Combat Encounters...</h2>\n<p>You use spells to injure your enemies, influence their minds, and hamper their movements. You might be too vulnerable to get into melee combat, or your bloodline might give you abilities that help you hold your own in a brawl. While your magic is powerful, to conserve your best spells-or when you've used them all up-you also rely on cantrips.</p>\n<h2 class=\"title\">During Social Encounters...</h2>\n<p>Your natural charisma makes you good at interacting with people.</p>\n<h2 class=\"title\">While Exploring...</h2>\n<p>You detect the magic around you, finding treasures and warning your adventuring group of magical traps. When the group encounters mysteries or problems related to your bloodline, you try to solve them.</p>\n<h2 class=\"title\">In Downtime...</h2>\n<p>You craft magic items or scribe scrolls. Your bloodline might drive you to research your ancestry or associate with affiliated people or creatures.</p>\n<h2 class=\"title\">You Might...</h2>\n<ul>\n<li>Have a strong independent streak, and whether you embrace or reject your magical heritage, you long to distinguish yourself both as a spellcaster and as an individual.</li>\n<li>View your lineage with fascination, fear, or something in between-anything from wholehearted acceptance to vehement rejection.</li>\n<li>Rely on magic items, such as scrolls and wands, to supplement your limited selection of spells.</li>\n</ul>\n<h2 class=\"title\">Others Probably...</h2>\n<ul>\n<li>Marvel at your ability to create magic from thin air and view your abilities with equal parts admiration and mistrust.</li>\n<li>Consider you less dedicated than studious wizards, devoted clerics, and other practitioners of magic, since power comes to you naturally.</li>\n<li>Assume you're as unpredictable as the magic you bring forth, even if your personality proves otherwise.</li>\n</ul>\n<h1 class=\"title\">Initial Proficiencies</h1>\n<p>At 1st level, you gain the listed proficiency ranks in the following statistics. You are untrained in anything not listed unless you gain a better proficiency rank in some other way.</p>\n<h2 class=\"title\">Perception</h2>\n<p>Trained in Perception</p>\n<h2 class=\"title\">Saving Throws</h2>\n<p>Trained in Fortitude<br />Trained in Reflex<br />Expert in Will</p>\n<h2 class=\"title\">Skills</h2>\n<p>Trained in one or more skills determined by your bloodline<br />Trained in a number of additional skills equal to 2 plus your Intelligence modifier</p>\n<h2 class=\"title\">Attacks</h2>\n<p>Trained in simple weapons<br />Trained in unarmed attacks</p>\n<h2 class=\"title\">Defenses</h2>\n<p>Untrained in all armor<br />Trained in unarmored defense</p>\n<h2 class=\"title\">Spells</h2>\n<p>Trained in spell attack rolls of your spellcasting tradition, as indicated by your bloodline<br />Trained in spell DCs of your spellcasting tradition, as indicated by your bloodline</p>\n<h1 class=\"title\">Class Features</h1>\n<p>You gain these features as a Sorcerer. Abilities gained at higher levels list the levels at which you gain them next to the features' names.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Class Features</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Ancestry and background, initial proficiencies, bloodline, sorcerer spellcasting, spell repertoire</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>3</td>\n<td>2nd-level spells, general feat, signature spells, skill increase</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>5</td>\n<td>3rd-level spells, ability boosts, ancestry feat, magical fortitude, skill increase</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>7</td>\n<td>4th-level spells, expert spellcaster, general feat, skill increase</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5th-level spells, ancestry feat, lightning reflexes, skill increase</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Ability boosts, skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>11</td>\n<td>6th-level spells, alertness, general feat, weapon expertise, skill increase</td>\n</tr>\n<tr>\n<td>12</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>13</td>\n<td>7th-level spells, ancestry feat, defensive robes, skill increase, weapon specialization</td>\n</tr>\n<tr>\n<td>14</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>15</td>\n<td>8th-level spells, ability boosts, general feat, master spellcaster, skill increase</td>\n</tr>\n<tr>\n<td>16</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>17</td>\n<td>9th-level spells, ancestry feat, skill increase</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Skill feat, sorcerer feat</td>\n</tr>\n<tr>\n<td>19</td>\n<td>Bloodline paragon, general feat, legendary spellcaster, skill increase</td>\n</tr>\n<tr>\n<td>20</td>\n<td>Ability boosts, skill feat, sorcerer feat</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Ancestry and Background</h2>\n<p>In addition to the abilities provided by your class at 1st level, you have the benefits of your selected ancestry and background.</p>\n<h2 class=\"title\">Bloodline</h2>\n<p>Choose a bloodline that gives you your spellcasting talent. This choice determines the type of spells you cast and the spell list you choose them from, additional spells you learn, and additional trained skills. You also gain Focus Points and special focus spells based on your bloodline. The bloodlines presented in this book are as follows. </p>\n<ul>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Aberrant]{Aberrant}</strong>: A strange and unknowable influence gives you occult spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Angelic]{Angelic}</strong>: Holy grace bestows divine spells upon you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Demonic]{Demonic}</strong>: A sinful corruption gives you divine spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Diabolic]{Diabolic}</strong>: A bond with devils gives you divine spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Draconic]{Draconic}</strong>: The blood of dragons grants you arcane spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Elemental]{Elemental}</strong>: The power of the elements manifests in you as primal spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Fey]{Fey}</strong>: Influence from the fey gives you primal spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Genie]{Genie}</strong>: Through lineage, magic, or wishes made real, the blood of a noble genie flows through your veins.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Hag]{Hag}</strong>: The blight of a hag has given you occult spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Imperial]{Imperial}</strong>: An ancient power grants you arcane spells.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Nymph]{Nymph}</strong>: One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Psychopomp]{Psychopomp}</strong>: For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Shadow]{Shadow}</strong>: Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</li>\n<li><strong>@Compendium[pf2e.classfeatures.Bloodline: Undead]{Undead}</strong>: The touch of death gives you divine spells.<br /><br /></li>\n</ul>\n<h2 class=\"title\">Bloodline Spells</h2>\n<p>Your bloodline grants you bloodline spells, special spells unique to your lineage. Bloodline spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity. Unlike other characters, you don't need to do anything specific to Refocus, as the power flowing through your veins naturally replenishes your focus pool.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Focus spells don't require spell slots, nor can you cast them using spell slots. Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 points. The full rules can be found here.</p>\n<h3>Reading A Bloodline Entry</h3>\n<p>A bloodline entry contains the following information:</p>\n<p><strong>Spell List</strong> You use this magical tradition and spell list.</p>\n<p><strong>Bloodline Skills</strong> You become trained in the listed skills.</p>\n<p><strong>Granted Spells</strong> You automatically add the spells listed here to your spell repertoire, as described in the Spell Repertoire class feature. At 1st level, you gain a cantrip and a 1st-level spell. You learn the other spells on the list as soon as you gain the ability to cast sorcerer spells of that level.</p>\n<p><strong>Bloodline Spells</strong> You automatically gain the initial bloodline spell at 1st level and can gain more by selecting the Advanced Bloodline and Greater Bloodline feats.</p>\n<p><strong>Blood Magic</strong> Whenever you cast a bloodline spell using Focus Points or a granted spell from your bloodline using a spell slot, you gain a blood magic effect. If the blood magic offers a choice, make it before resolving the spell. The blood magic effect occurs after resolving any checks for the spell's initial effects and, against a foe, applies only if the spell is a successful attack or the foe fails its saving throw. If the spell has an area, you must designate yourself or one target in the area when you cast the spell to be the target of the blood magic effect. All references to spell level refer to the level of the spell you cast.</p>\n<h2 class=\"title\">Initial Proficiencies</h2>\n<p>At 1st level, you gain a number of proficiencies that represent your basic training, noted at the start of this class.</p>\n<h2 class=\"title\">Sorcerer Spellcasting</h2>\n<p>Your bloodline provides you with incredible magical power. You can cast spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a sorcerer, you can usually replace material components with somatic components, so you don't need to use a spell component pouch.<br /><br />Each day, you can cast up to three 1st-level spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.<br /><br />As you increase in level as a sorcerer, your number of spells per day increases, as does the highest level of spells you can cast, as shown on Table 3-17: Sorcerer Spells per Day.<br /><br />Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>\n<h3 class=\"title\"><strong>Heightening Spells</strong></h3>\n<p>When you get spell slots of 2nd level and higher, you can fill those slots with stronger versions of lower-level spells. This increases the spell's level to match the spell slot. You must have a spell in your spell repertoire at the level you want to cast in order to heighten it to that level. Many spells have specific improvements when they are heightened to certain levels. The signature spells class feature lets you heighten certain spells freely.</p>\n<h3 class=\"title\"><strong>Cantrips</strong></h3>\n<p>A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up-this is usually equal to the highest level of spell you can cast as a sorcerer. For example, as a 1st-level sorcerer, your cantrips are 1st-level spells, and as a 5th-level sorcerer, your cantrips are 3rd-level spells.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Cantrips</th>\n<th>1st</th>\n<th>2nd</th>\n<th>3rd</th>\n<th>4th</th>\n<th>5th</th>\n<th>6th</th>\n<th>7th</th>\n<th>8th</th>\n<th>9th</th>\n<th>10th</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>5</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>2</td>\n<td>5</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>3</td>\n<td>5</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>4</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>5</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>6</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>7</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>8</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>9</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>10</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>11</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>12</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>13</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>14</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>15</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>16</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n<td>-</td>\n</tr>\n<tr>\n<td>17</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>3</td>\n<td>-</td>\n</tr>\n<tr>\n<td>18</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>-</td>\n</tr>\n<tr>\n<td>19</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>1*</td>\n</tr>\n<tr>\n<td>20</td>\n<td>5</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>4</td>\n<td>1*</td>\n</tr>\n<tr>\n<td style=\"color: white; width: 120px; background-color: #522e2c; text-align: center; height: 25px;\" colspan=\"12\">* The bloodline paragon class feature gives you a 10th-level spell slot that works a bit differently from other spell slots.</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Spell Repertoire</h2>\n<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and four cantrips of your choice, as well as an additional spell and cantrip from your bloodline. You choose these from the common spells from the tradition corresponding to your bloodline, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level.<br /><br />You add to this spell repertoire as you increase in level. Each time you get a spell slot (see Table 3-17), you add a spell of the same level to your spell repertoire. When you gain access to a new level of spells, your first new spell is always your bloodline spell, but you can choose the other spells you gain. At 2nd level, you select another 1st-level spell; at 3rd level, you gain a new bloodline spell and two other 2nd-level spells, and so on. When you add spells, you might select a higher-level version of a spell you already have so that you can cast a heightened version of that spell.<br /><br />Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\">Swapping Spells in your Repertoire</h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip, but you can't swap out bloodline spells. You can also swap out spells by retraining during downtime.</p>\n<h2 class=\"title\">Skill Feats<span style=\"float: right;\">Level 2</span></h2>\n<p>At 2nd level and every 2 levels thereafter, you gain a skill feat. You must be trained or better in the corresponding skill to select a skill feat.</p>\n<h2 class=\"title\">Sorcerer Feats<span style=\"float: right;\">Level 2</span></h2>\n<p>At 2nd level and every even-numbered level, you gain a sorcerer class feat.</p>\n<h2 class=\"title\">General Feats<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 4 levels thereafter, you gain a general feat.</p>\n<h2 class=\"title\">Signature Spells<span style=\"float: right;\">Level 3</span></h2>\n<p>You've learned to cast some of your spells more flexibly. For each spell level you have access to, choose one spell of that level to be a signature spell. You don't need to learn heightened versions of signature spells separately; instead, you can heighten these spells freely. If you've learned a signature spell at a higher level than its minimum, you can also cast all its lower-level versions without learning those separately. If you swap out a signature spell, you can choose a replacement signature spell of the same spell level at which you learned the previous spell. You can also retrain specifically to change a signature spell to a different spell of that level without swapping any spells; this takes as much time as retraining a spell normally does.</p>\n<h2 class=\"title\">Skill Increases<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 2 levels thereafter, you gain a skill increase. You can use an increase to either become trained in one skill you're untrained in, or to increase your proficiency rank in one skill in which you're already trained to expert.<br /><br />At 7th level, you can use skill increases to become a master in a skill in which you're already an expert, and at 15th level, you can use them to become legendary in a skill in which you're already a master.</p>\n<h2 class=\"title\">Ability Boosts<span style=\"float: right;\">Level 5</span></h2>\n<p>At 5th level and every 5 levels thereafter, you boost four different ability scores. You can use these ability boosts to increase your ability scores above 18. Boosting an ability score increases it by 1 if it's already 18 or above, or by 2 if it starts out below 18.</p>\n<h2 class=\"title\">Ancestry Feats<span style=\"float: right;\">Level 5</span></h2>\n<p>In addition to the ancestry feat you started with, you gain an ancestry feat at 5th level and every 4 levels thereafter.</p>\n<h2 class=\"title\">Magical Fortitude<span style=\"float: right;\">Level 5</span></h2>\n<p>Magical power has improved your body's resiliency. Your proficiency rank for Fortitude saves increases to expert.</p>\n<h2 class=\"title\">Expert Spellcaster<span style=\"float: right;\">Level 7</span></h2>\n<p>Your inherent magic responds easily and powerfully to your command. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to expert.</p>\n<h2 class=\"title\">Lightning Reflexes<span style=\"float: right;\">Level 9</span></h2>\n<p>Your reflexes are lightning fast. Your proficiency rank for Reflex saves increases to expert.</p>\n<h2 class=\"title\">Alertness<span style=\"float: right;\">Level 11</span></h2>\n<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>\n<h2 class=\"title\">Weapon Expertise<span style=\"float: right;\">Level 11</span></h2>\n<p>You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increase to expert.</p>\n<h2 class=\"title\">Defensive Robes<span style=\"float: right;\">Level 13</span></h2>\n<p>The flow of magic and your defensive training combine to help you get out of the way before an attack. Your proficiency rank in unarmored defense increases to expert.</p>\n<h2 class=\"title\">Weapon Specialization<span style=\"float: right;\">Level 13</span></h2>\n<p>You've learned to inflict grave wounds with your most practiced weapons. You deal 2 additional damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 if you're a master, and 4 if you're legendary.</p>\n<h2 class=\"title\">Master Spellcaster<span style=\"float: right;\">Level 15</span></h2>\n<p>You have achieved mastery over the magic in your blood. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to master.</p>\n<h2 class=\"title\">Resolve<span style=\"float: right;\">Level 17</span></h2>\n<p>You've steeled you mind with resolve. Your proficiency rank for Will saves increase to master. When you roll a success at a Will save, you get a critical success instead.</p>\n<h2 class=\"title\">Bloodline Paragon<span style=\"float: right;\">Level 19</span></h2>\n<p>You have perfected the magic in your bloodline. Add two common 10th-level spells of your tradition to your repertoire. You gain a single 10th-level spell slot you can use to cast these spells, using sorcerer spellcasting. Unlike other spell slots, you don't gain more 10th-level spells as you level up, and they can't be used for abilities that let you cast spells without expending spell slots or abilities that give you more spell slots. You can take the @Compendium[pf2e.feats-srd.Bloodline Perfection]{Bloodline Perfection} sorcerer feat to gain a second slot.</p>\n<h2 class=\"title\">Legendary Spellcaster<span style=\"float: right;\">Level 19</span></h2>\n<p>You demonstrate prodigious talent for spellcasting. Your proficiency ranks for spell attack rolls and spell DCs for spells of your bloodline's tradition increase to legendary.</p>"
                 },
                 "generalFeatLevels": {
                     "value": [

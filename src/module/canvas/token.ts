@@ -50,7 +50,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const sizeChanged = this.w !== this.hitArea.width;
         const imageChanged = this.icon?.src !== this.data.img;
 
-        if (sizeChanged || imageChanged) {
+        if ((sizeChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
             const visible = this.visible;
             await this.draw();
@@ -132,7 +132,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
+        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel({ defer: false });
         super._onControl(options);
     }
 

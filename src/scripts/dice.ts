@@ -335,7 +335,7 @@ export class DicePF2e {
     }
 
     /** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
-    private static combineTerms(formula: string): Roll {
+    static combineTerms(formula: string): Roll {
         const roll = new Roll(formula);
         if (
             !roll.terms.every((term) => term.expression === " + " || term instanceof Die || term instanceof NumericTerm)

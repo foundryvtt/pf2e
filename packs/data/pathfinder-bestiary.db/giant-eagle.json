@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 19,
                 "details": "",
                 "value": 19
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "NG"
             },
             "creatureType": "Beast",
-            "flavorText": "No mere animals, giant eagles have a keen intellect and a strong sense of honor. As guardians of their mountain homes, giant eagles attempt to prevent the encroachment of civilization upon wild land and the predations of wicked humanoid settlements. Unlike ordinary eagles, which tend to be solitary creatures, giant eagles congregate within aeries holding up to a dozen members and work together to protect their domains.<br /><br /> Giant eagles have wingspans up to 30 feet across and weigh up to 500 pounds. These impressive birds cannot be easily broken or cowed. A giant eagle may allow trusted terrestrial friends to ride it, but they invariably resist saddles, harnesses, or other equipment that might suggest they are mere beasts of burden rather than trusted companions. Giant eagles are long-lived and take debts and oaths very seriously, often remembering slights for years and remaining slow to forgive.<br /><br />",
+            "flavorText": "<p>No mere animals, giant eagles have a keen intellect and a strong sense of honor. As guardians of their mountain homes, giant eagles attempt to prevent the encroachment of civilization upon wild land and the predations of wicked humanoid settlements. Unlike ordinary eagles, which tend to be solitary creatures, giant eagles congregate within aeries holding up to a dozen members and work together to protect their domains.</p>\n<p>Giant eagles have wingspans up to 30 feet across and weigh up to 500 pounds. These impressive birds cannot be easily broken or cowed. A giant eagle may allow trusted terrestrial friends to ride it, but they invariably resist saddles, harnesses, or other equipment that might suggest they are mere beasts of burden rather than trusted companions. Giant eagles are long-lived and take debts and oaths very seriously, often remembering slights for years and remaining slow to forgive.</p>\n<hr />\n<p>Few avian creatures can match the beauty and grace of the eagle.</p>",
             "level": {
                 "value": 3
             },
@@ -95,7 +97,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "Can't Speak any Language",
                 "selected": [],
                 "value": [
                     "auran",
@@ -131,6 +133,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -175,8 +178,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -217,6 +221,54 @@
             "type": "melee"
         },
         {
+            "_id": "ikNRBFaxo41oGwAQ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "Wf7eTH5SNYNO98tC",
             "data": {
                 "actionCategory": {
@@ -234,7 +286,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "reflex",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When a giant eagle succeeds at a Reflex save, it critically succeeds instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex",
+                        "type": "save"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -257,7 +323,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Evasion",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -273,7 +339,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The giant eagle Flies up to double its fly Speed in a straight line, descending at least 10 feet, and then makes a talon Strike.</p>"
+                    "value": "<p>The giant eagle @Compendium[pf2e.actionspf2e.Fly]{Flies} up to double its fly Speed in a straight line, descending at least 10 feet, and then makes a talon Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -299,9 +365,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Eagle Dive",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -317,7 +383,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A giant eagle can Fly at half Speed while it has a creature grabbed or restrained in its talons, carrying that creature along with it.</p>"
+                    "value": "<p>A giant eagle can @Compendium[pf2e.actionspf2e.Fly]{Fly} at half Speed while it has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in its talons, carrying that creature along with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -345,11 +411,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Snatch",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "OMQQ9ukxceZlx0Yg",
+            "_id": "YcE1Kg1c0njojA8b",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -361,13 +427,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -386,10 +452,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -424,7 +494,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -459,7 +529,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
