@@ -261,9 +261,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             }
 
-            (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            (statisticsModifiers.hp || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             (statisticsModifiers["hp-per-level"] || [])
-                .map((m) => duplicate(m))
+                .map((m) => m.clone())
                 .forEach((m) => {
                     m.modifier *= this.level;
                     modifiers.push(m);
@@ -319,7 +319,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Add custom modifiers and roll notes relevant to this save.
             [saveName, `${ability}-based`, "saving-throw", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -385,7 +385,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             }
             ["perception", "wis-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -427,7 +427,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ];
             const notes: RollNotePF2e[] = [];
             ["class", `${systemData.details.keyability.value}-based`, "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -481,7 +481,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // condition and custom modifiers
             ["ac", "dex-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
 
             const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
@@ -541,7 +541,7 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             [longForm, `${skill.ability}-based`, "skill-check", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -598,7 +598,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ];
                 const notes: RollNotePF2e[] = [];
                 [shortform, `int-based`, "skill-check", "all"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -639,7 +639,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const base = Number(systemData.attributes.speed.value ?? 0);
             const modifiers: ModifierPF2e[] = [];
             ["land-speed", "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
@@ -662,7 +662,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const base = Number(speed.value ?? 0);
             const modifiers: ModifierPF2e[] = [];
             [`${speed.type}-speed`, "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
@@ -683,9 +683,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Familiar Abilities
         {
             const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers["familiar-abilities"] || [])
-                .map((m) => duplicate(m))
-                .forEach((m) => modifiers.push(m));
+            (statisticsModifiers["familiar-abilities"] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
 
             const stat = mergeObject(
                 new StatisticModifier("familiar-abilities", modifiers),
@@ -824,7 +822,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ];
             const baseNotes: RollNotePF2e[] = [];
             [`${ability}-based`, "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => baseModifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
             });
 
@@ -833,7 +831,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const modifiers = [...baseModifiers];
                 const notes = [...baseNotes];
                 [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -874,7 +872,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const modifiers = [...baseModifiers];
                 const notes = [...baseNotes];
                 [`${tradition}-spell-dc`, "spell-dc"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -1015,7 +1013,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const { statisticsModifiers, rollNotes } = synthetics;
             selectors.forEach((key) => {
                 (statisticsModifiers[key] ?? [])
-                    .map((m) => duplicate(m))
+                    .map((m) => m.clone())
                     .forEach((m) => {
                         m.ignored = !ModifierPredicate.test(m.predicate, defaultOptions);
                         modifiers.push(m);
@@ -1219,7 +1217,7 @@ export class CharacterPF2e extends CreaturePF2e {
         ["initiative"].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;
             (statisticsModifiers[key] || [])
-                .map((m) => duplicate(m))
+                .map((m) => m.clone())
                 .forEach((m) => {
                     // checks if predicated rule is true with only skill name option
                     if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
