@@ -548,8 +548,8 @@ export class DiceModifierPF2e implements RawModifier {
         }
 
         this.predicate = new ModifierPredicate(param?.predicate);
-        this.ignored = ModifierPredicate.test!(this.predicate);
-        this.enabled = !this.ignored;
+        this.enabled = ModifierPredicate.test!(this.predicate);
+        this.ignored = !this.enabled;
     }
 }
 
