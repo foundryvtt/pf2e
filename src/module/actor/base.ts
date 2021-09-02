@@ -143,6 +143,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         bar1: { attribute: "attributes.hp" }, // Default Bar 1 to Wounds
                         displayName: nameMode, // Default display name to be on owner hover
                         displayBars: barMode, // Default display bars to be on owner hover
+                        flags: {
+                            // Sync token dimensions with actor size?
+                            pf2e: {
+                                linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
+                            },
+                        },
                     },
                 });
 
@@ -268,11 +274,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
         }
-
-        // Default token dimensions as derived from actor size
-        const linkToActorSize = !["hazard", "loot"].includes(this.type);
-        this.data.token.flags.pf2e ??= { linkToActorSize };
-        this.data.token.flags.pf2e.linkToActorSize ??= linkToActorSize;
 
         // Disable manually-configured vision settings on the prototype token
         if (canvas.sight?.rulesBasedVision) {
