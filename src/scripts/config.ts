@@ -1414,6 +1414,7 @@ export const PF2ECONFIG = {
         "versatile heritage": "PF2E.TraitVersatileHeritage",
         virulent: "PF2E.TraitVirulent",
         tandem: "PF2E.TraitTandem",
+        class: "PF2E.TypeClass",
     },
 
     creatureTraits,
