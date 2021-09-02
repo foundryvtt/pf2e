@@ -282,15 +282,15 @@ export class StatusEffects {
         const $icon = $(event.currentTarget);
         const status = $icon.attr("data-condition") ?? "undefined";
 
-        if (!this.actor) return;
-
-        const condition = this.actor.itemTypes.condition.find(
+        const { actor } = this;
+        if (!actor) return;
+        const condition = actor.itemTypes.condition.find(
             (condition) =>
                 condition.fromSystem &&
                 condition.data.name === status &&
                 condition.isInHUD &&
-                condition.data.data.references.parent === undefined
-        )?.data;
+                !condition.data.data.references.parent
+        );
 
         if (event.type === "contextmenu") {
             // Right click, remove
@@ -300,38 +300,28 @@ export class StatusEffects {
 
                 this.statusEffectChanged = true;
 
-                const conditionIds = this.actor.itemTypes.condition
+                const conditionIds = actor.itemTypes.condition
                     .filter((condition) => condition.fromSystem && condition.data.data.base === status)
                     .map((condition) => condition.id);
 
                 await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, this);
-            } else if (condition?.data.value.isValued) {
+            } else if (condition?.value) {
                 this.statusEffectChanged = true;
-                await game.pf2e.ConditionManager.updateConditionValue(
-                    condition._id,
-                    this,
-                    condition.data.value.value - 1
-                );
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, condition.value - 1);
                 if (this.data.actorLink) {
-                    StatusEffects.updateHUD($icon.parent().parent(), this.actor);
+                    StatusEffects.updateHUD($icon.parent().parent(), actor);
                 }
             }
         } else if (event.type === "click") {
             this.statusEffectChanged = true;
-            if (condition?.data.value.isValued) {
-                await game.pf2e.ConditionManager.updateConditionValue(
-                    condition._id,
-                    this,
-                    condition.data.value.value + 1
-                );
-
+            if (typeof condition?.value === "number") {
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, condition.value + 1);
                 if (this.data.actorLink) {
-                    StatusEffects.updateHUD($icon.parent().parent(), this.actor);
+                    StatusEffects.updateHUD($icon.parent().parent(), actor);
                 }
             } else {
                 const newCondition = game.pf2e.ConditionManager.getCondition(status).toObject();
                 newCondition.data.sources.hud = true;
-
                 await game.pf2e.ConditionManager.addConditionToToken(newCondition, this);
             }
         }
@@ -349,12 +339,10 @@ export class StatusEffects {
             return StatusEffects._onToggleOverlay(event, this);
         }
 
-        const condition = this.actor?.itemTypes.condition.find(
-            (condition) =>
-                condition.data.name === status &&
-                condition.isInHUD &&
-                condition.data.data.references.parent === undefined
-        )?.data;
+        const { actor } = this;
+        const condition = actor?.itemTypes.condition.find(
+            (condition) => condition.data.name === status && condition.isInHUD && !condition.data.data.references.parent
+        );
 
         const conditionIds: string[] = [];
         if (event.type === "contextmenu") {
@@ -362,11 +350,11 @@ export class StatusEffects {
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                this.actor?.itemTypes.condition
+                actor?.itemTypes.condition
                     .filter((condition) => condition.fromSystem && condition.data.data.base === status)
                     .forEach((condition) => conditionIds.push(condition.id));
             } else if (condition) {
-                conditionIds.push(condition._id);
+                conditionIds.push(condition.id);
             }
 
             if (conditionIds.length > 0) {
