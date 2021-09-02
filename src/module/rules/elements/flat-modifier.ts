@@ -3,6 +3,7 @@ import { RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterData, NPCData } from "@actor/data";
 import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from "@module/modifiers";
 import { ActorPF2e } from "@actor";
+import { sluggify } from "@module/utils";
 
 /**
  * @category RuleElement
@@ -16,9 +17,12 @@ export class PF2FlatModifierRuleElement extends RuleElementPF2e {
             const modifier = new ModifierPF2e(
                 this.data.name ?? this.label,
                 value,
-                this.data.type ?? MODIFIER_TYPE.UNTYPED
+                this.data.type ?? MODIFIER_TYPE.UNTYPED,
+                true,
+                this.item.slug ?? sluggify(this.item.name)
             );
             modifier.label = this.label;
+
             if (this.data.damageType) {
                 modifier.damageType = this.data.damageType;
             }
