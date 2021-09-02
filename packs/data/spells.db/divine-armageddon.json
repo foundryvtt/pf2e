@@ -24,11 +24,15 @@
             "value": ""
         },
         "damage": {
-            "applyMod": false,
-            "value": "10d6"
-        },
-        "damageType": {
-            "value": "negative"
+            "value": {
+                "0": {
+                    "type": {
+                        "categories": [],
+                        "value": "negative"
+                    },
+                    "value": "10d6"
+                }
+            }
         },
         "description": {
             "value": "<p>You call forth a divine cataclysm from your deity, destroying living and undead creatures in the area alike. Creatures in the area take [[/r 10d6 #negative]]{10d6 Negative Damage} and [[/r 10d6]] alignment damage (good, evil, lawful, or chaotic), chosen from among the alignments your deity has. If your deity is true neutral, increase the negative damage by [[/r 4d6 #negative]]{4d6 Negative Damage} instead of dealing alignment damage. A creature harmed by positive damage, such as one with negative healing, takes positive damage instead of negative damage from this spell.</p>\n<p>You can't cast this spell if you don't have a deity. This spell gains the trait corresponding to the alignment damage dealt.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6 negative damage, 1d6 alignment damage, and 1d6 additional negative and positive damage for a true neutral deity.</p>"
@@ -60,9 +64,10 @@
             "value": "fortitude"
         },
         "scaling": {
-            "formula": "1d6",
-            "interval": 0,
-            "mode": "level1"
+            "damage": {
+                "0": "1d6"
+            },
+            "interval": 1
         },
         "school": {
             "value": "necromancy"
