@@ -484,17 +484,9 @@ export class WeaponDamagePF2e {
             selectors.forEach((key) => {
                 const modifiers = statisticsModifiers[key] || [];
                 modifiers
-                    .map((m) => duplicate(m))
-                    .forEach((m) => {
-                        const modifier = new ModifierPF2e(game.i18n.localize(m.name), m.modifier, m.type);
-                        modifier.label = m.label;
-                        if (m.damageType) {
-                            modifier.damageType = m.damageType;
-                        }
-                        if (m.damageCategory) {
-                            modifier.damageCategory = m.damageCategory;
-                        }
-                        modifier.ignored = !new ModifierPredicate(m.predicate ?? {}).test(options);
+                    .map((m) => m.clone())
+                    .forEach((modifier) => {
+                        modifier.ignored = !new ModifierPredicate(modifier.predicate).test(options);
                         numericModifiers.push(modifier);
                     });
                 (rollNotes[key] ?? [])

@@ -1,4 +1,4 @@
-import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from "../modifiers";
+import { DamageDicePF2e, ProficiencyModifier } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
@@ -943,46 +943,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 imageUrl: "systems/pf2e/icons/actions/Empty.webp",
                 actionGlyph: "",
             };
-        }
-    }
-
-    /**
-     * Adds a custom modifier that will be included when determining the final value of a stat. The
-     * name parameter must be unique for the custom modifiers for the specified stat, or it will be
-     * ignored.
-     */
-    async addCustomModifier(
-        stat: string,
-        name: string,
-        value: number,
-        type: string,
-        predicate?: RawPredicate,
-        damageType?: string,
-        damageCategory?: string
-    ) {
-        // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
-        // similar to how addDamageDice operates.
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom modifiers only work for characters, NPCs, and familiars");
-        }
-
-        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
-        if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-            const modifier = new ModifierPF2e(name, value, type);
-            if (damageType) {
-                modifier.damageType = damageType;
-            }
-            if (damageCategory) {
-                modifier.damageCategory = damageCategory;
-            }
-            modifier.custom = true;
-
-            // modifier predicate
-            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
-            modifier.ignored = !modifier.predicate.test!();
-
-            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ "data.customModifiers": customModifiers });
         }
     }
 

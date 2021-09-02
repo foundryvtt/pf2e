@@ -171,9 +171,9 @@ export class NPCPF2e extends CreaturePF2e {
         {
             const base: number = data.attributes.hp.base ?? data.attributes.hp.value;
             const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            (statisticsModifiers.hp || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             (statisticsModifiers["hp-per-level"] || [])
-                .map((m) => duplicate(m))
+                .map((m) => m.clone())
                 .forEach((m) => {
                     m.modifier *= data.details.level.value;
                     modifiers.push(m);
@@ -204,7 +204,7 @@ export class NPCPF2e extends CreaturePF2e {
             const base = Number(data.attributes.speed.value) || 0;
             const modifiers: ModifierPF2e[] = [];
             ["land-speed", "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
@@ -227,7 +227,7 @@ export class NPCPF2e extends CreaturePF2e {
             const base = typeof speed.value === "string" ? Number(speed.value) || 0 : 0;
             const modifiers: ModifierPF2e[] = [];
             [`${speed.type.toLowerCase()}-speed`, "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.type }), modifiers),
@@ -255,7 +255,7 @@ export class NPCPF2e extends CreaturePF2e {
             ];
 
             ["ac", "dex-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
             });
 
             const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
@@ -321,7 +321,7 @@ export class NPCPF2e extends CreaturePF2e {
             ];
             const notes: RollNotePF2e[] = [];
             [saveName, `${ability}-based`, "saving-throw", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -359,7 +359,7 @@ export class NPCPF2e extends CreaturePF2e {
             ];
             const notes: RollNotePF2e[] = [];
             ["perception", "wis-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -395,7 +395,7 @@ export class NPCPF2e extends CreaturePF2e {
             ];
             const notes = [] as RollNotePF2e[];
             [skill, `${ability}-based`, "skill-check", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -454,7 +454,7 @@ export class NPCPF2e extends CreaturePF2e {
                 ];
                 const notes = [] as RollNotePF2e[];
                 [skill, `${ability}-based`, "skill-check", "all"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -538,7 +538,7 @@ export class NPCPF2e extends CreaturePF2e {
                             "all",
                         ])
                         .forEach((key) => {
-                            (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                            (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                             (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                         });
                 }
@@ -771,7 +771,7 @@ export class NPCPF2e extends CreaturePF2e {
                 ];
                 const baseNotes = [] as RollNotePF2e[];
                 [`${ability}-based`, "all"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
+                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => baseModifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
                 });
 
@@ -780,7 +780,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const modifiers = [...baseModifiers];
                     const notes = [...baseNotes];
                     [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"].forEach((key) => {
-                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                     });
 
@@ -825,7 +825,7 @@ export class NPCPF2e extends CreaturePF2e {
                     ];
                     const notes = [...baseNotes];
                     [`${tradition}-spell-dc`, "spell-dc", `${ability}-based`, "all"].forEach((key) => {
-                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                     });
 
