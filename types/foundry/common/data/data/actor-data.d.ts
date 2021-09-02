@@ -26,7 +26,7 @@ declare module foundry {
             type: TType;
             img: ImagePath;
             data: TSystemData;
-            token: TokenSource;
+            token: PrototypeTokenSource;
             items: ItemSource[];
             effects: ActiveEffectSource[];
             folder: string | null;
