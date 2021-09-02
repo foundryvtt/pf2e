@@ -35,6 +35,10 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
                 } else {
                     $dimensions.val(this.dimensionsFromActorSize);
                 }
+            } else {
+                const source = this.token.data._source;
+                $dimensions.filter('[name="width"]').val(source.width);
+                $dimensions.filter('[name="height"]').val(source.height);
             }
         });
 
