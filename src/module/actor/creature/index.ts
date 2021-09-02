@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, ModifierPredicate, RawPredicate, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -136,6 +136,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
+
+        // Bless raw custom modifiers as `ModifierPF2e`s
+        const customModifiers = (this.data.data.customModifiers ??= {});
+        Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
+            [...modifiers].forEach((modifier: RawModifier) => {
+                const index = modifiers.indexOf(modifier);
+                modifiers[index] = ModifierPF2e.fromObject(modifier);
+            });
+        });
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
