@@ -4,10 +4,11 @@ import { MigrationBase } from "../base";
 export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
     static override version = 0.622;
 
-    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
+    override async updateActor(actorData: ActorWithTokenEffect): Promise<void> {
         // remove deprecated condition token effects
-        actorData.token.effects =
-            actorData.token.effects?.filter((fx) => !fx.startsWith("systems/pf2e/icons/conditions/")) ?? [];
+        if (actorData.token.effects) {
+            actorData.token["-=effects"] = null;
+        }
 
         // remove deprecated rule element token effects
         const effects = actorData.flags.pf2e?.token?.effects ?? {};
@@ -34,3 +35,10 @@ export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
         }
     }
 }
+
+type ActorWithTokenEffect = ActorSourcePF2e & {
+    token: ActorSourcePF2e["token"] & {
+        effects?: string[];
+        "-=effects"?: null;
+    };
+};
