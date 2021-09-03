@@ -1662,18 +1662,11 @@ export const PF2ECONFIG = {
         variantrule: "PF2E.FeatVariantRule",
     },
 
-    featActionTypes: {
-        passive: "PF2E.FeatActionTypePassive",
-        action: "PF2E.FeatActionTypeAction",
-        reaction: "PF2E.FeatActionTypeReaction",
-        free: "PF2E.FeatActionTypeFree",
-    },
-
     actionTypes: {
+        passive: "PF2E.ActionTypePassive",
         action: "PF2E.ActionTypeAction",
         reaction: "PF2E.ActionTypeReaction",
         free: "PF2E.ActionTypeFree",
-        passive: "PF2E.ActionTypePassive",
     },
 
     actionsNumber: {
