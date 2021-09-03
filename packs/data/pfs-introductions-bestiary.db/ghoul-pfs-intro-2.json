@@ -1,28 +1,29 @@
 {
-    "_id": "Hwy4YrNVVr7NnsMC",
+    "_id": "0PInbNLNpw7qKTAu",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 2
             },
             "con": {
-                "mod": 3
+                "mod": 1
             },
             "dex": {
-                "mod": 0
-            },
-            "int": {
-                "mod": -2
-            },
-            "str": {
                 "mod": 4
             },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 1
+            },
             "wis": {
-                "mod": 3
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -30,16 +31,16 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
-                "max": 40,
+                "details": "negative healing",
+                "max": 20,
                 "temp": 0,
-                "value": 40
+                "value": 20
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 9
+                "value": 7
             },
             "shield": {
                 "ac": 0,
@@ -51,41 +52,40 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Swim",
-                        "type": "swim",
-                        "value": "20"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "5"
                     }
                 ],
-                "value": "20"
+                "value": "30"
             }
         },
         "details": {
             "alignment": {
-                "value": "N"
+                "value": "CE"
             },
-            "creatureType": "Elemental",
-            "flavorText": "<p>In its resting form, a mudwretch looks like a large puddle of thick, dark mud, heaped at the center in a slightly drier patch of loam. When a living creature approaches, though, the mudwretch lurches upward, piling its muddy flesh upon itself to form a roughly humanoid shape, often in vague mockery of the approaching creature's general form in cases where the creature is a humanoid itself.<br /><br /> Mudwretches possess a low level of intellect, and while they do not form societies or cultures of their own, they are attracted to ruins or abandoned settlements. They have little need to eat, but without a constant source of moisture, a mudwretch dries out, suffering from low throbbing aches until it can resaturate. Often, blood from living creatures has to do-a dried mudwretch is more dangerous to intruders than one that's comfortably wallowing on a river bank.</p>",
+            "creatureType": "Undead",
+            "flavorText": "<p>Ghouls are ravenous undead who haunt graveyards and eat corpses.</p>\n<hr />\n<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
             "level": {
-                "value": 2
+                "value": 1
             },
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": ""
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 4
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 4
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": 9
+                "value": 5
             }
         },
         "traits": {
@@ -96,38 +96,21 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "bleed",
-                    "critical-hits",
+                    "death-effects",
+                    "disease",
                     "paralyzed",
                     "poison",
-                    "sleep"
+                    "unconscious"
                 ]
             },
-            "dr": [
-                {
-                    "label": "Acid",
-                    "type": "acid",
-                    "value": "3"
-                },
-                {
-                    "exceptions": "bludgeoning",
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "3"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "terran"
+                    "common",
+                    "necril"
                 ]
             },
             "rarity": {
@@ -142,9 +125,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "earth",
-                    "elemental",
-                    "water"
+                    "ghoul",
+                    "undead"
                 ]
             }
         }
@@ -154,23 +136,25 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lt0GXB5vawxWhRLk",
+            "_id": "XJHXZOImLOORwInT",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "ghoul-ghoul-fever",
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 9
                 },
                 "damageRolls": {
-                    "0": {
-                        "damage": "1d8+4",
-                        "damageType": "bludgeoning"
+                    "p36zyj2o94q5m2av6t6a": {
+                        "damage": "1d6+1",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -187,7 +171,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "agile"
+                        "finesse"
                     ]
                 },
                 "weaponType": {
@@ -197,12 +181,62 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "xomzu6MJJ9pOCVdY",
+            "_id": "A97t9GcQF8k7V7By",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "ghoul-paralysis"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "5gyt9361vlgk0oa54i93": {
+                        "damage": "1d4+1",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "Qm2Y7QgwNitdGYIl",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -244,59 +278,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "8wrcvKK8xk5AIIva",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet.</p>\n<p>The ground in the area is difficult terrain for all non-mudwretch creatures.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Muddy Field",
+            "name": "Darkvision",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "FlbbYL5EQllXYKjc",
+            "_id": "6fGqptenx9qEegwS",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -308,57 +296,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a mudwretch takes any damage from @Compendium[pf2e.spells-srd.Horrid Wilting]{Horrid Wilting} or a similar effect, takes 10 or more fire damage from a single effect, or spends more than 24 hours outside of a source of sufficient hydration (such as a swamp, river, well, or recent rainfall), it becomes dehydrated.</p>\n<p>While dehydrated, the mudwretch can't Spew Mud, is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}, and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it either fully immerses in water, spends 1 minute in the rain, or rehydrates in another way (such as via Gory Hydration).</p>"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Susceptible to Desiccation",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "zWcMhsfvgxLXuw4D",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r 1d8+2 #bludgeoning]]{1d8+2 bludgeoning damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -379,78 +323,84 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 500000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "wdSBw6qGzwcD9eZu",
+            "_id": "Ev6vuAb8rqAKu6ss",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r 1d6 #Hit Points]]{1d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghoul-consume-flesh",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "manipulate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Consume Flesh",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "TwoYirIOl1z1WbOZ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The mudwretch is dehydrated;</p>\n<p><strong>Trigger</strong> The mudwretch deals Constrict damage to a living creature that has blood;</p>\n<p><strong>Effect</strong> The mudwretch squeezes harder, dealing [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target. The mudwretch absorbs this blood, removing any penalties it had as a result of being dehydrated.</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 3d8 #negative]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 3d8 #negative]]{3d8 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Gory Hydration",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "gmtlsmLh9eNdpNrk",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Until it next acts, the mudwretch appears to be an ordinary puddle of mud. It has an automatic result of 20 on Deception checks to pass as a mud puddle and can make a fist Strike against a creature that walks onto the mud puddle as a reaction.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
+                "slug": "ghoul-ghoul-fever",
                 "source": {
                     "value": ""
                 },
@@ -460,99 +410,8 @@
                         "value": "common"
                     },
                     "value": [
-                        "concentrate"
+                        "disease"
                     ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Mud Puddle",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "EDGqAUdAUwkbCzQK",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The mudwretch spews a 20-foot line of pressurized mud that deals [[/r 2d10 #bludgeoning]]{2d10 bludgeoning damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"18\" data-pf2-traits=\"conjuration,primal,damaging-effect\" data-pf2-label=\"Spew Mud DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a critical failure, a creature also takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p data-visibility=\"gm\">The mudwretch can't Spew Mud again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "conjuration",
-                        "primal"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spew Mud",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "lvSGUnxmrOKOF2tT",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -564,16 +423,118 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 900000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ghoul Fever",
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "7uRsuCKXumJJZRex",
+            "_id": "rLNDBZSXuC3QhpxX",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghoul-paralysis",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "OVvzGRkQ4BEgGtYw",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghoul-swift-leap",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "move"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swift Leap",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "dfMNCBvnTxmin6IA",
             "data": {
                 "description": {
                     "value": ""
@@ -582,7 +543,42 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 8
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "type": "lore"
+        },
+        {
+            "_id": "DKOkgTlAJNbbnclh",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 4
                 },
                 "proficient": {
                     "value": 0
@@ -608,7 +604,7 @@
             "type": "lore"
         },
         {
-            "_id": "xkdJTU02c9QmRrna",
+            "_id": "EcINHeGK7OHn7Rn4",
             "data": {
                 "description": {
                     "value": ""
@@ -617,7 +613,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 6
+                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -641,14 +637,49 @@
             "name": "Stealth",
             "sort": 1100000,
             "type": "lore"
+        },
+        {
+            "_id": "G6Ye8oFFbsU6qxAK",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1200000,
+            "type": "lore"
         }
     ],
-    "name": "Mudwretch",
+    "name": "Ghoul (PFS Intro 2)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Mudwretch",
+        "name": "Ghoul",
         "width": 1
     },
     "type": "npc"

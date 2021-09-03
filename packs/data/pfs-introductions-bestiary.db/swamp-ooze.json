@@ -1,21 +1,21 @@
 {
-    "_id": "kapPWNOxXOLcd4VF",
+    "_id": "j7hidXUeUNJtQEW4",
     "data": {
         "abilities": {
             "cha": {
                 "mod": -5
             },
             "con": {
-                "mod": 3
+                "mod": 4
             },
             "dex": {
-                "mod": -2
+                "mod": -5
             },
             "int": {
                 "mod": -5
             },
             "str": {
-                "mod": 0
+                "mod": 2
             },
             "wis": {
                 "mod": 0
@@ -23,17 +23,18 @@
         },
         "attributes": {
             "ac": {
+                "base": 8,
                 "details": "",
-                "value": 9
+                "value": 8
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 35,
+                "max": 40,
                 "temp": 0,
-                "value": 35
+                "value": 40
             },
             "initiative": {
                 "ability": "perception"
@@ -43,27 +44,14 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": 0,
+                "brokenThreshold": "0",
                 "hardness": 0,
-                "max": 0,
+                "max": "0",
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "exceptions": "",
-                        "label": "Climb",
-                        "type": "climb",
-                        "value": "5"
-                    },
-                    {
-                        "exceptions": "",
-                        "label": "Swim",
-                        "type": "swim",
-                        "value": "10"
-                    }
-                ],
-                "value": "5"
+                "otherSpeeds": [],
+                "value": "10"
             }
         },
         "details": {
@@ -71,19 +59,19 @@
                 "value": "N"
             },
             "creatureType": "Ooze",
-            "flavorText": "<p>An amoeba swarm consists of thousands of individual single-celled organisms held together by acrid-smelling slime. As ravenous as they are mindless, amoeba swarms use no tactics.</p>",
+            "flavorText": "<p>These amorphous masses of sewage and other detritus make their way through filthy culverts beneath cities large and small.</p>\n<hr />\n<p>Slimes, molds, and other oozes can be found in dank dungeons and shadowed forests. While not necessarily evil, some grow to enormous sizes and have insatiable appetites.</p>",
             "level": {
                 "value": 1
             },
             "source": {
-                "value": "Pathfinder Bestiary 2"
+                "value": "Pathfinder Bestiary"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 8
+                "value": 9
             },
             "reflex": {
                 "saveDetail": "",
@@ -95,9 +83,6 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -110,56 +95,27 @@
                     "visual"
                 ]
             },
-            "dr": [
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "4"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "4"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "3"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "3"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "3"
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": []
             },
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
             "size": {
-                "value": "lg"
+                "value": "med"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "amphibious",
                     "mindless",
-                    "ooze",
-                    "swarm"
+                    "ooze"
                 ]
             }
         }
@@ -169,7 +125,55 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "fO8E1sNI1DHDU5Dq",
+            "_id": "YXsM6AcguDWAwVIt",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "t7q0iqdlzzd1y5zle9p2": {
+                        "damage": "1d6+1",
+                        "damageType": "bludgeoning"
+                    },
+                    "wozsa0yc2wmz8e7vfsgg": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "type": "melee"
+        },
+        {
+            "_id": "VwrlDdZczBGO5Ps4",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -181,7 +185,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An amoeba swarm can sense nearby creatures through vibration and air or water movement.</p>"
+                    "value": "<p>A swamp ooze can sense nearby motion through vibration and air movement.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -209,11 +213,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Motion Sense 60 feet",
-            "sort": 100000,
+            "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "DsM9HKBiut2efUZZ",
+            "_id": "mdqK7RuSjtezVyS8",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -225,7 +229,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The amoeba swarm slithers over each creature in its space, dealing [[/r 1d6 #acid]]{1d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"14\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Slither DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). A creature that critically fails is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per minute;</p>\n<p><strong>Effect</strong> The swamp ooze unleashes a wave of swamp muck filled with sharp debris, covering all creatures within a 20-foot emanation. Each creature in the area must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Filth Wave DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or take [[/r 1d4 #piercing]]{1d4 piercing damage} and take a -10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls @Compendium[pf2e.conditionitems.Prone]{Prone}).</p>\n<p>A creature can spend an Interact action to clean someone off, decreasing the Speed penalty by 5 feet with each action.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -252,56 +256,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swarming Slither",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "zEg1F3xL2SCNwVj7",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>An amoeba's acid damages only organic material-not metal, stone, or other inorganic substances.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Weak Acid",
+            "name": "Swamp Wave",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "1yoCf7iLNmn7SD5D",
+            "_id": "iUzYuqnjkPvxjVq6",
             "data": {
                 "description": {
                     "value": ""
@@ -318,10 +278,10 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "In Water",
+                        "label": "In Sewer",
                         "predicate": {
                             "all": [
-                                "terrain:water"
+                                "terrain:swamp"
                             ]
                         },
                         "selector": "stealth",
@@ -341,8 +301,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+3 in Water",
-                        "options": "terrain:water"
+                        "label": "+4 in swamps",
+                        "options": "terrain:swamp"
                     }
                 }
             },
@@ -354,13 +314,13 @@
             "type": "lore"
         }
     ],
-    "name": "Amoeba Swarm",
+    "name": "Swamp Ooze",
     "token": {
         "disposition": -1,
-        "height": 2,
-        "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Amoeba Swarm",
-        "width": 2
+        "height": 1,
+        "img": "systems/pf2e/icons/bestiary-1/ooze.webp",
+        "name": "Sewer Ooze",
+        "width": 1
     },
     "type": "npc"
 }
