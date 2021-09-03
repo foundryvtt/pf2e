@@ -136,9 +136,23 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(): this {
-        const clone = Object.create(this);
-        clone.predicate = Object.create(this.predicate);
+    clone(): ModifierPF2e {
+        const clone = new ModifierPF2e(
+            this.name,
+            this.modifier,
+            this.type,
+            this.enabled ?? true,
+            this.source,
+            this.notes
+        );
+        clone.predicate = deepClone(this.predicate);
+        clone.custom = this.custom;
+        clone.ignored = this.ignored;
+        clone.damageType = this.damageType;
+        clone.damageCategory = this.damageCategory;
+        clone.critical = this.critical;
+        clone.traits = deepClone(this.traits);
+
         return clone;
     }
 }
