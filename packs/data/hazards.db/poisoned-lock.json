@@ -22,7 +22,7 @@
         "creatureType": "",
         "details": {
             "description": "A spring-loaded, poisoned spine is hidden near the keyhole of a lock. Disabling or breaking the trap does not disable or break the lock.",
-            "disable": "Thievery DC 17 (trained) on the spring mechanism",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Disarm Lock Trap DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) on the spring mechanism</p>",
             "isComplex": false,
             "level": {
                 "value": 1
@@ -70,7 +70,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -92,7 +93,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature tries to unlock or Pick the Lock.<br /><strong>Effect</strong> A spine extends to attack the triggering creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature tries to unlock or Pick the Lock.</p>\n<p><strong>Effect</strong> A spine extends to attack the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -132,7 +133,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "cladis-poison"
+                    ]
                 },
                 "bonus": {
                     "value": 13
@@ -144,7 +148,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Applies cladis poison.</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -165,7 +169,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "spine",
+            "name": "Spine",
             "sort": 200000,
             "type": "melee"
         },
@@ -182,7 +186,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Cladis Poison DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 4 hours; <strong>Stage 1</strong> 1d6 poison damage and drained 1 (1 hour); <strong>Stage 2</strong> 2d6 poison damage and drained 2 (1 hour); <strong>Stage 3</strong> 3d6 poison damage and drained 2 (1 hour)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Cladis Poison DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 hours;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 hour);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #poison]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 hour);</p>\n<p><strong>Stage 3</strong> [[/r 3d6 #poison]]{3d6 poison damage} and drained 2 (1 hour)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""

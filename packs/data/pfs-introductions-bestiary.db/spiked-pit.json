@@ -1,43 +1,42 @@
 {
-    "_id": "vlMuFskctUvjJe8X",
+    "_id": "U53RUprcBtfMmkFs",
     "data": {
         "attributes": {
             "ac": {
-                "value": 18
+                "value": 15
             },
-            "hardness": 8,
+            "hardness": 5,
             "hasHealth": true,
             "hp": {
                 "details": "",
-                "max": 32,
+                "max": 30,
                 "temp": 0,
-                "tempmax": 0,
-                "value": 32
+                "value": 30
             },
             "stealth": {
-                "details": "(trained)",
+                "details": "<p>(trained, or 0 if the trapdoor is disabled or broken)</p>",
                 "value": 10
             }
         },
         "creatureType": "",
         "details": {
-            "description": "A wall socket loaded with a spear connects to a floor tile in one 5-foot square.",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-label=\"Disable Thievery DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) on the floor tile or wall socket</p>",
+            "description": "<p>A wooden trapdoor covers a pit that's 10 feet square and 20 feet deep. Sharp spikes line the bottom of the pit.</p>",
+            "disable": "<p><span data-pf2-check=\"skill\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Remove Trap Door DC\" data-pf2-dc=\"14\" data-pf2-show-dc=\"gm\">Thievery</span> to remove the trapdoor</p>",
             "isComplex": false,
             "level": {
                 "value": 2
             },
-            "reset": "",
+            "reset": "<p>Creatures can still fall into the trap, but the trapdoor must be reset manually for the trap to become hidden again.</p>",
             "routine": ""
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 5
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 3
+                "value": 5
             },
             "will": {
                 "saveDetail": "",
@@ -45,7 +44,7 @@
             }
         },
         "source": {
-            "value": "Pathfinder Core Rulebook"
+            "value": "Pathfinder Society Quest #10: The Broken Scales"
         },
         "statusEffects": [],
         "traits": {
@@ -81,10 +80,10 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "0KrOaCLFSEcIdcej",
+            "_id": "Dtg1uXMVG1kcNoI2",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -93,7 +92,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Pressure is applied to the floor tile.</p>\n<p><strong>Effect</strong> The trap shoots a spear, making an attack against the creature or object on the floor tile.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature walks onto the trapdoor;</p>\n<p><strong>Effect</strong> The triggering creature falls in and takes [[/r 10 #bludgeoning]]{10 bludgeoning damage} plus [[/r 2d6 #piercing]]{1d4 piercing damage} from sharp implements at the bottom of the pit. That creature can use the @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid falling.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -108,9 +107,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "attack"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -122,62 +119,17 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spear",
-            "sort": 100000,
+            "name": "Pitfall",
+            "sort": 0,
             "type": "action"
-        },
-        {
-            "_id": "B486xwl3ZYYCqNyw",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "b2sgkmleac7pt7auaikp": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 200000,
-            "type": "melee"
         }
     ],
-    "name": "Spear Launcher",
+    "name": "Spiked Pit",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Spear Launcher",
+        "name": "Spiked Pit",
         "width": 1
     },
     "type": "hazard"

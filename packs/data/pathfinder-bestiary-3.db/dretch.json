@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "details": "",
                 "value": 17
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -143,7 +144,7 @@
             "_id": "lPoc1X6kVceYz10N",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -238,7 +239,7 @@
                     "dc": 16,
                     "item": 0,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "divine"
@@ -262,7 +263,7 @@
             "_id": "YnFS2ut4U1P0Izn0",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -357,7 +358,7 @@
                     "dc": 16,
                     "item": 0,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": ""
@@ -397,6 +398,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -510,6 +512,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -622,6 +625,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -920,8 +924,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Telepathy (100 feet)",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 900000,
             "type": "action"
         },
@@ -987,7 +991,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Is cowering",
+                        "property": "flags.pf2e.rollOptions.all.cower"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "cower"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "cower"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

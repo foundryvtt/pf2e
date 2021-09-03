@@ -1,43 +1,42 @@
 {
-    "_id": "vlMuFskctUvjJe8X",
+    "_id": "qXaXfqQfW3cp8kbI",
     "data": {
         "attributes": {
             "ac": {
-                "value": 18
+                "value": 16
             },
-            "hardness": 8,
+            "hardness": 7,
             "hasHealth": true,
             "hp": {
                 "details": "",
-                "max": 32,
+                "max": 24,
                 "temp": 0,
-                "tempmax": 0,
-                "value": 32
+                "value": 24
             },
             "stealth": {
-                "details": "(trained)",
-                "value": 10
+                "details": "<p>(trained)</p>",
+                "value": 7
             }
         },
         "creatureType": "",
         "details": {
-            "description": "A wall socket loaded with a spear connects to a floor tile in one 5-foot square.",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-label=\"Disable Thievery DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) on the floor tile or wall socket</p>",
-            "isComplex": false,
+            "description": "<p>A cloud of invisible magical sensors in a 10-foot radius surrounds the central column of the room.</p>",
+            "disable": "<p><span data-pf2-check=\"acrobatics\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Approach the Rune DC\" data-pf2-dc=\"15\" data-pf2-show-dc=\"gm\">Acrobatics</span> to approach without triggering the trap followed by <span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Erase the Rune DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to erase the rune, or <span data-pf2-check=\"athletics\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Remove Stones DC\" data-pf2-dc=\"19\" data-pf2-show-dc=\"gm\">Athletics</span> to remove enough stones from the pillar to disrupt the magic, or dispel magic (1st level; counteract DC 15) to counteract the rune.</p>",
+            "isComplex": true,
             "level": {
-                "value": 2
+                "value": 1
             },
-            "reset": "",
+            "reset": "<p>The trap resets each day at dawn.</p>",
             "routine": ""
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 3
+                "value": 2
             },
             "will": {
                 "saveDetail": "",
@@ -45,7 +44,7 @@
             }
         },
         "source": {
-            "value": "Pathfinder Core Rulebook"
+            "value": ""
         },
         "statusEffects": [],
         "traits": {
@@ -62,7 +61,7 @@
             "dr": [],
             "dv": [],
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "size": {
                 "value": "med"
@@ -70,7 +69,7 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical",
+                    "magical",
                     "trap"
                 ]
             }
@@ -81,10 +80,10 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "0KrOaCLFSEcIdcej",
+            "_id": "wz43EsdDh8PtPAEO",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -93,7 +92,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Pressure is applied to the floor tile.</p>\n<p><strong>Effect</strong> The trap shoots a spear, making an attack against the creature or object on the floor tile.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature enters the cloud of magical sensors;</p>\n<p><strong>Effect</strong> The trap summons one of the creatures previously encountered in area B<span data-visibility=\"gm\"> with the weak adjustment</span>.<span data-visibility=\"gm\"> The creature rolls initiative and remains for 7 rounds, after which the spell ends and the creature disappears. The summoned creature also disappears if a creature disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -109,7 +108,9 @@
                         "value": "common"
                     },
                     "value": [
-                        "attack"
+                        "arcane",
+                        "conjuration",
+                        "summon"
                     ]
                 },
                 "trigger": {
@@ -122,62 +123,17 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spear",
-            "sort": 100000,
+            "name": "Summon Weak Monster",
+            "sort": 0,
             "type": "action"
-        },
-        {
-            "_id": "B486xwl3ZYYCqNyw",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "b2sgkmleac7pt7auaikp": {
-                        "damage": "2d6+6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spear",
-            "sort": 200000,
-            "type": "melee"
         }
     ],
-    "name": "Spear Launcher",
+    "name": "Ancient Summoning Rune",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Spear Launcher",
+        "name": "Ancient Summoning Rune",
         "width": 1
     },
     "type": "hazard"
