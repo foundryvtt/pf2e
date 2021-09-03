@@ -136,9 +136,9 @@ export class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            // Spell scaling
+            // Interval Spell scaling. Ensure it heightens first
             const scaling = this.data.data.scaling;
-            if (scaling) {
+            if (scaling?.interval) {
                 const scalingFormula = scaling.damage[idx];
                 if (scalingFormula && scaling.interval) {
                     const partCount = Math.floor((castLevel - this.level) / scaling.interval);

@@ -431,21 +431,20 @@ export class ConditionManager {
         return this.addConditionToToken(name, actor);
     }
 
-    private static async createConditions(condition: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
+    private static async createConditions(source: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent?.id
+            (existing) => existing.data.data.base === source.data.base && !source.data.references.parent?.id
         );
         if (exists) return null;
 
-        condition._id = randomID(16);
-        const conditionsToCreate = this.createAdditionallyAppliedConditions(condition);
-        conditionsToCreate.push(condition);
-
-        actor.createEmbeddedDocuments("Item", conditionsToCreate, { keepId: true }).then((result) => {
-            return result.find((item) => item.id === condition._id) as ConditionPF2e;
-        });
-
-        return null;
+        // Work around Foundry bug in which `keepId` is ignored when creating embedded documents on synethic actors
+        // https://gitlab.com/foundrynet/foundryvtt/-/issues/5826
+        source._id = randomID(16);
+        const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
+        actor.isToken
+            ? await actor.update({ items: sources }, { keepId: true })
+            : await ConditionPF2e.createDocuments(sources, { parent: actor, keepId: true });
+        return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 
     private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
@@ -515,11 +514,10 @@ export class ConditionManager {
         const stack = [...itemIds];
         while (stack.length) {
             const id = stack.pop() ?? "";
-            const condition = actor.itemTypes.condition.find((condition) => condition.id === id);
+            const condition = actor.items.get(id);
 
-            if (condition) {
+            if (condition instanceof ConditionPF2e) {
                 list.push(id);
-
                 condition.data.data.references.children.forEach((child) => stack.push(child.id));
             }
         }

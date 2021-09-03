@@ -6,7 +6,7 @@ export interface RuleElementData {
     key: string;
     data?: any;
     selector?: string;
-    value?: RuleValue;
+    value?: RuleValue | BracketedValue;
     scope?: string;
     label: string;
     slug?: string;
@@ -21,17 +21,17 @@ export type RuleElementSource = Omit<RuleElementData, "label" | "priority" | "ig
     priority?: number;
 };
 
-export type RuleValue = string | number | boolean | null | BracketedValue;
+export type RuleValue = string | number | boolean | object | null;
 
-export interface Bracket {
+export interface Bracket<T extends object | number | string> {
     start?: number;
     end?: number;
-    value: number | string;
+    value: T;
 }
 
-export interface BracketedValue {
+export interface BracketedValue<T extends object | number | string = object | number | string> {
     field?: string;
-    brackets: Bracket[];
+    brackets: Bracket<T>[];
 }
 
 export interface WeaponPotencyPF2e {

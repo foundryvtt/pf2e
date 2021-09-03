@@ -1,0 +1,58 @@
+{
+    "_id": "28NvrpZmELvyrHUt",
+    "data": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "forcedMovement",
+                        "action:trip",
+                        "action:shove"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Variable Gravity (High Gravity)",
+    "type": "effect"
+}

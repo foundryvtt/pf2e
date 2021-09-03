@@ -1,5 +1,5 @@
 import { VisionLevels } from "@actor/creature/data";
-import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { UserPF2e } from "@module/user";
@@ -35,6 +35,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
+    /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
         return this.data.flags.pf2e.linkToActorSize;
     }
@@ -55,11 +56,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const linkDefault = !["hazard", "loot", "vehicle"].includes(this.actor?.type ?? "");
+        if (!(this.initialized && this.actor)) return;
+        const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
-        if (!(this.initialized && canvas.sight?.rulesBasedVision)) return;
 
+        if (!canvas.sight?.rulesBasedVision) return;
         this.data.brightSight = 0;
         this.data.dimSight = 0;
         this.data.sightAngle = 360;
@@ -86,21 +88,24 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     /** Set this token's dimensions from actor data */
     private prepareSize(): void {
-        if (!(this.actor instanceof CreaturePF2e && this.linkToActorSize)) return;
-        const { width, height } = this.data;
-        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+        if (!(this.actor && this.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
-        if (this.data.width === width && this.data.height === height) {
-            const size = {
-                tiny: 0.5,
-                sm: 1,
-                med: 1,
-                lg: 2,
-                huge: 3,
-                grg: Math.max(width, 4),
-            }[this.actor.size];
-            if (size !== width) this.data.width = this.data.height = size;
+        const size = {
+            tiny: 0.5,
+            sm: 1,
+            med: 1,
+            lg: 2,
+            huge: 3,
+            grg: Math.max(this.data.width, 4),
+        }[this.actor.size];
+        if (this.actor instanceof VehiclePF2e) {
+            // Vehicles can have unequal dimensions
+            const { width, height } = this.actor.getTokenDimensions();
+            this.data.width = width;
+            this.data.height = height;
+        } else {
+            this.data.width = this.data.height = size;
         }
     }
 

@@ -68,6 +68,8 @@ import { Migration657RemoveSetProperty } from "./migrations/657-remove-set-prope
 import { Migration658MonkUnarmoredProficiency } from "./migrations/658-monk-unarmored-proficiency";
 import { Migration659MultipleDamageRows } from "./migrations/659-multiple-damage-rows";
 import { Migration660DerivedSpellTraits } from "./migrations/660-derived-spell-traits";
+import { Migration661NumifyVehicleDimensions } from "./migrations/661-numify-vehicle-dimensions";
+import { Migration662LinkToActorSizeDefaults } from "./migrations/662-link-to-actor-size-defaults";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -140,6 +142,8 @@ export class Migrations {
         Migration658MonkUnarmoredProficiency,
         Migration659MultipleDamageRows,
         Migration660DerivedSpellTraits,
+        Migration661NumifyVehicleDimensions,
+        Migration662LinkToActorSizeDefaults,
     ];
 
     static get latestVersion(): number {
