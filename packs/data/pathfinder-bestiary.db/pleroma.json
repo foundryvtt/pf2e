@@ -437,6 +437,10 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -801,6 +805,10 @@
                 "save": {
                     "basic": "",
                     "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "value": "conjuration"
@@ -1541,6 +1549,10 @@
                     "basic": "",
                     "value": "will"
                 },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -1624,7 +1636,11 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
                 },
                 "description": {
                     "value": "<p>You conjure a temporary object from eldritch energy. It must be of vegetable matter (such as wood or paper) and 5 cubic feet or smaller. It can't rely on intricate artistry or complex moving parts, never fulfills a cost or the like, and can't be made of precious materials or materials with a rarity of uncommon or higher. It is obviously temporarily conjured, and thus can't be sold or passed off as a genuine item.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The item is metal and can include common minerals, like feldspar or quartz.</p>"
@@ -1654,15 +1670,15 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "0 feet"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
-                    "value": "conjuration"
+                    "value": "abjuration"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1670,25 +1686,27 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "creation",
+                "slug": "banishment",
                 "source": {
                     "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 creature that isn't on its home plane"
                 },
                 "time": {
-                    "value": "1 minute"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
+                        "divine",
+                        "occult",
                         "primal"
                     ]
                 },
@@ -1697,18 +1715,21 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "abjuration",
+                        "incapacitation"
+                    ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.TUj8eugNqAvB1vVR"
+                    "sourceId": "Compendium.pf2e.spells-srd.bay4AfSu2iIozNNW"
                 }
             },
-            "img": "systems/pf2e/icons/spells/creation.webp",
-            "name": "Creation (At Will)",
-            "sort": 1300000,
+            "img": "systems/pf2e/icons/spells/banishment.webp",
+            "name": "Banishment",
+            "sort": 1200000,
             "type": "spell"
         },
         {
@@ -1731,7 +1752,7 @@
                     "value": "spell"
                 },
                 "components": {
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1804,7 +1825,6 @@
                 "traditions": {
                     "value": [
                         "arcane",
-                        "divine",
                         "primal"
                     ]
                 },
@@ -2269,7 +2289,7 @@
                     "value": "an unworked piece of wood up to 20 cubic feet in volume"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1 hour"
                 },
                 "traditions": {
                     "value": [
