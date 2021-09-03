@@ -1,5 +1,28 @@
 # Patch Notes:
 
+## Version 2.13.1
+### Bug Fixes
+* (stwlam) Use ModifierPF2e#clone instead of duplicate to preserve properties
+* (stwlam) Adjust spell damage migration to handle mixed states of spell-damage data
+* (stwlam) Fix NPC phantom token bug
+
+### Content Changes
+* (TMun) Relink summoner class features to class for drag and drop
+* (TMun) Add Secrets of Magic missing archetype actions, archetype dedications and feats, archetype equipment, archetype spells, and archetype druid orders
+* (TMun) Add cross-linking to new Secret of Magic items, like druidic orders to class feature, shadow spells to granting feats, and manifest action to soulforged feat
+* (TMun) Adds diease as a trait for weapons. Closes #1689
+* (TMun) Add class to feat traits
+* (TMun) Correct data entry errors in pernicious poltergeist and warriors regret. Closes #1690
+* (kageru) Fix duration of adult and ancient gold dragon’s weakening gas
+* (stwlam) Add an icon for Spell Effect: Fey Form
+* (SpartanCPA) Update thrown and range increment traits across packs
+* (SpartanCPA) Update death effects and nonlethal attacks across all packs
+* (InfamousSky) Fix a few mistakes in the arcane Secret of Magic spells
+
+### Core System Improvements
+* (Abaddon) Change spell naming to "<tradition> <preparation> Spells" to align with NPC stat block entries. Closes #1688
+
+
 ## Version 2.13.0
 ### Bug Fixes
 * (Manuel Hegner) Fix that damage rolls were posted as selected token instead of actor. Closes #1012
