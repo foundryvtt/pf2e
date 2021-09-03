@@ -149,7 +149,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "c4Lb6fM4sdRHvEtu",
+            "_id": "bTaTkm1AKkyfHOtO",
             "data": {
                 "ability": {
                     "value": "wis"
@@ -160,12 +160,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -173,7 +170,7 @@
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -245,8 +242,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "40",
-                    "item": 0,
+                    "dc": 40,
                     "mod": 0,
                     "value": 32
                 },
@@ -269,7 +265,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "v5mN261mCqfW7YV9",
+            "_id": "T7s9nFUJFEuFALKk",
             "data": {
                 "ability": {
                     "value": "wis"
@@ -280,20 +276,17 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
-                    "value": "innate"
+                    "flexible": false,
+                    "value": "ritual"
                 },
                 "proficiency": {
                     "value": 0
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -365,8 +358,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "40",
-                    "item": 0,
+                    "dc": 40,
                     "mod": 0,
                     "value": 32
                 },
@@ -389,14 +381,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ua50Si2Sr3DUQQIG",
+            "_id": "Kf3vZEjtKfaQzswf",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -408,6 +400,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -416,11 +409,17 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "10d10"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "10d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -438,7 +437,7 @@
                     "value": 8
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -458,8 +457,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -498,7 +499,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -515,7 +515,7 @@
             "type": "spell"
         },
         {
-            "_id": "UzeNXRIU2xjsBVtz",
+            "_id": "KN3UN5JhNsLLGSpj",
             "data": {
                 "ability": {
                     "value": ""
@@ -534,6 +534,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -542,11 +543,15 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "10d10"
-                },
-                "damageType": {
-                    "value": "negative"
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "10d10"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
@@ -564,7 +569,7 @@
                     "value": 8
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -584,8 +589,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -624,7 +631,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "necromancy",
                         "negative"
                     ]
                 }
@@ -641,7 +647,7 @@
             "type": "spell"
         },
         {
-            "_id": "ZBl02QC1O9qTkQuv",
+            "_id": "e0kGIIvfDk5mTBp1",
             "data": {
                 "ability": {
                     "value": ""
@@ -660,6 +666,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -668,11 +675,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
@@ -690,7 +693,7 @@
                     "value": 8
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -745,8 +748,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "air",
-                        "evocation"
+                        "air"
                     ]
                 }
             },
@@ -762,7 +764,7 @@
             "type": "spell"
         },
         {
-            "_id": "sAlaBMTEO8IQr4nw",
+            "_id": "3Ehoy1lFXb16gbEU",
             "data": {
                 "ability": {
                     "value": ""
@@ -781,6 +783,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -789,11 +792,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
@@ -811,7 +810,7 @@
                     "value": 8
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -866,8 +865,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "air",
-                        "evocation"
+                        "air"
                     ]
                 }
             },
@@ -883,7 +881,7 @@
             "type": "spell"
         },
         {
-            "_id": "MotJKStt5vV829ZN",
+            "_id": "ioZnhNZrIX1WgFE4",
             "data": {
                 "ability": {
                     "value": ""
@@ -902,6 +900,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -910,11 +909,17 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "70"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "70"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
@@ -932,7 +937,7 @@
                     "value": 7
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -952,8 +957,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -992,8 +999,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "death",
-                        "necromancy"
+                        "death"
                     ]
                 }
             },
@@ -1009,7 +1015,7 @@
             "type": "spell"
         },
         {
-            "_id": "P0hTuTM15pzZIBrg",
+            "_id": "vv9TJCTRJ4BPAwbh",
             "data": {
                 "ability": {
                     "value": ""
@@ -1028,6 +1034,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1036,11 +1043,17 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
-                    "value": "70"
-                },
-                "damageType": {
-                    "value": ""
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "70"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
@@ -1058,7 +1071,7 @@
                     "value": 7
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
@@ -1078,8 +1091,10 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "10",
-                    "mode": "level1"
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1118,8 +1133,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "death",
-                        "necromancy"
+                        "death"
                     ]
                 }
             },
@@ -1135,7 +1149,7 @@
             "type": "spell"
         },
         {
-            "_id": "2Cjm2Ma5pugMVQis",
+            "_id": "Q4ffvWKyAX7LMBc3",
             "data": {
                 "ability": {
                     "value": ""
@@ -1154,6 +1168,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -1177,7 +1192,7 @@
                     "value": 7
                 },
                 "location": {
-                    "value": "v5mN261mCqfW7YV9"
+                    "value": "T7s9nFUJFEuFALKk"
                 },
                 "materials": {
                     "value": ""
@@ -1247,7 +1262,7 @@
             "type": "spell"
         },
         {
-            "_id": "8h2ePVZ5n7YzQRQW",
+            "_id": "I0mDcFECZwiWCuMS",
             "data": {
                 "ability": {
                     "value": ""
@@ -1266,6 +1281,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1292,7 +1308,7 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "c4Lb6fM4sdRHvEtu"
+                    "value": "bTaTkm1AKkyfHOtO"
                 },
                 "materials": {
                     "value": ""
