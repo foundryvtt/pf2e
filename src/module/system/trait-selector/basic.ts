@@ -96,26 +96,22 @@ export class TagSelectorBasic extends TagSelectorBase {
         }
     }
 
-    protected async _updateObject(event: Event, formData: Record<string, unknown>) {
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const { flat } = event.target ? $(event.target)?.data() : { flat: false };
         const value = this.getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
-            this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
+            await this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
         } else if (flat) {
-            this.object.update({ [this.objectProperty]: value });
+            await this.object.update({ [this.objectProperty]: value });
         } else {
-            this.object.update({ [`${this.objectProperty}.value`]: value });
+            await this.object.update({ [`${this.objectProperty}.value`]: value });
         }
     }
 
-    private getUpdateData(formData: Record<string, unknown>) {
-        const choices: string[] = [];
-        Object.entries(formData).forEach(([language, selected]) => {
-            if (selected) {
-                choices.push(language);
-            }
-        });
-        return choices;
+    private getUpdateData(formData: Record<string, unknown>): string[] | number[] {
+        const optionsAreNumeric = Object.keys(formData).every((tag) => Number.isInteger(Number(tag)));
+        const selections = Object.entries(formData).flatMap(([tag, selected]) => (selected ? tag : []));
+        return optionsAreNumeric ? selections.map((tag) => Number(tag)) : selections;
     }
 
     /**

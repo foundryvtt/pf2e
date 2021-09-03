@@ -378,10 +378,16 @@ export const InlineRollsLinks = {
                 "data-pf2-show-dc",
                 target.attributes.getNamedItem("data-pf2-repost-show-dc")?.value ?? "gm"
             );
-            const regexDC = new RegExp(game.i18n.localize("PF2E.DCWithValue").replace(/\{.*/gi, "\\d+"));
-            const replaced = target.outerHTML
-                .replace(regexDC, "")
-                .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "");
+            const regexDC = new RegExp(
+                game.i18n
+                    .localize("PF2E.DCWithValue")
+                    .replace(/\{dc\}/g, "\\d+")
+                    .replace(/\{text\}/g, "(.*)")
+            );
+            const newInnerHTML = target.innerHTML
+                .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
+                .replace(regexDC, "$1");
+            const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
             ChatMessage.create({ content: `${flavor || ""} ${replaced}`.trim() });
         }
     },

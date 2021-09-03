@@ -1,0 +1,65 @@
+{
+    "_id": "eZPfHVz14j42jCnS",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You and your eidolon steel your mind together against effects that threaten you, each protecting the others' minds from danger. Your and your eidolon's proficiency ranks for Will saves increase to master. When you roll a success on a Will save, you get a critical success instead. When your eidolon rolls a success on a Will save, it gets a critical success instead.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "level": {
+            "value": 15
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "will",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.will.rank",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Shared Resolve",
+    "type": "feat"
+}

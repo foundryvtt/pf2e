@@ -1,0 +1,53 @@
+{
+    "_id": "BsGZdgiEElNlgZVv",
+    "data": {
+        "description": {
+            "value": "<p>The creature takes a -1 status penalty to attack rolls against creatures other than you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "not": [
+                        "target:drawIre"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Draw Ire (Failure)",
+    "type": "effect"
+}
