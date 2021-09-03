@@ -67,8 +67,8 @@
                         "value": ""
                     }
                 },
-                "img": "",
-                "name": ""
+                "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+                "name": "Unusual Object"
             }
         },
         "level": {
@@ -97,7 +97,34 @@
             "units": "",
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "ability": "dex",
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "evil",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "key": "Strike",
+                "label": "Unholy Water",
+                "range": "20",
+                "traits": [
+                    "thrown-20",
+                    "evil",
+                    "divine",
+                    "consumable",
+                    "splash"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p>Damages only celestials and creatures that have a weakness to evil damage</p><p>[[/r 1 #evil]]{1 evil splash damage}<p/>"
+            }
+        ],
         "size": {
             "value": "med"
         },
