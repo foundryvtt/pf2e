@@ -40,7 +40,7 @@ export class TokenEffect implements TemporaryEffect {
  *
  * @category RuleElement
  */
-export abstract class RuleElementPF2e {
+abstract class RuleElementPF2e {
     data: RuleElementData;
 
     /**
@@ -88,29 +88,6 @@ export abstract class RuleElementPF2e {
     set ignored(value: boolean) {
         this.data.ignored = value;
     }
-
-    /**
-     * Run after an item holding this rule is added to an actor. If you modify or add the rule after the item
-     * is already present on the actor, nothing will happen. Rules that add toggles won't work here since
-     * this method is only called on item add.
-     *
-     * @param actorUpdates The first time a rule is run it receives an empty object. After all rules set various values
-     * on the object, this object is then passed to actor.update(). This is useful if you want to set specific values on
-     * the actor when an item is added. Keep in mind that the object for actor.update() is flattened, e.g.
-     * {'data.attributes.hp.value': 5}.
-     */
-    onCreate(_actorUpdates: Record<string, unknown>): void {}
-
-    /**
-     * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
-     * on the actorData or token objects, e.g. removing temp HP.
-     *
-     * @param actorData data of the actor that holds the item
-     * @param item the removed item data
-     * @param actorUpdates see onCreate
-     * @param tokens see onCreate
-     */
-    onDelete(_actorData: CreatureData, _item: ItemDataPF2e, _actorUpdates: any, _tokens: any[]) {}
 
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
@@ -200,39 +177,51 @@ export abstract class RuleElementPF2e {
      * @return the evaluated value
      */
     resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
-        let value = valueData;
-        const actor = this.item.actor;
-        if (typeof valueData === "object") {
-            let bracket = getProperty(actor.data, "data.details.level.value");
-            if (valueData?.field) {
+        let value: RuleValue = valueData ?? defaultValue ?? null;
+
+        if (this.isBracketedValue(valueData)) {
+            const bracketNumber = ((): number => {
+                if (!valueData?.field) {
+                    return Number(getProperty(this.actor.data, "data.details.level.value")) || 0;
+                }
                 const field = String(valueData.field);
                 const separator = field.indexOf("|");
                 const source = field.substring(0, separator);
                 switch (source) {
                     case "actor": {
-                        bracket = getProperty(actor.data, field.substring(separator + 1));
-                        break;
+                        return Number(getProperty(this.actor.data, field.substring(separator + 1))) || 0;
                     }
                     case "item": {
-                        bracket = getProperty(this.item.data, field.substring(separator + 1));
-                        break;
+                        return Number(getProperty(this.item.data, field.substring(separator + 1))) || 0;
                     }
                     case "rule": {
-                        bracket = getProperty(this.data, field.substring(separator + 1));
-                        break;
+                        return Number(getProperty(this.data, field.substring(separator + 1))) || 0;
                     }
                     default:
-                        bracket = getProperty(actor.data, field.substring(0));
+                        return Number(getProperty(this.actor.data, field.substring(0))) || 0;
                 }
-            }
+            })();
+            const brackets = valueData?.brackets ?? [];
+
             value =
-                (valueData?.brackets ?? []).find((b) => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
-                    ?.value ??
+                brackets.find((bracket) => {
+                    const start = bracket.start ?? 0;
+                    const end = bracket.end ?? Infinity;
+                    return start <= bracketNumber && end >= bracketNumber;
+                })?.value ??
                 (Number(defaultValue) || 0);
         }
 
+        if (value === null) return value;
+
+        if (typeof value === "object" && typeof defaultValue === "object" && defaultValue !== null) {
+            return mergeObject(defaultValue, value, { inplace: false });
+        }
+
         if (typeof value === "string" && value.includes("@")) {
-            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
+            value = Roll.safeEval(
+                Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data })
+            );
         }
 
         if (typeof value !== "boolean" && Number.isInteger(Number(value))) {
@@ -241,4 +230,35 @@ export abstract class RuleElementPF2e {
 
         return value;
     }
+
+    private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {
+        return value instanceof Object && "brackets" in value && Array.isArray(value.brackets);
+    }
 }
+
+interface RuleElementPF2e {
+    /**
+     * Run after an item holding this rule is added to an actor. If you modify or add the rule after the item
+     * is already present on the actor, nothing will happen. Rules that add toggles won't work here since
+     * this method is only called on item add.
+     *
+     * @param actorUpdates The first time a rule is run it receives an empty object. After all rules set various values
+     * on the object, this object is then passed to actor.update(). This is useful if you want to set specific values on
+     * the actor when an item is added. Keep in mind that the object for actor.update() is flattened, e.g.
+     * {'data.attributes.hp.value': 5}.
+     */
+    onCreate?(actorUpdates: Record<string, unknown>): void;
+
+    /**
+     * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
+     * on the actorData or token objects, e.g. removing temp HP.
+     *
+     * @param actorData data of the actor that holds the item
+     * @param item the removed item data
+     * @param actorUpdates see onCreate
+     * @param tokens see onCreate
+     */
+    onDelete?(actorUpdates: Record<string, unknown>): void;
+}
+
+export { RuleElementPF2e };

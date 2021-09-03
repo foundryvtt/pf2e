@@ -12,6 +12,7 @@ import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
+import { AbilityString } from "@actor/data";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -34,6 +35,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get category(): WeaponCategory {
         return this.data.data.weaponType.value;
+    }
+
+    get ability(): AbilityString {
+        return this.data.data.ability.value;
     }
 
     get isSpecific(): boolean {
