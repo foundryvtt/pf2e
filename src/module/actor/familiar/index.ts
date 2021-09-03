@@ -88,7 +88,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 [`${speed.type}-speed`, "speed"].forEach((key) => {
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m));
                 });
                 const stat = mergeObject(
@@ -115,11 +115,11 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ];
                 (statisticsModifiers.hp || [])
                     .filter(filterModifier)
-                    .map((m) => duplicate(m))
+                    .map((m) => m.clone())
                     .forEach((m) => modifiers.push(m));
                 (statisticsModifiers["hp-per-level"] || [])
                     .filter(filterModifier)
-                    .map((m) => duplicate(m))
+                    .map((m) => m.clone())
                     .forEach((m) => {
                         m.modifier *= data.details.level.value;
                         modifiers.push(m);
@@ -150,7 +150,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ["ac", "dex-based", "all"].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
                 const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
@@ -184,7 +184,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 [save.name, `${ability}-based`, "saving-throw", "all"].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
                 const stat = new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers);
@@ -215,7 +215,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ["attack", "mundane-attack", "attack-roll", "all"].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
                 const stat = new StatisticModifier("attack", modifiers);
@@ -248,7 +248,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ["perception", "wis-based", "all"].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
                 const stat = mergeObject(new StatisticModifier("perception", modifiers), data.attributes.perception, {
@@ -290,7 +290,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 [longForm, `${ability}-based`, "skill-check", "all"].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
-                        .map((m) => duplicate(m))
+                        .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
                 const label = CONFIG.PF2E.skills[shortForm] ?? longForm;

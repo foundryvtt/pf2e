@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -136,6 +136,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
+
+        // Bless raw custom modifiers as `ModifierPF2e`s
+        const customModifiers = (this.data.data.customModifiers ??= {});
+        Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
+            [...modifiers].forEach((modifier: RawModifier) => {
+                const index = modifiers.indexOf(modifier);
+                modifiers[index] = ModifierPF2e.fromObject(modifier);
+            });
+        });
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -199,6 +208,56 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         return synthetics;
+    }
+
+    /**
+     * Adds a custom modifier that will be included when determining the final value of a stat. The
+     * name parameter must be unique for the custom modifiers for the specified stat, or it will be
+     * ignored.
+     */
+    async addCustomModifier(
+        stat: string,
+        name: string,
+        value: number,
+        type: string,
+        predicate?: RawPredicate,
+        damageType?: string,
+        damageCategory?: string
+    ) {
+        // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
+        // similar to how addDamageDice operates.
+        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+        if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
+            const modifier = new ModifierPF2e(name, value, type);
+            if (damageType) {
+                modifier.damageType = damageType;
+            }
+            if (damageCategory) {
+                modifier.damageCategory = damageCategory;
+            }
+            modifier.custom = true;
+
+            // modifier predicate
+            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.ignored = !modifier.predicate.test!();
+
+            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
+            await this.update({ "data.customModifiers": customModifiers });
+        }
+    }
+
+    /** Removes a custom modifier by name. */
+    async removeCustomModifier(stat: string, modifier: number | string) {
+        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+        if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
+            customModifiers[stat].splice(modifier, 1);
+            await this.update({ "data.customModifiers": customModifiers });
+        } else if (typeof modifier === "string" && customModifiers[stat]) {
+            customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+            await this.update({ "data.customModifiers": customModifiers });
+        } else {
+            throw Error("Custom modifiers can only be removed by name (string) or index (number)");
+        }
     }
 
     override async updateEmbeddedDocuments(

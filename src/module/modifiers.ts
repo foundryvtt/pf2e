@@ -1,5 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
+import { ErrorPF2e } from "./utils";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     "proficiency:untrained",
@@ -36,18 +37,28 @@ export interface RawModifier {
     name: string;
     /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
     label?: string;
+    /** The actual numeric benefit/penalty that this modifier provides. */
+    modifier?: number;
+    /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
+    type?: ModifierType;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
     ignored: boolean;
+    /** The source from which this modifier originates, if any. */
+    source?: string;
     /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: string;
+    /** The damage category */
+    damageCategory?: string;
     /** A predicate which determines when this modifier is active. */
-    predicate: RawPredicate;
+    predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean;
+    /** Any notes about this modifier. */
+    notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
 }
@@ -59,23 +70,18 @@ export interface RawModifier {
 export class ModifierPF2e implements RawModifier {
     name: string;
     label?: string;
-    /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
-    /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type: ModifierType;
     enabled: boolean;
-    /** The source which this modifier originates from, if any. */
-    source?: string;
-    /** Any notes about this modifier. */
-    notes?: string;
     ignored: boolean;
+    source?: string;
     custom: boolean;
     damageType?: string;
-    /** The damage category */
     damageCategory?: string;
     predicate: RawPredicate = new ModifierPredicate();
     critical?: boolean;
     traits?: string[];
+    notes?: string;
     /** Status of automation (rules or active effects) applied to this modifier */
     automation: { key: string | null; enabled: boolean } = {
         key: null,
@@ -103,6 +109,37 @@ export class ModifierPF2e implements RawModifier {
         this.custom = false;
         this.source = source;
         this.notes = notes;
+    }
+
+    /** Create a ModifierPF2e instance from a RawModifier */
+    static fromObject(data: RawModifier): ModifierPF2e {
+        if (data instanceof ModifierPF2e) return data.clone();
+
+        const modifier = new ModifierPF2e(
+            data.name,
+            data.modifier ?? 0,
+            data.type ?? "untyped",
+            data.enabled ?? true,
+            data.source,
+            data.notes
+        );
+
+        modifier.custom = data.custom ?? false;
+        modifier.predicate =
+            data.predicate instanceof ModifierPredicate
+                ? Object.create(data.predicate)
+                : new ModifierPredicate(data.predicate);
+        if (data.damageCategory) modifier.damageCategory = data.damageCategory;
+        if (data.damageType) modifier.damageType = data.damageType;
+
+        return modifier;
+    }
+
+    /** Return a copy of this ModifierPF2e instance */
+    clone(): this {
+        const clone = Object.create(this);
+        clone.predicate = Object.create(this.predicate);
+        return clone;
     }
 }
 
@@ -351,19 +388,39 @@ export class StatisticModifier {
         return Object.freeze([...this._modifiers]);
     }
 
-    /** Add a modifier to this collection. */
-    push(modifier: ModifierPF2e) {
+    /** Add a modifier to the end of this collection. */
+    push(modifier: ModifierPF2e): number {
         // de-duplication
         if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
             this._modifiers.push(modifier);
             this.applyStackingRules();
         }
+        return this._modifiers.length;
     }
 
-    /** Delete a modifier from this collection by name. */
-    delete(modifierName: string) {
-        this._modifiers = this._modifiers.filter((m) => m.name !== modifierName);
-        this.applyStackingRules();
+    /** Add a modifier to the beginning of this collection. */
+    unshift(modifier: ModifierPF2e): number {
+        // de-duplication
+        if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
+            this._modifiers.unshift(modifier);
+            this.applyStackingRules();
+        }
+        return this._modifiers.length;
+    }
+
+    /** Delete a modifier from this collection by name or reference */
+    delete(modifierName: string | ModifierPF2e): boolean {
+        const toDelete =
+            typeof modifierName === "object"
+                ? modifierName
+                : this._modifiers.find((modifier) => modifier.name === modifierName);
+        const wasDeleted =
+            toDelete && this._modifiers.includes(toDelete)
+                ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
+                : false;
+        if (wasDeleted) this.applyStackingRules();
+
+        return wasDeleted;
     }
 
     /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
@@ -383,7 +440,7 @@ export class CheckModifier extends StatisticModifier {
      * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, duplicate(statistic.modifiers).concat(modifiers));
+        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers));
     }
 }
 
@@ -491,8 +548,8 @@ export class DiceModifierPF2e implements RawModifier {
         }
 
         this.predicate = new ModifierPredicate(param?.predicate);
-        this.ignored = ModifierPredicate.test!(this.predicate);
-        this.enabled = this.ignored;
+        this.enabled = ModifierPredicate.test!(this.predicate);
+        this.ignored = !this.enabled;
     }
 }
 
@@ -507,7 +564,7 @@ export class DamageDicePF2e extends DiceModifierPF2e {
         if (params.selector) {
             this.selector = params.selector;
         } else {
-            throw new Error("selector is mandatory");
+            throw ErrorPF2e("selector is mandatory");
         }
     }
 }

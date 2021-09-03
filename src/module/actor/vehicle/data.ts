@@ -68,3 +68,14 @@ interface VehicleSystemData extends ActorSystemData {
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
+
+export interface VehicleDimensions {
+    length: number;
+    width: number;
+    height: number;
+}
+
+export interface TokenDimensions {
+    width: number;
+    height: number;
+}
