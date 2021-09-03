@@ -131,6 +131,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
+    isImmuneTo(immunity: Immunity): boolean {
+        return this.data.data.traits.di.value.includes(immunity);
+    }
+
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.

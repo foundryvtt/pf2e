@@ -5,6 +5,8 @@ import { ConditionPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
+import { LocalizePF2e } from "@system/localize";
+import { ConditionType } from "@item/condition/data";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -439,21 +441,26 @@ export class ConditionManager {
         );
         if (exists) return null;
 
+        if (!this.checkImmunity(source.data.slug, actor)) return null;
+
         // Work around Foundry bug in which `keepId` is ignored when creating embedded documents on synethic actors
         // https://gitlab.com/foundrynet/foundryvtt/-/issues/5826
         source._id = randomID(16);
-        const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
+        const sources = [source, ...this.getIncludedConditions(source, actor)];
         actor.isToken
             ? await actor.update({ items: sources }, { keepId: true })
             : await ConditionPF2e.createDocuments(sources, { parent: actor, keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 
-    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+    private static getIncludedConditions(baseCondition: ConditionSource, actor: ActorPF2e): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
-        baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
+        for (const linkedCondition of baseCondition.data.alsoApplies.linked) {
             const conditionSource = this.getCondition(linkedCondition.condition).toObject();
+
+            if (!this.checkImmunity(conditionSource.data.slug, actor)) continue;
+
             if (linkedCondition.value) {
                 conditionSource.data.value.value = linkedCondition.value;
             }
@@ -465,11 +472,13 @@ export class ConditionManager {
             // Add linked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added linked condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.getIncludedConditions(conditionSource, actor));
+        }
 
-        baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
+        for (const unlinkedCondition of baseCondition.data.alsoApplies.unlinked) {
             const conditionSource = this.getCondition(unlinkedCondition.condition).toObject();
+            if (!this.checkImmunity(conditionSource.data.slug, actor)) continue;
+
             if (unlinkedCondition.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
                 conditionSource.data.value.value = unlinkedCondition.value;
@@ -480,10 +489,21 @@ export class ConditionManager {
             // Add unlinked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added condition
-            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
-        });
+            conditionsToCreate.push(...this.getIncludedConditions(conditionSource, actor));
+        }
 
         return conditionsToCreate;
+    }
+
+    /** Check whether the actor is immunity to a condition, notifying the user if so */
+    static checkImmunity(condition: ConditionType, actor: ActorPF2e): boolean {
+        if (actor.isImmuneTo(condition)) {
+            const translation = LocalizePF2e.translations.PF2E.Actor.IWR.IsImmuneToCondition;
+            const conditionName = game.i18n.localize(CONFIG.PF2E.conditionTypes[condition]);
+            ui.notifications.info(game.i18n.format(translation, { actor: actor.name, condition: conditionName }));
+            return false;
+        }
+        return true;
     }
 
     /**

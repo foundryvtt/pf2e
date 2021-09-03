@@ -1829,6 +1829,7 @@ export const PF2ECONFIG = {
 
     immunityTypes,
 
+
     // Languages, alphabetical by common, uncommon, secret
     languages: {
         common: "PF2E.LanguageCommon",

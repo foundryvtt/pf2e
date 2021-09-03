@@ -83,7 +83,6 @@ export type ResistanceType = SetElement<typeof RESISTANCE_TYPES>;
 export interface LabeledResistance extends LabeledNumber {
     type: ResistanceType;
 }
-
 export interface BaseTraitsData {
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity: { value: Rarity };
