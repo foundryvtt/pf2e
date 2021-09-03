@@ -24,7 +24,25 @@
             "value": ""
         },
         "damage": {
-            "value": {}
+            "applyMod": false,
+            "value": {
+                "0": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "fire"
+                    },
+                    "value": "1d8"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "subtype": "",
+                        "value": "sonic"
+                    },
+                    "value": "1d8"
+                }
+            }
         },
         "description": {
             "value": "<p>A brilliant and clamorous display of sparks and colorful fireworks explode around your enemies, dealing 1d8 fire damage and 1d8 sonic damage to creatures within a 10-foot burst. All creatures in the area must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature takes full damage and is dazzled for 3 rounds.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, takes [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and is dazzled for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial fire damage increases by 1d8,<br />the sonic damage increases by 1d8, and the persistent<br />fire damage a creature takes on a critical failure<br />increases by 1d4.</p>"
@@ -54,7 +72,10 @@
         },
         "scaling": {
             "damage": {
-                "0": "1d8"
+                "0": "1d8",
+                "1": "1d8",
+                "2": "",
+                "3": ""
             },
             "interval": 2
         },

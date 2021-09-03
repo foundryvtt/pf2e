@@ -78,7 +78,7 @@ declare module foundry {
             displayBars: number;
             bar1: TokenBarSource;
             bar2: TokenBarSource;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class TokenData<

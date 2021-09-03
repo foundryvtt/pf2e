@@ -20,12 +20,16 @@ export class Migration659MultipleDamageRows extends MigrationBase {
         const data: SpellSystemDataOld = itemData.data;
 
         // Migrate scaling (standalone)
-        if (data.scaling && (data.scaling.mode || data.scaling.formula)) {
-            if (tupleHasValue(modes, data.scaling.mode)) {
+        if (data.scaling instanceof Object) {
+            if (typeof data.scaling.mode === "string" && tupleHasValue(modes, data.scaling.mode)) {
                 data.scaling.interval = modes.indexOf(data.scaling.mode) + 1;
             }
 
-            if (formulaHasValue(data.scaling.formula)) {
+            if (
+                typeof data.scaling.formula === "string" &&
+                formulaHasValue(data.scaling.formula) &&
+                !data.scaling.damage
+            ) {
                 data.scaling.damage = { 0: data.scaling.formula };
             }
 
@@ -47,8 +51,8 @@ export class Migration659MultipleDamageRows extends MigrationBase {
         }
 
         // Migrate damage and damage type
-        if ("damageType" in data || typeof data.damage.value === "string") {
-            if (typeof data.damage.value === "string" && formulaHasValue(data.damage.value)) {
+        if (typeof data.damage.value === "string") {
+            if (formulaHasValue(data.damage.value)) {
                 const value = data.damage.value;
                 data.damage.value = {
                     0: {
@@ -62,12 +66,14 @@ export class Migration659MultipleDamageRows extends MigrationBase {
             }
 
             if ("game" in globalThis) {
-                data["-=damageType"] = null;
                 data.damage["-=applyMod"] = null;
             } else {
-                delete data.damageType;
                 delete data.damage.applyMod;
             }
+        }
+
+        if ("damageType" in data) {
+            "game" in globalThis ? (data["-=damageType"] = null) : (data.damageType = undefined);
         }
     }
 }
@@ -79,7 +85,7 @@ interface SpellSystemDataOld extends Omit<SpellSystemData, "damage" | "scaling">
         "-=applyMod"?: null;
     };
     damageType?: {
-        value: DamageType;
+        value?: DamageType;
     };
     "-=damageType"?: null;
     scaling?: {
