@@ -14,6 +14,7 @@ import { VisionLevel, VisionLevels } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
+import { TokenDocumentPF2e } from "@scene";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -425,6 +426,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
             targets: new Set(targets),
             target,
         };
+    }
+
+    /** Work around bug in which creating embedded items via actor.update doesn't trigger _onCreateEmbeddedDocuments */
+    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this> {
+        await super.update(data, options);
+
+        const hasItemInserts =
+            Array.isArray(data.items) &&
+            data.items.some((item) => item instanceof Object && !this.items.get(item.id ?? ""));
+        if (hasItemInserts && this.parent instanceof TokenDocumentPF2e) {
+            this.redrawTokenEffects();
+        }
+
+        return this;
     }
 
     /* -------------------------------------------- */
