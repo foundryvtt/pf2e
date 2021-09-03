@@ -14,7 +14,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
-import { AbilityString, BaseActorDataPF2e, RollOptionFlags } from "./data/base";
+import { AbilityString, BaseActorDataPF2e, ImmunityType, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -131,8 +131,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
-    isImmuneTo(immunity: Immunity): boolean {
-        return this.data.data.traits.di.value.includes(immunity);
+    isImmuneTo(immunity: ImmunityType): boolean {
+        const immunities = [...this.data.data.traits.di.value, this.traits.has("mindless") ? "frightened" : []].flat();
+        return immunities.includes(immunity);
     }
 
     /**
