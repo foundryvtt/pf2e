@@ -440,7 +440,7 @@ export class CheckModifier extends StatisticModifier {
      * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, duplicate(statistic.modifiers).concat(modifiers));
+        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers));
     }
 }
 
