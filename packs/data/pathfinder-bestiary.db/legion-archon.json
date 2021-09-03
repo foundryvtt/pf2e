@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 27,
                 "details": "",
                 "value": 27
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "Speed 30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "LG"
             },
             "creatureType": "Celestial",
-            "flavorText": "<p>Despite their flaming blades and heavy armor, legion archons are the diplomats of peace among the archons, preferring justice via compromise and mutual benefit rather than justice by the sword. Nonetheless, when forced to fight against fiendish powers-especially fiends that embody the sin of wrath-legion archons don't hesitate in battle, mounting offensives under divine commanders like Iomedae.</p>",
+            "flavorText": "<p>Despite their flaming blades and heavy armor, legion archons are the diplomats of peace among the archons, preferring justice via compromise and mutual benefit rather than justice by the sword. Nonetheless, when forced to fight against fiendish powers-especially fiends that embody the sin of wrath-legion archons don't hesitate in battle, mounting offensives under divine commanders like Iomedae.</p>\n<hr />\n<p>Archons are guardians of Heaven and enemies of chaos and evil. They openly fight back the spread of fiends but also quietly nurture the seeds of virtue within mortals, teaching the denizens of the Material Plane how to act with honor and integrity, enact just laws, and cast off sin and temptation.</p>\n<p>Archons live in the immense seven-tiered mountain of Heaven. They manifest in the Garden at the mountain's peak from mortal souls who answer a mysterious voice. There they swear to forever serve the cause of justice and transform into their new archon forms. Intensely orderly in their metamorphosis, new archons begin as lantern archons or other lesser forms, transforming into ever-greater archons as their virtue and achievements grow. Each archon represents a particular virtue, such as hope, charity, justice, or courage, and they gain strength in the presence of mortals who exemplify this virtue. Due to their extremely lawful nature, archons sometimes find themselves at odds with azatas.</p>",
             "level": {
                 "value": 7
             },
@@ -99,6 +101,7 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Fire",
                     "type": "fire",
                     "value": "15"
@@ -112,7 +115,7 @@
                 }
             ],
             "languages": {
-                "custom": "tongues",
+                "custom": "Tongues",
                 "selected": [],
                 "value": [
                     "celestial",
@@ -144,10 +147,10 @@
     "img": "systems/pf2e/icons/bestiary-1/legion_archon.webp",
     "items": [
         {
-            "_id": "Hh8EevulXC6HhGMC",
+            "_id": "oWvZ2SZzMcdxkRRj",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -155,11 +158,7 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
                     "value": "innate"
                 },
@@ -168,7 +167,7 @@
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -240,10 +239,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "24",
-                    "item": 0,
+                    "dc": 24,
                     "mod": 0,
-                    "value": 14
+                    "value": 16
                 },
                 "tradition": {
                     "value": "divine"
@@ -264,14 +262,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "dFimr1zPNJ85tWNT",
+            "_id": "m7io5ugLsLLhISWa",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -280,6 +281,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -291,7 +293,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened</strong> The duration is 8 hours.</p>"
+                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -299,16 +301,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 5
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -322,9 +330,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tongues",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -348,27 +362,34 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": []
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
+                }
+            },
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Tongues",
+            "name": "Tongues (Constant)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "J8JkgLMkh0cFrbGO",
+            "_id": "lGrwi0lRYYYUqgHg",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -377,6 +398,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -388,7 +410,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -396,16 +418,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -419,9 +447,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -452,21 +486,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door",
+            "name": "Dimension Door (At Will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "6FPHhubh02EZuYsr",
+            "_id": "M4M5iOK0dkXdmQ1z",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -475,6 +516,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -486,7 +528,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -498,12 +540,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -517,7 +562,13 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -531,7 +582,7 @@
                     "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -554,14 +605,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.webp",
-            "name": "Light - Cantrips",
+            "name": "Light",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "woxdg5zcr8IgAY4G",
+            "_id": "ENmR4CNHTgpFIGPf",
             "data": {
                 "ability": {
                     "value": ""
@@ -570,6 +625,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -577,8 +635,9 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
-                    "somatic": true,
+                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -588,7 +647,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
                 },
                 "duration": {
                     "value": "see below"
@@ -600,12 +659,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -619,9 +681,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "message",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=190"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -633,7 +701,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
                     "value": [
@@ -656,14 +724,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/message.webp",
-            "name": "Message - Cantrips",
+            "name": "Message",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "EdIvLhJHWGEcpoBE",
+            "_id": "vMF3LNnfevYlEaMP",
             "data": {
                 "ability": {
                     "value": ""
@@ -672,6 +744,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -679,6 +754,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -698,16 +774,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -721,9 +803,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-strike",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=345"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -754,14 +842,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Gb7SeieEvd0pL2Eh"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-strike.webp",
             "name": "True Strike",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "HzAK40B0S6ArMbnr",
+            "_id": "SjNYOJ4bBOh4ev4l",
             "data": {
                 "ability": {
                     "value": ""
@@ -770,6 +862,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -777,6 +872,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -796,16 +892,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -819,9 +921,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-strike",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=345"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -852,14 +960,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Gb7SeieEvd0pL2Eh"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-strike.webp",
             "name": "True Strike",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "jOwoEqt7MqhKP9ju",
+            "_id": "h4D9wvY8V95ypEnS",
             "data": {
                 "ability": {
                     "value": ""
@@ -868,6 +980,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -875,6 +990,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -894,16 +1010,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "Hh8EevulXC6HhGMC"
+                    "value": "oWvZ2SZzMcdxkRRj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -917,9 +1039,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-strike",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=345"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -950,21 +1078,34 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Gb7SeieEvd0pL2Eh"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-strike.webp",
             "name": "True Strike",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "Ht5MHcO3k8Y1XikB",
+            "_id": "DkY3etmSL0o9ivvP",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 6
+                },
+                "armorType": {
+                    "value": "heavy"
+                },
+                "baseItem": "full-plate",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": -3
                 },
                 "collapsed": {
                     "value": false
@@ -973,19 +1114,25 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                },
+                "dex": {
+                    "value": 0
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "4"
+                },
+                "group": {
+                    "value": "plate"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -996,65 +1143,136 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
+                        "name": "Unusual Full Plate"
                     }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "30 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 17,
+                                    "value": -10
+                                },
+                                {
+                                    "start": 18,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Bulwark",
+                        "predicate": {
+                            "all": [
+                                "damaging-effect"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "type": "ability",
+                        "value": 3
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "full-plate",
                 "source": {
                     "value": ""
                 },
+                "speed": {
+                    "value": -10
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 18
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "bulwark"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "5"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "full plate",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Gq1cZWSKOtJhKd2p"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment//armor/fullplate.webp",
+            "name": "Full Plate",
             "sort": 900000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
             "_id": "vJesB2gBXUdU1CMN",
@@ -1063,6 +1281,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1072,10 +1291,6 @@
                     "8f38iqlmmuazz5awyshs": {
                         "damage": "2d10+5",
                         "damageType": "slashing"
-                    },
-                    "ipd6j1vo0p2i6vx2r4rl": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     },
                     "l063wz1ed4izkny2u3ah": {
                         "damage": "1d6",
@@ -1118,6 +1333,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1127,10 +1343,6 @@
                     "cwp2arl0h869mwbsq76l": {
                         "damage": "2d10+5",
                         "damageType": "slashing"
-                    },
-                    "ldbsx9ek7t82nhr8r309": {
-                        "damage": "1d6",
-                        "damageType": "fire"
                     },
                     "d76u6skf91ufj6ldrh2q": {
                         "damage": "1d6",
@@ -1168,6 +1380,150 @@
             "type": "melee"
         },
         {
+            "_id": "2ujro0hgy7xKZGw3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "ZUBqUDHdZhSOTiQD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "dcxAPtLWxZkmq1es",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
             "_id": "3xoqcUVujuOLU773",
             "data": {
                 "actionCategory": {
@@ -1180,7 +1536,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. Enemies that start their turn in the area or enter it must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"aura,divine,enchantment\" data-pf2-label=\"Menacing Guardian DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, they take a -1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first. Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 30 feet</p>\n<hr />\n<p>Enemies that start their turn in the area or enter it must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"aura,divine,enchantment\" data-pf2-label=\"Menacing Guardian DC\" data-pf2-show-dc=\"gm\">Will</span> save.<span data-visibility=\"gm\"> On a failure, they take a -1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first.</span></p>\n<p data-visibility=\"gm\">Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1210,9 +1566,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Menacing Guardian",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1228,7 +1584,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster. <strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it. A legion archon can also make a Retributive Strike by throwing its flame of justice.</p>"
+                    "value": "<p><strong>Damage Reduction</strong> 9</p>\n<p>A legion archon can also make a Retributive Strike by throwing its flame of justice.</p>\n<hr />\n<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1254,9 +1610,73 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retributive Strike",
-            "sort": 1300000,
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "2sLJMpYvshlQx7Ck",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1272,7 +1692,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Once per day, if an archon sees another creature cast @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}, it can cast an innate @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door} (heightened to 5th level)within 1 round to attempt to follow that creature to the maximum distance of the archon's @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}. If the archon's @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door} has enough distance, the archon appears the same distance and direction from the creature as before either used @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}.</p>"
+                    "value": "<p>Once per day, if an archon sees another creature cast <em>@Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}</em>, it can cast an innate <em>dimension door</em> (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's <em>dimension door</em>.</p>\n<p>If the archon's <em>dimension door</em> has enough distance, the archon appears the same distance and direction from the creature as before either used <em>dimension door</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1300,7 +1720,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Archon's Door",
-            "sort": 1400000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1316,12 +1736,49 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A legion archon's spirit of righteousness manifests in its hands as a mighty two-handed sword called the flame of justice. A legion archon can throw its flame of justice as a ranged weapon. If disarmed or thrown, the flame of justice vanishes after landing or dealing damage and reappears in the legion archon's hands again instantly. On a critical hit, the fire damage from the flame of justice deals maximum damage (6 on the d6) before being doubled for the critical hit, and the target takes [[/r 1d10 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>A legion archon's spirit of righteousness manifests in its hands as a mighty two-handed sword called the flame of justice.</p>\n<p>A legion archon can throw its flame of justice as a ranged weapon. If disarmed or thrown, the flame of justice vanishes after landing or dealing damage and reappears in the legion archon's hands again instantly.</p>\n<p>On a critical hit, the fire damage from the flame of justice deals maximum damage ([[/r 6 #fire]]{6} on the d6) before being doubled for the critical hit, and the target takes [[/r 1d10 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Flame of Justice - Critical Hit",
+                        "property": "flags.pf2e.rollOptions.damage-roll.flame-of-justice"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "not": [
+                                "flame-of-justice"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "flame-of-justice"
+                            ]
+                        },
+                        "selector": "damage",
+                        "value": 6
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "flame-of-justice-attack",
+                        "text": "<p class='compact-text'><div data-visibility='gm'><strong>{item|name}</strong> The fire damage from the flame of justice deals maximum damage ([[/r 6 #fire]]{6} on the d6) before being doubled for the critical hit, and the target takes [[/r 1d10 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</div></p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1345,9 +1802,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Flame of Justice",
-            "sort": 1500000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1382,7 +1839,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1417,7 +1874,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1452,7 +1909,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1487,7 +1944,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1522,7 +1979,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1557,7 +2014,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],
