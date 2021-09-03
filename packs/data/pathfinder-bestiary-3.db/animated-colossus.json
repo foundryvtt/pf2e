@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
-                "details": "construct armor",
+                "base": 39,
+                "details": "(35 when broken); construct armor",
                 "value": 39
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "Hardness 15",
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
-            "flavorText": "<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>\n<p>Animating a 100-foot-tall statue is worth the cost for spellcasters guarding immense dungeons.</p>",
+            "flavorText": "<p>Animating a 100-foot-tall statue is worth the cost for spellcasters guarding immense dungeons.</p>\n<hr />\n<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>",
             "level": {
                 "value": 15
             },
@@ -142,7 +143,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Improved Grab"
+                        "improved-grab"
                     ]
                 },
                 "bonus": {
@@ -298,7 +299,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -320,7 +341,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
+            "name": "Construct Armor (Hardness 15)",
             "sort": 400000,
             "type": "action"
         },
@@ -381,7 +402,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The colossus can Grab a creature using only one hand.</p>\n<p>It can move normally with a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in its fist, carrying the creature along. If it has two creatures grabbed in this way, it can't use its fist Strike.</p>"
+                    "value": "<p>The colossus can @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} a creature using only one hand.</p>\n<p>It can move normally with a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in its fist, carrying the creature along. If it has two creatures grabbed in this way, it can't use its fist Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -595,10 +616,10 @@
     "name": "Animated Colossus",
     "token": {
         "disposition": -1,
-        "height": 4,
+        "height": 6,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Animated Colossus",
-        "width": 4
+        "width": 6
     },
     "type": "npc"
 }
