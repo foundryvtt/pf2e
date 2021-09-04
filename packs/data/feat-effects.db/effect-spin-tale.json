@@ -1,0 +1,79 @@
+{
+    "_id": "UzIamWcEJTOjwfoA",
+    "data": {
+        "description": {
+            "value": "<p>You gains a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "rounds",
+            "value": 10
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Spin Tale",
+                "predicate": {
+                    "all": [
+                        "fear",
+                        "spin-tale"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Spin Tale",
+                "predicate": {
+                    "all": [
+                        "fear",
+                        "spin-tale"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "attack",
+                "value": 1
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Target is villain of Folklorist's Spun Tale",
+                "property": "flags.pf2e.rollOptions.all.spin-tale"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Spin Tale",
+    "type": "effect"
+}
