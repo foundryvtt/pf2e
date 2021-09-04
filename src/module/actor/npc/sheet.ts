@@ -203,6 +203,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpellcasting(sheetData);
     }
 
+    private prepareIWR(sheetData: NPCSheetData) {
+        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
+        for (const weakness of sheetData.data.traits.dv) {
+            weakness.label = weaknessTypes[weakness.type];
+        }
+
+        const resistanceTypes: Record<string, string> = CONFIG.PF2E.resistanceTypes;
+        for (const resistance of sheetData.data.traits.dr) {
+            resistance.label = resistanceTypes[resistance.type] ?? resistance.label;
+        }
+    }
+
     override getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
@@ -230,7 +243,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
-        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
         // Shield
