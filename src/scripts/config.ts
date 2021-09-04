@@ -1083,6 +1083,7 @@ export const PF2ECONFIG = {
         worncloak: "PF2E.TraitWornCloak",
         worncirclet: "PF2E.TraitWornCirclet",
         worncollar: "PF2E.TraitWornCollar",
+        worncrown: "PF2E.TraitWornCrown",
         wornepaulet: "PF2E.TraitWornEpaulet",
         worneyepiece: "PF2E.TraitWornEyepiece",
         worngarment: "PF2E.TraitWornGarment",
