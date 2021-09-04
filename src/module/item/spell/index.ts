@@ -109,14 +109,13 @@ export class SpellPF2e extends ItemPF2e {
         const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
         const formulas = [];
         for (const [idx, damage] of this.damage.entries()) {
-            if (!damage.value || damage.value === "0") continue;
-
             // Persistent / Splash are currently not supported
             if (damage.type.subtype === "persistent" || damage.type.subtype === "splash") {
                 continue;
             }
 
-            const parts: (string | number)[] = [damage.value];
+            const parts: (string | number)[] = [];
+            if (damage.value && damage.value !== "0") parts.push(damage.value);
             if (damage.applyMod && this.actor) parts.push("@mod");
 
             // Add certain parts (like dangerous sorcerer/elite/weak) if its the first damage entry only
@@ -140,7 +139,7 @@ export class SpellPF2e extends ItemPF2e {
             const scaling = this.data.data.scaling;
             if (scaling?.interval) {
                 const scalingFormula = scaling.damage[idx];
-                if (scalingFormula && scaling.interval) {
+                if (scalingFormula && scalingFormula !== "0" && scaling.interval) {
                     const partCount = Math.floor((castLevel - this.level) / scaling.interval);
                     if (partCount > 0) {
                         const scalingParts = Array(partCount).fill(scalingFormula);
@@ -148,6 +147,9 @@ export class SpellPF2e extends ItemPF2e {
                     }
                 }
             }
+
+            // If no formula, continue
+            if (parts.length === 0) continue;
 
             // Return the final result, but turn all "+ -" into just "-"
             // These must be padded to support - or roll parsing will fail (Foundry 0.8)
