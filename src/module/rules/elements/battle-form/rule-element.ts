@@ -232,6 +232,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             ability: strikeData.ability,
             category: strikeData.category,
             group: strikeData.group,
+            options: [slug],
             damage: { base: strikeData.damage },
             range: "melee",
             traits: strikeData.traits,
@@ -253,7 +254,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.pruneModifiers(action);
                 const baseModifier: number = this.resolveValue(strike.modifier);
-                action.unshift(new ModifierPF2e(this.label, baseModifier, "untyped"));
+                action.unshift(new ModifierPF2e(this.label.replace(/\s*\([^)]+\)$/, ""), baseModifier, "untyped"));
 
                 // Also replace the label
                 const title = game.i18n.localize("PF2E.RuleElement.Strike");

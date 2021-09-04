@@ -52,7 +52,7 @@ export class Migration659MultipleDamageRows extends MigrationBase {
 
         // Migrate damage and damage type
         if (typeof data.damage.value === "string") {
-            if (formulaHasValue(data.damage.value)) {
+            if (formulaHasValue(data.damage.value) || data.damage.applyMod) {
                 const value = data.damage.value;
                 data.damage.value = {
                     0: {
