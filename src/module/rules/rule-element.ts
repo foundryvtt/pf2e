@@ -193,7 +193,7 @@ abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(
+    protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
         { evaluate = true } = {}

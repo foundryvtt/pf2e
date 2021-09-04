@@ -176,7 +176,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 for (const entry of trait) {
                     if (typeof entry === "object") {
                         const entryType = game.i18n.localize(choices[entry.type] ?? "");
-                        if ("exceptions" in entry && entry.exceptions !== "") {
+                        if (entry.exceptions) {
                             const exceptions = entry.exceptions;
                             (trait as any).selected[entry.type] = `${entryType} (${entry.value}) [${exceptions}]`;
                         } else {

@@ -12,7 +12,8 @@ export class Migration667HPSubProperties extends MigrationBase {
 
         const rules = itemSource.data.rules;
         const needsRuleElement = !rules.some(
-            (rule) => "path" in rule && rule["path"] === "data.attributes.hp.recoveryMultiplier"
+            (rule: Record<string, unknown>) =>
+                "path" in rule && rule["path"] === "data.attributes.hp.recoveryMultiplier"
         );
         if (needsRuleElement) {
             const element: AELikeSource = {
@@ -29,7 +30,7 @@ export class Migration667HPSubProperties extends MigrationBase {
         if (!["dhampir", "negative-healing"].includes(slug)) return;
         const rules = itemSource.data.rules;
         const needsRuleElement = !rules.some(
-            (rule) => "path" in rule && rule["path"] === "data.attributes.hp.negativeHealing"
+            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.negativeHealing"
         );
 
         if (needsRuleElement) {

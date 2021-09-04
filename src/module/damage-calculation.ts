@@ -7,7 +7,7 @@ const physicalDamageTypes = ["bludgeoning", "piercing", "slashing", "bleed"] as 
 const lifeEnergyDamageTypes = ["positive", "negative"] as const;
 const energyDamageTypes = ["acid", "cold", "electricity", "fire", "sonic", "force", ...lifeEnergyDamageTypes] as const;
 const alignmentDamageTypes = ["chaotic", "lawful", "good", "evil"] as const;
-const damageTypes = new Set([
+export const DAMAGE_TYPES = new Set([
     ...physicalDamageTypes,
     ...energyDamageTypes,
     ...alignmentDamageTypes,
@@ -16,60 +16,63 @@ const damageTypes = new Set([
     "untyped", // see https://2e.aonprd.com/Spells.aspx?ID=162
 ] as const);
 
-export type SetElement<SetType extends Set<unknown>> = SetType extends Set<infer ElementType> ? ElementType : never;
-
-export type DamageType = SetElement<typeof damageTypes>;
+export type DamageType = SetElement<typeof DAMAGE_TYPES>;
 
 export function isDamageType(value: string): value is DamageType {
-    return damageTypes.has(value as DamageType);
+    return DAMAGE_TYPES.has(value as DamageType);
 }
 
-const attackTraits = new Set([
+export const DAMAGE_CATEGORIES = new Set([
     "adamantine",
-    "air",
-    "area-damage",
+    "alignment",
     "coldiron",
     "darkwood",
-    "earth",
-    "fire",
+    "energy",
     "ghostTouch",
-    "light",
-    "magical",
     "mithral",
-    "nonlethal attacks", // has to be present on every damage type pool!
-    "persistent-damage",
-    "salt",
-    "salt water",
-    "silver",
     "orichalcum",
-    "unarmed",
-    "vorpal",
+    "physical",
+    "precision",
+    "salt",
+    "salt-water",
+    "silver",
     "warpglass",
-    "water",
 ] as const);
 
-export type AttackTrait = SetElement<typeof attackTraits>;
+export const DAMAGE_TRAITS = new Set(["air", "earth", "light", "magical", "unarmed", "water"] as const);
 
-export function isAttackTrait(trait: string): trait is AttackTrait {
-    return attackTraits.has(trait as AttackTrait);
+export const ATTACK_TYPES = new Set([
+    "area-damage",
+    "nonlethal-attacks", // has to be present on every damage type pool!
+    "persistent-damage",
+    "precision",
+    "vorpal",
+    "weapons",
+] as const);
+
+export type AttackType = SetElement<typeof ATTACK_TYPES>;
+export type DamageCategory = SetElement<typeof DAMAGE_CATEGORIES>;
+export type DamageTrait = SetElement<typeof DAMAGE_TRAITS> | DamageType;
+
+export function isAttackTrait(trait: string): trait is AttackType {
+    return ATTACK_TYPES.has(trait as AttackType);
 }
 
-const combinedTraits = new Set([
-    ...attackTraits,
-    ...damageTypes,
+const combinedTypes = new Set([
+    ...ATTACK_TYPES,
+    ...DAMAGE_CATEGORIES,
+    ...DAMAGE_TRAITS,
+    ...DAMAGE_TYPES,
     "all",
-    "physical",
     "non-magical",
     "critical-hits",
     "splash-damage",
-    "energy",
-    "precision",
 ] as const);
 
-export type CombinedTrait = SetElement<typeof combinedTraits>;
+export type CombinedTrait = SetElement<typeof combinedTypes>;
 
 export function isCombinedTrait(trait: string): trait is CombinedTrait {
-    return combinedTraits.has(trait as CombinedTrait);
+    return combinedTypes.has(trait as CombinedTrait);
 }
 
 export class DamageValues {
@@ -78,7 +81,7 @@ export class DamageValues {
     private readonly critical: number;
     private readonly criticalPrecision: number;
     private readonly splash: number;
-    private readonly traits: Set<AttackTrait>;
+    private readonly traits: Set<AttackType | DamageTrait>;
 
     constructor({
         normal = 0,
@@ -93,7 +96,7 @@ export class DamageValues {
         critical?: number;
         criticalPrecision?: number;
         splash?: number;
-        traits?: Set<AttackTrait>;
+        traits?: Set<AttackType | DamageTrait>;
     } = {}) {
         this.normal = normal;
         this.precision = precision;
@@ -160,7 +163,7 @@ export class DamageValues {
         critical?: number;
         criticalPrecision?: number;
         splash?: number;
-        traits?: Set<AttackTrait>;
+        traits?: Set<AttackType>;
     }): DamageValues {
         return new DamageValues({
             normal: normal ?? this.normal,
@@ -309,7 +312,7 @@ function denormalizeTraits(traits: Set<CombinedTrait>): Set<CombinedTrait> {
     if ([...energyDamageTypes].some((damageType) => traits.has(damageType))) {
         result.add("energy");
     }
-    if (traits.has("salt water")) {
+    if (traits.has("salt-water")) {
         result.add("water");
     }
     // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
@@ -353,7 +356,7 @@ function filterModifiers<T extends Modifier>(
         "precision",
         "splash-damage",
         ...denormalizeTraits(new Set([damageType])),
-        ...(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>()),
+        ...(damage.get(damageType)?.getTraits() ?? new Set<AttackType>()),
     ]);
     return Array.from(damageTraits)
         .flatMap((trait) => modifiersByType.get(trait) ?? [])
@@ -412,7 +415,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
     const flattenedImmunities = immunities
         .flatMap((immunity) => {
             if (immunity.getType() === "object-immunities") {
-                return ["bleed", "poison", "nonlethal attacks", "mental"].map((type) => {
+                return ["bleed", "poison", "nonlethal-attacks", "mental"].map((type) => {
                     return immunity.copy({ type });
                 });
             } else {
