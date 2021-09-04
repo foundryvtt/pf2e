@@ -2002,7 +2002,6 @@ export const PF2ECONFIG = {
     },
 
     spellScalingModes: {
-        0: "PF2E.SpellScalingModeNone",
         1: "PF2E.SpellScalingModeLevel1",
         2: "PF2E.SpellScalingModeLevel2",
         3: "PF2E.SpellScalingModeLevel3",
