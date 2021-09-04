@@ -24,33 +24,17 @@ export interface ConditionSystemData extends ItemSystemData {
             id: string;
             type: "status" | "condition" | "feat" | "weapon" | "armor" | "consumable" | "equipment" | "spell";
         };
-        children: [
-            {
-                id: string;
-                type: "condition";
-            }
-        ];
-        overriddenBy: [
-            {
-                id: string;
-                type: "condition";
-            }
-        ];
-        overrides: [
-            {
-                id: string;
-                type: "condition";
-            }
-        ];
+        children: { id: string; type: "condition" }[];
+        overriddenBy: { id: string; type: "condition" }[];
+        overrides: { id: string; type: "condition" }[];
+
         /**
          * This status is immune, and thereby inactive, from the following list.
          */
-        immunityFrom: [
-            {
-                id: string;
-                type: "status" | "condition" | "feat" | "weapon" | "armor" | "consumable" | "equipment" | "spell";
-            }
-        ];
+        immunityFrom: {
+            id: string;
+            type: "status" | "condition" | "feat" | "weapon" | "armor" | "consumable" | "equipment" | "spell";
+        }[];
     };
     hud: {
         statusName: string;
