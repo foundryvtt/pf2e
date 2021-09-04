@@ -1,5 +1,25 @@
 # Patch Notes:
 
+## Version 2.13.2
+### Bug Fixes
+* (stwlam) Fix initiative becoming NaN on dying PCs
+* (stwlam) Fix condition token icons getting applied properly
+
+### Content Changes
+* (TMun) Changes oracle for additional skills from 4 to 3. Closes #1694
+* (InfamousSky) Fix a few mistakes in some Secret of Magic spells
+* (InfamousSky) Add strike rule elements for holy water and unholy water. Closes #1677
+* (InfamousSky) Add correct traits to _Mirror of Sorshen inline saves and linked _dominate_ spell in description. Closes #1683
+* (Abaddon) Brush up of Bestiary 3 animated objects
+* (Abaddon) Brush up of Bestiary 1 daemons
+* (Abaddon) Add `Volley 20 ft.` and `Volley 50 ft.` attack traits
+* (Abaddon) Brush up reload, versatile and volley attack traits on Bestiary 1 monsters
+* (SpartanCPA) Standardize formatting for versatile, range, reload, and thrown traits
+* (SpartanCPA) Standardize formatting of single quotes for Secret of Magic items
+* (SpartanCPA) Add type traits to all Dragon's Breath potions
+* (SpartanCPA) Brush up of Extinction Curse book 6/Bestiary 1 creatures
+
+
 ## Version 2.13.1
 ### Bug Fixes
 * (stwlam) Use ModifierPF2e#clone instead of duplicate to preserve properties
