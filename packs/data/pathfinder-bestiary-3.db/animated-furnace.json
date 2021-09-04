@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
-                "details": "construct armor",
+                "base": 30,
+                "details": "(26 when broken); construct armor",
                 "value": 30
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "Hardness 10",
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
-            "flavorText": "<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>\n<p>This huge forge or oven is animated to protect a workspace or kitchen, travel alongside its owner, or both.</p>",
+            "flavorText": "<p>This huge forge or oven is animated to protect a workspace or kitchen, travel alongside its owner, or both.</p>\n<hr />\n<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>",
             "level": {
                 "value": 9
             },
@@ -142,7 +143,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Improved Grab"
+                        "improved-grab"
                     ]
                 },
                 "bonus": {
@@ -252,7 +253,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -274,7 +295,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
+            "name": "Construct Armor (Hardness 10)",
             "sort": 300000,
             "type": "action"
         },
@@ -291,7 +312,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The animated furnace opens its door and fans its flames in a 30-foot cone that deals [[/r 5d6 #fire]]{5d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Fan the Flames DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>The animated furnace opens its door and fans its flames in a <span data-pf2-effect-area=\"cone\" data-pf2-distance=\"30\">30-foot cone</span> that deals [[/r 5d6 #fire]]{5d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect,fire\" data-pf2-label=\"Fan the Flames DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -373,7 +394,7 @@
             "type": "action"
         },
         {
-            "_id": "4dKYIxSW6LS5FWEZ",
+            "_id": "clhTA2gOuBMmlt3H",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
