@@ -1,0 +1,143 @@
+{
+    "_id": "0yy4t4UY1HqrEo70",
+    "data": {
+        "description": {
+            "value": "<p>You bind yourself to the power of Hell, transforming into a Medium devil battle form. When you cast this spell, choose barbazu, erinys, osyluth, or sarglagon. If you choose osyluth or sarglagon, the battle form is Large and you must have enough space to expand into or the spell is lost. While in this form you gain the devil and fiend traits. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of the form that you choose:</p>\n<ul>\n<li>AC = 22 + your level. Ignore your armor check's penalty and Speed reduction.</li>\n<li>5 temporary Hit Points, resistance 5 to physical damage (except silver), and weakness 5 to good.</li>\n<li>Resistance 10 to fire.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you use. You're trained with them. Your attack modifier is +20, and you use the listed damage. These attacks are Strength based (for the purpose of the enfeebled condition, for example). If your attack modifier is higher for the given unarmed attack or weapon, you can use it instead.</li>\n<li>Athletics modifier of +23, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of devil you choose:</p>\n<ul>\n<li><strong>Barbazu</strong> Speed 35 feet;\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> glaive (deadly d8, forceful, reach 10 feet), <strong>Damage</strong> 2d8+10 slashing plus 1d6 evil and 1d6 persistent bleed;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> beard, <strong>Damage</strong> 3d8 piercing plus 1d6 evil;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile), <strong>Damage</strong> 3d6 slashing plus 1d6 evil</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "label": "Devil Form (Barbazu)",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @details.level.value"
+                    },
+                    "canCast": false,
+                    "canSpeak": false,
+                    "dismissable": true,
+                    "hasHands": true,
+                    "ownModifier": {
+                        "skills": true,
+                        "strikes": true
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "land": 35
+                    },
+                    "strikes": {
+                        "beard": {
+                            "ability": "str",
+                            "baseType": "beard",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "label": "Beard",
+                            "modifier": 20,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.claw",
+                            "modifier": 20,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        },
+                        "glaive": {
+                            "ability": "str",
+                            "baseType": "glaive",
+                            "category": "martial",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 10
+                            },
+                            "group": "polearm",
+                            "label": "PF2E.Weapon.Base.glaive",
+                            "modifier": 20,
+                            "traits": [
+                                "deadly-d8",
+                                "forceful",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "devil",
+                        "fiend"
+                    ],
+                "tempHP": 5
+                }
+            },
+            {
+                "damageType": "evil",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "damage"
+            },
+            {
+                "key": "Note",
+                "selector": "glaive-damage",
+                "text": "<p class='compact-text'><strong>Devil Form (Barbazu)</strong>: [[/r 1d6 #persistent bleed]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}</p>"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Devil Form (Barbazu)",
+    "type": "effect"
+}
