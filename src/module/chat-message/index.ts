@@ -100,6 +100,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         $html.on("mouseenter", () => this.onHoverIn());
         $html.on("mouseleave", () => this.onHoverOut());
         $html.find(".message-sender").on("click", this.onClick.bind(this));
+        $html.on("click", "h3", (event: JQuery.ClickEvent) => {
+            ChatMessagePF2e.onItemChatCardToggleContent(event);
+        });
 
         return $html;
     }
@@ -134,6 +137,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this.isRoll && game.settings.get("pf2e", "drawCritFumble")) {
             CriticalHitAndFumbleCards.handleDraw(this);
         }
+    }
+
+    private static onItemChatCardToggleContent(event: JQuery.ClickEvent) {
+        event.preventDefault();
+        const header = event.currentTarget;
+        const card = header.closest(".chat-message");
+        const content = card.querySelector(".card-content");
+        content.style.display = content.style.display === "none" ? "block" : "none";
     }
 }
 
