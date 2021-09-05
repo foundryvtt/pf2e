@@ -71,6 +71,10 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         super.prepareDerivedData();
         if (!(this.initialized && this.actor && canvas.scene)) return;
 
+        // Temporary token image
+        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+
+        // Token dimensions from actor size
         this.prepareSize();
 
         if (!canvas.sight.rulesBasedVision) return;
