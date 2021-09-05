@@ -262,6 +262,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
             }
         }
+
+        // Remove any striking rule elements
+        synthetics.striking = {};
     }
 
     private pruneModifiers(statistic: StatisticModifier): void {
