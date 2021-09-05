@@ -70,6 +70,8 @@ import { Migration659MultipleDamageRows } from "./migrations/659-multiple-damage
 import { Migration660DerivedSpellTraits } from "./migrations/660-derived-spell-traits";
 import { Migration661NumifyVehicleDimensions } from "./migrations/661-numify-vehicle-dimensions";
 import { Migration662LinkToActorSizeDefaults } from "./migrations/662-link-to-actor-size-defaults";
+import { Migration663FixSpellDamage } from "./migrations/663-fix-spell-damage";
+import { Migration664DeleteCUBConditions } from "./migrations/664-delete-cub-conditions";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -144,6 +146,8 @@ export class Migrations {
         Migration660DerivedSpellTraits,
         Migration661NumifyVehicleDimensions,
         Migration662LinkToActorSizeDefaults,
+        Migration663FixSpellDamage,
+        Migration664DeleteCUBConditions,
     ];
 
     static get latestVersion(): number {

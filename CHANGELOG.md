@@ -1,5 +1,26 @@
 # Patch Notes:
 
+## Version 2.13.3
+### Bug Fixes
+* (stwlam) Fix token image rule element
+* (Supe) Fix damage for spells with only a flat modifier, add damage formula to _daze_
+
+### Content Changes
+* (Abaddon) Brush up archons, add automation for Lantern of Hope ability
+* (Abaddon) Link _infectious aura_ effect in ability description
+* (Abaddon) Fix range increments for Bestiary 1 monsters
+* (TMun) Add bestiaries for Pathfinder Society Introductions and Pathfinder Society season 3. Add PFS Intro 1, Intro 2 and S3-01 NPCs
+* (TMun) Add new ritual, archetypes, items, and corresponding actions and effects from Strength of Thousands book 2. Add worn crown as a usage trait
+* (rectulo) Fix persistent damage of corrosive ammunition
+* (stwlam) Update Spell Effect: Dragon Form (Red) with battle form rule element
+* (stwlam) Update Spell Effect: Dinosaur Form (Ankylosaurus and Triceratops) to use the battle form rule elements
+* (Tikael) Add _ooze form_ spell effects
+* (Tikael) Correct AC while raging for barbarian dedication
+* (Tikael) Add new form spell effects start with C through E. Correct _fey form_
+* (VestOfHolding) Add _angel form_ spell effects
+* (InfamousSky) Secrets of Magic elementalism focus spell fixes
+
+
 ## Version 2.13.2
 ### Bug Fixes
 * (stwlam) Fix initiative becoming NaN on dying PCs
