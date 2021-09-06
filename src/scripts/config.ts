@@ -1878,7 +1878,7 @@ export const PF2ECONFIG = {
         poison: "PF2E.TraitPoison",
         polymorph: "PF2E.TraitPolymorph",
         positive: "PF2E.TraitPositive",
-        possession: "PF2E.TraitPosession",
+        possession: "PF2E.TraitPossession",
         precision: "PF2E.TraitPrecision",
         prone: "PF2E.ConditionTypeProne",
         quickened: "PF2E.ConditionTypeQuickened",
