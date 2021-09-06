@@ -9,6 +9,7 @@ import { WorldClock } from "@module/system/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { LicenseViewer } from "@module/apps/license-viewer";
+import { MigrationSummary } from "@module/apps/migration-summary";
 
 export function listen(): void {
     Hooks.once("ready", () => {
@@ -39,7 +40,9 @@ export function listen(): void {
                         { permanent: true }
                     );
                 }
-                migrationRunner.runMigration();
+                migrationRunner.runMigration().then(() => {
+                    new MigrationSummary().render(true);
+                });
             }
         }
 
