@@ -60,6 +60,13 @@ export function listen(): void {
         // Start system sub-applications
         game.pf2e.worldClock = new WorldClock();
 
+        // Sort item types for display in sidebar create-item dialog
+        game.system.entityTypes.Item.sort((typeA, typeB) => {
+            return game.i18n
+                .localize(CONFIG.Item.typeLabels[typeA] ?? "")
+                .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
+        });
+
         // Announce the system is ready in case any module needs access to an application not available until now
         Hooks.callAll("pf2e.systemReady");
     });
