@@ -15,6 +15,7 @@ import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
 import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
+import { sluggify } from "@module/utils";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -240,6 +241,8 @@ export class WeaponDamagePF2e {
         const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die as DamageDieSize;
         let baseDamageType = weapon.data.damage.damageType;
+        const { rollOptions } = actor.flags.pf2e;
+
         options = traits
             .filter((trait) => !trait.toggle)
             .map((t) => t.name)
@@ -283,7 +286,7 @@ export class WeaponDamagePF2e {
                 modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
             }
 
-            if (ability && !actor.flags.pf2e.rollOptions.all["mundane-damage:ignoreAbilityModifier"]) {
+            if (ability && !rollOptions.all["battle-form"]) {
                 numericModifiers.push(
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
                 );
@@ -362,7 +365,7 @@ export class WeaponDamagePF2e {
             if (strikingRune) {
                 strikingList.push({ label: "PF2E.StrikingRuneLabel", bonus: strikingRune });
             }
-            if (strikingList.length > 0) {
+            if (strikingList.length > 0 && !rollOptions.all["battle-form"]) {
                 const s = strikingList.reduce(
                     (highest, current) => (highest.bonus > current.bonus ? highest : current),
                     strikingList[0]
@@ -445,11 +448,9 @@ export class WeaponDamagePF2e {
         // check for weapon specialization
         const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
         if (weaponSpecializationDamage > 0) {
-            const has = (slug: string, name: string) =>
-                actor.items.some(
-                    (item) => item.type === "feat" && (item.slug?.startsWith(slug) || item.name.startsWith(name))
-                );
-            if (has("greater-weapon-specialization", "Greater Weapon Specialization")) {
+            const has = (slug: string) =>
+                actor.items.some((item) => item.type === "feat" && (item.slug ?? sluggify(item.name)).startsWith(slug));
+            if (has("greater-weapon-specialization") && !rollOptions.all["battle-form"]) {
                 numericModifiers.push(
                     new ModifierPF2e(
                         "PF2E.GreaterWeaponSpecialization",
@@ -457,7 +458,7 @@ export class WeaponDamagePF2e {
                         MODIFIER_TYPE.UNTYPED
                     )
                 );
-            } else if (has("weapon-specialization", "Weapon Specialization")) {
+            } else if (has("weapon-specialization") && !rollOptions.all["battle-form"]) {
                 numericModifiers.push(
                     new ModifierPF2e("PF2E.WeaponSpecialization", weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED)
                 );

@@ -108,7 +108,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             return;
         }
         rollOptions.all["polymorph"] = true;
-        rollOptions.all["mundane-damage:ignoreAbilityModifier"] = true;
+        rollOptions.all["battle-form"] = true;
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
