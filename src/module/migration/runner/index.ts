@@ -42,7 +42,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    /** Migrate actor or item documents in batches of 25 */
+    /** Migrate actor or item documents in batches of 50 */
     private async migrateWorldDocuments<TDocument extends ActorPF2e | ItemPF2e>(
         collection: WorldCollection<TDocument>,
         DocumentClass: {
@@ -55,7 +55,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     ): Promise<void> {
         const updateGroup: TDocument["data"]["_source"][] = [];
         for await (const document of collection) {
-            if (updateGroup.length === 25) {
+            if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
                 } catch (error) {
@@ -350,15 +350,12 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        for (const migrationPhase of migrationPhases) {
+        for await (const migrationPhase of migrationPhases) {
             if (migrationPhase.length > 0) {
                 await this.runMigrations(migrationPhase);
             }
         }
 
-        game.settings.set("pf2e", "worldSchemaVersion", schemaVersion.latest);
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: systemVersion }), {
-            permanent: true,
-        });
+        await game.settings.set("pf2e", "worldSchemaVersion", schemaVersion.latest);
     }
 }
