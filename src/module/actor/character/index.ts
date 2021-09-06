@@ -234,6 +234,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
+                systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));

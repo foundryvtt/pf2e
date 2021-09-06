@@ -1130,6 +1130,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             );
         }
 
+        // Limit resolve value to data.attributes.resolve.max value
+        if (event?.currentTarget.name === "data.attributes.resolve.value") {
+            event.currentTarget.value = Math.clamped(
+                Number(event.currentTarget.value),
+                0,
+                Number(this.actor.data.data.attributes.resolve.max)
+            );
+        }
+
         return super._onSubmit(event);
     }
 
