@@ -16,7 +16,72 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "Furious-Strike"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.damage-roll.Furious-Strike"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "Furious-Strike"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": 1
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": 2
+                        },
+                        {
+                            "start": 18,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
