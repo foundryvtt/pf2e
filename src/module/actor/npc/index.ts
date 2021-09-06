@@ -138,7 +138,7 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value),
+                    this.getHpAdjustment(data.details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
@@ -154,7 +154,7 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value) * -1,
+                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
@@ -929,16 +929,29 @@ export class NPCPF2e extends CreaturePF2e {
         return notes;
     }
 
-    protected getHpAdjustment(level: number): number {
-        // Elite/Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
-        if (level >= 20) {
-            return 30;
-        } else if (level <= 19 && level >= 5) {
-            return 20;
-        } else if (level <= 4 && level >= 2) {
-            return 15;
-        } else if (level <= 1) {
-            return 10;
+    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | "normal"): number {
+        if (adjustment === "elite") {
+            // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
+            if (level >= 20) {
+                return 30;
+            } else if (level <= 19 && level >= 5) {
+                return 20;
+            } else if (level <= 4 && level >= 2) {
+                return 15;
+            } else if (level <= 1) {
+                return 10;
+            }
+        } else if (adjustment === "weak") {
+            // Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (21+ -30HP, 6~20 -20HP, 3~5 -15HP, 1-2 -10HP).
+            if (level >= 21) {
+                return 30;
+            } else if (level <= 20 && level >= 6) {
+                return 20;
+            } else if (level <= 5 && level >= 3) {
+                return 15;
+            } else if (level === 1 || level === 2) {
+                return 10;
+            }
         }
         return 0;
     }
@@ -967,17 +980,42 @@ export class NPCPF2e extends CreaturePF2e {
             return;
         }
 
-        const extraHP = this.getHpAdjustment(this.getBaseLevel());
-        const currentHP = this.data.data.attributes.hp.value;
-        const newHP = (() => {
-            switch (adjustment) {
-                case "elite":
-                    return this.isWeak ? currentHP + extraHP * 2 : currentHP + extraHP;
-                case "weak":
-                    return this.isElite ? currentHP - extraHP * 2 : currentHP - extraHP;
-                default:
-                    return this.isElite ? currentHP - extraHP : currentHP + extraHP;
+        const currentHPAdjustment = (() => {
+            if (this.isElite) {
+                return this.getHpAdjustment(this.getBaseLevel(), "elite");
+            } else if (this.isWeak) {
+                return this.getHpAdjustment(this.getBaseLevel(), "weak");
+            } else {
+                return 0;
             }
+        })();
+        const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
+        const currentHP = this.data.data.attributes.hp.value;
+        const maxHP = this.data.data.attributes.hp.max;
+        const newHP = (() => {
+            if (this.isElite) {
+                if (adjustment === "weak") {
+                    return currentHP - currentHPAdjustment - newHPAdjustment;
+                } else if (adjustment === "normal") {
+                    return currentHP - currentHPAdjustment;
+                }
+            } else if (this.isWeak) {
+                if (adjustment === "elite") {
+                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
+                    return currentHP + currentHPAdjustment + newHPAdjustment;
+                } else if (adjustment === "normal") {
+                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment;
+                    return currentHP + currentHPAdjustment;
+                }
+            } else {
+                if (adjustment === "elite") {
+                    this.data.data.attributes.hp.max = currentHP + newHPAdjustment;
+                    return currentHP + newHPAdjustment;
+                } else if (adjustment === "weak") {
+                    return currentHP - newHPAdjustment;
+                }
+            }
+            return currentHP;
         })();
 
         const toAdd = adjustment === "normal" ? [] : [adjustment];
