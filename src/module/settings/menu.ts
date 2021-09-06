@@ -1,4 +1,6 @@
-interface SettingsTemplateData extends ClientSettingsData {
+export type PartialSettingsData = Omit<ClientSettingsData, "scope" | "config">;
+
+interface SettingsTemplateData extends PartialSettingsData {
     key: string;
     value: unknown;
 }
@@ -10,6 +12,20 @@ export interface MenuTemplateData extends FormApplicationData {
 export abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
 
+    static override get defaultOptions() {
+        const options = super.defaultOptions;
+        options.classes.push("settings-menu");
+
+        return mergeObject(options, {
+            title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
+            id: `${this.namespace}-settings`,
+            template: `systems/pf2e/templates/system/settings/menu.html`,
+            width: 550,
+            height: "auto",
+            closeOnSubmit: true,
+        });
+    }
+
     get namespace(): string {
         return (this.constructor as typeof SettingsMenuPF2e).namespace;
     }
@@ -17,14 +33,18 @@ export abstract class SettingsMenuPF2e extends FormApplication {
     static readonly SETTINGS: ReadonlyArray<string>;
 
     /** Settings to be registered and also later referenced during user updates */
-    protected static get settings(): Record<string, ClientSettingsData> {
+    protected static get settings(): Record<string, PartialSettingsData> {
         return {};
     }
 
     static registerSettings(): void {
         const settings = this.settings;
         for (const setting of this.SETTINGS) {
-            game.settings.register("pf2e", `${this.namespace}.${setting}`, settings[setting]);
+            game.settings.register("pf2e", `${this.namespace}.${setting}`, {
+                ...settings[setting],
+                scope: "world",
+                config: false,
+            });
         }
     }
 
@@ -36,9 +56,14 @@ export abstract class SettingsMenuPF2e extends FormApplication {
                 ...setting,
                 key,
                 value,
+                isSelect: !!setting.choices,
+                isCheckbox: setting.type === Boolean,
             };
         });
-        return mergeObject(super.getData(), { settings: templateData });
+        return mergeObject(super.getData(), {
+            settings: templateData,
+            instructions: `PF2E.SETTINGS.${this.namespace.titleCase()}.Hint`,
+        });
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
