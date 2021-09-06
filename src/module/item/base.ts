@@ -63,7 +63,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
-        return this.data.data.schema?.version ?? null;
+        return Number(this.data.data.schema?.version) || null;
     }
 
     get traits(): Set<ItemTrait> {
