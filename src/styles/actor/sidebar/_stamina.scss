@@ -1,19 +1,36 @@
 .stamina {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 5px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 8px;
     li {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
+        font-size: 24px;
         label {
             white-space: normal;
         }
         input {
             text-align: center;
-            font-size: 14px;
             color: white;
             padding: 0;
+        }
+        input.left {
+            text-align: right;
+            margin-right: 4px;
+        }
+        input.right {
+            text-align: left;
+            margin-left: 4px;
+        }
+        .divider {
+            font-size: 16px;
+            line-height: 1;
+        }
+        .stamina-group {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
         }
     }
 }

@@ -2,24 +2,22 @@
     <h2>{{localize 'PF2E.StaminaPointsHeader'}}</h2>
 </div>
 <ol class="stamina">
-    <li class="current-sp">
-        <label for="CurrentStamina">Current</label>
-        <span class="hp-current pf-value pf-large" title="{{localize 'PF2E.CurrentStaminaTitle'}}">
+    <li class="sp">
+        <label for="CurrentStamina">{{localize 'PF2E.StaminaPointsShortLabel'}}</label>
+        <span class="hp-current pf-value pf-large stamina-group" title="{{localize 'PF2E.CurrentStaminaTitle'}}">
             <input
                 id="CurrentStamina"
+                class="left"
                 name="data.attributes.sp.value"
                 type="number"
                 value="{{data.attributes.sp.value}}"
                 data-dtype="Number"
                 placeholder="10"
             />
-        </span>
-    </li>
-    <li class="max-sp">
-        <label for="MaxStamina">Max</label>
-        <span class="hp-max pf-value pf-large" title="{{localize 'PF2E.MaxStaminaTitle'}}">
+            <span class="divider">&sol;</span>
             <input
                 id="MaxStamina"
+                class="right"
                 name="data.attributes.sp.max"
                 type="number"
                 value="{{data.attributes.sp.max}}"
@@ -32,22 +30,20 @@
     </li>
     <li class="resolve">
         <label for="resolve">{{localize 'PF2E.ResolvePointsShortLabel'}}</label>
-        <span class="hp-max pf-value pf-large" title="{{localize 'PF2E.ResolveTitle'}}">
+        <span class="hp-max pf-value pf-large stamina-group" title="{{localize 'PF2E.ResolveTitle'}}">
             <input
                 id="resolve"
+                class="left"
                 name="data.attributes.resolve.value"
                 type="number"
                 value="{{data.attributes.resolve.value}}"
                 data-dtype="Number"
                 placeholder="10"
             />
-        </span>
-    </li>
-    <li class="max-resolve">
-        <label for="max-resolve">Max</label>
-        <span class="hp-max pf-value pf-large" title="max resolve">
+            <span class="divider">&sol;</span>
             <input
                 id="max-resolve"
+                class="right"
                 name="data.attributes.resolve.max"
                 type="number"
                 value="{{data.attributes.resolve.max}}"
