@@ -330,11 +330,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     redrawTokenEffects() {
         if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
         this.redrawingTokenEffects = true;
-        const tokens = this.getActiveTokens();
-        for (const token of tokens) {
-            token.drawEffects();
-        }
-        this.redrawingTokenEffects = false;
+        const promises = Promise.allSettled(this.getActiveTokens().map((token) => token.drawEffects()));
+        promises.then(() => {
+            this.redrawingTokenEffects = false;
+        });
     }
 
     protected buildStatistic(
@@ -452,8 +451,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options: DocumentModificationContext,
         userId: string
     ): void {
-        prepareMinions(this);
         super._onUpdate(changed, options, userId);
+        prepareMinions(this);
+        if (changed.items && this.isToken && userId !== game.user.id) {
+            this.redrawTokenEffects();
+        }
     }
 
     protected override async _preUpdate(
