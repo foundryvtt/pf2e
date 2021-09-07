@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
-                "details": "construct armor",
+                "base": 36,
+                "details": "(32 when broken); construct armor",
                 "value": 36
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "Hardness 14",
@@ -58,7 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
-            "flavorText": "<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>\n<p>Large armies sometimes pay exorbitant fees to animate their siege weapons.</p>",
+            "flavorText": "<p>Large armies sometimes pay exorbitant fees to animate their siege weapons.</p>\n<hr />\n<p>Many animated objects have useful functions but become dangers when uncontrolled.</p>",
             "level": {
                 "value": 13
             },
@@ -142,7 +143,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -298,7 +299,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -320,7 +341,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
+            "name": "Construct Armor (Hardness 14)",
             "sort": 400000,
             "type": "action"
         },
@@ -337,7 +358,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The animated trebuchet has a creature grabbed in its arm;</p>\n<p><strong>Effect</strong> The animated trebuchet attempts an Athletics check against the grabbed creature's Fortitude DC.</p>\n<p>On a success, it fires the creature up to 40 feet in height and up to 120 feet away. The creature takes [[/r 4d12 #bludgeoning]]{4d12 bludgeoning damage} plus the appropriate falling damage. If the flung creature lands on another creature, the creature it lands on takes the same amount of bludgeoning damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"33\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Launch DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>On a successful Launch, the animated trebuchet must Interact to reposition its arm into the proper position before it can Launch again.</p>"
+                    "value": "<p><strong>Requirements</strong> The animated trebuchet has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in its arm</p>\n<p><strong>Effect</strong> The animated trebuchet attempts an Athletics check against the grabbed creature's Fortitude DC.</p>\n<p>On a success, it fires the creature up to 40 feet in height and up to 120 feet away. The creature takes [[/r 4d12 #bludgeoning]]{4d12 bludgeoning damage} plus the appropriate falling damage. If the flung creature lands on another creature, the creature it lands on takes the same amount of bludgeoning damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"33\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Launch DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>On a successful Launch, the animated trebuchet must Interact to reposition its arm into the proper position before it can Launch again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,7 +438,7 @@
             "type": "action"
         },
         {
-            "_id": "3kadL45VoF11Evnj",
+            "_id": "CeOSCnHJGUDn6dhR",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
