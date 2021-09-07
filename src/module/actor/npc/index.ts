@@ -719,7 +719,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
                         statisticsModifiers,
                         damageDice,
@@ -739,7 +739,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
                         statisticsModifiers,
                         damageDice,
