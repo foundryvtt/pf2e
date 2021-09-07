@@ -118,6 +118,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (this.overrides.armorClass.ignoreCheckPenalty) {
             this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-check-penalty"] = true;
         }
+        if (this.overrides.armorClass.ignoreSpeedReduction) {
+            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-speed-penalty"] = true;
+        }
+        this.prepareLandSpeed();
     }
 
     onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
@@ -126,8 +130,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareAC();
         this.prepareSenses();
         this.prepareSize();
-        this.prepareSpeeds();
         this.prepareSkills();
+        this.prepareSpeeds(synthetics);
         this.prepareStrikes(synthetics);
     }
 
@@ -141,7 +145,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    /** Override the character's AC if necessary */
+    /** Override the character's AC and ignore speed penalties if necessary */
     private prepareAC(): void {
         const overrides = this.overrides;
         const armorClass = this.actor.data.data.attributes.ac;
@@ -149,7 +153,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (!acOverride) return;
 
         if (!overrides.ownModifier.armorClass || acOverride >= armorClass.totalModifier) {
-            this.pruneCheckModifiers(armorClass);
+            this.suppressModifiers(armorClass);
             const newModifier: number = this.resolveValue(overrides.armorClass.modifier);
             armorClass.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
             armorClass.value = armorClass.totalModifier;
@@ -182,25 +186,69 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         new CreatureSizeRuleElement(ruleData, this.item).onBeforePrepareData();
     }
 
-    /** Add or adjust one or more speeds */
-    private prepareSpeeds(): void {
+    private prepareLandSpeed(): void {
+        if (typeof this.overrides.speeds.land === "number") {
+            this.actor.data.data.attributes.speed.value = String(this.overrides.speeds.land);
+        }
+    }
+
+    /** Add, replace and/or adjust non-land speeds */
+    private prepareSpeeds(synthetics: RuleElementSynthetics): void {
+        const { attributes } = this.actor.data.data;
+        const currentSpeeds = attributes.speed;
+
         for (const movementType of MOVEMENT_TYPES) {
-            const speed = this.overrides.speeds[movementType];
-            const currentSpeeds = this.actor.data.data.attributes.speed;
-            if (typeof speed !== "number") continue;
+            const speedOverride = this.overrides.speeds[movementType];
+            if (typeof speedOverride !== "number") continue;
+
             if (movementType === "land") {
-                this.pruneCheckModifiers(currentSpeeds);
-                currentSpeeds.value = String(speed);
+                const landSpeed = attributes.speed;
+                this.suppressArmorSpeedPenalty(attributes.speed);
+                this.suppressModifiers(attributes.speed);
+                attributes.speed.totalModifier = landSpeed.total = speedOverride + landSpeed.totalModifier;
+                const label = game.i18n.format("PF2E.SpeedBaseLabel", {
+                    type: game.i18n.localize("PF2E.SpeedTypesLand"),
+                });
+                attributes.speed.breakdown = [`${label} ${speedOverride}`]
+                    .concat(
+                        landSpeed.modifiers
+                            .filter((m) => m.enabled)
+                            .map((modifier) => {
+                                const speedName = game.i18n.localize(modifier.name);
+                                const sign = modifier.modifier < 0 ? "" : "+";
+                                const value = modifier.modifier;
+                                return `${speedName} ${sign}${value}`;
+                            })
+                    )
+                    .join(", ");
             } else {
                 const { otherSpeeds } = currentSpeeds;
                 const label = game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]);
-                const otherSpeed = otherSpeeds.find((speed) => speed.type === movementType) ?? {
+                otherSpeeds.findSplice((speed) => speed.type === movementType);
+                otherSpeeds.push({
                     type: movementType,
                     label,
-                    value: String(speed),
-                };
-                otherSpeed.value = String(speed);
-                if (otherSpeeds.includes(otherSpeed)) otherSpeeds.push(otherSpeed);
+                    value: String(speedOverride),
+                });
+                const newSpeed = this.actor.prepareSpeed(movementType, synthetics);
+                this.suppressArmorSpeedPenalty(newSpeed);
+                this.suppressModifiers(newSpeed);
+                newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
+                newSpeed.breakdown = [`${label} ${speedOverride}`]
+                    .concat(
+                        newSpeed.modifiers
+                            .filter((modifier) => modifier.enabled)
+                            .map((modifier) => {
+                                const modifierLabel = game.i18n.localize(modifier.name);
+                                const sign = modifier.modifier < 0 ? "" : "+";
+                                const value = modifier.modifier;
+                                return `${modifierLabel} ${sign}${value}`;
+                            })
+                    )
+                    .join(", ");
+
+                otherSpeeds.findSplice((speed) => speed.type === movementType);
+                otherSpeeds.push(newSpeed);
             }
         }
     }
@@ -216,7 +264,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
             const newModifier: number = this.resolveValue(newSkill.modifier);
 
-            this.pruneCheckModifiers(currentSkill);
+            this.suppressModifiers(currentSkill);
             currentSkill.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
             currentSkill.value = currentSkill.totalModifier;
         }
@@ -253,7 +301,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (strike.modifier >= action.totalModifier || !this.overrides.ownModifier.strikes) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
-                this.pruneCheckModifiers(action);
+                this.suppressModifiers(action);
                 const baseModifier: number = this.resolveValue(strike.modifier);
                 action.unshift(new ModifierPF2e(this.label.replace(/\s*\([^)]+\)$/, ""), baseModifier, "untyped"));
 
@@ -266,7 +314,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Disable ineligible check modifiers */
-    private pruneCheckModifiers(statistic: StatisticModifier): void {
+    private suppressModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
             if (modifier.ignored) continue;
             if (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) {
@@ -275,6 +323,17 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
         }
         statistic.applyStackingRules();
+    }
+
+    /** Find and remove armor speed penalty */
+    private suppressArmorSpeedPenalty(statistic: StatisticModifier): void {
+        for (const modifier of statistic.modifiers) {
+            if (modifier.predicate.not.includes("unburdened-iron") && modifier.modifier < 0) {
+                modifier.predicate.not.push("battle-form");
+                modifier.ignored = true;
+                modifier.enabled = false;
+            }
+        }
     }
 
     applyDamageExclusion(modifiers: RawModifier[]): void {
