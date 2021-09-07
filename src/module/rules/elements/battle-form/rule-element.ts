@@ -3,9 +3,9 @@ import { CharacterData } from "@actor/data";
 import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
-import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
@@ -108,7 +108,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             return;
         }
         rollOptions.all["polymorph"] = true;
-        rollOptions.all["mundane-damage:ignoreAbilityModifier"] = true;
+        rollOptions.all["battle-form"] = true;
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
@@ -116,7 +116,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
 
         if (this.overrides.armorClass.ignoreCheckPenalty) {
-            this.actor.data.flags.pf2e.rollOptions.all["armor:ignoreCheckPenalty"] = true;
+            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-check-penalty"] = true;
         }
     }
 
@@ -149,7 +149,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (!acOverride) return;
 
         if (!overrides.ownModifier.armorClass || acOverride >= armorClass.totalModifier) {
-            this.pruneModifiers(armorClass);
+            this.pruneCheckModifiers(armorClass);
             const newModifier: number = this.resolveValue(overrides.armorClass.modifier);
             armorClass.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
             armorClass.value = armorClass.totalModifier;
@@ -189,7 +189,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             const currentSpeeds = this.actor.data.data.attributes.speed;
             if (typeof speed !== "number") continue;
             if (movementType === "land") {
-                this.pruneModifiers(currentSpeeds);
+                this.pruneCheckModifiers(currentSpeeds);
                 currentSpeeds.value = String(speed);
             } else {
                 const { otherSpeeds } = currentSpeeds;
@@ -216,7 +216,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
             const newModifier: number = this.resolveValue(newSkill.modifier);
 
-            this.pruneModifiers(currentSkill);
+            this.pruneCheckModifiers(currentSkill);
             currentSkill.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
             currentSkill.value = currentSkill.totalModifier;
         }
@@ -238,8 +238,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             traits: strikeData.traits,
         }));
 
-        // Repopulate synthetics with new WeaponPF2e instances
+        // Repopulate strikes with new WeaponPF2e instances
         synthetics.strikes.length = 0;
+
         for (const datum of ruleData) {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
             new StrikeRuleElement(datum, this.item).onBeforePrepareData(this.actor.data, synthetics);
@@ -252,7 +253,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (strike.modifier >= action.totalModifier || !this.overrides.ownModifier.strikes) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
-                this.pruneModifiers(action);
+                this.pruneCheckModifiers(action);
                 const baseModifier: number = this.resolveValue(strike.modifier);
                 action.unshift(new ModifierPF2e(this.label.replace(/\s*\([^)]+\)$/, ""), baseModifier, "untyped"));
 
@@ -264,12 +265,31 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    private pruneModifiers(statistic: StatisticModifier): void {
+    /** Disable ineligible check modifiers */
+    private pruneCheckModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
-            const isAbilityModifier = modifier.type === "ability";
-            const isIgnoredModifier = !["status", "circumstance"].includes(modifier.type) && modifier.modifier > 0;
-            if (isAbilityModifier || isIgnoredModifier) {
-                statistic.delete(modifier);
+            if (modifier.ignored) continue;
+            if (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) {
+                modifier.predicate?.not?.push("battle-form");
+                modifier.ignored = true;
+            }
+        }
+        statistic.applyStackingRules();
+    }
+
+    applyDamageExclusion(modifiers: RawModifier[]): void {
+        for (const modifier of modifiers) {
+            if (modifier.predicate?.not?.includes("battle-form")) continue;
+
+            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier > 0;
+            const isExtraDice = modifier instanceof DiceModifierPF2e;
+            const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
+            const isBattleFormModifier = !!(
+                modifier.predicate?.any?.includes("battle-form") || modifier.predicate?.all?.includes("battle-form")
+            );
+
+            if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
+                modifier.predicate.not.push("battle-form");
             }
         }
     }
@@ -280,11 +300,9 @@ export interface BattleFormRuleElement extends RuleElementPF2e {
     data: BattleFormData;
 }
 
-export interface BattleFormData extends BattleFormSource {
+export interface BattleFormData extends RuleElementData, Omit<BattleFormSource, "ignored" | "predicate" | "priority"> {
     label: "BattleForm";
     overrides: Required<BattleFormOverrides> & {
         armorClass: Required<BattleFormAC>;
     };
-    priority: number;
-    ignored: boolean;
 }
