@@ -1,4 +1,8 @@
-<h3>{{localize "PF2E.Migrations.Finished" version=systemVersion}}</h3>
+{{#if options.troubleshoot}}
+    <h3>{{localize "PF2E.Migrations.Summary.Troubleshoot.Hint" version=systemVersion}}</h3>
+{{else}}
+    <h3>{{localize "PF2E.Migrations.Finished" version=systemVersion}}</h3>
+{{/if}}
 <div class="dialog-content">
     <table>
         <thead>
