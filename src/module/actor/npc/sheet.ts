@@ -168,14 +168,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            if (this.actor.isDead) {
+                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            } else {
+                return actorName;
+            }
         }
         return super.title;
     }
 
     override get isLootSheet(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /**
