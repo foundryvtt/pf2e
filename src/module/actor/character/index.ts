@@ -235,6 +235,21 @@ export class CharacterPF2e extends CreaturePF2e {
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
                 systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
+
+                // Do not allow stamina to go over max
+                systemData.attributes.sp.value = Math.clamped(
+                    systemData.attributes.sp.value,
+                    0,
+                    systemData.attributes.sp.max
+                );
+
+                // Do not allow resolve to go over max
+                systemData.attributes.resolve.value = Math.clamped(
+                    systemData.attributes.resolve.value,
+                    0,
+                    systemData.attributes.resolve.max
+                );
+
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
