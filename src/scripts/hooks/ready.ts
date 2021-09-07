@@ -9,6 +9,7 @@ import { WorldClock } from "@module/system/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { LicenseViewer } from "@module/apps/license-viewer";
+import { MigrationSummary } from "@module/apps/migration-summary";
 
 export function listen(): void {
     Hooks.once("ready", () => {
@@ -39,7 +40,9 @@ export function listen(): void {
                         { permanent: true }
                     );
                 }
-                migrationRunner.runMigration();
+                migrationRunner.runMigration().then(() => {
+                    new MigrationSummary().render(true);
+                });
             }
         }
 
@@ -59,6 +62,13 @@ export function listen(): void {
 
         // Start system sub-applications
         game.pf2e.worldClock = new WorldClock();
+
+        // Sort item types for display in sidebar create-item dialog
+        game.system.entityTypes.Item.sort((typeA, typeB) => {
+            return game.i18n
+                .localize(CONFIG.Item.typeLabels[typeA] ?? "")
+                .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
+        });
 
         // Announce the system is ready in case any module needs access to an application not available until now
         Hooks.callAll("pf2e.systemReady");

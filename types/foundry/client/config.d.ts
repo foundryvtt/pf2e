@@ -50,6 +50,7 @@ declare global {
             };
             collection: Actors<TActor>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
+            typeLabels: Record<string, string | undefined>;
         };
 
         /**
@@ -102,6 +103,7 @@ declare global {
             };
             collection: typeof Items;
             sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
+            typeLabels: Record<string, string | undefined>;
         };
 
         /** Configuration for the Combat document */

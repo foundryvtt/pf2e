@@ -20,6 +20,7 @@ import { Migration659MultipleDamageRows } from "@module/migration/migrations/659
 import { Migration660DerivedSpellTraits } from "@module/migration/migrations/660-derived-spell-traits";
 import { Migration661NumifyVehicleDimensions } from "@module/migration/migrations/661-numify-vehicle-dimensions";
 import { Migration663FixSpellDamage } from "@module/migration/migrations/663-fix-spell-damage";
+import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
@@ -37,6 +38,7 @@ const migrations: MigrationBase[] = [
     new Migration660DerivedSpellTraits(),
     new Migration661NumifyVehicleDimensions(),
     new Migration663FixSpellDamage(),
+    new Migration665HandwrapsCorrections(),
 ];
 
 global.deepClone = function (original: any): any {

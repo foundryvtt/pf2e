@@ -14,11 +14,11 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.664;
+    static LATEST_SCHEMA_VERSION = 0.665;
 
-    static MINIMUM_SAFE_VERSION = 0.6;
+    static MINIMUM_SAFE_VERSION = 0.619;
 
-    static RECOMMENDED_SAFE_VERSION = 0.619;
+    static RECOMMENDED_SAFE_VERSION = 0.634;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);

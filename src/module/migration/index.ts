@@ -1,12 +1,5 @@
 import { MigrationBase } from "./base";
 import { MigrationRunner } from "./runner";
-import { Migration593AddAncestryItem } from "./migrations/593-make-ancestry-item";
-import { Migration594AddBackgroundItem } from "./migrations/594-make-background-item";
-import { Migration595AddItemSize } from "./migrations/595-item-sizes";
-import { Migration596SetSlugSourceIds } from "./migrations/596-set-slugs-and-sourceIds";
-import { Migration597MakeTraitTraitsArrays } from "./migrations/597-make-trait-traits-string-arrays";
-import { Migration598AddClassItem } from "./migrations/598-make-class-item";
-import { Migration599AddTraditionTraits } from "./migrations/599-add-tradition-traits-to-generated-scrolls-wands";
 import { Migration600Reach } from "./migrations/600-reach";
 import { Migration601SplitEffectCompendia } from "./migrations/601-migrate-effect-compendia";
 import { Migration602UpdateDiehardFeat } from "./migrations/602-update-diehard-feat";
@@ -72,17 +65,11 @@ import { Migration661NumifyVehicleDimensions } from "./migrations/661-numify-veh
 import { Migration662LinkToActorSizeDefaults } from "./migrations/662-link-to-actor-size-defaults";
 import { Migration663FixSpellDamage } from "./migrations/663-fix-spell-damage";
 import { Migration664DeleteCUBConditions } from "./migrations/664-delete-cub-conditions";
+import { Migration665HandwrapsCorrections } from "./migrations/665-handwraps-corrections";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
     private static list = [
-        Migration593AddAncestryItem,
-        Migration594AddBackgroundItem,
-        Migration595AddItemSize,
-        Migration596SetSlugSourceIds,
-        Migration597MakeTraitTraitsArrays,
-        Migration598AddClassItem,
-        Migration599AddTraditionTraits,
         Migration600Reach,
         Migration601SplitEffectCompendia,
         Migration602UpdateDiehardFeat,
@@ -148,6 +135,7 @@ export class Migrations {
         Migration662LinkToActorSizeDefaults,
         Migration663FixSpellDamage,
         Migration664DeleteCUBConditions,
+        Migration665HandwrapsCorrections,
     ];
 
     static get latestVersion(): number {

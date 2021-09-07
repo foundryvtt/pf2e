@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import type { ActorDataPF2e, CreatureData } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ItemDataPF2e } from "@item/data";
+import { ModifierPredicate, RawModifier } from "@module/modifiers";
 import {
     BracketedValue,
     RuleElementSource,
@@ -51,6 +52,7 @@ abstract class RuleElementPF2e {
         this.data = {
             priority: 100,
             ...data,
+            predicate: data.predicate ? new ModifierPredicate(data.predicate) : undefined,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
@@ -259,6 +261,9 @@ interface RuleElementPF2e {
      * @param tokens see onCreate
      */
     onDelete?(actorUpdates: Record<string, unknown>): void;
+
+    /** An optional method for excluding damage modifiers and extra dice */
+    applyDamageExclusion?(modifiers: RawModifier[]): void;
 }
 
 export { RuleElementPF2e };
