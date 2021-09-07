@@ -1120,28 +1120,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    protected override _onSubmit(event: any): Promise<Record<string, unknown>> {
-        // Limit SP value to data.attributes.sp.max value
-        if (event?.currentTarget?.name === "data.attributes.sp.value") {
-            event.currentTarget.value = Math.clamped(
-                Number(event.currentTarget.value),
-                0,
-                Number(this.actor.data.data.attributes.sp?.max ?? 0)
-            );
-        }
-
-        // Limit resolve value to data.attributes.resolve.max value
-        if (event?.currentTarget.name === "data.attributes.resolve.value") {
-            event.currentTarget.value = Math.clamped(
-                Number(event.currentTarget.value),
-                0,
-                Number(this.actor.data.data.attributes.resolve.max)
-            );
-        }
-
-        return super._onSubmit(event);
-    }
-
     /**
      * Get the font-awesome icon used to display a certain level of dying
      */
