@@ -528,7 +528,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const strongEnough = this.data.data.abilities.str.value >= (worn?.data.strength.value ?? 0);
 
             if (strongEnough && worn?.data.traits.value.includes("flexible") && ["acr", "ath"].includes(shortForm)) {
-                this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignoreCheckPenalty": true };
+                this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignore-check-penalty": true };
             }
             if (skill.armor && systemData.attributes.ac.check && systemData.attributes.ac.check < 0) {
                 const armorCheckPenalty = new ModifierPF2e(
@@ -536,7 +536,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     systemData.attributes.ac.check,
                     MODIFIER_TYPE.UNTYPED
                 );
-                armorCheckPenalty.predicate.not = ["attack", "armor:ignoreCheckPenalty"];
+                armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
                 modifiers.push(armorCheckPenalty);
             }
 
@@ -1177,7 +1177,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
                 const damage = WeaponDamagePF2e.calculate(
                     itemData,
-                    this.data,
+                    this,
                     action.traits,
                     synthetics.statisticsModifiers,
                     synthetics.damageDice,

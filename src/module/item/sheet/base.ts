@@ -4,7 +4,7 @@ import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
-import { RuleElementSource, RuleElementData } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import Tagify from "@yaireo/tagify";
 import {
     BasicConstructorOptions,
@@ -378,7 +378,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData: Partial<RuleElementData>[] = this.item.data.data.rules;
+            const rulesData: Partial<RuleElementSource>[] = this.item.data.data.rules;
             this.item.update({
                 "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
             });
