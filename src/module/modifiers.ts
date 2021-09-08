@@ -78,7 +78,7 @@ export class ModifierPF2e implements RawModifier {
     custom: boolean;
     damageType?: string;
     damageCategory?: string;
-    predicate: RawPredicate = new ModifierPredicate();
+    predicate = new ModifierPredicate();
     critical?: boolean;
     traits?: string[];
     notes?: string;

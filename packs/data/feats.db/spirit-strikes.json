@@ -24,18 +24,18 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.ToggleProperty",
+                "key": "ToggleProperty",
                 "label": "Target Undead Creature",
                 "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-positive"
             },
             {
-                "key": "PF2E.RuleElement.ToggleProperty",
+                "key": "ToggleProperty",
                 "label": "Target Living Creature",
                 "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-negative"
             },
             {
                 "damageType": "positive",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Spirit Strike against Undead",
                 "predicate": {
                     "all": [
@@ -47,7 +47,7 @@
             },
             {
                 "damageType": "negative",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Spirit Strike against Living",
                 "predicate": {
                     "all": [
@@ -58,14 +58,14 @@
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.DamageDice",
+                "key": "DamageDice",
                 "selector": "damage",
                 "traits": [
                     "magical"
                 ]
             },
             {
-                "key": "PF2E.RuleElement.DamageDice",
+                "key": "DamageDice",
                 "predicate": {
                     "all": [
                         "spirit-strikes-negative"
@@ -77,7 +77,7 @@
                 ]
             },
             {
-                "key": "PF2E.RuleElement.DamageDice",
+                "key": "DamageDice",
                 "predicate": {
                     "all": [
                         "spirit-strikes-positive"

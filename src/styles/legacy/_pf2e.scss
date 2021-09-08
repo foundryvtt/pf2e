@@ -3107,8 +3107,11 @@ input[type="number"] {
 }
 
 button {
-    &:hover {
+    &:hover::not(:disabled) {
         box-shadow: 0 0 3px #c00;
+    }
+    &:disabled {
+        color: #666;
     }
 
     &:active {

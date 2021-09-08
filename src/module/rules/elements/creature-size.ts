@@ -32,6 +32,19 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         gargantuan: "grg",
     };
 
+    private incrementSize(size: Size): Size {
+        switch (size) {
+            case "tiny":
+                return "sm";
+            case "sm":
+                return "med";
+            case "lg":
+                return "huge";
+            default:
+                return "grg";
+        }
+    }
+
     override onBeforePrepareData() {
         if (this.ignored) return;
 
@@ -60,7 +73,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
 
         if (this.data.resizeEquipment) {
             for (const item of this.actor.physicalItems) {
-                item.data.data.size.value = size;
+                item.data.data.size.value = this.incrementSize(item.size);
             }
         }
     }

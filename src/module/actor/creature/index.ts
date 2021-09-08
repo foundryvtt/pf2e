@@ -55,12 +55,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const hasDeathOverlay = !this.getActiveTokens().some(
             (token) => token.data.overlayEffect !== "icons/svg/skull.svg"
         );
-        return (this.hitPoints.current === 0 || hasDeathOverlay) && !this.hasCondition("dying");
+        return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
     get hitPoints() {
         return {
-            current: this.data.data.attributes.hp.value,
+            value: this.data.data.attributes.hp.value,
             max: this.data.data.attributes.hp.max,
         };
     }
@@ -330,11 +330,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     redrawTokenEffects() {
         if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
         this.redrawingTokenEffects = true;
-        const tokens = this.getActiveTokens();
-        for (const token of tokens) {
-            token.drawEffects();
-        }
-        this.redrawingTokenEffects = false;
+        const promises = Promise.allSettled(this.getActiveTokens().map((token) => token.drawEffects()));
+        promises.then(() => {
+            this.redrawingTokenEffects = false;
+        });
     }
 
     protected buildStatistic(
@@ -452,8 +451,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options: DocumentModificationContext,
         userId: string
     ): void {
-        prepareMinions(this);
         super._onUpdate(changed, options, userId);
+        prepareMinions(this);
+        if (changed.items && this.isToken && userId !== game.user.id) {
+            this.redrawTokenEffects();
+        }
     }
 
     protected override async _preUpdate(
@@ -461,7 +463,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options: DocumentModificationContext,
         user: foundry.documents.BaseUser
     ) {
-        // Clamp focus points when actor is updated
+        // Clamp focus points
         const focus = data.data?.resources?.focus;
         if (focus) {
             if (typeof focus.max === "number") {
@@ -471,6 +473,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const currentPoints = focus.value ?? this.data.data.resources.focus?.value ?? 0;
             const currentMax = focus.max ?? this.data.data.resources.focus?.max ?? 0;
             focus.value = Math.clamped(currentPoints, 0, currentMax);
+        }
+
+        // Clamp HP
+        const hitPoints = data.data?.attributes?.hp;
+        if (typeof hitPoints?.value === "number") {
+            hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
         }
 
         await super._preUpdate(data, options, user);
