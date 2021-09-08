@@ -9,7 +9,7 @@ export class Migration667npcAttackEffects extends MigrationBase {
         if (!actor || item.type !== "melee") return;
         if (Array.isArray(item.data.attackEffects.value)) {
             item.data.attackEffects.value.forEach((entry, index, arr) => {
-                arr[index] = entry.toLowerCase().replace(/[ ]/g,'-');
+                arr[index] = entry.toLowerCase().replace(/[ ]/g,"-");
             });
         }
     }
