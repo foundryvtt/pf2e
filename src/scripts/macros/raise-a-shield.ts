@@ -3,8 +3,8 @@ import { NPCPF2e } from "@actor/npc";
 import { EffectPF2e } from "@item/effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ErrorPF2e } from "@module/utils";
-import { ActionDefaultOptions } from "../..//module/system/actions/actions";
-import { LocalizePF2e } from "../../module/system/localize";
+import { ActionDefaultOptions } from "@system/actions/actions";
+import { LocalizePF2e } from "@system/localize";
 
 /** Effect: Raise a Shield */
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr";
@@ -45,7 +45,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             const effectSource = effect.toObject();
             effectSource.img = shield.img;
             const rule = effectSource.data.rules.find(
-                (rule) => rule.selector === "ac" && rule.key === "PF2E.RuleElement.FlatModifier"
+                (rule) => rule.selector === "ac" && ["PF2E.RuleElement.FlatModifier", "FlatModifier"].includes(rule.key)
             );
             rule!.value = shield.acBonus;
             await actor.createEmbeddedDocuments("Item", [effectSource]);
