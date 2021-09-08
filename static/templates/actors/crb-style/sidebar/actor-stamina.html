@@ -6,54 +6,32 @@
         <label for="CurrentStamina">{{localize 'PF2E.StaminaPointsShortLabel'}}</label>
         <span class="hp-current pf-value pf-large stamina-group" title="{{localize 'PF2E.CurrentStaminaTitle'}}">
             <input
-                id="CurrentStamina"
                 class="left"
-                name="data.attributes.sp.value"
                 type="number"
-                value="{{data.attributes.sp.value}}"
+                inputmode="numeric"
+                min="0"
                 max="{{data.attributes.sp.max}}"
-                data-dtype="Number"
-                placeholder="10"
+                name="data.attributes.sp.value"
+                value="{{data.attributes.sp.value}}"
             />
             <span class="divider">&sol;</span>
-            <input
-                id="MaxStamina"
-                class="right"
-                name="data.attributes.sp.max"
-                type="number"
-                value="{{data.attributes.sp.max}}"
-                data-dtype="Number"
-                placeholder="10"
-                disabled="disabled"
-                readonly
-            />
+            <input class="right" type="number" value="{{data.attributes.sp.max}}" disabled="disabled" />
         </span>
     </li>
     <li class="resolve">
         <label for="resolve">{{localize 'PF2E.ResolvePointsShortLabel'}}</label>
         <span class="hp-max pf-value pf-large stamina-group" title="{{localize 'PF2E.ResolveTitle'}}">
             <input
-                id="resolve"
                 class="left"
-                name="data.attributes.resolve.value"
                 type="number"
-                value="{{data.attributes.resolve.value}}"
+                inputmode="numeric"
+                min="0"
                 max="{{data.attributes.resolve.max}}"
-                data-dtype="Number"
-                placeholder="10"
+                name="data.attributes.resolve.value"
+                value="{{data.attributes.resolve.value}}"
             />
             <span class="divider">&sol;</span>
-            <input
-                id="max-resolve"
-                class="right"
-                name="data.attributes.resolve.max"
-                type="number"
-                value="{{data.attributes.resolve.max}}"
-                data-dtype="Number"
-                placeholder="10"
-                disabled="disabled"
-                readonly
-            />
+            <input class="right" type="number" value="{{data.attributes.resolve.max}}" disabled="disabled" />
         </span>
     </li>
 </ol>

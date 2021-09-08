@@ -51,6 +51,7 @@ import { SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { CharacterSource } from "@actor/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -179,6 +180,37 @@ export class CharacterPF2e extends CreaturePF2e {
         super.applyActiveEffects();
     }
 
+    protected override async _preUpdate(
+        data: DeepPartial<CharacterSource>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ) {
+        const characterData = this.data.data;
+
+        // Clamp Stamina and Resolve
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            // Do not allow stamina to go over max
+            if (data.data?.attributes?.sp) {
+                data.data.attributes.sp.value = Math.clamped(
+                    data.data?.attributes?.sp?.value || 0,
+                    0,
+                    characterData.attributes.sp.max
+                );
+            }
+
+            // Do not allow resolve to go over max
+            if (data.data?.attributes?.resolve) {
+                data.data.attributes.resolve.value = Math.clamped(
+                    data.data?.attributes?.resolve?.value || 0,
+                    0,
+                    characterData.attributes.resolve.max
+                );
+            }
+        }
+
+        await super._preUpdate(data, options, user);
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
@@ -238,20 +270,6 @@ export class CharacterPF2e extends CreaturePF2e {
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
                 systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
-
-                // Do not allow stamina to go over max
-                systemData.attributes.sp.value = Math.clamped(
-                    systemData.attributes.sp.value,
-                    0,
-                    systemData.attributes.sp.max
-                );
-
-                // Do not allow resolve to go over max
-                systemData.attributes.resolve.value = Math.clamped(
-                    systemData.attributes.resolve.value,
-                    0,
-                    systemData.attributes.resolve.max
-                );
 
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
