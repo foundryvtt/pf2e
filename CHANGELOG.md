@@ -6,6 +6,7 @@
 * (stwlam) Fix speed recalculation in battle form rule element
 * (stwlam) Fix token effect icons sometimes not appearing on unlinked tokens
 * (skulbuny) Fix issue with resolve not showing in sheet sidebar. Closes #1692
+* (nikolaj-a) Fix raise a shield macro to match both long and short form of rule element key
 
 ### New Features
 * (stwlam) Add a Migration Summary application to guide users post-migration
