@@ -60,7 +60,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
-    override get hitPoints(): { value: number; max: number; recoveryMultiplier: number } {
+    override get hitPoints(): { value: number; max: number; negativeHealing: boolean; recoveryMultiplier: number } {
         return {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
