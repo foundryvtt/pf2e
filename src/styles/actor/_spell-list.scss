@@ -249,6 +249,19 @@
         }
     }
 
+    &[data-casting-type="spontaneous"] .virtual {
+        position: relative;
+        &::before {
+            pointer-events: none;
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: #0005ff1d;
+            mix-blend-mode: saturation;
+        }
+    }
+
     .focus-points {
         font-size: 1.5em;
         padding: 4px 4px;
