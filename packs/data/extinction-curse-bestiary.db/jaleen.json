@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -1
             },
             "con": {
                 "mod": 3
@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 14,
                 "details": "",
                 "value": 14
             },
@@ -124,7 +125,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VoDXO00Gow5CKmsz",
+            "_id": "lbE53lG3UntmMkPe",
             "data": {
                 "armor": {
                     "value": 1
@@ -132,7 +133,7 @@
                 "armorType": {
                     "value": "light"
                 },
-                "baseItem": null,
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -178,8 +179,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
+                        "name": "Unusual Leather Armor"
                     }
                 },
                 "invested": {
@@ -196,46 +197,16 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -260,7 +231,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
                     "value": ""
                 },
@@ -281,14 +252,18 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "Leather Armor",
             "sort": 100000,
@@ -404,7 +379,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>(concentrate, emotion, mental) <br />\n<strong>Requirement</strong> The drunken brawler isn't fatigued or raging; <br />\n<strong>Effect</strong> The drunken brawler begins raging. They gain 4 temporary Hit Points and deal 1 additional damage with fist Strikes. They have a -1 penalty to AC and can't use actions with the concentrate trait unless those actions also have the rage trait. The drunken brawler can still Seek while in a drunken rage. The rage lasts for 1 minute or until the drunken brawler falls unconscious, whichever comes first. When the drunken rage is over, the drunken brawler is fatigued, loses all temporary Hit Points they received from the rage, and cannot rage again for 1 minute.</p>"
+                    "value": "<p><strong>Requirement</strong> The drunken brawler isn't fatigued or raging;</p>\n<p><strong>Effect</strong> The drunken brawler begins raging. They gain 4 temporary Hit Points and deal 1 additional damage with fist Strikes. They have a -1 penalty to AC and can't use actions with the concentrate trait unless those actions also have the rage trait. The drunken brawler can still Seek while in a drunken rage. The rage lasts for 1 minute or until the drunken brawler falls unconscious, whichever comes first. When the drunken rage is over, the drunken brawler is fatigued, loses all temporary Hit Points they received from the rage, and cannot rage again for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -419,7 +394,11 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -430,7 +409,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drunken Rage",
             "sort": 400000,
             "type": "action"
@@ -474,7 +453,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Improvised Surprise",
             "sort": 500000,
             "type": "action"
