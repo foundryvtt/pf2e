@@ -62,7 +62,7 @@ export class NPCPF2e extends CreaturePF2e {
 
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return (this.isDead && npcsAreLootable) || this.getFlag("pf2e", "lootable");
+        return this.isDead && (npcsAreLootable || this.getFlag("pf2e", "lootable"));
     }
 
     /** Grant all users at least limited permission on dead NPCs */

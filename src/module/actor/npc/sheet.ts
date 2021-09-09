@@ -109,6 +109,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     notAdjusted: boolean;
     inventory: SheetInventory;
     hasShield?: boolean;
+    configLootableNpc?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
@@ -269,6 +270,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (this.isLootSheet) {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
+
+        sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         // Return data for rendering
         return sheetData;
