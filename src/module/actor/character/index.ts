@@ -59,6 +59,13 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
+    override get hitPoints(): { value: number; max: number; recoveryMultiplier: number } {
+        return {
+            ...super.hitPoints,
+            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+        };
+    }
+
     get ancestry(): Embedded<AncestryPF2e> | null {
         return this.itemTypes.ancestry[0] ?? null;
     }
@@ -99,7 +106,9 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.dying = { value: 0, max: 4 };
         attributes.wounded = { value: 0, max: 3 };
 
-        // Hit points from Ancestry and Class
+        // Hit points
+        const hitPoints = this.data.data.attributes.hp;
+        hitPoints.recoveryMultiplier = 1;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 

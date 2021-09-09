@@ -5,6 +5,7 @@ import {
     BaseCreatureData,
     BaseCreatureResources,
     BaseCreatureSource,
+    CreatureHitPoints,
     CreatureSystemData,
     SaveData,
     SkillAbbreviation,
@@ -15,7 +16,6 @@ import {
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
-    HitPointsData,
     PerceptionData,
     ProficiencyData,
     RawSkillData,
@@ -267,7 +267,7 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     };
 
     /** Data related to character hitpoints. */
-    hp: HitPointsData;
+    hp: CharacterHitPoints;
 
     /** Data related to character stamina, when using the variant stamina rules. */
     sp: {
@@ -307,6 +307,10 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number };
+}
+
+interface CharacterHitPoints extends CreatureHitPoints {
+    recoveryMultiplier: number;
 }
 
 export interface CharacterSpeeds extends StatisticModifier {

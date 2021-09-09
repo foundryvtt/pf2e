@@ -58,7 +58,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
-    get hitPoints() {
+    get hitPoints(): { value: number; max: number } {
         return {
             value: this.data.data.attributes.hp.value,
             max: this.data.data.attributes.hp.max,
@@ -135,7 +135,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const attributes = this.data.data.attributes;
-        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
+        const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
+        hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
 
         // Bless raw custom modifiers as `ModifierPF2e`s
