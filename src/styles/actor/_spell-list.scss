@@ -249,16 +249,22 @@
         }
     }
 
-    &[data-casting-type="spontaneous"] .virtual {
-        position: relative;
-        &::before {
-            pointer-events: none;
-            content: '';
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            background-color: #0005ff1d;
-            mix-blend-mode: saturation;
+    &[data-casting-type="spontaneous"] {
+        .virtual {
+            position: relative;
+            &::before {
+                pointer-events: none;
+                content: '';
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: #0005ff1d;
+                mix-blend-mode: saturation;
+            }
+        }
+
+        .item:not(.virtual) + .virtual {
+            border-top: 1px solid rgba(0, 0, 0, 0.15);
         }
     }
 
