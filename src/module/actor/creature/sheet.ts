@@ -1,7 +1,7 @@
 import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
-import { ItemPF2e, ConsumablePF2e, SpellPF2e } from "@item";
+import { ItemPF2e, ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
@@ -318,6 +318,40 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);
             this.actor.update({ "data.resources.focus.value": points });
         });
+
+        html.find(".toggle-signature-spell").on("click", (event) => {
+            this.onToggleSignatureSpell(event);
+        });
+    }
+
+    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+        const { containerId } = event.target.closest(".item-container").dataset;
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!containerId || !itemId) {
+            return;
+        }
+
+        const spellcastingEntry = this.actor.items.get(containerId);
+        const spell = this.actor.items.get(itemId);
+
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
+            return;
+        }
+
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
+
+        if (!signatureSpells.includes(spell.id)) {
+            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
+                return;
+            }
+
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
+            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
+        } else {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
+            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
+        }
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max
