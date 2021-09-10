@@ -918,7 +918,7 @@ export class NPCPF2e extends CreaturePF2e {
             if (item) {
                 // Get description from the actor item.
                 const description = item.data.description.value;
-                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><p><strong>${attackEffect}</strong></p>${description}</div>`;
+                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${item.name}</strong></div>${description}</div>`;
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
@@ -929,7 +929,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const packItem = await compendium.getDocument(itemId);
                     if (packItem instanceof ItemPF2e) {
                         const description = packItem.description;
-                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
+                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${packItem.name}</strong></div>${description}</div>`;
                         notes.push(note);
                     } else {
                         console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
