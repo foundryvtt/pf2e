@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import {sluggify } from "@module/utils";
+import { sluggify } from "@module/utils";
 
 export class Migration667npcAttackEffects extends MigrationBase {
     static override version = 0.667;
