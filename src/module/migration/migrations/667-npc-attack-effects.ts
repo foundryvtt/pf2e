@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
+import {sluggify } from "@module/utils";
 
 export class Migration667npcAttackEffects extends MigrationBase {
     static override version = 0.667;
@@ -9,7 +10,7 @@ export class Migration667npcAttackEffects extends MigrationBase {
         if (!actor || item.type !== "melee") return;
         if (Array.isArray(item.data.attackEffects.value)) {
             item.data.attackEffects.value.forEach((entry, index, arr) => {
-                arr[index] = entry.toLowerCase().replace(/[ ]/g, "-");
+                arr[index] = sluggify(entry);
             });
         }
     }
