@@ -460,7 +460,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         if (areaType === "ray") {
-            templateData.width = 5;
+            templateData.width = canvas.dimensions.distance;
         } else if (areaType === "cone") {
             templateData.angle = 90;
         }
