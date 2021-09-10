@@ -34,6 +34,7 @@ export interface DamageTemplate {
         damageType: string;
         diceNumber: number;
         dieSize: DamageDieSize;
+        category: string;
         modifier: number;
     };
     diceModifiers: DiceModifierPF2e[];
@@ -472,9 +473,10 @@ export class WeaponDamagePF2e {
         // add splash damage
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED)
-            );
+            const modifier = new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED);
+            modifier.damageCategory = "splash";
+            modifier.damageType = weapon.data.damage.damageType;
+            numericModifiers.push(modifier);
         }
 
         // add bonus damage
@@ -583,7 +585,7 @@ export class WeaponDamagePF2e {
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage: any, critical: boolean): DamageFormula {
+    static getFormula(damage: DamageTemplate, critical: boolean): DamageFormula {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
@@ -662,7 +664,9 @@ export class WeaponDamagePF2e {
             damage.numericModifiers
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .forEach((nm: ModifierPF2e) => {
-                    if (critical && nm.critical) {
+                    if (critical && nm.damageCategory === "splash") {
+                        return;
+                    } else if (critical && nm.critical) {
                         // critical-only stuff
                         modifiers.push(nm);
                     } else if (!nm.critical) {
@@ -713,9 +717,16 @@ export class WeaponDamagePF2e {
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
+            const splashDamage = damage.numericModifiers.find(
+                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
+            );
+            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
             for (const [damageType, categories] of Object.entries(partials)) {
                 for (const [damageCategory, f] of Object.entries(categories)) {
                     partials[damageType][damageCategory] = this.doubleFormula(f);
+                    if (splashDamage?.damageType === damageType) {
+                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
+                    }
                 }
             }
             const critFormula = this.buildFormula(critPool, partials);
