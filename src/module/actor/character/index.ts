@@ -434,13 +434,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(
-                new StatisticModifier("PF2E.ClassDCLabel", modifiers),
-                systemData.attributes.classDC,
-                {
-                    overwrite: false,
-                }
-            );
+            const stat = mergeObject(new StatisticModifier("class", modifiers), systemData.attributes.classDC, {
+                overwrite: false,
+            });
             stat.value = 10 + stat.totalModifier;
             stat.ability = systemData.details.keyability.value;
             stat.breakdown = [game.i18n.localize("PF2E.ClassDCBase")]
