@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.13.5
+### Bug Fixes
+* (stwlam) Fix duplicated modifiers to NPC damage on multiple rolls
+* (Chup) Fix Class DC modifier tooltip
+
+
 ## Version 2.13.4
 ### Bug Fixes
 * (In3luki) Fix NPC weak adjustment setting the wrong hit point values. Closes #1673
