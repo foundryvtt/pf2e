@@ -51,8 +51,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "50 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
                 "value": "30 feet"
@@ -269,6 +270,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -364,6 +366,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -475,6 +478,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -582,6 +586,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -681,6 +686,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -779,6 +785,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -877,6 +884,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -973,6 +981,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1070,6 +1079,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1168,6 +1178,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1266,6 +1277,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1410,9 +1422,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "2d10 positive damage if the target is undead"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
                     "value": 25
@@ -1424,9 +1435,23 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>[[/r 2d10 #positive]]{2d10 postive damage} if the target is undead</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "positive",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "label": "vs. Undead",
+                        "predicate": {
+                            "all": [
+                                "target:undead"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
