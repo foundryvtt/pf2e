@@ -213,6 +213,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
+        if (migrations.length === 0) return;
+
         // Migrate World Actors
         await this.migrateWorldDocuments(game.actors, CONFIG.Actor.documentClass, migrations);
 

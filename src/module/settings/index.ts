@@ -6,6 +6,7 @@ import { objectHasKey } from "@module/utils";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { MetagameSettings } from "./metagame";
 
 export function registerSettings() {
     if (BUILD_MODE === "development") {
@@ -213,6 +214,16 @@ export function registerSettings() {
     });
     AutomationSettings.registerSettings();
 
+    game.settings.registerMenu("pf2e", "metagame", {
+        name: "PF2E.SETTINGS.Metagame.Name",
+        label: "PF2E.SETTINGS.Metagame.Label",
+        hint: "PF2E.SETTINGS.Metagame.Hint",
+        icon: "fas fa-brain",
+        type: MetagameSettings,
+        restricted: true,
+    });
+    MetagameSettings.registerSettings();
+
     game.settings.registerMenu("pf2e", "variantRules", {
         name: "PF2E.SETTINGS.Variant.Name",
         label: "PF2E.SETTINGS.Variant.Label",
@@ -251,68 +262,6 @@ export function registerSettings() {
         config: true,
         default: true,
         type: Boolean,
-    });
-
-    game.settings.register("pf2e", "metagame.partyVision", {
-        name: "PF2E.SETTINGS.Metagame.PartyVision.Name",
-        hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
-    // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
-    game.settings.register("pf2e", "metagame.secretDamage", {
-        name: "PF2E.SETTINGS.Metagame.SecretDamage.Name",
-        hint: "PF2E.SETTINGS.Metagame.SecretDamage.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
-    game.settings.register("pf2e", "metagame.secretCondition", {
-        name: "PF2E.SETTINGS.Metagame.SecretCondition.Name",
-        hint: "PF2E.SETTINGS.Metagame.SecretCondition.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
-    const metagameDcChoices = {
-        none: "PF2E.SETTINGS.Metagame.ShowDC.None",
-        gm: "PF2E.SETTINGS.Metagame.ShowDC.Gm",
-        owner: "PF2E.SETTINGS.Metagame.ShowDC.Owner",
-        all: "PF2E.SETTINGS.Metagame.ShowDC.All",
-    };
-
-    const metagameResultsChoices = {
-        none: "PF2E.SETTINGS.Metagame.ShowResults.None",
-        gm: "PF2E.SETTINGS.Metagame.ShowResults.Gm",
-        owner: "PF2E.SETTINGS.Metagame.ShowResults.Owner",
-        all: "PF2E.SETTINGS.Metagame.ShowResults.All",
-    };
-
-    game.settings.register("pf2e", "metagame.showDC", {
-        name: "PF2E.SETTINGS.Metagame.ShowDC.Name",
-        hint: "PF2E.SETTINGS.Metagame.ShowDC.Hint",
-        scope: "world",
-        config: true,
-        default: "gm",
-        type: String,
-        choices: metagameDcChoices,
-    });
-
-    game.settings.register("pf2e", "metagame.showResults", {
-        name: "PF2E.SETTINGS.Metagame.ShowResults.Name",
-        hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
-        scope: "world",
-        config: true,
-        default: "gm",
-        type: String,
-        choices: metagameResultsChoices,
     });
 
     if (BUILD_MODE === "production") {
