@@ -1,9 +1,10 @@
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestryPF2e } from "@item/ancestry";
 import { BackgroundPF2e } from "@item/background";
 import { ClassPF2e } from "@item/class";
 import { FeatPF2e } from "@item/feat";
+import { ItemActivation } from "@item/physical/data";
 import { SpellPF2e } from "@item/spell";
 
 export interface SheetOption {
@@ -43,6 +44,13 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
+}
+
+export interface PhysicalItemSheetDataPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
+    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    frequencies: ConfigPF2e["PF2E"]["frequencies"];
+    activations: { action: ItemActivation; id: string; base: string }[];
 }
 
 export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e>

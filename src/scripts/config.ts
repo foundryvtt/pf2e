@@ -1716,8 +1716,10 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
-        hour: "PF2E.Frequency.hour",
-        day: "PF2E.Frequency.day",
+        PT10M: "PF2E.Duration.PT10M",
+        PT1H: "PF2E.Duration.PT1H",
+        PT24H: "PF2E.Duration.PT24H",
+        day: "PF2E.Duration.day",
     },
 
     // Proficiency Multipliers
