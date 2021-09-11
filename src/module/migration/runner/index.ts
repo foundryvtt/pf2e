@@ -71,7 +71,11 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
-            await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+            try {
+                await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 
