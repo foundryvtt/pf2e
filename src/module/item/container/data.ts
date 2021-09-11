@@ -23,6 +23,7 @@ type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
 
 export interface ContainerSystemData extends MagicItemSystemData {
     traits: ContainerTraits;
+    stowing: boolean;
     capacity: {
         type: string;
         value: number;
