@@ -23,7 +23,7 @@ import { Migration663FixSpellDamage } from "@module/migration/migrations/663-fix
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
 import { Migration666UsageAndStowingContainers } from "@module/migration/migrations/666-usage-and-stowing-containers";
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
-import { Migration668npcAttackEffects } from "@module/migration/migrations/667-npc-attack-effects";
+import { Migration668npcAttackEffects } from "@module/migration/migrations/668-npc-attack-effects";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
