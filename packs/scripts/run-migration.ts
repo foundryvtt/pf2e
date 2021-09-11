@@ -44,7 +44,7 @@ const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
     new Migration666UsageAndStowingContainers(),
     new Migration667HPSubProperties(),
-	new Migration668npcAttackEffects(),
+    new Migration668npcAttackEffects(),
 ];
 
 global.deepClone = function (original: any): any {
