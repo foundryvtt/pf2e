@@ -2,9 +2,6 @@ import { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { ActionDefaultOptions } from "@system/actions/actions";
 
-const levelMultiplier = (actor: CharacterPF2e) =>
-    actor.itemTypes.feat.filter((item) => ["fast-recovery", "dream-may"].includes(item.slug ?? "")).length + 1;
-
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<void> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
@@ -24,7 +21,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         // Hit points
         const conModifier = abilities.con.mod;
         const level = actor.level;
-        const maxRestored = Math.max(conModifier, 1) * level * levelMultiplier(actor);
+        const maxRestored = Math.max(conModifier, 1) * level * actor.hitPoints.recoveryMultiplier;
         const hpLost = attributes.hp.max - attributes.hp.value;
         const hpRestored = hpLost >= maxRestored ? maxRestored : hpLost;
         attributes.hp.value += hpRestored;
@@ -107,15 +104,13 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         if (staminaEnabled) {
             const stamina = attributes.sp;
-            const keyAbility = actor.keyAbility;
             if (stamina.value < stamina.max) {
                 stamina.value = stamina.max;
                 restoredList.push("Stamina");
             }
             const resolve = attributes.resolve;
-            const maxResolve = abilities[keyAbility].mod;
-            if (resolve.value < maxResolve) {
-                resolve.value = maxResolve;
+            if (resolve.value < resolve.max) {
+                resolve.value = resolve.max;
                 restoredList.push("Resolve");
             }
         }

@@ -1,19 +1,24 @@
 import { MigrationRunner } from "@module/migration";
 
 /** A summary window that opens after a system migration completes */
-export class MigrationSummary extends Application {
+export class MigrationSummary extends Application<MigrationSummaryOptions> {
     /** Is a remigration currently running? */
     private isRemigrating = false;
 
-    constructor(options?: Partial<ApplicationOptions>) {
+    constructor(options: Partial<MigrationSummaryOptions> = {}) {
         super(options);
+        this.options.troubleshoot ??= false;
+        this.options.title = options.troubleshoot
+            ? game.i18n.localize("PF2E.Migrations.Summary.Troubleshoot.Title")
+            : game.i18n.localize("PF2E.Migrations.Summary.Title");
 
         const existing = Object.values(ui.windows).find(
             (app): app is MigrationSummary => app instanceof MigrationSummary
         );
-        if (existing) return existing;
-
-        this.options.title = game.i18n.localize("PF2E.Migrations.Summary.Title");
+        if (existing) {
+            existing.options = mergeObject(existing.options, options);
+            return existing;
+        }
     }
 
     override get template(): string {
@@ -39,9 +44,11 @@ export class MigrationSummary extends Application {
             successful: game.items.filter((item) => item.schemaVersion === latestSchemaVersion).length,
             total: game.items.size,
         };
-        const canRemigrate = actors.successful < actors.total || items.successful < items.total;
+        const canRemigrate =
+            this.options.troubleshoot || actors.successful < actors.total || items.successful < items.total;
 
         return {
+            options: this.options,
             systemVersion: game.system.data.version,
             latestSchemaVersion,
             actors,
@@ -54,7 +61,7 @@ export class MigrationSummary extends Application {
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
-        $html.find('button[data-action="remigrate"]').on("click", async () => {
+        $html.find('button[data-action="remigrate"]').on("click", async (event) => {
             const lowestSchemaVersion = Math.max(
                 Math.min(0, ...game.actors.map((actor) => actor.schemaVersion ?? 0)),
                 MigrationRunner.RECOMMENDED_SAFE_VERSION
@@ -63,8 +70,11 @@ export class MigrationSummary extends Application {
 
             try {
                 this.isRemigrating = true;
-                console.debug(lowestSchemaVersion);
+                this.options.troubleshoot = false;
+                $(event.currentTarget).prop("disabled", true);
                 await game.pf2e.system.remigrate({ from: lowestSchemaVersion });
+                this.options.troubleshoot = false;
+                this.render(false);
             } catch {
                 return;
             }
@@ -74,7 +84,12 @@ export class MigrationSummary extends Application {
     }
 }
 
+interface MigrationSummaryOptions extends ApplicationOptions {
+    troubleshoot: boolean;
+}
+
 interface MigrationSummaryData {
+    options: MigrationSummaryOptions;
     systemVersion: string;
     latestSchemaVersion: number;
     actors: { successful: number; total: number };

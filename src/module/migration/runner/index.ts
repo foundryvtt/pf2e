@@ -71,7 +71,11 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
-            await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+            try {
+                await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 
@@ -213,6 +217,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
+        if (migrations.length === 0) return;
+
         // Migrate World Actors
         await this.migrateWorldDocuments(game.actors, CONFIG.Actor.documentClass, migrations);
 

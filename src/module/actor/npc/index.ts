@@ -1,5 +1,5 @@
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { ItemPF2e } from "@item/index";
+import { ItemPF2e } from "@item";
 import {
     CheckModifier,
     ModifierPF2e,
@@ -11,7 +11,7 @@ import { WeaponDamagePF2e } from "@module/system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
 import { RollNotePF2e } from "@module/notes";
 import { RollParameters } from "@system/rolls";
-import { CreaturePF2e, ActorPF2e } from "@actor/index";
+import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
 import { sluggify } from "@module/utils";
@@ -717,11 +717,17 @@ export class NPCPF2e extends CreaturePF2e {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
+                    const clonedModifiers = Object.fromEntries(
+                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
+                            key,
+                            modifiers.map((modifier) => modifier.clone()),
+                        ])
+                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
-                        statisticsModifiers,
+                        clonedModifiers,
                         damageDice,
                         1,
                         options,
@@ -737,11 +743,17 @@ export class NPCPF2e extends CreaturePF2e {
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value); // always add all weapon traits as options
+                    const clonedModifiers = Object.fromEntries(
+                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
+                            key,
+                            modifiers.map((modifier) => modifier.clone()),
+                        ])
+                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
-                        statisticsModifiers,
+                        clonedModifiers,
                         damageDice,
                         1,
                         options,
@@ -906,7 +918,7 @@ export class NPCPF2e extends CreaturePF2e {
             if (item) {
                 // Get description from the actor item.
                 const description = item.data.description.value;
-                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><p><strong>${attackEffect}</strong></p>${description}</div>`;
+                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${item.name}</strong></div>${description}</div>`;
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
@@ -917,7 +929,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const packItem = await compendium.getDocument(itemId);
                     if (packItem instanceof ItemPF2e) {
                         const description = packItem.description;
-                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
+                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${packItem.name}</strong></div>${description}</div>`;
                         notes.push(note);
                     } else {
                         console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));

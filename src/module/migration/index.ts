@@ -66,6 +66,8 @@ import { Migration662LinkToActorSizeDefaults } from "./migrations/662-link-to-ac
 import { Migration663FixSpellDamage } from "./migrations/663-fix-spell-damage";
 import { Migration664DeleteCUBConditions } from "./migrations/664-delete-cub-conditions";
 import { Migration665HandwrapsCorrections } from "./migrations/665-handwraps-corrections";
+import { Migration666UsageAndStowingContainers } from "./migrations/666-usage-and-stowing-containers";
+import { Migration667HPSubProperties } from "./migrations/667-hp-subproperties";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -136,6 +138,8 @@ export class Migrations {
         Migration663FixSpellDamage,
         Migration664DeleteCUBConditions,
         Migration665HandwrapsCorrections,
+        Migration666UsageAndStowingContainers,
+        Migration667HPSubProperties,
     ];
 
     static get latestVersion(): number {

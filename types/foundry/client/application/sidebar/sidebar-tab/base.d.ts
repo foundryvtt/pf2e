@@ -11,8 +11,10 @@ declare interface EntryContextOption {
 }
 
 /** An abstract pattern followed by the different tabs of the sidebar */
-declare abstract class SidebarTab extends Application<SidebarTabOptions> {
-    constructor(options?: SidebarTabOptions);
+declare abstract class SidebarTab<
+    TOptions extends SidebarTabOptions = SidebarTabOptions
+> extends Application<SidebarTabOptions> {
+    constructor(options?: DeepPartial<TOptions>);
 
     /** The base name of this sidebar tab */
     tabName: string;
