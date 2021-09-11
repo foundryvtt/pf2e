@@ -51,12 +51,20 @@ import { SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { CharacterSource } from "@actor/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
+    }
+
+    override get hitPoints(): { value: number; max: number; recoveryMultiplier: number } {
+        return {
+            ...super.hitPoints,
+            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+        };
     }
 
     get ancestry(): Embedded<AncestryPF2e> | null {
@@ -99,7 +107,9 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.dying = { value: 0, max: 4 };
         attributes.wounded = { value: 0, max: 3 };
 
-        // Hit points from Ancestry and Class
+        // Hit points
+        const hitPoints = this.data.data.attributes.hp;
+        hitPoints.recoveryMultiplier = 1;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
@@ -179,6 +189,37 @@ export class CharacterPF2e extends CreaturePF2e {
         super.applyActiveEffects();
     }
 
+    protected override async _preUpdate(
+        data: DeepPartial<CharacterSource>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ) {
+        const characterData = this.data.data;
+
+        // Clamp Stamina and Resolve
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            // Do not allow stamina to go over max
+            if (data.data?.attributes?.sp) {
+                data.data.attributes.sp.value = Math.clamped(
+                    data.data?.attributes?.sp?.value || 0,
+                    0,
+                    characterData.attributes.sp.max
+                );
+            }
+
+            // Do not allow resolve to go over max
+            if (data.data?.attributes?.resolve) {
+                data.data.attributes.resolve.value = Math.clamped(
+                    data.data?.attributes?.resolve?.value || 0,
+                    0,
+                    characterData.attributes.resolve.max
+                );
+            }
+        }
+
+        await super._preUpdate(data, options, user);
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
@@ -237,6 +278,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
+                systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
+
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
@@ -434,13 +477,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(
-                new StatisticModifier("PF2E.ClassDCLabel", modifiers),
-                systemData.attributes.classDC,
-                {
-                    overwrite: false,
-                }
-            );
+            const stat = mergeObject(new StatisticModifier("class", modifiers), systemData.attributes.classDC, {
+                overwrite: false,
+            });
             stat.value = 10 + stat.totalModifier;
             stat.ability = systemData.details.keyability.value;
             stat.breakdown = [game.i18n.localize("PF2E.ClassDCBase")]

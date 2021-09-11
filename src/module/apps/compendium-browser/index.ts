@@ -309,7 +309,7 @@ export class CompendiumBrowser extends Application {
     private loadedPacks(tab: TabName): string[] {
         if (tab === "settings") return [];
         return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
-            return info ? [collection] : [];
+            return info?.load ? [collection] : [];
         });
     }
 
@@ -920,6 +920,9 @@ export class CompendiumBrowser extends Application {
                 }
             }
             game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
+            this.loadSettings();
+            this.initCompendiumList();
+            this.render(true);
         });
 
         // Pre-filter list if requested
