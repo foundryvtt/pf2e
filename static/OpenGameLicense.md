@@ -228,6 +228,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
 	* Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
 	* Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
+	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
+	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 

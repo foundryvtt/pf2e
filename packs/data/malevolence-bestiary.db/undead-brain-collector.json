@@ -337,7 +337,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "any": [
                                 "magical",
@@ -395,7 +395,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

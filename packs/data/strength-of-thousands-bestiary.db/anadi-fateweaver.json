@@ -1662,7 +1662,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -3526,7 +3535,7 @@
                 "resilient": {},
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "not": [
                                 "unburdened-iron"
@@ -3712,9 +3721,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -4128,7 +4134,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Climb in Spider or Hybrid Form",
                         "predicate": {
                             "all": [
@@ -4144,7 +4150,7 @@
                         "value": 4
                     },
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Creature is in spider or hybrid form",
                         "property": "flags.pf2e.rollOptions.all.in-spider-or-hybrid-form"
                     }
@@ -4188,7 +4194,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Weaving",
                         "predicate": {
                             "all": [

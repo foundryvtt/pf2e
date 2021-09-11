@@ -1353,7 +1353,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -1451,11 +1458,11 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "property": "flags.pf2e.rollOptions.all.deadly-aim"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Deadly Aim",
                         "predicate": {
                             "all": [
@@ -1467,7 +1474,7 @@
                         "value": 4
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Deadly Aim",
                         "predicate": {
                             "all": [
@@ -1797,7 +1804,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "To Track",
                         "predicate": {
                             "all": [

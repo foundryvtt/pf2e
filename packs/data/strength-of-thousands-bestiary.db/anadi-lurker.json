@@ -623,7 +623,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -1840,7 +1849,7 @@
                         "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
+                        "key": "DamageDice",
                         "predicate": {
                             "all": [
                                 "target:flatFooted"
@@ -1977,7 +1986,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Climb in Spider or Hybrid Form",
                         "predicate": {
                             "all": [
@@ -1993,7 +2002,7 @@
                         "value": 2
                     },
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Creature is in spider or hybrid form",
                         "property": "flags.pf2e.rollOptions.all.in-spider-or-hybrid-form"
                     }
@@ -2037,7 +2046,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Weaving",
                         "predicate": {
                             "all": [

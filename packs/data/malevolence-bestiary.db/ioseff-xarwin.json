@@ -2022,7 +2022,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -2986,7 +2995,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -3080,17 +3096,17 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Target possesses Fulvia's Ring",
                         "property": "flags.pf2e.rollOptions.attack-roll.possess-fulvia-ring"
                     },
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Target is wearing Fulvia's Ring",
                         "property": "flags.pf2e.rollOptions.attack-roll.wearing-fulvia-ring"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Shame",
                         "predicate": {
                             "all": [
@@ -3102,7 +3118,7 @@
                         "value": -1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "More Shame",
                         "predicate": {
                             "all": [
@@ -3114,17 +3130,17 @@
                         "value": -2
                     },
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Save against Target possessing Fulvia's Ring",
                         "property": "flags.pf2e.rollOptions.saving-throw.save-possess-fulvia-ring"
                     },
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Save against Target wearing Fulvia's Ring",
                         "property": "flags.pf2e.rollOptions.saving-throw.save-wearing-fulvia-ring"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Shame",
                         "predicate": {
                             "all": [
@@ -3136,7 +3152,7 @@
                         "value": -1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "More Shame",
                         "predicate": {
                             "all": [

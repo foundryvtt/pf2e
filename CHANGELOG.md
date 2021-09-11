@@ -1,5 +1,91 @@
 # Patch Notes:
 
+## Version 2.13.5
+### Bug Fixes
+* (stwlam) Fix duplicated modifiers to NPC damage on multiple rolls
+* (Chup) Fix Class DC modifier tooltip
+
+
+## Version 2.13.4
+### Bug Fixes
+* (In3luki) Fix NPC weak adjustment setting the wrong hit point values. Closes #1673
+* (stwlam) Fix speed recalculation in battle form rule element
+* (stwlam) Fix token effect icons sometimes not appearing on unlinked tokens
+* (skulbuny) Fix issue with resolve not showing in sheet sidebar. Closes #1692
+
+### New Features
+* (stwlam) Add a Migration Summary application to guide users post-migration
+
+### Content Changes
+* (TMun) Add more content from Strength of Thousands book 2
+* (TMun) Fix typo in possession trait
+* (TMun) Add Akitonian as a language for 3-99
+* (TMun) Add Shobhad as a creature trait and a language
+* (TMun) Update license with 3-99 for languages and traits
+* (TMun) Add trigger to paladin reaction in class feature. Partially addresses #1707
+* (stwlam) Fix usage and icon of _handwraps of mighty blows_
+* (stwlam) Add icon for _shadow signet_
+* (Abaddon) Brush up of Bestiary 1 boggards and dinosaurs
+* (Abaddon) Brush up of Bestiary 3 animated objects (for real this time!)
+* (Abaddon) Change compendium items and actors to use short form for rule element keys (flat modifiers, damage dice, notes, toggles, base speed)
+* (Abaddon) Correct grab and push in the NPC special attack effects
+* (InfamousSky) Add icons to Secrets of Magic spells start with A through M
+* (InfamousSky) Add icons to Magus class features and feats, fix feat types and categories. Closes #1706
+* (InfamousSky) Remove "Animal" trait from Revenant, add inline template button
+* (InfamousSky) Add "worn" usage to rings. Add "worn ring" for _ring of discretion. Closes #1708
+* (InfamousSky) Add missing note rule element to _angel form_ spell effect
+* (Surles) Add rule elements for Furious Strike
+* (amnesicpachyderm) Add 30 foot cone "area" data to _vampiric exsanguination_
+
+### Core System Improvements
+* (stwlam) Clamp creature hit points before updating
+* (stwlam) Prevent creating formula items outside dev mode and sort item types in create item dialog
+* (stwlam) Add a Troubleshooting button to the settings sidebar
+* (stwlam) Add a means for rule elements to exclude any damage modifier or dice, which is used in the battle form rule element
+* (Chup) Rename damage chat card label 'Full' to 'Damage' to make its function more clear
+
+
+## Version 2.13.3
+### Bug Fixes
+* (stwlam) Fix token image rule element
+* (Supe) Fix damage for spells with only a flat modifier, add damage formula to _daze_
+
+### Content Changes
+* (Abaddon) Brush up archons, add automation for Lantern of Hope ability
+* (Abaddon) Link _infectious aura_ effect in ability description
+* (Abaddon) Fix range increments for Bestiary 1 monsters
+* (TMun) Add bestiaries for Pathfinder Society Introductions and Pathfinder Society season 3. Add PFS Intro 1, Intro 2 and S3-01 NPCs
+* (TMun) Add new ritual, archetypes, items, and corresponding actions and effects from Strength of Thousands book 2. Add worn crown as a usage trait
+* (rectulo) Fix persistent damage of corrosive ammunition
+* (stwlam) Update Spell Effect: Dragon Form (Red) with battle form rule element
+* (stwlam) Update Spell Effect: Dinosaur Form (Ankylosaurus and Triceratops) to use the battle form rule elements
+* (Tikael) Add _ooze form_ spell effects
+* (Tikael) Correct AC while raging for barbarian dedication
+* (Tikael) Add new form spell effects start with C through E. Correct _fey form_
+* (VestOfHolding) Add _angel form_ spell effects
+* (InfamousSky) Secrets of Magic elementalism focus spell fixes
+
+
+## Version 2.13.2
+### Bug Fixes
+* (stwlam) Fix initiative becoming NaN on dying PCs
+* (stwlam) Fix condition token icons getting applied properly
+
+### Content Changes
+* (TMun) Changes oracle for additional skills from 4 to 3. Closes #1694
+* (InfamousSky) Fix a few mistakes in some Secret of Magic spells
+* (InfamousSky) Add strike rule elements for holy water and unholy water. Closes #1677
+* (InfamousSky) Add correct traits to _Mirror of Sorshen inline saves and linked _dominate_ spell in description. Closes #1683
+* (Abaddon) Brush up of Bestiary 3 animated objects
+* (Abaddon) Brush up of Bestiary 1 daemons
+* (Abaddon) Add `Volley 20 ft.` and `Volley 50 ft.` attack traits
+* (Abaddon) Brush up reload, versatile and volley attack traits on Bestiary 1 monsters
+* (SpartanCPA) Standardize formatting for versatile, range, reload, and thrown traits
+* (SpartanCPA) Standardize formatting of single quotes for Secret of Magic items
+* (SpartanCPA) Add type traits to all Dragon's Breath potions
+* (SpartanCPA) Brush up of Extinction Curse book 6/Bestiary 1 creatures
+
+
 ## Version 2.13.1
 ### Bug Fixes
 * (stwlam) Use ModifierPF2e#clone instead of duplicate to preserve properties

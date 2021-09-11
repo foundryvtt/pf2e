@@ -403,7 +403,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Sense",
+                        "key": "Sense",
                         "label": "PF2E.SensesLowLightVision",
                         "selector": "lowLightVision"
                     }
@@ -809,12 +809,12 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Target is your Hunted Prey",
                         "property": "flags.pf2e.rollOptions.all.hunted-prey"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "To Seek hunted prey",
                         "predicate": {
                             "all": [
@@ -830,7 +830,7 @@
                         "value": 2
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "To Track hunted prey",
                         "predicate": {
                             "all": [
@@ -1139,7 +1139,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                        "key": "MultipleAttackPenalty",
                         "predicate": {
                             "all": [
                                 "agile",
@@ -1153,7 +1153,7 @@
                         "value": -2
                     },
                     {
-                        "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                        "key": "MultipleAttackPenalty",
                         "predicate": {
                             "all": [
                                 "hunted-prey"
@@ -1231,7 +1231,7 @@
                             }
                         },
                         "group": "sling",
-                        "key": "PF2E.RuleElement.Strike",
+                        "key": "Strike",
                         "label": "Foxfire",
                         "range": "20",
                         "traits": [
@@ -1301,7 +1301,7 @@
                             }
                         },
                         "group": "brawling",
-                        "key": "PF2E.RuleElement.Strike",
+                        "key": "Strike",
                         "label": "Jaws",
                         "range": "melee",
                         "traits": [
@@ -3090,7 +3090,7 @@
                 "resilient": {},
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "not": [
                                 "unburdened-iron"
@@ -3243,7 +3243,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "predicate": {
                             "all": [
                                 "ongoing"
@@ -3255,6 +3255,12 @@
                         },
                         "selector": "Fortitude",
                         "text": "<p class='compact-text'><strong>{item|name}</strong>If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.</p>"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.hp.recoveryMultiplier",
+                        "value": 1
                     }
                 ],
                 "slug": "fast-recovery",
@@ -3313,7 +3319,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Natural Medicine (Treat Wounds with fresh ingredients)",
                         "predicate": {
                             "all": [

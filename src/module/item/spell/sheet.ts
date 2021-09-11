@@ -5,7 +5,7 @@ import { SpellDamage, SpellSystemData } from "./data";
 import { objectHasKey } from "@module/utils";
 
 const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
-    interval: 0,
+    interval: 1,
     damage: {},
 };
 

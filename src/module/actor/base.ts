@@ -64,7 +64,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
-        return this.data.data.schema?.version || null;
+        return Number(this.data.data.schema?.version) || null;
     }
 
     get traits(): Set<string> {
@@ -226,6 +226,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Rule elements
         this.rules = this.items.contents
             .flatMap((item) => item.prepareRuleElements())
+            .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => {
                 return elementA.priority > elementB.priority ? 1 : -1;
             });

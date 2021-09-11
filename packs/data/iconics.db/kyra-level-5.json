@@ -989,7 +989,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "predicate": {
                             "any": [
                                 "action:recall-knowledge",
@@ -1000,7 +1000,7 @@
                         "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.</p>"
                     },
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "predicate": {
                             "any": [
                                 "action:recall-knowledge",
@@ -3582,7 +3582,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
@@ -5293,7 +5302,7 @@
                 "resilient": {},
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "not": [
                                 "unburdened-iron"

@@ -359,7 +359,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Sense",
+                        "key": "Sense",
                         "label": "PF2E.SensesDarkvision",
                         "selector": "darkvision"
                     }
@@ -776,11 +776,11 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "property": "flags.pf2e.rollOptions.all.devise-a-stratagem"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "all": [
                                 "devise-a-stratagem"
@@ -853,7 +853,7 @@
                     {
                         "category": "precision",
                         "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
+                        "key": "DamageDice",
                         "predicate": {
                             "all": [
                                 "devise-a-stratagem"
@@ -1318,12 +1318,12 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Investigating a designated subject with Pursue a Lead",
                         "property": "flags.pf2e.rollOptions.all.pursue-a-lead"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Pursue a Lead",
                         "predicate": {
                             "all": [
@@ -1349,7 +1349,7 @@
                         }
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Pursue a Lead",
                         "predicate": {
                             "all": [
@@ -1557,7 +1557,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Keen Recollection (to Recall Knowledge)",
                         "predicate": {
                             "all": [
@@ -1778,7 +1778,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "all": [
                                 "devise-a-stratagem"
@@ -1854,7 +1854,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "predicate": {
                             "all": [
                                 "action:sense-motive"
@@ -1865,7 +1865,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
                         "predicate": {
                             "all": [
@@ -1877,7 +1877,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
                         "predicate": {
                             "all": [
@@ -1889,7 +1889,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
                         "predicate": {
                             "all": [
@@ -1901,7 +1901,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Lie Detector (against a known liar)",
                         "predicate": {
                             "all": [
@@ -1965,7 +1965,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Known Weakness (critically succeeded on Recall Knowledge)",
                         "predicate": {
                             "all": [
@@ -2034,7 +2034,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "predicate": {
                             "all": [
                                 "ongoing"
@@ -2046,6 +2046,12 @@
                         },
                         "selector": "Fortitude",
                         "text": "<p class='compact-text'><strong>{item|name}</strong>If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.</p>"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.hp.recoveryMultiplier",
+                        "value": 1
                     }
                 ],
                 "slug": "fast-recovery",
@@ -2274,7 +2280,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
                         "predicate": {
                             "all": [
@@ -2286,7 +2292,7 @@
                         "value": 2
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Wary Disarmament (vs. traps)",
                         "predicate": {
                             "all": [
@@ -2351,7 +2357,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Rainfall Orc (Climb or Swim)",
                         "predicate": {
                             "any": [
@@ -2364,7 +2370,7 @@
                         "value": 2
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Rainfall Orc (vs. disease)",
                         "predicate": {
                             "all": [
@@ -5054,7 +5060,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Thieves' Tools (Pick Lock & Disable Devices)",
                         "predicate": {
                             "any": [

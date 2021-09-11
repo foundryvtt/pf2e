@@ -299,7 +299,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -393,12 +400,12 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "key": "ToggleProperty",
                         "label": "Target is Marked Quarry",
                         "property": "flags.pf2e.rollOptions.all.mark-quarry"
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "To Seek Quarry",
                         "predicate": {
                             "all": [
@@ -410,7 +417,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "To Track Quarry",
                         "predicate": {
                             "all": [
@@ -422,7 +429,7 @@
                         "value": 1
                     },
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
+                        "key": "FlatModifier",
                         "label": "Marked Quarry",
                         "predicate": {
                             "all": [

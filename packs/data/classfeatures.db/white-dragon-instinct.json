@@ -28,7 +28,7 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "predicate": {
                     "all": [
@@ -47,11 +47,15 @@
             },
             {
                 "damageType": "cold",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "ranged",
@@ -85,13 +89,17 @@
             },
             {
                 "damageType": "cold",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "rage-agile",
                 "predicate": {
                     "all": [
                         "agile",
                         "rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "ranged",
@@ -123,13 +131,17 @@
                 }
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "normal-rage",
                 "predicate": {
                     "all": [
                         "rage",
                         "normal-rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "agile",
@@ -141,7 +153,7 @@
                 "value": 2
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "normal-rage-agile",
                 "predicate": {
@@ -149,6 +161,10 @@
                         "rage",
                         "agile",
                         "normal-rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "ranged",
@@ -159,13 +175,13 @@
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.ToggleProperty",
+                "key": "ToggleProperty",
                 "label": "Deal normal rage damage",
                 "property": "flags.pf2e.rollOptions.damage-roll.normal-rage"
             },
             {
                 "damageType": "cold",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "dedication-instinct-rage",
                 "predicate": {
@@ -173,6 +189,10 @@
                         "rage",
                         "barbarian-dedication",
                         "instinct-ability"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "agile",
@@ -185,7 +205,7 @@
             },
             {
                 "damageType": "cold",
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "dedication-instinct-rage-agile",
                 "predicate": {
@@ -194,6 +214,10 @@
                         "barbarian-dedication",
                         "instinct-ability",
                         "agile"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "ranged",
@@ -204,7 +228,7 @@
                 "value": 2
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "dedication-instinct-rage-normal",
                 "predicate": {
@@ -213,6 +237,10 @@
                         "barbarian-dedication",
                         "instinct-ability",
                         "normal-rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "agile",
@@ -223,7 +251,7 @@
                 "value": 2
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "key": "FlatModifier",
                 "label": "Rage",
                 "name": "dedication-instinct-rage-agile-normal",
                 "predicate": {
@@ -233,6 +261,10 @@
                         "instinct-ability",
                         "agile",
                         "normal-rage"
+                    ],
+                    "any": [
+                        "battle-form",
+                        "attack"
                     ],
                     "not": [
                         "ranged"

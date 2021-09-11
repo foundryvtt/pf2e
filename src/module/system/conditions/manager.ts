@@ -67,9 +67,11 @@ export class ConditionManager {
     public static getCondition(conditionKey: string): ConditionData {
         conditionKey = conditionKey.toLocaleLowerCase();
 
-        const condition =
-            deepClone(ConditionManager._customConditions.get(conditionKey)) ??
-            deepClone(ConditionManager._compediumConditions.get(conditionKey));
+        const condition = deepClone(
+            ConditionManager._customConditions.get(conditionKey) ??
+                ConditionManager._compediumConditions.get(conditionKey) ??
+                ConditionManager._compediumConditions.get(conditionKey.replace(/-/g, " "))
+        );
 
         if (!condition) {
             throw Error("PF2e System | Unexpected failure looking up condition");

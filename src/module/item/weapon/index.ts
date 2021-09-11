@@ -150,7 +150,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
         const sluggifiedName = sluggify(this.data._source.name);
-        if (this.isSpecific || sluggifiedName !== this.slug || sluggifiedName !== this.baseType) return this.data.name;
+        if (this.isSpecific || sluggifiedName !== this.baseType) return this.data.name;
 
         const systemData = this.data.data;
         const translations = LocalizePF2e.translations.PF2E;

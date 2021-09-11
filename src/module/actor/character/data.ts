@@ -5,6 +5,7 @@ import {
     BaseCreatureData,
     BaseCreatureResources,
     BaseCreatureSource,
+    CreatureHitPoints,
     CreatureSystemData,
     SaveData,
     SkillAbbreviation,
@@ -15,7 +16,6 @@ import {
     ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
-    HitPointsData,
     PerceptionData,
     ProficiencyData,
     RawSkillData,
@@ -267,7 +267,7 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     };
 
     /** Data related to character hitpoints. */
-    hp: HitPointsData;
+    hp: CharacterHitPoints;
 
     /** Data related to character stamina, when using the variant stamina rules. */
     sp: {
@@ -303,25 +303,31 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     };
 
     /** Records the various land/swim/fly speeds that this actor has. */
-    speed: StatisticModifier & {
-        /** The actor's primary speed (usually walking/stride speed). */
-        value: string;
-        /** Other speeds that this actor can use (such as swim, climb, etc). */
-        otherSpeeds: LabeledSpeed[];
-        /** The derived value after applying modifiers, bonuses, and penalties */
-        total: number;
-        /** A textual breakdown of the base speed and any modifiers applied to it */
-        breakdown?: string;
-    };
+    speed: CharacterSpeeds;
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number };
+    resolve: { value: number; max: number };
+}
+
+interface CharacterHitPoints extends CreatureHitPoints {
+    recoveryMultiplier: number;
+}
+
+export interface CharacterSpeeds extends StatisticModifier {
+    /** The actor's primary speed (usually walking/stride speed). */
+    value: string;
+    /** Other speeds that this actor can use (such as swim, climb, etc). */
+    otherSpeeds: LabeledSpeed[];
+    /** The derived value after applying modifiers, bonuses, and penalties */
+    total: number;
+    /** A textual breakdown of the base speed and any modifiers applied to it */
+    breakdown?: string;
 }
 
 export type SenseType = typeof SENSE_TYPES[number];
 
 export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-interface LabeledSpeed extends LabeledValue {
+export interface LabeledSpeed extends LabeledValue {
     type: Exclude<MovementType, "land">;
     value: string;
     label: string;

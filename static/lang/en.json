@@ -993,6 +993,7 @@
         "InventroyBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "InvestedLabel": "Invested",
         "Item": {
+            "CannotAddType": "{type} items cannot be added to this actor.",
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
@@ -1100,6 +1101,7 @@
         "LackCastConsumableCapability": "You lack the proficiency to use {name} and do not have the Trick Magic Item Feat",
         "LanguageAbyssal": "Abyssal",
         "LanguageAdlet": "Adlet",
+        "LanguageAkitonian": "Akitonian",
         "LanguageAklo": "Aklo",
         "LanguageAlghollthu": "Alghollthu",
         "LanguageAmurrun": "Amurrun",
@@ -1171,6 +1173,7 @@
         "LanguageShae": "Shae",
         "LanguageShisk": "Shisk",
         "LanguageShoanti": "Shoanti",
+        "LanguageShobhad": "Shobhad",
         "LanguageShoony": "Shoony",
         "LanguageSkald": "Skald",
         "LanguageSphinx": "Sphinx",
@@ -1271,7 +1274,20 @@
             "Starting": "Applying PF2E System Migration to version {version}. Please be patient and do not close your game or shut down your server.",
             "OnlyGMCanUse": "Only a gamemaster can use this tool.",
             "WorldNotReady": "Game world not ready: try again in a few seconds.",
-            "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum})."
+            "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
+            "Summary": {
+                "Documents": "Documents",
+                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/SajryVzCyf\">Discord</a> for community support.",
+                "Migrated": "Migrated",
+                "Remigrate": "Remigrate",
+                "Title": "Migration Summary",
+                "Total": "Total",
+                "Troubleshoot": {
+                    "Title": "System Troubleshooting",
+                    "Hint": "Here you can run a remigration, which will attempt to automatically fix issues with actors and items."
+                }
+            },
+            "Troubleshooting": "Troubleshooting"
         },
         "ModifierTitle": "Modifier",
         "ModifiersTitle": "Modifiers",
@@ -1331,6 +1347,7 @@
         "OpenInventoryBrowser": "Open Inventory Browser",
         "OpenItemTitle": "Toggle Container Contents",
         "OpenSpellBrowserTitle": "Open Spell Browser",
+        "OK": "OK",
         "OrdinalNumber": "{value}{suffix}",
         "OrdinalSuffixes": {
             "zero": "th",
@@ -1526,7 +1543,8 @@
             "Settings": "Settings",
             "Sidebar": {
                 "Guide": "Guide",
-                "Changelog": "Changelog"
+                "Changelog": "Changelog",
+                "Discord": "Discord"
             },
             "critFumbleCards": {
                 "hint": "Automatically draw a critical hit or fumble card on appropriate rolls.",
@@ -1623,7 +1641,6 @@
                 "Name": "Automation",
                 "Label": "Manage Automation",
                 "Hint": "Decide how much and what kinds of automation should apply to your game world.",
-                "Instructions": "Decide how much and what kinds of automation should apply to your game world.",
                 "RulesBasedVision": {
                     "Name": "Rules-based vision",
                     "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii."
@@ -1680,6 +1697,9 @@
                 }
             },
             "Metagame": {
+                "Name": "Metagame Information",
+                "Label": "Limit Metagame Information",
+                "Hint": "Limit what kinds of metagame information your players have access to.",
                 "PartyVision": {
                     "Name": "Shared party vision",
                     "Hint": "If enabled, all players will mutually share token vision, regardless of permissions or token selection."
@@ -2008,7 +2028,7 @@
         "SpellScalingInterval": {
             "Header": "Scaling (Interval)",
             "Label": "Interval",
-            "Add":"Add Interval Scaling"
+            "Add": "Add Interval Scaling"
         },
         "SpellScalingLabel": "Scaling",
         "SpellScalingModeLevel1": "Heightened (+1)",
@@ -2059,6 +2079,7 @@
         "StackGroupSlingBullets": "Sling Bullets",
         "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
+        "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
         "StatusEffects": "{name}'s status effects:",
@@ -2699,6 +2720,7 @@
         "TraitShabti": "Shabti",
         "TraitShadow": "Shadow",
         "TraitShisk": "Shisk",
+        "TraitShobhad": "Shobhad",
         "TraitShoony": "Shoony",
         "TraitShove": "Shove",
         "TraitSiktempora": "Siktempora",
@@ -2810,6 +2832,7 @@
         "TraitWornBackpack": "Worn Backpack",
         "TraitWornNecklace": "Worn Necklace",
         "TraitWornHeadwear": "Worn Headwear",
+        "TraitWornGarment": "Worn Garment",
         "TraitWornGloves": "Worn Gloves",
         "TraitWornRing": "Worn Ring",
         "TraitWornOnWrists": "Worn on Wrists",
@@ -2817,9 +2840,10 @@
         "TraitWornBracers": "Worn Bracers",
         "TraitWornEpaulet": "Worn Epaulets",
         "TraitWornCloak": "Worn Cloak",
-        "TraitWornGarment": "Worn Garment",
+        "TraitWornCrown": "Worn Crown",
         "TraitWornEyepiece": "Worn Eyepiece",
         "TraitWornBelt": "Worn Belt",
+        "TraitWornBeltPouch": "Worn Belt Pouch",
         "TraitWornShoes": "Worn Shoes",
         "TraitWornCollar": "Worn Collar",
         "TraitWornAnklets": "Worn Anklets",
@@ -3667,7 +3691,7 @@
         "DamageButton": {
             "Full": "Apply full damage to selected tokens.",
             "FullContext": "Apply Damage",
-            "FullShort": "Full",
+            "FullShort": "Damage",
             "Half": "Apply half damage to selected tokens.",
             "HalfContext": "Half Damage",
             "HalfShort": "Half",

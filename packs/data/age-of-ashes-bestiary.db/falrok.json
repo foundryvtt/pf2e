@@ -477,7 +477,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -773,7 +780,7 @@
                         "category": "precision",
                         "diceNumber": 4,
                         "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
+                        "key": "DamageDice",
                         "predicate": {
                             "all": [
                                 "target:flatFooted"

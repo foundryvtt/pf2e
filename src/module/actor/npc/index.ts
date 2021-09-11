@@ -1,5 +1,5 @@
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { ItemPF2e } from "@item/index";
+import { ItemPF2e } from "@item";
 import {
     CheckModifier,
     ModifierPF2e,
@@ -11,7 +11,7 @@ import { WeaponDamagePF2e } from "@module/system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
 import { RollNotePF2e } from "@module/notes";
 import { RollParameters } from "@system/rolls";
-import { CreaturePF2e, ActorPF2e } from "@actor/index";
+import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
 import { sluggify } from "@module/utils";
@@ -138,7 +138,7 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value),
+                    this.getHpAdjustment(data.details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
@@ -154,7 +154,7 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value) * -1,
+                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
@@ -717,11 +717,17 @@ export class NPCPF2e extends CreaturePF2e {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
+                    const clonedModifiers = Object.fromEntries(
+                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
+                            key,
+                            modifiers.map((modifier) => modifier.clone()),
+                        ])
+                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
-                        statisticsModifiers,
+                        clonedModifiers,
                         damageDice,
                         1,
                         options,
@@ -737,11 +743,17 @@ export class NPCPF2e extends CreaturePF2e {
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value); // always add all weapon traits as options
+                    const clonedModifiers = Object.fromEntries(
+                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
+                            key,
+                            modifiers.map((modifier) => modifier.clone()),
+                        ])
+                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
-                        this.data,
+                        this,
                         action.traits,
-                        statisticsModifiers,
+                        clonedModifiers,
                         damageDice,
                         1,
                         options,
@@ -906,7 +918,7 @@ export class NPCPF2e extends CreaturePF2e {
             if (item) {
                 // Get description from the actor item.
                 const description = item.data.description.value;
-                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><p><strong>${attackEffect}</strong></p>${description}</div>`;
+                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${item.name}</strong></div>${description}</div>`;
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
@@ -917,7 +929,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const packItem = await compendium.getDocument(itemId);
                     if (packItem instanceof ItemPF2e) {
                         const description = packItem.description;
-                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
+                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${packItem.name}</strong></div>${description}</div>`;
                         notes.push(note);
                     } else {
                         console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
@@ -929,16 +941,29 @@ export class NPCPF2e extends CreaturePF2e {
         return notes;
     }
 
-    protected getHpAdjustment(level: number): number {
-        // Elite/Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
-        if (level >= 20) {
-            return 30;
-        } else if (level <= 19 && level >= 5) {
-            return 20;
-        } else if (level <= 4 && level >= 2) {
-            return 15;
-        } else if (level <= 1) {
-            return 10;
+    protected getHpAdjustment(level: number, adjustment: "elite" | "weak" | "normal"): number {
+        if (adjustment === "elite") {
+            // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
+            if (level >= 20) {
+                return 30;
+            } else if (level <= 19 && level >= 5) {
+                return 20;
+            } else if (level <= 4 && level >= 2) {
+                return 15;
+            } else if (level <= 1) {
+                return 10;
+            }
+        } else if (adjustment === "weak") {
+            // Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (21+ -30HP, 6~20 -20HP, 3~5 -15HP, 1-2 -10HP).
+            if (level >= 21) {
+                return 30;
+            } else if (level <= 20 && level >= 6) {
+                return 20;
+            } else if (level <= 5 && level >= 3) {
+                return 15;
+            } else if (level === 1 || level === 2) {
+                return 10;
+            }
         }
         return 0;
     }
@@ -967,17 +992,42 @@ export class NPCPF2e extends CreaturePF2e {
             return;
         }
 
-        const extraHP = this.getHpAdjustment(this.getBaseLevel());
-        const currentHP = this.data.data.attributes.hp.value;
-        const newHP = (() => {
-            switch (adjustment) {
-                case "elite":
-                    return this.isWeak ? currentHP + extraHP * 2 : currentHP + extraHP;
-                case "weak":
-                    return this.isElite ? currentHP - extraHP * 2 : currentHP - extraHP;
-                default:
-                    return this.isElite ? currentHP - extraHP : currentHP + extraHP;
+        const currentHPAdjustment = (() => {
+            if (this.isElite) {
+                return this.getHpAdjustment(this.getBaseLevel(), "elite");
+            } else if (this.isWeak) {
+                return this.getHpAdjustment(this.getBaseLevel(), "weak");
+            } else {
+                return 0;
             }
+        })();
+        const newHPAdjustment = this.getHpAdjustment(this.getBaseLevel(), adjustment);
+        const currentHP = this.data.data.attributes.hp.value;
+        const maxHP = this.data.data.attributes.hp.max;
+        const newHP = (() => {
+            if (this.isElite) {
+                if (adjustment === "weak") {
+                    return currentHP - currentHPAdjustment - newHPAdjustment;
+                } else if (adjustment === "normal") {
+                    return currentHP - currentHPAdjustment;
+                }
+            } else if (this.isWeak) {
+                if (adjustment === "elite") {
+                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
+                    return currentHP + currentHPAdjustment + newHPAdjustment;
+                } else if (adjustment === "normal") {
+                    this.data.data.attributes.hp.max = maxHP + currentHPAdjustment;
+                    return currentHP + currentHPAdjustment;
+                }
+            } else {
+                if (adjustment === "elite") {
+                    this.data.data.attributes.hp.max = currentHP + newHPAdjustment;
+                    return currentHP + newHPAdjustment;
+                } else if (adjustment === "weak") {
+                    return currentHP - newHPAdjustment;
+                }
+            }
+            return currentHP;
         })();
 
         const toAdd = adjustment === "normal" ? [] : [adjustment];

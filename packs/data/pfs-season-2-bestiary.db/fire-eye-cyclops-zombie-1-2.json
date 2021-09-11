@@ -212,7 +212,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "selector": "{item|_id}-attack",
                         "text": "<p class='compact-text' data-visibility=\"gm\"><strong>Eye Throwing</strong> A fire-eye zombie can launch its eye at foes. While its eye is out of its head, the fire-eye zombie is @Compendium[pf2e.conditionitems.Blinded]{Blinded}. At the end of its turn, a fire-eye zombie's eye flies back into its eye socket.</p>"
                     }
@@ -354,7 +354,7 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.Note",
+                        "key": "Note",
                         "outcome": [
                             "criticalSuccess"
                         ],
@@ -409,7 +409,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
