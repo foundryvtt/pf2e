@@ -107,15 +107,13 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         if (staminaEnabled) {
             const stamina = attributes.sp;
-            const keyAbility = actor.keyAbility;
             if (stamina.value < stamina.max) {
                 stamina.value = stamina.max;
                 restoredList.push("Stamina");
             }
             const resolve = attributes.resolve;
-            const maxResolve = abilities[keyAbility].mod;
-            if (resolve.value < maxResolve) {
-                resolve.value = maxResolve;
+            if (resolve.value < resolve.max) {
+                resolve.value = resolve.max;
                 restoredList.push("Resolve");
             }
         }

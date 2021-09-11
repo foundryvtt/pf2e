@@ -306,7 +306,7 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     speed: CharacterSpeeds;
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number };
+    resolve: { value: number; max: number };
 }
 
 export interface CharacterSpeeds extends StatisticModifier {
