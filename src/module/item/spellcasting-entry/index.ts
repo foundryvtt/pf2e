@@ -33,7 +33,10 @@ interface ActiveSpell {
     spell: Embedded<SpellPF2e>;
     chatData: Record<string, unknown>;
     expended?: boolean;
+    /** Is this spell marked as signature/collection */
     signature?: boolean;
+    /** Is the spell not actually of this level? */
+    virtual?: boolean;
 }
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
@@ -284,7 +287,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        level.active.push({ spell, chatData: spell.getChatData(), signature: true });
+                        const chatData = spell.getChatData({}, { spellLvl: level.level });
+                        level.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }
             }
@@ -304,6 +308,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             id: this.id,
             name: this.name,
             tradition: this.tradition,
+            castingType: this.data.data.prepared.value,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isFlexible: this.isFlexible,
