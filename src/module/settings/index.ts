@@ -204,6 +204,18 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register("pf2e", "autoCollapseItemChatCardContent", {
+        name: "PF2E.SETTINGS.autoCollapseItemChatCardContent.Name",
+        hint: "PF2E.SETTINGS.autoCollapseItemChatCardContent.Hint",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange() {
+            ui.chat.render();
+        },
+    });
+
     game.settings.registerMenu("pf2e", "automation", {
         name: "PF2E.SETTINGS.Automation.Name",
         label: "PF2E.SETTINGS.Automation.Label",

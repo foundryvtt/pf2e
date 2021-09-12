@@ -50,4 +50,9 @@ Hooks.on("renderChatMessage", (message, html) => {
             elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
         }
     });
+
+    // Optionally collapse the content
+    if (game.settings.get("pf2e", "autoCollapseItemChatCardContent")) {
+        html.find(".card-content").hide();
+    }
 });
