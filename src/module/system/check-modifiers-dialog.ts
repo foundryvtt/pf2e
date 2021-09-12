@@ -1,10 +1,8 @@
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
 import { ActorPF2e } from "@actor/base";
 import { RollNotePF2e } from "../notes";
-import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from "./check-degree-of-success";
+import { PF2CheckDC } from "./check-degree-of-success";
 import { LocalizePF2e } from "./localize";
-import { RollDataPF2e } from "./rolls";
-import { DegreeAdjustment } from "@module/degree-of-success";
 import { ItemPF2e } from "@item";
 
 export interface CheckModifiersContext {
@@ -47,10 +45,12 @@ export class CheckModifiersDialog extends Application {
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
     context: CheckModifiersContext;
-    /** Callback called when the roll occurs. */
-    callback?: (roll: Rolled<Roll>) => void;
+    /** Promise resolve function */
+    resolve: (value: boolean) => void;
+    /** Has the promise been resolved? */
+    isResolved = false;
 
-    constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Rolled<Roll>) => void) {
+    constructor(check: StatisticModifier, resolve: (value: boolean) => void, context?: CheckModifiersContext) {
         super({
             title: context?.title || check.name,
             template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
@@ -62,171 +62,12 @@ export class CheckModifiersDialog extends Application {
 
         this.check = check;
         this.context = context ?? {}; // might include a reference to actor, so do not do mergeObject or similar
-        this.callback = callback;
+        this.resolve = resolve;
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
             this.context.rollMode = game.settings.get("core", "rollMode") ?? "roll";
         }
-    }
-
-    /** Roll the given check, rendering the roll to the chat menu. */
-    static async roll(
-        check: StatisticModifier,
-        context: CheckModifiersContext = {},
-        callback?: (roll: Rolled<Roll>) => void
-    ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>> {
-        const options: string[] = [];
-        const ctx = context as any;
-        let dice = "1d20";
-        if (ctx.fate === "misfortune") {
-            dice = "2d20kl";
-            options.push("PF2E.TraitMisfortune");
-        } else if (ctx.fate === "fortune") {
-            dice = "2d20kh";
-            options.push("PF2E.TraitFortune");
-        }
-
-        const speaker: { actor?: ActorPF2e } = {};
-        if (ctx.actor) {
-            speaker.actor = ctx.actor;
-            ctx.actor = ctx.actor.id;
-        }
-        if (ctx.token) {
-            ctx.token = ctx.token.id;
-        }
-        if (ctx.user) {
-            ctx.user = ctx.user.id;
-        }
-        const item = context.item;
-        delete context.item;
-
-        ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
-
-        const modifierBreakdown = check.modifiers
-            .filter((m) => m.enabled)
-            .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
-            })
-            .join("");
-
-        const optionStyle =
-            "white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);";
-        const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
-            .join("");
-
-        const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
-
-        let flavor = `<strong>${check.name}</strong>`;
-        if (ctx.type === "spell-attack-roll" && game.modules.get("pf2qr")?.active) {
-            // Until the PF2eQR module uses the roll type instead of feeling around for "Attack Roll"
-            flavor = flavor.replace(/^<strong>/, '<strong data-pf2qr-hint="Attack Roll">');
-        }
-
-        // Add the degree of success if a DC was supplied
-        if (ctx.dc) {
-            const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
-            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
-            ctx.outcome = degreeOfSuccessText;
-            ctx.unadjustedOutcome = "";
-
-            // Add degree of success to roll for the callback function
-            roll.data.degreeOfSuccess = degreeOfSuccess.value;
-
-            const needsDCParam =
-                typeof ctx.dc.label === "string" && Number.isInteger(ctx.dc.value) && !ctx.dc.label.includes("{dc}");
-            if (needsDCParam) ctx.dc.label = `${ctx.dc.label.trim()}: {dc}`;
-
-            const dcLabel = game.i18n.format(ctx.dc.label ?? "PF2E.DCLabel", { dc: ctx.dc.value });
-            const showDC = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
-            flavor += `<div data-visibility="${showDC}"><b>${dcLabel}</b></div>`;
-
-            const adjustment = (() => {
-                switch (degreeOfSuccess.degreeAdjustment) {
-                    case DegreeAdjustment.INCREASE_BY_TWO:
-                        return game.i18n.localize("PF2E.TwoDegreesBetter");
-                    case DegreeAdjustment.INCREASE:
-                        return game.i18n.localize("PF2E.OneDegreeBetter");
-                    case DegreeAdjustment.LOWER:
-                        return game.i18n.localize("PF2E.OneDegreeWorse");
-                    case DegreeAdjustment.LOWER_BY_TWO:
-                        return game.i18n.localize("PF2E.TwoDegreesWorse");
-                    default:
-                        return null;
-                }
-            })();
-            const adjustmentLabel = adjustment ? ` (${adjustment})` : "";
-            ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
-
-            const resultLabel = game.i18n.localize("PF2E.ResultLabel");
-            const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? "CheckOutcome"}.${degreeOfSuccessText}`);
-            const showResult = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showResults");
-            const offsetLabel = (() => {
-                return game.i18n.format("PF2E.ResultOffset", {
-                    offset: new Intl.NumberFormat(game.i18n.lang, {
-                        maximumFractionDigits: 0,
-                        signDisplay: "always",
-                        useGrouping: false,
-                    }).format(roll.total - (ctx.dc.value ?? 0)),
-                });
-            })();
-            flavor += `<div data-visibility="${showResult}" class="degree-of-success">`;
-            flavor += `<b>${resultLabel}: <span class="${degreeOfSuccessText}">${degreeLabel} `;
-            flavor += showResult === showDC ? offsetLabel : `<span data-visibility=${showDC}>${offsetLabel}</span>`;
-            flavor += `</span></b> ${adjustmentLabel}`;
-            flavor += "</div>";
-        }
-
-        const notes = ((ctx.notes as RollNotePF2e[]) ?? [])
-            .filter(
-                (note) =>
-                    ctx.dc === undefined ||
-                    note.outcome.length === 0 ||
-                    note.outcome.includes(ctx.outcome) ||
-                    note.outcome.includes(ctx.unadjustedOutcome)
-            )
-            .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
-            .join("<br />");
-
-        if (ctx.traits) {
-            const traits = ctx.traits.map((trait: string) => `<span class="tag">${trait}</span>`).join("");
-            flavor += `<div class="tags">${traits}</div><hr>`;
-        }
-        flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
-        const origin = item ? { uuid: item.uuid, type: item.type } : null;
-        const message = await roll.toMessage(
-            {
-                speaker: ChatMessage.getSpeaker(speaker),
-                flavor,
-                flags: {
-                    core: {
-                        canPopout: true,
-                    },
-                    pf2e: {
-                        canReroll: !["fortune", "misfortune"].includes(ctx.fate),
-                        context,
-                        unsafe: flavor,
-                        modifierName: check.name,
-                        modifiers: check.modifiers,
-                        origin,
-                    },
-                },
-            },
-            {
-                rollMode: ctx.rollMode ?? "roll",
-                create: ctx.createMessage === undefined ? true : (ctx.createMessage as boolean),
-            }
-        );
-
-        if (callback) {
-            callback(roll);
-        }
-
-        return message;
     }
 
     override getData() {
@@ -248,7 +89,8 @@ export class CheckModifiersDialog extends Application {
     override activateListeners(html: JQuery) {
         html.find(".roll").on("click", (_event) => {
             this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as string;
-            CheckModifiersDialog.roll(this.check, this.context, this.callback);
+            this.resolve(true);
+            this.isResolved = true;
             this.close();
         });
 
@@ -280,6 +122,11 @@ export class CheckModifiersDialog extends Application {
             await game.user.setFlag("pf2e", "settings.showRollDialogs", $checkbox[0].checked);
             $tooltip.tooltipster("close");
         });
+    }
+
+    override async close(options?: { force?: boolean }) {
+        if (!this.isResolved) this.resolve(false);
+        super.close(options);
     }
 
     onAddModifier(event: JQuery.ClickEvent) {
