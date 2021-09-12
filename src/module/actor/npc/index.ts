@@ -917,7 +917,9 @@ export class NPCPF2e extends CreaturePF2e {
             );
         }
         for (const attackEffect of sourceItemData.data.attackEffects.value) {
-            const item = this.items.find((item) => (item.slug ?? sluggify(item.name)) === sluggify(attackEffect))?.data;
+            const item = this.items.find(
+                (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
+            )?.data;
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
