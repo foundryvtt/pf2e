@@ -71,9 +71,12 @@
           <div>
             <b>{{localize 'PF2E.Speed'}}</b>
             <span class="tags">
-              {{#each data.attributes.speed.otherSpeeds}}
-                <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
-              {{/each}}
+                {{#with data.attributes.speed as |landSpeed|}}
+                    <span class="tag" title="{{landSpeed.breakdown}}">{{localize landSpeed.label}} {{landSpeed.total}}</span>
+                {{/with}}
+                {{#each data.attributes.speed.otherSpeeds}}
+                    <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
+                {{/each}}
             </span>
           </div>
         {{/if}}

@@ -1,7 +1,7 @@
 import {
     Abilities,
     Alignment,
-    BaseCreatureAttributes,
+    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureResources,
     BaseCreatureSource,
@@ -25,7 +25,7 @@ import {
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
+import { ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -217,7 +217,7 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-export interface CharacterAttributes extends BaseCreatureAttributes {
+export interface CharacterAttributes extends CreatureAttributes {
     /** The perception skill. */
     perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
@@ -302,9 +302,6 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
         };
     };
 
-    /** Records the various land/swim/fly speeds that this actor has. */
-    speed: CharacterSpeeds;
-
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number; max: number };
 }
@@ -313,22 +310,4 @@ interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
 }
 
-export interface CharacterSpeeds extends StatisticModifier {
-    /** The actor's primary speed (usually walking/stride speed). */
-    value: string;
-    /** Other speeds that this actor can use (such as swim, climb, etc). */
-    otherSpeeds: LabeledSpeed[];
-    /** The derived value after applying modifiers, bonuses, and penalties */
-    total: number;
-    /** A textual breakdown of the base speed and any modifiers applied to it */
-    breakdown?: string;
-}
-
 export type SenseType = typeof SENSE_TYPES[number];
-
-export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-export interface LabeledSpeed extends LabeledValue {
-    type: Exclude<MovementType, "land">;
-    value: string;
-    label: string;
-}
