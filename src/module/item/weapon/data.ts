@@ -78,7 +78,7 @@ interface WeaponSystemData extends MagicItemSystemData {
     };
     baseItem: BaseWeaponType | null;
     hands: {
-        value: boolean;
+        value: string;
     };
     bonus: {
         value: number;
