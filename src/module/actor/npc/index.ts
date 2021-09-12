@@ -601,10 +601,14 @@ export class NPCPF2e extends CreaturePF2e {
                     const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
                     const key = sluggify(attackEffect);
                     const actions = this.itemTypes.action;
+                    const consumables = this.itemTypes.consumable;
                     const label =
                         game.i18n.localize(localizationMap[key]) ??
                         actions.flatMap((action) =>
                             action.slug === key || sluggify(action.name) === key ? action.name : []
+                        )[0] ??
+                        consumables.flatMap((consumable) =>
+                            consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
                         )[0] ??
                         attackEffect;
                     return {
@@ -901,9 +905,9 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    protected async getAttackEffects(item: MeleeData): Promise<RollNotePF2e[]> {
+    protected async getAttackEffects(sourceItemData: MeleeData): Promise<RollNotePF2e[]> {
         const notes: RollNotePF2e[] = [];
-        const description = item.data.description.value;
+        const description = sourceItemData.data.description.value;
         if (description) {
             notes.push(
                 new RollNotePF2e(
@@ -912,7 +916,7 @@ export class NPCPF2e extends CreaturePF2e {
                 )
             );
         }
-        for (const attackEffect of item.data.attackEffects.value) {
+        for (const attackEffect of sourceItemData.data.attackEffects.value) {
             const item = this.items.find((item) => (item.slug ?? sluggify(item.name)) === sluggify(attackEffect))?.data;
             const note = new RollNotePF2e("all", "");
             if (item) {
@@ -933,6 +937,11 @@ export class NPCPF2e extends CreaturePF2e {
                         notes.push(note);
                     } else {
                         console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
+                        const sourceItem = this.items.get(sourceItemData._id, { strict: true });
+                        const update = sourceItemData.data.attackEffects.value.filter(
+                            (effect) => effect !== attackEffect
+                        );
+                        await sourceItem.update({ ["data.attackEffects.value"]: update });
                     }
                 }
             }
