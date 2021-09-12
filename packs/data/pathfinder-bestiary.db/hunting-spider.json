@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "details": "",
                 "value": 17
             },
@@ -51,8 +52,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "25 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "25"
                     }
                 ],
                 "value": "25"
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "<p>Hunting spiders are the most common type of giant spider, though not the largest.</p>",
+            "flavorText": "<p>Hunting spiders are the most common type of giant spider, though not the largest.</p>\n<hr />\n<p>Few everyday vermin inspire as much dread as the infamous spider.</p>",
             "level": {
                 "value": 1
             },
@@ -130,8 +132,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Hunting Spider Venom"
+                        "hunting-spider-venom"
                     ]
                 },
                 "bonus": {
@@ -178,8 +181,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "web trap"
+                        "web-trap"
                     ]
                 },
                 "bonus": {
@@ -227,7 +231,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The hunting spider has imprecise tremorsense to detect the vibrations of creatures touching its web.</p>"
+                    "value": "<p>The hunting spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -365,7 +369,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The hunting spider moves straight down up to 40 feet, suspended by a web line. It can hang from the web or drop off. The distance it Descends on a Web doesn't count for falling damage.</p>\n<p>A creature that successfully Strikes the web (AC 20, Hardness 3, 5 HP) severs it, causing the spider to fall.</p>"
+                    "value": "<p>The hunting spider moves straight down up to 40 feet, suspended by a web line. It can hang from the web or drop off. The distance it Descends on a Web doesn't count for falling damage.</p>\n<p data-visibility=\"gm\">A creature that successfully Strikes the web (AC 20, Hardness 3, 5 HP) severs it, causing the spider to fall.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -411,7 +415,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Hunting Spider Venom\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><em data-visibility=\"gm\"><strong>Maximum Duration</strong> 6 rounds;</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 1</strong> [[/r 1d10 #poison]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 2</strong> [[/r 1d12 #poison]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 3</strong> [[/r 2d6 #poison]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round).</em></p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Hunting Spider Venom\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10 #poison]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12 #poison]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -440,6 +444,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
+            "mce_19": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Hunting Spider Venom\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10 #poison]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12 #poison]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>\n</div>",
             "name": "Hunting Spider Venom",
             "sort": 700000,
             "type": "action"
