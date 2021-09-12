@@ -340,7 +340,7 @@ export const InlineRollsLinks = {
                 templateData.distance ||= Number(pf2Distance);
 
                 if (templateData.t === "ray") {
-                    templateData.width ||= 5;
+                    templateData.width ||= canvas.dimensions.distance;
                 }
                 if (templateData.t === "cone") {
                     templateData.angle ||= 90;
