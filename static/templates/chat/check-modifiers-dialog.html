@@ -1,4 +1,4 @@
-<div class="check-modifiers-content">
+<form class="check-modifiers-content">
     <div class="dialog-row header">
         <span class="type">{{localize 'PF2E.Roll.Type'}}</span>
         <span class="mod">{{localize 'PF2E.Roll.Modifier'}}</span>
@@ -16,8 +16,8 @@
                 {{/if}}
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                 <label class="exclude toggle">
-                    <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{checked modifier.ignored}} />
-                    <label for="{{idx}}"></label>
+                    <input type="checkbox" id="{{../appId}}-modifier-{{idx}}" data-modifier-index="{{idx}}" {{checked modifier.ignored}} />
+                    <label for="{{../appId}}-modifier-{{idx}}"></label>
                 </label>
             </div>
         {{/each}}
@@ -77,4 +77,4 @@
             </li>
         </ul>
     </div>
-</div>
+</form>

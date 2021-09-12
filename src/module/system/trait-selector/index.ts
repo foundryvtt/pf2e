@@ -1,8 +1,8 @@
 export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
-export { TraitSelectorResistances } from "./resistances";
+export { ResistanceSelector } from "./resistances";
 export { TraitSelectorSenses } from "./senses";
 export { TraitSelectorSpeeds } from "./speeds";
-export { TraitSelectorWeaknesses } from "./weaknesses";
+export { WeaknessSelector } from "./weaknesses";
 export { TagSelectorOptions } from "./base";
 
 export const TAG_SELECTOR_TYPES = ["basic", "resistances", "senses", "speed-types", "weaknesses"] as const;

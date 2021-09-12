@@ -51,12 +51,20 @@ import { SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { CharacterSource } from "@actor/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
+    }
+
+    override get hitPoints(): { value: number; max: number; recoveryMultiplier: number } {
+        return {
+            ...super.hitPoints,
+            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+        };
     }
 
     get ancestry(): Embedded<AncestryPF2e> | null {
@@ -99,7 +107,9 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.dying = { value: 0, max: 4 };
         attributes.wounded = { value: 0, max: 3 };
 
-        // Hit points from Ancestry and Class
+        // Hit points
+        const hitPoints = this.data.data.attributes.hp;
+        hitPoints.recoveryMultiplier = 1;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
@@ -179,6 +189,37 @@ export class CharacterPF2e extends CreaturePF2e {
         super.applyActiveEffects();
     }
 
+    protected override async _preUpdate(
+        data: DeepPartial<CharacterSource>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ) {
+        const characterData = this.data.data;
+
+        // Clamp Stamina and Resolve
+        if (game.settings.get("pf2e", "staminaVariant")) {
+            // Do not allow stamina to go over max
+            if (data.data?.attributes?.sp) {
+                data.data.attributes.sp.value = Math.clamped(
+                    data.data?.attributes?.sp?.value || 0,
+                    0,
+                    characterData.attributes.sp.max
+                );
+            }
+
+            // Do not allow resolve to go over max
+            if (data.data?.attributes?.resolve) {
+                data.data.attributes.resolve.value = Math.clamped(
+                    data.data?.attributes?.resolve?.value || 0,
+                    0,
+                    characterData.attributes.resolve.max
+                );
+            }
+        }
+
+        await super._preUpdate(data, options, user);
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
@@ -237,6 +278,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
+                systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
+
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
@@ -295,7 +338,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Saves
-        const worn = this.wornArmor?.data;
+        const { wornArmor } = this;
         for (const saveName of ["fortitude", "reflex", "will"] as const) {
             const save = systemData.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
@@ -307,10 +350,10 @@ export class CharacterPF2e extends CreaturePF2e {
             const notes: RollNotePF2e[] = [];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
-            if (worn) {
-                const resilientBonus = getResiliencyBonus(worn.data);
-                if (resilientBonus > 0 && worn.isInvested) {
-                    modifiers.push(new ModifierPF2e(worn.name, resilientBonus, MODIFIER_TYPE.ITEM));
+            if (wornArmor) {
+                const resilientBonus = getResiliencyBonus(wornArmor.data.data);
+                if (resilientBonus > 0 && wornArmor.isInvested) {
+                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
             }
 
@@ -457,15 +500,16 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = "unarmored";
 
-            if (worn) {
-                dexCapSources.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
-                proficiency = worn.data.armorType.value;
+            if (wornArmor) {
+                dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+                proficiency = wornArmor.category;
                 // armor check penalty
-                if (systemData.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
-                    armorCheckPenalty = Number(worn.data.check.value ?? 0);
+                if (systemData.abilities.str.value < Number(wornArmor.strength ?? 0)) {
+                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
                 }
-                const armorBonus = worn.isInvested === false ? worn.data.armor.value : getArmorBonus(worn.data);
-                modifiers.push(new ModifierPF2e(worn.name, armorBonus, MODIFIER_TYPE.ITEM));
+                const armorBonus =
+                    wornArmor.isInvested === false ? wornArmor.acBonus : getArmorBonus(wornArmor.data.data);
+                modifiers.push(new ModifierPF2e(wornArmor.name, armorBonus, MODIFIER_TYPE.ITEM));
             }
 
             // proficiency
@@ -524,9 +568,9 @@ export class CharacterPF2e extends CreaturePF2e {
             // workaround for the shortform skill names
             const longForm = SKILL_DICTIONARY[shortForm];
 
-            const strongEnough = this.data.data.abilities.str.value >= (worn?.data.strength.value ?? 0);
+            const strongEnough = this.data.data.abilities.str.value >= (wornArmor?.strength ?? 0);
 
-            if (strongEnough && worn?.data.traits.value.includes("flexible") && ["acr", "ath"].includes(shortForm)) {
+            if (strongEnough && wornArmor?.traits.has("flexible") && ["acr", "ath"].includes(shortForm)) {
                 this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignore-check-penalty": true };
             }
             if (skill.armor && systemData.attributes.ac.check && systemData.attributes.ac.check < 0) {
@@ -888,13 +932,33 @@ export class CharacterPF2e extends CreaturePF2e {
         synthetics: RuleElementSynthetics
     ): CharacterSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
+        const speedPenalty = ((): ModifierPF2e | null => {
+            const { wornArmor } = this;
+            const basePenalty = wornArmor?.speedPenalty ?? 0;
+            const strength = this.data.data.abilities.str.value;
+            const requirement = wornArmor?.strength ?? strength;
+            const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
+
+            const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
+            const penalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
+            if (penalty) {
+                penalty.predicate.not = ["armor:ignore-speed-penalty"];
+                penalty.ignored = !penalty.predicate.test(
+                    this.getRollOptions(["all", "speed", `${movementType}-speed`])
+                );
+            }
+            return penalty;
+        })();
+
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = [];
-            ["land-speed", "speed"].forEach((key) => {
-                (synthetics.statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
+
+            const modifiers: ModifierPF2e[] = (speedPenalty ? [speedPenalty] : []).concat(
+                ["land-speed", "speed"]
+                    .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                    .flat()
+            );
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
                 systemData.attributes.speed,
@@ -916,10 +980,11 @@ export class CharacterPF2e extends CreaturePF2e {
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
             const base = Number(speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = [];
-            [`${speed.type}-speed`, "speed"].forEach((key) => {
-                (synthetics.statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
+            const modifiers: ModifierPF2e[] = (speedPenalty ? [speedPenalty] : []).concat(
+                [`${speed.type}-speed`, "speed"]
+                    .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                    .flat()
+            );
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
                 speed,

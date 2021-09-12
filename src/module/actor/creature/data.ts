@@ -97,15 +97,21 @@ export type SaveData = SkillData & { saveDetail?: string };
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 export interface BaseCreatureAttributes {
-    hp: HitPointsData;
+    hp: CreatureHitPoints;
     ac: { value: number };
     perception: { value: number };
 }
+
+export interface CreatureHitPoints extends HitPointsData {
+    negativeHealing: boolean;
+}
+
 export interface BaseCreatureResources {
     focus?: {
         value: number;
         max: number;
     };
+    negativeHealing: boolean;
 }
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 

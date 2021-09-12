@@ -66,12 +66,12 @@
     </div>
 </div>
 <div class="weaknesses side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
+    <div class="side-bar-section-header {{#unless data.traits.dv}} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-heart-broken"></i>
-            <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
+            <h4>{{ localize "PF2E.WeaknessesLabel"}}</h4>
         </div>
-        {{#if options.editable }}
+        {{#if options.editable}}
             <div class="weaknesses-controls controls">
                 <a class="trait-edit edit" data-trait-selector="weaknesses" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
             </div>
@@ -79,25 +79,25 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dv as |weakness key|}}
-            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
+            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</div>
         {{/each}}
     </div>
 </div>
 <div class="resistances side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.dr }} disabled {{/unless}}">
+    <div class="side-bar-section-header {{#unless data.traits.dr}} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-shield-virus"></i>
-            <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
+            <h4>{{localize "PF2E.ResistancesLabel"}}</h4>
         </div>
-        {{#if options.editable }}
+        {{#if options.editable}}
             <div class="resistances-controls controls">
-                <a class="trait-edit edit" data-trait-selector="resistances" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if data.traits.dr }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+                <a class="trait-edit edit" data-trait-selector="resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fas {{#if data.traits.dr}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
             </div>
         {{/if}}
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dr as |resistance key|}}
-            <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+            <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
 </div>

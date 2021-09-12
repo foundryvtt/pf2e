@@ -4,7 +4,6 @@ import { getContainerMap } from "@item/container/helpers";
 import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
-import { SpellPF2e } from "@item/spell";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition, PreparationType } from "@item/spellcasting-entry/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
@@ -812,10 +811,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             item.update(data);
         });
-
-        html.find(".toggle-signature-spell").on("click", (event) => {
-            this.onToggleSignatureSpell(event);
-        });
     }
 
     /** Handle changing of proficiency-rank via dropdown */
@@ -1015,36 +1010,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return data;
     }
 
-    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
-        const { containerId } = event.target.closest(".item-container").dataset;
-        const { itemId } = event.target.closest(".item").dataset;
-
-        if (!containerId || !itemId) {
-            return;
-        }
-
-        const spellcastingEntry = this.actor.items.get(containerId);
-        const spell = this.actor.items.get(itemId);
-
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
-            return;
-        }
-
-        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
-
-        if (!signatureSpells.includes(spell.id)) {
-            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
-                return;
-            }
-
-            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        } else {
-            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        }
-    }
-
     protected override async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasData<"Item", ItemPF2e>
@@ -1118,19 +1083,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return super._onSortItem(event, itemData);
-    }
-
-    protected override _onSubmit(event: any): Promise<Record<string, unknown>> {
-        // Limit SP value to data.attributes.sp.max value
-        if (event?.currentTarget?.name === "data.attributes.sp.value") {
-            event.currentTarget.value = Math.clamped(
-                Number(event.currentTarget.value),
-                0,
-                Number(this.actor.data.data.attributes.sp?.max ?? 0)
-            );
-        }
-
-        return super._onSubmit(event);
     }
 
     /**
