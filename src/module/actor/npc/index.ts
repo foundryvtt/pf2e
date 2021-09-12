@@ -597,7 +597,8 @@ export class NPCPF2e extends CreaturePF2e {
                     }
                 }
                 // Add attack effects to traits.
-                const attackTraits = itemData.data.attackEffects.value.map((attackEffect: string) => {
+                const attackTraits: { name: string; label: string; toggle: boolean }[] = [];
+                itemData.data.attackEffects.value.forEach((attackEffect: string) => {
                     const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
                     const key = sluggify(attackEffect);
                     const actions = this.itemTypes.action;
@@ -609,13 +610,14 @@ export class NPCPF2e extends CreaturePF2e {
                         )[0] ??
                         consumables.flatMap((consumable) =>
                             consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
-                        )[0] ??
-                        attackEffect;
-                    return {
-                        name: key,
-                        label,
-                        toggle: false,
-                    };
+                        )[0];
+                    if (label) {
+                        attackTraits.push({
+                            name: key,
+                            label,
+                            toggle: false,
+                        });
+                    }
                 });
                 action.traits.push(...attackTraits);
 
