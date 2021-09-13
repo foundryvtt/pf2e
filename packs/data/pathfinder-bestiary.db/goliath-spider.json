@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 30,
                 "details": "",
                 "value": 30
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
-                "value": "45 feet"
+                "value": "45"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "<p>Goliath spiders dwell in the deepest jungles, where they build webs as big as temples and feast on prey as large as hippopotami.</p>",
+            "flavorText": "<p>Goliath spiders dwell in the deepest jungles, where they build webs as big as temples and feast on prey as large as hippopotami.</p>\n<hr />\n<p>Few everyday vermin inspire as much dread as the infamous spider.</p>",
             "level": {
                 "value": 11
             },
@@ -127,8 +129,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "goliath spider venom"
+                        "goliath-spider-venom"
                     ]
                 },
                 "bonus": {
@@ -175,8 +178,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "web tether"
+                        "web-tether"
                     ]
                 },
                 "bonus": {
@@ -224,7 +228,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The goliath spider has imprecise tremorsense to detect the vibrations of creatures touching its web.</p>"
+                    "value": "<p>The goliath spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -256,6 +260,54 @@
             "type": "action"
         },
         {
+            "_id": "zm5hc0YuNjjknTeP",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "aAGnyUk4Vj6iSM7n",
             "data": {
                 "actionCategory": {
@@ -268,7 +320,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>; <strong>Requirement</strong> Initiative has not yet been rolled. <strong>Trigger</strong> A creature touches the goliath spider's web while the spider is on it. <strong>Effect</strong> The goliath spider automatically notices the creature and Strides, Climbs, or Descends on a Web before it rolls initiative.</p>"
+                    "value": "<p><strong>Requirement</strong> Initiative has not yet been rolled.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature touches the goliath spider's web while the spider is on it.</p>\n<p><strong>Effect</strong> The goliath spider automatically notices the creature and Strides, Climbs, or Descends on a Web before it rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,9 +348,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Spring Upon Prey",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -314,7 +366,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The goliath spider moves straight down up to 120 feet, suspended by a web line. It can hang from the web or drop off. The distance it Descends on a Web doesn't count for falling damage. A creature that successfully Strikes the web (AC 20, Hardness 5, 20 HP) severs it, causing the spider to fall.</p>"
+                    "value": "<p>The goliath spider moves straight down up to 120 feet, suspended by a web line. It can hang from the web or drop off. The distance it Descends on a Web doesn't count for falling damage.</p>\n<p data-visibility=\"gm\">A creature that successfully Strikes the web (AC 20, Hardness 5, 20 HP) severs it, causing the spider to fall.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -342,9 +394,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Descend on a Web",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -360,7 +412,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Goliath Spider Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 2d6 poison and slowed 1 (1 round); <strong>Stage 2</strong> 2d6 poison and slowed 2 (1 round); <strong>Stage 3</strong> paralyzed for [[/br 2d4 #hours]]{2d4 hours}.</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Goliath Spider Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]]{2d6 poison} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #poison]]{2d6 poison} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/br 2d4 #hours]]{2d4 hours}</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -389,9 +441,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Goliath Spider Venom",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -407,7 +459,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the spider's web Strike is restrained and tethered to the spider, preventing it from moving farther away from the spider. The spider can have one creature tethered at a time. The DC to Escape or Force Open the web is 30. The tether can be severed with a Strike (AC 20, Hardness 5, HP 20), but this doesn't free the restrained creature.</p>"
+                    "value": "<p>A creature hit by the spider's web Strike is @Compendium[pf2e.conditionitems.Restrained]{Restrained} and tethered to the spider, preventing it from moving farther away from the spider.</p>\n<p data-visibility=\"gm\">The spider can have one creature tethered at a time. The DC to @Compendium[pf2e.actionspf2e.Escape]{Escape} or @Compendium[pf2e.actionspf2e.Force Open]{Force Open} the web is 30. The tether can be severed with a Strike (AC 20, Hardness 5, HP 20), but this doesn't free the restrained creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -435,7 +487,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Tether",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -470,7 +522,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -505,7 +557,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -540,7 +592,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
