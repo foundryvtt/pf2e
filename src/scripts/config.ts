@@ -1663,10 +1663,10 @@ export const PF2ECONFIG = {
     },
 
     actionTypes: {
-        passive: "PF2E.ActionTypePassive",
         action: "PF2E.ActionTypeAction",
         reaction: "PF2E.ActionTypeReaction",
         free: "PF2E.ActionTypeFree",
+        passive: "PF2E.ActionTypePassive",
     },
 
     actionsNumber: {
