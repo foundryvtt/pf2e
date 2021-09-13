@@ -17,7 +17,7 @@ export interface BattleFormOverrides {
     senses?: { [K in SenseType]?: BattleFormSense };
     size?: Size | null;
     speeds?: { [K in MovementType]?: number };
-    skills?: { [K in SkillAbbreviation]?: BattleFormSkill };
+    skills?: BattleFormSkills;
     strikes?: Record<string, BattleFormStrike>;
     ownModifier?: {
         armorClass?: boolean;
@@ -32,9 +32,8 @@ export interface BattleFormOverrides {
 
 export interface BattleFormAC {
     modifier?: string | number;
-    ownModifierBonus?: number | null;
     ignoreCheckPenalty?: boolean;
-    ignoreSpeedReduction?: boolean;
+    ignoreSpeedPenalty?: boolean;
 }
 
 interface BattleFormSense {
@@ -45,6 +44,7 @@ interface BattleFormSense {
 interface BattleFormSkill {
     modifier: string | number;
 }
+export type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 
 interface BattleFormStrike {
     label: string;
