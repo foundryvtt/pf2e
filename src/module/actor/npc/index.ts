@@ -199,50 +199,10 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        {
-            const label = game.i18n.localize("PF2E.SpeedTypesLand");
-            const base = Number(data.attributes.speed.value) || 0;
-            const modifiers: ModifierPF2e[] = [];
-            ["land-speed", "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
-                data.attributes.speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.type = "land";
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            data.attributes.speed = stat;
-        }
-        for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
-            const speed = data.attributes.speed.otherSpeeds[idx];
-            const base = typeof speed.value === "string" ? Number(speed.value) || 0 : 0;
-            const modifiers: ModifierPF2e[] = [];
-            [`${speed.type.toLowerCase()}-speed`, "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.type }), modifiers),
-                speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.type })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            data.attributes.speed.otherSpeeds[idx] = stat;
+        data.attributes.speed = this.prepareSpeed("land", synthetics);
+        const { otherSpeeds } = data.attributes.speed;
+        for (let idx = 0; idx < otherSpeeds.length; idx++) {
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
         }
 
         // Armor Class

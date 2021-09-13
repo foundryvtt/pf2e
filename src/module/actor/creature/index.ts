@@ -10,11 +10,20 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
-import { Alignment, AlignmentComponent, VisionLevel, VisionLevels } from "./data";
+import {
+    Alignment,
+    AlignmentComponent,
+    CreatureSpeeds,
+    LabeledSpeed,
+    MovementType,
+    VisionLevel,
+    VisionLevels,
+} from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
+import { ErrorPF2e } from "@module/utils";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -265,6 +274,68 @@ export abstract class CreaturePF2e extends ActorPF2e {
             await this.update({ "data.customModifiers": customModifiers });
         } else {
             throw Error("Custom modifiers can only be removed by name (string) or index (number)");
+        }
+    }
+
+    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
+    prepareSpeed(
+        movementType: Exclude<MovementType, "land">,
+        synthetics: RuleElementSynthetics
+    ): LabeledSpeed & StatisticModifier;
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+        const systemData = this.data.data;
+
+        if (movementType === "land") {
+            const label = game.i18n.localize("PF2E.SpeedTypesLand");
+            const base = Number(systemData.attributes.speed.value ?? 0);
+            const modifiers: ModifierPF2e[] = ["land-speed", "speed"]
+                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                .flat();
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
+                systemData.attributes.speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.type = "land";
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
+        } else {
+            const speed = systemData.attributes.speed.otherSpeeds.find(
+                (otherSpeed) => otherSpeed.type === movementType
+            );
+            if (!speed) throw ErrorPF2e("Unexpected missing speed");
+            const base = Number(speed.value ?? 0);
+            const modifiers: ModifierPF2e[] = [`${speed.type}-speed`, "speed"]
+                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                .flat();
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
+                speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
         }
     }
 
