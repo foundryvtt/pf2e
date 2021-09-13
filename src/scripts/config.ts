@@ -1681,6 +1681,11 @@ export const PF2ECONFIG = {
         offensive: "PF2E.ActionCategoryOffensive",
     },
 
+    frequencies: {
+        hour: "PF2E.Frequency.hour",
+        day: "PF2E.Frequency.day",
+    },
+
     // Proficiency Multipliers
     proficiencyLevels: [
         "PF2E.ProficiencyLevel0", // untrained
