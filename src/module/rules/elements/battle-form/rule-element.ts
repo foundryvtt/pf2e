@@ -23,6 +23,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "fist",
         "foot",
         "foreleg",
+        "gust",
         "horn",
         "jaws",
         "mandibles",
@@ -31,7 +32,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "stinger",
         "tail",
         "talon",
+        "tendril",
+        "tentacle",
         "tongue",
+        "wave",
         "wing",
     ].reduce((accumulated: Record<string, ImagePath | undefined>, strike) => {
         const path = `systems/pf2e/icons/unarmed-attacks/${strike}.webp` as const;
@@ -40,9 +44,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         const dataIsValid =
-            typeof data.label === "string" &&
-            data.overrides instanceof Object &&
-            (data.value === undefined || data.value instanceof Object);
+            data.overrides instanceof Object && (data.value === undefined || data.value instanceof Object);
         if (!dataIsValid) {
             console.warn("PF2e System | Battle Form rule element failed to validate");
             data.ignored = true;
@@ -267,7 +269,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private prepareStrikes(synthetics: RuleElementSynthetics): void {
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
-            label: strikeData.label,
+            label: strikeData.label ?? `PF2E.BattleForm.Attack.${slug.titleCase()}`,
             slug,
             img: strikeData.img,
             ability: strikeData.ability,
@@ -296,7 +298,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);
                 const baseModifier: number = this.resolveValue(strike.modifier);
-                action.unshift(new ModifierPF2e(this.label.replace(/\s*\([^)]+\)$/, ""), baseModifier, "untyped"));
+                action.unshift(
+                    new ModifierPF2e(this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, ""), baseModifier, "untyped")
+                );
 
                 // Also replace the label
                 const title = game.i18n.localize("PF2E.RuleElement.Strike");

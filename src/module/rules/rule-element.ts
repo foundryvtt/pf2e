@@ -54,7 +54,7 @@ abstract class RuleElementPF2e {
             ...data,
             predicate: data.predicate ? new ModifierPredicate(data.predicate) : undefined,
             label: game.i18n.localize(data.label ?? item.name),
-            ignored: false,
+            ignored: data.ignored ?? false,
         };
     }
 
@@ -178,7 +178,11 @@ abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    resolveValue(
+        valueData = this.data.value,
+        defaultValue: Exclude<RuleValue, BracketedValue> = 0,
+        { evaluate = true } = {}
+    ): any {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
         if (this.isBracketedValue(valueData)) {
@@ -220,7 +224,7 @@ abstract class RuleElementPF2e {
             return mergeObject(defaultValue, value, { inplace: false });
         }
 
-        if (typeof value === "string" && value.includes("@")) {
+        if (typeof value === "string" && value.includes("@") && evaluate) {
             value = Roll.safeEval(
                 Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data })
             );

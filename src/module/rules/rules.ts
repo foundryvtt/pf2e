@@ -14,7 +14,7 @@ import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
 import { SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { StrikeRuleElement } from "./elements/strike";
-import { PF2RollNoteRuleElement } from "./elements/roll-note";
+import { RollNoteRuleElement } from "./elements/roll-note";
 import { PF2WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
 import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
@@ -49,7 +49,7 @@ export class RuleElements {
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
-        Note: PF2RollNoteRuleElement,
+        Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
         EffectTarget: PF2EffectTargetRuleElement,
         WeaponPotency: PF2WeaponPotencyRuleElement,
@@ -71,8 +71,9 @@ export class RuleElements {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
                         return new REConstructor(data, item);
-                    } catch {
+                    } catch (error) {
                         console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                        console.warn(error);
                         return null;
                     }
                 })();
