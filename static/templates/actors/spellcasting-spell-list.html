@@ -2,18 +2,7 @@
 <ol class="directory-list item-list spell-list" data-casting-type="{{castingType}}">
     <!-- Add section for each level -->
     {{#each entry.levels as |section lvl|}}
-        <!-- We display the spell level header in the following circumstances: -->
-        <!-- Show slotless levels is on, -->
-        <!-- It's off, but we have slots at this level, or -->
-        <!-- This level is an infinite slot cantrip level. -->
-        {{#if (or 
-                entry.data.showSlotlessLevels.value             
-                (and 
-                    (gt section.uses.max 0)                     
-                    (not entry.data.showSlotlessLevels.value)
-                )
-                (and section.isCantrip (not section.uses))      
-               )}}
+        {{#if (or (gt section.active.length 0) entry.data.showSlotlessLevels.value)}}
             <li class="item inventory-header spell-level-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{lvl}}">
                 <div class="item-name flexrow">
                     {{#if entry.isPrepared}}
@@ -148,7 +137,7 @@
         {{#if (and entry.data.showUnpreparedSpells.value section.displayPrepared)}}
             <header class="item-name pf-sub-category pf-actions level-prepared-header">
                 {{#if (and (eq section.uses.max 0) (not entry.data.showSlotlessLevels.value))}}
-                    {{localize section.label}}: 
+                    {{localize section.label}}:
                 {{/if}}
 
                 {{localize "PF2E.UnpreparedSpellsLabel"}}
@@ -157,7 +146,7 @@
                         ({{entry.flexibleAvailable.value}} / {{entry.flexibleAvailable.max}})
                     </div>
                 {{/if}}
-            </header>
+            </header> 
 
             <!-- Unprepared Spells -->
             {{#each (lookup entry.spellPrepList section.level) as |item i|}}

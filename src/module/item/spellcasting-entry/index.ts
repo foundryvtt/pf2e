@@ -197,7 +197,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
                 // Detect which spells are active. If flexible, it will be set later via signature spells
                 const active: (ActiveSpell | null)[] = [];
-                if (level === 0 || !this.isFlexible) {
+                if ((this.data.data.showSlotlessLevels.value || data.max > 0) && (level === 0 || !this.isFlexible)) {
                     const maxPrepared = Math.max(data.max, 0);
                     active.push(...Array(maxPrepared).fill(null));
                     for (const [key, value] of Object.entries(data.prepared)) {
@@ -268,6 +268,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShowHeader || spells.length) {
                     const uses = this.isRitual || level === 0 ? undefined : { value: data.value, max: data.max };
+                    if (!this.data.data.showSlotlessLevels.value && uses?.max === 0) continue;
+
                     results.push({
                         label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                         level: level as ZeroToTen,
@@ -285,15 +287,16 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 const spell = this.spells.get(spellId);
                 if (!spell) continue;
 
-                for (const level of results) {
-                    if (spell.level > level.level) continue;
+                for (const result of results) {
+                    if (spell.level > result.level) continue;
+                    if (!this.data.data.showSlotlessLevels.value && result.uses?.max === 0) continue;
 
-                    const existing = level.active.find((a) => a?.spell.id === spellId);
+                    const existing = result.active.find((a) => a?.spell.id === spellId);
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = spell.getChatData({}, { spellLvl: level.level });
-                        level.active.push({ spell, chatData, signature: true, virtual: true });
+                        const chatData = spell.getChatData({}, { spellLvl: result.level });
+                        result.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }
             }
@@ -303,7 +306,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         const flexibleAvailable = (() => {
             if (!this.isFlexible) return undefined;
             const totalSlots = results
-                .filter((level) => !level.isCantrip)
+                .filter((result) => !result.isCantrip)
                 .map((level) => level.uses?.max || 0)
                 .reduce((first, second) => first + second, 0);
             return { value: signatureSpells.size, max: totalSlots };
