@@ -28,9 +28,6 @@ import {
     CombatProficiencyKey,
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
-    MovementType,
-    LabeledSpeed,
-    CharacterSpeeds,
 } from "./data";
 import { RollNotePF2e } from "@module/notes";
 import {
@@ -47,7 +44,7 @@ import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcastin
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
-import { SkillAbbreviation, SkillData } from "@actor/creature/data";
+import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
@@ -918,7 +915,7 @@ export class CharacterPF2e extends CreaturePF2e {
         });
     }
 
-    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CharacterSpeeds;
+    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
     prepareSpeed(
         movementType: Exclude<MovementType, "land">,
         synthetics: RuleElementSynthetics
@@ -926,80 +923,28 @@ export class CharacterPF2e extends CreaturePF2e {
     prepareSpeed(
         movementType: MovementType,
         synthetics: RuleElementSynthetics
-    ): CharacterSpeeds | (LabeledSpeed & StatisticModifier);
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(
         movementType: MovementType,
         synthetics: RuleElementSynthetics
-    ): CharacterSpeeds | (LabeledSpeed & StatisticModifier) {
-        const systemData = this.data.data;
-        const speedPenalty = ((): ModifierPF2e | null => {
-            const { wornArmor } = this;
-            const basePenalty = wornArmor?.speedPenalty ?? 0;
-            const strength = this.data.data.abilities.str.value;
-            const requirement = wornArmor?.strength ?? strength;
-            const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+        const { wornArmor } = this;
+        const basePenalty = wornArmor?.speedPenalty ?? 0;
+        const strength = this.data.data.abilities.str.value;
+        const requirement = wornArmor?.strength ?? strength;
+        const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
-            const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
-            const penalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
-            if (penalty) {
-                penalty.predicate.not = ["armor:ignore-speed-penalty"];
-                penalty.ignored = !penalty.predicate.test(
-                    this.getRollOptions(["all", "speed", `${movementType}-speed`])
-                );
-            }
-            return penalty;
-        })();
-
-        if (movementType === "land") {
-            const label = game.i18n.localize("PF2E.SpeedTypesLand");
-            const base = Number(systemData.attributes.speed.value ?? 0);
-
-            const modifiers: ModifierPF2e[] = (speedPenalty ? [speedPenalty] : []).concat(
-                ["land-speed", "speed"]
-                    .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                    .flat()
+        const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
+        const armorPenalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
+        if (armorPenalty) {
+            const speedModifiers = (synthetics.statisticsModifiers.speed ??= []);
+            armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
+            armorPenalty.ignored = !armorPenalty.predicate.test(
+                this.getRollOptions(["all", "speed", `${movementType}-speed`])
             );
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
-                systemData.attributes.speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.type = "land";
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            return stat;
-        } else {
-            const speed = systemData.attributes.speed.otherSpeeds.find(
-                (otherSpeed) => otherSpeed.type === movementType
-            );
-            if (!speed) throw ErrorPF2e("Unexpected missing speed");
-            const base = Number(speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = (speedPenalty ? [speedPenalty] : []).concat(
-                [`${speed.type}-speed`, "speed"]
-                    .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                    .flat()
-            );
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
-                speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            return stat;
+            speedModifiers.push(armorPenalty);
         }
+        return super.prepareSpeed(movementType, synthetics);
     }
 
     /** Prepare a strike action from a weapon */
