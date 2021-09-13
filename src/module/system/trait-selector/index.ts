@@ -60,8 +60,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "spellLevels",
     "featTypes",
     "actionTypes",
-    "actionTypes",
-    "actionTypes",
     "actionsNumber",
     "actionCategories",
     "proficiencyLevels",
