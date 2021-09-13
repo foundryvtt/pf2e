@@ -17,6 +17,7 @@ export interface RuleElementData {
 }
 
 export type RuleElementSource = Omit<RuleElementData, "ignored" | "label" | "predicate" | "priority"> & {
+    ignored?: boolean;
     label?: string;
     priority?: number;
     predicate?: RawPredicate;
