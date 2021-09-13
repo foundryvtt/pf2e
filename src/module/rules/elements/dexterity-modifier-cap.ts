@@ -1,12 +1,16 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import type { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorType } from "@actor/data";
 import { RuleElementPF2e } from "../rule-element";
 
 /**
  * @category RuleElement
  */
-export class PF2DexterityModifierCapRuleElement extends RuleElementPF2e {
+class DexterityModifierCapRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
     override onBeforePrepareData() {
-        if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) return;
+        if (this.ignored) return;
+
         const value = this.resolveValue(this.data.value);
         if (typeof value === "number") {
             this.actor.data.data.attributes.dexCap.push({
@@ -18,3 +22,9 @@ export class PF2DexterityModifierCapRuleElement extends RuleElementPF2e {
         }
     }
 }
+
+interface DexterityModifierCapRuleElement extends RuleElementPF2e {
+    get actor(): CharacterPF2e | NPCPF2e;
+}
+
+export { DexterityModifierCapRuleElement };

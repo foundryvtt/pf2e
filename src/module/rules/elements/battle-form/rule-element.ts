@@ -1,5 +1,5 @@
 import { CharacterPF2e } from "@actor";
-import { CharacterData } from "@actor/data";
+import { ActorType, CharacterData } from "@actor/data";
 import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -14,6 +14,14 @@ import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];
+
+    protected static override validActorTypes: ActorType[] = ["character"];
+
+    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
+        super(data, item);
+        this.initialize(data);
+        this.overrides = this.resolveValue(this.data.value, this.data.overrides);
+    }
 
     static defaultIcons: Record<string, ImagePath | undefined> = [
         "antler",
@@ -42,25 +50,17 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         return { ...accumulated, [strike]: path };
     }, {});
 
-    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
-        const dataIsValid =
-            data.overrides instanceof Object && (data.value === undefined || data.value instanceof Object);
-        if (!dataIsValid) {
-            console.warn("PF2e System | Battle Form rule element failed to validate");
-            data.ignored = true;
-        }
-        if (!(item.actor instanceof CharacterPF2e)) {
-            console.warn("PF2e System | A Battle Form rule element may only be applied to a player character");
-            data.ignored = true;
-        }
-
-        super(data, item);
-        this.initialize(data);
-        this.overrides = this.resolveValue(this.data.value, this.data.overrides);
-    }
-
     /** Fill in base override data */
     private initialize(data: BattleFormSource): void {
+        if (this.ignored) return;
+
+        const dataIsValid = data.overrides instanceof Object && data.value instanceof Object;
+        if (!dataIsValid) {
+            console.warn("PF2e System | Battle Form rule element failed to validate");
+            this.ignored = true;
+            return;
+        }
+
         const overrides = (data.overrides ??= {});
         overrides.tempHP ??= null;
         overrides.traits ??= [];
@@ -140,6 +140,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     /** Remove temporary hit points */
     onDelete(actorUpdates: Record<string, unknown>): void {
+        if (this.ignored) return;
+
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.data.label, value: tempHP }, this.item).onDelete(
