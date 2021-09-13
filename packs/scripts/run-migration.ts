@@ -23,7 +23,8 @@ import { Migration663FixSpellDamage } from "@module/migration/migrations/663-fix
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
 import { Migration666UsageAndStowingContainers } from "@module/migration/migrations/666-usage-and-stowing-containers";
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
-import { Migration668npcAttackEffects } from "@module/migration/migrations/668-npc-attack-effects";
+import { Migration668ArmorSpeedPenalty } from "@module/migration/migrations/668-armor-speed-penalty";
+import { Migration669npcAttackEffects } from "@module/migration/migrations/668-npc-attack-effects";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
@@ -44,7 +45,8 @@ const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
     new Migration666UsageAndStowingContainers(),
     new Migration667HPSubProperties(),
-    new Migration668npcAttackEffects(),
+    new Migration668ArmorSpeedPenalty(),
+    new Migration669npcAttackEffects(),
 ];
 
 global.deepClone = function (original: any): any {
