@@ -22,10 +22,10 @@ import {
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
-    TraitSelectorResistances,
+    ResistanceSelector,
     TraitSelectorSenses,
     TraitSelectorSpeeds,
-    TraitSelectorWeaknesses,
+    WeaknessSelector,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
     SelectableTagField,
@@ -1369,10 +1369,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");
         } else {
             const TagSelector = {
-                resistances: TraitSelectorResistances,
+                resistances: ResistanceSelector,
                 senses: TraitSelectorSenses,
                 "speed-types": TraitSelectorSpeeds,
-                weaknesses: TraitSelectorWeaknesses,
+                weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);
         }

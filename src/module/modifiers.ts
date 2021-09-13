@@ -478,33 +478,44 @@ export class ModifierPredicate implements RawPredicate {
     any: string[];
     /** The options must NOT HAVE ANY of these entries for this predicate to pass. */
     not: string[];
+    /** Is the predicate data structurally valid? */
+    private isValid: boolean;
 
     /** Test if the given predicate passes for the given list of options. */
     static test(predicate: RawPredicate = {}, options: string[] = []): boolean {
-        const { all, any, not } = predicate;
-
-        let active = true;
-        if (all && all.length > 0) {
-            active = active && all.every((i) => options.includes(i));
-        }
-        if (any && any.length > 0) {
-            active = active && any.some((i) => options.includes(i));
-        }
-        if (not && not.length > 0) {
-            active = active && !not.some((i) => options.includes(i));
-        }
-        return active;
+        return predicate instanceof ModifierPredicate
+            ? predicate.test(options)
+            : new ModifierPredicate(predicate).test(options);
     }
 
     constructor(param: RawPredicate = { all: [], any: [], not: [] }) {
         this.all = param.all ?? [];
         this.any = param.any ?? [];
         this.not = param.not ?? [];
+        this.isValid = this.validate();
+    }
+
+    /** Validate that the predicates are structurally sound */
+    private validate() {
+        return (["all", "any", "not"] as const).every(
+            (operator) =>
+                Array.isArray(this[operator]) &&
+                this[operator].every((proposition) => typeof proposition === "string" && proposition.length > 0)
+        );
     }
 
     /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
     test(options: string[] = []): boolean {
-        return ModifierPredicate.test(this, options);
+        if (!this.isValid) {
+            console.error("PF2e System | The provided predicate set is malformed.");
+            return false;
+        }
+        const { all, any, not } = this;
+        return (
+            all.every((i) => options.includes(i)) &&
+            !not.some((i) => options.includes(i)) &&
+            (any.length === 0 || any.some((i) => options.includes(i)))
+        );
     }
 }
 
@@ -567,18 +578,24 @@ export class DiceModifierPF2e implements RawModifier {
     }
 }
 
-type DamageDiceParameters = Partial<DamageDicePF2e> & Pick<DamageDicePF2e, "selector" | "name">;
+type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "name">;
+export interface DamageDiceParameters extends PartialParameters {
+    predicate?: RawPredicate;
+}
 
 export class DamageDicePF2e extends DiceModifierPF2e {
-    /** The selector used to determine when   */
+    /** The selector used to determine when *has a stroke*  */
     selector: string;
 
     constructor(params: DamageDiceParameters) {
-        super(params);
+        const predicate =
+            params.predicate instanceof ModifierPredicate ? params.predicate : new ModifierPredicate(params.predicate);
+        super({ ...params, predicate });
+
         if (params.selector) {
             this.selector = params.selector;
         } else {
-            throw ErrorPF2e("selector is mandatory");
+            throw ErrorPF2e("Selector is mandatory");
         }
     }
 }

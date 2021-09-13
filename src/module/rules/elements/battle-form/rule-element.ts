@@ -109,6 +109,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
+        rollOptions.all["armor:ignore-speed-penalty"] ??= this.overrides.armorClass.ignoreSpeedReduction;
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
@@ -119,9 +120,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-check-penalty"] = true;
         }
         if (this.overrides.armorClass.ignoreSpeedReduction) {
-            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-speed-penalty"] = true;
+            const speedRollOptions = (this.actor.data.flags.pf2e.rollOptions.speed ??= {});
+            speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
-        this.prepareLandSpeed();
     }
 
     onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
@@ -186,12 +187,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         new CreatureSizeRuleElement(ruleData, this.item).onBeforePrepareData();
     }
 
-    private prepareLandSpeed(): void {
-        if (typeof this.overrides.speeds.land === "number") {
-            this.actor.data.data.attributes.speed.value = String(this.overrides.speeds.land);
-        }
-    }
-
     /** Add, replace and/or adjust non-land speeds */
     private prepareSpeeds(synthetics: RuleElementSynthetics): void {
         const { attributes } = this.actor.data.data;
@@ -203,7 +198,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
             if (movementType === "land") {
                 const landSpeed = attributes.speed;
-                this.suppressArmorSpeedPenalty(attributes.speed);
                 this.suppressModifiers(attributes.speed);
                 attributes.speed.totalModifier = landSpeed.total = speedOverride + landSpeed.totalModifier;
                 const label = game.i18n.format("PF2E.SpeedBaseLabel", {
@@ -231,7 +225,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                     value: String(speedOverride),
                 });
                 const newSpeed = this.actor.prepareSpeed(movementType, synthetics);
-                this.suppressArmorSpeedPenalty(newSpeed);
                 this.suppressModifiers(newSpeed);
                 newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
                 newSpeed.breakdown = [`${label} ${speedOverride}`]
@@ -323,17 +316,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
         }
         statistic.applyStackingRules();
-    }
-
-    /** Find and remove armor speed penalty */
-    private suppressArmorSpeedPenalty(statistic: StatisticModifier): void {
-        for (const modifier of statistic.modifiers) {
-            if (modifier.predicate.not.includes("unburdened-iron") && modifier.modifier < 0) {
-                modifier.predicate.not.push("battle-form");
-                modifier.ignored = true;
-                modifier.enabled = false;
-            }
-        }
     }
 
     applyDamageExclusion(modifiers: RawModifier[]): void {
