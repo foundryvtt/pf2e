@@ -551,11 +551,11 @@ export class DiceModifierPF2e implements RawModifier {
     custom: boolean;
     predicate: ModifierPredicate;
 
-    constructor(param: Partial<DiceModifierPF2e> & { name: string }) {
+    constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { name: string; predicate?: RawPredicate }) {
         if (param.name) {
             this.name = param.name;
         } else {
-            throw new Error("name is mandatory");
+            throw ErrorPF2e("Name is mandatory");
         }
 
         this.label = param.label;
@@ -572,7 +572,7 @@ export class DiceModifierPF2e implements RawModifier {
             this.category ??= DamageCategory.fromDamageType(this.damageType);
         }
 
-        this.predicate = new ModifierPredicate(param?.predicate);
+        this.predicate = new ModifierPredicate(param.predicate);
         this.enabled = ModifierPredicate.test!(this.predicate);
         this.ignored = !this.enabled;
     }

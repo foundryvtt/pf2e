@@ -10,7 +10,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
-import { VisionLevel, VisionLevels } from "./data";
+import { Alignment, AlignmentComponent, VisionLevel, VisionLevels } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
@@ -20,6 +20,11 @@ import { TokenDocumentPF2e } from "@scene";
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
+
+    /** The creature's position on the alignment axes */
+    get alignment(): Alignment {
+        return this.data.data.details.alignment.value;
+    }
 
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
@@ -58,10 +63,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
-    get hitPoints(): { value: number; max: number } {
+    get hitPoints(): { value: number; max: number; negativeHealing: boolean } {
         return {
             value: this.data.data.attributes.hp.value,
             max: this.data.data.attributes.hp.max,
+            negativeHealing: this.data.data.attributes.hp.negativeHealing,
         };
     }
 
@@ -400,29 +406,61 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     private createStrikeRollContext(rollNames: string[]) {
+        const options = this.getRollOptions(rollNames);
+
+        const getAlignmentTraits = (alignment: Alignment): AlignmentComponent[] => {
+            return [
+                ...new Set([
+                    ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
+                    ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
+                    ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
+                    ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
+                ]),
+            ];
+        };
+        const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
+        options.push(
+            ...conditions
+                .map((condition) => [`self:${condition.data.data.hud.statusName}`, `condition:${condition.slug}`])
+                .flat(),
+            ...getAlignmentTraits(this.alignment).map((alignment) => `trait:${alignment}`)
+        );
+        if (this.hitPoints.negativeHealing) {
+            options.push("negative-healing");
+        }
+
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e
         );
         const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
-        const options = this.getRollOptions(rollNames);
-        {
-            const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
-        }
-        if (target?.actor) {
-            const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+        if (target?.actor instanceof CreaturePF2e) {
+            if (target.actor.hitPoints.negativeHealing) {
+                options.push("target:negative-healing");
+            }
+            const targetConditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
 
-            const traits = (target.actor.data.data.traits.traits.custom ?? "")
-                .split(/[;,\\|]/)
-                .map((value) => value.trim())
-                .concat(target.actor.data.data.traits.traits.value ?? [])
-                .filter((value) => !!value)
-                .map((trait) => `target:${trait}`);
-            options.push(...traits);
+            options.push(
+                ...targetConditions
+                    .map((condition) => [
+                        `target:${condition.data.data.hud.statusName}`,
+                        `target:condition:${condition.slug}`,
+                    ])
+                    .flat(),
+                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`)
+            );
         }
+
+        const traits = (target?.actor?.data.data.traits.traits.custom ?? "")
+            .split(/[;,\\|]/)
+            .map((value) => value.trim())
+            .concat(target?.actor?.data.data.traits.traits.value ?? [])
+            .filter((value) => !!value)
+            .map((trait) => [`target:${trait}`, `target:trait:${trait}`])
+            .flat();
+        options.push(...traits);
+
         return {
-            options,
+            options: [...new Set(options)],
             targets: new Set(targets),
             target,
         };

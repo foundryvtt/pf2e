@@ -34,9 +34,8 @@ export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "
 
 export interface CreatureSystemData extends ActorSystemData {
     details: {
-        level: {
-            value: number;
-        };
+        alignment: { value: Alignment };
+        level: { value: number };
     };
 
     /** Traits, languages, and other information. */
@@ -114,6 +113,8 @@ export interface BaseCreatureResources {
     negativeHealing: boolean;
 }
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
+
+export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";
 
 export enum VisionLevels {
     BLINDED,
