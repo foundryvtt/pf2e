@@ -34,6 +34,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
+            showSlotlessLevels: true,
         });
         return options;
     }

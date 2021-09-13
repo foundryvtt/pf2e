@@ -23,6 +23,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             height: 800,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }],
             showUnpreparedSpells: false,
+            showSlotlessLevels: true,
         });
     }
 

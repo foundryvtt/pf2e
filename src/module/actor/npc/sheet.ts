@@ -137,7 +137,7 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
 
 export interface SpellcastingSheetData
     extends SpellcastingEntryData,
-        ReturnType<Embedded<SpellcastingEntryPF2e>["getSpellData"]> {
+    ReturnType<Embedded<SpellcastingEntryPF2e>["getSpellData"]> {
     eid: number;
 }
 
@@ -151,6 +151,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             width: 650,
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
+            showSlotlessLevels: true,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
             scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.notes"],
         });
@@ -841,8 +842,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             $input.hasClass("focus-points") || $input.hasClass("focus-pool")
                 ? Math.min(Number($input.val()), 3)
                 : $input.is("select")
-                ? String($input.val())
-                : Number($input.val());
+                    ? String($input.val())
+                    : Number($input.val());
         await this.actor.updateEmbeddedDocuments("Item", [
             {
                 _id: itemId,

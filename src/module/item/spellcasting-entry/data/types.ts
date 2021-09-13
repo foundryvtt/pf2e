@@ -71,6 +71,9 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     showUnpreparedSpells: {
         value: boolean;
     };
+    showSlotlessLevels: {
+        value: boolean;
+    };
     proficiency: {
         value: number;
     };

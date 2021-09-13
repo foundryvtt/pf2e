@@ -16,6 +16,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
+            showSlotlessLevels: true,
         });
         return options;
     }
