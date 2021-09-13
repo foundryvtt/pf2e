@@ -27,6 +27,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.prepareBaseData();
 
         const systemData: DeepPartial<FamiliarSystemData> & { attributes: {}; details: {} } = this.data.data;
+        systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],

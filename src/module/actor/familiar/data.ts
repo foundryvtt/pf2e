@@ -37,10 +37,7 @@ interface FamiliarAttributes extends BaseCreatureAttributes {
 
 /** The raw information contained within the actor data object for familiar actors. */
 export interface FamiliarSystemData extends CreatureSystemData {
-    details: {
-        level: {
-            value: number;
-        };
+    details: CreatureSystemData["details"] & {
         creature: {
             value: string;
         };
