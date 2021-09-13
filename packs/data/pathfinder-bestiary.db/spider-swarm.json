@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 15,
                 "details": "",
                 "value": 15
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -63,7 +65,7 @@
                 "value": "N"
             },
             "creatureType": "Animal",
-            "flavorText": "<p>An abundance of food, the sudden hatching of a clutch of eggs, or magical influence can cause smaller spiders to gather in terrifying, deadly masses.</p>",
+            "flavorText": "<p>An abundance of food, the sudden hatching of a clutch of eggs, or magical influence can cause smaller spiders to gather in terrifying, deadly masses.</p>\n<hr />\n<p>Few everyday vermin inspire as much dread as the infamous spider.</p>",
             "level": {
                 "value": 0
             },
@@ -97,31 +99,29 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "2"
+                    "value": 2
                 },
                 {
-                    "label": "Piercing",
+                    "exceptions": "",
                     "type": "piercing",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Slashing",
+                    "exceptions": "",
                     "type": "slashing",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [
                 {
-                    "label": "Area Damage",
                     "type": "area-damage",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Splash Damage",
                     "type": "splash-damage",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -164,7 +164,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The spider swarm has imprecise tremorsense to detect the vibrations of creatures touching its web.</p>"
+                    "value": "<p>The spider swarm has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,6 +196,54 @@
             "type": "action"
         },
         {
+            "_id": "1RIzUNU0v2cfgsjD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "NIgj8uAlgosxMdVf",
             "data": {
                 "actionCategory": {
@@ -208,7 +256,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Spider Swarm Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 4 rounds; <strong>Stage 1</strong> 1 poison and enfeebled 1 (1 round); <strong>Stage 2</strong> 1d4 poison and enfeebled 1 (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Spider Swarm Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1 #poison]]{1 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d4 #poison]]{1d4 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,9 +284,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spider Swarm Venom",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -254,7 +302,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the spider swarm's space takes [[/r 1d4 #piercing]]{1d4 piercing damage} with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"14\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save. A creature that fails its save is exposed to spider swarm venom.</p>"
+                    "value": "<p>Each enemy in the spider swarm's space takes [[/r 1d4 #piercing]]{1d4 piercing damage} with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"14\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>\n<p data-visibility=\"gm\">A creature that fails its save is exposed to spider swarm venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -280,9 +328,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Bites",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -317,7 +365,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -352,7 +400,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -387,7 +435,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
