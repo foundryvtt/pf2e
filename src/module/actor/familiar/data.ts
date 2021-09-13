@@ -1,12 +1,11 @@
 import {
-    BaseCreatureAttributes,
+    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureSystemData,
     SkillAbbreviation,
 } from "@actor/creature/data";
 import { AbilityString, ActorFlagsPF2e, RawSkillData, Rollable } from "@actor/data/base";
-import { LabeledValue } from "@module/data";
 import { StatisticModifier } from "@module/modifiers";
 import type { FamiliarPF2e } from ".";
 
@@ -23,24 +22,14 @@ export interface FamiliarData extends Omit<FamiliarSource, "effects" | "items" |
     readonly _source: FamiliarSource;
 }
 
-interface FamiliarAttributes extends BaseCreatureAttributes {
+interface FamiliarAttributes extends CreatureAttributes {
     ac: { value: number; breakdown: string; check?: number };
     perception: { value: number } & Partial<RawSkillData> & Rollable;
-    /** The movement speeds that this Familiar has. */
-    speed: {
-        /** The land speed for this actor. */
-        value: string;
-        /** A list of other movement speeds the actor possesses. */
-        otherSpeeds: LabeledValue[];
-    };
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
 export interface FamiliarSystemData extends CreatureSystemData {
-    details: {
-        level: {
-            value: number;
-        };
+    details: CreatureSystemData["details"] & {
         creature: {
             value: string;
         };

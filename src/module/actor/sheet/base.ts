@@ -9,7 +9,7 @@ import {
     SpellPF2e,
 } from "@item";
 import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { isItemSystemData, isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
     calculateTotalWealth,
@@ -22,10 +22,10 @@ import {
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
-    TraitSelectorResistances,
+    ResistanceSelector,
     TraitSelectorSenses,
     TraitSelectorSpeeds,
-    TraitSelectorWeaknesses,
+    WeaknessSelector,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
     SelectableTagField,
@@ -1120,7 +1120,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         div.append(props);
-        const description = TextEditor.enrichHTML(item.description);
+
+        const description = isItemSystemData(chatData)
+            ? chatData.description.value
+            : TextEditor.enrichHTML(item.description);
         div.append(`<div class="item-description">${description}</div></div>`);
     }
 
@@ -1369,10 +1372,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");
         } else {
             const TagSelector = {
-                resistances: TraitSelectorResistances,
+                resistances: ResistanceSelector,
                 senses: TraitSelectorSenses,
                 "speed-types": TraitSelectorSpeeds,
-                weaknesses: TraitSelectorWeaknesses,
+                weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);
         }

@@ -51,16 +51,15 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             coinValueInCopper(extractPriceFromItem(sheetData.item)) !==
             coinValueInCopper(extractPriceFromItem(baseData));
 
-        type MaterialSheetData = MaterialValuationData &
-            {
-                [key in keyof MaterialValuationData]:
-                    | null
-                    | (MaterialValuationData[key] & {
-                          label?: string;
-                      } & {
-                              [key in PreciousMaterialGrade]: { label?: string; selected?: boolean } | null;
-                          });
-            };
+        type MaterialSheetData = MaterialValuationData & {
+            [key in keyof MaterialValuationData]:
+                | null
+                | (MaterialValuationData[key] & {
+                      label?: string;
+                  } & {
+                      [key in PreciousMaterialGrade]: { label?: string; selected?: boolean } | null;
+                  });
+        };
 
         const preciousMaterials: Partial<MaterialSheetData> = deepClone(MATERIAL_VALUATION_DATA);
         delete preciousMaterials[""];

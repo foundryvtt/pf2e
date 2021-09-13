@@ -445,7 +445,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         const templateData: any = {
             t: areaType,
-            distance: Number(itemData.data.area.value),
+            distance: (Number(itemData.data.area.value) / 5) * canvas.dimensions.distance,
             flags: {
                 pf2e: {
                     origin: {
@@ -460,7 +460,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         if (areaType === "ray") {
-            templateData.width = 5;
+            templateData.width = canvas.dimensions.distance;
         } else if (areaType === "cone") {
             templateData.angle = 90;
         }

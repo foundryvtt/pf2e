@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import type { ActorDataPF2e, CreatureData } from "@actor/data";
+import type { ActorDataPF2e, ActorType, CreatureData } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ItemDataPF2e } from "@item/data";
 import { ModifierPredicate, RawModifier } from "@module/modifiers";
@@ -44,22 +44,37 @@ export class TokenEffect implements TemporaryEffect {
 abstract class RuleElementPF2e {
     data: RuleElementData;
 
+    /** A list of actor types on which this rule element can operate (all unless overridden) */
+    protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
+
     /**
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
+        data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+
+        const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
+            item.actor.data.type
+        );
+        if (invalidActorType) {
+            const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
+            const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
+            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            data.ignored = true;
+        }
+
         this.data = {
             priority: 100,
             ...data,
             predicate: data.predicate ? new ModifierPredicate(data.predicate) : undefined,
             label: game.i18n.localize(data.label ?? item.name),
-            ignored: false,
+            ignored: data.ignored ?? false,
         };
     }
 
     get key(): string {
-        return this.data.key.replace(/^PF2E\.RuleElement\./, "");
+        return this.data.key;
     }
 
     get actor(): ActorPF2e {
@@ -178,7 +193,11 @@ abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    resolveValue(
+        valueData = this.data.value,
+        defaultValue: Exclude<RuleValue, BracketedValue> = 0,
+        { evaluate = true } = {}
+    ): any {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
         if (this.isBracketedValue(valueData)) {
@@ -220,7 +239,7 @@ abstract class RuleElementPF2e {
             return mergeObject(defaultValue, value, { inplace: false });
         }
 
-        if (typeof value === "string" && value.includes("@")) {
+        if (typeof value === "string" && value.includes("@") && evaluate) {
             value = Roll.safeEval(
                 Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data })
             );
