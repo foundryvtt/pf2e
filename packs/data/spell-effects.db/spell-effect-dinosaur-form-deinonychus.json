@@ -15,266 +15,184 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": "18 + @details.level.value"
-                        },
-                        {
-                            "start": 7,
-                            "value": "21 + @details.level.value"
+                "key": "BattleForm",
+                "label": "Dinosaur Form (Deinonychus)",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true,
+                        "modifier": "18 + @details.level.value"
+                    },
+                    "ownModifier": {
+                        "skills": true,
+                        "strikes": true
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Dinosaur Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 15
+                    },
+                    "speeds": {
+                        "land": 25
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d10"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "traits": [
+                                "unarmed"
+                            ]
                         },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
+                        "talon": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d4"
+                            },
+                            "group": "brawling",
+                            "label": "Talon",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "label": "PF2E.SensesScent",
-                "range": 30,
-                "selector": "scent"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 9
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 6
-                        },
-                        {
-                            "start": 7,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 18
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 21
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "lg"
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": "huge"
-                        },
-                        {
-                            "start": 7,
-                            "value": "grg"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 40
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d4"
-                    }
+                    },
+                    "traits": [
+                        "animal",
+                        "dinosaur"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Deinonychus Talon",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "agile"
-                ]
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 18
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16
+                                    },
+                                    "talon": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": {
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 21
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "talon": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 7,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "grg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 25
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "talon": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-20"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             },
             {
                 "key": "Note",
                 "predicate": {
                     "all": [
-                        "agile"
+                        "talon"
                     ]
                 },
                 "selector": "damage",
                 "text": "<p class='compact-text'><strong>Add [[/r 1 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d10"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Deinonychus Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Dinosaur Form",
-                "predicate": {
-                    "all": [
-                        "agile"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Dinosaur Form",
-                "predicate": {
-                    "not": [
-                        "agile"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
             }
         ],
         "source": {
