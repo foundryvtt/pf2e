@@ -1,19 +1,14 @@
 import { RuleElementPF2e } from "../rule-element";
 import { SenseAcuity, SenseData } from "@actor/creature/data";
-import { RuleElementSource, RuleElementData } from "../rules-data-definitions";
+import { RuleElementData } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { ActorType } from "@actor/data";
 
 /**
  * @category RuleElement
  */
 export class SenseRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
-        if (!(item.actor instanceof CharacterPF2e || item.actor instanceof FamiliarPF2e)) {
-            this.ignored = true;
-        }
-    }
+    protected static override validActorTypes: ActorType[] = ["character", "familiar"];
 
     private static isMoreAcute(replacement?: SenseAcuity, existing?: SenseAcuity): boolean {
         if (!replacement && existing) return false;
