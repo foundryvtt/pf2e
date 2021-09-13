@@ -354,7 +354,7 @@ export class SpellPF2e extends ItemPF2e {
             return Number(cardData.spellLvl) || 1;
         })();
 
-        const rollData = this.getRollData();
+        const rollData = this.getRollData({ spellLvl: castLevel });
         const formula = this.getDamageFormula(castLevel, rollData);
 
         // This title creation is temporary, will change once damage cards are finished
