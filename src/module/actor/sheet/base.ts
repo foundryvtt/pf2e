@@ -9,7 +9,7 @@ import {
     SpellPF2e,
 } from "@item";
 import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
+import { isItemSystemData, isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
     calculateTotalWealth,
@@ -1120,7 +1120,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         div.append(props);
-        const description = TextEditor.enrichHTML(item.description);
+
+        const description = isItemSystemData(chatData)
+            ? chatData.description.value
+            : TextEditor.enrichHTML(item.description);
         div.append(`<div class="item-description">${description}</div></div>`);
     }
 

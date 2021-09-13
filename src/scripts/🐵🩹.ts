@@ -11,3 +11,29 @@ export function patchTokenClasses(): void {
         Hooks.call("onTokenHUDClear", this, this.object);
     };
 }
+
+/**
+ * Patches the TextEditor to fix a core bug and eventually add new PF2e specific functionality
+ */
+export function patchTextEditor(): void {
+    const baseEnrichHTML = TextEditor.enrichHTML;
+    TextEditor.enrichHTML = function enrichHTML(content: string, options?: EnrichHTMLOptions) {
+        content = baseEnrichHTML.call(this, content, options);
+
+        const $html = $("<div/>");
+        $html.html(content);
+
+        // Fix a core bug where roll data doesn't apply to the formula
+        const rollData = options?.rollData;
+        if (rollData) {
+            $html.find("a.inline-roll").each((_idx, element) => {
+                const formula = element.dataset.formula;
+                if (formula) {
+                    element.dataset.formula = Roll.replaceFormulaData(formula, rollData);
+                }
+            });
+        }
+
+        return $html.html();
+    };
+}
