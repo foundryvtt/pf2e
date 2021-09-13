@@ -87,7 +87,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         const item = this.toObject(false).data;
         if (!this.actor) return { item };
         const actor = this.actor.toObject(false).data;
-        return { ...actor, actor, item };
+        const traits = Object.fromEntries([...this.traits.values()].map((trait) => [trait, 1]));
+        return { ...actor, actor, item, traits };
     }
 
     /**

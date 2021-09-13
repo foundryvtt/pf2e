@@ -89,7 +89,7 @@ export class SpellPF2e extends ItemPF2e {
         return this.isCantrip;
     }
 
-    override getRollData(): Record<string, unknown> {
+    override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
         const rollData = super.getRollData();
         if (this.actor) {
             const spellcasting = this.spellcasting;
@@ -99,6 +99,10 @@ export class SpellPF2e extends ItemPF2e {
                 rollData["mod"] = this.actor.getAbilityMod(spellcasting?.ability ?? "int");
             }
         }
+
+        const castLevel = Number(rollOptions?.spellLvl) || this.heightenedLevel || this.level;
+        rollData["castLevel"] = Math.max(this.level, castLevel);
+        rollData["heighten"] = Math.max(0, castLevel - this.level);
 
         return rollData;
     }
@@ -178,8 +182,10 @@ export class SpellPF2e extends ItemPF2e {
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
         const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? this.heightenedLevel);
+        const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
+        const description = TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
 
         const spellcastingData = this.data.data.trickMagicItemData ?? this.spellcasting?.data;
         if (!spellcastingData) {
@@ -200,7 +206,7 @@ export class SpellPF2e extends ItemPF2e {
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-        const formula = this.getDamageFormula(level, this.getRollData());
+        const formula = this.getDamageFormula(level, rollData);
         const hasDamage = formula && formula !== "0";
 
         // Spell saving throw text and DC
@@ -248,8 +254,9 @@ export class SpellPF2e extends ItemPF2e {
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
-        return this.processChatData(htmlOptions, {
+        return {
             ...systemData,
+            description: { value: description },
             save,
             isAttack,
             isSave,
@@ -263,7 +270,7 @@ export class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
-        });
+        };
     }
 
     /**
