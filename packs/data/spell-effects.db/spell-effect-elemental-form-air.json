@@ -15,205 +15,126 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Elemental Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": "19 + @details.level.value"
-                        },
-                        {
-                            "start": 6,
-                            "value": "22 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true
+                    },
+                    "ownModifier": {
+                        "skills": true,
+                        "strikes": true
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "fly": 80
+                    },
+                    "strikes": {
+                        "gust": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": " Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": 15
-                        },
-                        {
-                            "start": 7,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Elemental Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 18
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": 23
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Elemental Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 9
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": 13
-                        },
-                        {
-                            "start": 7,
-                            "value": 11
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Elemental Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "acrobatics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 20
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": 23
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": "med"
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 7,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": 80
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d4"
-                    }
+                    },
+                    "traits": [
+                        "elemental",
+                        "air"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "gust",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Elemental Form",
-                "predicate": {},
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "19 + @details.level.value"
+                                },
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "gust": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 18
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @details.level.value"
+                                },
+                                "size": "lrg",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "gust": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 23,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
                         {
                             "start": 7,
                             "value": {
-                                "diceNumber": 1
+                                "armorClass": {
+                                    "modifier": "22 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 25
+                                    }
+                                },
+                                "strikes": {
+                                    "gust": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 11
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
                             }
                         }
                     ],
                     "field": "item|data.level.value"
                 }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
             }
         ],
         "source": {
@@ -237,7 +158,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/elemental-form.webp",
+    "img": "systems/pf2e/icons/spells/elemental-form-air.webp",
     "name": "Spell Effect: Elemental Form (Air)",
     "type": "effect"
 }
