@@ -476,7 +476,7 @@
                             {{#if (and entry.data.showUnpreparedSpells.value section.displayPrepared)}}
                                 <!-- Unprepared Spells -->
                                 <h3 class="item-name pf-sub-category pf-actions" style="background: var(--tertiary-background);">{{localize "PF2E.UnpreparedSpellsLabel"}}</h3>
-                                {{#each section.spellPrepList as |item i|}}
+                                {{#each (lookup entry.spellPrepList section.level) as |item i|}}
                                     {{#with item}}
                                         <li class="list-row item" data-item-id="{{spell.id}}">
                                             <div class="item-name rollable">
