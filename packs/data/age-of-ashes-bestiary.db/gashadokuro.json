@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 33,
                 "details": "",
                 "value": 33
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -58,7 +59,7 @@
                 "value": "NE"
             },
             "creatureType": "Undead",
-            "flavorText": "<p>The dreaded gashadokuro is an undead haunter of the night, a giant skeleton that rises from the earth in the aftermath of a mass starvation event and seeks to inflict its unending hunger on the living.</p>\n<p>A gashadokuro that comes about due to a poor growing season is more prone to stalk remote village farmlands at night, while a gashadokuro that arose from the victims of a government-instigated food shortage has few compunctions about stomping straight into bustling cities in broad daylight. These latter gashadokuro even seem to target aristocrats and government authorities-whether or not they are the same politicians whose negligence resulted in the famine in the first place-leading many to believe that the gashadokuro seeks to slake its thirst for revenge even more than it seeks to sate its unending hunger.</br></p>",
+            "flavorText": "<p>The dreaded gashadokuro is an undead haunter of the night, a giant skeleton that rises from the earth in the aftermath of a mass starvation event and seeks to inflict its unending hunger on the living.</p>\n<p>A gashadokuro that comes about due to a poor growing season is more prone to stalk remote village farmlands at night, while a gashadokuro that arose from the victims of a government-instigated food shortage has few compunctions about stomping straight into bustling cities in broad daylight. These latter gashadokuro even seem to target aristocrats and government authorities-whether or not they are the same politicians whose negligence resulted in the famine in the first place-leading many to believe that the gashadokuro seeks to slake its thirst for revenge even more than it seeks to sate its unending hunger.</p>",
             "level": {
                 "value": 13
             },
@@ -98,29 +99,29 @@
             },
             "dr": [
                 {
-                    "label": "Cold",
+                    "exceptions": "",
                     "type": "cold",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Electricity",
+                    "exceptions": "",
                     "type": "electricity",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Fire",
+                    "exceptions": "",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Piercing",
+                    "exceptions": "",
                     "type": "piercing",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Slashing",
+                    "exceptions": "",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -250,7 +251,55 @@
             "type": "melee"
         },
         {
-            "_id": "EHu9x18YAcdkYvMo",
+            "_id": "vOJq5TnnHU4mIKTH",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "BhPrjJ8Nftcev2Lj",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -262,7 +311,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet. Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"aura,divine,mental,necromancy,damaging-effect\" data-pf2-label=\"Starvation Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the creature becomes fatigued and takes [[/r 6d6 #damage]]{6d6 damage}. Damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-effect-area=\"emanation\" data-pf2-distance=\"60\">60 feet</span></p>\n<p>Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"aura, divine, mental, necromancy\" data-pf2-label=\"Starvation Aura DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the creature becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and takes [[/r 6d6 #damage]]{6d6 damage}. Damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,20 +335,72 @@
                 },
                 "trigger": {
                     "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Starvation Aura",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "0Wab9dIIarWi1cc0",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Starvation Aura",
-            "sort": 300000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "3h8guJD7Grcgl4By",
+            "_id": "8jTe6iBKrGDmbE1w",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -311,7 +412,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gashadokuro breathes a spray of bone shards in a 30-foot cone. Each creature in the area takes [[/r 8d12 #piercing]]{8d12 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"34\" data-pf2-traits=\"divine,necromancy,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The gashadokuro breathes a spray of bone shards in a <span data-pf2-effect-area=\"cone\" data-pf2-distance=\"30\">30-foot Cone</span>. Each creature in the area takes [[/r 8d12 #piercing]]{8d12 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine,necromancy\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"34\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -333,67 +434,17 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "3d1pGhUcYBn6WdKL",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>If the gashadokuro kills a creature with Swallow Whole, it immediately regains Hit Points equal to the swallowed creature's level. As long as the gashadokuro still exists, creatures consumed in this way can't be resurrected except by wish or a similarly powerful effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Corpse Consumption",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "vV3IQJafPZfjUwE5",
+            "_id": "R8g2j3sTyDPQGaWZ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -405,13 +456,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r 3d6+8 #bludgeoning]]{3d6+8 bludgeoning}, Rupture 24.</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is grabbed, is slowed 1, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Large, [[/r 3d6 + 8 #bludgeoning]]{3d6 + 8 bludgeoning damage}, Rupture 24</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -432,14 +483,62 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "Ko821rjMrCqm1Y55",
+            "_id": "IelHLJWD7xwt5NXM",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>If the gashadokuro kills a creature with <em>Swallow Whole</em>, it immediately regains Hit Points equal to the swallowed creature's level. As long as the gashadokuro still exists, creatures consumed in this way can't be resurrected except by <em>wish</em> or a similarly powerful effect.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Corpse Consumption",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "TyKY7GD8vVS6Md0f",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -451,13 +550,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.</p>\n<p>Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -476,10 +575,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -514,7 +617,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -549,7 +652,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
