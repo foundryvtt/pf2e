@@ -1079,6 +1079,7 @@ export const PF2ECONFIG = {
         wornbackpack: "PF2E.TraitWornBackpack",
         wornbarding: "PF2E.TraitWornBarding",
         wornbelt: "PF2E.TraitWornBelt",
+        wornbeltpouch: "PF2E.TraitWornBeltPouch",
         wornbracers: "PF2E.TraitWornBracers",
         wornbracelet: "PF2E.TraitWornOnWrists",
         worncloak: "PF2E.TraitWornCloak",
@@ -1661,13 +1662,6 @@ export const PF2ECONFIG = {
         variantrule: "PF2E.FeatVariantRule",
     },
 
-    featActionTypes: {
-        passive: "PF2E.FeatActionTypePassive",
-        action: "PF2E.FeatActionTypeAction",
-        reaction: "PF2E.FeatActionTypeReaction",
-        free: "PF2E.FeatActionTypeFree",
-    },
-
     actionTypes: {
         action: "PF2E.ActionTypeAction",
         reaction: "PF2E.ActionTypeReaction",
@@ -1685,6 +1679,11 @@ export const PF2ECONFIG = {
         interaction: "PF2E.ActionCategoryInteraction",
         defensive: "PF2E.ActionCategoryDefensive",
         offensive: "PF2E.ActionCategoryOffensive",
+    },
+
+    frequencies: {
+        hour: "PF2E.Frequency.hour",
+        day: "PF2E.Frequency.day",
     },
 
     // Proficiency Multipliers

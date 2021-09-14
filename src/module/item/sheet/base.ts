@@ -4,7 +4,7 @@ import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
-import { RuleElementSource, RuleElementData } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import Tagify from "@yaireo/tagify";
 import {
     BasicConstructorOptions,
@@ -103,6 +103,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     const key = action.slug ?? sluggify(action.name);
                     return mergeObject(options, { [key]: action.name }, { inplace: false });
                 }, CONFIG.PF2E.attackEffects) ?? {};
+            this.actor?.itemTypes.consumable.forEach((consumable) => {
+                const key = consumable.slug ?? sluggify(consumable.name);
+                attackEffectOptions[key] = consumable.name;
+            });
             data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
         } else if (itemData.type === "condition") {
@@ -303,6 +307,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 },
                 CONFIG.PF2E.attackEffects
             );
+            this.actor?.itemTypes.consumable.forEach((consumable) => {
+                const key = consumable.slug ?? sluggify(consumable.name);
+                attackEffectOptions[key] = consumable.name;
+            });
             selectorOptions.customChoices = attackEffectOptions;
         }
 
@@ -378,7 +386,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData: Partial<RuleElementData>[] = this.item.data.data.rules;
+            const rulesData: Partial<RuleElementSource>[] = this.item.data.data.rules;
             this.item.update({
                 "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
             });

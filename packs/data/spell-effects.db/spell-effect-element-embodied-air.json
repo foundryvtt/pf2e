@@ -16,19 +16,11 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Element Embodied (Air)",
                 "overrides": {
                     "armorClass": {
                         "modifier": "25 + @details.level.value"
                     },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -44,7 +36,6 @@
                     "strikes": {
                         "gust": {
                             "ability": "dex",
-                            "baseType": "gust",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "bludgeoning",
@@ -53,7 +44,6 @@
                                 "modifier": 11
                             },
                             "group": "brawling",
-                            "label": "Gust",
                             "modifier": 34,
                             "traits": [
                                 "unarmed",
@@ -62,7 +52,6 @@
                         },
                         "lightning-lash": {
                             "ability": "dex",
-                            "baseType": "lightning-lash",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "electricity",
@@ -71,18 +60,17 @@
                                 "modifier": 4
                             },
                             "group": "brawling",
-                            "label": "Lightning Lash",
                             "modifier": 34,
                             "traits": [
                                 "range-increment-80"
                             ]
                         }
                     },
+                    "tempHP": 30,
                     "traits": [
                         "elemental",
                         "air"
-                    ],
-                "tempHP": 30
+                    ]
                 }
             },
             {
@@ -112,7 +100,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/element-embodied.webp",
     "name": "Spell Effect: Element Embodied (Air)",
     "type": "effect"
 }

@@ -21,14 +21,7 @@
                     "armorClass": {
                         "modifier": "22 + @details.level.value"
                     },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -53,7 +46,8 @@
                                 "die": "d8"
                             },
                             "group": "bow",
-                            "label": "composite-longbow",
+                            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+                            "label": "PF2E.Weapon.Base.composite-longbow",
                             "modifier": 20,
                             "traits": [
                                 "deadly-d10",
@@ -72,6 +66,7 @@
                                 "modifier": 10
                             },
                             "group": "sword",
+                            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
                             "label": "PF2E.Weapon.Base.longsword",
                             "modifier": 20,
                             "traits": [
@@ -79,11 +74,11 @@
                             ]
                         }
                     },
+                    "tempHP": 5,
                     "traits": [
                         "devil",
                         "fiend"
-                    ],
-                "tempHP": 5
+                    ]
                 }
             },
             {
@@ -91,6 +86,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage"
             },
             {
@@ -98,6 +98,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage"
             }
         ],
@@ -122,7 +127,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/devil-form.webp",
     "name": "Spell Effect: Devil Form (Erinys)",
     "type": "effect"
 }

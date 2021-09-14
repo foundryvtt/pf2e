@@ -1,14 +1,18 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSynthetics } from "../rules-data-definitions";
-import { CharacterData, NPCData } from "@actor/data";
 import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from "@module/modifiers";
-import { ActorPF2e } from "@actor";
+import { ActorType } from "@actor/data";
 
 /**
+ * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
  * @category RuleElement
  */
-export class PF2FlatModifierRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
+class FlatModifierRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
+    override onBeforePrepareData(_actorData: unknown, { statisticsModifiers }: RuleElementSynthetics) {
+        if (this.ignored) return;
+
         const selector = this.resolveInjectedProperties(this.data.selector);
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
@@ -27,10 +31,8 @@ export class PF2FlatModifierRuleElement extends RuleElementPF2e {
             }
             if (this.data.predicate) {
                 modifier.predicate = new ModifierPredicate(this.data.predicate);
-                modifier.ignored = !ModifierPredicate.test(
-                    modifier.predicate,
-                    ActorPF2e.getRollOptions(actorData.flags, this.data["roll-options"] ?? [])
-                );
+                const rollOptions = this.actor.getRollOptions(this.data["roll-options"] ?? []);
+                modifier.ignored = !modifier.predicate.test(rollOptions);
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {
@@ -40,13 +42,13 @@ export class PF2FlatModifierRuleElement extends RuleElementPF2e {
                 "PF2E | Flat modifier requires at least a selector field, a label field or item name, and a value field",
                 this.data,
                 this.item,
-                actorData
+                this.actor.data
             );
         }
     }
 }
 
-export interface PF2FlatModifierRuleElement {
+interface FlatModifierRuleElement {
     data: RuleElementPF2e["data"] & {
         name?: string;
         min?: number;
@@ -57,3 +59,5 @@ export interface PF2FlatModifierRuleElement {
         "roll-options"?: string[];
     };
 }
+
+export { FlatModifierRuleElement };

@@ -16,19 +16,11 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Devil Form (Osyluth)",
                 "overrides": {
                     "armorClass": {
                         "modifier": "22 + @details.level.value"
                     },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -45,7 +37,6 @@
                     "strikes": {
                         "bone-shard": {
                             "ability": "str",
-                            "baseType": "bone-shard",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "piercing",
@@ -53,7 +44,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Bone Shard",
                             "modifier": 20,
                             "traits": [
                                 "unarmed",
@@ -97,7 +87,6 @@
                         },
                         "stinger": {
                             "ability": "str",
-                            "baseType": "stinger",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "piercing",
@@ -105,7 +94,6 @@
                                 "die": "d10"
                             },
                             "group": "brawling",
-                            "label": "Stinger",
                             "modifier": 20,
                             "traits": [
                                 "unarmed",
@@ -113,11 +101,11 @@
                             ]
                         }
                     },
+                    "tempHP": 5,
                     "traits": [
                         "devil",
                         "fiend"
-                    ],
-                "tempHP": 5
+                    ]
                 }
             },
             {
@@ -125,6 +113,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage"
             },
             {
@@ -132,6 +125,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "stinger-damage"
             }
         ],
@@ -156,7 +154,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/devil-form.webp",
     "name": "Spell Effect: Devil Form (Osyluth)",
     "type": "effect"
 }

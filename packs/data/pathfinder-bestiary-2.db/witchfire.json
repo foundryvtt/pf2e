@@ -65,7 +65,7 @@
                 "value": "CE"
             },
             "creatureType": "Spirit, Undead",
-            "flavorText": "<p>Manifesting as a sinuous form wreathed in sickly green flames, this incorporeal undead forms when a powerful hag or witch dies in agony or rage. The body at the center of the flames usually resembles the witch's idealized self-image, regardless of their age and appearance at the time of their death.<br /><br /> A witchfire often resides in a bog or swamp, which slowly blackens and decays around them. These regions are often plagued by will-o'-wisps, which seem to have an uncanny relationship with the resident witchfire. A witchfire might visit villages on the edge of their home terrain to lure away villagers, but always attack victims within earshot to make sure that other villagers hear the screams. A witchfire might also ally with other hags or witches and even join their covens, but a witchfire is incapable of forming covens entirely on their own.</p>",
+            "flavorText": "<p>Manifesting as a sinuous form wreathed in sickly green flames, this incorporeal undead forms when a powerful hag or witch dies in agony or rage. The body at the center of the flames usually resembles the witch's idealized self-image, regardless of their age and appearance at the time of their death.</p>\n<p>A witchfire often resides in a bog or swamp, which slowly blackens and decays around them. These regions are often plagued by will-o'-wisps, which seem to have an uncanny relationship with the resident witchfire. A witchfire might visit villages on the edge of their home terrain to lure away villagers, but always attack victims within earshot to make sure that other villagers hear the screams. A witchfire might also ally with other hags or witches and even join their covens, but a witchfire is incapable of forming covens entirely on their own.</p>",
             "level": {
                 "value": 9
             },
@@ -1535,7 +1535,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -1578,7 +1585,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any creature that takes negative damage from a witchfire's Strike must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"26\" data-pf2-traits=\"curse,fire,necromancy,occult\" data-pf2-label=\"Witchflame DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to witchflame for 1 hour.</p>\n<p><strong>Success</strong> The creature appears to catch fire with sickly green flames. These flames deal no damage on their own, but as long as the flames burn, the creature can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} (invisible creatures are concealed rather than being undetected) and gains weakness 5 to fire for 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect is permanent until removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature gains weakness 10 to fire.</p>"
+                    "value": "<p>Any creature that takes negative damage from a witchfire's Strike must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"26\" data-pf2-traits=\"curse,fire,necromancy,occult\" data-pf2-label=\"Witchflame DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to witchflame for 1 hour.</p>\n<p><strong>Success</strong> The creature appears to catch fire with sickly green flames. These flames deal no damage on their own, but as long as the flames burn, the creature can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} (invisible creatures are concealed rather than being undetected) and gains weakness 5 to fire for 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect is permanent until removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature gains weakness 10 to fire.</p>"
                 },
                 "requirements": {
                     "value": ""

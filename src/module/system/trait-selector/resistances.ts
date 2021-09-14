@@ -3,7 +3,7 @@ import { LabeledValue } from "@module/data";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
-export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
+export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dr";
 
     static override get defaultOptions(): FormApplicationOptions {
@@ -73,10 +73,9 @@ export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1] !== "") {
-                    const label = this.choices[k];
+                if (Number.isInteger(Number(v[1])) && v[1] !== "") {
                     const exceptions = v[2] ?? "";
-                    choices.push({ type: k, label, value: v[1], exceptions });
+                    choices.push({ type: k, value: Number(v[1]), exceptions });
                 }
             }
         }

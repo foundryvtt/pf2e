@@ -16,19 +16,11 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Demon Form (Nabasu)",
                 "overrides": {
                     "armorClass": {
                         "modifier": "20 + @details.level.value"
                     },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -78,11 +70,11 @@
                             ]
                         }
                     },
+                    "tempHP": 30,
                     "traits": [
                         "demon",
                         "fiend"
-                    ],
-                "tempHP": 30
+                    ]
                 }
             },
             {
@@ -90,6 +82,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage"
             }
         ],
@@ -114,7 +111,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/demon-form.webp",
     "name": "Spell Effect: Demon Form (Nabasu)",
     "type": "effect"
 }

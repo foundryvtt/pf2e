@@ -1,4 +1,3 @@
-import { ActorDataPF2e } from "@actor/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { WeaponData } from "@item/data";
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from "@item/runes";
@@ -9,12 +8,14 @@ import {
     ModifierPredicate,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
+    RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
 import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
+import { ActorPF2e } from "@actor";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -33,6 +34,7 @@ export interface DamageTemplate {
         damageType: string;
         diceNumber: number;
         dieSize: DamageDieSize;
+        category: string;
         modifier: number;
     };
     diceModifiers: DiceModifierPF2e[];
@@ -116,7 +118,7 @@ export function ensureWeaponSize(
 export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon: any,
-        actor: ActorDataPF2e,
+        actor: ActorPF2e,
         traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: any,
@@ -201,7 +203,7 @@ export class WeaponDamagePF2e {
                 weapon.data.damage.dice = dice || 0;
                 weapon.data.damage.die = die || "";
                 if (weapon.data.range.value !== "ranged" || traits.some((trait) => trait.name.startsWith("thrown"))) {
-                    modifier -= actor.data.abilities.str.mod;
+                    modifier -= actor.data.data.abilities.str.mod;
                 }
                 weapon.data.damage.modifier = modifier;
                 weapon.data.damage.damageType = dmg.damageType;
@@ -225,7 +227,7 @@ export class WeaponDamagePF2e {
 
     static calculate(
         weapon: WeaponData,
-        actor: ActorDataPF2e,
+        actor: ActorPF2e,
         traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
@@ -248,6 +250,7 @@ export class WeaponDamagePF2e {
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
         }
+        const actorData = actor.data;
 
         // determine ability modifier
         let ability: AbilityString | null = null;
@@ -258,7 +261,7 @@ export class WeaponDamagePF2e {
                 traits.some((t) => t.name.startsWith("thrown"));
             if (melee) {
                 ability = "str";
-                modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                modifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
                 options.push("melee");
             } else {
                 options.push("ranged");
@@ -266,7 +269,7 @@ export class WeaponDamagePF2e {
 
             if (traits.some((t) => t.name === "propulsive")) {
                 ability = "str";
-                const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                const strengthModifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
                 modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
             }
 
@@ -274,16 +277,19 @@ export class WeaponDamagePF2e {
             if (
                 // character has Thief Racket class feature
                 actor.items.some((item) => item.type === "feat" && item.slug === "thief-racket") &&
-                !traits.some((t) => t.name === "unarmed") && // NOT unarmed attack
+                // NOT unarmed attack
+                !traits.some((t) => t.name === "unarmed") &&
                 traits.some((t) => t.name === "finesse") &&
-                melee && // finesse melee weapon
-                Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
+                // finesse melee weapon
+                melee &&
+                // dex bonus higher than the current bonus
+                Math.floor((actorData.data.abilities.dex.value - 10) / 2) > modifier
             ) {
                 ability = "dex";
-                modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
+                modifier = Math.floor((actorData.data.abilities.dex.value - 10) / 2);
             }
 
-            if (ability && !actor.flags.pf2e.rollOptions.all["mundane-damage:ignoreAbilityModifier"]) {
+            if (ability) {
                 numericModifiers.push(
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
                 );
@@ -467,9 +473,10 @@ export class WeaponDamagePF2e {
         // add splash damage
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED)
-            );
+            const modifier = new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED);
+            modifier.damageCategory = "splash";
+            modifier.damageType = weapon.data.damage.damageType;
+            numericModifiers.push(modifier);
         }
 
         // add bonus damage
@@ -482,21 +489,17 @@ export class WeaponDamagePF2e {
         const notes: RollNotePF2e[] = [];
         {
             selectors.forEach((key) => {
-                const modifiers = statisticsModifiers[key] || [];
-                modifiers
-                    .map((m) => duplicate(m))
-                    .forEach((m) => {
-                        const modifier = new ModifierPF2e(game.i18n.localize(m.name), m.modifier, m.type);
-                        modifier.label = m.label;
-                        if (m.damageType) {
-                            modifier.damageType = m.damageType;
-                        }
-                        if (m.damageCategory) {
-                            modifier.damageCategory = m.damageCategory;
-                        }
-                        modifier.ignored = !new ModifierPredicate(m.predicate ?? {}).test(options);
-                        numericModifiers.push(modifier);
-                    });
+                const modifiers = (statisticsModifiers[key] ?? []).map(
+                    (modifier) => modifier.clone?.() ?? duplicate(modifier)
+                );
+                for (const modifier of modifiers) {
+                    const predicate =
+                        modifier.predicate instanceof ModifierPredicate
+                            ? modifier.predicate
+                            : new ModifierPredicate(modifier.predicate ?? {});
+                    modifier.ignored = !predicate.test(options);
+                    numericModifiers.push(modifier);
+                }
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
                     .filter((note) => ModifierPredicate.test(note.predicate, options))
@@ -565,6 +568,14 @@ export class WeaponDamagePF2e {
             d.ignored = !d.enabled;
         });
 
+        this.excludeDamage(actor, numericModifiers, options);
+        this.excludeDamage(actor, diceModifiers, options);
+        for (const [key, modifiers] of Object.entries(statisticsModifiers)) {
+            if (key.endsWith("damage")) {
+                this.excludeDamage(actor, modifiers, options);
+            }
+        }
+
         damage.formula.success = this.getFormula(damage, false);
         damage.formula.criticalSuccess = this.getFormula(damage, true);
 
@@ -574,7 +585,7 @@ export class WeaponDamagePF2e {
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage: any, critical: boolean): DamageFormula {
+    static getFormula(damage: DamageTemplate, critical: boolean): DamageFormula {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
@@ -649,10 +660,13 @@ export class WeaponDamagePF2e {
         // apply stacking rules here and distribute on dice pools
         {
             const modifiers: ModifierPF2e[] = [];
+
             damage.numericModifiers
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .forEach((nm: ModifierPF2e) => {
-                    if (critical && nm.critical) {
+                    if (critical && nm.damageCategory === "splash") {
+                        return;
+                    } else if (critical && nm.critical) {
                         // critical-only stuff
                         modifiers.push(nm);
                     } else if (!nm.critical) {
@@ -703,9 +717,16 @@ export class WeaponDamagePF2e {
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
+            const splashDamage = damage.numericModifiers.find(
+                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
+            );
+            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
             for (const [damageType, categories] of Object.entries(partials)) {
                 for (const [damageCategory, f] of Object.entries(categories)) {
                     partials[damageType][damageCategory] = this.doubleFormula(f);
+                    if (splashDamage?.damageType === damageType) {
+                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
+                    }
                 }
             }
             const critFormula = this.buildFormula(critPool, partials);
@@ -815,6 +836,20 @@ export class WeaponDamagePF2e {
             return `{${formula}, 1}kh`;
         } else {
             return formula;
+        }
+    }
+
+    /**
+     * Retrieve exclusion terms from rule elements. Any term is not in the `any` or `all` predicate,
+     * it is added to the `not` predicate
+     */
+    private static excludeDamage(actor: ActorPF2e, modifiers: RawModifier[], options: string[]): void {
+        const notIgnored = modifiers.filter((modifier) => !modifier.ignored);
+        for (const rule of actor.rules) {
+            rule.applyDamageExclusion?.(notIgnored);
+        }
+        for (const modifier of notIgnored) {
+            modifier.ignored = !new ModifierPredicate(modifier.predicate ?? {}).test(options);
         }
     }
 

@@ -19,8 +19,6 @@
                 "label": "Ooze Form (Gray Ooze)",
                 "overrides": {
                     "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true,
                         "modifier": "7 + @details.level.value"
                     },
                     "ownModifier": {
@@ -41,7 +39,6 @@
                     "strikes": {
                         "pseudopod": {
                             "ability": "str",
-                            "baseType": "pseudopod",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "bludgeoning",
@@ -49,7 +46,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Pseudopod",
                             "traits": [
                                 "unarmed"
                             ]
@@ -181,6 +177,11 @@
                 "damageType": "acid",
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage",
                 "value": {
                     "brackets": [
@@ -203,6 +204,11 @@
             },
             {
                 "key": "Note",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage",
                 "text": "<p class='compact-text'><strong>Ooze Form (Gray Ooze)</strong>: You can spend an action after a hit to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the target</p>"
             }

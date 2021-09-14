@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from "../rule-element";
-import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
+import { BracketedValue, RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterData, NPCData } from "@actor/data";
 import { RollNotePF2e } from "@module/notes";
 import { ModifierPredicate } from "@module/modifiers";
@@ -8,10 +8,10 @@ import { DegreeOfSuccessText, DegreeOfSuccessString } from "@system/check-degree
 /**
  * @category RuleElement
  */
-export class PF2RollNoteRuleElement extends RuleElementPF2e {
+export class RollNoteRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(_actorData: CharacterData | NPCData, { rollNotes }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const text = this.resolveInjectedProperties(this.data.text);
+        const text = this.resolveInjectedProperties(this.resolveValue(this.data.text, "", { evaluate: false }));
         if (selector && text) {
             const note = new RollNotePF2e(selector, text);
             if (this.data.predicate) {
@@ -29,9 +29,9 @@ export class PF2RollNoteRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface PF2RollNoteRuleElement {
+export interface RollNoteRuleElement {
     data: RuleElementData & {
         outcome?: string[];
-        text?: string;
+        text: BracketedValue | string;
     };
 }

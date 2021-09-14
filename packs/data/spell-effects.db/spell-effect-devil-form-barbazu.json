@@ -21,14 +21,7 @@
                     "armorClass": {
                         "modifier": "22 + @details.level.value"
                     },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -44,7 +37,6 @@
                     "strikes": {
                         "beard": {
                             "ability": "str",
-                            "baseType": "beard",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "piercing",
@@ -52,7 +44,6 @@
                                 "die": "d8"
                             },
                             "group": "brawling",
-                            "label": "Beard",
                             "modifier": 20,
                             "traits": [
                                 "unarmed",
@@ -87,20 +78,21 @@
                                 "modifier": 10
                             },
                             "group": "polearm",
+                            "img": "systems/pf2e/icons/equipment/weapons/glaive.webp",
                             "label": "PF2E.Weapon.Base.glaive",
                             "modifier": 20,
                             "traits": [
                                 "deadly-d8",
                                 "forceful",
-                                "reach-10"
+                                "reach"
                             ]
                         }
                     },
+                    "tempHP": 5,
                     "traits": [
                         "devil",
                         "fiend"
-                    ],
-                "tempHP": 5
+                    ]
                 }
             },
             {
@@ -108,12 +100,22 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "damage"
             },
             {
                 "key": "Note",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "glaive-damage",
-                "text": "<p class='compact-text'><strong>Devil Form (Barbazu)</strong>: [[/r 1d6 #persistent bleed]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}</p>"
+                "text": "<p class=\"compact-text\"><strong>Devil Form (Barbazu)</strong>: [[/r 1d6 #persistent bleed]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}</p>"
             }
         ],
         "source": {
@@ -137,7 +139,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/devil-form.webp",
     "name": "Spell Effect: Devil Form (Barbazu)",
     "type": "effect"
 }

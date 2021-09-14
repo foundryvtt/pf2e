@@ -15,231 +15,173 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": "18 + @details.level.value"
-                        },
-                        {
-                            "start": 7,
-                            "value": "21 + @details.level.value"
+                "key": "BattleForm",
+                "label": "Dinosaur Form (Tyrannosaurus)",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "18 + @details.level.value"
+                    },
+                    "ownModifier": {
+                        "skills": true,
+                        "strikes": true
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Dinosaur Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 15
+                    },
+                    "speeds": {
+                        "land": 30
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d12"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "deadly",
+                                "reach"
+                            ]
                         },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
+                        "tail": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d10"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "label": "PF2E.SensesScent",
-                "range": 30,
-                "selector": "scent"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 9
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 6
-                        },
-                        {
-                            "start": 7,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Dinosaur Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 18
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": 21
-                        },
-                        {
-                            "start": 7,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "lg"
-                        },
-                        {
-                            "end": 6,
-                            "start": 5,
-                            "value": "huge"
-                        },
-                        {
-                            "start": 7,
-                            "value": "grg"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 30
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d12"
-                    }
+                    },
+                    "traits": [
+                        "animal",
+                        "dinosaur"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Tyrannosaurus Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "deadly-d12",
-                    "reach-10"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d10"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Tyrannosaurus Tail",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Dinosaur Form",
-                "selector": "damage",
                 "value": {
                     "brackets": [
                         {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 18
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
+                        {
+                            "end": 6,
                             "start": 5,
                             "value": {
-                                "diceNumber": 1
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 21
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "deadly",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 6
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 7,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "grg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 25
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "deadly",
+                                            "reach-20"
+                                        ]
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 15
+                                        },
+                                        "modifier": 25,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-20"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
                             }
                         }
                     ],
                     "field": "item|data.level.value"
                 }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
             }
         ],
         "source": {

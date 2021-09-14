@@ -19,8 +19,7 @@
                 "label": "Dinosaur Form (Triceratops)",
                 "overrides": {
                     "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
+                        "modifier": "18 + @details.level.value"
                     },
                     "ownModifier": {
                         "skills": true,
@@ -46,7 +45,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Foot",
                             "traits": [
                                 "unarmed"
                             ]
@@ -60,7 +58,6 @@
                                 "die": "d8"
                             },
                             "group": "brawling",
-                            "label": "Horn",
                             "traits": [
                                 "unarmed"
                             ]
@@ -77,9 +74,6 @@
                             "end": 4,
                             "start": 4,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @details.level.value"
-                                },
                                 "size": "lg",
                                 "skills": {
                                     "ath": {
@@ -107,9 +101,6 @@
                             "end": 6,
                             "start": 5,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "21 + @details.level.value"
-                                },
                                 "size": "huge",
                                 "skills": {
                                     "ath": {
@@ -188,12 +179,15 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
                 "predicate": {
                     "all": [
-                        "horn"
+                        "battle-form"
                     ]
                 },
-                "selector": "damage",
+                "selector": "horn-damage",
                 "text": "<p class='compact-text'><strong>Add [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a critical hit</p>"
             }
         ],

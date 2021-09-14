@@ -7,6 +7,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
+import { LabeledSpeed } from "@actor/creature/data";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -26,7 +27,10 @@ export class FamiliarPF2e extends CreaturePF2e {
     override prepareBaseData() {
         super.prepareBaseData();
 
-        const systemData: DeepPartial<FamiliarSystemData> & { attributes: {}; details: {} } = this.data.data;
+        type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
+        const systemData: DeepPartial<FamiliarSystemData> & { attributes: { speed: RawSpeed }; details: {} } =
+            this.data.data;
+        systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
@@ -36,14 +40,11 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         systemData.attributes.perception = {};
         systemData.attributes.speed = {
-            otherSpeeds: [
-                {
-                    label: "Land",
-                    type: "land",
-                    value: 25,
-                },
-            ],
+            value: "25",
+            label: game.i18n.localize("PF2E.SpeedTypesLand"),
+            otherSpeeds: [],
         };
+
         systemData.skills = {};
 
         systemData.saves = {
@@ -77,34 +78,15 @@ export class FamiliarPF2e extends CreaturePF2e {
             data.master.ability ||= "cha";
             const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
-            const { statisticsModifiers } = this.prepareCustomModifiers(rules);
+            const synthetics = this.prepareCustomModifiers(rules);
+            const { statisticsModifiers } = synthetics;
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
-            for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
-                const speed = data.attributes.speed.otherSpeeds[idx];
-                const base = Number(speed.value ?? 0);
-                const modifiers: ModifierPF2e[] = [];
-                [`${speed.type}-speed`, "speed"].forEach((key) => {
-                    (statisticsModifiers[key] || [])
-                        .filter(filterModifier)
-                        .map((m) => m.clone())
-                        .forEach((m) => modifiers.push(m));
-                });
-                const stat = mergeObject(
-                    new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
-                    speed,
-                    { overwrite: false }
-                );
-                stat.total = base + stat.totalModifier;
-                stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
-                    .concat(
-                        stat.modifiers
-                            .filter((m) => m.enabled)
-                            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    )
-                    .join(", ");
-                data.attributes.speed.otherSpeeds[idx] = stat;
+            data.attributes.speed = this.prepareSpeed("land", synthetics);
+            const { otherSpeeds } = data.attributes.speed;
+            for (let idx = 0; idx < otherSpeeds.length; idx++) {
+                otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
             }
 
             // hit points

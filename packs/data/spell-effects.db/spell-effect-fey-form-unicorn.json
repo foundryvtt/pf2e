@@ -16,14 +16,9 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Fey Form (Unicorn)",
                 "overrides": {
                     "armorClass": {
                         "modifier": "19 + @details.level.value"
-                    },
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
                     },
                     "senses": {
                         "lowLightVision": {}
@@ -40,7 +35,6 @@
                     "strikes": {
                         "hoof": {
                             "ability": "dex",
-                            "baseType": "hoof",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "bludgeoning",
@@ -48,17 +42,14 @@
                                 "die": "d8"
                             },
                             "group": "brawling",
-                            "label": "Hoof",
                             "modifier": 16,
                             "traits": [
                                 "unarmed",
-                                "agile",
-                                "ghost-touch"
+                                "agile"
                             ]
                         },
                         "horn": {
                             "ability": "dex",
-                            "baseType": "horn",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "piercing",
@@ -67,24 +58,27 @@
                                 "modifier": 8
                             },
                             "group": "brawling",
-                            "label": "Horn",
                             "modifier": 16,
                             "traits": [
-                                "unarmed",
-                                "ghost-touch"
+                                "unarmed"
                             ]
                         }
                     },
+                    "tempHP": 15,
                     "traits": [
                         "fey",
                         "beast"
-                    ],
-                "tempHP": 15
+                    ]
                 }
             },
             {
                 "damageType": "good",
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "horn-damage",
                 "value": 1
             }

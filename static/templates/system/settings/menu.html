@@ -1,11 +1,21 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
-    <p class="notes">{{localize "PF2E.SETTINGS.Automation.Instructions"}}</p>
+    <p class="instructions">{{localize instructions}}</p>
     {{#each settings as |setting|}}
         <!-- {{setting.key}} -->
-        <div class="form-group setting">
+        <div class="form-group">
             <label for="{{setting.key}}">{{localize setting.name}}</label>
             <div class="form-fields">
-                <input type="checkbox" name="{{setting.key}}" data-dtype="Boolean" {{checked setting.value}} />
+                {{#if setting.isSelect}}
+                    <select name="{{setting.key}}">
+                        {{#select setting.value}}
+                            {{#each setting.choices as |label value|}}
+                                <option value="{{value}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                {{else if setting.isCheckbox}}
+                    <input type="checkbox" name="{{setting.key}}" {{checked setting.value}} />
+                {{/if}}
             </div>
             <p class="notes">{{localize setting.hint}}</p>
         </div>

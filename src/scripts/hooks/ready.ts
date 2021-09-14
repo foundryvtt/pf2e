@@ -17,9 +17,6 @@ export function listen(): void {
         console.log("PF2e System | Readying Pathfinder 2nd Edition System");
         console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
-        // Save the current world schema version if hasn't before.
-        setWorldSchemaVersion();
-
         // Start up the Compendium Browser
         game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
@@ -29,22 +26,24 @@ export function listen(): void {
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
 
-        // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
-        if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
-            // Perform the migration
-            const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
-            if (migrationRunner.needsMigration()) {
-                if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
-                    ui.notifications.error(
-                        `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                        { permanent: true }
-                    );
-                }
-                migrationRunner.runMigration().then(() => {
+        // Save the current world schema version if hasn't before.
+        setWorldSchemaVersion().then(async () => {
+            // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
+            if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
+                // Perform the migration
+                const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
+                if (migrationRunner.needsMigration()) {
+                    if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
+                        ui.notifications.error(
+                            `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
+                            { permanent: true }
+                        );
+                    }
+                    await migrationRunner.runMigration();
                     new MigrationSummary().render(true);
-                });
+                }
             }
-        }
+        });
 
         ActionsPF2e.exposeActions(game.pf2e.actions);
 

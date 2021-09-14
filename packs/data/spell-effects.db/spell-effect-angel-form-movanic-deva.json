@@ -16,20 +16,8 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Angel Form (Movanic Deva)",
                 "overrides": {
-                    "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
-                    },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -48,6 +36,7 @@
                                 "die": "d8"
                             },
                             "group": "sword",
+                            "img": "systems/pf2e/icons/equipment/weapons/bastard-sword.webp",
                             "label": "PF2E.Weapon.Base.bastard-sword",
                             "traits": [
                                 "two-hand-d12"
@@ -126,6 +115,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "bastard-sword-damage"
             },
             {
@@ -133,6 +127,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "bastard-sword-damage"
             }
         ],
@@ -157,7 +156,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/angel-form.webp",
     "name": "Spell Effect: Angel Form (Movanic Deva)",
     "type": "effect"
 }

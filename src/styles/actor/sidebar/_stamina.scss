@@ -1,21 +1,35 @@
 .stamina {
-    list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+
     li {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 0;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        font-size: 24px;
+
         label {
-            margin-right: 4px;
             white-space: normal;
         }
         input {
-            font-size: 14px;
-            width: 27px;
             color: white;
+            padding: 0;
+        }
+        input.left {
+            text-align: right;
+            margin-right: 4px;
+        }
+        input.right {
+            text-align: left;
+            margin-left: 4px;
+        }
+        .divider {
+            font-size: 16px;
+            line-height: 1;
+        }
+        .stamina-group {
+            display: flex;
+            align-items: center;
         }
     }
 }

@@ -16,12 +16,7 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Dragon Form (Red)",
                 "overrides": {
-                    "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
-                    },
                     "iwr": {
                         "resistances": [
                             {
@@ -29,10 +24,6 @@
                                 "value": 10
                             }
                         ]
-                    },
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
                     },
                     "senses": {
                         "darkvision": {},
@@ -86,7 +77,6 @@
                                 "die": "d10"
                             },
                             "group": "brawling",
-                            "label": "Tail",
                             "traits": [
                                 "unarmed",
                                 "reach-10"
@@ -230,10 +220,10 @@
                 "label": "Jaws",
                 "predicate": {
                     "all": [
-                        "jaws"
+                        "battle-form"
                     ]
                 },
-                "selector": "damage"
+                "selector": "jaws-damage"
             }
         ],
         "source": {

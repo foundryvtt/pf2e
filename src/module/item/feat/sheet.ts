@@ -8,7 +8,7 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         return {
             ...data,
             featTypes: CONFIG.PF2E.featTypes,
-            featActionTypes: CONFIG.PF2E.featActionTypes,
+            actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             categories: CONFIG.PF2E.actionCategories,
             damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },

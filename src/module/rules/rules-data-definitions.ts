@@ -1,4 +1,4 @@
-import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from "../modifiers";
+import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, RawPredicate } from "../modifiers";
 import { RollNotePF2e } from "../notes";
 import { WeaponPF2e } from "@item";
 
@@ -16,9 +16,11 @@ export interface RuleElementData {
     ignored: boolean;
 }
 
-export type RuleElementSource = Omit<RuleElementData, "label" | "priority" | "ignored"> & {
+export type RuleElementSource = Omit<RuleElementData, "ignored" | "label" | "predicate" | "priority"> & {
+    ignored?: boolean;
     label?: string;
     priority?: number;
+    predicate?: RawPredicate;
 };
 
 export type RuleValue = string | number | boolean | object | null;

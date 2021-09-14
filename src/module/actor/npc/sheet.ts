@@ -14,6 +14,7 @@ import {
     EffectData,
     EquipmentData,
     ItemDataPF2e,
+    ItemSourcePF2e,
     MeleeData,
     SpellcastingEntryData,
     TreasureData,
@@ -25,7 +26,7 @@ import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
 import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
 import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data/base";
-import { SpellcastingEntryPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
 
 interface NPCSheetLabeledValue extends LabeledString {
@@ -206,6 +207,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpellcasting(sheetData);
     }
 
+    private prepareIWR(sheetData: NPCSheetData) {
+        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
+        for (const weakness of sheetData.data.traits.dv) {
+            weakness.label = weaknessTypes[weakness.type];
+        }
+
+        const resistanceTypes: Record<string, string> = CONFIG.PF2E.resistanceTypes;
+        for (const resistance of sheetData.data.traits.dr) {
+            resistance.label = resistanceTypes[resistance.type] ?? resistance.label;
+        }
+    }
+
     override getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
@@ -233,7 +247,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
-        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
         // Shield
@@ -875,6 +889,22 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         item.glyph = actionGlyph;
         item.imageUrl = imageUrl;
+    }
+
+    protected override async _onDropItemCreate(itemData: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
+        const itemsData = Array.isArray(itemData) ? itemData : [itemData];
+        const nonNPCItems = ["ancestry", "background", "class", "feat"];
+        for (const datum of [...itemsData]) {
+            if (nonNPCItems.includes(datum.type)) {
+                ui.notifications.error(
+                    game.i18n.format("PF2E.Item.CannotAddType", {
+                        type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                    })
+                );
+                itemsData.findSplice((item) => item === datum);
+            }
+        }
+        return super._onDropItemCreate(itemsData);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

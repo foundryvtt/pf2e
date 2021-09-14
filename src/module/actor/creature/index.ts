@@ -10,16 +10,30 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
-import { VisionLevel, VisionLevels } from "./data";
+import {
+    Alignment,
+    AlignmentComponent,
+    CreatureSpeeds,
+    LabeledSpeed,
+    MovementType,
+    VisionLevel,
+    VisionLevels,
+} from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
+import { ErrorPF2e } from "@module/utils";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
+
+    /** The creature's position on the alignment axes */
+    get alignment(): Alignment {
+        return this.data.data.details.alignment.value;
+    }
 
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
@@ -58,10 +72,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
-    get hitPoints() {
+    get hitPoints(): { value: number; max: number; negativeHealing: boolean } {
         return {
             value: this.data.data.attributes.hp.value,
             max: this.data.data.attributes.hp.max,
+            negativeHealing: this.data.data.attributes.hp.negativeHealing,
         };
     }
 
@@ -135,7 +150,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const attributes = this.data.data.attributes;
-        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
+        const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
+        hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
 
         // Bless raw custom modifiers as `ModifierPF2e`s
@@ -261,6 +277,68 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
+    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
+    prepareSpeed(
+        movementType: Exclude<MovementType, "land">,
+        synthetics: RuleElementSynthetics
+    ): LabeledSpeed & StatisticModifier;
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+        const systemData = this.data.data;
+
+        if (movementType === "land") {
+            const label = game.i18n.localize("PF2E.SpeedTypesLand");
+            const base = Number(systemData.attributes.speed.value ?? 0);
+            const modifiers: ModifierPF2e[] = ["land-speed", "speed"]
+                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                .flat();
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
+                systemData.attributes.speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.type = "land";
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
+        } else {
+            const speed = systemData.attributes.speed.otherSpeeds.find(
+                (otherSpeed) => otherSpeed.type === movementType
+            );
+            if (!speed) throw ErrorPF2e("Unexpected missing speed");
+            const base = Number(speed.value ?? 0);
+            const modifiers: ModifierPF2e[] = [`${speed.type}-speed`, "speed"]
+                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+                .flat();
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
+                speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
+        }
+    }
+
     override async updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
@@ -330,11 +408,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     redrawTokenEffects() {
         if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
         this.redrawingTokenEffects = true;
-        const tokens = this.getActiveTokens();
-        for (const token of tokens) {
-            token.drawEffects();
-        }
-        this.redrawingTokenEffects = false;
+        const promises = Promise.allSettled(this.getActiveTokens().map((token) => token.drawEffects()));
+        promises.then(() => {
+            this.redrawingTokenEffects = false;
+        });
     }
 
     protected buildStatistic(
@@ -400,29 +477,61 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     private createStrikeRollContext(rollNames: string[]) {
+        const options = this.getRollOptions(rollNames);
+
+        const getAlignmentTraits = (alignment: Alignment): AlignmentComponent[] => {
+            return [
+                ...new Set([
+                    ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
+                    ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
+                    ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
+                    ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
+                ]),
+            ];
+        };
+        const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
+        options.push(
+            ...conditions
+                .map((condition) => [`self:${condition.data.data.hud.statusName}`, `condition:${condition.slug}`])
+                .flat(),
+            ...getAlignmentTraits(this.alignment).map((alignment) => `trait:${alignment}`)
+        );
+        if (this.hitPoints.negativeHealing) {
+            options.push("negative-healing");
+        }
+
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e
         );
         const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
-        const options = this.getRollOptions(rollNames);
-        {
-            const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
-        }
-        if (target?.actor) {
-            const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+        if (target?.actor instanceof CreaturePF2e) {
+            if (target.actor.hitPoints.negativeHealing) {
+                options.push("target:negative-healing");
+            }
+            const targetConditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
 
-            const traits = (target.actor.data.data.traits.traits.custom ?? "")
-                .split(/[;,\\|]/)
-                .map((value) => value.trim())
-                .concat(target.actor.data.data.traits.traits.value ?? [])
-                .filter((value) => !!value)
-                .map((trait) => `target:${trait}`);
-            options.push(...traits);
+            options.push(
+                ...targetConditions
+                    .map((condition) => [
+                        `target:${condition.data.data.hud.statusName}`,
+                        `target:condition:${condition.slug}`,
+                    ])
+                    .flat(),
+                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`)
+            );
         }
+
+        const traits = (target?.actor?.data.data.traits.traits.custom ?? "")
+            .split(/[;,\\|]/)
+            .map((value) => value.trim())
+            .concat(target?.actor?.data.data.traits.traits.value ?? [])
+            .filter((value) => !!value)
+            .map((trait) => [`target:${trait}`, `target:trait:${trait}`])
+            .flat();
+        options.push(...traits);
+
         return {
-            options,
+            options: [...new Set(options)],
             targets: new Set(targets),
             target,
         };
@@ -452,8 +561,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options: DocumentModificationContext,
         userId: string
     ): void {
-        prepareMinions(this);
         super._onUpdate(changed, options, userId);
+        prepareMinions(this);
+        if (changed.items && this.isToken && userId !== game.user.id) {
+            this.redrawTokenEffects();
+        }
     }
 
     protected override async _preUpdate(

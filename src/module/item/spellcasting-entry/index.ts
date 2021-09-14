@@ -22,18 +22,22 @@ export interface SpellcastingSlotLevel {
 
     displayPrepared?: boolean;
     active: (ActiveSpell | null)[];
-    spellPrepList?: {
-        spell: Embedded<SpellPF2e>;
-        chatData: Record<string, unknown>;
-        signature?: boolean;
-    }[];
+}
+
+interface SpellPrepEntry {
+    spell: Embedded<SpellPF2e>;
+    chatData: Record<string, unknown>;
+    signature?: boolean;
 }
 
 interface ActiveSpell {
     spell: Embedded<SpellPF2e>;
     chatData: Record<string, unknown>;
     expended?: boolean;
+    /** Is this spell marked as signature/collection */
     signature?: boolean;
+    /** Is the spell not actually of this level? */
+    virtual?: boolean;
 }
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
@@ -181,6 +185,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         }
 
         const results: SpellcastingSlotLevel[] = [];
+        const spellPrepList: Record<number, SpellPrepEntry[]> = {};
         const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
         const signatureSpells = new Set(this.data.data.signatureSpells?.value ?? []);
 
@@ -207,6 +212,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                     }
                 }
 
+                // Build the prep list
+                spellPrepList[level] =
+                    spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
+                        spell,
+                        chatData: spell.getChatData(),
+                        signature: this.isFlexible && signatureSpells.has(spell.id),
+                    })) ?? [];
+
                 results.push({
                     label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
@@ -215,11 +228,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                         max: data.max,
                     },
                     isCantrip: level === 0,
-                    spellPrepList: spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
-                        spell,
-                        chatData: spell.getChatData(),
-                        signature: this.isFlexible && signatureSpells.has(spell.id),
-                    })),
                     active,
                     displayPrepared:
                         this.data.data.displayLevels && this.data.data.displayLevels[level] !== undefined
@@ -284,7 +292,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        level.active.push({ spell, chatData: spell.getChatData(), signature: true });
+                        const chatData = spell.getChatData({}, { spellLvl: level.level });
+                        level.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }
             }
@@ -304,6 +313,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             id: this.id,
             name: this.name,
             tradition: this.tradition,
+            castingType: this.data.data.prepared.value,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isFlexible: this.isFlexible,
@@ -312,6 +322,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             isRitual: this.isRitual,
             flexibleAvailable,
             levels: results,
+            spellPrepList,
         };
     }
 

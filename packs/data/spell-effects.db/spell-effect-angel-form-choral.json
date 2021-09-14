@@ -18,18 +18,7 @@
                 "key": "BattleForm",
                 "label": "Angel Form (Choral)",
                 "overrides": {
-                    "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
-                    },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
                     "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
-                    },
                     "senses": {
                         "darkvision": {}
                     },
@@ -64,7 +53,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Piercing Hymn",
                             "range": "range-90",
                             "traits": [
                                 "range-90"
@@ -168,6 +156,11 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "fist-damage"
             },
             {
@@ -175,7 +168,20 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
                 "selector": "piercing-hymn-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "piercing-hymn-damage",
+                "text": "<p class='compact-text'><strong>Piercing Hymn</strong>@Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round on a critical hit</p>"
             }
         ],
         "source": {
@@ -199,7 +205,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/angel-form.webp",
     "name": "Spell Effect: Angel Form (Choral)",
     "type": "effect"
 }
