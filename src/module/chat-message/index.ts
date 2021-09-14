@@ -1,6 +1,5 @@
 import type { ActorPF2e } from "@actor/index";
-import { CheckModifiersContext } from "@module/system/check-modifiers-dialog";
-import { RollDataPF2e } from "@system/rolls";
+import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemType } from "@item/data";
