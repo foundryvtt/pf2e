@@ -1,11 +1,12 @@
 import { CharacterPF2e } from "@actor";
 import { ActorType, CharacterData } from "@actor/data";
-import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
+import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { sluggify } from "@module/utils";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
@@ -26,23 +27,31 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     static defaultIcons: Record<string, ImagePath | undefined> = [
         "antler",
         "beak",
+        "bone-shard",
+        "branch",
         "claw",
+        "cube-face",
         "fangs",
+        "fire-mote",
         "fist",
         "foot",
         "foreleg",
         "gust",
         "horn",
         "jaws",
+        "lighting-lash",
         "mandibles",
         "pincer",
+        "piercing-hymn",
         "pseudopod",
+        "rock",
         "stinger",
         "tail",
         "talon",
         "tendril",
         "tentacle",
         "tongue",
+        "water-spout",
         "wave",
         "wing",
     ].reduce((accumulated: Record<string, ImagePath | undefined>, strike) => {
@@ -72,13 +81,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         overrides.canSpeak ??= false;
         overrides.dismissable ??= true;
         overrides.hasHands ??= false;
-        overrides.ownModifier ??= {};
-
-        const armorClass = (overrides.armorClass ??= {});
-        armorClass.modifier ??= 0;
-        armorClass.ownModifierBonus ??= null;
-        armorClass.ignoreCheckPenalty ??= false;
-        armorClass.ignoreSpeedReduction ??= false;
+        overrides.ownModifier = mergeObject({ skills: true, strikes: true }, overrides.ownModifier ?? {});
+        overrides.armorClass = mergeObject(
+            { modifier: 0, ignoreCheckPenalty: true, ignoreSpeedPenalty: true },
+            overrides.armorClass ?? {}
+        );
 
         const strikes = (overrides.strikes ??= {});
         for (const [key, strikeData] of Object.entries(strikes)) {
@@ -102,26 +109,20 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Add any new traits and remove the armor check penalty if this battle form ignores it */
     onBeforePrepareData(): void {
         if (this.ignored) return;
-
         const { rollOptions } = this.actor.data.flags.pf2e;
         if (rollOptions.all["polymorph"]) {
             console.warn("PF2e System | You are already under the effect of a polymorph effect");
             this.ignored = true;
             return;
         }
-        rollOptions.all["polymorph"] = true;
-        rollOptions.all["battle-form"] = true;
-        rollOptions.all["armor:ignore-speed-penalty"] ??= this.overrides.armorClass.ignoreSpeedReduction;
+        this.setRollOptions();
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
-        if (this.overrides.armorClass.ignoreCheckPenalty) {
-            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-check-penalty"] = true;
-        }
-        if (this.overrides.armorClass.ignoreSpeedReduction) {
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
             const speedRollOptions = (this.actor.data.flags.pf2e.rollOptions.speed ??= {});
             speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
@@ -150,6 +151,24 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
+    private setRollOptions(): void {
+        const { rollOptions } = this.actor.data.flags.pf2e;
+        rollOptions.all["polymorph"] = true;
+        rollOptions.all["battle-form"] = true;
+        rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
+        rollOptions.all["armor:ignore-speed-penalty"] = this.overrides.armorClass.ignoreSpeedPenalty;
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
+            const speedRollOptions = (rollOptions.speed ??= {});
+            speedRollOptions["armor:ignore-speed-penalty"] = true;
+        }
+        // Inform predicates that this battle form grants a skill modifier
+        for (const key of SKILL_ABBREVIATIONS) {
+            if (!(key in this.overrides.skills)) continue;
+            const longForm = SKILL_DICTIONARY[key];
+            rollOptions.all[`battle-form:${longForm}`] = true;
+        }
+    }
+
     /** Override the character's AC and ignore speed penalties if necessary */
     private prepareAC(): void {
         const overrides = this.overrides;
@@ -162,13 +181,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             const newModifier: number = this.resolveValue(overrides.armorClass.modifier);
             armorClass.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
             armorClass.value = armorClass.totalModifier;
-        } else if (
-            overrides.ownModifier.armorClass &&
-            armorClass.totalModifier > acOverride &&
-            overrides.armorClass.ownModifierBonus
-        ) {
-            // If one is granted, add a bonus for using the character's own modifier
-            armorClass.push(new ModifierPF2e(this.data.label, overrides.armorClass.ownModifierBonus, "status"));
         }
     }
 
@@ -271,7 +283,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private prepareStrikes(synthetics: RuleElementSynthetics): void {
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
-            label: strikeData.label ?? `PF2E.BattleForm.Attack.${slug.titleCase()}`,
+            label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             img: strikeData.img,
             ability: strikeData.ability,
