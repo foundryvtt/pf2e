@@ -1,4 +1,5 @@
 import { UserPF2e } from "@module/user";
+import { sluggify } from "@module/utils";
 import { ItemPF2e } from "../base";
 import { EffectData } from "./data";
 
@@ -55,6 +56,10 @@ export class EffectPF2e extends ItemPF2e {
             }
         }
         return result;
+    }
+
+    prepareActorData(this: Embedded<EffectPF2e>): void {
+        this.actor.data.flags.pf2e.rollOptions.all[this.slug ?? sluggify(this.name)] = true;
     }
 
     override prepareDerivedData(): void {
