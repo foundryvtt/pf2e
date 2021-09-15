@@ -35,7 +35,7 @@ export interface BaseActorDataPF2e
     readonly _source: BaseActorSourcePF2e;
 }
 
-interface RollOptionFlags {
+export interface RollOptionFlags {
     all: Record<string, boolean | undefined>;
     [key: string]: Record<string, boolean | undefined> | undefined;
 }

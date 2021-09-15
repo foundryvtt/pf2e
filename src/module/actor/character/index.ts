@@ -178,14 +178,6 @@ export class CharacterPF2e extends CreaturePF2e {
         traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
     }
 
-    /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
-    override applyActiveEffects(): void {
-        this.ancestry?.prepareActorData();
-        this.background?.prepareActorData();
-        this.class?.prepareActorData();
-        super.applyActiveEffects();
-    }
-
     protected override async _preUpdate(
         data: DeepPartial<CharacterSource>,
         options: DocumentModificationContext,

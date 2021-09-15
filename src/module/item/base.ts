@@ -584,6 +584,8 @@ interface ItemPF2e {
 
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
+    prepareActorData?(this: Embedded<ItemPF2e>): void;
+
     getFlag(scope: "core", key: "sourceId"): string;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;
     getFlag(scope: string, key: string): any;
