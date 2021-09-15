@@ -423,6 +423,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
+        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
+        const traitObjects = traits.map((trait) => ({
+            name: trait,
+            label: spellTraits[trait],
+        }));
         CheckPF2e.roll(
             check,
             {
@@ -430,7 +435,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 type: "counteract-check",
                 options: finalOptions,
                 title: game.i18n.localize("PF2E.Counteract"),
-                traits,
+                traits: traitObjects,
             },
             event
         );

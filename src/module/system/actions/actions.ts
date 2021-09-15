@@ -238,6 +238,11 @@ export class ActionsPF2e {
                     }
                     return undefined;
                 })();
+                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
+                const traitObjects = options.traits.map((trait) => ({
+                    name: trait,
+                    label: actionTraits[trait] ?? trait,
+                }));
                 CheckPF2e.roll(
                     check,
                     {
@@ -249,7 +254,7 @@ export class ActionsPF2e {
                         notes: (stat.notes ?? []).concat(
                             options.extraNotes ? options.extraNotes(options.statName) : []
                         ),
-                        traits: options.traits,
+                        traits: traitObjects,
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
                     options.event,

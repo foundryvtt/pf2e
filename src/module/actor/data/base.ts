@@ -171,7 +171,7 @@ export interface StrikeTrait {
     /** The label for this action which will be rendered on the UI. */
     label: string;
     /** If true, this trait is toggleable. */
-    toggle: boolean;
+    toggle?: boolean;
     /** The roll this trait applies to, if relevant. */
     rollName?: string;
     /** The option that this trait applies to the roll (of type `rollName`). */
