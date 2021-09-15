@@ -263,9 +263,10 @@ const actionGlyphMap: Record<string, string> = {
 
 /**
  * Returns a character that can be used with the Pathfinder action font
- * to display an icon.
+ * to display an icon. If null it returns empty string.
  */
-export function getActionGlyph(action: string | number | { type: string; value: string }) {
+export function getActionGlyph(action: string | number | { type: string; value: string } | null) {
+    if (!action) return "";
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
         .toLowerCase()
