@@ -14,6 +14,16 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
+    get activationTime() {
+        const actionType = this.data.data.actionType.value || "passive";
+        if (actionType === "passive") return null;
+
+        return {
+            type: actionType,
+            value: this.data.data.actions.value,
+        };
+    }
+
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const properties = [
