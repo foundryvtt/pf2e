@@ -24,7 +24,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         super(data, item);
         this.initialize(data);
-        this.overrides = this.resolveValue(this.data.value, this.data.overrides);
+        this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
     }
 
     static defaultIcons: Record<string, ImagePath | undefined> = [
@@ -66,7 +66,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private initialize(data: BattleFormSource): void {
         if (this.ignored) return;
 
-        const dataIsValid = data.overrides instanceof Object && data.value instanceof Object;
+        const { value } = data;
+        const dataIsValid = data.overrides instanceof Object && (value instanceof Object || value === undefined);
         if (!dataIsValid) {
             console.warn("PF2e System | Battle Form rule element failed to validate");
             this.ignored = true;
@@ -366,7 +367,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
-            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier > 0;
+            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
             const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
             const isBattleFormModifier = !!(
