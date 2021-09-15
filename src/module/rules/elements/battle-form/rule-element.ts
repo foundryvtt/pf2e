@@ -116,7 +116,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Add any new traits and remove the armor check penalty if this battle form ignores it */
     onBeforePrepareData(): void {
         if (this.ignored) return;
-        const { rollOptions } = this.actor.data.flags.pf2e;
+        const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
             console.warn("PF2e System | You are already under the effect of a polymorph effect");
             this.ignored = true;
@@ -130,7 +130,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
 
         if (this.overrides.armorClass.ignoreSpeedPenalty) {
-            const speedRollOptions = (this.actor.data.flags.pf2e.rollOptions.speed ??= {});
+            const speedRollOptions = (this.actor.rollOptions.speed ??= {});
             speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
     }
@@ -160,7 +160,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     private setRollOptions(): void {
-        const { rollOptions } = this.actor.data.flags.pf2e;
+        const { rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
         rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
@@ -328,6 +328,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 const title = game.i18n.localize("PF2E.RuleElement.Strike");
                 const sign = action.totalModifier < 0 ? "" : "+";
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
+            } else {
+                this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
             }
         }
     }
