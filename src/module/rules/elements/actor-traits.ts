@@ -5,7 +5,7 @@ import { RuleElementData } from "../rules-data-definitions";
 /**
  * @category RuleElement
  */
-export class PF2ActorTraits extends RuleElementPF2e {
+export class ActorTraitsRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const add = this.data.add ?? [];
         if (add.length > 0) {
@@ -16,7 +16,7 @@ export class PF2ActorTraits extends RuleElementPF2e {
     }
 }
 
-export interface PF2ActorTraits {
+export interface ActorTraitsRuleElement {
     data: RuleElementData & {
         add?: string[];
     };
