@@ -8,6 +8,9 @@ import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { sluggify } from "@module/utils";
 import { CreatureSizeRuleElement } from "../creature-size";
+import { ImmunityRuleElement } from "../iwr/immunity";
+import { ResistanceRuleElement } from "../iwr/resistance";
+import { WeaknessRuleElement } from "../iwr/weakness";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
 import { TempHPRuleElement } from "../temphp";
@@ -41,8 +44,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "jaws",
         "lighting-lash",
         "mandibles",
-        "pincer",
         "piercing-hymn",
+        "pincer",
         "pseudopod",
         "rock",
         "stinger",
@@ -92,6 +95,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             strikeData.label = game.i18n.localize(strikeData.label);
             strikeData.img ??= BattleFormRuleElement.defaultIcons[key] ?? this.item.img;
         }
+
+        overrides.immunities ??= [];
+        overrides.weaknesses ??= [];
+        overrides.resistances ??= [];
     }
 
     /** Set temporary hit points */
@@ -137,6 +144,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSkills();
         this.prepareSpeeds(synthetics);
         this.prepareStrikes(synthetics);
+        this.prepareIWR();
     }
 
     /** Remove temporary hit points */
@@ -324,6 +332,22 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Immunity, weakness, and resistance */
+    private prepareIWR(): void {
+        for (const immunity of this.overrides.immunities) {
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).onBeforePrepareData();
+        }
+        for (const weakness of this.overrides.weaknesses) {
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).onBeforePrepareData();
+        }
+        for (const resistance of this.overrides.resistances) {
+            new ResistanceRuleElement(
+                { key: "Resistance", ...resistance, override: true },
+                this.item
+            ).onBeforePrepareData();
+        }
+    }
+
     /** Disable ineligible check modifiers */
     private suppressModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
@@ -359,7 +383,7 @@ export interface BattleFormRuleElement extends RuleElementPF2e {
     data: BattleFormData;
 }
 
-export interface BattleFormData extends RuleElementData, Omit<BattleFormSource, "ignored" | "predicate" | "priority"> {
+export interface BattleFormData extends RuleElementData, Pick<BattleFormSource, "overrides"> {
     label: "BattleForm";
     overrides: Required<BattleFormOverrides> & {
         armorClass: Required<BattleFormAC>;

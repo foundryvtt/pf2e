@@ -1,5 +1,4 @@
 import { ActorPF2e, NPCPF2e, HazardPF2e } from "@actor/index";
-import { LabeledValue } from "@module/data";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
@@ -30,14 +29,14 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: any = {};
-        const resistances: LabeledValue[] = getProperty(this.object.data, this.objectProperty);
+        const resistances = this.object.data._source.data.traits.dr;
         Object.entries(this.choices).forEach(([type, label]) => {
-            const res = resistances.find((res) => res.type === type);
+            const resistance = resistances.find((resistance) => resistance.type === type);
             choices[type] = {
                 label,
-                selected: res !== undefined,
-                value: res?.value ?? "",
-                exceptions: res?.exceptions ?? "",
+                selected: !!resistance,
+                value: resistance?.value ?? "",
+                exceptions: resistance?.exceptions ?? "",
             };
         });
         data.choices = choices;
