@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 25,
                 "details": "",
                 "value": 25
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": ""
+                "value": "fly 25"
             }
         },
         "details": {
@@ -84,9 +85,22 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "death-effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "precision",
+                    "unconscious"
+                ]
             },
-            "dr": [],
+            "dr": [
+                {
+                    "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
+                    "type": "all",
+                    "value": 10
+                }
+            ],
             "dv": [],
             "languages": {
                 "custom": "",
@@ -140,7 +154,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, finesse, magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -182,7 +196,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(area D18)</p>"
+                    "value": "<p>(area <strong>D18</strong>)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -226,7 +240,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Securing the four icons of the Roseguard and placing them on the altar in area D13 allows Otari to move on to the afterlife.</p>"
+                    "value": "<p>Securing the four icons of the Roseguard and placing them on the altar in area <strong>D13</strong> allows Otari to move on to the afterlife.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -270,7 +284,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The sickened and unconscious conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"disease\" data-pf2-label=\"Filth Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #hours]]{1d4 hours});</p>\n<p><strong>Stage 2</strong> sickened 1 (1 day);</p>\n<p><strong>Stage 3</strong> sickened 1 and slowed 1 as long as the affected creature remains sickened (1 day);</p>\n<p><strong>Stage 4</strong> unconscious (1 day);</p>\n<p><strong>Stage 5</strong> dead.</p>"
+                    "value": "<p data-visibility=\"gm\">The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"disease\" data-pf2-label=\"Filth Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #hours]]{1d4 hours}),</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day),</p>\n<p><strong>Stage 3</strong> Sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day),</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day),</p>\n<p><strong>Stage 5</strong> dead</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -298,7 +312,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Filth Fever",
             "sort": 400000,
             "type": "action"
@@ -369,7 +383,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
@@ -394,7 +426,7 @@
                     "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 600000,
             "type": "action"
