@@ -36,7 +36,7 @@
     <ol class="form-list">
         <h3>
             {{localize "PF2E.Item.Weapon.MaterialAndRunes.Title"}}
-            <i class="fas fa-info-circle" title="{{localize "PF2E.Item.Weapon.MaterialAndRunes.Hint"}}"></i>
+            <i class="fas fa-info-circle large" title="{{localize "PF2E.Item.Weapon.MaterialAndRunes.Hint"}}"></i>
         </h3>
         <div class="form-group">
             <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
@@ -66,17 +66,19 @@
                 {{/select}}
             </select>
         </div>
-        <div class="form-group">
-            <label>{{localize "PF2E.StrikingRuneLabel"}}</label>
-            <select name="data.strikingRune.value" data-dtype="String">
-                {{#select data.strikingRune.value}}
-                    <option value=""></option>
-                    {{#each weaponStrikingRunes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
+        {{#if (not hideStrikingMenu)}}
+            <div class="form-group">
+                <label>{{localize "PF2E.StrikingRuneLabel"}}</label>
+                <select name="data.strikingRune.value" data-dtype="String">
+                    {{#select data.strikingRune.value}}
+                        <option value=""></option>
+                        {{#each weaponStrikingRunes as |name type|}}
+                            <option value="{{type}}">{{localize name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        {{/if}}
         {{#each propertyRuneSlots as |slot|}}
             <div class="form-group">
                 <label>{{slot.label}}</label>
@@ -94,7 +96,7 @@
         <div class="form-group">
             <label class="large">
                 {{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Label"}}
-                <i class="fas fa-info-circle" title="{{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Hint"}}"></i>
+                <i class="fas fa-info-circle large" title="{{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Hint"}}"></i>
             </label>
             <input type="checkbox" name="data.specific.value" data-dtype="Boolean" {{checked data.specific.value}} />
         </div>
@@ -103,7 +105,7 @@
 <ol class="form-list">
     <h3>
         {{localize "PF2E.WeaponBaseDamageLabel"}}
-        <i class="fas fa-info-circle" title="{{localize "PF2E.WeaponBaseDamageTitle"}}"></i>
+        <i class="fas fa-info-circle large" title="{{localize "PF2E.WeaponBaseDamageTitle"}}"></i>
     </h3>
     <div class="form-group">
         <label>{{localize "PF2E.WeaponDamageLabel"}}</label>
@@ -153,7 +155,7 @@
 <ol class="form-list">
     <h3>
         {{localize "PF2E.WeaponCustomDamageLabel"}}
-        <i class="fas fa-info-circle" title="{{localize "PF2E.WeaponCustomDamageTitle"}}"></i>
+        <i class="fas fa-info-circle large" title="{{localize "PF2E.WeaponCustomDamageTitle"}}"></i>
     </h3>
     <li class="form-group">
         <label>{{localize "PF2E.ItemDescription"}}</label>
