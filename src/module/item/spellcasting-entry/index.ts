@@ -122,6 +122,39 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         this._spells = null;
     }
 
+    /**
+     * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
+     * or creating a new spell if its not.
+     */
+    async addSpell(spell: SpellPF2e, targetLevel: number) {
+        const actor = this.actor;
+        if (!(actor instanceof CreaturePF2e)) {
+            throw ErrorPF2e("Spellcasting entries can only exist on creatures");
+        }
+
+        const spellcastingEntryId = spell.data.data.location.value;
+        if (spellcastingEntryId === this.id && spell.heightenedLevel === targetLevel) {
+            return [];
+        }
+
+        const spellData = spell.toObject(true);
+        spellData.data.location.value = this.id;
+
+        if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
+            if (this.isSpontaneous || this.isInnate) {
+                spellData.data.heightenedLevel = { value: Math.max(spell.level, targetLevel) };
+            }
+        }
+
+        if (spell.actor?.id === actor.id) {
+            const results = await actor.updateEmbeddedDocuments("Item", [spellData]);
+            return results as ItemPF2e[];
+        } else {
+            const results = await actor.createEmbeddedDocuments("Item", [spellData]);
+            return results as ItemPF2e[];
+        }
+    }
+
     /** Saves the prepared spell slot data to the spellcasting entry  */
     prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number) {
         if (spell.level > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
