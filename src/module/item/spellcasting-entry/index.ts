@@ -268,14 +268,19 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShowHeader || spells.length) {
                     const uses = this.isRitual || level === 0 ? undefined : { value: data.value, max: data.max };
-                    if (!this.data.data.showSlotlessLevels.value && uses?.max === 0) continue;
+                    const active = spells.map((spell) => ({ spell, chatData: spell.getChatData() }));
+
+                    // Spontaneous spellbooks hide their levels if there are no uses for them. Innate hide if there are no active spells.
+                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0;
+                    const hideForInnate = this.isInnate && active.length === 0;
+                    if (!this.data.data.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
 
                     results.push({
                         label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                         level: level as ZeroToTen,
                         isCantrip: level === 0,
                         uses,
-                        active: spells.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                        active,
                     });
                 }
             }
