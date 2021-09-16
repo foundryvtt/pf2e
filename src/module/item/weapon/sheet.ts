@@ -44,12 +44,27 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 number: slotNumber,
             }));
 
-        // Weapons have derived traits and price: base data is shown for editing
+        // Weapons have derived level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
         sheetData.data.traits.rarity.value = baseData.data.traits.rarity.value;
-        const hasModifiedPrice =
-            coinValueInCopper(extractPriceFromItem(sheetData.item)) !==
-            coinValueInCopper(extractPriceFromItem(baseData));
+        const hintText = LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
+        const adjustedLevelHint =
+            this.item.level !== baseData.data.level.value
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.LevelLabel"),
+                      value: this.item.level,
+                  })
+                : null;
+        const adjustedPriceHint = (() => {
+            const basePrice = coinValueInCopper(extractPriceFromItem(baseData));
+            const derivedPrice = coinValueInCopper(extractPriceFromItem(sheetData.item));
+            return basePrice !== derivedPrice
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.PriceLabel"),
+                      value: this.item.price,
+                  })
+                : null;
+        })();
 
         type MaterialSheetData = MaterialValuationData & {
             [key in keyof MaterialValuationData]:
@@ -91,10 +106,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             preciousMaterials,
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
+            hideStrikingMenu: this.item.isSpecific && sheetData.data.strikingRune.value === null,
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
-            hasModifiedPrice,
+            adjustedLevelHint,
+            adjustedPriceHint,
             baseLevel: baseData.data.level.value,
             baseRarity: baseData.data.traits.rarity.value,
             basePrice: baseData.data.price.value,
@@ -117,7 +134,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
-        $("i.fa-info-circle[title]").tooltipster({
+        $("i.fa-info-circle.small[title]").tooltipster({
+            animation: "fade",
+            maxWidth: 275,
+            position: "right",
+            theme: "crb-hover",
+            contentAsHTML: true,
+        });
+        $("i.fa-info-circle.large[title]").tooltipster({
             animation: "fade",
             maxWidth: 400,
             theme: "crb-hover",
