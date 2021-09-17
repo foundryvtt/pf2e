@@ -223,33 +223,32 @@ abstract class RuleElementPF2e {
                 }
             })();
             const brackets = valueData?.brackets ?? [];
-
+            // Set the fallthrough (the value set when no bracket matches) to be of the same type as the default value
+            const bracketFallthrough = (() => {
+                switch (typeof defaultValue) {
+                    case "number":
+                    case "boolean":
+                    case "object":
+                        return defaultValue;
+                    case "string":
+                        return Number.isNaN(Number(defaultValue)) ? defaultValue : Number(defaultValue);
+                    default:
+                        return null;
+                }
+            })();
             value =
                 brackets.find((bracket) => {
                     const start = bracket.start ?? 0;
                     const end = bracket.end ?? Infinity;
                     return start <= bracketNumber && end >= bracketNumber;
-                })?.value ??
-                (Number(defaultValue) || 0);
+                })?.value ?? bracketFallthrough;
         }
 
-        if (value === null) return value;
-
-        if (typeof value === "object" && typeof defaultValue === "object" && defaultValue !== null) {
-            return mergeObject(defaultValue, value, { inplace: false });
-        }
-
-        if (typeof value === "string" && value.includes("@") && evaluate) {
-            value = Roll.safeEval(
-                Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data })
-            );
-        }
-
-        if (typeof value !== "boolean" && Number.isInteger(Number(value))) {
-            value = Number(value);
-        }
-
-        return value;
+        return value instanceof Object && defaultValue instanceof Object
+            ? mergeObject(defaultValue, value, { inplace: false })
+            : typeof value === "string" && value.includes("@") && evaluate
+            ? Roll.safeEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+            : value;
     }
 
     private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {

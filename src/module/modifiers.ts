@@ -82,11 +82,6 @@ export class ModifierPF2e implements RawModifier {
     critical?: boolean;
     traits?: string[];
     notes?: string;
-    /** Status of automation (rules or active effects) applied to this modifier */
-    automation: { key: string | null; enabled: boolean } = {
-        key: null,
-        enabled: false,
-    };
 
     /**
      * Create a new modifier.
@@ -281,8 +276,7 @@ export const ProficiencyModifier = Object.freeze({
             case 4:
                 return LEGENDARY.atLevel(level);
             default:
-                console.error(`PF2e System | Invalid proficiency rank: ${rank}`);
-                return UNTRAINED.atLevel(level);
+                return rank >= 5 ? LEGENDARY.atLevel(level) : UNTRAINED.atLevel(level);
         }
     },
 });

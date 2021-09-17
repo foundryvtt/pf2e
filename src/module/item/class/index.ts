@@ -4,6 +4,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { FeatPF2e } from "@item/feat";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
+import { sluggify } from "@module/utils";
 import { ABCItemPF2e } from "../abc";
 import { ClassData, ClassTrait } from "./data";
 
@@ -44,6 +45,9 @@ export class ClassPF2e extends ABCItemPF2e {
         for (const save of SAVE_TYPES) {
             saves[save].rank = Math.max(saves[save].rank, classDetails.savingThrows[save]) as ZeroToFour;
         }
+
+        const slug = this.slug ?? sluggify(this.name);
+        this.actor.rollOptions.all[`class:${slug}`] = true;
     }
 
     /** In addition to automatically granted features, retrieve feats with a class trait of this class */
