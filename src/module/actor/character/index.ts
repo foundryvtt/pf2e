@@ -306,7 +306,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
             const hpData = duplicate(hitPoints);
-            delete (hpData as any).modifiers;
+            delete (hpData as { modifiers?: readonly ModifierPF2e[] }).modifiers;
 
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
@@ -403,22 +403,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 WISDOM.withScore(systemData.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
             ];
-            const activeEffects = this.effects.contents.filter((effect) =>
-                effect.data.changes.some((change) => change.key.startsWith("data.attributes.perception.rank"))
-            );
-            modifiers[1].automation.key = activeEffects.length > 0 ? "data.attributes.perception.rank" : null;
-            modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
 
             const notes: RollNotePF2e[] = [];
-            if (systemData.attributes.perception.item) {
-                modifiers.push(
-                    new ModifierPF2e(
-                        "PF2E.ItemBonusLabel",
-                        Number(systemData.attributes.perception.item),
-                        MODIFIER_TYPE.ITEM
-                    )
-                );
-            }
             ["perception", "wis-based", "all"].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
