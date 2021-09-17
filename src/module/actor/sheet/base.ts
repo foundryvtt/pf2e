@@ -536,6 +536,23 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             this.render();
         });
 
+        html.find(".slotless-level-toggle").on("click", async (event) => {
+            event.preventDefault();
+
+            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
+            const itemToEdit = this.actor.items.get(itemId)?.data;
+            if (itemToEdit?.type !== "spellcastingEntry")
+                throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
+            const bool = !(itemToEdit.data.showSlotlessLevels || {}).value;
+
+            await this.actor.updateEmbeddedDocuments("Item", [
+                {
+                    _id: itemId ?? "",
+                    "data.showSlotlessLevels.value": bool,
+                },
+            ]);
+        });
+
         // Select all text in an input field on focus
         html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
             event.currentTarget.select();
