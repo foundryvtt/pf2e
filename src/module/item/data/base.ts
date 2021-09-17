@@ -33,6 +33,8 @@ export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
 
 export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait;
 
+export type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
+
 export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
     rarity: { value: Rarity };
 }

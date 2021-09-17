@@ -1,4 +1,4 @@
-import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
+import { ActionType, ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { OneToThree } from "@module/data";
 import { FeatPF2e } from ".";
@@ -28,7 +28,7 @@ interface FeatSystemData extends ItemSystemData, ItemLevelData {
         value: FeatType;
     };
     actionType: {
-        value: keyof ConfigPF2e["PF2E"]["actionTypes"];
+        value: ActionType;
     };
     actionCategory: {
         value: string;
