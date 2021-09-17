@@ -1,5 +1,4 @@
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { LabeledValue } from "@module/data";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
@@ -25,13 +24,13 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: any = {};
-        const resistances: LabeledValue[] = getProperty(this.object.data, this.objectProperty);
+        const weaknesses = this.object.data._source.data.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
-            const res = resistances.find((res) => res.type === type);
+            const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {
                 label,
-                selected: res !== undefined,
-                value: res?.value ?? "",
+                selected: !!current,
+                value: current?.value ?? "",
             };
         });
         data.choices = choices;

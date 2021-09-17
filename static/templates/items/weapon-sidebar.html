@@ -1,16 +1,16 @@
 <h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeWeapon")}}</h4>
-
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.LevelLabel"}}</label>
+        <label>
+            {{localize "PF2E.LevelLabel"}}
+            {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+        </label>
         <input type="number" name="data.level.value" value="{{baseLevel}}" data-dtype="Number" />
     </div>
-
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
         <input type="number" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number"/>
     </div>
-
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
         <select name="data.traits.rarity.value" data-dtype="String">
@@ -21,7 +21,6 @@
             {{/select}}
         </select>
     </div>
-
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String">
@@ -33,7 +32,6 @@
             {{/select}}
         </select>
     </div>
-
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
         <select name="data.equippedBulk.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
@@ -46,7 +44,6 @@
             {{/select}}
         </select>
     </div>
-
     <div class="form-group">
         <label>{{localize "PF2E.Size"}}</label>
         <select name="data.size.value" data-dtype="String">
@@ -57,15 +54,13 @@
             {{/select}}
         </select>
     </div>
-
     <div class="form-group">
         <label>
             {{localize "PF2E.PriceLabel"}}
-            {{#if hasModifiedPrice}}<span class="modified-price" title="{{localize "PF2E.Item.Weapon.FromMaterialAndRunes" value=data.price.value}}">*</span>{{/if}}
+            {{#if adjustedPriceHint}}<i class="fas fa-info-circle small" title="{{adjustedPriceHint}}"></i>{{/if}}
         </label>
         <input type="text" name="data.price.value" value="{{basePrice}}" data-dtype="String" />
     </div>
-
     <ol class="item-tags tags">
         {{#each traits as |trait|}}
             <li class="tag tag_transparent">{{localize trait.label}}</li>

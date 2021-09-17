@@ -8,6 +8,9 @@ import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { sluggify } from "@module/utils";
 import { CreatureSizeRuleElement } from "../creature-size";
+import { ImmunityRuleElement } from "../iwr/immunity";
+import { ResistanceRuleElement } from "../iwr/resistance";
+import { WeaknessRuleElement } from "../iwr/weakness";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
 import { TempHPRuleElement } from "../temphp";
@@ -21,7 +24,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         super(data, item);
         this.initialize(data);
-        this.overrides = this.resolveValue(this.data.value, this.data.overrides);
+        this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
     }
 
     static defaultIcons: Record<string, ImagePath | undefined> = [
@@ -41,8 +44,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "jaws",
         "lighting-lash",
         "mandibles",
-        "pincer",
         "piercing-hymn",
+        "pincer",
         "pseudopod",
         "rock",
         "stinger",
@@ -63,7 +66,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private initialize(data: BattleFormSource): void {
         if (this.ignored) return;
 
-        const dataIsValid = data.overrides instanceof Object && data.value instanceof Object;
+        const { value } = data;
+        const dataIsValid = data.overrides instanceof Object && (value instanceof Object || value === undefined);
         if (!dataIsValid) {
             console.warn("PF2e System | Battle Form rule element failed to validate");
             this.ignored = true;
@@ -92,6 +96,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             strikeData.label = game.i18n.localize(strikeData.label);
             strikeData.img ??= BattleFormRuleElement.defaultIcons[key] ?? this.item.img;
         }
+
+        overrides.immunities ??= [];
+        overrides.weaknesses ??= [];
+        overrides.resistances ??= [];
     }
 
     /** Set temporary hit points */
@@ -109,7 +117,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Add any new traits and remove the armor check penalty if this battle form ignores it */
     onBeforePrepareData(): void {
         if (this.ignored) return;
-        const { rollOptions } = this.actor.data.flags.pf2e;
+        const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
             console.warn("PF2e System | You are already under the effect of a polymorph effect");
             this.ignored = true;
@@ -123,7 +131,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
 
         if (this.overrides.armorClass.ignoreSpeedPenalty) {
-            const speedRollOptions = (this.actor.data.flags.pf2e.rollOptions.speed ??= {});
+            const speedRollOptions = (this.actor.rollOptions.speed ??= {});
             speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
     }
@@ -137,6 +145,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSkills();
         this.prepareSpeeds(synthetics);
         this.prepareStrikes(synthetics);
+        this.prepareIWR();
     }
 
     /** Remove temporary hit points */
@@ -152,7 +161,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     private setRollOptions(): void {
-        const { rollOptions } = this.actor.data.flags.pf2e;
+        const { rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
         rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
@@ -320,7 +329,25 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 const title = game.i18n.localize("PF2E.RuleElement.Strike");
                 const sign = action.totalModifier < 0 ? "" : "+";
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
+            } else {
+                this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
             }
+        }
+    }
+
+    /** Immunity, weakness, and resistance */
+    private prepareIWR(): void {
+        for (const immunity of this.overrides.immunities) {
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).onBeforePrepareData();
+        }
+        for (const weakness of this.overrides.weaknesses) {
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).onBeforePrepareData();
+        }
+        for (const resistance of this.overrides.resistances) {
+            new ResistanceRuleElement(
+                { key: "Resistance", ...resistance, override: true },
+                this.item
+            ).onBeforePrepareData();
         }
     }
 
@@ -340,7 +367,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
-            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier > 0;
+            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
             const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
             const isBattleFormModifier = !!(
@@ -359,7 +386,7 @@ export interface BattleFormRuleElement extends RuleElementPF2e {
     data: BattleFormData;
 }
 
-export interface BattleFormData extends RuleElementData, Omit<BattleFormSource, "ignored" | "predicate" | "priority"> {
+export interface BattleFormData extends RuleElementData, Pick<BattleFormSource, "overrides"> {
     label: "BattleForm";
     overrides: Required<BattleFormOverrides> & {
         armorClass: Required<BattleFormAC>;

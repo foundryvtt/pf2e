@@ -25,8 +25,10 @@ import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
 import { CreatureSizeRuleElement } from "./elements/creature-size";
-import { ImmunityRuleElement } from "./elements/immunity";
 import { BattleFormRuleElement } from "./elements/battle-form/rule-element";
+import { ImmunityRuleElement } from "./elements/iwr/immunity";
+import { WeaknessRuleElement } from "./elements/iwr/weakness";
+import { ResistanceRuleElement } from "./elements/iwr/resistance";
 
 /**
  * @category RuleElement
@@ -52,12 +54,14 @@ export class RuleElements {
         Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
         EffectTarget: PF2EffectTargetRuleElement,
-        WeaponPotency: WeaponPotencyRuleElement,
         ActorTraits: PF2ActorTraits,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
+        Resistance: ResistanceRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
         ActiveEffectLike: AELikeRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
+        Weakness: WeaknessRuleElement,
+        WeaponPotency: WeaponPotencyRuleElement,
     });
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};

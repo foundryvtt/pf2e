@@ -9,7 +9,7 @@ export class TemplateLayerPF2e<
         if (!template) return;
 
         // Determine the incremental angle of rotation from event data
-        const snap = template.type === "cone" ? 45 : event.shiftKey ? 15 : 5;
+        const snap = template.type === "cone" ? (event.shiftKey ? 45 : 15) : event.shiftKey ? 15 : 5;
         const delta = snap * Math.sign(event.deltaY);
         return template.rotate(template.data.direction + delta, snap);
     }

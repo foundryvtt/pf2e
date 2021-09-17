@@ -1,5 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "./base";
+import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@module/damage-calculation";
 
 export const ABILITY_ABBREVIATIONS = ["str", "dex", "con", "int", "wis", "cha"] as const;
 
@@ -51,6 +52,67 @@ export const CONDITION_TYPES = [
     "unnoticed",
     "wounded",
 ] as const;
+
+export const IMMUNITY_TYPES = new Set([
+    ...CONDITION_TYPES,
+    ...DAMAGE_CATEGORIES,
+    ...DAMAGE_TRAITS,
+    ...DAMAGE_TYPES,
+    "area-damage",
+    "auditory",
+    "confusion",
+    "critical-hits",
+    "curse",
+    "detection",
+    "death-effects",
+    "disease",
+    "emotion",
+    "evocation",
+    "fear-effects",
+    "healing",
+    "inhaled",
+    "necromancy",
+    "nonlethal-attacks",
+    "object-immunities",
+    "olfactory",
+    "polymorph",
+    "possession",
+    "precision",
+    "scrying",
+    "sleep",
+    "spellDeflection",
+    "swarm-attacks",
+    "swarm-mind",
+    "trip",
+    "visual",
+] as const);
+
+export const WEAKNESS_TYPES = new Set([
+    ...ATTACK_TYPES,
+    ...DAMAGE_CATEGORIES,
+    ...DAMAGE_TRAITS,
+    ...DAMAGE_TYPES,
+    "area-damage",
+    "axe",
+    "critical-hits",
+    "emotion",
+    "precision",
+    "splash-damage",
+    "vampire-weaknesses",
+    "vorpal",
+    "vorpal-fear",
+] as const);
+
+export const RESISTANCE_TYPES = new Set([
+    ...ATTACK_TYPES,
+    ...DAMAGE_TRAITS,
+    ...DAMAGE_TYPES,
+    ...DAMAGE_CATEGORIES,
+    "all",
+    "area-damage",
+    "critical-hits",
+    "protean anatomy",
+] as const);
 
 export const SKILL_ABBREVIATIONS = [
     "acr",
