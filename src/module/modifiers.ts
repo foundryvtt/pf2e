@@ -82,11 +82,6 @@ export class ModifierPF2e implements RawModifier {
     critical?: boolean;
     traits?: string[];
     notes?: string;
-    /** Status of automation (rules or active effects) applied to this modifier */
-    automation: { key: string | null; enabled: boolean } = {
-        key: null,
-        enabled: false,
-    };
 
     /**
      * Create a new modifier.
