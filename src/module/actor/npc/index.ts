@@ -199,50 +199,10 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        {
-            const label = game.i18n.localize("PF2E.SpeedTypesLand");
-            const base = Number(data.attributes.speed.value) || 0;
-            const modifiers: ModifierPF2e[] = [];
-            ["land-speed", "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
-                data.attributes.speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.type = "land";
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            data.attributes.speed = stat;
-        }
-        for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
-            const speed = data.attributes.speed.otherSpeeds[idx];
-            const base = typeof speed.value === "string" ? Number(speed.value) || 0 : 0;
-            const modifiers: ModifierPF2e[] = [];
-            [`${speed.type.toLowerCase()}-speed`, "speed"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
-            });
-            const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.type }), modifiers),
-                speed,
-                { overwrite: false }
-            );
-            stat.total = base + stat.totalModifier;
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.type })} ${base}`]
-                .concat(
-                    stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            data.attributes.speed.otherSpeeds[idx] = stat;
+        data.attributes.speed = this.prepareSpeed("land", synthetics);
+        const { otherSpeeds } = data.attributes.speed;
+        for (let idx = 0; idx < otherSpeeds.length; idx++) {
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
         }
 
         // Armor Class
@@ -597,21 +557,27 @@ export class NPCPF2e extends CreaturePF2e {
                     }
                 }
                 // Add attack effects to traits.
-                const attackTraits = itemData.data.attackEffects.value.map((attackEffect: string) => {
+                const attackTraits: { name: string; label: string; toggle: boolean }[] = [];
+                itemData.data.attackEffects.value.forEach((attackEffect: string) => {
                     const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
                     const key = sluggify(attackEffect);
                     const actions = this.itemTypes.action;
+                    const consumables = this.itemTypes.consumable;
                     const label =
                         game.i18n.localize(localizationMap[key]) ??
                         actions.flatMap((action) =>
                             action.slug === key || sluggify(action.name) === key ? action.name : []
                         )[0] ??
-                        attackEffect;
-                    return {
-                        name: key,
-                        label,
-                        toggle: false,
-                    };
+                        consumables.flatMap((consumable) =>
+                            consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
+                        )[0];
+                    if (label) {
+                        attackTraits.push({
+                            name: key,
+                            label,
+                            toggle: false,
+                        });
+                    }
                 });
                 action.traits.push(...attackTraits);
 
@@ -901,9 +867,9 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    protected async getAttackEffects(item: MeleeData): Promise<RollNotePF2e[]> {
+    protected async getAttackEffects(sourceItemData: MeleeData): Promise<RollNotePF2e[]> {
         const notes: RollNotePF2e[] = [];
-        const description = item.data.description.value;
+        const description = sourceItemData.data.description.value;
         if (description) {
             notes.push(
                 new RollNotePF2e(
@@ -912,8 +878,10 @@ export class NPCPF2e extends CreaturePF2e {
                 )
             );
         }
-        for (const attackEffect of item.data.attackEffects.value) {
-            const item = this.items.find((item) => (item.slug ?? sluggify(item.name)) === sluggify(attackEffect))?.data;
+        for (const attackEffect of sourceItemData.data.attackEffects.value) {
+            const item = this.items.find(
+                (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
+            )?.data;
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
@@ -933,6 +901,11 @@ export class NPCPF2e extends CreaturePF2e {
                         notes.push(note);
                     } else {
                         console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
+                        const sourceItem = this.items.get(sourceItemData._id, { strict: true });
+                        const update = sourceItemData.data.attackEffects.value.filter(
+                            (effect) => effect !== attackEffect
+                        );
+                        await sourceItem.update({ ["data.attackEffects.value"]: update });
                     }
                 }
             }

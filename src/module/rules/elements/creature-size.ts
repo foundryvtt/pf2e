@@ -1,4 +1,5 @@
 import { CreaturePF2e } from "@actor";
+import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { tupleHasValue } from "@module/utils";
@@ -10,17 +11,11 @@ import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
  * Increase the creature's size
  */
 export class CreatureSizeRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
+
     constructor(data: CreatureSizeConstructionData, item: Embedded<ItemPF2e>) {
         data.resizeEquipment ??= false;
-
         super(data, item);
-
-        if (!(item.actor instanceof CreaturePF2e)) {
-            console.warn(
-                `PF2E System | CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name}) must be used on a creature`
-            );
-            this.ignored = true;
-        }
     }
 
     private static wordToAbbreviation: Record<string, Size | undefined> = {

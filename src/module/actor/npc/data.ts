@@ -1,7 +1,7 @@
 import {
     Abilities,
     Alignment,
-    BaseCreatureAttributes,
+    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureSystemData,
@@ -17,7 +17,6 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
-import { LabeledValue } from "@module/data";
 import type { NPCPF2e } from ".";
 
 export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
@@ -102,7 +101,7 @@ interface NPCInitiativeData extends RawInitiativeData {
     status: number;
 }
 
-export interface NPCAttributes extends BaseCreatureAttributes {
+export interface NPCAttributes extends CreatureAttributes {
     /** The armor class of this NPC. */
     ac: NPCArmorClassData;
     /** The perception score for this NPC. */
@@ -113,13 +112,6 @@ export interface NPCAttributes extends BaseCreatureAttributes {
 
     initiative: NPCInitiativeData;
 
-    /** The movement speeds that this NPC has. */
-    speed: {
-        /** The land speed for this actor. */
-        value: string;
-        /** A list of other movement speeds the actor possesses. */
-        otherSpeeds: LabeledValue[];
-    };
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.

@@ -146,6 +146,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -365,6 +368,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -476,6 +480,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -591,6 +596,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -602,7 +608,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You try to turn the target's flesh into stone. The target must attempt a Fortitude save.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the Slowed condition increases by 1 (or 2 on a critical failure). A successful save reduces the Slowed condition by 1. When a creature is unable to act due to the Slowed condition from flesh to stone, the creature is permanently non-magically @Compendium[pf2e.conditionitems.Petrified]{Petrified}. The spell ends if the creature is Petrified or the Slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @Compendium[pf2e.conditionitems.Slowed]{Slowed 2}.</p>"
+                    "value": "<p>You try to turn the target's flesh into stone. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and must attempt a Fortitude save at the end of each of its turns; this ongoing save has the incapacitation trait. On a failed save, the Slowed condition increases by 1 (or 2 on a critical failure). A successful save reduces the Slowed condition by 1. When a creature is unable to act due to the Slowed condition from flesh to stone, the creature is permanently non-magically @Compendium[pf2e.conditionitems.Petrified]{Petrified}. The spell ends if the creature is Petrified or the Slowed condition is removed.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is initially @Compendium[pf2e.conditionitems.Slowed]{Slowed 2}.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -703,6 +709,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -823,6 +830,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -834,7 +842,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Air)]{Air}</strong>\n<ul>\n<li>fly Speed 80 feet, movement doesn't trigger reactions;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Earth)]{Earth}</strong>\n<ul>\n<li>Speed 20 feet, burrow Speed 20 feet;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Fire)]{Fire}</strong>\n<ul>\n<li>Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tendril , <strong>Damage</strong> 1d8 fire plus [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @Compendium[pf2e.actionspf2e.Shove]{Shove}.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
+                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Air)]{Air}</strong>\n<ul>\n<li>fly Speed 80 feet, movement doesn't trigger reactions;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Earth)]{Earth}</strong>\n<ul>\n<li>Speed 20 feet, burrow Speed 20 feet;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Fire)]{Fire}</strong>\n<ul>\n<li>Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tendril , <strong>Damage</strong> 1d8 fire plus [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</li>\n</ul>\n</li>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful @Compendium[pf2e.actionspf2e.Shove]{Shove}.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -937,6 +945,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -948,7 +957,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A feral aspect overcomes the targets, making them tough and savage. Targets gain 5 temporary Hit Points, a +10-foot status bonus to their Speeds, and weakness 5 to silver. They also grow vicious fangs and claws, which are unarmed attacks. The fangs deal 2d8 piercing damage; the claws deal 2d6 slashing damage and have the agile and finesse traits. The targets use their highest weapon or unarmed attack proficiency with these attacks, and if they have weapon specialization or greater weapon specialization, they add this damage as well. On a critical hit with one of these unarmed attacks, the creature struck takes [[/r 1d4 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.<br /></p>\n<p>The targets can't use concentrate actions unless those actions also have the rage trait, with the exception of Seek. A creature can attempt to end the spell's effect on itself by using a single action, which has the rage trait, to attempt a Will save against your spell DC; on a success, it ends the spell's effect on itself.<br /></p>\n<p>If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The temporary Hit Points increase to 10, the silver weakness to 10, and the damage dealt by the attacks to three dice.</p>\n<p><strong>Heightened (10th)</strong> The temporary Hit Points increase to 20, the silver weakness to 20, and the damage dealt by the attacks to four dice.</p>"
+                    "value": "<p>A feral aspect overcomes the targets, making them tough and savage. Targets gain 5 temporary Hit Points, a +10-foot status bonus to their Speeds, and weakness 5 to silver. They also grow vicious fangs and claws, which are unarmed attacks. The fangs deal 2d8 piercing damage; the claws deal 2d6 slashing damage and have the agile and finesse traits. The targets use their highest weapon or unarmed attack proficiency with these attacks, and if they have weapon specialization or greater weapon specialization, they add this damage as well. On a critical hit with one of these unarmed attacks, the creature struck takes [[/r 1d4 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>The targets can't use concentrate actions unless those actions also have the rage trait, with the exception of Seek. A creature can attempt to end the spell's effect on itself by using a single action, which has the rage trait, to attempt a Will save against your spell DC; on a success, it ends the spell's effect on itself.</p>\n<p>If a target is in the light of a full moon, it also grows by one size if it were Medium or smaller. This increases the reach of a Medium or Tiny creature by 5 feet.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The temporary Hit Points increase to 10, the silver weakness to 10, and the damage dealt by the attacks to three dice.</p>\n<p><strong>Heightened (10th)</strong> The temporary Hit Points increase to 20, the silver weakness to 20, and the damage dealt by the attacks to four dice.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1050,6 +1059,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1163,6 +1173,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1276,6 +1287,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1389,6 +1401,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1502,6 +1515,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1615,6 +1629,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1729,6 +1744,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1841,6 +1857,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -1953,6 +1970,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2071,6 +2089,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2202,6 +2221,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2320,6 +2340,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2432,6 +2453,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -2562,6 +2584,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": false
@@ -2676,6 +2699,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2794,6 +2818,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -2906,6 +2931,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -3038,6 +3064,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -3154,6 +3181,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -3268,6 +3296,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true

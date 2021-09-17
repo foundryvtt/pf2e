@@ -25,12 +25,12 @@ TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event: PIXI
         t: tool,
         x: pos.x,
         y: pos.y,
-        distance: 5,
+        distance: canvas.dimensions.distance,
         direction: 0,
         fillColor: game.user.data.color || "#FF0000",
     };
     if (tool === "cone") data.angle = 90;
-    else if (tool === "ray") data.width = 5;
+    else if (tool === "ray") data.width = canvas.dimensions.distance;
 
     // Assign the template
     const template = new MeasuredTemplatePF2e(new MeasuredTemplateDocumentPF2e(data, { parent: canvas.scene }));
@@ -58,7 +58,7 @@ TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event: Elemen
             template.data.direction = Math.toDegrees(
                 Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25)
             );
-            const distance = Math.max(ray.distance / ratio, 5);
+            const distance = Math.max(ray.distance / ratio, canvas.dimensions.distance);
             template.data.distance = Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
         } else {
             template.data.direction = Math.toDegrees(ray.angle);

@@ -7,6 +7,16 @@ export class ActionPF2e extends ItemPF2e {
         return ActionData;
     }
 
+    get activationTime() {
+        const actionType = this.data.data.actionType.value || "passive";
+        if (actionType === "passive") return null;
+
+        return {
+            type: actionType,
+            value: this.data.data.actions.value,
+        };
+    }
+
     override prepareData() {
         const data = super.prepareData();
 

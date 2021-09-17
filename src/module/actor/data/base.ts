@@ -1,11 +1,10 @@
-import { DamageType } from "@module/damage-calculation";
 import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import type { ItemPF2e } from "@item/base";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { ABILITY_ABBREVIATIONS } from "./values";
+import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "./values";
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
@@ -36,7 +35,7 @@ export interface BaseActorDataPF2e
     readonly _source: BaseActorSourcePF2e;
 }
 
-interface RollOptionFlags {
+export interface RollOptionFlags {
     all: Record<string, boolean | undefined>;
     [key: string]: Record<string, boolean | undefined> | undefined;
 }
@@ -75,6 +74,16 @@ export interface ActorSystemData {
     schema: DocumentSchemaRecord;
 }
 
+export type ImmunityType = SetElement<typeof IMMUNITY_TYPES>;
+export type WeaknessType = SetElement<typeof WEAKNESS_TYPES>;
+export interface LabeledWeakness extends LabeledNumber {
+    type: WeaknessType;
+}
+export type ResistanceType = SetElement<typeof RESISTANCE_TYPES>;
+export interface LabeledResistance extends LabeledNumber {
+    type: ResistanceType;
+}
+
 export interface BaseTraitsData {
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity: { value: Rarity };
@@ -85,11 +94,11 @@ export interface BaseTraitsData {
     /** Condition immunities */
     ci: LabeledValue[];
     /** Damage immunities this actor has. */
-    di: ValuesList<Exclude<DamageType, "untyped">>;
+    di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */
-    dr: LabeledNumber[];
+    dr: LabeledResistance[];
     /** Damage vulnerabilities that this actor has. */
-    dv: LabeledNumber[];
+    dv: LabeledWeakness[];
 }
 
 /** Data describing the proficiency with a given type of check */

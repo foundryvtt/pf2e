@@ -11,7 +11,7 @@ import {
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
-import { LabeledString, ValuesList, ZeroToThree } from "@module/data";
+import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 
@@ -34,15 +34,14 @@ export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "
 
 export interface CreatureSystemData extends ActorSystemData {
     details: {
-        level: {
-            value: number;
-        };
+        alignment: { value: Alignment };
+        level: { value: number };
     };
 
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
 
-    attributes: BaseCreatureAttributes;
+    attributes: CreatureAttributes;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, ModifierPF2e[]>;
@@ -96,10 +95,30 @@ export type SkillData = StatisticModifier & RawSkillData & Rollable;
 export type SaveData = SkillData & { saveDetail?: string };
 
 /** Miscallenous but mechanically relevant creature attributes.  */
-export interface BaseCreatureAttributes {
+export interface CreatureAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
     perception: { value: number };
+
+    speed: CreatureSpeeds;
+}
+
+export interface CreatureSpeeds extends StatisticModifier {
+    /** The actor's primary speed (usually walking/stride speed). */
+    value: string;
+    /** Other speeds that this actor can use (such as swim, climb, etc). */
+    otherSpeeds: LabeledSpeed[];
+    /** The derived value after applying modifiers, bonuses, and penalties */
+    total: number;
+    /** A textual breakdown of the base speed and any modifiers applied to it */
+    breakdown?: string;
+}
+
+export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
+export interface LabeledSpeed extends LabeledValue {
+    type: Exclude<MovementType, "land">;
+    value: string;
+    label: string;
 }
 
 export interface CreatureHitPoints extends HitPointsData {
@@ -114,6 +133,8 @@ export interface BaseCreatureResources {
     negativeHealing: boolean;
 }
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
+
+export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";
 
 export enum VisionLevels {
     BLINDED,

@@ -14,7 +14,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
-import { AbilityString, ActorFlagsPF2e, BaseActorDataPF2e } from "./data/base";
+import { AbilityString, BaseActorDataPF2e, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -94,6 +94,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get visionLevel(): VisionLevel {
         return VisionLevels.NORMAL;
+    }
+
+    get rollOptions(): RollOptionFlags {
+        return this.data.flags.pf2e.rollOptions;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -218,9 +222,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         );
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
-        // Prepare container contents now that this actor's embedded documents are ready
+        // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
             item.prepareSiblingData?.();
+            item.prepareActorData?.();
         }
 
         // Rule elements
@@ -1023,11 +1028,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
     getRollOptions(rollNames: string[]): string[] {
-        return ActorPF2e.getRollOptions(this.data.flags, rollNames);
-    }
-
-    static getRollOptions(flags: ActorFlagsPF2e, rollNames: string[]): string[] {
-        const rollOptions = flags.pf2e.rollOptions;
+        const rollOptions = this.data.flags.pf2e.rollOptions;
         return rollNames
             .flatMap((rollName) =>
                 // convert flag object to array containing the names of all fields with a truthy value
@@ -1139,7 +1140,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
         const data: ActorSourcePF2e = JSON.parse(json);
-        this.data.update(this.collection.prepareForImport(data), { recursive: false });
+        this.data.update(game.actors.prepareForImport(data), { recursive: false });
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),

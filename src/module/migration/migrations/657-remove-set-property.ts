@@ -18,11 +18,10 @@ export class Migration657RemoveSetProperty extends MigrationBase {
         itemSource.data.rules ??= [];
         const rules = itemSource.data.rules;
         const setPropertyRules = itemSource.data.rules.filter(
-            (rule): rule is SetPropertySource =>
+            (rule: Record<string, unknown>): rule is SetPropertySource =>
+                typeof rule.key === "string" &&
                 ["SetProperty", "PF2E.RuleElement.SetProperty"].includes(rule.key) &&
-                "property" in rule &&
                 typeof rule["property"] === "string" &&
-                "on" in rule &&
                 typeof rule["on"] === "object" &&
                 rule["on"] !== null &&
                 "added" in rule["on"]
@@ -48,12 +47,12 @@ export class Migration657RemoveSetProperty extends MigrationBase {
     }
 }
 
-interface SetPropertySource extends RuleElementSource {
+type SetPropertySource = RuleElementSource & {
     property: string;
     on: {
         added: RuleValue;
     };
-}
+};
 
 interface AELikeSource extends RuleElementSource {
     mode: "override";

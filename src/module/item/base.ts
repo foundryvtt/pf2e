@@ -445,7 +445,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         const templateData: any = {
             t: areaType,
-            distance: Number(itemData.data.area.value),
+            distance: (Number(itemData.data.area.value) / 5) * canvas.dimensions.distance,
             flags: {
                 pf2e: {
                     origin: {
@@ -460,7 +460,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         if (areaType === "ray") {
-            templateData.width = 5;
+            templateData.width = canvas.dimensions.distance;
         } else if (areaType === "cone") {
             templateData.angle = 90;
         }
@@ -523,7 +523,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
         const data: ItemSourcePF2e = JSON.parse(json);
-        this.data.update(this.collection.prepareForImport(data), { recursive: false });
+        this.data.update(game.items.prepareForImport(data), { recursive: false });
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),
@@ -583,6 +583,8 @@ interface ItemPF2e {
     get sheet(): ItemSheetPF2e<this>;
 
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
+
+    prepareActorData?(this: Embedded<ItemPF2e>): void;
 
     getFlag(scope: "core", key: "sourceId"): string;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;

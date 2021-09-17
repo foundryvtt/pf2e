@@ -1,7 +1,6 @@
 import { AbilityString, ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import { CharacterProficiencyData } from "@actor/character/data";
 
 /** Remove `ActiveEffect`s from classes, convert AE changes on several item types to AE-likes */
@@ -65,16 +64,17 @@ export class Migration653AEstoREs extends MigrationBase {
 
             // Turn what remains into AE-Like rule elements
             const toAELikes = effect.changes.filter(this.isRemoveableChange);
-            const rules: Array<RuleElementSource & { [key: string]: unknown }> = itemSource.data.rules;
+            const rules = itemSource.data.rules;
             for (const change of toAELikes) {
                 if (change.mode === 0) continue;
-                rules.push({
+                const newRule = {
                     key: "ActiveEffectLike",
                     path: change.key,
                     mode: modes[change.mode],
                     value: Number.isNaN(Number(change.value)) ? change.value : Number(change.value),
                     priority: change.priority,
-                });
+                };
+                rules.push(newRule);
             }
 
             // Remove the ActiveEffect unless complex changes are present

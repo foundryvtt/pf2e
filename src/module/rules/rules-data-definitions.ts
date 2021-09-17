@@ -2,7 +2,21 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, RawPredicate } from ".
 import { RollNotePF2e } from "../notes";
 import { WeaponPF2e } from "@item";
 
-export interface RuleElementData {
+export type RuleElementSource = {
+    key: string;
+    data?: unknown;
+    selector?: string;
+    value?: RuleValue | BracketedValue;
+    scope?: string;
+    label?: string;
+    slug?: string;
+    predicate?: RawPredicate;
+    /** The place in order of application (ascending), among an actor's list of rule elements */
+    priority?: number;
+    ignored?: boolean;
+};
+
+export interface RuleElementData extends RuleElementSource {
     key: string;
     data?: any;
     selector?: string;
@@ -11,16 +25,9 @@ export interface RuleElementData {
     label: string;
     slug?: string;
     predicate?: ModifierPredicate;
-    /** The place in order of application (ascending), among an actor's list of rule elements */
     priority: number;
     ignored: boolean;
 }
-
-export type RuleElementSource = Omit<RuleElementData, "ignored" | "label" | "predicate" | "priority"> & {
-    label?: string;
-    priority?: number;
-    predicate?: RawPredicate;
-};
 
 export type RuleValue = string | number | boolean | object | null;
 

@@ -6,7 +6,7 @@ import { RuleElementSource, RuleElementData, RuleValue } from "../rules-data-def
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
-export class AELikeRuleElement extends RuleElementPF2e {
+class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
     constructor(data: AELikeConstructionData, item: Embedded<ItemPF2e>) {
@@ -115,7 +115,7 @@ export class AELikeRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface AELikeRuleElement extends RuleElementPF2e {
+interface AELikeRuleElement extends RuleElementPF2e {
     data: AELikeRuleElementData;
 }
 
@@ -129,8 +129,10 @@ interface AELikeRuleElementData extends RuleElementData {
     phase: "applyAEs" | "beforeDerived" | "afterDerived";
 }
 
-interface AELikeConstructionData extends RuleElementSource {
+export interface AELikeConstructionData extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
     phase?: "applyAEs" | "beforeDerived" | "afterDerived";
 }
+
+export { AELikeRuleElement };

@@ -201,13 +201,30 @@ export function tupleHasValue<A extends readonly unknown[]>(array: A, value: unk
  * The system's sluggification algorithm of entity names
  * @param name The name of the entity (or other object as needed)
  */
-export function sluggify(entityName: string) {
-    return entityName
-        .toLowerCase()
-        .replace(/'/g, "")
-        .replace(/[^a-z0-9]+/gi, " ")
-        .trim()
-        .replace(/[-\s]+/g, "-");
+export function sluggify(label: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+    switch (camel) {
+        case null:
+            return label
+                .toLowerCase()
+                .replace(/'/g, "")
+                .replace(/[^a-z0-9]+/gi, " ")
+                .trim()
+                .replace(/[-\s]+/g, "-");
+        case "bactrian": {
+            const dromedary = sluggify(label, { camel: "dromedary" });
+            return dromedary.charAt(0).toUpperCase() + dromedary.slice(1);
+        }
+        case "dromedary":
+            return label
+                .replace(/'/g, "")
+                .replace(/[-_]+/g, " ")
+                .replace(/(?:^\w|[A-Z]|\b\w)/g, (part, index) =>
+                    index === 0 ? part.toLowerCase() : part.toUpperCase()
+                )
+                .replace(/\s+/g, "");
+        default:
+            throw ErrorPF2e("I don't think that's a real camel.");
+    }
 }
 
 const actionImgMap: Record<string, ImagePath> = {
@@ -246,9 +263,10 @@ const actionGlyphMap: Record<string, string> = {
 
 /**
  * Returns a character that can be used with the Pathfinder action font
- * to display an icon.
+ * to display an icon. If null it returns empty string.
  */
-export function getActionGlyph(action: string | number | { type: string; value: string }) {
+export function getActionGlyph(action: string | number | { type: string; value: string } | null) {
+    if (!action) return "";
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
         .toLowerCase()

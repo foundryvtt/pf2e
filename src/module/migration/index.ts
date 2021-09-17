@@ -68,6 +68,8 @@ import { Migration664DeleteCUBConditions } from "./migrations/664-delete-cub-con
 import { Migration665HandwrapsCorrections } from "./migrations/665-handwraps-corrections";
 import { Migration666UsageAndStowingContainers } from "./migrations/666-usage-and-stowing-containers";
 import { Migration667HPSubProperties } from "./migrations/667-hp-subproperties";
+import { Migration668ArmorSpeedPenalty } from "./migrations/668-armor-speed-penalty";
+import { Migration669NPCAttackEffects } from "./migrations/669-npc-attack-effects";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -140,6 +142,8 @@ export class Migrations {
         Migration665HandwrapsCorrections,
         Migration666UsageAndStowingContainers,
         Migration667HPSubProperties,
+        Migration668ArmorSpeedPenalty,
+        Migration669NPCAttackEffects,
     ];
 
     static get latestVersion(): number {

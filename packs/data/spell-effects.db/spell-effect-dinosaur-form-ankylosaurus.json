@@ -19,8 +19,7 @@
                 "label": "Dinosaur Form (Ankylosaurus)",
                 "overrides": {
                     "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
+                        "modifier": "18 + @details.level.value"
                     },
                     "ownModifier": {
                         "skills": true,
@@ -46,7 +45,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Foot",
                             "traits": [
                                 "unarmed"
                             ]
@@ -60,11 +58,10 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Tail",
                             "traits": [
                                 "unarmed",
                                 "backswing",
-                                "reach-10"
+                                "reach"
                             ]
                         }
                     },
@@ -79,9 +76,6 @@
                             "end": 4,
                             "start": 4,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @details.level.value"
-                                },
                                 "size": "lg",
                                 "skills": {
                                     "ath": {
@@ -109,9 +103,6 @@
                             "end": 6,
                             "start": 5,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "21 + @details.level.value"
-                                },
                                 "size": "huge",
                                 "skills": {
                                     "ath": {
