@@ -52,7 +52,7 @@ describe("#modifiers", () => {
         });
 
         test("prevent proficiency ranks above four", () => {
-            expect(ProficiencyModifier.fromLevelAndRank(1, 5).modifier).toEqual(UNTRAINED.atLevel(1).modifier);
+            expect(ProficiencyModifier.fromLevelAndRank(1, 5).modifier).toEqual(LEGENDARY.atLevel(1).modifier);
         });
     });
 
