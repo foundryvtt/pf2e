@@ -1,7 +1,6 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSynthetics, StrikingPF2e } from "../rules-data-definitions";
 import { CharacterData, NPCData } from "@actor/data";
-import { ModifierPredicate } from "@module/modifiers";
 import { getStrikingDice } from "@item/runes";
 import { WeaponPF2e } from "@item";
 
@@ -21,7 +20,7 @@ export class PF2StrikingRuleElement extends RuleElementPF2e {
         if (selector && typeof value === "number") {
             const additionalData: StrikingPF2e = { label: this.label, bonus: value };
             if (this.data.predicate) {
-                additionalData.predicate = new ModifierPredicate(this.data.predicate);
+                additionalData.predicate = this.data.predicate;
             }
             striking[selector] = (striking[selector] || []).concat(additionalData);
         } else {

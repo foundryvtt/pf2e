@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { PF2CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/check-degree-of-success";
 import { StatisticBuilder } from "@system/statistic";
 
 function resolveActors(): ActorPF2e[] {
@@ -94,7 +94,7 @@ export const InlineRollsLinks = {
                             if (actor instanceof CreaturePF2e) {
                                 const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
                                 if (perceptionCheck) {
-                                    const dc: PF2CheckDC | undefined = Number.isInteger(Number(pf2Dc))
+                                    const dc: CheckDC | undefined = Number.isInteger(Number(pf2Dc))
                                         ? { label: pf2Label, value: Number(pf2Dc) }
                                         : undefined;
                                     const options = actor.getRollOptions(["all", "perception"]);
@@ -125,7 +125,7 @@ export const InlineRollsLinks = {
                                 });
                                 if (flatCheck) {
                                     const dc = Number.isInteger(Number(pf2Dc))
-                                        ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                        ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                                         : undefined;
                                     const options = actor.getRollOptions(["all", "flat-check"]);
                                     if (pf2Traits) {
@@ -152,7 +152,7 @@ export const InlineRollsLinks = {
                             const savingThrow = actor.data.data.saves[pf2Check ?? ""] as Rollable | undefined;
                             if (pf2Check && savingThrow) {
                                 const dc = Number.isInteger(Number(pf2Dc))
-                                    ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                    ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                                     : undefined;
                                 const options = actor.getRollOptions(["all", "saving-throw", pf2Check]);
                                 if (pf2Traits) {
@@ -177,7 +177,7 @@ export const InlineRollsLinks = {
                         const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
                         if (skill && skillCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                                 : undefined;
                             const options = actor.getRollOptions(["all", "skill-check", skill]);
                             if (pf2Traits) {
@@ -207,7 +207,7 @@ export const InlineRollsLinks = {
                     const savingThrow = actor.data.data.saves[pf2SavingThrow ?? ""] as Rollable | undefined;
                     if (pf2SavingThrow && savingThrow) {
                         const dc = Number.isInteger(Number(pf2Dc))
-                            ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                            ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                             : undefined;
                         const options = actor.getRollOptions(["all", "saving-throw", pf2SavingThrow]);
                         if (pf2Traits) {
@@ -238,7 +238,7 @@ export const InlineRollsLinks = {
                     const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
                     if (skill && skillCheck) {
                         const dc = Number.isInteger(Number(pf2Dc))
-                            ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                            ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                             : undefined;
                         const options = actor.getRollOptions(["all", "skill-check", skill]);
                         if (pf2Traits) {
@@ -268,7 +268,7 @@ export const InlineRollsLinks = {
                         const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
                         if (perceptionCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                                 : undefined;
                             const options = actor.getRollOptions(["all", "perception"]);
                             if (pf2Traits) {
@@ -303,7 +303,7 @@ export const InlineRollsLinks = {
                         });
                         if (flatCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
                                 : undefined;
                             const options = actor.getRollOptions(["all", "flat-check"]);
                             if (pf2Traits) {

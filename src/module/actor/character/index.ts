@@ -6,7 +6,6 @@ import {
     ensureProficiencyOption,
     CheckModifier,
     ModifierPF2e,
-    ModifierPredicate,
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
@@ -49,6 +48,7 @@ import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
+import { PredicatePF2e } from "@system/predication";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -1021,14 +1021,14 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] ?? [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !ModifierPredicate.test(m.predicate, defaultOptions);
+                        m.ignored = !m.predicate.test(defaultOptions);
                         modifiers.push(m);
                     });
                 (synthetics.weaponPotency[key] ?? [])
-                    .filter((wp) => ModifierPredicate.test(wp.predicate, defaultOptions))
+                    .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions))
                     .forEach((wp) => potency.push(wp));
                 (synthetics.multipleAttackPenalties[key] ?? [])
-                    .filter((map) => ModifierPredicate.test(map.predicate, defaultOptions))
+                    .filter((map) => PredicatePF2e.test(map.predicate, defaultOptions))
                     .forEach((map) => multipleAttackPenalties.push(map));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
@@ -1226,7 +1226,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .map((m) => m.clone())
                 .forEach((m) => {
                     // checks if predicated rule is true with only skill name option
-                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
+                    if (m.predicate && PredicatePF2e.test(m.predicate, [skillFullName])) {
                         // toggles these so the predicate rule will be included when totalmodifier is calculated
                         m.enabled = true;
                         m.ignored = false;

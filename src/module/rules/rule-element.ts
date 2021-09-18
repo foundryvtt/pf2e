@@ -2,7 +2,8 @@ import { ActorPF2e } from "@actor";
 import type { ActorDataPF2e, ActorType, CreatureData } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ItemDataPF2e } from "@item/data";
-import { ModifierPredicate, RawModifier } from "@module/modifiers";
+import { RawModifier } from "@module/modifiers";
+import { PredicatePF2e } from "@system/predication";
 import {
     BracketedValue,
     RuleElementSource,
@@ -67,7 +68,7 @@ abstract class RuleElementPF2e {
         this.data = {
             priority: 100,
             ...data,
-            predicate: data.predicate ? new ModifierPredicate(data.predicate) : undefined,
+            predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: data.ignored ?? false,
         };
