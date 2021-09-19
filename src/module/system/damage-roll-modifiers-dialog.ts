@@ -183,6 +183,7 @@ export class DamageRollModifiersDialog extends Application {
                     pf2e: {
                         damageRoll: rollData,
                         origin,
+                        preformatted: "both",
                     },
                 },
             },
