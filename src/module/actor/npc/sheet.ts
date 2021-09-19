@@ -110,6 +110,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     notAdjusted: boolean;
     inventory: SheetInventory;
     hasShield?: boolean;
+    configLootableNpc?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
@@ -169,14 +170,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            if (this.actor.isDead) {
+                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            } else {
+                return actorName;
+            }
         }
         return super.title;
     }
 
     override get isLootSheet(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /**
@@ -280,6 +284,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (this.isLootSheet) {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
+
+        sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         // Return data for rendering
         return sheetData;

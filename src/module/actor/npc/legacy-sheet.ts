@@ -226,8 +226,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
     }
 
     override get isLootSheet(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /** Increases the NPC via the Elite/Weak adjustment rules */
