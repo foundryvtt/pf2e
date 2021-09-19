@@ -809,9 +809,23 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #lawful]]{1d6 lawful damage} against chaotic creatures</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "lawful",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "vs. Chaotic Creatures",
+                        "predicate": {
+                            "all": [
+                                "target:chaotic"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -837,7 +851,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "scourge",
+            "name": "Scourge",
             "sort": 500000,
             "type": "melee"
         },
@@ -886,7 +900,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "heavy crossbow",
+            "name": "Heavy Crossbow",
             "sort": 600000,
             "type": "melee"
         },
