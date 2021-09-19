@@ -32,23 +32,23 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             case "spell":
                 if (chatData.isSave) {
                     buttons.append(
-                        `<span class="tag">${game.i18n.localize("PF2E.SaveDCLabel")} ${chatData.save.dc} ${
-                            chatData.save.basic
-                        } ${chatData.save.str}</span>`
+                        `<span>${game.i18n.localize("PF2E.SaveDCLabel")} ${chatData.save.dc} ${chatData.save.basic} ${
+                            chatData.save.str
+                        }</span>`
                     );
                 }
 
                 if (this.actor instanceof CharacterPF2e) {
                     if (chatData.isAttack) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
+                            `<span><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
                                 "PF2E.AttackLabel"
                             )}</button></span>`
                         );
                     }
                     if (chatData.hasDamage) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
+                            `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
                         );
                     }
                 }
@@ -57,7 +57,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             case "consumable":
                 if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
                     buttons.append(
-                        `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
+                        `<span><button class="consume" data-action="consume">${game.i18n.localize(
                             "PF2E.ConsumableUseLabel"
                         )} ${item.name}</button></span>`
                     );
