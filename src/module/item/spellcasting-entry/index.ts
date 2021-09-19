@@ -230,7 +230,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
                 // Detect which spells are active. If flexible, it will be set later via signature spells
                 const active: (ActiveSpell | null)[] = [];
-                if ((this.data.data.showSlotlessLevels.value || data.max > 0) && (level === 0 || !this.isFlexible)) {
+                const showLevel = this.data.data.showSlotlessLevels.value || data.max > 0;
+                if (showLevel && (level === 0 || !this.isFlexible)) {
                     const maxPrepared = Math.max(data.max, 0);
                     active.push(...Array(maxPrepared).fill(null));
                     for (const [key, value] of Object.entries(data.prepared)) {
@@ -239,7 +240,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                             active[Number(key)] = {
                                 spell,
                                 chatData: spell.getChatData(),
-                                expended: value.expended,
+                                expended: !!value.expended,
                             };
                         }
                     }
