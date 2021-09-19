@@ -166,6 +166,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             };
         });
 
+        data.developMode = BUILD_MODE === "development";
+
         return data;
     }
 

@@ -20,6 +20,28 @@
     </div>
 </div>
 
+{{#if (and developMode document.activationTime)}}
+<div class="form-group">
+    <label>{{localize "PF2E.FrequencyLabel"}}</label>
+    <div class="details-container-flex-row frequency">
+        <label>
+            <input type="checkbox" class="toggle-frequency" {{checked data.frequency}}/>
+            <span>Limited</span>
+        </label>
+        {{#if data.frequency}}
+            <input type="number" name="data.frequency.max" value="{{data.frequency.max}}" data-dtype="Number"/>
+            <select name="data.frequency.per" data-dtype="String" {{#unless data.frequency.max}}readonly{{/unless}}>
+                {{#select data.frequency.per}}
+                    {{#each @root.frequencies as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        {{/if}}
+    </div>
+</div>
+{{/if}}
+
 <div class="form-group">
     <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
     <select name="data.actionCategory.value" data-dtype="String">

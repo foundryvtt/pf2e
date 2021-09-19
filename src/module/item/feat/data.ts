@@ -39,5 +39,9 @@ interface FeatSystemData extends ItemSystemData, ItemLevelData {
     prerequisites: {
         value: PrerequisiteTagData[];
     };
+    frequency?: {
+        max: number;
+        per: keyof ConfigPF2e["PF2E"]["frequencies"];
+    };
     location: string;
 }
