@@ -26,7 +26,7 @@ export class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their ancestry */
-    prepareActorData(this: Embedded<AncestryPF2e>): void {
+    override prepareActorData(this: Embedded<AncestryPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
             console.error("Only a character can have an ancestry");
             return;
