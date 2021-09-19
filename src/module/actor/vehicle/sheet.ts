@@ -53,6 +53,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             }
         }
 
+        sheetData.uid = this.id;
+
         return sheetData;
     }
 
