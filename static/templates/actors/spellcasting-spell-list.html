@@ -136,17 +136,13 @@
 
         {{#if (and entry.data.showUnpreparedSpells.value section.displayPrepared)}}
             <header class="item-name pf-sub-category pf-actions level-prepared-header">
-                {{#if (and (eq section.uses.max 0) (not entry.data.showSlotlessLevels.value))}}
-                    {{localize section.label}}:
-                {{/if}}
-
-                {{localize "PF2E.UnpreparedSpellsLabel"}}
+                {{localize "PF2E.UnpreparedSpellsLabel" label=(localize section.label) }}
                 {{#if (and entry.flexibleAvailable (not section.isCantrip))}}
                     <div class="flexible-available">
                         ({{entry.flexibleAvailable.value}} / {{entry.flexibleAvailable.max}})
                     </div>
                 {{/if}}
-            </header> 
+            </header>
 
             <!-- Unprepared Spells -->
             {{#each (lookup entry.spellPrepList section.level) as |item i|}}

@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 31,
                 "details": "",
                 "value": 21
             },
@@ -51,11 +52,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "120 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "120"
                     }
                 ],
-                "value": "60 feet"
+                "value": "60"
             }
         },
         "details": {
@@ -63,7 +66,7 @@
                 "value": "NE"
             },
             "creatureType": "Beast",
-            "flavorText": "<p>The enormous greater nightmare is a more dangerous variety of nightmare, particularly valued for its ability to invade other realities with its rider.</p>",
+            "flavorText": "<p>The enormous greater nightmare is a more dangerous variety of nightmare, particularly valued for its ability to invade other realities with its rider.</p>\n<hr />\n<p>Nightmares are flaming equine harbingers of death.</p>",
             "level": {
                 "value": 11
             },
@@ -137,10 +140,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MizzfZ5U5DvQttJV",
+            "_id": "zOQQAoX9yIJs4TGI",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -148,12 +151,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -164,7 +164,7 @@
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -216,9 +216,9 @@
                         "value": 0
                     },
                     "slot7": {
-                        "max": 0,
+                        "max": 2,
                         "prepared": [],
-                        "value": 0
+                        "value": 2
                     },
                     "slot8": {
                         "max": 0,
@@ -236,10 +236,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "30",
-                    "item": 0,
+                    "dc": 30,
                     "mod": 0,
-                    "value": 20
+                    "value": 22
                 },
                 "tradition": {
                     "value": "divine"
@@ -260,14 +259,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "eqRDRiHGFbbqgvdt",
+            "_id": "jDeg07URletqpSPT",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -285,18 +287,10 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "untyped"
-                            },
-                            "value": "1d6"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @Compendium[pf2e.conditionitems.Concealed]{Concealed} from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
+                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @Compendium[pf2e.conditionitems.Concealed]{Concealed} from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -304,16 +298,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 7
+                },
                 "level": {
                     "value": 7
                 },
                 "location": {
-                    "value": "MizzfZ5U5DvQttJV"
+                    "value": "zOQQAoX9yIJs4TGI"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -327,9 +327,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ethereal-jaunt",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=105"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -352,7 +358,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "teleportation"
@@ -360,21 +366,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.D2nPKbIS67m9199U"
+                }
+            },
             "img": "systems/pf2e/icons/spells/etheral-jaunt.webp",
-            "name": "Ethereal Jaunt",
+            "name": "Ethereal Jaunt (Self and Rider Only)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "C3Y4oZEMQWjJ7RgX",
+            "_id": "3CDSZvLMDMCaS7DT",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -392,18 +405,10 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "untyped"
-                            },
-                            "value": "1d20"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -411,16 +416,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 7
+                },
                 "level": {
                     "value": 7
                 },
                 "location": {
-                    "value": "MizzfZ5U5DvQttJV"
+                    "value": "zOQQAoX9yIJs4TGI"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -434,9 +445,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "plane-shift",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -448,7 +465,7 @@
                     "value": "1 willing creature, or up to 8 willing creatures joining hands"
                 },
                 "time": {
-                    "value": " 10 minutes"
+                    "value": "10 minutes"
                 },
                 "traditions": {
                     "value": [
@@ -461,7 +478,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "teleportation"
@@ -469,9 +486,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.webp",
-            "name": "Plane Shift",
+            "name": "Plane Shift (Self and Rider Only)",
             "sort": 300000,
             "type": "spell"
         },
@@ -596,7 +617,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet. The nightmare continually exhales black smoke that creates concealment in an aura around it. Nightmares and their riders can see through this smoke. A creature that begins its turn in the area becomes sickened 2 (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"aura\" data-pf2-label=\"Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> negates) and is then temporarily immune sickness from the smoke for 1 minute. The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
+                    "value": "<p>20 feet @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The nightmare continually exhales black smoke that creates @Compendium[pf2e.conditionitems.Concealed]{concealment} in an aura around it. Nightmares and their riders can see through this smoke.</p>\n<p>A creature that begins its turn in the area becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"aura\" data-pf2-label=\"Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> negates) and is then temporarily immune sickness from the smoke for 1 minute.</p>\n<p>The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -624,9 +645,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Smoke",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "KibjC6p7hbZVrtOK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -670,9 +739,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Flaming Gallop",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -720,7 +789,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -755,7 +824,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -790,7 +859,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -825,7 +894,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -860,7 +929,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
