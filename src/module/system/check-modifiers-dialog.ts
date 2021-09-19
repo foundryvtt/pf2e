@@ -1,40 +1,6 @@
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
-import { ActorPF2e } from "@actor/base";
-import { RollNotePF2e } from "../notes";
-import { PF2CheckDC } from "./check-degree-of-success";
+import { CheckModifiersContext, FateString } from "./rolls";
 import { LocalizePF2e } from "./localize";
-import { ItemPF2e } from "@item";
-
-export interface CheckModifiersContext {
-    /** Any options which should be used in the roll. */
-    options?: string[];
-    /** Any notes which should be shown for the roll. */
-    notes?: RollNotePF2e[];
-    /** If true, this is a secret roll which should only be seen by the GM. */
-    secret?: boolean;
-    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: string;
-    /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
-    fate?: string;
-    /** The actor which initiated this roll. */
-    actor?: ActorPF2e;
-    /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
-    /** Optional title of the roll options dialog; defaults to the check name */
-    title?: string;
-    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
-    type?: string;
-    /** Any traits for the check. */
-    traits?: string[];
-    /** Optional DC data for the check */
-    dc?: PF2CheckDC;
-    /** Should the roll be immediately created as a chat message? */
-    createMessage?: boolean;
-    /** Skip the roll dialog regardless of user setting  */
-    skipDialog?: boolean;
-    /** Is the roll a reroll? */
-    isReroll?: boolean;
-}
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -45,7 +11,7 @@ export class CheckModifiersDialog extends Application {
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
     context: CheckModifiersContext;
-    /** Promise resolve function */
+    /** A Promise resolve method */
     resolve: (value: boolean) => void;
     /** Has the promise been resolved? */
     isResolved = false;
@@ -88,7 +54,7 @@ export class CheckModifiersDialog extends Application {
 
     override activateListeners(html: JQuery) {
         html.find(".roll").on("click", (_event) => {
-            this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as string;
+            this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as FateString;
             this.resolve(true);
             this.isResolved = true;
             this.close();
@@ -155,7 +121,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
-        this.context.rollMode = ($(event.currentTarget).val() ?? "roll") as string;
+        this.context.rollMode = ($(event.currentTarget).val() ?? "roll") as RollMode;
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
