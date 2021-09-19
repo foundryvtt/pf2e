@@ -4,66 +4,62 @@
     flex-wrap: wrap;
     align-items: stretch;
     justify-content: flex-start;
-    margin-top: 3px;
     padding: 0;
-    font-weight: 500;
     list-style-type: none;
-    .tag {
-        display: inline-flex;
-        @include micro;
-        border-radius: 2px;
-        padding: 3px 4px;
-        margin-bottom: 2px;
-        margin-right: 3px;
-        box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-        background-color: var(--primary);
-        color: white;
+    gap: 2px;
+}
 
-        &.edit-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 0;
-            color: var(--primary);
-            a {
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                svg {
-                    height: 9px;
-                    width: auto;
-                }
+.tag {
+    @include micro;
+    border-radius: 2px;
+    padding: 3px 4px;
+    box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+    background-color: var(--primary);
+    font-weight: 500;
+    color: white;
+
+    &.edit-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: 0;
+        color: var(--primary);
+        a {
+            display: inline-flex;
+            svg {
+                height: 9px;
+                width: auto;
             }
         }
+    }
 
-        &_secondary.tag {
-            background-color: var(--secondary);
-            color: white;
-        }
+    &_secondary.tag {
+        background-color: var(--secondary);
+        color: white;
+    }
 
-        &_tertiary.tag {
-            background-color: var(--tertiary);
-            color: white;
-        }
+    &_tertiary.tag {
+        background-color: var(--tertiary);
+        color: white;
+    }
 
-        &_alt.tag {
-            background-color: var(--alt);
-            color: white;
-        }
+    &_alt.tag {
+        background-color: var(--alt);
+        color: white;
+    }
 
-        &_transparent.tag {
-            background-color: transparent;
-            color: black;
-            text-transform: none;
-            font-size: 10px;
-            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
-            border-radius: 4px;
-        }
+    &_transparent.tag {
+        background-color: transparent;
+        color: black;
+        text-transform: none;
+        font-size: 10px;
+        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+        border-radius: 4px;
+    }
 
-        &.mystified {
-            opacity: 0.6;
-        }
+    &.mystified {
+        opacity: 0.6;
     }
 }
 
