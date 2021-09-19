@@ -152,7 +152,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
-        // Set empty-string values to null
+        // Set empty-string values and zeroes to null
+        formData["data.potencyRune.value"] ||= null;
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`data.propertyRune${slotNumber}.value`] ||= null;
         }
