@@ -3,7 +3,6 @@ import {
     Alignment,
     CreatureAttributes,
     BaseCreatureData,
-    BaseCreatureResources,
     BaseCreatureSource,
     CreatureHitPoints,
     CreatureSystemData,
@@ -206,11 +205,9 @@ interface PathfinderSocietyData {
 
 export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
-interface CharacterResources extends BaseCreatureResources {
-    investiture: {
-        value: number;
-        max: number;
-    };
+interface CharacterResources {
+    focus: { value: number; max: number };
+    investiture: { value: number; max: number };
 }
 
 interface CharacterPerception extends PerceptionData {

@@ -173,6 +173,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
+    // Set whether this actor is wearing armor
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+    }
+
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.

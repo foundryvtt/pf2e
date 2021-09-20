@@ -27,7 +27,7 @@ export class VehiclePF2e extends ActorPF2e {
     }
 
     /* Set the prototype token's dimensions according to the vehicle dimensions */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
         if (this.data.token.flags?.pf2e?.linkToActorSize) {
             const { width, height } = this.getTokenDimensions();

@@ -60,6 +60,10 @@ export interface NPCSystemData extends CreatureSystemData {
 
     /** Special strikes which the creature can take. */
     actions: NPCStrike[];
+
+    resources: {
+        focus?: { value: number; max: number };
+    };
 }
 
 interface RawNPCStrike extends StrikeData {

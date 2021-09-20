@@ -54,10 +54,15 @@ declare global {
         }): Promise<Evaluated<this>>;
     }
 
-    type MathFunctionName = Exclude<
-        MathStringKey,
-        "E" | "LN2" | "LN10" | "LOG2E" | "LOG10E" | "PI" | "SQRT1_2" | "SQRT2"
-    >;
+    type MathFunctionName =
+        | Exclude<MathStringKey, "E" | "LN2" | "LN10" | "LOG2E" | "LOG10E" | "PI" | "SQRT1_2" | "SQRT2">
+        | "clamped"
+        | "normalizeDegrees"
+        | "normalizeRadians"
+        | "roundDecimals"
+        | "toDegrees"
+        | "toRadians"
+        | "safeEval";
 
     interface MathTermData<TFunctionName extends MathFunctionName = MathFunctionName> extends RollTermData {
         fn?: TFunctionName;

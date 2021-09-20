@@ -172,7 +172,7 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
-    prepareSiblingData(this: Embedded<SpellPF2e>): void {
+    override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 

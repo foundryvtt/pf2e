@@ -50,8 +50,6 @@ export interface CreatureSystemData extends ActorSystemData {
 
     /** Saving throw data */
     saves: Record<SaveType, StatisticModifier>;
-
-    resources: BaseCreatureResources;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -125,13 +123,6 @@ export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
-export interface BaseCreatureResources {
-    focus?: {
-        value: number;
-        max: number;
-    };
-    negativeHealing: boolean;
-}
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 
 export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";

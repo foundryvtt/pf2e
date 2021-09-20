@@ -18,7 +18,7 @@ export class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their class */
-    prepareActorData(this: Embedded<ClassPF2e>) {
+    override prepareActorData(this: Embedded<ClassPF2e>) {
         if (!(this.actor instanceof CharacterPF2e)) {
             console.error("Only a character can have a class");
             return;
