@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -8,7 +8,7 @@ import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
+import { DegreeOfSuccessAdjustment, CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -24,6 +24,7 @@ import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@module/utils";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -261,7 +262,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             modifier.custom = true;
 
             // modifier predicate
-            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
             modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
@@ -386,7 +387,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryMod = getProperty(this.data.data.attributes, "dying.recoveryMod") || 0;
 
-        const dc: PF2CheckDC = {
+        const dc: CheckDC = {
             label: game.i18n.format("PF2E.Recovery.rollingDescription", {
                 dying,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
@@ -444,7 +445,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
-        let dc: PF2CheckDC | undefined;
+        let dc: CheckDC | undefined;
         let distance: number | undefined;
         if (ctx.target?.actor instanceof CreaturePF2e) {
             dc = {

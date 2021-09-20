@@ -1,13 +1,7 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
-import {
-    ensureProficiencyOption,
-    CheckModifier,
-    StatisticModifier,
-    ModifierPF2e,
-    ModifierPredicate,
-} from "../../modifiers";
+import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
 import { StatisticWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
@@ -40,6 +34,7 @@ import { demoralize } from "./intimidation/demoralize";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
+import { PredicatePF2e } from "@system/predication";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
@@ -138,7 +133,7 @@ export class ActionsPF2e {
         return new RollNotePF2e(
             selector,
             `<p class="compact-text">${translated}</p>`,
-            new ModifierPredicate(),
+            new PredicatePF2e(),
             visibility === "all" ? [outcome] : []
         );
     }

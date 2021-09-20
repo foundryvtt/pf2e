@@ -1,6 +1,7 @@
-import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, RawPredicate } from "../modifiers";
+import { DamageDicePF2e, ModifierPF2e } from "../modifiers";
 import { RollNotePF2e } from "../notes";
 import { WeaponPF2e } from "@item";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 export type RuleElementSource = {
     key: string;
@@ -24,7 +25,7 @@ export interface RuleElementData extends RuleElementSource {
     scope?: string;
     label: string;
     slug?: string;
-    predicate?: ModifierPredicate;
+    predicate?: PredicatePF2e;
     priority: number;
     ignored: boolean;
 }
@@ -45,19 +46,19 @@ export interface BracketedValue<T extends object | number | string = object | nu
 export interface WeaponPotencyPF2e {
     label: string;
     bonus: number;
-    predicate?: ModifierPredicate;
+    predicate?: PredicatePF2e;
 }
 
 export interface StrikingPF2e {
     label: string;
     bonus: number;
-    predicate?: ModifierPredicate;
+    predicate?: PredicatePF2e;
 }
 
 export interface MultipleAttackPenaltyPF2e {
     label: string;
     penalty: number;
-    predicate?: ModifierPredicate;
+    predicate?: PredicatePF2e;
 }
 
 export interface RuleElementSynthetics {

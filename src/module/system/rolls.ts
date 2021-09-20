@@ -2,8 +2,8 @@ import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e } from "@actor/base";
 import { ItemPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
-import { ModifierPF2e, ModifierPredicate, StatisticModifier } from "../modifiers";
-import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from "./check-degree-of-success";
+import { ModifierPF2e, StatisticModifier } from "../modifiers";
+import { getDegreeOfSuccess, DegreeOfSuccessText, CheckDC } from "./check-degree-of-success";
 import { DegreeAdjustment } from "@module/degree-of-success";
 import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
@@ -12,6 +12,7 @@ import { ZeroToThree } from "@module/data";
 import { fontAwesomeIcon } from "@module/utils";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
+import { PredicatePF2e } from "./predication";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -25,7 +26,7 @@ export interface RollParameters {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
-    dc?: PF2CheckDC;
+    dc?: CheckDC;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */
@@ -64,7 +65,7 @@ export interface CheckModifiersContext {
     /** Any traits for the check. */
     traits?: string[];
     /** Optional DC data for the check */
-    dc?: PF2CheckDC;
+    dc?: CheckDC;
     /** Should the roll be immediately created as a chat message? */
     createMessage?: boolean;
     /** Skip the roll dialog regardless of user setting  */
@@ -99,7 +100,7 @@ export class CheckPF2e {
         if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
-                modifier.ignored = !ModifierPredicate.test(modifier.predicate, context.options);
+                modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
             });
             check.applyStackingRules();
 
@@ -110,7 +111,7 @@ export class CheckPF2e {
         }
 
         if (context) {
-            const visible = (note: RollNotePF2e) => ModifierPredicate.test(note.predicate, context.options ?? []);
+            const visible = (note: RollNotePF2e) => PredicatePF2e.test(note.predicate, context.options ?? []);
             context.notes = (context.notes ?? []).filter(visible);
 
             if (context.dc) {
@@ -118,7 +119,7 @@ export class CheckPF2e {
                 if (adjustments) {
                     adjustments.forEach((adjustment) => {
                         const merge = adjustment.predicate
-                            ? ModifierPredicate.test(adjustment.predicate, context.options ?? [])
+                            ? PredicatePF2e.test(adjustment.predicate, context.options ?? [])
                             : true;
 
                         if (merge) {
