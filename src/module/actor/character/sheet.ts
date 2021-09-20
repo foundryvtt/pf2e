@@ -85,8 +85,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.attributes.doomed.icon = this.getDoomedIcon(sheetData.data.attributes.doomed.value);
         sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max - 1;
 
-        sheetData.uid = this.id;
-
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
             `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`
