@@ -1,13 +1,5 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import {
-    ItemPF2e,
-    ConditionPF2e,
-    ContainerPF2e,
-    KitPF2e,
-    PhysicalItemPF2e,
-    SpellcastingEntryPF2e,
-    SpellPF2e,
-} from "@item";
+import { ItemPF2e, ConditionPF2e, ContainerPF2e, KitPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
 import { isItemSystemData, isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
@@ -312,12 +304,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
-            const entry = this.actor.items.get(entryId);
-            if (entry instanceof SpellcastingEntryPF2e) {
-                entry.unprepareSpell(spellLvl, slotId);
-            } else {
-                console.warn("PF2E System | Failed to load spellcasting entry");
-            }
+            const entry = this.actor.spellcasting.get(entryId);
+            entry?.unprepareSpell(spellLvl, slotId);
         });
 
         // Set Expended Status of Spell Slot
@@ -329,12 +317,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
                 return expendedString !== "true";
             })();
-            const entry = this.actor.items.get(entryId);
-            if (entry instanceof SpellcastingEntryPF2e) {
-                entry.setSlotExpendedState(spellLvl, slotId, expendedState);
-            } else {
-                console.warn("PF2E System | Failed to load spellcasting entry");
-            }
+            const entry = this.actor.spellcasting.get(entryId);
+            entry?.setSlotExpendedState(spellLvl, slotId, expendedState);
         });
 
         // Toggle equip
@@ -711,8 +695,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // or moving it from one spellcastingEntry to another
         if (item instanceof SpellPF2e && itemData.type === "spell") {
             const targetLocation = $dropContainerEl.attr("data-container-id") ?? "";
-            const entry = this.actor.items.get(targetLocation);
-            if (!(entry instanceof SpellcastingEntryPF2e)) {
+            const entry = this.actor.spellcasting.get(targetLocation);
+            if (!entry) {
                 console.warn("PF2E System | Failed to load spellcasting entry");
                 return [];
             }
@@ -771,7 +755,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const target = this.actor.items.get(dropId);
 
                 if (source && target && source.id !== target.id) {
-                    const siblings = this.actor.itemTypes.spellcastingEntry;
+                    const siblings = this.actor.spellcasting.contents;
                     const sortBefore = source.data.sort >= target.data.sort;
                     source.sortRelative({ target, siblings, sortBefore });
                     return [target];
@@ -846,8 +830,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item instanceof SpellPF2e && itemData.type === "spell") {
             if (dropContainerType === "spellcastingEntry") {
                 const entryId = $containerEl.attr("data-container-id") ?? "";
-                const entry = this.actor.items.get(entryId);
-                if (!(entry instanceof SpellcastingEntryPF2e)) {
+                const entry = this.actor.spellcasting.get(entryId);
+                if (!entry) {
                     console.warn("PF2E System | Failed to load spellcasting entry");
                     return [];
                 }
@@ -1194,8 +1178,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private editSpellcastingEntry(event: JQuery.ClickEvent): void {
         const { containerId } = $(event.target).closest("[data-container-id]").data();
-        const entry = this.actor.items.get(containerId);
-        if (!(entry instanceof SpellcastingEntryPF2e)) {
+        const entry = this.actor.spellcasting.get(containerId);
+        if (!entry) {
             console.warn("PF2E System | Failed to load spellcasting entry");
             return;
         }

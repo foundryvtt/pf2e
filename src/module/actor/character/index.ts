@@ -787,7 +787,7 @@ export class CharacterPF2e extends CreaturePF2e {
             this.prepareStrike(weapon, { categories: offensiveCategories, synthetics, ammos })
         );
 
-        itemTypes.spellcastingEntry.forEach((item) => {
+        this.spellcasting.forEach((item) => {
             const spellcastingEntry = item.data;
             const tradition = item.tradition;
             const rank = item.rank;
@@ -873,7 +873,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const { resources } = this.data.data;
         resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
-        if (!resources.focus.max && itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
+        if (!resources.focus.max && this.spellcasting.some((entry) => entry.isFocusPool)) {
             resources.focus.max = 1;
         }
 

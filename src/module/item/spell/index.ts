@@ -29,7 +29,7 @@ export class SpellPF2e extends ItemPF2e {
 
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
-        return this.actor?.itemTypes?.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
     }
 
     /**
@@ -284,9 +284,7 @@ export class SpellPF2e extends ItemPF2e {
         const trickMagicItemData = itemData.data.trickMagicItemData;
         const systemData = itemData.data;
         const rollData = deepClone(this.actor.data.data);
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === systemData.location.value
-        )?.data;
+        const spellcastingEntry = this.actor.spellcasting.get(systemData.location.value)?.data;
         const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)

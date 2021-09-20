@@ -69,8 +69,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         // Spellcasting entries
         const restoredList: string[] = [];
-        const entries = items.spellcastingEntry;
-        const entriesUpdateData = entries.flatMap((entry) => {
+        const entriesUpdateData = actor.spellcasting.contents.flatMap((entry) => {
             // Innate, Spontaneous, and Prepared spells
             const slots = entry.data.data.slots;
             let updated = false;

@@ -540,10 +540,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
-                const entry = this.actor.items.get(itemData._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) {
-                    continue;
-                }
+                const entry = this.actor.spellcasting.get(itemData._id);
+                if (!entry) continue;
 
                 // TODO: remove below when trick magic item has been converted to use the custom modifiers version
                 const spellRank = itemData.data.proficiency?.value || 0;
