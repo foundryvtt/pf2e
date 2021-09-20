@@ -8,7 +8,7 @@ export class BackgroundPF2e extends ABCItemPF2e {
         return BackgroundData;
     }
 
-    prepareActorData(this: Embedded<BackgroundPF2e>): void {
+    override prepareActorData(this: Embedded<BackgroundPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
             console.error("Only a character can have a background");
             return;
