@@ -374,14 +374,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));
         html.find(".spellcasting-remove").on("click", (event) => this.removeSpellcastingEntry(event));
 
-        // toggle visibility of filter containers
-        html.find(".hide-container-toggle").on("click", (event) => {
-            $(event.target)
-                .parent()
-                .siblings()
-                .toggle(100, () => {});
-        });
-
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
