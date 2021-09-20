@@ -9,6 +9,7 @@ import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
+import { DamageChatCard } from "@system/damage/chat-card";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Is this a damage (or a manually-inputed non-D20) roll? */
@@ -87,6 +88,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         if (this.isDamageRoll) {
+            await DamageChatCard.decorate(this, $html);
             await DamageButtons.append(this, $html);
         }
 

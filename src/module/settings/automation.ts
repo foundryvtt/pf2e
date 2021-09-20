@@ -5,7 +5,12 @@ type ConfigPF2eListName = typeof AutomationSettings.SETTINGS[number];
 export class AutomationSettings extends SettingsMenuPF2e {
     static override readonly namespace = "automation";
 
-    static override readonly SETTINGS = ["rulesBasedVision", "effectExpiration", "lootableNPCs"] as const;
+    static override readonly SETTINGS = [
+        "rulesBasedVision",
+        "effectExpiration",
+        "lootableNPCs",
+        "experimentalDamageFormatting",
+    ] as const;
 
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
         return {
@@ -35,6 +40,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
                 default: false,
+                type: Boolean,
+            },
+            experimentalDamageFormatting: {
+                name: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.hint,
+                default: true,
                 type: Boolean,
             },
         };
