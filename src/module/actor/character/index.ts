@@ -893,16 +893,16 @@ export class CharacterPF2e extends CreaturePF2e {
         });
     }
 
-    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
-    prepareSpeed(
+    override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
+    override prepareSpeed(
         movementType: Exclude<MovementType, "land">,
         synthetics: RuleElementSynthetics
     ): LabeledSpeed & StatisticModifier;
-    prepareSpeed(
+    override prepareSpeed(
         movementType: MovementType,
         synthetics: RuleElementSynthetics
     ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    prepareSpeed(
+    override prepareSpeed(
         movementType: MovementType,
         synthetics: RuleElementSynthetics
     ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
