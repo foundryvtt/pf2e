@@ -127,11 +127,9 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Resources
-        const resources = this.data.data.resources;
+        const { resources } = this.data.data;
         resources.investiture = { value: 0, max: 10 };
-        if (typeof resources.focus?.value === "number") {
-            resources.focus.max = 0;
-        }
+        resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
 
         // Magic proficiencies
         systemData.magic = MAGIC_TRADITIONS.reduce(
@@ -872,13 +870,11 @@ export class CharacterPF2e extends CreaturePF2e {
         });
 
         // Resources
-        const resources = this.data.data.resources;
-        if (typeof resources.focus?.max === "number") {
-            resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
-            // Ensure the character has a focus pool of at least one point if they have focus spellcasting entries
-            if (resources.focus.max === 0 && itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
-                resources.focus.max = 1;
-            }
+        const { resources } = this.data.data;
+        resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
+        // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
+        if (!resources.focus.max && itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
+            resources.focus.max = 1;
         }
 
         this.prepareInitiative(this.data, statisticsModifiers, rollNotes);
