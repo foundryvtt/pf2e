@@ -21,18 +21,15 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
             if (rule) rules.splice(rules.indexOf(rule), 1);
         } else if (itemSource.type === "feat" && slug === "unburdened-iron") {
             // Use a general rollOptions flag for ignoring the armor speed penalty
-            const rule: AELikeSource = {
-                key: "ActiveEffectLike",
-                mode: "override",
-                path: "flags.pf2e.rollOptions.all.armor:ignore-speed-penalty",
-                value: true,
+            const rule: RollOption = {
+                key: "RollOption",
+                option: "armor:ignore-speed-penalty",
             };
             itemSource.data.rules = [rule];
         }
     }
 }
 
-interface AELikeSource extends RuleElementSource {
-    mode: string;
-    path: string;
+interface RollOption extends RuleElementSource {
+    option: string;
 }
