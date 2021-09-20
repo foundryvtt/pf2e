@@ -199,13 +199,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -225,16 +225,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -379,13 +379,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "3 sp"
@@ -405,16 +405,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -580,16 +580,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 2
@@ -761,16 +761,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -942,16 +942,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -1089,13 +1089,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "3 gp"
@@ -1376,7 +1376,7 @@
             "type": "equipment"
         },
         {
-            "_id": "WgbMjNSTJSVXrqBl",
+            "_id": "p7bLQLVRw730Rc9O",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1424,7 +1424,7 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1474,13 +1474,40 @@
                     "units": "",
                     "value": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "ability": "dex",
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "good",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "Holy Water",
+                        "range": "20",
+                        "traits": [
+                            "thrown-20",
+                            "good",
+                            "divine",
+                            "consumable",
+                            "splash"
+                        ]
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p>Damages only fiends, undead, and creatures that have a weakness to good damage</p>\n<p>[[/r 1 #good]]{1 good splash damage}<p/>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
                 "slug": "holy-water",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
