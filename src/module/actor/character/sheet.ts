@@ -751,25 +751,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             });
 
-        // Spontaneous Spell slot increment handler:
-        html.find(".cast-spell-button").on("click", (event) => {
-            const $spellEl = $(event.currentTarget).closest(".item");
-            const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
-            const entry = this.actor.spellcasting.get(entryId);
-            if (!entry) {
-                console.warn("PF2E System | Failed to load spellcasting entry");
-                return;
-            }
-
-            const spell = entry.spells.get(itemId);
-            if (!spell) {
-                console.warn("PF2E System | Failed to load spell");
-                return;
-            }
-
-            entry.cast(spell, { slot: slotId, level: spellLvl });
-        });
-
         // Spontaneous Spell slot reset handler:
         html.find(".spell-slots-increment-reset").on("click", (event) => {
             const target = $(event.currentTarget);
