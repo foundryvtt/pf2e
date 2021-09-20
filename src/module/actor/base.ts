@@ -40,6 +40,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
+    /** A separate collection of owned spellcasting entries for convenience */
+    spellcasting!: Collection<Embedded<SpellcastingEntryPF2e>>;
+
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
 
@@ -47,6 +50,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
+            this.spellcasting ??= new Collection();
             this.rules ??= [];
             this.initialized = true;
         } else {
@@ -221,6 +225,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (item) => item instanceof PhysicalItemPF2e
         );
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
+
+        const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
+            (item) => item instanceof SpellcastingEntryPF2e
+        );
+        this.spellcasting = new Collection(spellcastingEntries.map((entry) => [entry.id, entry]));
 
         // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
