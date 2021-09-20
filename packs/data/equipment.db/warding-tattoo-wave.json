@@ -1,5 +1,5 @@
 {
-    "_id": "V0ryBu9M5OPd4Wub",
+    "_id": "UkEDBhYxHWcTaMTG",
     "data": {
         "baseItem": null,
         "brokenThreshold": {
@@ -15,7 +15,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Many cultures of Golarion have a tattoo to turn away harm; as such, warding tattoos often resemble whichever dangers are most common to the culture, such as a wild beast or a whirlpool in the high seas of the Shackles. You gain resistance 2 to spells cast by fiends and magical attacks by fiends.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Trigger</strong> An enemy, hazard, or the environment makes an attack against your AC, requires you to attempt a saving throw, or causes you to take damage automatically;</p>\n<p><strong>Effect</strong> Until the end of the current turn, against the triggering effect, you gain a +1 status bonus to AC and saving throws and gain resistance 2 to damage. Your resistance to damage from fiends and magical attacks by fiends becomes resistance 5.</p>"
+            "value": "<p>Many cultures of Golarion have a tattoo to turn away harm; as such, warding tattoos often resemble whichever dangers are most common to the culture, such as a wild beast or a whirlpool in the high seas of the Shackles. In addition to the normal triggers, you can activate the tattoo when you enter an environment where you can't breathe.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Trigger</strong> An enemy, hazard, or the environment makes an attack against your AC, requires you to attempt a saving throw, or causes you to take damage automatically;</p>\n<p><strong>Effect</strong> Until the end of the current turn, against the triggering effect, you gain a +1 status bonus to AC and saving throws and gain resistance 2 to damage. The tattoo casts @Compendium[pf2e.spells-srd.Air Bubble]{Air Bubble}.</p>"
         },
         "equipped": {
             "value": false
@@ -46,7 +46,7 @@
             "value": null
         },
         "level": {
-            "value": 7
+            "value": 6
         },
         "maxHp": {
             "value": 0
@@ -61,7 +61,7 @@
             "value": null
         },
         "price": {
-            "value": "300 gp"
+            "value": "220 gp"
         },
         "quantity": {
             "value": 1
@@ -69,13 +69,13 @@
         "rules": [
             {
                 "key": "ToggleProperty",
-                "property": "flags.pf2e.rollOptions.all.fiendWardingTattoo"
+                "property": "flags.pf2e.rollOptions.all.waveWardingTattoo"
             },
             {
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "fiendWardingTattoo"
+                        "waveWardingTattoo"
                     ]
                 },
                 "selector": "saving-throw",
@@ -86,7 +86,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "fiendWardingTattoo"
+                        "waveWardingTattoo"
                     ]
                 },
                 "roll-options": [
@@ -101,7 +101,7 @@
             "value": "med"
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "stackGroup": {
             "value": ""
@@ -109,7 +109,7 @@
         "traits": {
             "custom": "",
             "rarity": {
-                "value": "uncommon"
+                "value": "common"
             },
             "usage": {
                 "value": "tattooed-on-the-body"
@@ -131,6 +131,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/equipment.svg",
-    "name": "Fiend Warding Tattoo",
+    "name": "Warding Tattoo (Wave)",
     "type": "equipment"
 }
