@@ -1,7 +1,8 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
-import { DiceModifierPF2e, RawPredicate } from "@module/modifiers";
+import { DiceModifierPF2e } from "@module/modifiers";
 import { isBlank, toNumber } from "@module/utils";
 import { DamageDieSize } from "@system/damage/damage";
+import { RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
 import type { StrikingRuneType, WeaponTrait } from "./weapon/data";
