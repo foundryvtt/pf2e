@@ -29,12 +29,20 @@
     <label>{{localize "PF2E.Reach"}}</label>
     <input type="number" name="data.reach" value="{{data.reach}}" data-dtype="Number" />
 </div>
-
 <div class="form-group">
     <label>{{localize "PF2E.SpeedFeet"}}</label>
     <input type="number" name="data.speed" value="{{data.speed}}" data-dtype="Number" />
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
+    <select name="data.vision">
+        {{#select data.vision}}
+            <option value="normal">{{localize "PF2E.Item.Ancestry.Vision.Normal"}}</option>
+            <option value="lowLightVision">{{localize "PF2E.SensesLowLightVision"}}</option>
+            <option value="darkvision">{{localize "PF2E.SensesDarkvision"}}</option>
+        {{/select}}
+    </select>
+</div>
 {{#each data.boosts as |boost idx|}}
     <div class="form-group form-group-trait">
         <label class="pf-title">
@@ -104,7 +112,6 @@
         {{/each}}
     </ul>
 </div>
-
 <div class="form-group form-group-trait">
     <label>
         {{localize "PF2E.TraitsLabel"}}

@@ -205,6 +205,7 @@ export function sluggify(label: string, { camel = null }: { camel?: "dromedary" 
     switch (camel) {
         case null:
             return label
+                .replace(/([a-z])([A-Z])\B/g, "$1-$2")
                 .toLowerCase()
                 .replace(/'/g, "")
                 .replace(/[^a-z0-9]+/gi, " ")
