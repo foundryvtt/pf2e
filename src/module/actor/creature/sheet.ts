@@ -260,7 +260,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
-            const entryData = this.actor.itemTypes.spellcastingEntry.find((item) => item.id === index)?.data;
+            const entryData = this.actor.spellcasting.get(index)?.data;
             if (entryData && entryData.data.attack?.roll) {
                 entryData.data.attack.roll({ event });
             }

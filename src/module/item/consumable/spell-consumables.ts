@@ -70,7 +70,7 @@ export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boole
     const spellData = item.data.spell?.data?.data;
     return (
         !!spellData &&
-        actor.itemTypes.spellcastingEntry
+        actor.spellcasting
             .map((entry) => entry.data)
             .filter((entryData) => ["prepared", "spontaneous"].includes(entryData.data.prepared.value))
             .some((entryData) => tupleHasValue(spellData.traditions.value, entryData.data.tradition.value))

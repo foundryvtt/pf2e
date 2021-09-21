@@ -77,7 +77,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     get rank() {
         const actor = this.actor;
         if (actor instanceof CharacterPF2e && this.isInnate) {
-            const allRanks = actor.itemTypes.spellcastingEntry.map((entry) => entry.data.data.proficiency.value ?? 0);
+            const allRanks = actor.spellcasting.map((entry) => entry.data.data.proficiency.value ?? 0);
             return Math.max(1, ...allRanks);
         }
 
