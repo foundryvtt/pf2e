@@ -18,9 +18,10 @@ export class Migration670AncestryVision extends MigrationBase {
         if (ancestry) {
             this.setAncestryVision(ancestry);
             for (const vision of ["darkvision", "low-light-vision"]) {
-                actorSource.items.findSplice(
+                const index = actorSource.items.findIndex(
                     (item) => item.type === "feat" && (item.data.slug ?? sluggify(item.name)) === vision
                 );
+                if (index !== -1) actorSource.items.splice(index, 1);
             }
         }
     }
