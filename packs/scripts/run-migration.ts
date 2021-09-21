@@ -25,6 +25,7 @@ import { Migration666UsageAndStowingContainers } from "@module/migration/migrati
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
 import { Migration668ArmorSpeedPenalty } from "@module/migration/migrations/668-armor-speed-penalty";
 import { Migration669NPCAttackEffects } from "@module/migration/migrations/669-npc-attack-effects";
+import { Migration670NoCustomTrait } from "@module/migration/migrations/670-no-custom-trait";
 
 const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
@@ -47,6 +48,7 @@ const migrations: MigrationBase[] = [
     new Migration667HPSubProperties(),
     new Migration668ArmorSpeedPenalty(),
     new Migration669NPCAttackEffects(),
+    new Migration670NoCustomTrait(),
 ];
 
 global.deepClone = function (original: any): any {

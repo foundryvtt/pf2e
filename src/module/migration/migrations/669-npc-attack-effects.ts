@@ -6,7 +6,7 @@ import { sluggify } from "@module/utils";
 export class Migration669NPCAttackEffects extends MigrationBase {
     static override version = 0.669;
 
-    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!actor || item.type !== "melee") return;
         item.data.attackEffects ??= { value: [] };
         if (Array.isArray(item.data.attackEffects.value)) {
