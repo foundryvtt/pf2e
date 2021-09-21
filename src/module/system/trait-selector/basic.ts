@@ -110,7 +110,9 @@ export class TagSelectorBasic extends TagSelectorBase {
 
     private getUpdateData(formData: Record<string, unknown>): string[] | number[] {
         const optionsAreNumeric = Object.keys(formData).every((tag) => Number.isInteger(Number(tag)));
-        const selections = Object.entries(formData).flatMap(([tag, selected]) => (selected ? tag : []));
+        const selections = Object.entries(formData)
+            .flatMap(([tag, selected]) => (selected ? tag : []))
+            .filter((tag) => tag !== "custom");
         return optionsAreNumeric ? selections.map((tag) => Number(tag)) : selections;
     }
 
