@@ -70,6 +70,7 @@ import { Migration666UsageAndStowingContainers } from "./migrations/666-usage-an
 import { Migration667HPSubProperties } from "./migrations/667-hp-subproperties";
 import { Migration668ArmorSpeedPenalty } from "./migrations/668-armor-speed-penalty";
 import { Migration669NPCAttackEffects } from "./migrations/669-npc-attack-effects";
+import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -144,6 +145,7 @@ export class Migrations {
         Migration667HPSubProperties,
         Migration668ArmorSpeedPenalty,
         Migration669NPCAttackEffects,
+        Migration670NoCustomTrait,
     ];
 
     static get latestVersion(): number {
