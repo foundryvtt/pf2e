@@ -109,12 +109,15 @@ export class SpellPF2e extends ItemPF2e {
 
     /** Calculates the full damage formula for a specific spell level */
     getDamageFormula(castLevel?: number, rollData: object = {}) {
+        const experimentalDamageFormat = game.settings.get("pf2e", "automation.experimentalDamageFormatting");
+
         castLevel = this.computeCastLevel(castLevel);
         const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
         const formulas = [];
         for (const [idx, damage] of this.damage.entries()) {
-            // Persistent / Splash are currently not supported
-            if (damage.type.subtype === "persistent" || damage.type.subtype === "splash") {
+            // Persistent / Splash are currently not supported for regular modes
+            const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
+            if (!experimentalDamageFormat && isPersistentOrSplash) {
                 continue;
             }
 
@@ -155,11 +158,23 @@ export class SpellPF2e extends ItemPF2e {
             // If no formula, continue
             if (parts.length === 0) continue;
 
+            // Assemble damage categories
+            const categories = [];
+            if (damage.type.subtype) {
+                categories.push(damage.type.subtype);
+            }
+            categories.push(...(damage.type.categories ?? []), damage.type.value);
+
             // Return the final result, but turn all "+ -" into just "-"
             // These must be padded to support - or roll parsing will fail (Foundry 0.8)
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            formulas.push(DicePF2e.combineTerms(baseFormulaFixed).formula);
+            const formula = DicePF2e.combineTerms(baseFormulaFixed).formula;
+            if (experimentalDamageFormat) {
+                formulas.push(`{${formula}}[${categories.join(",")}]`);
+            } else {
+                formulas.push(formula);
+            }
         }
 
         return formulas.join(" + ");
