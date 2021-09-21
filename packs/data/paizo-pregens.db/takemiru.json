@@ -281,13 +281,6 @@
                         "level": 1,
                         "name": "Change Shape",
                         "pack": "pf2e.ancestryfeatures"
-                    },
-                    "pgr58": {
-                        "id": "DRtaqOHXTRtGRIUT",
-                        "img": "systems/pf2e/icons/features/ancestry/low-light-vision.webp",
-                        "level": 1,
-                        "name": "Low-Light Vision",
-                        "pack": "pf2e.ancestryfeatures"
                     }
                 },
                 "languages": {
@@ -314,7 +307,7 @@
                         "kitsune"
                     ]
                 },
-                "vision": "normal"
+                "vision": "lowLightVision"
             },
             "effects": [],
             "flags": {
@@ -1819,9 +1812,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "evocation",
                         "light",
@@ -1930,9 +1920,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2036,9 +2023,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -2291,9 +2275,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "consumable",
                         "mechanical",
@@ -2450,9 +2431,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "consumable",
                         "mechanical",
@@ -2608,9 +2586,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "auditory",
@@ -3106,30 +3081,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
