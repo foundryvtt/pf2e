@@ -276,6 +276,25 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
         });
 
+        // Casting spells and consuming slots
+        html.find(".cast-spell-button").on("click", (event) => {
+            const $spellEl = $(event.currentTarget).closest(".item");
+            const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
+            const entry = this.actor.spellcasting.get(entryId);
+            if (!entry) {
+                console.warn("PF2E System | Failed to load spellcasting entry");
+                return;
+            }
+
+            const spell = entry.spells.get(itemId);
+            if (!spell) {
+                console.warn("PF2E System | Failed to load spell");
+                return;
+            }
+
+            entry.cast(spell, { slot: slotId, level: spellLvl });
+        });
+
         // Action Rolling (strikes)
         html.find("[data-action-index].item .item-image.action-strike").on("click", (event) => {
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");

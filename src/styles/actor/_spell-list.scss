@@ -33,9 +33,9 @@
     .item {
         display: grid;
         grid:
-            'name range components cast control' auto
-            'content content content content content' auto
-            / 6fr 3fr 3fr 40px 48px;
+            'name range components control' auto
+            'content content content content' auto
+            / 6fr 3fr 3fr 84px;
         align-items: center;
         justify-items: center;
         justify-content: center;
@@ -199,24 +199,29 @@
             }
         }
 
-        .spell-cast {
-            grid-area: cast;
-        }
-
-        .item-controls {
+        .spell-controls {
             grid-area: control;
-            justify-self: end;
             font-size: 10px;
             margin-right: 4px;
-            display: flex;
-            gap: 2px;
             align-items: center;
+            display: flex;
+            justify-self: end;
+
+            button {
+                width: 32px;
+                margin-left: 6px;
+                justify-self: end;
+            }
+
+            .item-controls {
+                display: flex;
+                gap: 2px;
+                justify-self: end;
+                justify-content: flex-end;
+                min-width: 40px;
+            }
         }
 
-        .spell-cast button {
-            grid-area: cast;
-            width: 32px;
-        }
         .item-summary {
             grid-area: content;
             width: 100%;
