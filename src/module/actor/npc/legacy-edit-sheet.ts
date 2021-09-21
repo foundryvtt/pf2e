@@ -4,7 +4,7 @@ import { NPCPF2e } from ".";
 import { identifyCreature } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { getActionIcon, objectHasKey } from "@module/utils";
-import { ConsumablePF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ConsumablePF2e, SpellPF2e } from "@item";
 import { SpellcastingSheetData } from "./sheet";
 import { ItemDataPF2e } from "@item/data";
 
@@ -191,10 +191,8 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         for (const i of sheetData.items) {
             // Spellcasting Entries
             if (i.type === "spellcastingEntry") {
-                const entry = this.actor.items.get(i._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) {
-                    continue;
-                }
+                const entry = this.actor.spellcasting.get(i._id);
+                if (!entry) continue;
 
                 if ((i.data.prepared || {}).value === "prepared") i.data.prepared.preparedSpells = true;
                 else i.data.prepared.preparedSpells = false;
