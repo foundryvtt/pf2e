@@ -515,8 +515,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
             if (target.actor.hitPoints.negativeHealing) {
                 options.push("target:negative-healing");
             }
-            const targetConditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
 
+            const { itemTypes } = target.actor;
+            const targetConditions = itemTypes.condition.filter((condition) => condition.fromSystem);
+            const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
             options.push(
                 ...targetConditions
                     .map((condition) => [
@@ -524,7 +526,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                         `target:condition:${condition.slug}`,
                     ])
                     .flat(),
-                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`)
+                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`),
+                ...(targetIsSpellcaster ? ["target:caster"] : []).flat()
             );
         }
 
