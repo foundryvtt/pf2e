@@ -94,14 +94,17 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
      */
-    async toMessage(event?: JQuery.TriggeredEvent, { create = true } = {}): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(
+        event?: JQuery.TriggeredEvent,
+        { create = true, data = {} } = {}
+    ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
-        const contextualData = nearestItem.dataset || {};
+        const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,

@@ -751,41 +751,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             });
 
-        // Spontaneous Spell slot increment handler:
-        html.find(".spell-slots-increment-down").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (!(item instanceof SpellcastingEntryPF2e)) {
-                return;
-            }
-
-            if (item.isFocusPool && itemLevel > 0) {
-                const currentPoints = actor.data.data.resources.focus?.value ?? 0;
-                if (currentPoints > 0) {
-                    actor.update({ "data.resources.focus.value": currentPoints - 1 });
-                } else {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
-                }
-            } else {
-                if (item.data.data.slots === null) {
-                    return;
-                }
-
-                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-
-                const data = duplicate(item.data);
-                data.data.slots[slotLevel].value -= 1;
-                if (data.data.slots[slotLevel].value < 0) {
-                    data.data.slots[slotLevel].value = 0;
-                }
-
-                item.update(data);
-            }
-        });
-
         // Spontaneous Spell slot reset handler:
         html.find(".spell-slots-increment-reset").on("click", (event) => {
             const target = $(event.currentTarget);
