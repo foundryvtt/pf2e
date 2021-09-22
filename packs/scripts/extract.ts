@@ -87,9 +87,10 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
 const packsPath = (() => {
     try {
         const content = fs.readFileSync(args.foundryConfig ?? "", { encoding: "utf-8" });
-        return path.join(JSON.parse(content).dataPath, "Data/systems/pf2e/packs");
+        const config = JSON.parse(content) ?? {};
+        return path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e", "packs");
     } catch (_error) {
-        return path.join(process.cwd(), "dist/packs");
+        return path.join(process.cwd(), "dist", "packs");
     }
 })();
 

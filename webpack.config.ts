@@ -13,12 +13,13 @@ import SimpleProgressWebpackPlugin from "simple-progress-webpack-plugin";
 const buildMode = process.argv[3] == "production" ? "production" : "development";
 const isProductionBuild = buildMode === "production";
 
-const pf2eSystemPath = (() => {
+const outDir = (() => {
     const configPath = path.resolve(process.cwd(), "foundryconfig.json");
-    const configData = fs.existsSync(configPath) ? fs.readJSONSync(configPath) : undefined;
-    return configData !== undefined ? path.join(configData.dataPath, "Data", "systems", configData.systemName) : null;
+    const config = fs.readJSONSync(configPath, { throws: false });
+    return config instanceof Object
+        ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
+        : path.join(__dirname, "dist/");
 })();
-const outDir = pf2eSystemPath ?? path.join(__dirname, "dist/");
 
 type Optimization = Configuration["optimization"];
 const optimization: Optimization = isProductionBuild
