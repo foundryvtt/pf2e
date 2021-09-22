@@ -1,8 +1,9 @@
 import { RuleElementPF2e } from "../rule-element";
 import { SenseAcuity, SenseData } from "@actor/creature/data";
-import { RuleElementData } from "../rules-data-definitions";
+import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType } from "@actor/data";
+import { ItemPF2e } from "@item";
 
 /**
  * @category RuleElement
@@ -17,6 +18,12 @@ export class SenseRuleElement extends RuleElementPF2e {
             (replacement === "precise" && ["imprecise", "vague"].includes(existing!)) ||
             (replacement === "imprecise" && existing === "vague")
         );
+    }
+
+    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+        const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
+        data.label ??= defaultLabels[data.selector ?? ""];
+        super(data, item);
     }
 
     override onBeforePrepareData(): void {
