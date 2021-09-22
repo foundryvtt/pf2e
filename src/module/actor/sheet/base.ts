@@ -781,13 +781,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     protected override async _onDropItemCreate(itemData: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
         const itemsData = Array.isArray(itemData) ? itemData : [itemData];
-        const includesABCItems = itemsData.some((datum) => ["ancestry", "background", "class"].includes(datum.type));
-        if (this.actor.type !== "character" && includesABCItems) {
-            // ignore these. they should get handled in the derived class
-            ui.notifications.error(game.i18n.localize("PF2E.ItemNotSupportedOnActor"));
-            return [];
+        const pcOnlyItems = ["ancestry", "background", "class", "feat"];
+        if (this.actor.type !== "character") {
+            for (const datum of [...itemsData]) {
+                if (pcOnlyItems.includes(datum.type)) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.Item.CannotAddType", {
+                            type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                        })
+                    );
+                    itemsData.findSplice((item) => item === datum);
+                }
+            }
         }
-        return super._onDropItemCreate(itemData);
+        return super._onDropItemCreate(itemsData);
     }
 
     async onDropItem(data: DropCanvasItemDataPF2e) {
