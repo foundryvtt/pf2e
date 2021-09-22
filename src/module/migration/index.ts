@@ -72,6 +72,7 @@ import { Migration668ArmorSpeedPenalty } from "./migrations/668-armor-speed-pena
 import { Migration669NPCAttackEffects } from "./migrations/669-npc-attack-effects";
 import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "./migrations/670-ancestry-vision";
+import { Migration671NoPCItemsOnNonPCs } from "./migrations/671-no-pc-items-on-non-pcs";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -148,6 +149,7 @@ export class Migrations {
         Migration669NPCAttackEffects,
         Migration670NoCustomTrait,
         Migration670AncestryVision,
+        Migration671NoPCItemsOnNonPCs,
     ];
 
     static get latestVersion(): number {
