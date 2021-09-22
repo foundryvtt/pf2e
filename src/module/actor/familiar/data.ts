@@ -4,6 +4,7 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     SkillAbbreviation,
+    SkillData,
 } from "@actor/creature/data";
 import { AbilityString, ActorFlagsPF2e, RawSkillData, Rollable } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
@@ -34,8 +35,9 @@ export interface FamiliarSystemData extends CreatureSystemData {
             value: string;
         };
     };
+    attack: StatisticModifier & Rollable;
     attributes: FamiliarAttributes;
-    skills: Record<SkillAbbreviation, StatisticModifier>;
+    skills: Record<SkillAbbreviation, SkillData>;
     master: {
         id: string | null;
         ability: AbilityString | null;

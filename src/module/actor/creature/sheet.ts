@@ -8,7 +8,8 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { CharacterPF2e } from "@actor/character";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { Rollable } from "@actor/data/base";
 
 /**
  * Base class for NPC and character sheets
@@ -224,7 +225,19 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [property]: value }]);
         });
 
-        // Roll Recovery Flat Check when Dying
+        // Roll skill checks
+        html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
+            const skills: Record<string, Rollable | undefined> = this.actor.data.data.skills;
+            const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
+            const skill = skills[key];
+            if (skill) {
+                const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const options = this.actor.getRollOptions(["all", "skill-check", longForms[key] ?? key]);
+                skill.roll({ event, options });
+            }
+        });
+
+        // Roll recovery flat check when Dying
         html.find(".recoveryCheck.rollable").on("click", () => {
             this.actor.rollRecovery();
         });
