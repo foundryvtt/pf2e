@@ -2,7 +2,7 @@
   <h2>
       {{localize 'PF2E.HitPointsHeader'}}
   </h2>
-  <h2 class="hover" data-tooltip-content="#{{uid}}-hp-modifiers">
+  <h2 class="hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
       <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
   </h2>
 </div>
@@ -54,5 +54,5 @@
   </div>
 </div>
 {{#with data.attributes.hp}}
-{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.HitPointsHeader' }}
+{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html title='PF2E.HitPointsHeader' }}
 {{/with}}

@@ -11,8 +11,8 @@
     </span>
 </div>
 <div class="pc pc_key-ability dropdown">
-    <label class="details-label" for="{{uid}}-key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
-    <select id="{{uid}}-key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
+    <label class="details-label" for="{{options.id}}-key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
+    <select id="{{options.id}}-key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
         {{#select data.details.keyability.value}}
             {{#each abilities as |label ability|}}
                 <option value="{{ability}}">{{localize label}}</option>
@@ -24,10 +24,10 @@
 <div class="break-column"></div>
 
 <div class="pc pc_flat-bonus-hp">
-    <label class="details-label" for="{{uid}}-flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">{{localize 'PF2E.BonusHPLabel'}}</label>
+    <label class="details-label" for="{{options.id}}-flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">{{localize 'PF2E.BonusHPLabel'}}</label>
     <span>
         <input
-            id="{{uid}}-flat-bonus-hp"
+            id="{{options.id}}-flat-bonus-hp"
             type="number"
             name="data.attributes.flatbonushp"
             data-dtype="Number"
@@ -37,12 +37,12 @@
     </span>
 </div>
 <div class="pc pc_bonus-hp">
-    <label class="details-label" for="{{uid}}-bonus-hp" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
+    <label class="details-label" for="{{options.id}}-bonus-hp" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
         {{localize 'PF2E.FlatBonusHPperLevel'}}
     </label>
     <span>
         <input
-            id="{{uid}}-bonus-hp"
+            id="{{options.id}}-bonus-hp"
             type="number"
             name="data.attributes.levelbonushp"
             data-dtype="Number"
@@ -52,11 +52,11 @@
     </span>
 </div>
 <div class="pc pc_bonus-bulk encumbered">
-<label class="details-label" for="{{uid}}-bonus-encumbrance-bulk">
+<label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">
     {{localize 'PF2E.BonusEncumbranceBulkLabel'}}
 </label>
 <input
-    id="{{uid}}-bonus-encumbrance-bulk"
+    id="{{options.id}}-bonus-encumbrance-bulk"
     type="text"
     name="data.attributes.bonusEncumbranceBulk"
     data-dtype="Number"
@@ -65,11 +65,11 @@
 />
 </div>
 <div class="pc pc_bonus-bulk">
-<label class="details-label" for="{{uid}}-bonus-limit-bulk">
+<label class="details-label" for="{{options.id}}-bonus-limit-bulk">
     {{localize 'PF2E.BonusLimitBulkLabel'}}
 </label>
 <input
-    id="{{uid}}-bonus-limit-bulk"
+    id="{{options.id}}-bonus-limit-bulk"
     type="text"
     name="data.attributes.bonusLimitBulk"
     data-dtype="Number"
@@ -80,14 +80,14 @@
 {{#if hasStamina}}
 <div class="pc pc_stamina-flat-bonus-sp">
     <label class="details-label"
-        for="{{uid}}-FlatBonusSP"
+        for="{{options.id}}-FlatBonusSP"
         title="{{localize 'PF2E.FlatBonusSPTitle'}}"
     >
         {{localize 'PF2E.BonusSPLabel'}}
     </label>
     <span>
         <input
-            id="{{uid}}-FlatBonusSP"
+            id="{{options.id}}-FlatBonusSP"
             type="number"
             name="data.attributes.flatbonussp"
             data-dtype="Number"
@@ -98,14 +98,14 @@
 </div>
 <div class="pc pc_stamina-bonus-sp">
     <label class="details-label"
-        for="{{uid}}-BonusSPperLevel"
+        for="{{options.id}}-BonusSPperLevel"
         title="{{localize 'PF2E.BonusSPperLevelTitle'}}"
     >
         {{localize 'PF2E.FlatBonusSPperLevel'}}
     </label>
     <span>
         <input
-            id="{{uid}}-BonusSPperLevel"
+            id="{{options.id}}-BonusSPperLevel"
             type="number"
             name="data.attributes.levelbonussp"
             data-dtype="Number"

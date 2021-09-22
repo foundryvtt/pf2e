@@ -1,6 +1,6 @@
 <div class="sidebar_title">
     <h2>{{localize 'PF2E.InitiativeLabel'}}</h2>
-    <h2 class="hover" data-tooltip-content="#{{uid}}-initiative-modifiers">
+    <h2 class="hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
         <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
     </h2>
 </div>
@@ -22,5 +22,5 @@
     </h4>
 </div>
 {{#with data.attributes.initiative}}
-    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
+    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html title=label }}
 {{/with}}
