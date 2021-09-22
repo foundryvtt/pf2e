@@ -64,7 +64,7 @@ export class DamageRollModifiersDialog extends Application {
             const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
             const traits = damage.traits
                 .map((trait) => game.i18n.localize(weaponTraits[trait]) ?? trait)
-                .map((trait) => `<span class="tag">${trait}</span>`)
+                .map((trait) => `<span class="pf2e-tag">${trait}</span>`)
                 .join("");
             flavor += `<div class="tags">${traits}</div><hr>`;
         }

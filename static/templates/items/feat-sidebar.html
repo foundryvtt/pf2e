@@ -31,10 +31,10 @@
     </div>
 
     <ol class="item-tags tags">
-        <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
+        <li class="pf2e-tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
         {{#each traits as |trait|}}
             {{#if trait.selected}}
-                <li class="tag tag_transparent">{{localize trait.label}}</li>
+                <li class="pf2e-tag tag_transparent">{{localize trait.label}}</li>
             {{/if}}
         {{/each}}
     </ol>
@@ -43,7 +43,7 @@
         <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
         <ol class="item-tags tags">
         {{#each data.prerequisites.value as |v k|}}
-            <li class="tag tag_transparent {{k}}">{{v.value}}</li>
+            <li class="pf2e-tag tag_transparent {{k}}">{{v.value}}</li>
         {{/each}}
         </ol>
     {{/unless}}

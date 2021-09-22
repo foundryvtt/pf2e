@@ -180,7 +180,7 @@ export class CheckPF2e {
             .filter((m) => m.enabled)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
+                return `<span class="pf2e-tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
             })
             .join("");
 
@@ -269,7 +269,7 @@ export class CheckPF2e {
             .join("<br />");
 
         if (ctx.traits) {
-            const traits = ctx.traits.map((trait) => `<span class="tag">${trait}</span>`).join("");
+            const traits = ctx.traits.map((trait) => `<span class="pf2e-tag">${trait}</span>`).join("");
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;

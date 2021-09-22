@@ -6,7 +6,7 @@
       <h1>{{this.name}}</h1>
       {{#if this.breakdown}}
       <div class="tags">
-        <div class="tag tag_secondary">{{this.breakdown}}</div>
+        <div class="pf2e-tag tag_secondary">{{this.breakdown}}</div>
       </div>
       {{/if}}
     </div>
@@ -35,9 +35,9 @@
       <h1>{{this.name}}</h1>
       <div class="tags">
         {{#if (and this.data.duration.sustained (eq this.data.expired false))}}
-        <div class="tag tag_secondary">{{localize 'PF2E.EffectPanel.Sustained'}}</div>
+        <div class="pf2e-tag tag_secondary">{{localize 'PF2E.EffectPanel.Sustained'}}</div>
         {{/if}}
-        <div class="tag tag_secondary">{{this.data.remaining}}</div>
+        <div class="pf2e-tag tag_secondary">{{this.data.remaining}}</div>
       </div>
     </div>
     <div data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
