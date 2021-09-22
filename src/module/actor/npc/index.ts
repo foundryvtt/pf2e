@@ -368,6 +368,7 @@ export class NPCPF2e extends CreaturePF2e {
                     ability,
                     expanded: skill,
                     label: name,
+                    value: 0,
                     visible: false,
                     roll: (args: RollParameters) => {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
@@ -379,7 +380,6 @@ export class NPCPF2e extends CreaturePF2e {
                         );
                     },
                     lore: false,
-                    rank: 0, // default to untrained
                 },
                 { overwrite: false }
             );

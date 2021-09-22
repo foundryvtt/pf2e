@@ -537,6 +537,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected prepareSpellcasting(sheetData: any) {
         sheetData.spellcastingEntries = [];
+        const { abilities } = this.actor.data.data;
 
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
@@ -546,7 +547,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 // TODO: remove below when trick magic item has been converted to use the custom modifiers version
                 const spellRank = itemData.data.proficiency?.value || 0;
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
-                const abilityMod = this.actor.getAbilityMod(entry.ability);
+                const abilityMod = abilities[entry.ability].mod;
                 const spellAttack = abilityMod + spellProficiency;
                 if (itemData.data.spelldc.value !== spellAttack && this.actor.isOwner) {
                     const updatedItem = {

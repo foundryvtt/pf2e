@@ -354,11 +354,9 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
 }
 
 /**
- * Represents the list of commonly applied modifiers for a specific creature statistic. Each
- * statistic or check can have multiple modifiers, even of the same type, but the stacking rules are
- * applied to ensure that only a single bonus and penalty of each type is applied to the total
- * modifier.
- * @category PF2
+ * Represents a statistic on an actor and its commonly applied modifiers. Each statistic or check can have multiple
+ * modifiers, even of the same type, but the stacking rules are applied to ensure that only a single bonus and penalty
+ * of each type is applied to the total modifier.
  */
 export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
@@ -367,6 +365,8 @@ export class StatisticModifier {
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
     totalModifier!: number;
+    /** A textual breakdown of the modifiers factoring into this statistic */
+    breakdown = "";
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 

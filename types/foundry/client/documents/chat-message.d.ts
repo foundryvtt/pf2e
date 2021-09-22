@@ -89,7 +89,7 @@ declare global {
         }?: {
             scene?: Scene | null;
             actor?: Actor | null;
-            token?: Token | null;
+            token?: TokenDocument | null;
             alias?: string;
         }): foundry.data.ChatSpeakerSource;
 

@@ -115,8 +115,6 @@ export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
 export interface RawSkillData extends ProficiencyData {
     /** The ability which this save scales off of. */
     ability: AbilityString;
-    /** Whether this skill is subject to an armor check penalty */
-    armor: boolean;
 }
 
 /** A roll function which can be called to roll a given skill. */
