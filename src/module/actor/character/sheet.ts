@@ -54,8 +54,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    override getData() {
-        const sheetData = super.getData();
+    override getData(options?: ActorSheetOptions) {
+        const sheetData = super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;

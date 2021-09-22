@@ -95,8 +95,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override getData(options?: ActorSheetOptions) {
+        const sheetData: any = super.getData(options);
         // Update martial-proficiency labels
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);

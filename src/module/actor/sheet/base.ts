@@ -79,7 +79,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return false;
     }
 
-    override getData(): ActorSheetDataPF2e<TActor> {
+    override getData(options: ActorSheetOptions = this.options): ActorSheetDataPF2e<TActor> {
+        options.id ||= this.id;
         // The Actor and its Items
         const actorData = this.actor.toObject(false);
         const items = deepClone(
@@ -105,7 +106,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             editable: this.isEditable,
             document: this.actor,
             limited: this.actor.limited,
-            options: this.options,
+            options,
             owner: this.actor.isOwner,
             title: this.title,
             actor: actorData,
