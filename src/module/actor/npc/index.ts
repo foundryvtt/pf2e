@@ -1,5 +1,5 @@
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { ItemPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e } from "@item";
 import {
     CheckModifier,
     ModifierPF2e,
@@ -880,35 +880,40 @@ export class NPCPF2e extends CreaturePF2e {
                 )
             );
         }
+        const formatItemName = (item: ItemPF2e): string => {
+            if (item instanceof ConsumablePF2e) {
+                return `${item.name} - ${game.i18n.localize("ITEM.TypeConsumable")} (${item.data.data.quantity.value})`;
+            }
+            return item.name;
+        };
+
         for (const attackEffect of sourceItemData.data.attackEffects.value) {
             const item = this.items.find(
                 (item) => item.type !== "melee" && (item.slug ?? sluggify(item.name)) === sluggify(attackEffect)
-            )?.data;
+            );
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
-                const description = item.data.description.value;
-                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${item.name}</strong></div>${description}</div>`;
+                const description = item.data.data.description.value;
+                const itemName = formatItemName(item);
+                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
-                const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd");
-                if (compendium) {
-                    const itemId =
-                        (await compendium.getIndex())?.find((entry) => entry.name === attackEffect)?._id ?? "";
-                    const packItem = await compendium.getDocument(itemId);
-                    if (packItem instanceof ItemPF2e) {
-                        const description = packItem.description;
-                        note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${packItem.name}</strong></div>${description}</div>`;
-                        notes.push(note);
-                    } else {
-                        console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
-                        const sourceItem = this.items.get(sourceItemData._id, { strict: true });
-                        const update = sourceItemData.data.attackEffects.value.filter(
-                            (effect) => effect !== attackEffect
-                        );
-                        await sourceItem.update({ ["data.attackEffects.value"]: update });
-                    }
+                const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
+                if (!compendium.index) await compendium.getIndex();
+                const itemId = compendium.index.find((entry) => entry.name === attackEffect)?._id ?? "";
+                const packItem = await compendium.getDocument(itemId);
+                if (packItem instanceof ItemPF2e) {
+                    const description = packItem.description;
+                    const itemName = formatItemName(packItem);
+                    note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
+                    notes.push(note);
+                } else {
+                    console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
+                    const sourceItem = this.items.get(sourceItemData._id, { strict: true });
+                    const update = sourceItemData.data.attackEffects.value.filter((effect) => effect !== attackEffect);
+                    await sourceItem.update({ ["data.attackEffects.value"]: update });
                 }
             }
         }
