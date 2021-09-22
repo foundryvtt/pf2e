@@ -326,9 +326,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
             const base = Number(speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = [`${speed.type}-speed`, "speed"]
+            const rollOptions = [`${speed.type}-speed`, "speed"];
+            const modifiers: ModifierPF2e[] = rollOptions
                 .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                .flat();
+                .flat()
+                .map((m) => {
+                    m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                    return m;
+                });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
                 speed,
