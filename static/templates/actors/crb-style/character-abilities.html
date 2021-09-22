@@ -1,7 +1,7 @@
 <ol class="ability-scores">
     {{#each data.abilities as |ability id|}}
         <li class="ability" data-ability="{{id}}">
-            <label for="{{@root.uid}}-{{id}}-ability-score" class="details-label ability-name">{{localize ability.label}}</label>
+            <label for="{{@root.options.id}}-{{id}}-ability-score" class="details-label ability-name">{{localize ability.label}}</label>
             <h2 class="ability-id" title="{{localize 'PF2E.AbilityTitle'}}">
                 {{localize (add 'PF2E.AbilityId.' id)}}
             </h2>
@@ -15,7 +15,7 @@
                     value="{{ability.value}}"
                     data-dtype="Number"
                     placeholder="10"
-                    id="{{@root.uid}}-{{id}}-ability-score"
+                    id="{{@root.options.id}}-{{id}}-ability-score"
                 />
             </div>
         </li>

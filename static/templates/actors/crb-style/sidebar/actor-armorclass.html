@@ -2,7 +2,7 @@
     <h2>
         {{localize 'PF2E.ArmorClassLabel'}}
     </h2>
-    <h2 class="hover" data-tooltip-content="#{{uid}}-ac-modifiers">
+    <h2 class="hover" data-tooltip-content="#{{options.id}}-ac-modifiers">
         <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
     </h2>
 </div>
@@ -135,5 +135,5 @@
     </div>
 </div>
 {{#with data.attributes.ac}}
-{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.ArmorClassLabel' }}
+{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html title='PF2E.ArmorClassLabel' }}
 {{/with}}
