@@ -49,7 +49,7 @@ export interface CreatureSystemData extends ActorSystemData {
     damageDice: Record<string, DamageDicePF2e[]>;
 
     /** Saving throw data */
-    saves: Record<SaveType, StatisticModifier>;
+    saves: Record<SaveType, StatisticModifier & Rollable>;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -89,7 +89,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export type SkillData = StatisticModifier & RawSkillData & Rollable;
 
-/** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
+/** The full save data for a character; including its modifiers and other details */
 export type SaveData = SkillData & { saveDetail?: string };
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -108,8 +108,6 @@ export interface CreatureSpeeds extends StatisticModifier {
     otherSpeeds: LabeledSpeed[];
     /** The derived value after applying modifiers, bonuses, and penalties */
     total: number;
-    /** A textual breakdown of the base speed and any modifiers applied to it */
-    breakdown?: string;
 }
 
 export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";

@@ -36,7 +36,7 @@ import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 import { ActorDataPF2e, SaveType } from "@actor/data";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, RollFunction } from "@actor/data/base";
+import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
@@ -272,31 +272,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 attribute.roll({ event, options });
             } else {
                 this.actor.rollAttribute(event, key);
-            }
-        });
-
-        // Roll Ability Checks
-        html.find(".ability-name").on("click", (event) => {
-            event.preventDefault();
-            const ability = event.currentTarget.parentElement?.getAttribute("data-ability") as AbilityString;
-            if (ability) {
-                this.actor.rollAbility(event, ability);
-            }
-        });
-
-        // Roll Skill Checks
-        html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const skill = event.currentTarget.parentElement?.getAttribute("data-skill") as
-                | SkillAbbreviation
-                | undefined;
-            if (!skill) {
-                return;
-            }
-            if (this.actor.data.data.skills[skill]?.roll) {
-                const options = this.actor.getRollOptions(["all", "skill-check", SKILL_DICTIONARY[skill] ?? skill]);
-                this.actor.data.data.skills[skill].roll({ event, options });
-            } else {
-                this.actor.rollSkill(event, skill);
             }
         });
 

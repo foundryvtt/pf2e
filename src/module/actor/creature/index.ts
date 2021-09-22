@@ -374,6 +374,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
 
+    /* -------------------------------------------- */
+    /*  Rolls                                       */
+    /* -------------------------------------------- */
+
     /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus

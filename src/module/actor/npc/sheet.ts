@@ -674,7 +674,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
         const data = { bonus };
-        const speaker = ChatMessage.getSpeaker({ token: this.token?.object, actor: this.actor });
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
         DicePF2e.d20Roll({
             event,
@@ -685,31 +685,23 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    rollNPCSkill(event: JQuery.ClickEvent, skillId: SkillAbbreviation) {
-        const skill = this.actor.data.data.skills[skillId];
+    rollSkill(event: JQuery.ClickEvent, skillKey: SkillAbbreviation) {
+        const skill = this.actor.data.data.skills[skillKey];
+        if (!skill?.roll) return;
 
-        if (skill === undefined) return;
+        const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+        const opts = this.actor.getRollOptions(["all", "skill-check", longForms[skillKey] ?? skillKey]);
+        const extraOptions = $(event.currentTarget).attr("data-options");
 
-        if (skill.roll) {
-            const opts = this.actor.getRollOptions([
-                "all",
-                "skill-check",
-                SKILL_DICTIONARY[skillId as SkillAbbreviation] ?? skillId,
-            ]);
-            const extraOptions = $(event.currentTarget).attr("data-options");
-
-            if (extraOptions) {
-                const split = extraOptions
-                    .split(",")
-                    .map((o) => o.trim())
-                    .filter((o) => !!o);
-                opts.push(...split);
-            }
-
-            skill.roll({ event, options: opts });
-        } else {
-            this.actor.rollSkill(event, skillId);
+        if (extraOptions) {
+            const split = extraOptions
+                .split(",")
+                .map((o) => o.trim())
+                .filter((o) => !!o);
+            opts.push(...split);
         }
+
+        skill.roll({ event, options: opts });
     }
 
     rollSave(event: JQuery.ClickEvent, saveId: SaveType) {
@@ -743,7 +735,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     this.rollAbility(event, ability);
             }
         } else if (skill) {
-            this.rollNPCSkill(event, skill);
+            this.rollSkill(event, skill);
         } else if (save) {
             this.rollSave(event, save);
         } else if (action || item || spell) {

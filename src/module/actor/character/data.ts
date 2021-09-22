@@ -44,7 +44,10 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "items"
 }
 
 export interface CharacterSkillData extends SkillData {
+    /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
+    /** Whether this skill is subject to an armor check penalty */
+    armor: boolean;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -109,7 +112,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillAbbreviation, CharacterSkillData>;
+    skills: { [K in SkillAbbreviation]: CharacterSkillData };
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;

@@ -149,7 +149,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.attributes.ac = stat;
             }
 
-            // saving throws
+            // Saving throws
             for (const saveName of SAVE_TYPES) {
                 const save = master.data.data.saves[saveName];
                 const source = save.modifiers.filter(
@@ -169,27 +169,28 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
-                const stat = new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers);
+                const stat = mergeObject(new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers), {
+                    roll: (args: RollParameters) => {
+                        const label = game.i18n.format("PF2E.SavingThrowWithName", {
+                            saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
+                        });
+                        CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            { actor: this, type: "saving-throw", dc: args.dc, options: args.options },
+                            args.event,
+                            args.callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                        saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
-                    });
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "saving-throw", dc: args.dc, options: args.options },
-                        args.event,
-                        args.callback
-                    );
-                };
                 data.saves[saveName] = stat;
             }
 
-            // attack
+            // Attack
             {
                 const modifiers = [
                     new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED),
@@ -200,24 +201,25 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
-                const stat = new StatisticModifier("attack", modifiers);
+                const stat = mergeObject(new StatisticModifier("attack", modifiers), {
+                    roll: ({ event, options = [], callback }: RollParameters) => {
+                        CheckPF2e.roll(
+                            new CheckModifier("Attack Roll", stat),
+                            { actor: this, type: "attack-roll", options },
+                            event,
+                            callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
-                    CheckPF2e.roll(
-                        new CheckModifier("Attack Roll", stat),
-                        { actor: this, type: "attack-roll", options },
-                        event,
-                        callback
-                    );
-                };
                 data.attack = stat;
             }
 
-            // perception
+            // Perception
             {
                 const modifiers = [
                     new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED),
@@ -276,24 +278,26 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .forEach((m) => modifiers.push(m))
                 );
                 const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-                const stat = new StatisticModifier(label, modifiers);
+                const stat = mergeObject(new StatisticModifier(label, modifiers), {
+                    ability,
+                    value: 0,
+                    roll: (args: RollParameters) => {
+                        const label = game.i18n.format("PF2E.SkillCheckWithName", {
+                            skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
+                        });
+                        CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            { actor: this, type: "skill-check", options: args.options ?? [], dc: args.dc },
+                            args.event,
+                            args.callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
-                stat.ability = ability;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", {
-                        skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
-                    });
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: args.options ?? [], dc: args.dc },
-                        args.event,
-                        args.callback
-                    );
-                };
                 data.skills[shortForm] = stat;
             }
         }

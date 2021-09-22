@@ -1,3 +1,4 @@
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -91,12 +92,13 @@ export class SpellPF2e extends ItemPF2e {
 
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
         const rollData = super.getRollData();
-        if (this.actor) {
+        if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
+            const { abilities } = this.actor.data.data;
             if (!spellcasting?.data && this.data.data.trickMagicItemData) {
-                rollData["mod"] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
+                rollData["mod"] = abilities[this.data.data.trickMagicItemData.ability].mod;
             } else {
-                rollData["mod"] = this.actor.getAbilityMod(spellcasting?.ability ?? "int");
+                rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
             }
         }
 
