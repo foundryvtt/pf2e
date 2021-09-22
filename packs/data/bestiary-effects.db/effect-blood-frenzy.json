@@ -2,7 +2,7 @@
     "_id": "ScZ8tlV5zS0Jwnqn",
     "data": {
         "description": {
-            "value": "<p>The creature gains a +4 status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>"
+            "value": "<p>The creature gains temporary hit points and other effects based on the specific creature.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,24 +11,40 @@
             "value": 1
         },
         "level": {
-            "value": 3
+            "value": 1
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "damage",
-                "type": "status",
-                "value": 4
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "status",
-                "value": -2
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.rollOptions.all.blood-frenzy",
+                "value": 1
             },
             {
                 "key": "TempHP",
-                "value": 8
+                "label": "Blood Frenzy",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 7
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 8
+                        },
+                        {
+                            "end": 5,
+                            "start": 4,
+                            "value": 11
+                        },
+                        {
+                            "start": 6,
+                            "value": 15
+                        }
+                    ]
+                }
             }
         ],
         "source": {
