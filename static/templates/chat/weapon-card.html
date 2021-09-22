@@ -4,11 +4,11 @@
         <h3>{{item.name}}</h3>
     </header>
     <div class="tags">
-        {{#if data.group}}<span class="tag tag_alt">{{localize data.group}}</span>{{/if}}
-        {{#if item.isIdentified}}<span class="tag">{{localize data.rarity}}</span>{{/if}}
+        {{#if data.group}}<span class="pf2e-tag tag_alt">{{localize data.group}}</span>{{/if}}
+        {{#if item.isIdentified}}<span class="pf2e-tag">{{localize data.rarity}}</span>{{/if}}
         {{#each data.traits as |trait|}}
             {{#unless trait.mystified}}
-                <span class="tag" title="{{localize trait.description}}">{{localize trait.label}}</span>
+                <span class="pf2e-tag" title="{{localize trait.description}}">{{localize trait.label}}</span>
             {{/unless}}
         {{/each}}
     </div>

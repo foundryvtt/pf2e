@@ -78,7 +78,7 @@ export const DamageButtons = {
                     $listItem.children("input.data").val(shield.id);
                     $listItem.children("span.label").text(shield.name);
                     const hardnessLabel = LocalizePF2e.translations.PF2E.ShieldHardnessLabel;
-                    $listItem.children("span.tag").text(`${hardnessLabel}: ${shield.hardness}`);
+                    $listItem.children("span.pf2e-tag").text(`${hardnessLabel}: ${shield.hardness}`);
 
                     $list.append($listItem);
                 }

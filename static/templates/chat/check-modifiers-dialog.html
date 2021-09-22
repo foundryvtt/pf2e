@@ -8,7 +8,7 @@
     <div class="modifier-container">
         {{#each check.modifiers as |modifier idx|}}
             <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
-                <span class="type tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
+                <span class="type pf2e-tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
                 {{#if modifier.label}}
                     <span class="mod">{{localize modifier.label}}</span>
                 {{else}}

@@ -3,8 +3,8 @@
 <ol class="item-tags tags">
     {{#each traits}}
         {{#if this.selected}}
-            <li class="tag tag_transparent">{{localize this.label}}</li>
+            <li class="pf2e-tag tag_transparent">{{localize this.label}}</li>
         {{/if}}
     {{/each}}
-    <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
+    <li class="pf2e-tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
 </ol>

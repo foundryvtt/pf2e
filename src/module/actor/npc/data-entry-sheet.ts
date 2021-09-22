@@ -70,7 +70,7 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
         });
 
         // remove creature trait when clicking the tag
-        html.on("click", '.actor-traits.tags [data-trait]:not([data-trait=""]).tag', (event) => {
+        html.on("click", '.actor-traits.tags [data-trait]:not([data-trait=""]).pf2e-tag', (event) => {
             const actor = this.token?.actor ?? this.actor;
             const trait = event.target.dataset.trait.trim() as string;
             // built-in trait

@@ -9,7 +9,8 @@
     gap: 2px;
 }
 
-.tag {
+.tags .tag, //this line is backwards compability for chat cards
+.pf2e-tag {
     @include micro;
     border-radius: 2px;
     padding: 3px 4px;
@@ -34,22 +35,26 @@
         }
     }
 
-    &_secondary.tag {
+    &_secondary.tag, //this line is backwards compability for chat cards
+    &.tag_secondary {
         background-color: var(--secondary);
         color: white;
     }
 
-    &_tertiary.tag {
+    &_tertiary.tag, //this line is backwards compability for chat cards
+    &.tag_tertiary {
         background-color: var(--tertiary);
         color: white;
     }
 
-    &_alt.tag {
+    &_alt.tag, //this line is backwards compability for chat cards
+    &.tag_alt {
         background-color: var(--alt);
         color: white;
     }
 
-    &_transparent.tag {
+    &_transparent.tag, //this line is backwards compability for chat cards
+    &.tag_transparent {
         background-color: transparent;
         color: black;
         text-transform: none;

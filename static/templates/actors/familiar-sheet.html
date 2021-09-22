@@ -64,7 +64,7 @@
             <b>{{localize 'PF2E.Senses'}}</b>
             <span class="tags">
               {{#each data.traits.senses as |sense idx|}}
-                <span class="tag">{{localize sense.label}}{{#if sense.acuity}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
+                <span class="pf2e-tag">{{localize sense.label}}{{#if sense.acuity}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
               {{/each}}
             </span>
           </div>
@@ -72,10 +72,10 @@
             <b>{{localize 'PF2E.Speed'}}</b>
             <span class="tags">
                 {{#with data.attributes.speed as |landSpeed|}}
-                    <span class="tag" title="{{landSpeed.breakdown}}">{{localize landSpeed.label}} {{landSpeed.total}}</span>
+                    <span class="pf2e-tag" title="{{landSpeed.breakdown}}">{{localize landSpeed.label}} {{landSpeed.total}}</span>
                 {{/with}}
                 {{#each data.attributes.speed.otherSpeeds}}
-                    <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
+                    <span class="pf2e-tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
                 {{/each}}
             </span>
           </div>

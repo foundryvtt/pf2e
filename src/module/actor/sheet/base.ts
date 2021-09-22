@@ -1031,7 +1031,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item instanceof PhysicalItemPF2e) {
             const mystifiedClass = item.isIdentified ? "" : " mystified";
             const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
-            props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
+            props.append(`<span class="pf2e-tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
         }
 
         if (Array.isArray(chatData.properties)) {
@@ -1039,7 +1039,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             chatData.properties
                 .filter((property): property is string => typeof property === "string")
                 .forEach((property) => {
-                    props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
+                    props.append(`<span class="pf2e-tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
                 });
         }
 
