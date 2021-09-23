@@ -294,11 +294,17 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             }
 
-            (statisticsModifiers.hp || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            (statisticsModifiers.hp || [])
+                .map((m) => m.clone())
+                .forEach((m) => {
+                    m.ignored = !m.predicate.test(m.defaultRollOptions ?? ["hp", "all"]);
+                    modifiers.push(m);
+                });
             (statisticsModifiers["hp-per-level"] || [])
                 .map((m) => m.clone())
                 .forEach((m) => {
                     m.modifier *= this.level;
+                    m.ignored = !m.predicate.test(m.defaultRollOptions ?? ["hp-per-level", "all"]);
                     modifiers.push(m);
                 });
 
@@ -351,8 +357,14 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            [saveName, `${ability}-based`, "saving-throw", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            const rollOptions = [saveName, `${ability}-based`, "saving-throw", "all"];
+            rollOptions.forEach((key) => {
+                (statisticsModifiers[key] || [])
+                    .map((m) => m.clone())
+                    .forEach((m) => {
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        modifiers.push(m);
+                    });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -403,8 +415,14 @@ export class CharacterPF2e extends CreaturePF2e {
             ];
 
             const notes: RollNotePF2e[] = [];
-            ["perception", "wis-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            const rollOptions = ["perception", "wis-based", "all"];
+            rollOptions.forEach((key) => {
+                (statisticsModifiers[key] || [])
+                    .map((m) => m.clone())
+                    .forEach((m) => {
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        modifiers.push(m);
+                    });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -445,8 +463,14 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
             ];
             const notes: RollNotePF2e[] = [];
-            ["class", `${systemData.details.keyability.value}-based`, "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            const rollOptions = ["class", `${systemData.details.keyability.value}-based`, "all"];
+            rollOptions.forEach((key) => {
+                (statisticsModifiers[key] || [])
+                    .map((m) => m.clone())
+                    .forEach((m) => {
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        modifiers.push(m);
+                    });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -496,8 +520,14 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.unshift(dexterity);
 
             // condition and custom modifiers
-            ["ac", "dex-based", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            const rollOptions = ["ac", "dex-based", "all"];
+            rollOptions.forEach((key) => {
+                (statisticsModifiers[key] || [])
+                    .map((m) => m.clone())
+                    .forEach((m) => {
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        modifiers.push(m);
+                    });
             });
 
             const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
@@ -556,8 +586,14 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            [longForm, `${skill.ability}-based`, "skill-check", "all"].forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            const rollOptions = [longForm, `${skill.ability}-based`, "skill-check", "all"];
+            rollOptions.forEach((key) => {
+                (statisticsModifiers[key] || [])
+                    .map((m) => m.clone())
+                    .forEach((m) => {
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        modifiers.push(m);
+                    });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
@@ -613,8 +649,14 @@ export class CharacterPF2e extends CreaturePF2e {
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
                 ];
                 const notes: RollNotePF2e[] = [];
-                [shortform, `int-based`, "skill-check", "all"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+                const rollOptions = [shortform, `int-based`, "skill-check", "all"];
+                rollOptions.forEach((key) => {
+                    (statisticsModifiers[key] || [])
+                        .map((m) => m.clone())
+                        .forEach((m) => {
+                            m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                            modifiers.push(m);
+                        });
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -659,7 +701,12 @@ export class CharacterPF2e extends CreaturePF2e {
         // Familiar Abilities
         {
             const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers["familiar-abilities"] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+            (statisticsModifiers["familiar-abilities"] || [])
+                .map((m) => m.clone())
+                .forEach((m) => {
+                    m.ignored = !m.predicate.test(m.defaultRollOptions ?? ["familiar-abilities"]);
+                    modifiers.push(m);
+                });
 
             const stat = mergeObject(
                 new StatisticModifier("familiar-abilities", modifiers),
@@ -797,7 +844,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
             const baseNotes: RollNotePF2e[] = [];
-            [`${ability}-based`, "all"].forEach((key) => {
+            const baseRollOptions = [`${ability}-based`, "all"];
+            baseRollOptions.forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => baseModifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
             });
@@ -806,8 +854,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 // add custom modifiers and roll notes relevant to the attack modifier for the spellcasting entry
                 const modifiers = [...baseModifiers];
                 const notes = [...baseNotes];
-                [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+                const rollOptions = [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"];
+                const combinedRollOptions = [...rollOptions, ...baseRollOptions];
+                rollOptions.forEach((key) => {
+                    (statisticsModifiers[key] || [])
+                        .map((m) => m.clone())
+                        .forEach((m) => {
+                            m.ignored = !m.predicate.test(m.defaultRollOptions ?? combinedRollOptions);
+                            modifiers.push(m);
+                        });
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -847,8 +902,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 // add custom modifiers and roll notes relevant to the DC for the spellcasting entry
                 const modifiers = [...baseModifiers];
                 const notes = [...baseNotes];
-                [`${tradition}-spell-dc`, "spell-dc"].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => modifiers.push(m));
+                const rollOptions = [`${tradition}-spell-dc`, "spell-dc"];
+                const combinedRollOptions = [...rollOptions, ...baseRollOptions];
+                rollOptions.forEach((key) => {
+                    (statisticsModifiers[key] || [])
+                        .map((m) => m.clone())
+                        .forEach((m) => {
+                            m.ignored = !m.predicate.test(m.defaultRollOptions ?? combinedRollOptions);
+                            modifiers.push(m);
+                        });
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
@@ -1021,7 +1083,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] ?? [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !m.predicate.test(defaultOptions);
+                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? selectors);
                         modifiers.push(m);
                     });
                 (synthetics.weaponPotency[key] ?? [])
