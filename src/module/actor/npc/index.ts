@@ -227,7 +227,7 @@ export class NPCPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                         modifiers.push(m);
                     });
             });
@@ -299,7 +299,7 @@ export class NPCPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                         modifiers.push(m);
                     });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -343,7 +343,7 @@ export class NPCPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                         modifiers.push(m);
                     });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -385,7 +385,7 @@ export class NPCPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || [])
                     .map((m) => m.clone())
                     .forEach((m) => {
-                        m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                        m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                         modifiers.push(m);
                     });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -450,7 +450,7 @@ export class NPCPF2e extends CreaturePF2e {
                     (statisticsModifiers[key] || [])
                         .map((m) => m.clone())
                         .forEach((m) => {
-                            m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                            m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                             modifiers.push(m);
                         });
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -538,7 +538,7 @@ export class NPCPF2e extends CreaturePF2e {
                         (statisticsModifiers[key] || [])
                             .map((m) => m.clone())
                             .forEach((m) => {
-                                m.ignored = !m.predicate.test(m.defaultRollOptions ?? rollOptions);
+                                m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
                                 modifiers.push(m);
                             });
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -806,7 +806,9 @@ export class NPCPF2e extends CreaturePF2e {
                         (statisticsModifiers[key] || [])
                             .map((m) => m.clone())
                             .forEach((m) => {
-                                m.ignored = !m.predicate.test(m.defaultRollOptions ?? combinedRollOptions);
+                                m.ignored = !m.predicate.test(
+                                    this.getRollOptions(m.defaultRollOptions ?? combinedRollOptions)
+                                );
                                 modifiers.push(m);
                             });
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -858,7 +860,9 @@ export class NPCPF2e extends CreaturePF2e {
                         (statisticsModifiers[key] || [])
                             .map((m) => m.clone())
                             .forEach((m) => {
-                                m.ignored = !m.predicate.test(m.defaultRollOptions ?? combinedRollOptions);
+                                m.ignored = !m.predicate.test(
+                                    this.getRollOptions(m.defaultRollOptions ?? combinedRollOptions)
+                                );
                                 modifiers.push(m);
                             });
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
