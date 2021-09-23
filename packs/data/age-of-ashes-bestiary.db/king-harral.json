@@ -31,7 +31,7 @@
                 "value": "+1 status to all saves vs. positive"
             },
             "hp": {
-                "details": "negative healing",
+                "details": "negative healing, rejuvenation",
                 "max": 195,
                 "temp": 0,
                 "value": 195
@@ -4005,32 +4005,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 17,
-                                    "value": -10
-                                },
-                                {
-                                    "start": 18,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
                         "label": "Bulwark",
                         "predicate": {
                             "all": [
@@ -4318,12 +4292,8 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
+                            "all": [
+                                "positive"
                             ]
                         },
                         "selector": "saving-throw",
@@ -4356,7 +4326,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs Magic",
+            "name": "+1 Status to All Saves vs Positive",
             "sort": 3500000,
             "type": "action"
         },
@@ -4532,7 +4502,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature casts a spell King Harral has prepared.</p>\n<hr />\n<p><strong>Effect</strong> The king expends a prepared spell to counter the triggering creature's casting of that same spell. He can then attempt to dispel the triggering spell.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature casts a spell King Harral has prepared.</p>\n<hr />\n<p><strong>Effect</strong> The king expends a prepared spell to counter the triggering creature's casting of that same spell. He can then attempt to dispel the triggering spell.</p>"
                 },
                 "requirements": {
                     "value": ""
