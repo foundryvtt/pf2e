@@ -31,8 +31,10 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             }
             if (this.data.predicate) {
                 modifier.predicate = this.data.predicate;
-                const rollOptions = this.actor.getRollOptions(this.data["roll-options"] ?? []);
-                modifier.ignored = !modifier.predicate.test(rollOptions);
+            }
+            const rollOptions = this.data["roll-options"];
+            if (rollOptions) {
+                modifier.defaultRollOptions = rollOptions;
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {
