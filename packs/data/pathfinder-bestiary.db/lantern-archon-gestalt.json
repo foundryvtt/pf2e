@@ -755,6 +755,57 @@
             "type": "spell"
         },
         {
+            "_id": "465xP8CbWAyUkrIj",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "gh6g0ip90gsbws6reo5y": {
+                        "damage": "2d10+5",
+                        "damageType": "slashing"
+                    },
+                    "4kw9mu90f122u7lvosxj": {
+                        "damage": "1d6",
+                        "damageType": "good"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flame of Justice",
+            "sort": 600000,
+            "type": "melee"
+        },
+        {
             "_id": "uK5eIAdOWiayEgWr",
             "data": {
                 "attack": {
@@ -805,7 +856,59 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Light Ray",
-            "sort": 600000,
+            "sort": 700000,
+            "type": "melee"
+        },
+        {
+            "_id": "bVwQccP3j81toBAq",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "rur4cc2qkq9j3ru8okgv": {
+                        "damage": "2d10+5",
+                        "damageType": "slashing"
+                    },
+                    "dd6lbvp1p8a2ld7365xt": {
+                        "damage": "1d6",
+                        "damageType": "good"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "magical",
+                        "range-increment-30",
+                        "versatile-p"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flame of Justice",
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -853,7 +956,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -901,7 +1004,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -945,7 +1048,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retributive Strike",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1009,7 +1112,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1058,7 +1161,95 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lantern of Hope",
-            "sort": 1100000,
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "aivVKzlEOwieqgj1",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A gestalt's spirit of righteousness manifests in its hands as a mighty two-handed sword called the flame of justice.</p>\n<p>A gestalt can throw its flame of justice as a ranged weapon. If disarmed or thrown, the flame of justice vanishes after landing or dealing damage and reappears in the gestalt's hands again instantly.</p>\n<p>On a critical hit, the fire damage from the flame of justice deals maximum damage ([[/r 6 #fire]]{6} on the d6) before being doubled for the critical hit, and the target takes [[/r 1d10 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Flame of Justice - Critical Hit",
+                        "property": "flags.pf2e.rollOptions.damage-roll.flame-of-justice"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "not": [
+                                "flame-of-justice"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "flame-of-justice"
+                            ]
+                        },
+                        "selector": "damage",
+                        "value": 6
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "flame-of-justice-attack",
+                        "text": "<p class='compact-text'><div data-visibility='gm'><strong>{item|name}</strong> The fire damage from the flame of justice deals maximum damage ([[/r 6 #fire]]{6} on the d6) before being doubled for the critical hit, and the target takes [[/r 1d10 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</div></p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.nVzYnoOpZcD3KXg9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Flame of Justice",
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1093,7 +1284,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1125,7 +1316,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1160,7 +1351,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1192,7 +1383,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1227,7 +1418,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1259,7 +1450,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "lore"
         }
     ],
