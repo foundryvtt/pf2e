@@ -54,8 +54,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    override getData() {
-        const sheetData = super.getData();
+    override getData(options?: ActorSheetOptions) {
+        const sheetData = super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -84,8 +84,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
         sheetData.data.attributes.doomed.icon = this.getDoomedIcon(sheetData.data.attributes.doomed.value);
         sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max - 1;
-
-        sheetData.uid = this.id;
 
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
@@ -537,18 +535,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected prepareSpellcasting(sheetData: any) {
         sheetData.spellcastingEntries = [];
+        const { abilities } = this.actor.data.data;
 
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
-                const entry = this.actor.items.get(itemData._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) {
-                    continue;
-                }
+                const entry = this.actor.spellcasting.get(itemData._id);
+                if (!entry) continue;
 
                 // TODO: remove below when trick magic item has been converted to use the custom modifiers version
                 const spellRank = itemData.data.proficiency?.value || 0;
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
-                const abilityMod = this.actor.getAbilityMod(entry.ability);
+                const abilityMod = abilities[entry.ability].mod;
                 const spellAttack = abilityMod + spellProficiency;
                 if (itemData.data.spelldc.value !== spellAttack && this.actor.isOwner) {
                     const updatedItem = {
@@ -750,41 +747,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.onClickDyingWoundedDoomed(condition, event);
                 }
             });
-
-        // Spontaneous Spell slot increment handler:
-        html.find(".spell-slots-increment-down").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (!(item instanceof SpellcastingEntryPF2e)) {
-                return;
-            }
-
-            if (item.isFocusPool && itemLevel > 0) {
-                const currentPoints = actor.data.data.resources.focus?.value ?? 0;
-                if (currentPoints > 0) {
-                    actor.update({ "data.resources.focus.value": currentPoints - 1 });
-                } else {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
-                }
-            } else {
-                if (item.data.data.slots === null) {
-                    return;
-                }
-
-                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-
-                const data = duplicate(item.data);
-                data.data.slots[slotLevel].value -= 1;
-                if (data.data.slots[slotLevel].value < 0) {
-                    data.data.slots[slotLevel].value = 0;
-                }
-
-                item.update(data);
-            }
-        });
 
         // Spontaneous Spell slot reset handler:
         html.find(".spell-slots-increment-reset").on("click", (event) => {

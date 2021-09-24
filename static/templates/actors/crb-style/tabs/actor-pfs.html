@@ -1,32 +1,32 @@
 <div class="tab feats pfs-pane" data-group="primary" data-tab="pfs">
     <div class="pfs">
         <div class="organized-play spacing">
-            <label for="{{uid}}-pfs-player-number">{{localize 'PF2E.PFS.OrganizedPlayNumber'}}</label>
-            <label for="{{uid}}-pfs-character-number">{{localize 'PF2E.PFS.CharacterNumber'}}</label>
+            <label class="details-label" for="{{options.id}}-pfs-player-number">{{localize 'PF2E.PFS.OrganizedPlayNumber'}}</label>
+            <label class="details-label" for="{{options.id}}-pfs-character-number">{{localize 'PF2E.PFS.CharacterNumber'}}</label>
             <span>
-                <input class="pfs-player-number" id="{{uid}}-pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" type="text" maxlength="10">-
+                <input class="pfs-player-number" id="{{options.id}}-pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" type="text" maxlength="10">-
             </span>
             <span>
-                <input class="pfs-character-number" id="{{uid}}-pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" type="text" maxlength="4">
+                <input class="pfs-character-number" id="{{options.id}}-pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" type="text" maxlength="4">
             </span>
         </div>
         <div>
-            <label for="{{uid}}-pfs-level-bump">{{localize 'PF2E.PFS.LevelBump'}}</label>
+            <label class="details-label" for="{{options.id}}-pfs-level-bump">{{localize 'PF2E.PFS.LevelBump'}}</label>
             <div class="level-bump toggle">
-                <input id="{{uid}}-pfs-level-bump" name="data.pfs.levelBump" data-dtype="Boolean" type="checkbox" {{#if data.pfs.levelBump}}checked{{/if}}>
-                <label for="{{uid}}-pfs-level-bump"></label>
+                <input id="{{options.id}}-pfs-level-bump" name="data.pfs.levelBump" data-dtype="Boolean" type="checkbox" {{#if data.pfs.levelBump}}checked{{/if}}>
+                <label class="details-label" for="{{options.id}}-pfs-level-bump"></label>
             </div>
         </div>
     </div>
     <div class="pfs">
         <div class="spacing">
-            <label for="{{uid}}-pfs-current-faction">{{localize 'PF2E.PFS.CurrentFaction'}}</label>
+            <label class="details-label" for="{{options.id}}-pfs-current-faction">{{localize 'PF2E.PFS.CurrentFaction'}}</label>
             <span
                 class="pf-value pf-small"
                 title="{{localize 'PF2E.PFS.CurrentFaction'}}"
             >
                 <select
-                id="{{uid}}-pfs-current-faction"
+                id="{{options.id}}-pfs-current-faction"
                 name="data.pfs.currentFaction"
                 data-dtype="text"
                 >
@@ -39,20 +39,20 @@
             </span>
         </div>
         <div>
-            <label for="{{uid}}-pfs-fame">{{localize 'PF2E.PFS.Fame'}}</label>
+            <label class="details-label" for="{{options.id}}-pfs-fame">{{localize 'PF2E.PFS.Fame'}}</label>
             <span>
-                <input id="{{uid}}-pfs-fame" name="data.pfs.fame" value="{{data.pfs.fame}}" type="number">
+                <input id="{{options.id}}-pfs-fame" name="data.pfs.fame" value="{{data.pfs.fame}}" type="number">
             </span>
         </div>
     </div>
 
     <div class="pfs">
         <div class="spacing">
-            <label for="pfs-reputation">{{localize 'PF2E.PFS.Reputation'}}</label>
+            <span class="details-label">{{localize 'PF2E.PFS.Reputation'}}</span>
             {{#each data.pfs.reputation as |rep faction|}}
-            <div><span>{{localize (add 'PF2E.PFS.Factions.' faction)}}: 
-                <input class="small-input" id="pfs-rep-{{faction}}" name="data.pfs.reputation.{{faction}}" value="{{rep}}" type="number">
-            </span></div>
+            <div><label for="{{@root.options.id}}-pfs-rep-{{faction}}">{{localize (add 'PF2E.PFS.Factions.' faction)}}:</label>
+                <input class="small-input" id="{{@root.options.id}}-pfs-rep-{{faction}}" name="data.pfs.reputation.{{faction}}" value="{{rep}}" type="number">
+            </div>
             {{/each}}
         </div>
     </div>

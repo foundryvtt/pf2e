@@ -1415,6 +1415,7 @@ export const PF2ECONFIG = {
         fear: "PF2E.TraitFear",
         flourish: "PF2E.TraitFlourish",
         magical: "PF2E.TraitMagical",
+        mental: "PF2E.TraitMental",
         metamagic: "PF2E.TraitMetamagic",
         multiclass: "PF2E.TraitMulticlass",
         oath: "PF2E.TraitOath",
@@ -2231,6 +2232,10 @@ export const PF2ECONFIG = {
             lootableNPCs: {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
+            },
+            experimentalDamageFormatting: {
+                name: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Name",
+                hint: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Hint",
             },
         },
         homebrew: {

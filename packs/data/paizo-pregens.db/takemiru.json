@@ -281,13 +281,6 @@
                         "level": 1,
                         "name": "Change Shape",
                         "pack": "pf2e.ancestryfeatures"
-                    },
-                    "pgr58": {
-                        "id": "DRtaqOHXTRtGRIUT",
-                        "img": "systems/pf2e/icons/features/ancestry/low-light-vision.webp",
-                        "level": 1,
-                        "name": "Low-Light Vision",
-                        "pack": "pf2e.ancestryfeatures"
                     }
                 },
                 "languages": {
@@ -314,7 +307,7 @@
                         "kitsune"
                     ]
                 },
-                "vision": "normal"
+                "vision": "lowLightVision"
             },
             "effects": [],
             "flags": {
@@ -375,68 +368,6 @@
             },
             "img": "systems/pf2e/icons/default-icons/feat.svg",
             "name": "Change Shape",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
-            "_id": "QMtco47xTwpNW6zn",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A creature with low-light vision can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
-                },
-                "featType": {
-                    "value": "ancestryfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "BCicuNndPDZJw2Mj",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "Sense",
-                        "label": "PF2E.SensesLowLightVision",
-                        "selector": "lowLightVision"
-                    }
-                ],
-                "slug": "low-light-vision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "elf",
-                        "gnome",
-                        "half-elf",
-                        "half-orc",
-                        "leshy",
-                        "shoony"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/low-light-vision.webp",
-            "name": "Low-Light Vision",
             "sort": 0,
             "type": "feat"
         },
@@ -1819,9 +1750,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "evocation",
                         "light",
@@ -1930,9 +1858,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2036,9 +1961,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -2291,9 +2213,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "consumable",
                         "mechanical",
@@ -2450,9 +2369,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "consumable",
                         "mechanical",
@@ -2608,9 +2524,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "auditory",
@@ -3106,30 +3019,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },

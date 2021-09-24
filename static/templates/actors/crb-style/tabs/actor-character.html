@@ -15,6 +15,7 @@
                 title="{{localize 'PF2E.AlignmentTitle'}}"
             >
                 <select
+                aria-label="{{localize 'PF2E.Alignment'}}"
                 name="data.details.alignment.value"
                 data-dtype="text"
                 >
@@ -28,11 +29,11 @@
         </div>
         <div class="deity">
             <div class="dropdown">
-                <label for="deity-dropdown">
+                <label class="details-label" for="{{options.id}}-pc-deity">
                     {{localize 'PF2E.Deity'}}
                 </label>
                 <input
-                    id="pc pc_deity"
+                    id="{{options.id}}-pc-deity"
                     name="data.details.deity.value"
                     type="text"
                     value="{{data.details.deity.value}}"
@@ -48,9 +49,9 @@
         </div>
         <div class="detail-sheet">
             <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
-                <label for="pc_ancestry">
+                <span class="details-label">
                     {{localize "PF2E.Ancestry"}}
-                </label>
+                </span>
                 <span title="{{localize "PF2E.AncestryTitle"}}">
                     <h3>
                         <span class="value">{{ancestry.name}}</span>
@@ -65,17 +66,17 @@
                 </span>
             </div>
             <div class="pc pc_heritage">
-                <label for="pc_heritage">
+                <label class="details-label" for="{{options.id}}-pc-heritage">
                     {{localize "PF2E.Heritage"}}
                 </label>
                 <span title="{{localize "PF2E.HeritageTitle"}}">
-                    <input id="pc pc_heritage" name="data.details.heritage.value" type="text" value="{{data.details.heritage.value}}" data-dtype="String" />
+                    <input id="{{options.id}}-pc-heritage" name="data.details.heritage.value" type="text" value="{{data.details.heritage.value}}" data-dtype="String" />
                 </span>
             </div>
             <div class="pc pc_class item" data-item-id="{{class.id}}">
-                <label for="pc_class">
+                <span class="details-label">
                     {{localize "PF2E.Class"}}
-                </label>
+                </span>
                 <span title="{{localize "PF2E.ClassTitle"}}">
                     <h3>
                         <span class="value">{{class.name}}</span>
@@ -90,9 +91,9 @@
                 </span>
             </div>
             <div class="pc pc_background item" data-item-id="{{background.id}}">
-                <label for="pc_background">
+                <span class="details-label">
                     {{localize "PF2E.Background"}}
-                </label>
+                </span>
                 <span title="{{localize "PF2E.BackgroundTitle"}}">
                     <h3>
                         <span class="value">{{background.name}}</span>

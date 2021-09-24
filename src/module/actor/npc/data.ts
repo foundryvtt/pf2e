@@ -6,6 +6,7 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
+    SkillData,
 } from "@actor/creature/data";
 import {
     ActorFlagsPF2e,
@@ -13,7 +14,6 @@ import {
     DexterityModifierCapData,
     PerceptionData,
     RawInitiativeData,
-    Rollable,
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
@@ -93,7 +93,7 @@ interface NPCSaves {
 /** Normal skill data, but with an additional 'base' value. */
 type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
-export interface NPCSkillData extends StatisticModifier, Rollable {
+export interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
     label: string;

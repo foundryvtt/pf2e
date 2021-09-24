@@ -1,7 +1,6 @@
 import { RuleElementPF2e } from "../rule-element";
 import { MultipleAttackPenaltyPF2e, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterData, NPCData } from "@actor/data";
-import { ModifierPredicate } from "@module/modifiers";
 
 /**
  * @category RuleElement
@@ -17,7 +16,7 @@ export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
         if (selector && label && value) {
             const map: MultipleAttackPenaltyPF2e = { label, penalty: value };
             if (this.data.predicate) {
-                map.predicate = new ModifierPredicate(this.data.predicate);
+                map.predicate = this.data.predicate;
             }
             multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
         } else {

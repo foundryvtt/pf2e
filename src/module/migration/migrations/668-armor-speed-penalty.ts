@@ -19,20 +19,20 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
                     JSON.stringify(rule.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] })
             );
             if (rule) rules.splice(rules.indexOf(rule), 1);
-        } else if (itemSource.type === "feat" && slug === "unburdened-iron") {
-            // Use a general rollOptions flag for ignoring the armor speed penalty
-            const rule: AELikeSource = {
-                key: "ActiveEffectLike",
-                mode: "override",
-                path: "flags.pf2e.rollOptions.all.armor:ignore-speed-penalty",
-                value: true,
-            };
-            itemSource.data.rules = [rule];
+        } else if (itemSource.type === "feat") {
+            // Use rollOptions flags for ignoring the armor speed and stealth penalties
+            if (slug === "unburdened-iron") {
+                const rule: RollOption = { key: "RollOption", option: "armor:ignore-speed-penalty" };
+                itemSource.data.rules = [rule];
+            } else if (slug === "armored-stealth") {
+                const rule: RollOption = { key: "RollOption", domain: "stealth", option: "armor:ignore-noisy-penalty" };
+                itemSource.data.rules = [rule];
+            }
         }
     }
 }
 
-interface AELikeSource extends RuleElementSource {
-    mode: string;
-    path: string;
+interface RollOption extends RuleElementSource {
+    domain?: string;
+    option: string;
 }

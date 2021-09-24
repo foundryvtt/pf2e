@@ -14,8 +14,6 @@ import { Migration655CreatureTokenSizes } from "@module/migration/migrations/655
 import { Migration656OtherFocusPoolSources } from "@module/migration/migrations/656-other-focus-pool-sources";
 import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-remove-set-property";
 import { Migration658MonkUnarmoredProficiency } from "@module/migration/migrations/658-monk-unarmored-proficiency";
-import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
-import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
 import { Migration659MultipleDamageRows } from "@module/migration/migrations/659-multiple-damage-rows";
 import { Migration660DerivedSpellTraits } from "@module/migration/migrations/660-derived-spell-traits";
 import { Migration661NumifyVehicleDimensions } from "@module/migration/migrations/661-numify-vehicle-dimensions";
@@ -25,10 +23,11 @@ import { Migration666UsageAndStowingContainers } from "@module/migration/migrati
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
 import { Migration668ArmorSpeedPenalty } from "@module/migration/migrations/668-armor-speed-penalty";
 import { Migration669NPCAttackEffects } from "@module/migration/migrations/669-npc-attack-effects";
+import { Migration670NoCustomTrait } from "@module/migration/migrations/670-no-custom-trait";
+import { Migration670AncestryVision } from "@module/migration/migrations/670-ancestry-vision";
+import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-no-pc-items-on-non-pcs";
 
 const migrations: MigrationBase[] = [
-    new Migration648RemoveInvestedProperty(),
-    new Migration649FocusToActor(),
     new Migration650StringifyWeaponProperties(),
     new Migration651EphemeralFocusPool(),
     new Migration652KillHalcyonTradition(),
@@ -47,6 +46,9 @@ const migrations: MigrationBase[] = [
     new Migration667HPSubProperties(),
     new Migration668ArmorSpeedPenalty(),
     new Migration669NPCAttackEffects(),
+    new Migration670NoCustomTrait(),
+    new Migration670AncestryVision(),
+    new Migration671NoPCItemsOnNonPCs(),
 ];
 
 global.deepClone = function (original: any): any {

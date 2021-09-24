@@ -13,11 +13,11 @@
                                 {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
                             <div class="hover-container">
-                                <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
+                                <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
                             </div>
                         </div>
                         {{#with skill}}
-                            {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid abpEnabled=@root.abpEnabled title=label }}
+                            {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html abpEnabled=@root.abpEnabled title=label }}
                         {{/with}}
                     </li>
                 {{/unless}}

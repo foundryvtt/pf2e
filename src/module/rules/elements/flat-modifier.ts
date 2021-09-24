@@ -1,6 +1,6 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSynthetics } from "../rules-data-definitions";
-import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE } from "@module/modifiers";
 import { ActorType } from "@actor/data";
 
 /**
@@ -30,9 +30,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 modifier.damageCategory = this.data.damageCategory;
             }
             if (this.data.predicate) {
-                modifier.predicate = new ModifierPredicate(this.data.predicate);
-                const rollOptions = this.actor.getRollOptions(this.data["roll-options"] ?? []);
-                modifier.ignored = !modifier.predicate.test(rollOptions);
+                modifier.predicate = this.data.predicate;
+            }
+            const rollOptions = this.data["roll-options"];
+            if (rollOptions) {
+                modifier.defaultRollOptions = rollOptions;
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {

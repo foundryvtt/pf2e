@@ -1,5 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e } from "./utils";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
@@ -61,6 +62,8 @@ export interface RawModifier {
     notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
+    /** The list of roll options to use during actor data preparation instead of the default roll options for the statistic */
+    defaultRollOptions?: string[];
 }
 
 /**
@@ -78,10 +81,11 @@ export class ModifierPF2e implements RawModifier {
     custom: boolean;
     damageType?: string;
     damageCategory?: string;
-    predicate = new ModifierPredicate();
+    predicate = new PredicatePF2e();
     critical?: boolean;
     traits?: string[];
     notes?: string;
+    defaultRollOptions?: string[];
 
     /**
      * Create a new modifier.
@@ -121,9 +125,7 @@ export class ModifierPF2e implements RawModifier {
 
         modifier.custom = data.custom ?? false;
         modifier.predicate =
-            data.predicate instanceof ModifierPredicate
-                ? Object.create(data.predicate)
-                : new ModifierPredicate(data.predicate);
+            data.predicate instanceof PredicatePF2e ? Object.create(data.predicate) : new PredicatePF2e(data.predicate);
         if (data.damageCategory) modifier.damageCategory = data.damageCategory;
         if (data.damageType) modifier.damageType = data.damageType;
 
@@ -147,6 +149,7 @@ export class ModifierPF2e implements RawModifier {
         clone.damageCategory = this.damageCategory;
         clone.critical = this.critical;
         clone.traits = deepClone(this.traits);
+        clone.defaultRollOptions = deepClone(this.defaultRollOptions);
 
         return clone;
     }
@@ -355,11 +358,9 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
 }
 
 /**
- * Represents the list of commonly applied modifiers for a specific creature statistic. Each
- * statistic or check can have multiple modifiers, even of the same type, but the stacking rules are
- * applied to ensure that only a single bonus and penalty of each type is applied to the total
- * modifier.
- * @category PF2
+ * Represents a statistic on an actor and its commonly applied modifiers. Each statistic or check can have multiple
+ * modifiers, even of the same type, but the stacking rules are applied to ensure that only a single bonus and penalty
+ * of each type is applied to the total modifier.
  */
 export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
@@ -368,6 +369,8 @@ export class StatisticModifier {
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
     totalModifier!: number;
+    /** A textual breakdown of the modifiers factoring into this statistic */
+    breakdown = "";
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
@@ -452,67 +455,6 @@ export class CheckModifier extends StatisticModifier {
     }
 }
 
-export interface RawPredicate {
-    all?: string[];
-    any?: string[];
-    not?: string[];
-    test?: (options?: string[]) => boolean;
-}
-
-/**
- * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
- * on a list of string values. This will often be based on traits, but that is not required - sneak
- * attack could be an option that is not a trait.
- * @category PF2
- */
-export class ModifierPredicate implements RawPredicate {
-    /** The options must have ALL of these entries for this predicate to pass.  */
-    all: string[];
-    /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
-    any: string[];
-    /** The options must NOT HAVE ANY of these entries for this predicate to pass. */
-    not: string[];
-    /** Is the predicate data structurally valid? */
-    private isValid: boolean;
-
-    /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: RawPredicate = {}, options: string[] = []): boolean {
-        return predicate instanceof ModifierPredicate
-            ? predicate.test(options)
-            : new ModifierPredicate(predicate).test(options);
-    }
-
-    constructor(param: RawPredicate = { all: [], any: [], not: [] }) {
-        this.all = param.all ?? [];
-        this.any = param.any ?? [];
-        this.not = param.not ?? [];
-        this.isValid = this.validate();
-    }
-
-    /** Validate that the predicates are structurally sound */
-    private validate() {
-        return (["all", "any", "not"] as const).every(
-            (operator) =>
-                Array.isArray(this[operator]) &&
-                this[operator].every((proposition) => typeof proposition === "string" && proposition.length > 0)
-        );
-    }
-
-    /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
-    test(options: string[] = []): boolean {
-        if (!this.isValid) {
-            console.error("PF2e System | The provided predicate set is malformed.");
-            return false;
-        }
-        const { all, any, not } = this;
-        return (
-            all.every((i) => options.includes(i)) &&
-            !not.some((i) => options.includes(i)) &&
-            (any.length === 0 || any.some((i) => options.includes(i)))
-        );
-    }
-}
-
 interface DamageDiceOverride {
     dieSize?: DamageDieSize;
     damageType?: string;
@@ -543,7 +485,7 @@ export class DiceModifierPF2e implements RawModifier {
     ignored: boolean;
     enabled: boolean;
     custom: boolean;
-    predicate: ModifierPredicate;
+    predicate: PredicatePF2e;
 
     constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { name: string; predicate?: RawPredicate }) {
         if (param.name) {
@@ -566,8 +508,8 @@ export class DiceModifierPF2e implements RawModifier {
             this.category ??= DamageCategory.fromDamageType(this.damageType);
         }
 
-        this.predicate = new ModifierPredicate(param.predicate);
-        this.enabled = ModifierPredicate.test!(this.predicate);
+        this.predicate = new PredicatePF2e(param.predicate);
+        this.enabled = PredicatePF2e.test!(this.predicate);
         this.ignored = !this.enabled;
     }
 }
@@ -583,7 +525,7 @@ export class DamageDicePF2e extends DiceModifierPF2e {
 
     constructor(params: DamageDiceParameters) {
         const predicate =
-            params.predicate instanceof ModifierPredicate ? params.predicate : new ModifierPredicate(params.predicate);
+            params.predicate instanceof PredicatePF2e ? params.predicate : new PredicatePF2e(params.predicate);
         super({ ...params, predicate });
 
         if (params.selector) {

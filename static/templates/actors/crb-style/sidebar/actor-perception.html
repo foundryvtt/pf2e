@@ -1,6 +1,6 @@
 <div class="sidebar_title">
     <h2>{{localize 'PF2E.PerceptionHeader'}}</h2>
-    <h2 class="hover" data-tooltip-content="#{{uid}}-perception-modifiers">
+    <h2 class="hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
         <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
     </h2>
 </div>
@@ -22,5 +22,5 @@
 
 </div>
 {{#with data.attributes.perception}}
-    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title="PF2E.PerceptionHeader" }}
+    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html title="PF2E.PerceptionHeader" }}
 {{/with}}

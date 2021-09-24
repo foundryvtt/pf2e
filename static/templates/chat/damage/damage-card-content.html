@@ -1,0 +1,34 @@
+<div class="dice-roll">
+    <div class="dice-result">
+        <div class="dice-formula">{{damage.formula}}</div>
+        <div class="dice-tooltip">
+            {{#each damage.types}}
+            <div class="damage-type {{@key}}">
+                <h3 class="flexrow">{{@key}}</h3>
+                {{#each this as |categories|}}
+                <section class="tooltip-part">
+                    <div class="dice">
+                        <header class="part-header flexrow">
+                            <span class="part-formula">{{this.formula}}</span>
+                            <span class="part-flavor">{{this.label}}</span>
+                            <span class="part-total">{{this.total}}</span>
+                        </header>
+                    </div>
+                    <ol class="dice-rolls">
+                        {{#each this.results as |rolls damageDie|}}
+                            {{#each rolls}}
+                            <li class="roll die {{damageDie}} {{#if (eq this 1)}}min{{/if}} {{#if (eq (add 'd' this) damageDie)}}max{{/if}}">{{this}}</li>
+                            {{/each}}
+                        {{/each}}
+                        {{#if this.modifier}}
+                        <li class="roll" style="background: none;">{{numberFormat this.modifier sign=true decimals=0}}</li>
+                        {{/if}}
+                    </ol>
+                </section>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        <h4 class="dice-total">{{damage.total}}</h4>
+    </div>
+</div>

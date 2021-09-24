@@ -1,8 +1,9 @@
-import { CheckModifier, ModifierPF2e, ModifierPredicate, StatisticModifier } from "@module/modifiers";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e, RollParameters } from "@system/rolls";
 import { RollNotePF2e } from "@module/notes";
 import { ActorPF2e } from "@actor";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
+import { PredicatePF2e } from "./predication";
 
 export interface StatisticCheckData {
     adjustments?: DegreeOfSuccessAdjustment[];
@@ -67,7 +68,7 @@ export class StatisticBuilder {
 
                 // toggle modifiers based on the specified options
                 modifiers.forEach((modifier) => {
-                    modifier.ignored = !ModifierPredicate.test(modifier.predicate, options?.options ?? []);
+                    modifier.ignored = !PredicatePF2e.test(modifier.predicate, options?.options ?? []);
                 });
 
                 return {
@@ -108,7 +109,7 @@ export class StatisticBuilder {
 
                             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
                             check.modifiers.forEach((modifier) => {
-                                modifier.ignored = !ModifierPredicate.test(modifier.predicate, options?.options ?? []);
+                                modifier.ignored = !PredicatePF2e.test(modifier.predicate, options?.options ?? []);
                             });
                             check.applyStackingRules();
 

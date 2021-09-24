@@ -295,13 +295,6 @@
                 },
                 "hp": 6,
                 "items": {
-                    "bumto": {
-                        "id": "HHVQDp61ehcpdiU8",
-                        "img": "systems/pf2e/icons/features/ancestry/darkvision.webp",
-                        "level": "1",
-                        "name": "Darkvision",
-                        "pack": "pf2e.ancestryfeatures"
-                    },
                     "xhq7h": {
                         "id": "egpiSWBrNBb1Fmig",
                         "img": "systems/pf2e/icons/features/ancestry/draconic-exemplar.webp",
@@ -335,7 +328,7 @@
                         "kobold"
                     ]
                 },
-                "vision": "normal"
+                "vision": "darkvision"
             },
             "effects": [],
             "flags": {
@@ -347,61 +340,6 @@
             "name": "Kobold",
             "sort": 100000,
             "type": "ancestry"
-        },
-        {
-            "_id": "pUHArbxE6O3gDD59",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You can see in darkness and dim light just as well as you can see in bright light, though your vision in darkness is in black and white.</p>"
-                },
-                "featType": {
-                    "value": "ancestryfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "qHz9Q03aC16U6WtX",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "Sense",
-                        "label": "PF2E.SensesDarkvision",
-                        "selector": "darkvision"
-                    }
-                ],
-                "slug": "darkvision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.HHVQDp61ehcpdiU8"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/darkvision.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "feat"
         },
         {
             "_id": "dtcT8raaITqiNkmx",
@@ -1549,7 +1487,7 @@
                 "stackGroup": {
                     "value": ""
                 },
-                "stowing": false,
+                "stowing": true,
                 "traits": {
                     "custom": "",
                     "rarity": {
@@ -1558,7 +1496,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornbackpack"
                 },
                 "weight": {
                     "value": "L"
@@ -1658,9 +1596,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -1766,9 +1701,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -1872,9 +1804,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -1980,9 +1909,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2086,9 +2012,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -2194,9 +2117,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2301,9 +2221,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2407,9 +2324,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -2534,30 +2448,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -2723,9 +2614,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2876,9 +2764,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "consumable",
