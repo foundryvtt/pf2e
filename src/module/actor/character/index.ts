@@ -213,8 +213,8 @@ export class CharacterPF2e extends CreaturePF2e {
     protected override async _preUpdate(
         data: DeepPartial<CharacterSource>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
-    ) {
+        user: UserPF2e
+    ): Promise<void> {
         const characterData = this.data.data;
 
         // Clamp Stamina and Resolve

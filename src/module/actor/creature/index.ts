@@ -25,6 +25,7 @@ import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { UserPF2e } from "@module/user";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -590,13 +591,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<CreaturePF2e["data"]["_source"]>,
+        data: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         // Clamp focus points
-        const focus = data.data?.resources?.focus;
-        if (focus) {
+        const focus = data.data && "resources" in data.data ? data.data?.resources?.focus ?? null : null;
+        if (focus && "resources" in this.data.data) {
             if (typeof focus.max === "number") {
                 focus.max = Math.clamped(focus.max, 0, 3);
             }
