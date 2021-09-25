@@ -9,7 +9,7 @@ export class LoreData extends BaseNonPhysicalItemData<LorePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/lore.svg";
 }
 
-export interface LoreData extends Omit<LoreSource, "_id" | "effects"> {
+export interface LoreData extends Omit<LoreSource, "effects" | "flags"> {
     type: LoreSource["type"];
     data: LoreSource["data"];
     readonly _source: LoreSource;

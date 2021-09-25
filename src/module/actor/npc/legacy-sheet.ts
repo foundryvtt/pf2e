@@ -381,27 +381,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             this.actor.setFlag("pf2e", "editNPC", { value: event.target.checked });
         });
 
-        // NPC Weapon Rolling
-
-        html.find("button.npc-damageroll").on("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const drId = Number($(event.currentTarget).attr("data-dmgRoll"));
-            const item = this.actor.items.get(itemId);
-            if (!(item instanceof MeleePF2e)) return;
-            const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
-
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case "npcDamageRoll":
-                    this.rollNPCDamageRoll(event, damageRoll, item);
-                    break;
-                default:
-            }
-        });
-
+        // Attack effects
         html.find("button.npc-attackEffect").on("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -410,12 +390,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             const aId = Number($(event.currentTarget).attr("data-attackEffect"));
             const item = this.actor.items.get(itemId);
             if (!(item instanceof MeleePF2e)) {
-                console.log("PF2e System | clicked an attackEffect, but item was not a melee");
+                console.debug("PF2e System | clicked an attackEffect, but item was not a melee");
                 return;
             }
 
             const attackEffect = item.data.data.attackEffects.value[aId];
-            console.log("PF2e System | clicked an attackEffect:", attackEffect, event);
+            console.debug("PF2e System | clicked an attackEffect:", attackEffect, event);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {

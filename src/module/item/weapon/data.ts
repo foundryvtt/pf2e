@@ -19,7 +19,7 @@ export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
 }
 
-export interface WeaponData extends Omit<WeaponSource, "_id" | "effects"> {
+export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
     type: WeaponSource["type"];
     data: WeaponSource["data"];
     readonly _source: WeaponSource;
