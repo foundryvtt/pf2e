@@ -6,7 +6,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { AbilityString, ActorFlagsPF2e, RawSkillData, Rollable } from "@actor/data/base";
+import { AbilityString, RawSkillData, Rollable } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
 import type { FamiliarPF2e } from ".";
 
@@ -16,10 +16,9 @@ export class FamiliarData extends BaseCreatureData<FamiliarPF2e, FamiliarSystemD
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/familiar.svg";
 }
 
-export interface FamiliarData extends Omit<FamiliarSource, "effects" | "items" | "token"> {
+export interface FamiliarData extends Omit<FamiliarSource, "effects" | "flags" | "items" | "token"> {
     readonly type: FamiliarSource["type"];
     data: FamiliarSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: FamiliarSource;
 }
 

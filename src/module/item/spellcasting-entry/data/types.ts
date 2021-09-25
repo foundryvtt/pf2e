@@ -15,7 +15,7 @@ export class SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingE
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spellcastingEntry.svg";
 }
 
-export interface SpellcastingEntryData extends Omit<SpellcastingEntrySource, "_id" | "effects"> {
+export interface SpellcastingEntryData extends Omit<SpellcastingEntrySource, "effects" | "flags"> {
     type: SpellcastingEntrySource["type"];
     data: SpellcastingEntrySource["data"];
     readonly _source: SpellcastingEntrySource;

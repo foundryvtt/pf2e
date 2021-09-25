@@ -153,6 +153,12 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
     }
 
+    /** Ensure the presence of the pf2e flag scope */
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.flags.pf2e ??= {};
+    }
+
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
         return (this.rules = RuleElements.fromOwnedItem(this));
     }

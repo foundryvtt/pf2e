@@ -1,6 +1,5 @@
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
@@ -25,10 +24,9 @@ export class BaseCreatureData<
     TSystemData extends CreatureSystemData = CreatureSystemData
 > extends BaseActorDataPF2e<TActor> {}
 
-export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "items" | "token"> {
+export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CreatureType;
     data: BaseCreatureSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: BaseCreatureSource;
 }
 

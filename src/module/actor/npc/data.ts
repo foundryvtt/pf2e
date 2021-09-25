@@ -9,7 +9,6 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import {
-    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -25,10 +24,9 @@ export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
 }
 
-export interface NPCData extends Omit<NPCSource, "effects" | "items" | "token"> {
+export interface NPCData extends Omit<NPCSource, "effects" | "flags" | "items" | "token"> {
     readonly type: NPCSource["type"];
     data: NPCSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: NPCSource;
 }
 
