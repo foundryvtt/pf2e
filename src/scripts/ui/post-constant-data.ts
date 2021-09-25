@@ -14,7 +14,7 @@ export const PostConstantData = {
     postConstant: (str: string): string => {
         return (
             str?.replace(/@Const\[([a-zA-Z0-9.]*)\]/g, (match, p1) => {
-                match = match;
+                match = match.concat("");
                 return game.i18n.localize(p1);
             }) ?? undefined
         );
