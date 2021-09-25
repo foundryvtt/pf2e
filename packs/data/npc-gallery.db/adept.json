@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 14,
                 "details": "",
                 "value": 14
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -58,6 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
+            "flavorText": "<p>Adepts have unlocked only the most minor occult mysteries of the universe. A few are chosen by accomplished practitioners for further training. Others volunteer to join a cabal by passing an initiation ritual.</p>\n<hr />\n<p>Those initiated into the hidden truths and forbidden secrets of the world are forever transformed-or so they claim. To the cynical, a mystic is nothing more than a charlatan or zealot. Others profess to sense an aura around such luminaries and treat them with reverence, lest they offend some harbinger of unspeakable doom.</p>",
             "level": {
                 "value": -1
             },
@@ -123,42 +125,40 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4XbWwEyRul8410H6",
+            "_id": "CRo6e5ADHqXxRyBr",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "int"
                 },
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
-                    "value": "innate"
+                    "flexible": false,
+                    "value": "spontaneous"
                 },
                 "proficiency": {
                     "value": 0
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
                 },
                 "slots": {
                     "slot0": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot1": {
                         "max": 0,
@@ -221,10 +221,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "14",
-                    "item": 0,
+                    "dc": 14,
                     "mod": 0,
-                    "value": 4
+                    "value": 6
                 },
                 "tradition": {
                     "value": "occult"
@@ -240,12 +239,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Occult Spells",
+            "name": "Occult Spells Known",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "rSUUpaFfTejeqe5o",
+            "_id": "LuHQ75P1jwm3BaAi",
             "data": {
                 "ability": {
                     "value": ""
@@ -297,7 +296,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "4XbWwEyRul8410H6"
+                    "value": "CRo6e5ADHqXxRyBr"
                 },
                 "materials": {
                     "value": ""
@@ -331,9 +330,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -367,21 +366,25 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "9VouV0qmQUz2nXoZ",
+            "_id": "M14ABTj5m642lp8x",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -405,7 +408,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -417,7 +420,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "4XbWwEyRul8410H6"
+                    "value": "CRo6e5ADHqXxRyBr"
                 },
                 "materials": {
                     "value": ""
@@ -445,9 +448,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -482,14 +485,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "HSXhZvBbeoZfrTvq",
+            "_id": "9NvPUbEtdiWxxCM4",
             "data": {
                 "ability": {
                     "value": ""
@@ -532,7 +539,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "4XbWwEyRul8410H6"
+                    "value": "CRo6e5ADHqXxRyBr"
                 },
                 "materials": {
                     "value": ""
@@ -560,9 +567,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -593,14 +600,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "wgsPiClcLM2PO1iA",
+            "_id": "ipz89wB16JTSERLW",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -619,107 +630,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 gp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/robe-of-eyes.webp",
-            "name": "Robes",
-            "sort": 500000,
-            "type": "equipment"
-        },
-        {
-            "_id": "3As8fx7Mig8vNs3G",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -753,7 +664,7 @@
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": "0"
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -771,9 +682,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "scholarly-journal",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -789,18 +700,22 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hywANJCzT7hMgWna"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/scholarly-journal.webp",
             "name": "Journal",
-            "sort": 600000,
+            "sort": 500000,
             "type": "equipment"
         },
         {
-            "_id": "3oVYMNEQGGwyLtHt",
+            "_id": "4zzNfH7d9409n3cP",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -816,10 +731,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Scrolls, maps, and other rolled documents are stored in scroll cases for safe transport.</p>"
+                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -871,7 +786,111 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "clothing-ordinary",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ilbLQNy6TbBPW7sQ"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/robe-of-eyes.webp",
+            "name": "Robes",
+            "sort": 600000,
+            "type": "equipment"
+        },
+        {
+            "_id": "Mhb7rNWIF3ipsvBr",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "0 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "scroll-case",
                 "source": {
                     "value": ""
                 },
@@ -893,14 +912,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.yxDOmx3VYSWoAEMa"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/scroll-case.webp",
             "name": "Scroll Case",
             "sort": 700000,
             "type": "equipment"
         },
         {
-            "_id": "5NL4MhH4KvSTpD3b",
+            "_id": "eCNZsLEhK3HhZ3Ql",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -919,7 +942,7 @@
                     "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -971,9 +994,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "writing-set",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -989,11 +1012,15 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.QJb8S927Yj81EgHH"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/writing-set.webp",
             "name": "Writing Set",
             "sort": 800000,
@@ -1006,6 +1033,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1111,7 +1139,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.focused-thinker"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:recall-knowledge",
+                                "focused-thinker"
+                            ]
+                        },
+                        "selector": "skill-check",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "focused-thinker"
+                            ]
+                        },
+                        "selector": "perception",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1134,7 +1189,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Focused Thinker",
             "sort": 1100000,
             "type": "action"
