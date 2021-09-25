@@ -230,8 +230,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (this.actor.type !== "character") InlineRollsLinks.listen(html);
-        if (this.actor.type !== "character") PostConstantData.listen(html);
+        if (this.actor.type !== "character") {
+            InlineRollsLinks.listen(html);
+            PostConstantData.listen(html);
+        }
 
         // Roll Save Checks
         html.find(".save-name").on("click", (event) => {
