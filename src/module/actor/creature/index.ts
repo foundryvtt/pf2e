@@ -298,13 +298,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
         synthetics: RuleElementSynthetics
     ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
+        const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
+        const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
+            .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+            .flat()
+            .map((modifier) => {
+                modifier.ignored = !modifier.predicate.test(modifier.defaultRollOptions ?? rollOptions);
+                return modifier;
+            });
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = ["land-speed", "speed"]
-                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                .flat();
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
                 systemData.attributes.speed,
@@ -326,14 +331,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
             const base = Number(speed.value ?? 0);
-            const rollOptions = [`${speed.type}-speed`, "speed"];
-            const modifiers: ModifierPF2e[] = rollOptions
-                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                .flat()
-                .map((m) => {
-                    m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? rollOptions));
-                    return m;
-                });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
                 speed,
