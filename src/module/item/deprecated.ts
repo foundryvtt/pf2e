@@ -8,7 +8,7 @@ export class MartialPF2e extends ItemPF2e {}
 
 export class MartialData extends BaseNonPhysicalItemData<MartialPF2e> {}
 
-export interface MartialData extends Omit<MartialSource, "_id" | "effects"> {
+export interface MartialData extends Omit<MartialSource, "effects" | "flags"> {
     type: MartialSource["type"];
     data: MartialSource["data"];
     readonly _source: MartialSource;

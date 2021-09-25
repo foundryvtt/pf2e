@@ -27,7 +27,7 @@ declare module foundry {
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: Record<string, Record<string, any>>;
+            flags: ItemFlags;
         }
 
         class ItemData<
@@ -72,12 +72,18 @@ declare module foundry {
             extends Omit<ItemSource, "effects"> {
             readonly _source: ItemSource;
 
-            /** @todo uncomment when prettier is updated to support typescript 4.3 */
-            // get schema(): ReturnType<typeof ItemData['defineSchema']>;
+            get schema(): ReturnType<typeof ItemData["defineSchema"]>;
         }
 
         namespace ItemData {
             const schema: ReturnType<typeof ItemData["defineSchema"]>;
+        }
+
+        interface ItemFlags {
+            core?: {
+                sourceId: string;
+            };
+            [key: string]: Record<string, unknown> | undefined;
         }
     }
 }

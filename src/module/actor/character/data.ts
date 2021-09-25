@@ -12,7 +12,6 @@ import {
 } from "@actor/creature/data";
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -36,10 +35,9 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/mystery-man.svg";
 }
 
-export interface CharacterData extends Omit<CharacterSource, "effects" | "items" | "token"> {
+export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
     data: CharacterSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: CharacterSource;
 }
 
