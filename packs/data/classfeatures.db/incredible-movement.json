@@ -26,7 +26,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Incredible Movement",
+                "predicate": {
+                    "not": [
+                        "self:armored"
+                    ]
+                },
                 "selector": "land-speed",
                 "type": "status",
                 "value": {
