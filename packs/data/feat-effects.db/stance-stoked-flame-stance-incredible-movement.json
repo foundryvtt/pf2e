@@ -1,0 +1,111 @@
+{
+    "_id": "wBoHhNwXU2jiuGLG",
+    "data": {
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're unarmored.</p>\n<hr />\n<p>You enter a stance of fast, fiery movements. You can make flashing spark attacks that deal 1d8 slashing damage. They are in the brawling group and have the forceful, nonlethal, sweep, and unarmed traits. If you have access to the flashing sparks' critical specialization effect, you can take an alternate effect instead: if your critical Strike dealt damage, the target takes 1d6 persistent fire damage.</p>\n<p>While in Stoked Flame Stance, you gain a +5-foot status bonus to your Speed. If you have incredible movement, increase the benefit from incredible movement to a +15-foot status bonus plus 5 feet for every 4 levels beyond 3rd.</p>\n<hr />\n<p><strong>Special</strong> This feat gains your choice of either the divine or occult trait, matching your ki spell tradition if possible.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "flashing-spark-damage",
+                "text": "<p class='compact-text'><strong>Flashing Spark</strong> If you have access to the flashing sparks' critical specialization effect, you can take an alternate effect instead: if your critical Strike dealt damage, the target takes [[/r 1d6 #persistent fire]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}.</p>"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "Flashing Spark",
+                "range": "melee",
+                "traits": [
+                    "forceful",
+                    "nonlethal",
+                    "sweep",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 5
+                        },
+                        {
+                            "end": 6,
+                            "start": 3,
+                            "value": 15
+                        },
+                        {
+                            "end": 10,
+                            "start": 7,
+                            "value": 20
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 25
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 30
+                        },
+                        {
+                            "start": 19,
+                            "value": 35
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/fire-ray.webp",
+    "name": "Stance: Stoked Flame Stance (Incredible Movement)",
+    "type": "effect"
+}
