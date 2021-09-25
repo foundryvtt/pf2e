@@ -10,4 +10,13 @@ export const PostConstantData = {
         });
         InlineRollsLinks.listen($links);
     },
+
+    postConstant: (str: string): string => {
+        return (
+            str?.replace(/@Const\[([a-zA-Z0-9.]*)\]/g, (match, p1) => {
+                match = match;
+                return game.i18n.localize(p1);
+            }) ?? undefined
+        );
+    },
 };
