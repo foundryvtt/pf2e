@@ -114,9 +114,9 @@ export class NPCPF2e extends CreaturePF2e {
         traits.traits.value = Array.from(traitSet).sort();
 
         var ruleData = this.rules.filter((rule) => !rule.ignored);
-        if(Array.isArray(ruleData)) {
+        if (Array.isArray(ruleData)) {
             ruleData.forEach((entry, index, arr) => {
-                if(arr[index].data.label) arr[index].data.label = PostConstantData.postConstant(entry.data.label);
+                if (arr[index].data.label) arr[index].data.label = PostConstantData.postConstant(entry.data.label);
             });
         }
         const rules = ruleData;
