@@ -5,8 +5,8 @@ export const PostConstantData = {
         const $links = $html.find("span, p, div").filter("[data-pf2-const]");
         $links.each((_idx, link) => {
             const pf2Const = link?.dataset.pf2Const ?? "";
-            if (pf2Const == "text" || pf2Const == "") link.innerHTML = TextEditor.enrichHTML(game.i18n.localize(link.innerHTML));
-
+            if (pf2Const == "text" || pf2Const == "")
+                link.innerHTML = TextEditor.enrichHTML(game.i18n.localize(link.innerHTML));
         });
         InlineRollsLinks.listen($links);
     },
