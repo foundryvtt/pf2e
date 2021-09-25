@@ -303,7 +303,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
             .flat()
             .map((modifier) => {
-                modifier.ignored = !modifier.predicate.test(rollOptions);
+                modifier.ignored = !modifier.predicate.test(modifier.defaultRollOptions ?? rollOptions);
                 return modifier;
             });
 
