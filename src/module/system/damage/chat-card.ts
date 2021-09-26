@@ -328,7 +328,17 @@ export const DamageChatCard = {
                 outcome: message.data.flags.pf2e?.outcome,
                 traits: message.data.flags.pf2e?.traits ?? [],
             });
-            $flavor.html(flavor?.trim() ?? "");
+            $flavor
+                .html(flavor?.trim() ?? "")
+                .find("a.inline-roll")
+                .each((_index, anchor) => {
+                    $(anchor).tooltipster({
+                        content: anchor.title,
+                        contentAsHTML: true,
+                        animation: "fade",
+                        theme: "crb-hover",
+                    });
+                });
         }
 
         // content
