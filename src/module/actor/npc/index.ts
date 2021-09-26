@@ -113,7 +113,7 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        let ruleData = this.rules.filter((rule) => !rule.ignored);
+        const ruleData = this.rules.filter((rule) => !rule.ignored);
         if (Array.isArray(ruleData)) {
             ruleData.forEach((entry, index, arr) => {
                 if (arr[index].data.label) arr[index].data.label = PostConstantData.postConstant(entry.data.label);
@@ -488,7 +488,7 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                 };
 
-                let variantData = (itemData.data as any).variants;
+                const variantData = (itemData.data as any).variants;
                 if (variantData) {
                     for (const [key] of Object.entries(variantData)) {
                         variantData[key].label = PostConstantData.postConstant(variantData[key].label);
