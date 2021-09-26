@@ -90,6 +90,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this.isDamageRoll) {
             await DamageChatCard.decorate(this, $html);
             await DamageButtons.append(this, $html);
+
+            // Clean up styling of old damage messages
+            $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
         }
 
         CriticalHitAndFumbleCards.appendButtons(this, $html);
