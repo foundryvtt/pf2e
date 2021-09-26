@@ -252,7 +252,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
     polymorph: "PF2E.TraitPolymorph",
-    possession: "PF2E.TraitPosession",
+    possession: "PF2E.TraitPossession",
     scrying: "PF2E.TraitScrying",
     sleep: "PF2E.TraitSleep",
     spellDeflection: "PF2E.TraitSpellDeflection",
