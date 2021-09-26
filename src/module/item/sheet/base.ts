@@ -428,7 +428,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         PostConstantData.listen(html);
         InlineRollsLinks.listen(html);
 
-
         // Active Effect controls
         html.find('.tab.effects table th a[data-action="create"]').on("click", async () => {
             const newEffect = await ActiveEffectPF2e.create(
