@@ -425,8 +425,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        InlineRollsLinks.listen(html);
         PostConstantData.listen(html);
+        InlineRollsLinks.listen(html);
+
 
         // Active Effect controls
         html.find('.tab.effects table th a[data-action="create"]').on("click", async () => {

@@ -231,8 +231,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /* -------------------------------------------- */
 
         if (this.actor.type !== "character") {
-            InlineRollsLinks.listen(html);
             PostConstantData.listen(html);
+            InlineRollsLinks.listen(html);
         }
 
         // Roll Save Checks
