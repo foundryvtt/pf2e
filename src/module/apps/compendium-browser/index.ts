@@ -317,7 +317,7 @@ export class CompendiumBrowser extends Application {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: Record<string, CompendiumIndexData> = {};
-        const indexFields = ["img", "data.actionType.value"];
+        const indexFields = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("action"), indexFields)) {
@@ -334,6 +334,10 @@ export class CompendiumBrowser extends Application {
                     if (actionData.data.actionType.value === "passive") actionData.img = this._getActionImg("passive");
                     // record the pack the feat was read from
                     actionData.compendium = pack.collection;
+                    actionData.filters = {
+                        traits: actionData.data.traits.value,
+                        source: actionData.data.source.value,
+                    };
                     actions[actionData._id] = actionData;
 
                     CompendiumBrowser.extractSources(actionData, sources, actionData.data.source);
@@ -1094,7 +1098,7 @@ export class CompendiumBrowser extends Application {
         return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
-    _getActionImg(action: string) {
+    _getActionImg(action: string): string {
         const img: Record<string, string> = {
             1: "systems/pf2e/icons/actions/OneAction.webp",
             2: "systems/pf2e/icons/actions/TwoActions.webp",
@@ -1117,7 +1121,7 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async filterItems(li: JQuery) {
+    async filterItems(li: JQuery): Promise<void> {
         let counter = 0;
         li.hide();
         for (const spell of li) {
@@ -1133,7 +1137,7 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    getFilterResult(element: HTMLElement) {
+    getFilterResult(element: HTMLElement): boolean {
         if (this.sorters.text) {
             const searches = this.sorters.text.split(",");
             for (const search of searches) {
@@ -1192,7 +1196,7 @@ export class CompendiumBrowser extends Application {
         return true;
     }
 
-    private resetFilters() {
+    private resetFilters(): void {
         this.sorters = {
             text: "",
             castingtime: "",
@@ -1300,7 +1304,11 @@ export class CompendiumBrowser extends Application {
         this.activateResultListeners();
     }
 
-    private static extractSources(indexData: CompendiumIndexData, sources: Set<string>, sourcePath: { value: string }) {
+    private static extractSources(
+        indexData: CompendiumIndexData,
+        sources: Set<string>,
+        sourcePath: { value: string }
+    ): void {
         if (sourcePath && sourcePath.value) {
             if (sourcePath.value.includes("pg.")) {
                 indexData.filters.source = sourcePath.value.split("pg.")[0].trim();
