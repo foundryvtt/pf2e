@@ -1,5 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { ABCSystemData } from "@item/abc/data";
+import { ItemFlagsPF2e } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ZeroToFour } from "@module/data";
 import type { ClassPF2e } from ".";
@@ -10,10 +11,18 @@ export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/class.svg";
 }
 
-export interface ClassData extends Omit<ClassSource, "_id" | "effects"> {
+export interface ClassData extends Omit<ClassSource, "effects"> {
     type: ClassSource["type"];
     data: ClassSource["data"];
+    flags: ClassFlagsPF2e;
     readonly _source: ClassSource;
+}
+
+interface ClassFlagsPF2e extends ItemFlagsPF2e {
+    pf2e: {
+        insertedClassFeaturesLevel?: number;
+        [key: string]: unknown;
+    };
 }
 
 interface ClassSystemData extends ABCSystemData {

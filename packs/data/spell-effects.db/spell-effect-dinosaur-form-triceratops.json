@@ -16,15 +16,9 @@
         "rules": [
             {
                 "key": "BattleForm",
-                "label": "Dinosaur Form (Triceratops)",
                 "overrides": {
                     "armorClass": {
-                        "ignoreCheckPenalty": true,
-                        "ignoreSpeedReduction": true
-                    },
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
+                        "modifier": "18 + @details.level.value"
                     },
                     "senses": {
                         "lowLightVision": {},
@@ -46,7 +40,6 @@
                                 "die": "d6"
                             },
                             "group": "brawling",
-                            "label": "Foot",
                             "traits": [
                                 "unarmed"
                             ]
@@ -60,7 +53,6 @@
                                 "die": "d8"
                             },
                             "group": "brawling",
-                            "label": "Horn",
                             "traits": [
                                 "unarmed"
                             ]
@@ -77,9 +69,6 @@
                             "end": 4,
                             "start": 4,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "18 + @details.level.value"
-                                },
                                 "size": "lg",
                                 "skills": {
                                     "ath": {
@@ -107,9 +96,6 @@
                             "end": 6,
                             "start": 5,
                             "value": {
-                                "armorClass": {
-                                    "modifier": "21 + @details.level.value"
-                                },
                                 "size": "huge",
                                 "skills": {
                                     "ath": {

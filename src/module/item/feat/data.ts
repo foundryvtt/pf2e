@@ -1,4 +1,4 @@
-import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
+import { ActionType, ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { OneToThree } from "@module/data";
 import { FeatPF2e } from ".";
@@ -9,7 +9,7 @@ export class FeatData extends BaseNonPhysicalItemData<FeatPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/feat.svg";
 }
 
-export interface FeatData extends Omit<FeatSource, "_id" | "effects"> {
+export interface FeatData extends Omit<FeatSource, "effects" | "flags"> {
     type: FeatSource["type"];
     data: FeatSource["data"];
     readonly _source: FeatSource;
@@ -28,7 +28,7 @@ interface FeatSystemData extends ItemSystemData, ItemLevelData {
         value: FeatType;
     };
     actionType: {
-        value: keyof ConfigPF2e["PF2E"]["actionTypes"];
+        value: ActionType;
     };
     actionCategory: {
         value: string;

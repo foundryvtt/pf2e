@@ -1,14 +1,15 @@
 import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
-import { ItemPF2e, ConsumablePF2e, SpellPF2e } from "@item";
+import { ItemPF2e, ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { CharacterPF2e } from "@actor/character";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { Rollable } from "@actor/data/base";
 
 /**
  * Base class for NPC and character sheets
@@ -32,23 +33,23 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             case "spell":
                 if (chatData.isSave) {
                     buttons.append(
-                        `<span class="tag">${game.i18n.localize("PF2E.SaveDCLabel")} ${chatData.save.dc} ${
-                            chatData.save.basic
-                        } ${chatData.save.str}</span>`
+                        `<span>${game.i18n.localize("PF2E.SaveDCLabel")} ${chatData.save.dc} ${chatData.save.basic} ${
+                            chatData.save.str
+                        }</span>`
                     );
                 }
 
                 if (this.actor instanceof CharacterPF2e) {
                     if (chatData.isAttack) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
+                            `<span><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
                                 "PF2E.AttackLabel"
                             )}</button></span>`
                         );
                     }
                     if (chatData.hasDamage) {
                         buttons.append(
-                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
+                            `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
                         );
                     }
                 }
@@ -57,7 +58,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             case "consumable":
                 if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
                     buttons.append(
-                        `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
+                        `<span><button class="consume" data-action="consume">${game.i18n.localize(
                             "PF2E.ConsumableUseLabel"
                         )} ${item.name}</button></span>`
                     );
@@ -95,8 +96,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override getData(options?: ActorSheetOptions) {
+        const sheetData: any = super.getData(options);
         // Update martial-proficiency labels
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
@@ -224,7 +225,19 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [property]: value }]);
         });
 
-        // Roll Recovery Flat Check when Dying
+        // Roll skill checks
+        html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
+            const skills: Record<string, Rollable | undefined> = this.actor.data.data.skills;
+            const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
+            const skill = skills[key];
+            if (skill) {
+                const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const options = this.actor.getRollOptions(["all", "skill-check", longForms[key] ?? key]);
+                skill.roll({ event, options });
+            }
+        });
+
+        // Roll recovery flat check when Dying
         html.find(".recoveryCheck.rollable").on("click", () => {
             this.actor.rollRecovery();
         });
@@ -260,7 +273,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
-            const entryData = this.actor.itemTypes.spellcastingEntry.find((item) => item.id === index)?.data;
+            const entryData = this.actor.spellcasting.get(index)?.data;
             if (entryData && entryData.data.attack?.roll) {
                 entryData.data.attack.roll({ event });
             }
@@ -274,6 +287,25 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (item) {
                 item.rollSpellcastingEntryCheck(event);
             }
+        });
+
+        // Casting spells and consuming slots
+        html.find(".cast-spell-button").on("click", (event) => {
+            const $spellEl = $(event.currentTarget).closest(".item");
+            const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
+            const entry = this.actor.spellcasting.get(entryId);
+            if (!entry) {
+                console.warn("PF2E System | Failed to load spellcasting entry");
+                return;
+            }
+
+            const spell = entry.spells.get(itemId);
+            if (!spell) {
+                console.warn("PF2E System | Failed to load spell");
+                return;
+            }
+
+            entry.cast(spell, { slot: slotId, level: spellLvl });
         });
 
         // Action Rolling (strikes)
@@ -318,6 +350,40 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);
             this.actor.update({ "data.resources.focus.value": points });
         });
+
+        html.find(".toggle-signature-spell").on("click", (event) => {
+            this.onToggleSignatureSpell(event);
+        });
+    }
+
+    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+        const { containerId } = event.target.closest(".item-container").dataset;
+        const { itemId } = event.target.closest(".item").dataset;
+
+        if (!containerId || !itemId) {
+            return;
+        }
+
+        const spellcastingEntry = this.actor.items.get(containerId);
+        const spell = this.actor.items.get(itemId);
+
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
+            return;
+        }
+
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
+
+        if (!signatureSpells.includes(spell.id)) {
+            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
+                return;
+            }
+
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
+            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
+        } else {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
+            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
+        }
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max

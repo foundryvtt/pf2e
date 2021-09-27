@@ -165,6 +165,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -280,6 +283,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -395,6 +401,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -507,6 +514,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -616,6 +624,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -728,6 +737,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -855,6 +865,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -965,6 +976,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1078,6 +1090,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -1187,6 +1200,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -1301,6 +1315,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -1415,6 +1430,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -1967,30 +1983,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -2116,13 +2109,10 @@
                     "rarity": {
                         "value": "unique"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
-                    "value": ""
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
                     "value": "-"
@@ -2219,13 +2209,10 @@
                     "rarity": {
                         "value": "unique"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
-                    "value": ""
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
                     "value": "-"
@@ -2361,9 +2348,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "consumable",
@@ -2522,9 +2506,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2675,9 +2656,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "consumable",
@@ -2867,7 +2845,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Auldegrund is reduced to 60 or fewer Hit Points;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> Auldegrund calls out, in Infernal, \"Give me the strength to slay these foes in your name, almighty Alocer!\" As he does so, his skin darkens to red, diabolic horns jut from his brow, a flaming lion-like mane appears around his head, burning wings burst from his shoulders, and his weapons ignite with black fire.</p>\n<p>He immediately heals [[/r 3d6+7 #Hit Points]]{3d6+7 Hit Points}, gains a fly speed of 25 feet, and deals an additional [[/r 1d6 #fire]]{1d6 fire damage} with his melee and ranged Strikes.</p>\n<p>This is a risky gambit, though, for Alocer is not patient. At the end of each of Auldegrund's turns, he must attempt a <span data-pf2-check=\"flat\" data-pf2-dc=\"11\" data-pf2-label=\"End Invoke Alocer DC\" data-pf2-show-dc=\"gm\">flat check</span> (the DC of this flat check increases by 1 each round). On a failure, Alocer grows disappointed that Auldegrund has not defeated his foes and the effects of Invoke Alocer end immediately. This deals [[/r 3d6+7 #damage]]{3d6+7 damage} to Auldegrund, removes his fly speed and additional fire damage to weapon Strikes, and causes Auldegrund to become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Auldegrund is reduced to 60 or fewer Hit Points;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> Auldegrund calls out, in Infernal, \"Give me the strength to slay these foes in your name, almighty Alocer!\" As he does so, his skin darkens to red, diabolic horns jut from his brow, a flaming lion-like mane appears around his head, burning wings burst from his shoulders, and his weapons ignite with black fire.</p>\n<p>He immediately heals [[/r 3d6+7 #Hit Points]]{3d6+7 Hit Points}, gains a fly speed of 25 feet, and deals an additional [[/r 1d6 #fire]]{1d6 fire damage} with his melee and ranged Strikes.</p>\n<p>This is a risky gambit, though, for Alocer is not patient. At the end of each of Auldegrund's turns, he must attempt a <span data-pf2-check=\"flat\" data-pf2-dc=\"11\" data-pf2-label=\"End Invoke Alocer DC\" data-pf2-show-dc=\"gm\">flat check</span> (the DC of this flat check increases by 1 each round). On a failure, Alocer grows disappointed that Auldegrund has not defeated his foes and the effects of Invoke Alocer end immediately. This deals [[/r 3d6+7 #damage]]{3d6+7 damage} to Auldegrund, removes his fly speed and additional fire damage to weapon Strikes, and causes Auldegrund to become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
                 "requirements": {
                     "value": ""

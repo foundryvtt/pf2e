@@ -23,7 +23,8 @@ export class Migration649FocusToActor extends MigrationBase {
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (!isCreatureSource(actorData)) return;
-        if (!actorData.data.resources) actorData.data.resources = {};
+        const systemData: { resources: object } = actorData.data;
+        if (!systemData.resources) systemData.resources = {};
 
         // Focus points in descending order by max pool, and then "most recent".
         // Javascript sort is stable, so we first sort by order, filter to focus, and then sort by max.

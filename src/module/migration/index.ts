@@ -66,6 +66,13 @@ import { Migration662LinkToActorSizeDefaults } from "./migrations/662-link-to-ac
 import { Migration663FixSpellDamage } from "./migrations/663-fix-spell-damage";
 import { Migration664DeleteCUBConditions } from "./migrations/664-delete-cub-conditions";
 import { Migration665HandwrapsCorrections } from "./migrations/665-handwraps-corrections";
+import { Migration666UsageAndStowingContainers } from "./migrations/666-usage-and-stowing-containers";
+import { Migration667HPSubProperties } from "./migrations/667-hp-subproperties";
+import { Migration668ArmorSpeedPenalty } from "./migrations/668-armor-speed-penalty";
+import { Migration669NPCAttackEffects } from "./migrations/669-npc-attack-effects";
+import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
+import { Migration670AncestryVision } from "./migrations/670-ancestry-vision";
+import { Migration671NoPCItemsOnNonPCs } from "./migrations/671-no-pc-items-on-non-pcs";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -136,6 +143,13 @@ export class Migrations {
         Migration663FixSpellDamage,
         Migration664DeleteCUBConditions,
         Migration665HandwrapsCorrections,
+        Migration666UsageAndStowingContainers,
+        Migration667HPSubProperties,
+        Migration668ArmorSpeedPenalty,
+        Migration669NPCAttackEffects,
+        Migration670NoCustomTrait,
+        Migration670AncestryVision,
+        Migration671NoPCItemsOnNonPCs,
     ];
 
     static get latestVersion(): number {

@@ -1,6 +1,5 @@
-import type { ActorPF2e } from "@actor/index";
-import { CheckModifiersContext } from "@module/system/check-modifiers-dialog";
-import { RollDataPF2e } from "@system/rolls";
+import type { ActorPF2e } from "@actor";
+import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemType } from "@item/data";
@@ -10,6 +9,7 @@ import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
+import { DamageChatCard } from "@system/damage/chat-card";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Is this a damage (or a manually-inputed non-D20) roll? */
@@ -89,6 +89,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         if (this.isDamageRoll) {
             await DamageButtons.append(this, $html);
+
+            // Clean up styling of old damage messages
+            $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
         }
 
         CriticalHitAndFumbleCards.appendButtons(this, $html);
@@ -121,6 +124,20 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (token?.isVisible) {
             token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }
+    }
+
+    protected override async _preCreate(
+        data: PreDocumentId<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ): Promise<void> {
+        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
+            data.flags ??= {};
+            await DamageChatCard.preformat(this, data);
+            setProperty(data, "flags.pf2e.preformatted", "both");
+            this.data.update(data);
+        }
+        return super._preCreate(data, options, user);
     }
 
     protected override _onCreate(
@@ -160,6 +177,7 @@ interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.Ch
             origin?: { type: ItemType; uuid: string } | null;
             modifierName?: string;
             modifiers?: ModifierPF2e[];
+            preformatted?: "flavor" | "content" | "both";
         } & Record<string, unknown>;
     };
 }

@@ -11,5 +11,8 @@ declare global {
         [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ConstructorOf<T> = new (...args: any[]) => T;
+
+    type SetElement<TSet extends Set<unknown>> = TSet extends Set<infer TElement> ? TElement : never;
 }

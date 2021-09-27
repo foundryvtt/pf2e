@@ -1,12 +1,16 @@
 import { CharacterPF2e } from "@actor";
-import { CharacterData } from "@actor/data";
-import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
+import { ActorType, CharacterData } from "@actor/data";
+import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { sluggify } from "@module/utils";
 import { CreatureSizeRuleElement } from "../creature-size";
+import { ImmunityRuleElement } from "../iwr/immunity";
+import { ResistanceRuleElement } from "../iwr/resistance";
+import { WeaknessRuleElement } from "../iwr/weakness";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
 import { TempHPRuleElement } from "../temphp";
@@ -15,78 +19,100 @@ import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];
 
+    /** The label given to modifiers of AC, skills, and strikes */
+    modifierLabel: string;
+
+    protected static override validActorTypes: ActorType[] = ["character"];
+
+    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
+        super(data, item);
+        this.initialize(data);
+        this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
+        this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+    }
+
     static defaultIcons: Record<string, ImagePath | undefined> = [
         "antler",
         "beak",
+        "bone-shard",
+        "branch",
         "claw",
+        "cube-face",
         "fangs",
+        "fire-mote",
         "fist",
         "foot",
         "foreleg",
+        "gust",
         "horn",
         "jaws",
+        "lighting-lash",
         "mandibles",
+        "piercing-hymn",
         "pincer",
         "pseudopod",
+        "rock",
         "stinger",
         "tail",
         "talon",
+        "tendril",
+        "tentacle",
         "tongue",
+        "water-spout",
+        "wave",
         "wing",
     ].reduce((accumulated: Record<string, ImagePath | undefined>, strike) => {
         const path = `systems/pf2e/icons/unarmed-attacks/${strike}.webp` as const;
         return { ...accumulated, [strike]: path };
     }, {});
 
-    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
-        const dataIsValid =
-            typeof data.label === "string" &&
-            data.overrides instanceof Object &&
-            (data.value === undefined || data.value instanceof Object);
-        if (!dataIsValid) {
-            console.warn("PF2e System | Battle Form rule element failed to validate");
-            data.ignored = true;
-        }
-        if (!(item.actor instanceof CharacterPF2e)) {
-            console.warn("PF2e System | A Battle Form rule element may only be applied to a player character");
-            data.ignored = true;
-        }
-
-        super(data, item);
-        this.initialize(data);
-        this.overrides = this.resolveValue(this.data.value, this.data.overrides);
-    }
-
     /** Fill in base override data */
     private initialize(data: BattleFormSource): void {
+        if (this.ignored) return;
+
+        const { value } = data;
+        const dataIsValid = data.overrides instanceof Object && (value instanceof Object || value === undefined);
+        if (!dataIsValid) {
+            console.warn("PF2e System | Battle Form rule element failed to validate");
+            this.ignored = true;
+            return;
+        }
+
+        data.canCast ??= false;
+        data.canSpeak ??= false;
+        data.hasHands ??= false;
+        data.ownUnarmed ??= false;
+
         const overrides = (data.overrides ??= {});
         overrides.tempHP ??= null;
         overrides.traits ??= [];
         overrides.senses ??= {};
         overrides.size ??= null;
-        overrides.skills ??= {};
         overrides.speeds ??= {};
-        overrides.canCast ??= false;
-        overrides.canSpeak ??= false;
-        overrides.dismissable ??= true;
-        overrides.hasHands ??= false;
-        overrides.ownModifier ??= {};
+        overrides.armorClass = mergeObject(
+            { modifier: 0, ignoreCheckPenalty: true, ignoreSpeedPenalty: true },
+            overrides.armorClass ?? {}
+        );
 
-        const armorClass = (overrides.armorClass ??= {});
-        armorClass.modifier ??= 0;
-        armorClass.ownModifierBonus ??= null;
-        armorClass.ignoreCheckPenalty ??= false;
-        armorClass.ignoreSpeedReduction ??= false;
+        const skills = (overrides.skills ??= {});
+        for (const skillData of Object.values(skills)) {
+            skillData.ownIfHigher ??= true;
+        }
 
         const strikes = (overrides.strikes ??= {});
         for (const [key, strikeData] of Object.entries(strikes)) {
             strikeData.label = game.i18n.localize(strikeData.label);
             strikeData.img ??= BattleFormRuleElement.defaultIcons[key] ?? this.item.img;
+            strikeData.ownIfHigher ??= true;
         }
+
+        overrides.immunities ??= [];
+        overrides.weaknesses ??= [];
+        overrides.resistances ??= [];
     }
 
     /** Set temporary hit points */
-    onCreate(actorUpdates: Record<string, unknown>): void {
+    override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
 
         const tempHP = this.overrides.tempHP;
@@ -98,33 +124,28 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Add any new traits and remove the armor check penalty if this battle form ignores it */
-    onBeforePrepareData(): void {
+    override onBeforePrepareData(): void {
         if (this.ignored) return;
-
-        const { rollOptions } = this.actor.data.flags.pf2e;
+        const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
             console.warn("PF2e System | You are already under the effect of a polymorph effect");
             this.ignored = true;
             return;
         }
-        rollOptions.all["polymorph"] = true;
-        rollOptions.all["battle-form"] = true;
+        this.setRollOptions();
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
-        if (this.overrides.armorClass.ignoreCheckPenalty) {
-            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-check-penalty"] = true;
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
+            const speedRollOptions = (this.actor.rollOptions.speed ??= {});
+            speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
-        if (this.overrides.armorClass.ignoreSpeedReduction) {
-            this.actor.data.flags.pf2e.rollOptions.all["armor:ignore-speed-penalty"] = true;
-        }
-        this.prepareLandSpeed();
     }
 
-    onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
+    override onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
         this.prepareAC();
@@ -133,15 +154,36 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSkills();
         this.prepareSpeeds(synthetics);
         this.prepareStrikes(synthetics);
+        this.prepareIWR();
     }
 
     /** Remove temporary hit points */
-    onDelete(actorUpdates: Record<string, unknown>): void {
+    override onDelete(actorUpdates: Record<string, unknown>): void {
+        if (this.ignored) return;
+
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.data.label, value: tempHP }, this.item).onDelete(
                 actorUpdates
             );
+        }
+    }
+
+    private setRollOptions(): void {
+        const { rollOptions } = this.actor;
+        rollOptions.all["polymorph"] = true;
+        rollOptions.all["battle-form"] = true;
+        rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
+        rollOptions.all["armor:ignore-speed-penalty"] = this.overrides.armorClass.ignoreSpeedPenalty;
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
+            const speedRollOptions = (rollOptions.speed ??= {});
+            speedRollOptions["armor:ignore-speed-penalty"] = true;
+        }
+        // Inform predicates that this battle form grants a skill modifier
+        for (const key of SKILL_ABBREVIATIONS) {
+            if (!(key in this.overrides.skills)) continue;
+            const longForm = SKILL_DICTIONARY[key];
+            rollOptions.all[`battle-form:${longForm}`] = true;
         }
     }
 
@@ -152,19 +194,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         const acOverride: number = this.resolveValue(overrides.armorClass.modifier, armorClass.totalModifier) ?? 0;
         if (!acOverride) return;
 
-        if (!overrides.ownModifier.armorClass || acOverride >= armorClass.totalModifier) {
-            this.suppressModifiers(armorClass);
-            const newModifier: number = this.resolveValue(overrides.armorClass.modifier);
-            armorClass.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
-            armorClass.value = armorClass.totalModifier;
-        } else if (
-            overrides.ownModifier.armorClass &&
-            armorClass.totalModifier > acOverride &&
-            overrides.armorClass.ownModifierBonus
-        ) {
-            // If one is granted, add a bonus for using the character's own modifier
-            armorClass.push(new ModifierPF2e(this.data.label, overrides.armorClass.ownModifierBonus, "status"));
-        }
+        this.suppressModifiers(armorClass);
+        const newModifier: number = this.resolveValue(overrides.armorClass.modifier);
+        armorClass.unshift(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
+        armorClass.value = armorClass.totalModifier;
     }
 
     /** Add new senses the character doesn't already have */
@@ -186,12 +219,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         new CreatureSizeRuleElement(ruleData, this.item).onBeforePrepareData();
     }
 
-    private prepareLandSpeed(): void {
-        if (typeof this.overrides.speeds.land === "number") {
-            this.actor.data.data.attributes.speed.value = String(this.overrides.speeds.land);
-        }
-    }
-
     /** Add, replace and/or adjust non-land speeds */
     private prepareSpeeds(synthetics: RuleElementSynthetics): void {
         const { attributes } = this.actor.data.data;
@@ -203,7 +230,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
             if (movementType === "land") {
                 const landSpeed = attributes.speed;
-                this.suppressArmorSpeedPenalty(attributes.speed);
                 this.suppressModifiers(attributes.speed);
                 attributes.speed.totalModifier = landSpeed.total = speedOverride + landSpeed.totalModifier;
                 const label = game.i18n.format("PF2E.SpeedBaseLabel", {
@@ -231,7 +257,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                     value: String(speedOverride),
                 });
                 const newSpeed = this.actor.prepareSpeed(movementType, synthetics);
-                this.suppressArmorSpeedPenalty(newSpeed);
                 this.suppressModifiers(newSpeed);
                 newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
                 newSpeed.breakdown = [`${label} ${speedOverride}`]
@@ -259,13 +284,13 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSkill) continue;
 
             const currentSkill = this.actor.data.data.skills[key];
-            if (currentSkill.totalModifier > newSkill.modifier && this.overrides.ownModifier.skills) {
+            if (currentSkill.totalModifier > newSkill.modifier && newSkill.ownIfHigher) {
                 continue;
             }
             const newModifier: number = this.resolveValue(newSkill.modifier);
 
             this.suppressModifiers(currentSkill);
-            currentSkill.unshift(new ModifierPF2e(this.data.label, newModifier, "untyped"));
+            currentSkill.unshift(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
             currentSkill.value = currentSkill.totalModifier;
         }
     }
@@ -274,7 +299,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private prepareStrikes(synthetics: RuleElementSynthetics): void {
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
-            label: strikeData.label,
+            label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             img: strikeData.img,
             ability: strikeData.ability,
@@ -286,30 +311,55 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             traits: strikeData.traits,
         }));
 
-        // Repopulate strikes with new WeaponPF2e instances
-        synthetics.strikes.length = 0;
+        // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
+        if (this.data.ownUnarmed) {
+            synthetics.strikes = synthetics.strikes.filter((weapon) => weapon.category === "unarmed");
+            this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
+        } else {
+            synthetics.strikes.length = 0;
+        }
 
         for (const datum of ruleData) {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
             new StrikeRuleElement(datum, this.item).onBeforePrepareData(this.actor.data, synthetics);
         }
-        this.actor.data.data.actions = synthetics.strikes.map((weapon) =>
-            this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES], synthetics })
-        );
+        this.actor.data.data.actions = this.data.ownUnarmed
+            ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
+            : synthetics.strikes.map((weapon) =>
+                  this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES], synthetics })
+              );
         for (const action of this.actor.data.data.actions) {
             const strike = this.overrides.strikes[action.slug!];
-            if (strike.modifier >= action.totalModifier || !this.overrides.ownModifier.strikes) {
+            if (!this.data.ownUnarmed && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);
                 const baseModifier: number = this.resolveValue(strike.modifier);
-                action.unshift(new ModifierPF2e(this.label.replace(/\s*\([^)]+\)$/, ""), baseModifier, "untyped"));
+                action.unshift(new ModifierPF2e(this.modifierLabel, baseModifier, "untyped"));
 
                 // Also replace the label
                 const title = game.i18n.localize("PF2E.RuleElement.Strike");
                 const sign = action.totalModifier < 0 ? "" : "+";
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
+            } else {
+                this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
             }
+        }
+    }
+
+    /** Immunity, weakness, and resistance */
+    private prepareIWR(): void {
+        for (const immunity of this.overrides.immunities) {
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).onBeforePrepareData();
+        }
+        for (const weakness of this.overrides.weaknesses) {
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).onBeforePrepareData();
+        }
+        for (const resistance of this.overrides.resistances) {
+            new ResistanceRuleElement(
+                { key: "Resistance", ...resistance, override: true },
+                this.item
+            ).onBeforePrepareData();
         }
     }
 
@@ -325,22 +375,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         statistic.applyStackingRules();
     }
 
-    /** Find and remove armor speed penalty */
-    private suppressArmorSpeedPenalty(statistic: StatisticModifier): void {
-        for (const modifier of statistic.modifiers) {
-            if (modifier.predicate.not.includes("unburdened-iron") && modifier.modifier < 0) {
-                modifier.predicate.not.push("battle-form");
-                modifier.ignored = true;
-                modifier.enabled = false;
-            }
-        }
-    }
-
-    applyDamageExclusion(modifiers: RawModifier[]): void {
+    override applyDamageExclusion(modifiers: RawModifier[]): void {
+        if (this.data.ownUnarmed) return;
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
 
-            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier > 0;
+            const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
             const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
             const isBattleFormModifier = !!(
@@ -359,8 +399,10 @@ export interface BattleFormRuleElement extends RuleElementPF2e {
     data: BattleFormData;
 }
 
-export interface BattleFormData extends RuleElementData, Omit<BattleFormSource, "ignored" | "predicate" | "priority"> {
-    label: "BattleForm";
+type PickedProperties = "overrides" | "canCast" | "canSpeak" | "hasHands" | "ownUnarmed";
+type RequiredBattleFormSource = Required<Pick<BattleFormSource, PickedProperties>>;
+interface BattleFormData extends RuleElementData, RequiredBattleFormSource {
+    key: "BattleForm";
     overrides: Required<BattleFormOverrides> & {
         armorClass: Required<BattleFormAC>;
     };

@@ -181,13 +181,13 @@ describe("test damage calculation", () => {
 
     test("immune to non lethal has to be set on all damage types", () => {
         const damage = new Map<DamageType, DamageValues>();
-        damage.set("piercing", new DamageValues({ normal: 2, traits: new Set(["nonlethal attacks"]) }));
-        damage.set("fire", new DamageValues({ normal: 2, traits: new Set(["nonlethal attacks"]) }));
+        damage.set("piercing", new DamageValues({ normal: 2, traits: new Set(["nonlethal-attacks"]) }));
+        damage.set("fire", new DamageValues({ normal: 2, traits: new Set(["nonlethal-attacks"]) }));
         damage.set("cold", new DamageValues({ normal: 3 }));
         expect(
             calculateDamage({
                 damage,
-                immunities: [new Immunity({ type: "nonlethal attacks" })],
+                immunities: [new Immunity({ type: "nonlethal-attacks" })],
             })
         ).toBe(3);
     });
@@ -285,7 +285,7 @@ describe("test damage calculation", () => {
         const damage = new Map<DamageType, DamageValues>();
         damage.set("bleed", new DamageValues({ normal: 1 }));
         damage.set("poison", new DamageValues({ normal: 2 }));
-        damage.set("piercing", new DamageValues({ normal: 4, traits: new Set(["nonlethal attacks"]) }));
+        damage.set("piercing", new DamageValues({ normal: 4, traits: new Set(["nonlethal-attacks"]) }));
         damage.set("mental", new DamageValues({ normal: 8 }));
         damage.set("piercing", new DamageValues({ normal: 16 }));
         expect(

@@ -2,12 +2,12 @@
     <h1>{{date}} ({{time}})</h1>
     {{#if user.isGM}}
         <div class="input-grid">
-            <button type="button" data-advance-time="6">{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
-            <button type="button" data-advance-time="60">{{localize "PF2E.WorldClock.Button.AddOneMinute"}}</button>
-            <button type="button" data-advance-time="600">{{localize "PF2E.WorldClock.Button.AddTenMinutes"}}</button>
-            <button type="button" data-advance-time="3600">{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
-            <button type="button" data-advance-time="86400">{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
-            <button type="button" data-advance-time="604800">{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
+            <button type="button" data-advance-time="{{sign}}6"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneRound"}}</button>
+            <button type="button" data-advance-time="{{sign}}60"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneMinute"}}</button>
+            <button type="button" data-advance-time="{{sign}}600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddTenMinutes"}}</button>
+            <button type="button" data-advance-time="{{sign}}3600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
+            <button type="button" data-advance-time="{{sign}}86400"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
+            <button type="button" data-advance-time="{{sign}}604800"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
         </div>
         <hr>
         <div class="input-grid">
@@ -20,7 +20,7 @@
                 <option value="86400">{{localize "PF2E.Time.Unit.Days"}}</option>
                 <option value="604800">{{localize "PF2E.Time.Unit.Weeks"}}</option>
             </select>
-            <button type="button" name="advance">{{localize "PF2E.WorldClock.Button.Advance"}}</button>
+            <button type="button" name="advance">{{#if (eq sign "+")}}{{localize "PF2E.WorldClock.Button.Advance"}}{{else}}{{localize "PF2E.WorldClock.Button.Retract"}}{{/if}}</button>
         </div>
     {{/if}}
 </section>

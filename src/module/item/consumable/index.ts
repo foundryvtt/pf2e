@@ -148,7 +148,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         if (!spell) return;
         const actor = this.actor;
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        const realEntries = actor.itemTypes.spellcastingEntry
+        const realEntries = actor.spellcasting
             .map((entry) => entry.data)
             .filter((i) => ["prepared", "spontaneous"].includes(i.data.prepared.value))
             .filter((i) => tupleHasValue(spell.data.data.traditions.value, i.data.tradition.value));

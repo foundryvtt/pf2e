@@ -8,7 +8,7 @@ export class EffectData extends BaseNonPhysicalItemData<EffectPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/effect.svg";
 }
 
-export interface EffectData extends Omit<EffectSource, "_id" | "effects"> {
+export interface EffectData extends Omit<EffectSource, "effects" | "flags"> {
     type: EffectSource["type"];
     data: EffectSource["data"];
     readonly _source: EffectSource;

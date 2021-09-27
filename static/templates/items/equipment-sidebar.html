@@ -15,19 +15,19 @@
         <label>{{localize "PF2E.Rarity"}}</label>
         <select name="data.traits.rarity.value" data-dtype="String">
             {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+                {{#each rarity as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
-        <select name="data.traits.usage.value" data-dtype="String">
-            {{#select data.traits.usage.value}}
-            {{#each usage as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+        <select name="data.usage.value" data-dtype="String">
+            {{#select data.usage.value}}
+                {{#each usage as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -35,10 +35,10 @@
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
             {{#select data.weight.value}}
-            <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-            {{#each bulkTypes as |name type|}}
-            <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -60,10 +60,10 @@
         <label>{{localize "PF2E.StackGroupLabel"}}</label>
         <select name="data.stackGroup.value" data-dtype="String">
             {{#select data.stackGroup.value}}
-            <option value="">{{localize "PF2E.NoStackGroup"}}</option>
-            {{#each stackGroups as |name type|}}
-            <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
+                <option value="">{{localize "PF2E.NoStackGroup"}}</option>
+                {{#each stackGroups as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -85,9 +85,9 @@
     </div>
 
     <ol class="item-tags tags">
-      {{#if data.equipped.value}}
-          <li class="tag tag_transparent">{{localize "PF2E.EquipmentEquippedLabel"}}</li>
-      {{/if}}
+        {{#if data.equipped.value}}
+            <li class="tag tag_transparent">{{localize "PF2E.EquipmentEquippedLabel"}}</li>
+        {{/if}}
     </ol>
     <ol class="item-tags tags">
         {{#each traits as |trait|}}

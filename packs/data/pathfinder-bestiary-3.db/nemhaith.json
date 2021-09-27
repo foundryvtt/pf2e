@@ -172,6 +172,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -1167,7 +1170,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Drain Life"
+                        "drain-life"
                     ]
                 },
                 "bonus": {
@@ -1218,7 +1221,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Drain Life"
+                        "drain-life"
                     ]
                 },
                 "bonus": {
@@ -1518,7 +1521,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

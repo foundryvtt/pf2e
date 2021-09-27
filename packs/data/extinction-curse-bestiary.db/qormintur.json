@@ -140,6 +140,9 @@
                 "ability": {
                     "value": "cha"
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
@@ -151,6 +154,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -259,10 +265,14 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -368,10 +378,14 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -601,6 +615,9 @@
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -776,6 +793,9 @@
                 "slug": "acid-flask-greater",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 3
@@ -955,6 +975,9 @@
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
                 "splashDamage": {
                     "value": 3
                 },
@@ -1101,30 +1124,7 @@
                     "value": "greaterResilient"
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -1263,9 +1263,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -1526,9 +1523,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "alchemical",
                         "consumable",
@@ -1685,9 +1679,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -1834,9 +1825,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "alchemical",
@@ -1992,9 +1980,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "alchemical",

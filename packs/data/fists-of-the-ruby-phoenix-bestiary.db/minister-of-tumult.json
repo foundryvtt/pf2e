@@ -159,6 +159,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -274,6 +277,7 @@
                     "value": "focus"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -384,6 +388,7 @@
                     "value": "focus"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -495,6 +500,7 @@
                     "value": "focus"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -974,7 +980,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -1109,7 +1122,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The minister rolls initiative or their turn begins;</p>\n<p><strong>Effect</strong> The minister is attuned to coming violence. The minister uses Stance of Death.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The minister rolls initiative or their turn begins;</p>\n<p><strong>Effect</strong> The minister is attuned to coming violence. The minister uses Stance of Death.</p>"
                 },
                 "requirements": {
                     "value": ""

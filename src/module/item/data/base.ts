@@ -14,6 +14,7 @@ export interface BaseItemSourcePF2e<
 > extends foundry.data.ItemSource {
     type: TItemType;
     data: TSystemData;
+    flags: DeepPartial<ItemFlagsPF2e>;
 }
 
 export abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extends foundry.data.ItemData<
@@ -27,14 +28,23 @@ export abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extend
 export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
     type: BaseItemSourcePF2e["type"];
     data: BaseItemSourcePF2e["data"];
+    flags: ItemFlagsPF2e;
 
     readonly _source: BaseItemSourcePF2e;
 }
 
 export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait;
 
+export type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
+
 export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
     rarity: { value: Rarity };
+}
+
+export interface ItemFlagsPF2e extends foundry.data.ItemFlags {
+    pf2e: {
+        [key: string]: unknown;
+    };
 }
 
 export interface ItemLevelData {

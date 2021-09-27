@@ -58,7 +58,7 @@
                 "value": "CE"
             },
             "creatureType": "Undead",
-            "flavorText": "<p>When a living, sentient humanoid is exposed to an extreme expression of supernatural evil, the experience can irrevocably damn the victim, crushing their mind and ripping out their soul in an appalling, unholy transformation that results in a creature that's anathema to life-the bodak.<br /><br />The shreds of physicality that survive this absolute corruption serve only to enhance the humanoid's profoundly disturbing appearance. The bodak's body is horrifically twisted, as though it's locked in a convulsion of agony and terror. Its desiccated and hairless flesh bears an otherworldly, pearlescent sheen, strung taut across a malformed skeleton that reduces its gait to a slow shamble. But most disturbing of all are its eyes, set in a drooping, melted visage with scant remains of its former facial structure. These eyes, sunken deep into their sockets, nevertheless glow with an unholy light, stare with unremitting malevolence, and constantly weep noxious vapor.<br /><br />Fragmented memories of a prior existence filtered through a vengeful hatred of the living lead the bodak to try to return to those places it once knew. If successful, it assaults former friends, acquaintances, and loved ones with its murderous gaze and an incomprehensible torrent of gibberish laced with vile curses, accusations, and threats-an assault that often leads to the victims rising as newly formed bodaks themselves.</p>",
+            "flavorText": "<p>When a living, sentient humanoid is exposed to an extreme expression of supernatural evil, the experience can irrevocably damn the victim, crushing their mind and ripping out their soul in an appalling, unholy transformation that results in a creature that's anathema to life-the bodak.</p>\n<p>The shreds of physicality that survive this absolute corruption serve only to enhance the humanoid's profoundly disturbing appearance. The bodak's body is horrifically twisted, as though it's locked in a convulsion of agony and terror. Its desiccated and hairless flesh bears an otherworldly, pearlescent sheen, strung taut across a malformed skeleton that reduces its gait to a slow shamble. But most disturbing of all are its eyes, set in a drooping, melted visage with scant remains of its former facial structure. These eyes, sunken deep into their sockets, nevertheless glow with an unholy light, stare with unremitting malevolence, and constantly weep noxious vapor.</p>\n<p>Fragmented memories of a prior existence filtered through a vengeful hatred of the living lead the bodak to try to return to those places it once knew. If successful, it assaults former friends, acquaintances, and loved ones with its murderous gaze and an incomprehensible torrent of gibberish laced with vile curses, accusations, and threats-an assault that often leads to the victims rising as newly formed bodaks themselves.</p>",
             "level": {
                 "value": 8
             },
@@ -298,7 +298,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -387,7 +394,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} starts its turn;</p>\n<p><strong>Effect</strong> The target must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"aura,death,necromancy,occult,visual\" data-pf2-label=\"Draining Glance DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If it fails, the bodak regains 5 Hit Points and the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} starts its turn;</p>\n<p><strong>Effect</strong> The target must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"aura,death,necromancy,occult,visual\" data-pf2-label=\"Draining Glance DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If it fails, the bodak regains 5 Hit Points and the target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
                 },
                 "requirements": {
                     "value": ""

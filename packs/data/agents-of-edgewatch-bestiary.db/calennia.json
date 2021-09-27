@@ -253,6 +253,9 @@
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -420,6 +423,9 @@
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -757,9 +763,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -791,9 +794,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "1d6 lawful vs. chaotic creatures"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 31
@@ -805,9 +806,23 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #lawful]]{1d6 lawful damage} against chaotic creatures</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "lawful",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "vs. Chaotic Creatures",
+                        "predicate": {
+                            "all": [
+                                "target:chaotic"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -833,7 +848,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "scourge",
+            "name": "Scourge",
             "sort": 500000,
             "type": "melee"
         },
@@ -882,7 +897,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "heavy crossbow",
+            "name": "Heavy Crossbow",
             "sort": 600000,
             "type": "melee"
         },
@@ -943,7 +958,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1033,7 +1048,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet is reduced to 0 Hit Points; <strong>Effect</strong> Calennia targets the creature with a <i>death knell</i> spell (DC 34). If the target dies, all of Calennia's enemies within 60 feet are targeted by a <i>fear</i> spell (DC 34). A creature that succeeds at either save is temporarily immune to this ability for 24 hours.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature within 30 feet is reduced to 0 Hit Points; <strong>Effect</strong> Calennia targets the creature with a <i>death knell</i> spell (DC 34). If the target dies, all of Calennia's enemies within 60 feet are targeted by a <i>fear</i> spell (DC 34). A creature that succeeds at either save is temporarily immune to this ability for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""

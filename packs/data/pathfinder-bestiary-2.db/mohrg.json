@@ -193,7 +193,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Paralysis"
+                        "paralysis"
                     ]
                 },
                 "bonus": {
@@ -294,7 +294,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

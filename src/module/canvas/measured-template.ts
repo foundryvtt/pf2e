@@ -8,7 +8,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
     /** Highlight grid according to Pathfinder 2e effect-area shapes */
     override highlightGrid(): void {
-        if (!["circle", "cone"].includes(this.data.t)) {
+        if (!["circle", "cone"].includes(this.type) || canvas.scene?.data.gridType !== CONST.GRID_TYPES.SQUARE) {
             return super.highlightGrid();
         }
 
@@ -103,10 +103,10 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
     /** Measure distance using Pathfinder 2e grid-counting rules */
     static measureDistance(p0: Point, p1: Point): number {
-        const gs = canvas.dimensions.size;
+        const gridSize = canvas.dimensions.size;
         const ray = new Ray(p0, p1);
-        const nx = Math.ceil(Math.abs(ray.dx / gs));
-        const ny = Math.ceil(Math.abs(ray.dy / gs));
+        const nx = Math.ceil(Math.abs(ray.dx / gridSize));
+        const ny = Math.ceil(Math.abs(ray.dy / gridSize));
 
         // Get the number of straight and diagonal moves
         const nDiagonal = Math.min(nx, ny);

@@ -1,4 +1,4 @@
-import { DamageDicePF2e, ProficiencyModifier } from "../modifiers";
+import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
@@ -13,8 +13,8 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
-import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
-import { AbilityString, ActorFlagsPF2e, BaseActorDataPF2e } from "./data/base";
+import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
+import { BaseActorDataPF2e, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -40,6 +40,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
+    /** A separate collection of owned spellcasting entries for convenience */
+    spellcasting!: Collection<Embedded<SpellcastingEntryPF2e>>;
+
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
 
@@ -47,6 +50,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
+            this.spellcasting ??= new Collection();
             this.rules ??= [];
             this.initialized = true;
         } else {
@@ -94,6 +98,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get visionLevel(): VisionLevel {
         return VisionLevels.NORMAL;
+    }
+
+    get rollOptions(): RollOptionFlags {
+        return this.data.flags.pf2e.rollOptions;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -218,9 +226,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         );
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
-        // Prepare container contents now that this actor's embedded documents are ready
+        const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
+            (item) => item instanceof SpellcastingEntryPF2e
+        );
+        this.spellcasting = new Collection(spellcastingEntries.map((entry) => [entry.id, entry]));
+
+        // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
             item.prepareSiblingData?.();
+            item.prepareActorData?.();
         }
 
         // Rule elements
@@ -350,65 +364,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /* -------------------------------------------- */
 
     /**
-     * Roll a Skill Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    rollSkill(event: JQuery.Event, skillName: SkillAbbreviation) {
-        const skl: SkillData = this.data.data.skills[skillName];
-        const rank: string = CONFIG.PF2E.proficiencyLevels[skl.rank];
-        const parts = ["@mod", "@itemBonus"];
-        const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: skl.value - skl.item,
-                itemBonus: skl.item,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
-    }
-
-    /**
-     * Roll a Lore (Item) Skill Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     * @param skill {String}    The skill id
-     */
-    rollLoreSkill(event: JQuery.Event, item: Embedded<ItemPF2e>) {
-        const itemData = item.data;
-        if (itemData.type !== "lore") {
-            throw Error("Can only roll lore skills using lore items");
-        }
-
-        const parts = ["@mod", "@itemBonus"];
-        const flavor = `${item.name} Skill Check`;
-
-        let rollMod = 0;
-        if (this.data.type === "character") {
-            const rank = itemData.data.proficient.value || 0;
-            const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
-            const modifier = this.data.data.abilities.int.mod;
-            rollMod = modifier + proficiency;
-        } else if (this.data.type === "npc") {
-            rollMod = itemData.data.mod.value;
-        }
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: rollMod,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
-    }
-
-    /**
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
@@ -425,25 +380,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 mod: save.value - (save.item ?? 0),
                 itemBonus: save.item ?? 0,
             },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
-    }
-
-    /**
-     * Roll an Ability Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    rollAbility(event: JQuery.Event, abilityName: AbilityString) {
-        const skl = this.data.data.abilities[abilityName];
-        const parts = ["@mod"];
-        const flavor = `${game.i18n.localize(CONFIG.PF2E.abilities[abilityName])} Check`;
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: { mod: skl.mod },
             title: flavor,
             speaker: ChatMessage.getSpeaker({ actor: this }),
         });
@@ -1023,11 +959,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
     getRollOptions(rollNames: string[]): string[] {
-        return ActorPF2e.getRollOptions(this.data.flags, rollNames);
-    }
-
-    static getRollOptions(flags: ActorFlagsPF2e, rollNames: string[]): string[] {
-        const rollOptions = flags.pf2e.rollOptions;
+        const rollOptions = this.data.flags.pf2e.rollOptions;
         return rollNames
             .flatMap((rollName) =>
                 // convert flag object to array containing the names of all fields with a truthy value
@@ -1040,10 +972,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 // ensure option entries are unique
                 return unique.includes(option) ? unique : unique.concat(option);
             }, []);
-    }
-
-    getAbilityMod(ability: AbilityString): number {
-        return this.data.data.abilities[ability].mod;
     }
 
     /* -------------------------------------------- */
@@ -1139,7 +1067,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
         const data: ActorSourcePF2e = JSON.parse(json);
-        this.data.update(this.collection.prepareForImport(data), { recursive: false });
+        this.data.update(game.actors.prepareForImport(data), { recursive: false });
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),

@@ -15,84 +15,60 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Pest Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": "15 + @details.level.value"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 10
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "label": "PF2E.SensesScent",
-                "range": 30,
-                "selector": "scent"
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Pest Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "acrobatics",
-                "value": 10
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Pest Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "stealth",
-                "value": 10
-            },
-            {
-                "key": "CreatureSize",
-                "value": "tiny"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true,
+                        "modifier": "15 + @details.level.value"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "tiny",
+                    "skills": {
+                        "acr": {
+                            "modifier": 10
+                        },
+                        "ath": {
+                            "modifier": -4,
+                            "ownIfHigher": false
+                        },
+                        "ste": {
+                            "modifier": 10
+                        }
+                    },
+                    "speeds": {
+                        "land": 10
+                    },
+                    "traits": [
+                        "animal"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "physical",
+                            "value": 10
+                        }
+                    ]
+                },
+                "ownUnarmed": true,
                 "value": {
                     "brackets": [
                         {
                             "start": 4,
-                            "value": "20"
+                            "value": {
+                                "speeds": {
+                                    "fly": 20
+                                }
+                            }
                         }
                     ],
                     "field": "item|data.level.value"
                 }
-            },
-            {
-                "key": "Note",
-                "selector": "athletics",
-                "text": "Reminder: While you are in Pest Form, your total Athletics modifier is -4."
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "token.width",
-                "value": 0.5
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "token.height",
-                "value": 0.5
             }
         ],
         "source": {

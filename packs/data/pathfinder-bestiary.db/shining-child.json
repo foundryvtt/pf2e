@@ -51,8 +51,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "50 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
                 "value": "30 feet"
@@ -63,7 +64,7 @@
                 "value": "CE"
             },
             "creatureType": "Astral",
-            "flavorText": "<p>Shining children are wicked, enigmatic monsters that roam remote planes and untraveled corners of the universe in search of esoteric lore. With their abnormally gaunt frames, long white hair, and unnerving, four-fingered hands, shining children are both strangely familiar and otherworldly in appearance, though they are barely visible within the shroud of blinding light they continually emit. Their faces are truly horrible, however, as their overlarge eyes and distended, gaping mouths reveal their heads to be voids filled with unnatural light. Shining children use this light as a weapon, weaving illusions and focusing beams of fiery brilliance.<br /><br /> Because of their reputation as scholars of the alien and the eldritch, shining children are sometimes summoned by powerful wizards or occultists in search of rare knowledge. The creatures never give away their lore without some price, though, and typically demand in return the performance of contemptible deeds that further their inscrutable, far-ranging plans.<br /><br /> These mysterious beings are natives of the Astral Plane. In that vast plane, accretions of metaphysical matter gradually accumulate and eventually coalesce into demiplanes. During this tumultuous process, sparks of living light sometimes shear off the newly formed planes, and these sparks of raw planar energy somehow transform into shining children. Every newly formed demiplane leaves a different mental imprint on its shining \"offspring,\" making it easy for shining children to telepathically recognize their brothers and sisters. Forever trapped in apparently adolescent bodies, shining children dedicate themselves to scholarship and violence with equal measure in a futile effort to understand their roles in the multiverse and the burning injustice of their births.<br /><br /> Shining children confuse most other creatures with their refusal to use individual names in favor of alternating between referring to each other singularly and collectively.</p>",
+            "flavorText": "<p>Shining children are wicked, enigmatic monsters that roam remote planes and untraveled corners of the universe in search of esoteric lore. With their abnormally gaunt frames, long white hair, and unnerving, four-fingered hands, shining children are both strangely familiar and otherworldly in appearance, though they are barely visible within the shroud of blinding light they continually emit. Their faces are truly horrible, however, as their overlarge eyes and distended, gaping mouths reveal their heads to be voids filled with unnatural light. Shining children use this light as a weapon, weaving illusions and focusing beams of fiery brilliance.</p>\n<p>Because of their reputation as scholars of the alien and the eldritch, shining children are sometimes summoned by powerful wizards or occultists in search of rare knowledge. The creatures never give away their lore without some price, though, and typically demand in return the performance of contemptible deeds that further their inscrutable, far-ranging plans.</p>\n<p>These mysterious beings are natives of the Astral Plane. In that vast plane, accretions of metaphysical matter gradually accumulate and eventually coalesce into demiplanes. During this tumultuous process, sparks of living light sometimes shear off the newly formed planes, and these sparks of raw planar energy somehow transform into shining children. Every newly formed demiplane leaves a different mental imprint on its shining \"offspring,\" making it easy for shining children to telepathically recognize their brothers and sisters. Forever trapped in apparently adolescent bodies, shining children dedicate themselves to scholarship and violence with equal measure in a futile effort to understand their roles in the multiverse and the burning injustice of their births.</p>\n<p>Shining children confuse most other creatures with their refusal to use individual names in favor of alternating between referring to each other singularly and collectively.</p>",
             "level": {
                 "value": 12
             },
@@ -156,6 +157,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -269,6 +273,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -364,6 +369,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -475,6 +481,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -582,6 +589,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -681,6 +689,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -779,6 +788,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -877,6 +887,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -973,6 +984,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1070,6 +1082,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1168,6 +1181,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1266,6 +1280,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1410,9 +1425,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "2d10 positive damage if the target is undead"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
                     "value": 25
@@ -1424,9 +1438,23 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>[[/r 2d10 #positive]]{2d10 postive damage} if the target is undead</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "positive",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "label": "vs. Undead",
+                        "predicate": {
+                            "all": [
+                                "target:undead"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1560,7 +1588,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The shining child enters an area of magical darkness or begins its turn in an area of magical darkness. <strong>Effect</strong> The shining child attempts to counteract the magical darkness (as a 7th-level spell).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The shining child enters an area of magical darkness or begins its turn in an area of magical darkness. <strong>Effect</strong> The shining child attempts to counteract the magical darkness (as a 7th-level spell).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1588,7 +1616,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Overwhelming Light",
             "sort": 1700000,
             "type": "action"

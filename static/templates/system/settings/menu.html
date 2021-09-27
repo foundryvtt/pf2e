@@ -1,0 +1,31 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <p class="instructions">{{localize instructions}}</p>
+    {{#each settings as |setting|}}
+        <!-- {{setting.key}} -->
+        <div class="form-group">
+            <label for="{{setting.key}}">{{localize setting.name}}</label>
+            <div class="form-fields">
+                {{#if setting.isSelect}}
+                    <select name="{{setting.key}}">
+                        {{#select setting.value}}
+                            {{#each setting.choices as |label value|}}
+                                <option value="{{value}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                {{else if setting.isCheckbox}}
+                    <input type="checkbox" name="{{setting.key}}" {{checked setting.value}} />
+                {{/if}}
+            </div>
+            <p class="notes">{{localize setting.hint}}</p>
+        </div>
+    {{/each}}
+    <div class="form-group buttons">
+        <button type="submit" name="submit">
+            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+        <button type="reset" name="reset">
+            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+        </button>
+    </div>
+</form>

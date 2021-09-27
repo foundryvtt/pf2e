@@ -10,41 +10,13 @@
     --alternate-background:darkgray;
 }
 
-/* Flexbox */
-.flexrow {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-
-    > * {
-        flex: 1;
-    }
-}
-
-.flexcol {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-
-    > * {
-        flex: 1;
-    }
-}
-
 .tab[data-tab].active {
     display: initial;
 }
 
-/* Damage Tags */
-
 /* ----------------------------------------- */
 /* Sheet Structure                           */
 /* ----------------------------------------- */
-
-.window-app .window-content {
-    background: url("../assets/sheet/parchment.webp") repeat;
-}
 
 .pf2e {
     &.sheet {
@@ -1778,6 +1750,9 @@
                         min-width: 230px;
                     }
                 }
+                button {
+                    cursor: pointer;
+                }
             }
 
             .feat-name {
@@ -1841,19 +1816,9 @@
     }
 }
 
-/* ----------------------------------------- */
-/* Generic Sheet Styling
-/* ----------------------------------------- */
-
 /* ---------------------------------------- */
 /* Actor Sheet
 /* ---------------------------------------- */
-
-/* ###################### BIO ################################## */
-
-.add-coins-popup button, .sell-all-treasure button {
-    line-height: 17px;
-}
 
 .pf2e.actor {
     .inventory-list .list-row {
@@ -2112,7 +2077,8 @@
             }
         }
 
-        .prepared-toggle {
+        .prepared-toggle,
+        .slotless-level-toggle {
             flex: 0 0 20px;
             line-height: 24px;
             background: var(--primary-background);
@@ -2220,20 +2186,6 @@
             margin-left: 6px;
         }
     }
-}
-
-/* ----------------------------------------- */
-/* Special Traits and Flags
-/* ----------------------------------------- */
-
-#actor-flags h3.flags-section {
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #999;
-    border-radius: 3px;
-    padding: 3px;
-    margin: 0;
-    font-weight: bold;
-    font-size: inherit;
 }
 
 /* ----------------------------------------- */
@@ -2375,7 +2327,7 @@
 }
 
 /* ----------------------------------------- */
-/* Spell Browser
+/* Compendium tab
 /* ----------------------------------------- */
 
 #compendium {
@@ -2401,11 +2353,6 @@
                 }
             }
         }
-
-        .spell-browser-btn {
-            margin-left: 2%;
-            margin-right: 0;
-        }
     }
 
     .create-compendium {
@@ -2413,32 +2360,7 @@
     }
 }
 
-/* spellbrowser */
-
-/* resizing */
-
-.spell-browser-window {
-    resize: both;
-    overflow: auto;
-    max-width: 1100px;
-    max-height: 90vh;
-}
-
-button > i.far {
-    pointer-events: none;
-}
-
 /* Updated NPC Sheet Styles */
-
-.pf2e.actor .sheet-header {
-    .charname.updatednpcsheet {
-        flex: 1.5;
-    }
-
-    .charlevel.updatednpcsheet {
-        flex: 1;
-    }
-}
 
 .npc-detail-text {
     display: flex;
@@ -3014,26 +2936,6 @@ li.list-row.hover-container {
     &.active {
         visibility: visible;
     }
-}
-
-input[type="number"] {
-    width: calc(100% - 2px);
-    min-width: 20px;
-    height: 26px;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 1px 3px;
-    margin: 0;
-    color: #191813;
-    font-family: inherit;
-    font-size: inherit;
-    text-align: inherit;
-    line-height: inherit;
-    border: 1px solid #7a7971;
-    border-radius: 3px;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
 }
 
 .dice-roll .dice-tooltip.dmg-tooltip span {

@@ -14,7 +14,7 @@ export class ConsumableData extends BasePhysicalItemData<ConsumablePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/consumable.svg";
 }
 
-export interface ConsumableData extends Omit<ConsumableSource, "_id" | "effects"> {
+export interface ConsumableData extends Omit<ConsumableSource, "effects" | "flags"> {
     type: ConsumableSource["type"];
     data: ConsumableSource["data"];
     readonly _source: ConsumableSource;

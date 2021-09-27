@@ -84,7 +84,7 @@ export interface ClassSheetData extends ABCSheetData<ClassPF2e> {
 
 export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     featTypes: ConfigPF2e["PF2E"]["featTypes"];
-    featActionTypes: ConfigPF2e["PF2E"]["featActionTypes"];
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
     categories: ConfigPF2e["PF2E"]["actionCategories"];

@@ -109,6 +109,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     notAdjusted: boolean;
     inventory: SheetInventory;
     hasShield?: boolean;
+    configLootableNpc?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
@@ -168,14 +169,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            if (this.actor.isDead) {
+                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
+            } else {
+                return actorName;
+            }
         }
         return super.title;
     }
 
     override get isLootSheet(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /**
@@ -200,6 +204,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             (data): data is SheetItemData<EffectData> => data.type === "effect"
         );
         this.prepareSpellcasting(sheetData);
+    }
+
+    private prepareIWR(sheetData: NPCSheetData) {
+        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
+        for (const weakness of sheetData.data.traits.dv) {
+            weakness.label = weaknessTypes[weakness.type];
+        }
+
+        const resistanceTypes: Record<string, string> = CONFIG.PF2E.resistanceTypes;
+        for (const resistance of sheetData.data.traits.dr) {
+            resistance.label = resistanceTypes[resistance.type] ?? resistance.label;
+        }
     }
 
     override getData(): NPCSheetData {
@@ -229,7 +246,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
-        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
         // Shield
@@ -266,6 +283,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (this.isLootSheet) {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
+
+        sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         // Return data for rendering
         return sheetData;
@@ -555,10 +574,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         for (const item of sheetData.items) {
             if (item.type === "spellcastingEntry") {
-                const entry = this.actor.items.get(item._id);
-                if (!(entry instanceof SpellcastingEntryPF2e)) {
-                    continue;
-                }
+                const entry = this.actor.spellcasting.get(item._id);
+                if (!entry) continue;
 
                 // There are still some bestiary entries where these values are strings.
                 item.data.spelldc.dc = Number(item.data.spelldc.dc);
@@ -657,7 +674,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
         const data = { bonus };
-        const speaker = ChatMessage.getSpeaker({ token: this.token?.object, actor: this.actor });
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
         DicePF2e.d20Roll({
             event,
@@ -668,31 +685,23 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    rollNPCSkill(event: JQuery.ClickEvent, skillId: SkillAbbreviation) {
-        const skill = this.actor.data.data.skills[skillId];
+    rollSkill(event: JQuery.ClickEvent, skillKey: SkillAbbreviation) {
+        const skill = this.actor.data.data.skills[skillKey];
+        if (!skill?.roll) return;
 
-        if (skill === undefined) return;
+        const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+        const opts = this.actor.getRollOptions(["all", "skill-check", longForms[skillKey] ?? skillKey]);
+        const extraOptions = $(event.currentTarget).attr("data-options");
 
-        if (skill.roll) {
-            const opts = this.actor.getRollOptions([
-                "all",
-                "skill-check",
-                SKILL_DICTIONARY[skillId as SkillAbbreviation] ?? skillId,
-            ]);
-            const extraOptions = $(event.currentTarget).attr("data-options");
-
-            if (extraOptions) {
-                const split = extraOptions
-                    .split(",")
-                    .map((o) => o.trim())
-                    .filter((o) => !!o);
-                opts.push(...split);
-            }
-
-            skill.roll({ event, options: opts });
-        } else {
-            this.actor.rollSkill(event, skillId);
+        if (extraOptions) {
+            const split = extraOptions
+                .split(",")
+                .map((o) => o.trim())
+                .filter((o) => !!o);
+            opts.push(...split);
         }
+
+        skill.roll({ event, options: opts });
     }
 
     rollSave(event: JQuery.ClickEvent, saveId: SaveType) {
@@ -726,7 +735,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     this.rollAbility(event, ability);
             }
         } else if (skill) {
-            this.rollNPCSkill(event, skill);
+            this.rollSkill(event, skill);
         } else if (save) {
             this.rollSave(event, save);
         } else if (action || item || spell) {

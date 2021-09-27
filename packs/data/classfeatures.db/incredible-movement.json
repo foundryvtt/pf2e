@@ -26,7 +26,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Incredible Movement",
+                "predicate": {
+                    "not": [
+                        "self:armored"
+                    ]
+                },
                 "selector": "land-speed",
                 "type": "status",
                 "value": {
@@ -57,6 +61,12 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.rollOptions.all.incredibleMovement",
+                "value": true
             }
         ],
         "source": {

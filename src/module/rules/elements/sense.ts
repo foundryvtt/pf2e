@@ -1,19 +1,15 @@
 import { RuleElementPF2e } from "../rule-element";
 import { SenseAcuity, SenseData } from "@actor/creature/data";
-import { RuleElementSource, RuleElementData } from "../rules-data-definitions";
+import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
+import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 
 /**
  * @category RuleElement
  */
 export class SenseRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
-        if (!(item.actor instanceof CharacterPF2e || item.actor instanceof FamiliarPF2e)) {
-            this.ignored = true;
-        }
-    }
+    protected static override validActorTypes: ActorType[] = ["character", "familiar"];
 
     private static isMoreAcute(replacement?: SenseAcuity, existing?: SenseAcuity): boolean {
         if (!replacement && existing) return false;
@@ -22,6 +18,12 @@ export class SenseRuleElement extends RuleElementPF2e {
             (replacement === "precise" && ["imprecise", "vague"].includes(existing!)) ||
             (replacement === "imprecise" && existing === "vague")
         );
+    }
+
+    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+        const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
+        data.label ??= defaultLabels[data.selector ?? ""];
+        super(data, item);
     }
 
     override onBeforePrepareData(): void {

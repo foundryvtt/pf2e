@@ -172,6 +172,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -295,6 +298,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -2069,7 +2075,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Drain Life"
+                        "drain-life"
                     ]
                 },
                 "bonus": {
@@ -2118,8 +2124,8 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Divine Dispelling",
-                        "Drain Life"
+                        "divine-dispelling",
+                        "drain-life"
                     ]
                 },
                 "bonus": {
@@ -2269,7 +2275,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>90 feet, DC 46 @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
+                    "value": "<p>90 feet, DC 46 @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2327,7 +2333,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -2370,7 +2383,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The wyrmwraith succeeds at a saving throw to resist positive damage but still takes damage;</p>\n<p><strong>Effect</strong> The wyrmwraith transfers all positive damage from the effect to a single undead creature of their choice within 120 feet that they control or that's friendly or helpful to them.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The wyrmwraith succeeds at a saving throw to resist positive damage but still takes damage;</p>\n<p><strong>Effect</strong> The wyrmwraith transfers all positive damage from the effect to a single undead creature of their choice within 120 feet that they control or that's friendly or helpful to them.</p>"
                 },
                 "requirements": {
                     "value": ""

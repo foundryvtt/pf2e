@@ -1,6 +1,5 @@
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
@@ -11,7 +10,7 @@ import {
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
-import { LabeledString, ValuesList, ZeroToThree } from "@module/data";
+import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 
@@ -25,24 +24,22 @@ export class BaseCreatureData<
     TSystemData extends CreatureSystemData = CreatureSystemData
 > extends BaseActorDataPF2e<TActor> {}
 
-export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "items" | "token"> {
+export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CreatureType;
     data: BaseCreatureSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: BaseCreatureSource;
 }
 
 export interface CreatureSystemData extends ActorSystemData {
     details: {
-        level: {
-            value: number;
-        };
+        alignment: { value: Alignment };
+        level: { value: number };
     };
 
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
 
-    attributes: BaseCreatureAttributes;
+    attributes: CreatureAttributes;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, ModifierPF2e[]>;
@@ -50,9 +47,7 @@ export interface CreatureSystemData extends ActorSystemData {
     damageDice: Record<string, DamageDicePF2e[]>;
 
     /** Saving throw data */
-    saves: Record<SaveType, StatisticModifier>;
-
-    resources: BaseCreatureResources;
+    saves: Record<SaveType, StatisticModifier & Rollable>;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -92,22 +87,41 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export type SkillData = StatisticModifier & RawSkillData & Rollable;
 
-/** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
+/** The full save data for a character; including its modifiers and other details */
 export type SaveData = SkillData & { saveDetail?: string };
 
 /** Miscallenous but mechanically relevant creature attributes.  */
-export interface BaseCreatureAttributes {
-    hp: HitPointsData;
+export interface CreatureAttributes {
+    hp: CreatureHitPoints;
     ac: { value: number };
     perception: { value: number };
+
+    speed: CreatureSpeeds;
 }
-export interface BaseCreatureResources {
-    focus?: {
-        value: number;
-        max: number;
-    };
+
+export interface CreatureSpeeds extends StatisticModifier {
+    /** The actor's primary speed (usually walking/stride speed). */
+    value: string;
+    /** Other speeds that this actor can use (such as swim, climb, etc). */
+    otherSpeeds: LabeledSpeed[];
+    /** The derived value after applying modifiers, bonuses, and penalties */
+    total: number;
 }
+
+export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
+export interface LabeledSpeed extends LabeledValue {
+    type: Exclude<MovementType, "land">;
+    value: string;
+    label: string;
+}
+
+export interface CreatureHitPoints extends HitPointsData {
+    negativeHealing: boolean;
+}
+
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
+
+export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";
 
 export enum VisionLevels {
     BLINDED,

@@ -149,6 +149,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -269,6 +272,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -385,6 +391,7 @@
                     "value": "focus"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": false
@@ -512,6 +519,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1065,34 +1073,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -10
-                                },
-                                {
-                                    "start": 16,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -1403,9 +1384,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -1587,7 +1565,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The angelkin is targeted by a spell that allows a saving throw.</p>\n<p><strong>Effect</strong> The scion gains a +2 circumstance bonus to the saving throw.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The angelkin is targeted by a spell that allows a saving throw.</p>\n<p><strong>Effect</strong> The scion gains a +2 circumstance bonus to the saving throw.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1631,7 +1609,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages one of the angelkin's allies. Both the enemy and ally must be within 15 feet of the angelkin.</p>\n<p><strong>Effect</strong> The angelkin causes its foe to hesitate under the weight of its sins as visions of possible redemption play out in its mind's eye. The foe chooses one of two options:</p>\n<ul>\n<li>The ally is completely unharmed by the triggering damage.</li>\n<li>The ally gains resistance 7 to all damage against the triggering damage. After the damaging effect resolves, the enemy becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of its next turn.</li>\n</ul>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy damages one of the angelkin's allies. Both the enemy and ally must be within 15 feet of the angelkin.</p>\n<p><strong>Effect</strong> The angelkin causes its foe to hesitate under the weight of its sins as visions of possible redemption play out in its mind's eye. The foe chooses one of two options:</p>\n<ul>\n<li>The ally is completely unharmed by the triggering damage.</li>\n<li>The ally gains resistance 7 to all damage against the triggering damage. After the damaging effect resolves, the enemy becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of its next turn.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1675,7 +1653,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "requirements": {
                     "value": ""

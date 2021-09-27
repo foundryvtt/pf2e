@@ -1,9 +1,8 @@
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { LabeledValue } from "@module/data";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
-export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
+export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dv";
 
     static override get defaultOptions() {
@@ -25,13 +24,13 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: any = {};
-        const resistances: LabeledValue[] = getProperty(this.object.data, this.objectProperty);
+        const weaknesses = this.object.data._source.data.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
-            const res = resistances.find((res) => res.type === type);
+            const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {
                 label,
-                selected: res !== undefined,
-                value: res?.value ?? "",
+                selected: !!current,
+                value: current?.value ?? "",
             };
         });
         data.choices = choices;
@@ -65,9 +64,8 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1] !== "") {
-                    const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[1] });
+                if (Number.isInteger(Number(v[1])) && v[1] !== "") {
+                    choices.push({ type: k, value: Number(v[1]) });
                 }
             }
         }

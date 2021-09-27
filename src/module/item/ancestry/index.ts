@@ -3,6 +3,7 @@ import { CharacterPF2e } from "@actor";
 import { Size } from "@module/data";
 import { ABCItemPF2e } from "../abc";
 import { AncestryData } from "./data";
+import { sluggify } from "@module/utils";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -26,9 +27,9 @@ export class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their ancestry */
-    prepareActorData(this: Embedded<AncestryPF2e>): void {
+    override prepareActorData(this: Embedded<AncestryPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
-            console.error("Only a character can have an ancestry");
+            console.error("PF2e System | Only a character can have an ancestry");
             return;
         }
 
@@ -38,6 +39,23 @@ export class AncestryPF2e extends ABCItemPF2e {
         systemData.attributes.speed.value = String(this.speed);
         systemData.attributes.reach = { value: this.reach, manipulate: this.reach };
         systemData.traits.size.value = this.size;
+
+        // Add languages
+        const innateLanguages = this.data.data.languages.value;
+        for (const language of innateLanguages) {
+            if (!systemData.traits.languages.value.includes(language)) {
+                systemData.traits.languages.value.push(language);
+            }
+        }
+
+        // Add low-light vision or darkvision if the ancestry includes it
+        const { senses } = systemData.traits;
+        const { vision } = this.data.data;
+        if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
+            senses.push({ type: vision, label: CONFIG.PF2E.senses[vision], value: "", source: "ancestry" });
+            const senseRollOptions = (this.actor.rollOptions["sense"] ??= {});
+            senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
+        }
 
         // Add traits from ancestry and heritage
         const ancestryTraits: Set<string> = this?.traits ?? new Set();

@@ -144,7 +144,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Painful Bite"
+                        "painful-bite"
                     ]
                 },
                 "bonus": {
@@ -298,7 +298,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

@@ -16,7 +16,7 @@ export type ActorSourcePF2e = ActorDataPF2e["_source"];
 
 export type SaveType = typeof SAVE_TYPES[number];
 
-export type ModeOfBeing = "living" | "undead" | "construct";
+export type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 export {
     AbilityString,

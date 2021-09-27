@@ -5,7 +5,6 @@ import {
     DamageDicePF2e,
     DiceModifierPF2e,
     ModifierPF2e,
-    ModifierPredicate,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
     RawModifier,
@@ -16,6 +15,7 @@ import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-defini
 import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
 import { ActorPF2e } from "@actor";
+import { PredicatePF2e } from "@system/predication";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -34,6 +34,7 @@ export interface DamageTemplate {
         damageType: string;
         diceNumber: number;
         dieSize: DamageDieSize;
+        category: string;
         modifier: number;
     };
     diceModifiers: DiceModifierPF2e[];
@@ -358,7 +359,7 @@ export class WeaponDamagePF2e {
             const strikingList: StrikingPF2e[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
-                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
+                    .filter((wp) => PredicatePF2e.test(wp.predicate, options))
                     .forEach((wp) => strikingList.push(wp));
             });
 
@@ -472,9 +473,10 @@ export class WeaponDamagePF2e {
         // add splash damage
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED)
-            );
+            const modifier = new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED);
+            modifier.damageCategory = "splash";
+            modifier.damageType = weapon.data.damage.damageType;
+            numericModifiers.push(modifier);
         }
 
         // add bonus damage
@@ -492,15 +494,15 @@ export class WeaponDamagePF2e {
                 );
                 for (const modifier of modifiers) {
                     const predicate =
-                        modifier.predicate instanceof ModifierPredicate
+                        modifier.predicate instanceof PredicatePF2e
                             ? modifier.predicate
-                            : new ModifierPredicate(modifier.predicate ?? {});
+                            : new PredicatePF2e(modifier.predicate ?? {});
                     modifier.ignored = !predicate.test(options);
                     numericModifiers.push(modifier);
                 }
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
-                    .filter((note) => ModifierPredicate.test(note.predicate, options))
+                    .filter((note) => PredicatePF2e.test(note.predicate, options))
                     .forEach((note) => notes.push(note));
             });
         }
@@ -562,7 +564,7 @@ export class WeaponDamagePF2e {
                 d.name += ` ${d.category}`;
             }
             d.label = d.name;
-            d.enabled = new ModifierPredicate(d.predicate ?? {}).test(options);
+            d.enabled = new PredicatePF2e(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
 
@@ -583,7 +585,7 @@ export class WeaponDamagePF2e {
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage: any, critical: boolean): DamageFormula {
+    static getFormula(damage: DamageTemplate, critical: boolean): DamageFormula {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
@@ -662,7 +664,9 @@ export class WeaponDamagePF2e {
             damage.numericModifiers
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .forEach((nm: ModifierPF2e) => {
-                    if (critical && nm.critical) {
+                    if (critical && nm.damageCategory === "splash") {
+                        return;
+                    } else if (critical && nm.critical) {
                         // critical-only stuff
                         modifiers.push(nm);
                     } else if (!nm.critical) {
@@ -713,9 +717,16 @@ export class WeaponDamagePF2e {
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
+            const splashDamage = damage.numericModifiers.find(
+                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
+            );
+            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
             for (const [damageType, categories] of Object.entries(partials)) {
                 for (const [damageCategory, f] of Object.entries(categories)) {
                     partials[damageType][damageCategory] = this.doubleFormula(f);
+                    if (splashDamage?.damageType === damageType) {
+                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
+                    }
                 }
             }
             const critFormula = this.buildFormula(critPool, partials);
@@ -838,7 +849,7 @@ export class WeaponDamagePF2e {
             rule.applyDamageExclusion?.(notIgnored);
         }
         for (const modifier of notIgnored) {
-            modifier.ignored = !new ModifierPredicate(modifier.predicate ?? {}).test(options);
+            modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
         }
     }
 

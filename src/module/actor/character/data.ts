@@ -1,10 +1,10 @@
 import {
     Abilities,
     Alignment,
-    BaseCreatureAttributes,
+    CreatureAttributes,
     BaseCreatureData,
-    BaseCreatureResources,
     BaseCreatureSource,
+    CreatureHitPoints,
     CreatureSystemData,
     SaveData,
     SkillAbbreviation,
@@ -12,10 +12,8 @@ import {
 } from "@actor/creature/data";
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
-    HitPointsData,
     PerceptionData,
     ProficiencyData,
     RawSkillData,
@@ -25,7 +23,7 @@ import {
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
+import { ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -37,15 +35,17 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/mystery-man.svg";
 }
 
-export interface CharacterData extends Omit<CharacterSource, "effects" | "items" | "token"> {
+export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
     data: CharacterSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: CharacterSource;
 }
 
 export interface CharacterSkillData extends SkillData {
+    /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
+    /** Whether this skill is subject to an armor check penalty */
+    armor: boolean;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -110,7 +110,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillAbbreviation, CharacterSkillData>;
+    skills: { [K in SkillAbbreviation]: CharacterSkillData };
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
@@ -206,18 +206,16 @@ interface PathfinderSocietyData {
 
 export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
-interface CharacterResources extends BaseCreatureResources {
-    investiture: {
-        value: number;
-        max: number;
-    };
+interface CharacterResources {
+    focus: { value: number; max: number };
+    investiture: { value: number; max: number };
 }
 
 interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-export interface CharacterAttributes extends BaseCreatureAttributes {
+export interface CharacterAttributes extends CreatureAttributes {
     /** The perception skill. */
     perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
@@ -267,7 +265,7 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     };
 
     /** Data related to character hitpoints. */
-    hp: HitPointsData;
+    hp: CharacterHitPoints;
 
     /** Data related to character stamina, when using the variant stamina rules. */
     sp: {
@@ -302,29 +300,12 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
         };
     };
 
-    /** Records the various land/swim/fly speeds that this actor has. */
-    speed: CharacterSpeeds;
-
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number };
+    resolve: { value: number; max: number };
 }
 
-export interface CharacterSpeeds extends StatisticModifier {
-    /** The actor's primary speed (usually walking/stride speed). */
-    value: string;
-    /** Other speeds that this actor can use (such as swim, climb, etc). */
-    otherSpeeds: LabeledSpeed[];
-    /** The derived value after applying modifiers, bonuses, and penalties */
-    total: number;
-    /** A textual breakdown of the base speed and any modifiers applied to it */
-    breakdown?: string;
+interface CharacterHitPoints extends CreatureHitPoints {
+    recoveryMultiplier: number;
 }
 
 export type SenseType = typeof SENSE_TYPES[number];
-
-export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-export interface LabeledSpeed extends LabeledValue {
-    type: Exclude<MovementType, "land">;
-    value: string;
-    label: string;
-}
