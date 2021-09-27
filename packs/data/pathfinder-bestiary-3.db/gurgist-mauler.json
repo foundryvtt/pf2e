@@ -585,30 +585,7 @@
                     "value": ""
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 13,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -774,9 +751,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -813,7 +787,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Knockdown"
+                        "knockdown"
                     ]
                 },
                 "bonus": {
@@ -1148,7 +1122,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

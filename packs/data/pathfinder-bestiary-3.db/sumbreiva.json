@@ -153,6 +153,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -276,6 +279,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -392,6 +396,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -493,7 +498,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Huntblade Brutality"
+                        "huntblade-brutality"
                     ]
                 },
                 "bonus": {
@@ -546,7 +551,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Improved Grab"
+                        "improved-grab"
                     ]
                 },
                 "bonus": {
@@ -601,7 +606,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Huntblade Brutality"
+                        "huntblade-brutality"
                     ]
                 },
                 "bonus": {
@@ -759,7 +764,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -802,7 +814,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -850,7 +862,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The sumbreiva kills a creature;</p>\n<p><strong>Effect</strong> The sumbreiva lets out a triumphant, bone-chilling howl. Every enemy in a 30-foot emanation must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Hunter's Triumph DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} (and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} as long as it's frightened on a critical failure).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The sumbreiva kills a creature;</p>\n<p><strong>Effect</strong> The sumbreiva lets out a triumphant, bone-chilling howl. Every enemy in a 30-foot emanation must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Hunter's Triumph DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} (and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} as long as it's frightened on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""

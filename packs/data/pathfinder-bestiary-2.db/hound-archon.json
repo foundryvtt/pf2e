@@ -159,6 +159,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -275,6 +278,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -388,6 +392,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -502,6 +507,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": true
@@ -883,32 +889,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 17,
-                                    "value": -10
-                                },
-                                {
-                                    "start": 18,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
                         "label": "Bulwark",
                         "predicate": {
                             "all": [
@@ -1236,7 +1216,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
+                    "value": "<p><strong>Damage Reduction</strong> 6</p>\n<hr />\n<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
                 },
                 "requirements": {
                     "value": ""

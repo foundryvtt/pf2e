@@ -173,6 +173,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -289,6 +292,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -392,7 +396,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Wrathful Misfortune"
+                        "wrathful-misfortune"
                     ]
                 },
                 "bonus": {
@@ -594,7 +598,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

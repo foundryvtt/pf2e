@@ -284,7 +284,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The undead brain collector possesses at least 1 phantom brain after using Brainlash;</p>\n<p><strong>Effect</strong> The undead brain collector absorbs [[/r 1d4 #brains]] of its phantom brains, gaining [[/r 1d8 #hit points]] temporary hit points for each brain it absorbed.</p>\n<p><strong>Total</strong>: [[/r 1d4 * 1d8 #temporary hit points]]</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The undead brain collector possesses at least 1 phantom brain after using Brainlash;</p>\n<p><strong>Effect</strong> The undead brain collector absorbs [[/r 1d4 #brains]] of its phantom brains, gaining [[/r 1d8 #hit points]] temporary hit points for each brain it absorbed.</p>\n<p><strong>Total</strong>: [[/r 1d4 * 1d8 #temporary hit points]]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,7 +395,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

@@ -1,4 +1,4 @@
-import { AbilityString } from "@actor/data";
+import { AbilityString, ActorType } from "@actor/data";
 import { WeaponPF2e } from "@item";
 import { WeaponCategory, WeaponDamage, WeaponGroup, WeaponSource, WeaponTrait } from "@item/weapon/data";
 import { RuleElementPF2e } from "../rule-element";
@@ -8,6 +8,8 @@ import { RuleElementData, RuleElementSynthetics } from "../rules-data-definition
  * @category RuleElement
  */
 export class StrikeRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
     override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics) {
         const source: PreCreate<WeaponSource> = {
             _id: this.item.id,

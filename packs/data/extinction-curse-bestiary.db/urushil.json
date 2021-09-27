@@ -173,6 +173,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -293,6 +296,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -409,6 +415,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -539,6 +546,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -669,6 +677,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -788,6 +797,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -905,6 +915,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1022,6 +1033,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1138,6 +1150,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1253,6 +1266,7 @@
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -1368,6 +1382,7 @@
                     "value": "ritual"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": false,
                     "verbal": false
@@ -1522,8 +1537,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
-                        "name": "Unusual Longsword"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -1690,8 +1705,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
-                        "name": "Unusual Breastplate"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -1738,30 +1753,7 @@
                     "value": "majorResilient"
                 },
                 "resilient": {},
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 15,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    }
-                ],
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -1843,8 +1835,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
-                        "name": "Unusual Belt"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -1891,9 +1883,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "wornbelt"
                     },
                     "value": [
                         "apex",
@@ -2393,7 +2382,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A marilith gains 5 extra reactions per round that they can use only to make Attacks of Opportunity.</p>\n<p>The demon can't use more than one on the same triggering action, even if a creature leaves several squares in the marilith's reach, and the marilith must use a different weapon for each Attack of Opportunity.</p>\n<hr />\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>A marilith gains 5 extra reactions per round that they can use only to make Attacks of Opportunity.</p>\n<p>The demon can't use more than one on the same triggering action, even if a creature leaves several squares in the marilith's reach, and the marilith must use a different weapon for each Attack of Opportunity.</p>\n<hr />\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""

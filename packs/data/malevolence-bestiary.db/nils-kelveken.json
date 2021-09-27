@@ -384,9 +384,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -491,13 +488,10 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
-                    "value": ""
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
                     "value": "-"
@@ -543,15 +537,15 @@
                 },
                 "identification": {
                     "misidentified": {},
-                    "status": "unidentified",
+                    "status": "identified",
                     "unidentified": {
                         "data": {
                             "description": {
-                                "value": "The nature of this object is unclear."
+                                "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/equipment/consumables/talismans/sneaky-key.webp",
-                        "name": "Key Ring"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -594,13 +588,10 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
-                    "value": ""
+                    "value": "held-in-one-hand"
                 },
                 "weight": {
                     "value": "-"
@@ -727,7 +718,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -816,7 +814,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Nils Strides up to his speed toward a target within 30 feet, shrieking \"I seen what ye did!\" at them as he approaches. The target must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"auditory,emotion,enchantment,fear,linguistic,mental,occult\" data-pf2-label=\"I Seen What Ye Did! DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes disturbed at what Nils might have seen and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As success, but the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target falls into a phantasmagoric nightmare state where time seems to slow down as they can think of nothing but running away, yet as fast as they try to flee, Nils can catch up with ease. The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} at the start of its next turn and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn.</p>\n</div>"
+                    "value": "<p>Nils Strides up to his speed toward a target within 30 feet, shrieking \"I seen what ye did!\" at them as he approaches. The target must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"auditory,emotion,enchantment,fear,linguistic,mental,occult\" data-pf2-label=\"I Seen What Ye Did! DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes disturbed at what Nils might have seen and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As success, but the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target falls into a phantasmagoric nightmare state where time seems to slow down as they can think of nothing but running away, yet as fast as they try to flee, Nils can catch up with ease. The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} at the start of its next turn and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""

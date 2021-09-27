@@ -72,6 +72,14 @@
                 <input type="number" name="upperBound-level" value="30" min="0" max="30">
             </div>
         </div>
+        <div class="filtercontainer" id="sourcefilter">
+            <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
+            <dl style="display:none;">
+                {{#each source as |type key|}}
+                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{localize type}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
     </div>
     <ul class="item-list result-list">
         {{#each inventoryItems as |item id|}}

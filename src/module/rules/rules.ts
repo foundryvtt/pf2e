@@ -2,11 +2,11 @@ import type { ItemPF2e } from "@item";
 import { RuleElementPF2e } from "./rule-element";
 export { RuleElementPF2e };
 import { RuleElementSource } from "./rules-data-definitions";
-import { PF2FlatModifierRuleElement } from "./elements/flat-modifier";
+import { FlatModifierRuleElement } from "./elements/flat-modifier";
 import { PF2MageArmorRuleElement } from "./spells/mage-armor";
 import { PF2FixedProficiencyRuleElement } from "./elements/fixed-proficiency";
 import { TempHPRuleElement } from "./elements/temphp";
-import { PF2DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-cap";
+import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-cap";
 import { PF2DamageDiceRuleElement } from "./elements/damage-dice";
 import { PF2TogglePropertyRuleElement } from "./elements/toggle-property";
 import { PF2TokenImageRuleElement } from "./elements/token-image";
@@ -14,28 +14,32 @@ import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
 import { SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { StrikeRuleElement } from "./elements/strike";
-import { PF2RollNoteRuleElement } from "./elements/roll-note";
-import { PF2WeaponPotencyRuleElement } from "./elements/weapon-potency";
+import { RollNoteRuleElement } from "./elements/roll-note";
+import { WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
 import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
 import { PF2EffectTargetRuleElement } from "./elements/effect-target";
-import { PF2ActorTraits } from "@module/rules/elements/actor-traits";
+import { ActorTraitsRuleElement } from "@module/rules/elements/actor-traits";
 import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
 import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
 import { CreatureSizeRuleElement } from "./elements/creature-size";
-import { ImmunityRuleElement } from "./elements/immunity";
 import { BattleFormRuleElement } from "./elements/battle-form/rule-element";
+import { ImmunityRuleElement } from "./elements/iwr/immunity";
+import { WeaknessRuleElement } from "./elements/iwr/weakness";
+import { ResistanceRuleElement } from "./elements/iwr/resistance";
+import { RollOptionRuleElement } from "./elements/roll-option";
 
 /**
  * @category RuleElement
  */
 export class RuleElements {
     static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
-        FlatModifier: PF2FlatModifierRuleElement,
+        ActorTraits: ActorTraitsRuleElement,
+        FlatModifier: FlatModifierRuleElement,
         MageArmor: PF2MageArmorRuleElement,
-        DexterityModifierCap: PF2DexterityModifierCapRuleElement,
+        DexterityModifierCap: DexterityModifierCapRuleElement,
         FixedProficiency: PF2FixedProficiencyRuleElement,
         TempHP: TempHPRuleElement,
         DamageDice: PF2DamageDiceRuleElement,
@@ -46,18 +50,20 @@ export class RuleElements {
         BattleForm: BattleFormRuleElement,
         BaseSpeed: PF2BaseSpeedRuleElement,
         Immunity: ImmunityRuleElement,
+        RollOption: RollOptionRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
-        Note: PF2RollNoteRuleElement,
+        Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
         EffectTarget: PF2EffectTargetRuleElement,
-        WeaponPotency: PF2WeaponPotencyRuleElement,
-        ActorTraits: PF2ActorTraits,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
+        Resistance: ResistanceRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
         ActiveEffectLike: AELikeRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
+        Weakness: WeaknessRuleElement,
+        WeaponPotency: WeaponPotencyRuleElement,
     });
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
@@ -71,8 +77,9 @@ export class RuleElements {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
                         return new REConstructor(data, item);
-                    } catch {
+                    } catch (error) {
                         console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                        console.warn(error);
                         return null;
                     }
                 })();

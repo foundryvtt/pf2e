@@ -32,6 +32,14 @@
                 {{/each}}
             </dl>
         </div>
+        <div class="filtercontainer" id="sourcefilter">
+            <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
+            <dl style="display:none;">
+                {{#each source as |type key|}}
+                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{localize type}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
         <div class="filtercontainer" id="raritiesfilter">
             <h3>{{localize "PF2E.BrowserFilterRarities"}}</h3>
             <dl style="display:none;">
@@ -40,16 +48,6 @@
                 {{/each}}
             </dl>
         </div>
-        {{!-- TODO: Reenable once more hazards have a source
-                  <div class="filtercontainer" id="actionTraitfilter">
-                  <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
-                  <dl style="display:none;">
-                  {{#each source as |type key|}}
-                  <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd></label>
-                  {{/each}}
-                  </dl>
-                  </div>
-                  --}}
         <div class="filtercontainer rangecontainer" id="levelfilter">
             <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
             <div style="display:none;">

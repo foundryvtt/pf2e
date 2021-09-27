@@ -7,6 +7,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
+import { LabeledSpeed } from "@actor/creature/data";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -26,7 +27,10 @@ export class FamiliarPF2e extends CreaturePF2e {
     override prepareBaseData() {
         super.prepareBaseData();
 
-        const systemData: DeepPartial<FamiliarSystemData> & { attributes: {}; details: {} } = this.data.data;
+        type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
+        const systemData: DeepPartial<FamiliarSystemData> & { attributes: { speed: RawSpeed }; details: {} } =
+            this.data.data;
+        systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
@@ -36,14 +40,11 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         systemData.attributes.perception = {};
         systemData.attributes.speed = {
-            otherSpeeds: [
-                {
-                    label: "Land",
-                    type: "land",
-                    value: 25,
-                },
-            ],
+            value: "25",
+            label: game.i18n.localize("PF2E.SpeedTypesLand"),
+            otherSpeeds: [],
         };
+
         systemData.skills = {};
 
         systemData.saves = {
@@ -77,34 +78,15 @@ export class FamiliarPF2e extends CreaturePF2e {
             data.master.ability ||= "cha";
             const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
-            const { statisticsModifiers } = this.prepareCustomModifiers(rules);
+            const synthetics = this.prepareCustomModifiers(rules);
+            const { statisticsModifiers } = synthetics;
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
-            for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
-                const speed = data.attributes.speed.otherSpeeds[idx];
-                const base = Number(speed.value ?? 0);
-                const modifiers: ModifierPF2e[] = [];
-                [`${speed.type}-speed`, "speed"].forEach((key) => {
-                    (statisticsModifiers[key] || [])
-                        .filter(filterModifier)
-                        .map((m) => m.clone())
-                        .forEach((m) => modifiers.push(m));
-                });
-                const stat = mergeObject(
-                    new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
-                    speed,
-                    { overwrite: false }
-                );
-                stat.total = base + stat.totalModifier;
-                stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
-                    .concat(
-                        stat.modifiers
-                            .filter((m) => m.enabled)
-                            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    )
-                    .join(", ");
-                data.attributes.speed.otherSpeeds[idx] = stat;
+            data.attributes.speed = this.prepareSpeed("land", synthetics);
+            const { otherSpeeds } = data.attributes.speed;
+            for (let idx = 0; idx < otherSpeeds.length; idx++) {
+                otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
             }
 
             // hit points
@@ -167,7 +149,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.attributes.ac = stat;
             }
 
-            // saving throws
+            // Saving throws
             for (const saveName of SAVE_TYPES) {
                 const save = master.data.data.saves[saveName];
                 const source = save.modifiers.filter(
@@ -187,27 +169,28 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
-                const stat = new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers);
+                const stat = mergeObject(new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers), {
+                    roll: (args: RollParameters) => {
+                        const label = game.i18n.format("PF2E.SavingThrowWithName", {
+                            saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
+                        });
+                        CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            { actor: this, type: "saving-throw", dc: args.dc, options: args.options },
+                            args.event,
+                            args.callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                        saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
-                    });
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "saving-throw", dc: args.dc, options: args.options },
-                        args.event,
-                        args.callback
-                    );
-                };
                 data.saves[saveName] = stat;
             }
 
-            // attack
+            // Attack
             {
                 const modifiers = [
                     new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED),
@@ -218,24 +201,25 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .map((m) => m.clone())
                         .forEach((m) => modifiers.push(m))
                 );
-                const stat = new StatisticModifier("attack", modifiers);
+                const stat = mergeObject(new StatisticModifier("attack", modifiers), {
+                    roll: ({ event, options = [], callback }: RollParameters) => {
+                        CheckPF2e.roll(
+                            new CheckModifier("Attack Roll", stat),
+                            { actor: this, type: "attack-roll", options },
+                            event,
+                            callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
-                    CheckPF2e.roll(
-                        new CheckModifier("Attack Roll", stat),
-                        { actor: this, type: "attack-roll", options },
-                        event,
-                        callback
-                    );
-                };
                 data.attack = stat;
             }
 
-            // perception
+            // Perception
             {
                 const modifiers = [
                     new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED),
@@ -294,24 +278,26 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .forEach((m) => modifiers.push(m))
                 );
                 const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
-                const stat = new StatisticModifier(label, modifiers);
+                const stat = mergeObject(new StatisticModifier(label, modifiers), {
+                    ability,
+                    value: 0,
+                    roll: (args: RollParameters) => {
+                        const label = game.i18n.format("PF2E.SkillCheckWithName", {
+                            skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
+                        });
+                        CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            { actor: this, type: "skill-check", options: args.options ?? [], dc: args.dc },
+                            args.event,
+                            args.callback
+                        );
+                    },
+                });
                 stat.value = stat.totalModifier;
-                stat.ability = ability;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", {
-                        skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
-                    });
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: args.options ?? [], dc: args.dc },
-                        args.event,
-                        args.callback
-                    );
-                };
                 data.skills[shortForm] = stat;
             }
         }

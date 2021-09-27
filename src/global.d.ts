@@ -121,6 +121,8 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
+        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
+
         get(module: "pf2e", setting: "defaultTokenSettings"): boolean;
         get(module: "pf2e", setting: "defaultTokenSettingsBar"): number;
         get(module: "pf2e", setting: "defaultTokenSettingsName"): string;

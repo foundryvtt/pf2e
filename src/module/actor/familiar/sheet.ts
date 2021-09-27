@@ -80,25 +80,25 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         html.find('[data-saving-throw]:not([data-saving-throw=""])').on("click", "*", (event) => {
             const save = $(event.currentTarget).closest("[data-saving-throw]").attr("data-saving-throw") as SaveType;
             const options = this.actor.getRollOptions(["all", "saving-throw", save]);
-            this.actor.data.data.saves[save].roll(event, options);
+            this.actor.data.data.saves[save].roll({ event, options });
         });
 
-        html.find('[data-skill-check]:not([data-skill-check=""])').on("click", "*", (event) => {
+        html.find("[data-skill-check] *").on("click", (event) => {
             const skill = $(event.currentTarget)
                 .closest("[data-skill-check]")
                 .attr("data-skill-check") as SkillAbbreviation;
             const options = this.actor.getRollOptions(["all", "skill-check", SKILL_DICTIONARY[skill] ?? skill]);
-            this.actor.data.data.skills[skill].roll(event, options);
+            this.actor.data.data.skills[skill].roll({ event, options });
         });
 
-        html.find("[data-perception-check]").on("click", "*", (event) => {
+        html.find("[data-perception-check] *").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "perception"]);
             this.actor.attributes.perception.roll({ event, options });
         });
 
-        html.find("[data-attack-roll]").on("click", "*", (event) => {
+        html.find("[data-attack-roll] *").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "attack"]);
-            (this.actor.data.data as any).attack.roll(event, options);
+            this.actor.data.data.attack.roll({ event, options });
         });
 
         // expand and condense item description

@@ -141,9 +141,9 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject<D extends DocumentData, B extends true>(this: D, source?: B): D["_source"];
-                toObject<D extends DocumentData, B extends false>(this: D, source: B): RawObject<D>;
-                toObject<D extends DocumentData, B extends boolean>(source?: B): D["_source"] | RawObject<D>;
+                toObject<D extends DocumentData>(this: D, source?: true): D["_source"];
+                toObject<D extends DocumentData>(this: D, source: false): RawObject<D>;
+                toObject<D extends DocumentData>(source?: boolean): D["_source"] | RawObject<D>;
 
                 /**
                  * Extract the source data for the DocumentData into a simple object format that can be serialized.

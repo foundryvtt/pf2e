@@ -7,15 +7,8 @@
  * @param type {string}
  * @returns {Array<HazardLevel>}
  */
-function getHazardLevels(actors, type) {
-    return actors
-        .filter((a) => a.data.type === type)
-        .map((a) => {
-            return {
-                level: parseInt(a.data.data.details.level ?? 1, 10),
-                isComplex: a.data.data.details.isComplex ?? false,
-            };
-        });
+function getHazardLevels(actors) {
+    return actors.filter((a) => a.data.type === "hazard");
 }
 
 /**
@@ -48,8 +41,8 @@ function dialogTemplate(xp) {
         <td>${xp.rating} (${xp.xpPerPlayer} XP)</td>
     </tr>
     <tr>
-        <th>Total XP</th>
-        <td>PCs: ${xp.encounterBudgets.moderate} XP, NPCs & Hazards: ${xp.totalXP} XP</td>
+        <th>Reward</th>
+        <td>${xp.encounterBudgets.moderate} XP</td>
     </tr>
 </table>
 <h2>Budgets</h2>
@@ -143,11 +136,9 @@ function askPartyLevelAndSize(npcLevels, hazardLevels) {
 
 function main() {
     const actors = canvas.tokens.controlled.map((a) => a.actor);
-
     const npcLevels = getLevels(actors, "npc");
     const pcLevels = getLevels(actors, "character");
-    const hazardLevels = getHazardLevels(actors, "hazard");
-
+    const hazardLevels = getHazardLevels(actors);
     if (npcLevels.length === 0 && hazardLevels.length === 0) {
         ui.notifications.error(`You must select at least one npc and/or hazard token and optionally all PC tokens`);
         return;

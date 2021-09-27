@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -8,18 +8,33 @@ import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
+import { DegreeOfSuccessAdjustment, CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
-import { VisionLevel, VisionLevels } from "./data";
+import {
+    Alignment,
+    AlignmentComponent,
+    CreatureSpeeds,
+    LabeledSpeed,
+    MovementType,
+    VisionLevel,
+    VisionLevels,
+} from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
+import { ErrorPF2e } from "@module/utils";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
+
+    /** The creature's position on the alignment axes */
+    get alignment(): Alignment {
+        return this.data.data.details.alignment.value;
+    }
 
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
@@ -58,10 +73,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
-    get hitPoints() {
+    get hitPoints(): { value: number; max: number; negativeHealing: boolean } {
         return {
             value: this.data.data.attributes.hp.value,
             max: this.data.data.attributes.hp.max,
+            negativeHealing: this.data.data.attributes.hp.negativeHealing,
         };
     }
 
@@ -135,7 +151,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const attributes = this.data.data.attributes;
-        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
+        const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
+        hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
 
         // Bless raw custom modifiers as `ModifierPF2e`s
@@ -155,6 +172,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
         }
+    }
+
+    // Set whether this actor is wearing armor
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -239,7 +262,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             modifier.custom = true;
 
             // modifier predicate
-            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
             modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
@@ -258,6 +281,70 @@ export abstract class CreaturePF2e extends ActorPF2e {
             await this.update({ "data.customModifiers": customModifiers });
         } else {
             throw Error("Custom modifiers can only be removed by name (string) or index (number)");
+        }
+    }
+
+    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
+    prepareSpeed(
+        movementType: Exclude<MovementType, "land">,
+        synthetics: RuleElementSynthetics
+    ): LabeledSpeed & StatisticModifier;
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
+    prepareSpeed(
+        movementType: MovementType,
+        synthetics: RuleElementSynthetics
+    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+        const systemData = this.data.data;
+        const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
+        const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
+            .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+            .flat()
+            .map((modifier) => {
+                modifier.ignored = !modifier.predicate.test(modifier.defaultRollOptions ?? rollOptions);
+                return modifier;
+            });
+
+        if (movementType === "land") {
+            const label = game.i18n.localize("PF2E.SpeedTypesLand");
+            const base = Number(systemData.attributes.speed.value ?? 0);
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
+                systemData.attributes.speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.type = "land";
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
+        } else {
+            const speed = systemData.attributes.speed.otherSpeeds.find(
+                (otherSpeed) => otherSpeed.type === movementType
+            );
+            if (!speed) throw ErrorPF2e("Unexpected missing speed");
+            const base = Number(speed.value ?? 0);
+            const stat = mergeObject(
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
+                speed,
+                { overwrite: false }
+            );
+            stat.total = base + stat.totalModifier;
+            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                )
+                .join(", ");
+            return stat;
         }
     }
 
@@ -289,6 +376,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
 
+    /* -------------------------------------------- */
+    /*  Rolls                                       */
+    /* -------------------------------------------- */
+
     /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
@@ -302,7 +393,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryMod = getProperty(this.data.data.attributes, "dying.recoveryMod") || 0;
 
-        const dc: PF2CheckDC = {
+        const dc: CheckDC = {
             label: game.i18n.format("PF2E.Recovery.rollingDescription", {
                 dying,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
@@ -360,7 +451,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
-        let dc: PF2CheckDC | undefined;
+        let dc: CheckDC | undefined;
         let distance: number | undefined;
         if (ctx.target?.actor instanceof CreaturePF2e) {
             dc = {
@@ -399,29 +490,64 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     private createStrikeRollContext(rollNames: string[]) {
+        const options = this.getRollOptions(rollNames);
+
+        const getAlignmentTraits = (alignment: Alignment): AlignmentComponent[] => {
+            return [
+                ...new Set([
+                    ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
+                    ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
+                    ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
+                    ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
+                ]),
+            ];
+        };
+        const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
+        options.push(
+            ...conditions
+                .map((condition) => [`self:${condition.data.data.hud.statusName}`, `condition:${condition.slug}`])
+                .flat(),
+            ...getAlignmentTraits(this.alignment).map((alignment) => `trait:${alignment}`)
+        );
+        if (this.hitPoints.negativeHealing) {
+            options.push("negative-healing");
+        }
+
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e
         );
         const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
-        const options = this.getRollOptions(rollNames);
-        {
-            const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
-        }
-        if (target?.actor) {
-            const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-            options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+        if (target?.actor instanceof CreaturePF2e) {
+            if (target.actor.hitPoints.negativeHealing) {
+                options.push("target:negative-healing");
+            }
 
-            const traits = (target.actor.data.data.traits.traits.custom ?? "")
-                .split(/[;,\\|]/)
-                .map((value) => value.trim())
-                .concat(target.actor.data.data.traits.traits.value ?? [])
-                .filter((value) => !!value)
-                .map((trait) => `target:${trait}`);
-            options.push(...traits);
+            const { itemTypes } = target.actor;
+            const targetConditions = itemTypes.condition.filter((condition) => condition.fromSystem);
+            const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
+            options.push(
+                ...targetConditions
+                    .map((condition) => [
+                        `target:${condition.data.data.hud.statusName}`,
+                        `target:condition:${condition.slug}`,
+                    ])
+                    .flat(),
+                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`),
+                ...(targetIsSpellcaster ? ["target:caster"] : []).flat()
+            );
         }
+
+        const traits = (target?.actor?.data.data.traits.traits.custom ?? "")
+            .split(/[;,\\|]/)
+            .map((value) => value.trim())
+            .concat(target?.actor?.data.data.traits.traits.value ?? [])
+            .filter((value) => !!value)
+            .map((trait) => [`target:${trait}`, `target:trait:${trait}`])
+            .flat();
+        options.push(...traits);
+
         return {
-            options,
+            options: [...new Set(options)],
             targets: new Set(targets),
             target,
         };

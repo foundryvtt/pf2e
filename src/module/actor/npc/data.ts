@@ -1,23 +1,21 @@
 import {
     Abilities,
     Alignment,
-    BaseCreatureAttributes,
+    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
+    SkillData,
 } from "@actor/creature/data";
 import {
-    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
     RawInitiativeData,
-    Rollable,
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
-import { LabeledValue } from "@module/data";
 import type { NPCPF2e } from ".";
 
 export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
@@ -26,10 +24,9 @@ export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
 }
 
-export interface NPCData extends Omit<NPCSource, "effects" | "items" | "token"> {
+export interface NPCData extends Omit<NPCSource, "effects" | "flags" | "items" | "token"> {
     readonly type: NPCSource["type"];
     data: NPCSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: NPCSource;
 }
 
@@ -61,6 +58,10 @@ export interface NPCSystemData extends CreatureSystemData {
 
     /** Special strikes which the creature can take. */
     actions: NPCStrike[];
+
+    resources: {
+        focus?: { value: number; max: number };
+    };
 }
 
 interface RawNPCStrike extends StrikeData {
@@ -90,7 +91,7 @@ interface NPCSaves {
 /** Normal skill data, but with an additional 'base' value. */
 type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
-export interface NPCSkillData extends StatisticModifier, Rollable {
+export interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
     label: string;
@@ -102,7 +103,7 @@ interface NPCInitiativeData extends RawInitiativeData {
     status: number;
 }
 
-export interface NPCAttributes extends BaseCreatureAttributes {
+export interface NPCAttributes extends CreatureAttributes {
     /** The armor class of this NPC. */
     ac: NPCArmorClassData;
     /** The perception score for this NPC. */
@@ -113,13 +114,6 @@ export interface NPCAttributes extends BaseCreatureAttributes {
 
     initiative: NPCInitiativeData;
 
-    /** The movement speeds that this NPC has. */
-    speed: {
-        /** The land speed for this actor. */
-        value: string;
-        /** A list of other movement speeds the actor possesses. */
-        otherSpeeds: LabeledValue[];
-    };
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.

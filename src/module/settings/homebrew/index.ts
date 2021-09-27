@@ -1,4 +1,4 @@
-import { MenuTemplateData, SettingsMenuPF2e } from "../menu";
+import { MenuTemplateData, PartialSettingsData, SettingsMenuPF2e } from "../menu";
 import Tagify from "@yaireo/tagify";
 import { prepareCleanup } from "./cleanup-migration";
 import { LocalizePF2e } from "@module/system/localize";
@@ -39,25 +39,16 @@ export class HomebrewElements extends SettingsMenuPF2e {
     ] as const;
 
     static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
-            title: "PF2E.SETTINGS.Homebrew.Name",
-            id: "homebrew-settings",
-            template: "systems/pf2e/templates/system/settings/homebrew.html",
-            width: 550,
-            height: "auto",
-            closeOnSubmit: true,
-        });
+        return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.html" });
     }
 
-    protected static override get settings(): Record<ConfigPF2eHomebrewList, ClientSettingsData> {
-        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewList; value: ClientSettingsData } => {
+    protected static override get settings(): Record<ConfigPF2eHomebrewList, PartialSettingsData> {
+        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewList; value: PartialSettingsData } => {
             return {
                 key,
                 value: {
                     name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
                     hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
-                    scope: "world",
-                    config: false,
                     default: [],
                     type: Object,
                 },
@@ -130,7 +121,8 @@ export class HomebrewElements extends SettingsMenuPF2e {
             return this.processDeletions(key, data[key]);
         }).filter((task): task is MigrationBase => !!task);
 
-        await new MigrationRunner().runMigrations(cleanupTasks);
+        // Close without waiting for migrations to complete
+        new MigrationRunner().runMigrations(cleanupTasks);
         await super._updateObject(_event, data);
 
         // Process updates

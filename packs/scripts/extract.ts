@@ -24,6 +24,8 @@ import $ from "jquery";
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { NPCSystemData } from "@actor/npc/data";
 import { isActorSource, isItemSource } from "./packman/compendium-pack";
+import { isPhysicalData } from "@item/data/helpers";
+import { IdentificationData } from "@item/physical/data";
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -85,9 +87,10 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
 const packsPath = (() => {
     try {
         const content = fs.readFileSync(args.foundryConfig ?? "", { encoding: "utf-8" });
-        return path.join(JSON.parse(content).dataPath, "Data/systems/pf2e/packs");
+        const config = JSON.parse(content) ?? {};
+        return path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e", "packs");
     } catch (_error) {
-        return path.join(process.cwd(), "dist/packs");
+        return path.join(process.cwd(), "dist", "packs");
     }
 })();
 
@@ -121,43 +124,59 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 }
 
 /** Walk object tree and make appropriate deletions */
-function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
+function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
     type DocumentKey = keyof PackEntry;
-    for (const key in entityData) {
+    for (const key in docSource) {
         if (key === "_id") {
-            topLevel = entityData;
-            delete entityData.folder;
-            if ("type" in entityData) {
-                if (isActorSource(entityData)) {
-                    delete (entityData.data as { schema?: unknown }).schema;
+            topLevel = docSource;
+            delete docSource.folder;
+            if ("type" in docSource) {
+                if (isActorSource(docSource)) {
+                    delete (docSource.data as { schema?: unknown }).schema;
 
-                    (entityData.token as Partial<foundry.data.PrototypeTokenSource>) = {
-                        disposition: entityData.token.disposition,
-                        height: entityData.token.height,
-                        img: entityData.token.img,
-                        name: entityData.token.name,
-                        width: entityData.token.width,
+                    (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
+                        disposition: docSource.token.disposition,
+                        height: docSource.token.height,
+                        img: docSource.token.img,
+                        name: docSource.token.name,
+                        width: docSource.token.width,
                     };
                 }
-                if (isItemSource(entityData)) {
-                    delete (entityData.data as { schema?: unknown }).schema;
-                    entityData.data.description = { value: entityData.data.description.value };
+                if (isItemSource(docSource)) {
+                    delete (docSource.data as { schema?: unknown }).schema;
+                    docSource.data.description = { value: docSource.data.description.value };
+                    if (isPhysicalData(docSource)) {
+                        const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
+                        systemData.identification = {
+                            status: "identified",
+                            unidentified: {
+                                name: "",
+                                img: "",
+                                data: {
+                                    description: {
+                                        value: "",
+                                    },
+                                },
+                            },
+                            misidentified: {},
+                        };
+                    }
                 }
-                if (entityData.type !== "script") {
-                    delete (entityData as Partial<PackEntry>).permission;
+                if (docSource.type !== "script") {
+                    delete (docSource as Partial<PackEntry>).permission;
                 }
-                if (entityData.type === "npc") {
-                    for (const key of Object.keys(entityData.data)) {
+                if (docSource.type === "npc") {
+                    for (const key of Object.keys(docSource.data)) {
                         if (!npcSystemKeys.has(key)) {
-                            delete (entityData.data as NPCSystemData & { extraneous?: unknown })[key as "extraneous"];
+                            delete (docSource.data as NPCSystemData & { extraneous?: unknown })[key as "extraneous"];
                         }
                     }
                 }
             }
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
-            delete entityData[key as DocumentKey];
-        } else if (entityData[key as DocumentKey] instanceof Object) {
-            pruneTree(entityData[key as DocumentKey] as PackEntry, topLevel);
+            delete docSource[key as DocumentKey];
+        } else if (docSource[key as DocumentKey] instanceof Object) {
+            pruneTree(docSource[key as DocumentKey] as PackEntry, topLevel);
         }
     }
 }

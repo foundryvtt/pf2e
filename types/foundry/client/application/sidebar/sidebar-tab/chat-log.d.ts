@@ -2,7 +2,7 @@
  * The Chat Log application displayed in the Sidebar
  * @see {Sidebar}
  */
-declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends SidebarTab {
+declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends SidebarTab<ChatLogOptions> {
     /** Track whether the user currently has pending text in the chat box */
     protected _pendingText: string;
 
@@ -33,7 +33,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
     constructor(options?: {});
 
-    static override get defaultOptions(): ChatLogDefaultOptions;
+    static override get defaultOptions(): ChatLogOptions;
 
     /**
      * A reference to the Messages collection that the chat log displays
@@ -44,7 +44,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
     /*  Application Rendering                       */
     /* -------------------------------------------- */
 
-    override getData(options?: { stream?: boolean }): {
+    override getData(options?: ChatLogOptions): {
         user: User;
         rollMode: number;
         rollModes: number[];
@@ -133,7 +133,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
     protected override _getEntryContextOptions(): EntryContextOption[];
 }
 
-declare interface ChatLogDefaultOptions extends SidebarTabOptions {
+declare interface ChatLogOptions extends SidebarTabOptions {
     id: "chat";
     template: string;
     title: string;

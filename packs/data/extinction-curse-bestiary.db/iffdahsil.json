@@ -190,6 +190,9 @@
                 "ability": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
@@ -204,6 +207,9 @@
                     "value": 0
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": true
+                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -313,10 +319,14 @@
                 "areasize": {
                     "value": "40-foot burst"
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": false,
                     "somatic": true,
                     "verbal": true
@@ -427,10 +437,14 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -536,10 +550,14 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": false
@@ -648,10 +666,14 @@
                 "areasize": {
                     "value": "50-foot burst"
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
+                    "focus": false,
                     "material": true,
                     "somatic": true,
                     "verbal": true
@@ -1209,7 +1231,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
-import type { ActorDataPF2e, CreatureData } from "@actor/data";
+import type { ActorDataPF2e, ActorType, CreatureData } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ItemDataPF2e } from "@item/data";
-import { ModifierPredicate, RawModifier } from "@module/modifiers";
+import { RawModifier } from "@module/modifiers";
+import { PredicatePF2e } from "@system/predication";
 import {
     BracketedValue,
     RuleElementSource,
@@ -44,22 +45,38 @@ export class TokenEffect implements TemporaryEffect {
 abstract class RuleElementPF2e {
     data: RuleElementData;
 
+    /** A list of actor types on which this rule element can operate (all unless overridden) */
+    protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
+
     /**
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
+        data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+
+        const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
+            item.actor.data.type
+        );
+        if (invalidActorType) {
+            const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
+            const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
+            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            data.ignored = true;
+        }
+        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
+
         this.data = {
             priority: 100,
             ...data,
-            predicate: data.predicate ? new ModifierPredicate(data.predicate) : undefined,
+            predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
             label: game.i18n.localize(data.label ?? item.name),
-            ignored: false,
+            ignored: data.ignored ?? false,
         };
     }
 
     get key(): string {
-        return this.data.key.replace(/^PF2E\.RuleElement\./, "");
+        return this.data.key;
     }
 
     get actor(): ActorPF2e {
@@ -84,7 +101,7 @@ abstract class RuleElementPF2e {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+        return (this.data.ignored = !item.isEquipped || (item.isInvested === false && !!this.data.requiresInvestment));
     }
 
     set ignored(value: boolean) {
@@ -178,7 +195,11 @@ abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    protected resolveValue(
+        valueData = this.data.value,
+        defaultValue: Exclude<RuleValue, BracketedValue> = 0,
+        { evaluate = true } = {}
+    ): any {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
         if (this.isBracketedValue(valueData)) {
@@ -204,33 +225,32 @@ abstract class RuleElementPF2e {
                 }
             })();
             const brackets = valueData?.brackets ?? [];
-
+            // Set the fallthrough (the value set when no bracket matches) to be of the same type as the default value
+            const bracketFallthrough = (() => {
+                switch (typeof defaultValue) {
+                    case "number":
+                    case "boolean":
+                    case "object":
+                        return defaultValue;
+                    case "string":
+                        return Number.isNaN(Number(defaultValue)) ? defaultValue : Number(defaultValue);
+                    default:
+                        return null;
+                }
+            })();
             value =
                 brackets.find((bracket) => {
                     const start = bracket.start ?? 0;
                     const end = bracket.end ?? Infinity;
                     return start <= bracketNumber && end >= bracketNumber;
-                })?.value ??
-                (Number(defaultValue) || 0);
+                })?.value ?? bracketFallthrough;
         }
 
-        if (value === null) return value;
-
-        if (typeof value === "object" && typeof defaultValue === "object" && defaultValue !== null) {
-            return mergeObject(defaultValue, value, { inplace: false });
-        }
-
-        if (typeof value === "string" && value.includes("@")) {
-            value = Roll.safeEval(
-                Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data })
-            );
-        }
-
-        if (typeof value !== "boolean" && Number.isInteger(Number(value))) {
-            value = Number(value);
-        }
-
-        return value;
+        return value instanceof Object && defaultValue instanceof Object
+            ? mergeObject(defaultValue, value, { inplace: false })
+            : typeof value === "string" && value.includes("@") && evaluate
+            ? Roll.safeEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+            : value;
     }
 
     private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {

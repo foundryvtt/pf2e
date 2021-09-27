@@ -35,13 +35,15 @@ export const RenderSettings = {
                 .on("click", () => game.pf2e.licenseViewer.render(true));
             $license.append($licenseButton);
 
-            const $troubleshooting = $("<div>").attr({ id: "pf2e-troubleshooting" });
-            const $shootButton = $('<button type="button">')
-                .append(fontAwesomeIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"))
-                .on("click", () => new MigrationSummary({ troubleshoot: true }).render(true));
-            $troubleshooting.append($shootButton);
+            if (game.user.hasRole("GAMEMASTER")) {
+                const $troubleshooting = $("<div>").attr({ id: "pf2e-troubleshooting" });
+                const $shootButton = $('<button type="button">')
+                    .append(fontAwesomeIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"))
+                    .on("click", () => new MigrationSummary({ troubleshoot: true }).render(true));
+                $troubleshooting.append($shootButton);
 
-            $("#settings-documentation").after("<h2>Pathfinder 2e</h2>", $license, $troubleshooting);
+                $("#settings-documentation").after("<h2>Pathfinder 2e</h2>", $license, $troubleshooting);
+            }
         });
     },
 };

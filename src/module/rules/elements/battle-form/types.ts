@@ -1,13 +1,19 @@
-import { MovementType, SenseType } from "@actor/character/data";
-import { CreatureTrait, SenseAcuity, SkillAbbreviation } from "@actor/creature/data";
+import { SenseType } from "@actor/character/data";
+import { CreatureTrait, MovementType, SenseAcuity, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data";
+import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { BaseWeaponType, WeaponCategory, WeaponDamage, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { Size } from "@module/data";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { BracketedValue, RuleElementSource } from "@module/rules/rules-data-definitions";
 
 export interface BattleFormSource extends RuleElementSource {
-    ignored?: boolean;
     overrides?: BattleFormOverrides;
+    canCast?: boolean;
+    canSpeak?: boolean;
+    /** Does the character have hands, allowing it to use manipulate actions? */
+    hasHands?: boolean;
+    /** Can the character utilize its own unarmed strikes? */
+    ownUnarmed?: boolean;
 }
 
 export interface BattleFormOverrides {
@@ -17,24 +23,17 @@ export interface BattleFormOverrides {
     senses?: { [K in SenseType]?: BattleFormSense };
     size?: Size | null;
     speeds?: { [K in MovementType]?: number };
-    skills?: { [K in SkillAbbreviation]?: BattleFormSkill };
+    skills?: BattleFormSkills;
     strikes?: Record<string, BattleFormStrike>;
-    ownModifier?: {
-        armorClass?: boolean;
-        skills?: boolean;
-        strikes?: boolean;
-    };
-    dismissable?: boolean;
-    canCast?: boolean;
-    canSpeak?: boolean;
-    hasHands?: boolean;
+    immunities?: { type: ImmunityType; except?: ImmunityType }[];
+    weaknesses?: { type: WeaknessType; except?: WeaknessType; value: number | BracketedValue<number> }[];
+    resistances?: { type: ResistanceType; except?: ResistanceType; value: number | BracketedValue<number> }[];
 }
 
 export interface BattleFormAC {
     modifier?: string | number;
-    ownModifierBonus?: number | null;
     ignoreCheckPenalty?: boolean;
-    ignoreSpeedReduction?: boolean;
+    ignoreSpeedPenalty?: boolean;
 }
 
 interface BattleFormSense {
@@ -44,7 +43,9 @@ interface BattleFormSense {
 
 interface BattleFormSkill {
     modifier: string | number;
+    ownIfHigher?: boolean;
 }
+export type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 
 interface BattleFormStrike {
     label: string;
@@ -56,4 +57,5 @@ interface BattleFormStrike {
     traits: WeaponTrait[];
     modifier: string | number;
     damage: WeaponDamage;
+    ownIfHigher?: boolean;
 }

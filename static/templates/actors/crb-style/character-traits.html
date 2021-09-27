@@ -1,18 +1,18 @@
 <div class="pc pc_land-speed">
-    <label for="land-speed">{{localize "PF2E.Speed"}}</label>
+    <span class="details-label" >{{localize "PF2E.Speed"}}</span>
     <span>
         <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</h3>
     </span>
 </div>
 <div class="pc pc_size">
-    <label class="pf-title">{{localize "PF2E.Size"}}</label>
+    <span class="details-label">{{localize "PF2E.Size"}}</span>
     <span>
         <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
     </span>
 </div>
 <div class="pc pc_key-ability dropdown">
-    <label for="key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
-    <select id="key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
+    <label class="details-label" for="{{options.id}}-key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
+    <select id="{{options.id}}-key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
         {{#select data.details.keyability.value}}
             {{#each abilities as |label ability|}}
                 <option value="{{ability}}">{{localize label}}</option>
@@ -24,10 +24,10 @@
 <div class="break-column"></div>
 
 <div class="pc pc_flat-bonus-hp">
-    <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">{{localize 'PF2E.BonusHPLabel'}}</label>
+    <label class="details-label" for="{{options.id}}-flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">{{localize 'PF2E.BonusHPLabel'}}</label>
     <span>
         <input
-            id="flat-bonus-hp"
+            id="{{options.id}}-flat-bonus-hp"
             type="number"
             name="data.attributes.flatbonushp"
             data-dtype="Number"
@@ -37,12 +37,12 @@
     </span>
 </div>
 <div class="pc pc_bonus-hp">
-    <label for="bonus-hp" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
+    <label class="details-label" for="{{options.id}}-bonus-hp" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
         {{localize 'PF2E.FlatBonusHPperLevel'}}
     </label>
     <span>
         <input
-            id="bonus-hp"
+            id="{{options.id}}-bonus-hp"
             type="number"
             name="data.attributes.levelbonushp"
             data-dtype="Number"
@@ -52,11 +52,11 @@
     </span>
 </div>
 <div class="pc pc_bonus-bulk encumbered">
-<label for="bonus-encumbrance-bulk">
+<label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">
     {{localize 'PF2E.BonusEncumbranceBulkLabel'}}
 </label>
 <input
-    id="bonus-encumbrance-bulk"
+    id="{{options.id}}-bonus-encumbrance-bulk"
     type="text"
     name="data.attributes.bonusEncumbranceBulk"
     data-dtype="Number"
@@ -65,11 +65,11 @@
 />
 </div>
 <div class="pc pc_bonus-bulk">
-<label for="bonus-limit-bulk">
+<label class="details-label" for="{{options.id}}-bonus-limit-bulk">
     {{localize 'PF2E.BonusLimitBulkLabel'}}
 </label>
 <input
-    id="bonus-limit-bulk"
+    id="{{options.id}}-bonus-limit-bulk"
     type="text"
     name="data.attributes.bonusLimitBulk"
     data-dtype="Number"
@@ -79,16 +79,15 @@
 </div>
 {{#if hasStamina}}
 <div class="pc pc_stamina-flat-bonus-sp">
-    <label
-        for="FlatBonusSP"
+    <label class="details-label"
+        for="{{options.id}}-FlatBonusSP"
         title="{{localize 'PF2E.FlatBonusSPTitle'}}"
-        class="pf-title"
     >
         {{localize 'PF2E.BonusSPLabel'}}
     </label>
     <span>
         <input
-            id="FlatBonusSP"
+            id="{{options.id}}-FlatBonusSP"
             type="number"
             name="data.attributes.flatbonussp"
             data-dtype="Number"
@@ -98,15 +97,15 @@
     </span>
 </div>
 <div class="pc pc_stamina-bonus-sp">
-    <label
-        for="BonusSPperLevel"
+    <label class="details-label"
+        for="{{options.id}}-BonusSPperLevel"
         title="{{localize 'PF2E.BonusSPperLevelTitle'}}"
     >
         {{localize 'PF2E.FlatBonusSPperLevel'}}
     </label>
     <span>
         <input
-            id="BonusSPperLevel"
+            id="{{options.id}}-BonusSPperLevel"
             type="number"
             name="data.attributes.levelbonussp"
             data-dtype="Number"
@@ -117,11 +116,11 @@
 </div>
 {{/if}}
 
-<div class="tags">
+<div class="character-traits">
     <div class="pc pc_speed-types">
-        <h4>
+        <span class="details-label">
             {{localize 'PF2E.SpeedTypes'}}
-        </h4>
+        </span>
         <ol class="tags">
             {{#each data.attributes.speed.otherSpeeds as |speed k|}}
             <li class="tag tag_alt {{k}}" title="{{speed.breakdown}}">
@@ -138,9 +137,9 @@
         </ol>
     </div>
     <div class="pc pc_senses">
-        <h4 for="cha-senses">
+        <span class="details-label">
             {{localize 'PF2E.Senses'}}
-        </h4>
+        </span>
         <ol class="tags">
             {{#each data.traits.senses as |sense k|}}
             <li class="tag tag_alt {{k}}">
@@ -156,43 +155,43 @@
             {{/if}}
         </ol>
     </div>
-</div>
-<div class="pc pc_languages">
-    <h4 class="pf-title">
-        {{localize 'PF2E.Languages'}}
-    </h4>
-    <ul class="tags">
-        {{#each data.traits.languages.selected as |v k|}}
-        <li class="tag tag_alt {{k}}">
-            {{localize v}}
-        </li>
-        {{/each}}
-        {{#if @root.owner}}
-            <li class="tag tag_secondary edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
+    <div class="pc pc_languages">
+        <span class="details-label">
+            {{localize 'PF2E.Languages'}}
+        </span>
+        <ul class="tags">
+            {{#each data.traits.languages.selected as |v k|}}
+            <li class="tag tag_alt {{k}}">
+                {{localize v}}
             </li>
-        {{/if}}
-    </ul>
-</div>
+            {{/each}}
+            {{#if @root.owner}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
 
-<div class="pc pc_traits">
-    <h4 class="pf-title">
-        {{localize 'PF2E.Traits'}}
-    </h4>
-    <ul class="tags">
-        {{#each data.traits.traits.selected as |v k|}}
-        <li class="tag tag_alt {{k}}">
-            {{localize v}}
-        </li>
-        {{/each}}
-        {{#if @root.owner}}
-            <li class="tag tag_secondary edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
+    <div class="pc pc_traits">
+        <span class="details-label">
+            {{localize 'PF2E.Traits'}}
+        </span>
+        <ul class="tags">
+            {{#each data.traits.traits.selected as |v k|}}
+            <li class="tag tag_alt {{k}}">
+                {{localize v}}
             </li>
-        {{/if}}
-    </ul>
+            {{/each}}
+            {{#if @root.owner}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
 </div>

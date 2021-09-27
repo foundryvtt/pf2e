@@ -15,19 +15,11 @@
         },
         "rules": [
             {
+                "hasHands": true,
                 "key": "BattleForm",
-                "label": "Element Embodied (Fire)",
                 "overrides": {
                     "armorClass": {
                         "modifier": "25 + @details.level.value"
-                    },
-                    "canCast": false,
-                    "canSpeak": false,
-                    "dismissable": true,
-                    "hasHands": true,
-                    "ownModifier": {
-                        "skills": true,
-                        "strikes": true
                     },
                     "senses": {
                         "darkvision": {}
@@ -44,7 +36,6 @@
                     "strikes": {
                         "fire-mote": {
                             "ability": "dex",
-                            "baseType": "fire-mote",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "bludgeoning",
@@ -53,7 +44,6 @@
                                 "modifier": 6
                             },
                             "group": "brawling",
-                            "label": "Fire Mote",
                             "modifier": 34,
                             "traits": [
                                 "range-increment-60"
@@ -61,7 +51,6 @@
                         },
                         "tendril": {
                             "ability": "dex",
-                            "baseType": "tendril",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "fire",
@@ -70,7 +59,6 @@
                                 "modifier": 12
                             },
                             "group": "brawling",
-                            "label": "Tendril",
                             "modifier": 34,
                             "traits": [
                                 "unarmed",
@@ -88,7 +76,7 @@
             {
                 "key": "Note",
                 "selector": "tendril-damage",
-                "text": "<p class='compact-text'><strong>Elemental Embodiment (fire)</strong>: plus [[/r 2d6 #persistent fire]]{2d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}</p></p>"
+                "text": "<p class='compact-text'><strong>Elemental Embodiment (fire)</strong>: plus [[/r 2d6 #persistent fire]]{2d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}</p>"
             }
         ],
         "source": {
@@ -112,7 +100,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/element-embodied.webp",
     "name": "Spell Effect: Element Embodied (Fire)",
     "type": "effect"
 }

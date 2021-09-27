@@ -583,8 +583,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/ammunition.webp",
-                        "name": "Unusual Ammunition"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "level": {
@@ -637,9 +637,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -876,7 +873,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

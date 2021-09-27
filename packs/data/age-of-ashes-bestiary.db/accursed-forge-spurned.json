@@ -198,8 +198,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
-                        "name": "Unusual Spiked Chain"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -377,8 +377,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
-                        "name": "Unusual Warhammer"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -545,8 +545,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
-                        "name": "Unusual Full Plate"
+                        "img": "",
+                        "name": ""
                     }
                 },
                 "invested": {
@@ -594,32 +594,6 @@
                 },
                 "resilient": {},
                 "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "unburdened-iron"
-                            ]
-                        },
-                        "roll-options": [
-                            "all"
-                        ],
-                        "selector": "speed",
-                        "type": "untyped",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 17,
-                                    "value": -10
-                                },
-                                {
-                                    "start": 18,
-                                    "value": -5
-                                }
-                            ],
-                            "field": "actor|data.abilities.str.value"
-                        }
-                    },
                     {
                         "key": "FlatModifier",
                         "label": "Bulwark",
@@ -937,7 +911,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""

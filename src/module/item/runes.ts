@@ -2,6 +2,7 @@ import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DiceModifierPF2e } from "@module/modifiers";
 import { isBlank, toNumber } from "@module/utils";
 import { DamageDieSize } from "@system/damage/damage";
+import { RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
 import type { StrikingRuneType, WeaponTrait } from "./weapon/data";
@@ -73,11 +74,12 @@ interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
     damageType?: string;
+    predicate?: RawPredicate;
 }
 
 function toModifier(
     rune: WeaponPropertyRuneType,
-    { damageType = undefined, dieSize = "d6", diceNumber = 1 }: RuneDiceModifier
+    { damageType = undefined, dieSize = "d6", diceNumber = 1, predicate }: RuneDiceModifier
 ): DiceModifierPF2e {
     const traits: string[] = [];
     if (damageType) {
@@ -89,29 +91,37 @@ function toModifier(
         dieSize,
         damageType,
         traits,
+        predicate,
     });
 }
 
 const runeDamageModifiers: Map<string, RuneDiceModifier> = new Map([
-    ["anarchic", { damageType: "chaotic" }],
-    ["axiomatic", { damageType: "lawful" }],
+    ["anarchic", { damageType: "chaotic", predicate: { all: ["target:trait:lawful"] } }],
+    ["axiomatic", { damageType: "lawful", predicate: { all: ["target:trait:chaotic"] } }],
     ["corrosive", { damageType: "acid" }],
-    ["disrupting", { damageType: "positive" }],
+    ["disrupting", { damageType: "positive", predicate: { any: ["target:trait:undead", "target:negative-healing"] } }],
     ["flaming", { damageType: "fire" }],
     ["frost", { damageType: "cold" }],
-    ["greaterDisrupting", { damageType: "positive", diceNumber: 2 }],
+    [
+        "greaterDisrupting",
+        {
+            damageType: "positive",
+            diceNumber: 2,
+            predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+        },
+    ],
     ["greaterCorrosive", { damageType: "acid" }],
     ["greaterFlaming", { damageType: "fire" }],
     ["greaterFrost", { damageType: "cold" }],
     ["greaterImpactful", { damageType: "force", dieSize: "d6" }],
     ["greaterShock", { damageType: "electricity" }],
     ["greaterThundering", { damageType: "sonic" }],
-    ["holy", { damageType: "good" }],
+    ["holy", { damageType: "good", predicate: { all: ["target:trait:evil"] } }],
     ["impactful", { damageType: "force", dieSize: "d6" }],
     ["serrating", { dieSize: "d4" }],
     ["shock", { damageType: "electricity" }],
     ["thundering", { damageType: "sonic" }],
-    ["unholy", { damageType: "evil" }],
+    ["unholy", { damageType: "evil", predicate: { all: ["target:trait:good"] } }],
 ]);
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
     const diceModifiers: DiceModifierPF2e[] = [];

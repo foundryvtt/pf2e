@@ -8,7 +8,7 @@ export class KitData extends BaseNonPhysicalItemData<KitPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/feat.svg";
 }
 
-export interface KitData extends Omit<KitSource, "_id" | "effects"> {
+export interface KitData extends Omit<KitSource, "effects" | "flags"> {
     type: KitSource["type"];
     data: KitSource["data"];
     readonly _source: KitSource;

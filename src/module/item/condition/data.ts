@@ -9,7 +9,7 @@ export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/condition.svg";
 }
 
-export interface ConditionData extends Omit<ConditionSource, "_id" | "effects"> {
+export interface ConditionData extends Omit<ConditionSource, "effects" | "flags"> {
     type: ConditionSource["type"];
     data: ConditionSource["data"];
     readonly _source: ConditionSource;

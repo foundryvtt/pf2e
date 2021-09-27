@@ -8,11 +8,15 @@ interface WorldClockData {
     time: string;
     options?: {};
     user: User;
+    sign: "+" | "-";
 }
 
 export class WorldClock extends Application {
     /** Localization keys */
     private readonly translations = LocalizePF2e.translations.PF2E.WorldClock;
+
+    /** Is the ctrl key currently held down? */
+    private ctrlKeyDown = false;
 
     readonly animateDarkness = animateDarkness;
 
@@ -143,8 +147,9 @@ export class WorldClock extends Application {
             this.timeConvention === 24
                 ? this.worldTime.toFormat("HH:mm:ss")
                 : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
+        const sign = this.ctrlKeyDown ? "-" : "+";
 
-        return { date, time, options, user: game.user };
+        return { date, time, options, user: game.user, sign };
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
@@ -173,19 +178,44 @@ export class WorldClock extends Application {
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
-        $html.on("click", "button[data-advance-time]", (event) => {
+        $html.find("button[data-advance-time]").on("click", (event) => {
             const $button = $(event.currentTarget);
             const increment = Number($button.data("advanceTime") ?? 0);
-            if (increment !== 0) {
-                game.time.advance(increment);
-            }
+            if (increment !== 0) game.time.advance(increment);
         });
 
-        $html.on("click", 'button[name="advance"]', () => {
+        $html.find('button[name="advance"], button[name="retract"]').on("click", (event) => {
             const value = $html.find('input[type=number][name="diff-value"]').val();
             const unit = $html.find('select[name="diff-unit"]').val();
-            const increment = Number(value) * Number(unit);
+            const advanceOrRetract = $(event.currentTarget).attr("name") === "advance" ? 1 : -1;
+            const increment = advanceOrRetract * Number(value) * Number(unit);
             game.time.advance(increment);
         });
+
+        for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
+            $(document).off(eventName);
+            $(document).on(eventName, (event) => {
+                if (!(event.ctrlKey || this.ctrlKeyDown)) return;
+                const retractTime = event.type === "keydown";
+                this.ctrlKeyDown = retractTime;
+                const $buttons = $html.find("button[data-advance-time]");
+                $buttons.each((_index, button) => {
+                    const $button = $(button);
+                    $button.attr("data-advance-time", -1 * Number($button.attr("data-advance-time")));
+                });
+                $buttons.find(".sign").text(retractTime ? "-" : "+");
+
+                const { Advance, Retract } = this.translations.Button;
+                $html
+                    .find('button[name="advance"], button[name="retract"]')
+                    .attr("name", retractTime ? "retract" : "advance")
+                    .text(game.i18n.localize(retractTime ? Retract : Advance));
+            });
+        }
+    }
+
+    override async close(options?: { force?: boolean }): Promise<void> {
+        $(document).off("keydown.pf2e.world-clock").off("keyup.pf2e.world-clock");
+        await super.close(options);
     }
 }

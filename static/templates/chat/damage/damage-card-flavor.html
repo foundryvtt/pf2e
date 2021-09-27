@@ -1,0 +1,34 @@
+<div>
+    {{#if flavor}}
+        {{{flavor}}}
+    {{/if}}
+    {{#if outcome}}
+        <span>({{localize (add "PF2E.AttackOutcome." outcome)}})</span>
+    {{/if}}
+</div>
+{{#if formula}}
+    <hr />
+    {{formula}}
+{{/if}}
+{{#if traits}}
+    <hr />
+    <div class="tags">
+        {{#each traits as |trait|}}
+            <span class="tag tag_primary">{{localize (lookup @root.dataset.traits.weapon trait)}}</span>
+        {{/each}}
+    </div>
+{{/if}}
+{{#if breakdown}}
+    <hr />
+    <div class="tags">
+        {{#each breakdown as |part|}}
+            <span class="damage-tag damage-tag-{{part.tag}}">{{part.label}}</span>
+        {{/each}}
+    </div>
+{{/if}}
+{{#if notes}}
+    <hr />
+    {{#each notes as |note|}}
+        {{{enrichHTML note}}}<br />
+    {{/each}}
+{{/if}}

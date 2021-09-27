@@ -148,8 +148,8 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Fill Lungs",
-                        "Paralysis"
+                        "fill-lungs",
+                        "paralysis"
                     ]
                 },
                 "bonus": {
@@ -199,7 +199,7 @@
                     "custom": "",
                     "value": [
                         "grab",
-                        "Paralysis"
+                        "paralysis"
                     ]
                 },
                 "bonus": {
@@ -249,7 +249,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Fill Lungs"
+                        "fill-lungs"
                     ]
                 },
                 "bonus": {
@@ -355,7 +355,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
                 "slug": "negative-healing",
                 "source": {
                     "value": ""
@@ -398,7 +405,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature grabbed by the barnacle ghoul critically fails a skill check to Escape;</p>\n<p><strong>Effect</strong> The barnacle ghoul makes a claw Strike against the triggering creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature grabbed by the barnacle ghoul critically fails a skill check to Escape;</p>\n<p><strong>Effect</strong> The barnacle ghoul makes a claw Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
