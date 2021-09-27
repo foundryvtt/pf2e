@@ -22,7 +22,7 @@ import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { Attitude, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
-import { PostConstantData } from "@scripts/ui/post-constant-data";
+import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -113,13 +113,7 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const ruleData = this.rules.filter((rule) => !rule.ignored);
-        if (Array.isArray(ruleData)) {
-            ruleData.forEach((entry, index, arr) => {
-                if (arr[index].data.label) arr[index].data.label = PostConstantData.postConstant(entry.data.label);
-            });
-        }
-        const rules = ruleData;
+        const rules = EnrichContent.enrichRuleElements(this.rules.filter((rule) => !rule.ignored));
 
         // Toggles
         (data as any).toggles = {
@@ -488,13 +482,7 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                 };
 
-                const variantData = (itemData.data as any).variants;
-                if (variantData) {
-                    for (const [key] of Object.entries(variantData)) {
-                        variantData[key].label = PostConstantData.postConstant(variantData[key].label);
-                    }
-                }
-                const variants = variantData;
+                const variants = EnrichContent.enrichSkillVariants((itemData.data as any).variants);
                 if (variants && Object.keys(variants).length) {
                     stat.variants = [];
                     for (const [, variant] of Object.entries(variants)) {

@@ -40,7 +40,7 @@ import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
-import { PostConstantData } from "@scripts/ui/post-constant-data";
+import { EnrichContent } from "@scripts/ui/enrich-content";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 
 /**
@@ -231,7 +231,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /* -------------------------------------------- */
 
         if (this.actor.type !== "character") {
-            PostConstantData.listen(html);
+            EnrichContent.enrichHTML(html);
             InlineRollsLinks.listen(html);
         }
 
