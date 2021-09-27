@@ -2,7 +2,7 @@
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from "../../module/dc";
+import { DCOptions } from "@module/dc";
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map<number, number>();
@@ -63,19 +63,19 @@ function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DC
 }
 
 interface HazardLevel {
-    level: { value: number };
+    level: number;
     isComplex: boolean;
 }
 
 function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptions): number {
     if (hazard.isComplex) {
-        return calculateCreatureXP(partyLevel, hazard.level.value, dcOptions);
+        return calculateCreatureXP(partyLevel, hazard.level, dcOptions);
     } else {
-        return getXPFromMap(partyLevel, hazard.level.value, xpSimpleHazardDifferences);
+        return getXPFromMap(partyLevel, hazard.level, xpSimpleHazardDifferences);
     }
 }
 
-export type EncounterBudget = "trivial" | "low" | "moderate" | "severe" | "extreme";
+export type EncounterBudget = "Trivial" | "Low" | "Moderate" | "Severe" | "Extreme";
 
 export interface EncounterBudgets {
     trivial: number;
@@ -87,15 +87,15 @@ export interface EncounterBudgets {
 
 function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): EncounterBudget {
     if (challenge < budgets.low) {
-        return "trivial";
+        return "Trivial";
     } else if (challenge < budgets.moderate) {
-        return "low";
+        return "Low";
     } else if (challenge < budgets.severe) {
-        return "moderate";
+        return "Moderate";
     } else if (challenge < budgets.extreme) {
-        return "severe";
+        return "Severe";
     } else {
-        return "extreme";
+        return "Extreme";
     }
 }
 

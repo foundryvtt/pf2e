@@ -11,11 +11,8 @@ describe("should calculate xp", () => {
             4,
             [2, 2, 2],
             [
-                { level: { value: 2 }, isComplex: true },
-                {
-                    level: { value: 4 },
-                    isComplex: false,
-                },
+                { level: 2, isComplex: true },
+                { level: 4, isComplex: false },
             ],
             dcOptions
         );
@@ -28,7 +25,7 @@ describe("should calculate xp", () => {
                 severe: 120,
                 extreme: 160,
             },
-            rating: "moderate",
+            rating: "Moderate",
             xpPerPlayer: 88,
             totalXP: 88,
             partySize: 4,
@@ -42,11 +39,8 @@ describe("should calculate xp", () => {
             5,
             [2, 2, 2],
             [
-                { level: { value: 2 }, isComplex: true },
-                {
-                    level: { value: 4 },
-                    isComplex: false,
-                },
+                { level: 2, isComplex: true },
+                { level: 4, isComplex: false },
             ],
             dcOptions
         );
@@ -59,7 +53,7 @@ describe("should calculate xp", () => {
                 severe: 150,
                 extreme: 200,
             },
-            rating: "low",
+            rating: "Low",
             xpPerPlayer: 70,
             totalXP: 88,
             partySize: 5,
