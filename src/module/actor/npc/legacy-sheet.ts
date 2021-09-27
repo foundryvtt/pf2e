@@ -61,10 +61,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = { value: "" };
 
         // Elite or Weak adjustment
-        sheetData.npcEliteActive = this.npcIsElite ? " active" : "";
-        sheetData.npcWeakActive = this.npcIsWeak ? " active" : "";
-        sheetData.npcEliteHidden = this.npcIsWeak ? " hidden" : "";
-        sheetData.npcWeakHidden = this.npcIsElite ? " hidden" : "";
+        const { isElite, isWeak } = this.actor;
+        sheetData.npcEliteActive = isElite ? " active" : "";
+        sheetData.npcWeakActive = isWeak ? " active" : "";
+        sheetData.npcEliteHidden = isWeak ? " hidden" : "";
+        sheetData.npcWeakHidden = isElite ? " hidden" : "";
+        sheetData.notAdjusted = !(isElite || isWeak);
 
         // rarity
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
@@ -253,16 +255,6 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             }
         }
         this.actor.update({ ["data.traits.traits.value"]: traits });
-    }
-
-    /** Check if Elite */
-    get npcIsElite() {
-        return this.actor.data.data.traits.traits.value.some((trait) => trait === "elite");
-    }
-
-    /** Check if Weak */
-    get npcIsWeak() {
-        return this.actor.data.data.traits.traits.value.some((trait) => trait === "weak");
     }
 
     /**
