@@ -42,16 +42,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 "data.hp.value": formData["data.attributes.shield.hp.value"],
             });
         }
-        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
-
-        const updatedLevel = this.actor.data.data.details.level.value;
-        const actorClasses = this.actor.itemTypes.class;
-        if (updatedLevel != previousLevel && actorClasses.length > 0) {
-            for await (const actorClass of actorClasses) {
-                await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(actorClass, this.actor);
-            }
-        }
     }
 
     override getData(options?: ActorSheetOptions) {
