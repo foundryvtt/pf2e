@@ -131,12 +131,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         options: DocumentModificationContext,
         user: foundry.documents.BaseUser
     ): Promise<void> {
-        if (this.isDamageRoll) {
+        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
             data.flags ??= {};
             await DamageChatCard.preformat(this, data);
             setProperty(data, "flags.pf2e.preformatted", "both");
             this.data.update(data);
-            return super._preCreate(data, options, user);
         }
         return super._preCreate(data, options, user);
     }
