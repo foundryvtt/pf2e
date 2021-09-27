@@ -273,7 +273,6 @@ const UNPARSEABLE_ROLL_SYNTAX = [...MATH_FUNCTION_NAMES];
 
 export const DamageChatCard = {
     preformat: async (message: ChatMessagePF2e, data: PreDocumentId<ChatMessagePF2e["data"]["_source"]>) => {
-        if (!game.settings.get("pf2e", "automation.experimentalDamageFormatting")) return;
         const preformatted = data.flags.pf2e?.preformatted as string;
         if (preformatted === "both") return;
         if (!message.isDamageRoll) return;
