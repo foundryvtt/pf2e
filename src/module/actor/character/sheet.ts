@@ -156,7 +156,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Feats
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: string; feat?: FeatData }[];
+            feats: { id: string; level: number | string; feat?: FeatData }[];
             bonusFeats: FeatData[];
         }
         const tempFeats: FeatData[] = [];
@@ -172,7 +172,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.archetype.feats.push({ id: `archetype-${level}`, level: `${level}` });
+                featSlots.archetype.feats.push({ id: `archetype-${level}`, level });
             }
         } else {
             // Use delete so it is in the right place on the sheet
@@ -371,14 +371,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // class
             else if (itemData.type === "class") {
-                const classItem = itemData as ClassData;
+                const classItem: ClassData = itemData;
                 const mapFeatLevels = (featLevels: number[], prefix: string) => {
                     if (!featLevels) {
                         return [];
                     }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level: `${level}` }));
+                        .map((level) => ({ id: `${prefix}-${level}`, level }));
                 };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry");
@@ -391,11 +391,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
             featSlots.ancestry.feats.unshift({
                 id: "ancestry-bonus",
-                level: "1",
+                level: 1,
             });
             for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
                 const index = (level + 1) / 2;
-                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level: `${level}` });
+                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level });
             }
         }
 
@@ -445,6 +445,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
         }
+        featSlots.classfeature.bonusFeats.sort((a, b) => (a.data.level.value > b.data.level.value ? 1 : -1));
 
         // assign mode to actions
         Object.values(actions)
