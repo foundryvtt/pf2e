@@ -22,7 +22,6 @@ export const EnrichContent = {
     enrichHTML: (data: JQuery): void => {
         const $links = data.find(".action-description, .editor-content");
         $links.each((_idx, link) => {
-            console.warn(link);
             link.innerHTML = TextEditor.enrichHTML(EnrichContent.enrichString(link.innerHTML));
         });
     },
@@ -32,22 +31,19 @@ export const EnrichContent = {
         let replaced = true;
         let replacedData;
         do {
-            replacedData = data.replace(
-                /@([\w]*)\[([\w.\-=,"|\<\>\/ ]*)\]/g,
-                (match: string, p1: string, p2: string) => {
-                    switch (p1) {
-                        case "Const":
-                            return EnrichContent.createConst(p2);
-                        case "Save":
-                            return EnrichContent.createSave(p2);
-                        case "Check":
-                            return EnrichContent.createCheck(p2);
-                        case "Template":
-                            return EnrichContent.createTemplate(p2);
-                    }
-                    return match;
+            replacedData = data.replace(/@([\w]*)\[([\w.\-=,"|<>/ ]*)\]/g, (match: string, p1: string, p2: string) => {
+                switch (p1) {
+                    case "Const":
+                        return EnrichContent.createConst(p2);
+                    case "Save":
+                        return EnrichContent.createSave(p2);
+                    case "Check":
+                        return EnrichContent.createCheck(p2);
+                    case "Template":
+                        return EnrichContent.createTemplate(p2);
                 }
-            );
+                return match;
+            });
             if (replacedData === data) replaced = false;
             data = replacedData;
         } while (replaced);
@@ -60,13 +56,12 @@ export const EnrichContent = {
     },
 
     createSave(data: string): string {
-        let strParams = data.split("|");
-
+        const strParams = data.split("|");
         let saveType = strParams[0];
-        if (saveType.slice(0, 4) == "basic") {
-            strParams[0] = saveType.slice(5, saveType.length - 1);
-            saveType = strParams[0].toLowerCase();
-        } else strParams[0] = strParams[0].charAt(0).toUpperCase().concat(strParams[0].slice(1));
+
+        if (saveType.slice(0, 5) == "basic") saveType = saveType.slice(5, saveType.length).toLocaleLowerCase();
+
+        strParams[0] = strParams[0].charAt(0).toUpperCase().concat(strParams[0].slice(1));
 
         if (strParams.length == 3) strParams.push("gm");
 
@@ -86,7 +81,7 @@ export const EnrichContent = {
     },
 
     createTemplate(data: string): string {
-        let strParams = data.split("|");
+        const strParams = data.split("|");
 
         if (!(strParams.length == 3)) return "Wrong number of parameters in @Template params ".concat(data);
         if (!["cone", "emanation", "burst", "line", "rectangle"].includes(strParams[0]))
