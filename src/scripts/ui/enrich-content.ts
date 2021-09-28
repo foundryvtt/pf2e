@@ -10,7 +10,9 @@ export const EnrichContent = {
         return data;
     },
 
-    enrichSkillVariants: (data: any): any => {
+    enrichSkillVariants: (
+        data: Record<string, { label: string; options: string }> | undefined
+    ): Record<string, { label: string; options: string }> | undefined => {
         if (data) {
             for (const [key] of Object.entries(data)) {
                 data[key].label = EnrichContent.enrichString(data[key].label);
