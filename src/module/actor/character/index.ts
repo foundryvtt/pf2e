@@ -571,9 +571,7 @@ export class CharacterPF2e extends CreaturePF2e {
             // workaround for the shortform skill names
             const longForm = SKILL_DICTIONARY[shortForm];
 
-            const strongEnough = this.data.data.abilities.str.value >= (wornArmor?.strength ?? 0);
-
-            if (strongEnough && wornArmor?.traits.has("flexible") && ["acr", "ath"].includes(shortForm)) {
+            if (wornArmor?.traits.has("flexible") && ["acr", "ath"].includes(shortForm)) {
                 this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignore-check-penalty": true };
             }
             if (skill.armor && systemData.attributes.ac.check && systemData.attributes.ac.check < 0) {
