@@ -147,20 +147,22 @@ export class CharacterPF2e extends CreaturePF2e {
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
 
+        // Spellcasting-tradition proficiencies
+        systemData.proficiencies = {
+            traditions: MAGIC_TRADITIONS.reduce(
+                (accumulated: DeepPartial<MagicTraditionProficiencies>, tradition) => ({
+                    ...accumulated,
+                    [tradition]: { rank: 0 },
+                }),
+                {}
+            ),
+        };
+
         // Resources
         const { resources } = this.data.data;
         resources.investiture = { value: 0, max: 10 };
         resources.focus ??= { value: 0, max: 0 };
         resources.focus.max = 0;
-
-        // Magic proficiencies
-        systemData.magic = MAGIC_TRADITIONS.reduce(
-            (accumulated: DeepPartial<MagicTraditionProficiencies>, category) => ({
-                ...accumulated,
-                [category]: { rank: 0 },
-            }),
-            {}
-        );
 
         // Size
         this.data.data.traits.size = { value: "med" };
@@ -901,11 +903,14 @@ export class CharacterPF2e extends CreaturePF2e {
             this.prepareStrike(weapon, { categories: offensiveCategories, synthetics, ammos })
         );
 
-        this.spellcasting.forEach((item) => {
-            const spellcastingEntry = item.data;
-            const tradition = item.tradition;
-            const rank = item.rank;
-            const ability = item.ability;
+        for (const entry of itemTypes.spellcastingEntry) {
+            const entryData = entry.data;
+            const tradition = entry.tradition;
+            const { proficiencies } = this.data.data;
+            const rank = (entry.data.data.proficiency.value = MAGIC_TRADITIONS.includes(tradition)
+                ? Math.max(proficiencies.traditions[tradition].rank, entry.rank)
+                : 0);
+            const ability = entry.ability;
             const baseModifiers = [
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
@@ -936,7 +941,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
 
                 const attack: StatisticModifier & Partial<SpellAttackRollModifier> = new StatisticModifier(
-                    spellcastingEntry.name,
+                    entryData.name,
                     modifiers
                 );
                 attack.notes = notes;
@@ -964,7 +969,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.callback
                     );
                 };
-                spellcastingEntry.data.attack = attack as Required<SpellAttackRollModifier>;
+                entryData.data.attack = attack as Required<SpellAttackRollModifier>;
             }
 
             {
@@ -986,7 +991,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
 
                 const dc: StatisticModifier & Partial<SpellDifficultyClass> = new StatisticModifier(
-                    spellcastingEntry.name,
+                    entryData.name,
                     modifiers
                 );
                 dc.notes = notes;
@@ -998,9 +1003,9 @@ export class CharacterPF2e extends CreaturePF2e {
                             .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     )
                     .join(", ");
-                spellcastingEntry.data.dc = dc as Required<SpellDifficultyClass>;
+                entryData.data.dc = dc as Required<SpellDifficultyClass>;
             }
-        });
+        }
 
         // Resources
         const { resources } = this.data.data;

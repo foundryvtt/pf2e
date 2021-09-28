@@ -1,9 +1,9 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
+import { MagicTradition, SlotKey, SpellcastingEntryData } from "./data";
 import { SpellPF2e } from "@item/spell";
 import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
-import { SlotKey, SpellcastingEntryData } from "./data";
 import { UserPF2e } from "@module/user";
 
 export interface SpellcastingSlotLevel {
@@ -67,8 +67,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return this.data.data.ability.value || "int";
     }
 
-    get tradition() {
-        return this.data.data.tradition.value || null;
+    get tradition(): MagicTradition {
+        return this.data.data.tradition.value || "arcane";
     }
 
     /**
