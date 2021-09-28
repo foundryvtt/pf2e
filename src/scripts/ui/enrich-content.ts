@@ -24,21 +24,26 @@ export const EnrichContent = {
     enrichHTML: (data: JQuery): void => {
         const $links = data.find(".action-description, .editor-content");
         $links.each((_idx, link) => {
-            link.innerHTML = TextEditor.enrichHTML(EnrichContent.enrichString(link.innerHTML));
+            let itemName;
+            if (link.className === "action-description")
+                itemName = link.closest(".item.action")?.getAttribute("data-item-name") ?? undefined;
+            else if (link.className === "editor-content")
+                itemName = link.closest(".sheet.pf2e.item")?.getElementsByClassName("window-title")[0].innerHTML;
+            link.innerHTML = TextEditor.enrichHTML(EnrichContent.enrichString(link.innerHTML, itemName));
         });
     },
 
-    enrichString: (data: string): string => {
+    enrichString: (data: string, itemName: string | undefined = undefined): string => {
         if (!(typeof data === "string")) return data;
         let replaced = true;
         let replacedData;
         do {
             replacedData = data.replace(/@([\w]*)\[([\w.\-=,"|<>/ ]*)\]/g, (match: string, p1: string, p2: string) => {
                 switch (p1) {
-                    case "Const":
-                        return EnrichContent.createConst(p2);
+                    case "Localize":
+                        return EnrichContent.createLocalize(p2);
                     case "Save":
-                        return EnrichContent.createSave(p2);
+                        return EnrichContent.createSave(p2, itemName);
                     case "Check":
                         return EnrichContent.createCheck(p2);
                     case "Template":
@@ -53,19 +58,32 @@ export const EnrichContent = {
         return data;
     },
 
-    createConst(data: string): string {
+    createLocalize(data: string): string {
         return EnrichContent.enrichString(game.i18n.localize(data));
     },
 
-    createSave(data: string): string {
+    createSave(data: string, itemName: string | undefined): string {
         const strParams = data.split("|");
+
+        //data validations
+        if (strParams.length < 2) return "Wrong number of parameters in @Save params ".concat(data);
+        if (!["fortitude", "basicFortitude", "reflex", "basicReflex", "will", "basicWill"].includes(strParams[0]))
+            return "Save type undefined in @Save params ".concat(data);
+        if (isNaN(+strParams[1])) return "DC is not a number in @Save params ".concat(data);
+        if (strParams.length == 4 && !["gm", "owner", "all"].includes(strParams[strParams.length - 1]))
+            return "Wrong visibility type in @Save params ".concat(data);
+
+        //create default values for save label and visibility
+        if (!(typeof itemName === "string")) itemName = game.i18n.localize("PF2E.SavingThrow");
+        if (strParams.length === 2) strParams.push(itemName);
+        if (strParams.length > 2 && strParams[2] === "") strParams[2] = itemName;
+        strParams[2] = strParams[2].concat(" ").concat(game.i18n.localize("PF2E.NPC.Spells.DCLabel"));
+        if (strParams.length === 3) strParams.push("gm");
+
+        //create saveType and save button label
         let saveType = strParams[0];
-
         if (saveType.slice(0, 5) == "basic") saveType = saveType.slice(5, saveType.length).toLocaleLowerCase();
-
         strParams[0] = strParams[0].charAt(0).toUpperCase().concat(strParams[0].slice(1));
-
-        if (strParams.length == 3) strParams.push("gm");
 
         const html = document.createElement("span");
 
