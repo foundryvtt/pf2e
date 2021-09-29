@@ -1475,7 +1475,7 @@ export const PF2ECONFIG = {
         class: "PF2E.Class",
         modification: "PF2E.TraitModification",
         unstable: "PF2E.TraitUnstable",
-        reckless: "PF2E.TraitReckless"
+        reckless: "PF2E.TraitReckless",
     },
 
     creatureTraits,
@@ -1762,7 +1762,7 @@ export const PF2ECONFIG = {
 
     // Creature Sizes
     actorSizes: {
-        ...sizeTypes
+        ...sizeTypes,
     },
 
     speedTypes: {
