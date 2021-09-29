@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.14.1
+### Bug Fixes
+* (stwlam) Fix crit and fumble cards not rendering correctly with some combinations of settings
+* (stwlam) Fix functionality of flexible armor trait
+
+
 ## Version 2.14.0
 ### Bug Fixes
 * (In3luki) Fix check roll dialog radio buttons when multiple dialogs are open
