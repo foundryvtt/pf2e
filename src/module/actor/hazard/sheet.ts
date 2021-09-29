@@ -3,6 +3,8 @@ import { ErrorPF2e } from "@module/utils";
 import { HazardPF2e } from ".";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
+import { SAVE_TYPES } from "@actor/data";
+import { HazardSystemData } from "./data";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {
@@ -23,40 +25,35 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     override getData(): any {
-        const sheetData: any = super.getData();
+        const sheetData = super.getData();
 
         // Update save labels
-        for (const key of ["fortitude", "reflex", "will"] as const) {
+        for (const key of SAVE_TYPES) {
             sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
         }
+        sheetData.actor.flags.editHazard ??= { value: false };
+        const systemData: HazardSystemData = sheetData.data;
 
-        sheetData.flags = sheetData.actor.flags;
-        if (sheetData.flags.editHazard === undefined) sheetData.flags.editHazard = { value: false };
-
-        sheetData.hazardTraits = CONFIG.PF2E.hazardTraits;
-        sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
-
-        sheetData.rarity = CONFIG.PF2E.rarityTraits;
-
-        sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-
-        sheetData.stealthDC = (sheetData.data.attributes.stealth?.value ?? 0) + 10;
-        sheetData.hasStealthDescription = sheetData.data.attributes.stealth?.details || false;
-
-        sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
-        sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
-        sheetData.hasWeaknesses = sheetData.data.traits.dv.length ? Array.isArray(sheetData.data.traits.dv) : false;
-        sheetData.hasDescription = sheetData.data.details.description || false;
-        sheetData.hasDisable = sheetData.data.details.disable || false;
-        sheetData.hasRoutineDetails = sheetData.data.details.routine || false;
-        sheetData.hasResetDetails = sheetData.data.details.reset || false;
-        sheetData.hasHPDetails = sheetData.data.attributes.hp.details || false;
-        sheetData.hasWillSave = sheetData.data.saves.will.value !== 0 || false;
-
-        sheetData.brokenThreshold = Math.floor(sheetData.data.attributes.hp.max / 2);
-
-        return sheetData;
+        return {
+            ...sheetData,
+            flags: sheetData.actor.flags,
+            hazardTraits: CONFIG.PF2E.hazardTraits,
+            actorTraits: systemData.traits.traits.value,
+            actorRarities: CONFIG.PF2E.rarityTraits,
+            actorRarity: CONFIG.PF2E.rarityTraits[this.actor.rarity],
+            stealthDC: (systemData.attributes.stealth?.value ?? 0) + 10,
+            hasStealthDescription: systemData.attributes.stealth?.details || false,
+            hasImmunities: systemData.traits.di.value.length ? systemData.traits.di.value : false,
+            hasResistances: systemData.traits.dr.length > 0,
+            hasWeaknesses: systemData.traits.dv.length > 0,
+            hasDescription: systemData.details.description || false,
+            hasDisable: systemData.details.disable || false,
+            hasRoutineDetails: systemData.details.routine || false,
+            hasResetDetails: systemData.details.reset || false,
+            hasHPDetails: systemData.attributes.hp.details || false,
+            hasWillSave: systemData.saves.will.value !== 0 || false,
+            brokenThreshold: Math.floor(systemData.attributes.hp.max / 2),
+        };
     }
 
     override prepareItems(sheetData: any): void {
