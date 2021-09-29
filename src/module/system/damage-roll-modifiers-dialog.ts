@@ -167,7 +167,7 @@ export class DamageRollModifiersDialog extends Application {
         };
 
         const item: ItemPF2e | null = context.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.type } : null;
+        const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,

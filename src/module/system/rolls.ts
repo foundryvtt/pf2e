@@ -334,57 +334,56 @@ export class CheckPF2e {
         }
 
         const flags = duplicate(message.data.flags.pf2e);
-        if (flags) {
-            const check = new StatisticModifier(flags.modifierName ?? "", flags.modifiers);
-            const context = flags.context;
-            if (context) {
-                context.createMessage = false;
-                context.skipDialog = true;
-                context.isReroll = true;
-                const newMessage = (await CheckPF2e.roll(
-                    check,
-                    context
-                )) as foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>;
-                const oldRoll = message.roll;
-                const newRoll = Roll.fromData(JSON.parse(newMessage.roll as string)) as Rolled<Roll<RollDataPF2e>>;
+        const modifiers = (flags.modifiers ?? []).map((modifier) => ModifierPF2e.fromObject(modifier));
+        const check = new StatisticModifier(flags.modifierName ?? "", modifiers);
+        const context = flags.context;
+        if (context) {
+            context.createMessage = false;
+            context.skipDialog = true;
+            context.isReroll = true;
+            const newMessage = (await CheckPF2e.roll(
+                check,
+                context
+            )) as foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>;
+            const oldRoll = message.roll;
+            const newRoll = Roll.fromData(JSON.parse(newMessage.roll as string)) as Rolled<Roll<RollDataPF2e>>;
 
-                // Keep the new roll by default; Old roll is discarded
-                let keepRoll = newRoll;
-                let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
+            // Keep the new roll by default; Old roll is discarded
+            let keepRoll = newRoll;
+            let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
-                // Check if we should keep the old roll instead.
-                if (
-                    (keep === "best" && oldRoll.total > newRoll.total) ||
-                    (keep === "worst" && oldRoll.total < newRoll.total)
-                ) {
-                    // If so, switch the css classes and keep the old roll.
-                    [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
-                    keepRoll = oldRoll;
-                }
-                const renders = {
-                    old: await CheckPF2e.renderReroll(oldRoll),
-                    new: await CheckPF2e.renderReroll(newRoll),
-                };
-
-                const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
-                rerollIcon.classList.add("pf2e-reroll-indicator");
-                rerollIcon.setAttribute("title", rerollFlavor);
-
-                await message.delete({ render: false });
-                await keepRoll.toMessage(
-                    {
-                        content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
-                        flavor: `${rerollIcon.outerHTML}${newMessage.flavor}`,
-                        speaker: message.data.speaker,
-                        flags: {
-                            pf2e: flags,
-                        },
-                    },
-                    {
-                        rollMode: context?.rollMode ?? "roll",
-                    }
-                );
+            // Check if we should keep the old roll instead.
+            if (
+                (keep === "best" && oldRoll.total > newRoll.total) ||
+                (keep === "worst" && oldRoll.total < newRoll.total)
+            ) {
+                // If so, switch the css classes and keep the old roll.
+                [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
+                keepRoll = oldRoll;
             }
+            const renders = {
+                old: await CheckPF2e.renderReroll(oldRoll),
+                new: await CheckPF2e.renderReroll(newRoll),
+            };
+
+            const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
+            rerollIcon.classList.add("pf2e-reroll-indicator");
+            rerollIcon.setAttribute("title", rerollFlavor);
+
+            await message.delete({ render: false });
+            await keepRoll.toMessage(
+                {
+                    content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
+                    flavor: `${rerollIcon.outerHTML}${newMessage.flavor}`,
+                    speaker: message.data.speaker,
+                    flags: {
+                        pf2e: flags,
+                    },
+                },
+                {
+                    rollMode: context?.rollMode ?? "roll",
+                }
+            );
         }
     }
 
