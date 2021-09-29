@@ -2,7 +2,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { MATH_FUNCTION_NAMES } from "@module/data";
 
-function asDamageDieSize(faces: number) {
+function asDamageDieSize(faces: number): DamageDieSize {
     return `d${faces}` as DamageDieSize;
 }
 
@@ -273,7 +273,7 @@ const UNPARSEABLE_ROLL_SYNTAX = [...MATH_FUNCTION_NAMES];
 
 export const DamageChatCard = {
     preformat: async (message: ChatMessagePF2e, data: PreDocumentId<ChatMessagePF2e["data"]["_source"]>) => {
-        const preformatted = data.flags.pf2e?.preformatted as string;
+        const preformatted = data.flags.pf2e.preformatted;
         if (preformatted === "both") return;
         if (!message.isDamageRoll) return;
 
@@ -303,7 +303,7 @@ export const DamageChatCard = {
         const types = prepareCardData(processed, notes, context);
 
         // flavor
-        if (["both", "flavor"].includes(preformatted)) {
+        if (["both", "flavor"].includes(preformatted ?? "")) {
             // skip processing for messages with preformatted flavor
         } else {
             const flavor = await renderTemplate("systems/pf2e/templates/chat/damage/damage-card-flavor.html", {
@@ -322,7 +322,7 @@ export const DamageChatCard = {
         }
 
         // content
-        if (["both", "content"].includes(preformatted)) {
+        if (["both", "content"].includes(preformatted ?? "")) {
             // skip processing for messages with preformatted content
         } else {
             // remove empty damage types
