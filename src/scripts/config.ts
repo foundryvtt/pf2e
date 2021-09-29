@@ -843,7 +843,7 @@ const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
     impactful: "PF2E.WeaponPropertyRuneImpactful",
 };
 
-// Creature Sizes
+// Creature and Equipment Sizes
 const sizeTypes = {
     tiny: "PF2E.ActorSizeTiny",
     sm: "PF2E.ActorSizeSmall",
