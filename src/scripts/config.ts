@@ -292,6 +292,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "persistent-damage": "PF2E.ConditionTypePersistent",
     "protean anatomy": "PF2E.TraitProteanAnatomy",
+    hardness: "PF2E.TraitHardness",
     unarmed: "PF2E.TraitUnarmed",
     vorpal: "PF2E.WeaponPropertyRuneVorpal",
     weapons: "PF2E.TraitWeapons",
