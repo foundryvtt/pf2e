@@ -25,16 +25,18 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "familiar-abilities",
-                "type": "base",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.familiarAbilities.value",
+                "phase": "afterDerived",
+                "priority": 1,
                 "value": 2
             },
             {
-                "key": "FlatModifier",
-                "label": "Extra Familiar Abilities",
-                "selector": "familiar-abilities",
-                "type": "untyped",
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.familiarAbilities.value",
+                "phase": "afterDerived",
                 "value": {
                     "brackets": [
                         {
