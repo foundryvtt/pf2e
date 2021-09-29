@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.14.2
+### Bug Fixes
+* (stwlam) Exclude fate dice and coin rolls from damage formatting
+* (stwlam) Fix display of weaknesses and resistances on hazard sheet
+
+
 ## Version 2.14.1
 ### Bug Fixes
 * (stwlam) Fix crit and fumble cards not rendering correctly with some combinations of settings
