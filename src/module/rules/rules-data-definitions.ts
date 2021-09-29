@@ -15,6 +15,7 @@ export type RuleElementSource = {
     /** The place in order of application (ascending), among an actor's list of rule elements */
     priority?: number;
     ignored?: boolean;
+    requiresInvestment?: boolean;
 };
 
 export interface RuleElementData extends RuleElementSource {

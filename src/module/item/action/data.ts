@@ -9,7 +9,7 @@ export class ActionData extends BaseNonPhysicalItemData<ActionPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/action.svg";
 }
 
-export interface ActionData extends Omit<ActionSource, "_id" | "effects"> {
+export interface ActionData extends Omit<ActionSource, "effects" | "flags"> {
     type: ActionSource["type"];
     data: ActionSource["data"];
     readonly _source: ActionSource;

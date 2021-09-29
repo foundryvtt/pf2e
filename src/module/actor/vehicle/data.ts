@@ -1,5 +1,4 @@
 import {
-    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorAttributes,
     BaseActorDataPF2e,
@@ -16,10 +15,9 @@ export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/vehicle.svg";
 }
 
-export interface VehicleData extends Omit<VehicleSource, "effects" | "items" | "token"> {
+export interface VehicleData extends Omit<VehicleSource, "effects" | "flags" | "items" | "token"> {
     type: VehicleSource["type"];
     data: VehicleSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: VehicleSource;
 }
 

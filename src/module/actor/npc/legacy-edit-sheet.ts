@@ -253,24 +253,25 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             event.stopPropagation();
 
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId, { strict: true });
+            const item = this.actor.items.get(itemId);
+            if (!item) return;
             const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
-                case "npcAttack":
+                case "legacy-attack":
                     item.rollNPCAttack(event);
                     break;
-                case "npcAttack2":
+                case "legacy-attack-2":
                     item.rollNPCAttack(event, 2);
                     break;
-                case "npcAttack3":
+                case "legacy-attack-3":
                     item.rollNPCAttack(event, 3);
                     break;
-                case "npcDamage":
+                case "legacy-damage":
                     item.rollNPCDamage(event);
                     break;
-                case "npcDamageCritical":
+                case "legacy-critical":
                     item.rollNPCDamage(event, true);
                     break;
                 case "spellAttack":

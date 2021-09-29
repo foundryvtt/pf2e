@@ -1,5 +1,193 @@
 # Patch Notes:
 
+## Version 2.14.1
+### Bug Fixes
+* (stwlam) Fix crit and fumble cards not rendering correctly with some combinations of settings
+* (stwlam) Fix functionality of flexible armor trait
+
+
+## Version 2.14.0
+### Bug Fixes
+* (In3luki) Fix check roll dialog radio buttons when multiple dialogs are open
+* (In3luki) Fix attack effects displaying slug instead of item name in chat card
+* (In3luki) Fix compendium browser loading all packs regardless of the current settings
+* (stwlam) Apply temporary fix to critical strikes with splash damage. Closes #1687
+* (stwlam) Remove dependency on presence of slug to generate magical weapon names
+* (stwlam) Fix calculation of hazard XP in XP macro
+* (stwlam) Fix legacy NPC strikes
+* (n1xx1) Use grid units in measure tool
+
+### Content Changes
+* (InfamousSky) Add speed rule elements to Sylph feats. Closes #1700
+* (InfamousSky) Brush up of corrupted priest from Extinction Curse. Closes #1713
+* (InfamousSky) Fix the amount of additional skills of some classes. Closes #1721
+* (InfamousSky) Add missing traditions to the _blazing dive_ spell
+* (InfamousSky) Add icons for the remaining Secrets of Magic spells
+* (InfamousSky) Fix inline save label of _chromatic ray_ spell. Closes #1712
+* (InfamousSky) Brush up nightmare and greater nightmare
+* (InfamousSky) Add question mark icon for class features requiring choice to be made
+* (InfamousSky) Add _boost eidolon_ spell effects for damage dice scaling
+* (InfamousSky) Fix double `@Compendium` in kobold breath, and add inline templates and scaling damage. Closes #1737
+* (InfamousSky) Add missing equipment from Agents of Edgewatch book 5
+* (InfamousSky) Correct typos in Celestial Peach (Rejuvenation) and Ring of Maniacal Devices (Greater). Closes #1742 and #1743
+* (InfamousSky) Fix typo in "Form of the Fiend" Feats. Closes #1744
+* (InfamousSky) Correct level and runes of Invisible Chain Shirt, and add compendium links in the description. Closes #1745
+* (SpartanCPA) Fix the name of the I'iko Dragon
+* (SpartanCPA) A new Rage effect for NPC actors
+* (SpartanCPA) Fix size of the Xulgath Spinesnapper. Closes #1715
+* (SpartanCPA) Correct typo in senses of the Stegosaurus. Closes #1717
+* (SpartanCPA) Add link to _guidance_ immunity effect in the spell description
+* (SpartanCPA) Ensure degrees of success is separated from ability text by `<hr />`
+* (SpartanCPA) Make NPC ability triggers GM-only text
+* (SpartanCPA) Add Swarm Mind to spider swarm
+* (SpartanCPA) Add rule elements to Canny Acumen variants
+* (SpartanCPA) Consolidate NPC Rages into one effect
+* (SpartanCPA) Update source book and action categories for NPC Gallery entries
+* (SpartanCPA) Formating fix for the Invigorating Fear action
+* (SpartanCPA) Fix icons for reactions still using the default `mystery man` icon
+* (SpartanCPA) Brush up Abomination Vaults barbazu variants
+* (SpartanCPA) Fix damage rolls placed in attack effects
+* (SpartanCPA) Fix necrotic bomb. Closes #1733
+* (SpartanCPA) Fix Eidolon Breath Weapon damage. Closes #1722
+* (SpartanCPA) Remove unneeded custom attack effect in Agents of Edgewatch book 1
+* (SpartanCPA) Ensure all effects have token effect icon enabled
+* (SpartanCPA) Add source to equipment
+* (SpartanCPA) Brush up of NPC Gallery creatures: mystics, officers, performers, publicans, scholars, seafarers, tradespeople, villains
+* (SpartanCPA) Add evil damage to _hellfire plume_
+* (SpartanCPA) Add injury and poison to feat traits and add aquatic to hazard traits
+* (xdy) Add source book to:
+    * Heritages in the ancestryfeatures pack
+    * All classes
+    * All ancestries, including those from Secrets of Magic
+    * All hazard
+    * PFS guide feats
+    * Mwangi expanse feats
+    * World Guide feats
+    * All adventure path feats
+    * Character guide feats
+    * All spells
+    * All backgrounds
+    * Advanced Player's Guide feats
+    * Lost Omens: Ancestry Guide feats
+    * Most of the actions
+    * All weapons
+    * Feats from various smaller books
+    * Most of the treasure
+    * Core Rulebook feats
+* (rectulo) Add level to Terrain Shield geomancer archetype feat
+* (rectulo) Correct `Sheltering Cave` from bonus feat to druid class feat
+* (rectulo) Correct `Wind-Tossed Spell` from bonus feat to elementalist dedication archetype feat
+* (rectulo) Clean up links of Surge Investigator
+* (rectulo) Change trait of formula book
+* (rectulo) Brush up magus description
+* (rectulo) Fix typo in requirements of cascade countermeasure feat
+* (rectulo) Fix type in the Spell Swipe feat description
+* (rectulo) Add the additional text regarding Draconic Bloodline to the Claws of the Dragon feat
+* (TMun) Add hardness 14 to poisoned dart trap. Closes #1718
+* (TMun) Add class features for class archetypes, including automation for runelord focus spells and polearm proficiency. Closes #1719
+* (TMun) Add spell daily tables to magus and summoner
+* (TMun) Add NPCs from Pathfinder Society S2-19
+* (TMun) Update NPCs from Pathfinder Society S2-21. Add unkillable zombie shambler
+* (TMun) Add light and medium armor proficiency to Kyra
+* (stwlam) Fix rule elements on Cat Animal Instinct class feature
+* (stwlam) Update _elemental form_ spell effects with BattleForm rule elements
+* (stwlam) Update _dinosaur form_ spell effects with BattleForm rule elements
+* (stwlam) Fix Druidic Orders link and rule elements related to focus points on flame and stone orders
+* (stwlam) Fix _element embodied (earth)_ spell effect
+* (stwlam) Remove unnecessary roll options fields from some FlatModifier rule elements in pack JSON
+* (stwlam) Mark all specific magic weapons as such
+* (stwlam) Fix permission of Toggle Mountain Stance macro
+* (stwlam) Remove Amurrun from Lizardfolk default languages
+* (stwlam) Move "Effect: Hybrid Form" to correct compendium
+* (Abaddon) Update _retributive strike_ on all NPCs to show the actual damage reduction it grants
+* (Abaddon) Brush up of Bestiary 1 spiders
+* (Abaddon) Brush up of Bestiary 1 bears
+* (Abaddon) Brush up of Bestiary 1 wendigo
+* (Abaddon) Brush up of Bestiary 1 catfolk pouncer
+* (Abaddon) Brush up of Bestiary 1 lantern archon gestalt
+* (Abaddon) Brush up of Bestiary 1 merfolk
+* (Abaddon) Fix NPC special attack effects
+* (Dmitry) Fix Sun Wheel item
+* (skulbuny) Brush up Otari Ilvashti
+* (Drental) Add cactus leshy spine strike
+* (Tikael) Part 4 of brush up of Age of Ashes book 4
+* (Tikael) Correct price of fauchard
+* (Tikael) Clean up animal and dragon instincts
+* (Tikael) Correct Sneak Attack damage for rogue dedication
+* (Tikael) Add Stoked Flame Stance
+* (kageru) Fix damage type of daikyu
+* (kageru) Remove incorrectly copied traits from creatures
+* (kageru) Fix skill proficiencies in class descriptions
+* (Friz) Fix investigator's stratagem feat level
+* (Cora) Fix rarity and add missing rule elements on some of the Age of Ashes paragon feats
+* (Zaquariah) Add missing text to phase familiar description. Closes #1196
+* (Vindico) Add flowing wave strike rule element and disarm/swim/trip modifier rule elements to the reflective ripple stance effect. Closes #1724
+
+### Core System Improvements
+* (stwlam) Move metagame settings to a menu
+* (stwlam) Set appropriate usage for equipment and mark certain containers as being for stowing
+* (stwlam) Prevent adding PC-only items to NPCs
+* (stwlam) Add negative healing indicator to creature hit point data and recoverym ultiplier to PC hit point data
+* (stwlam) Scale tokens belonging to small actors down to 0.8
+* (stwlam) Fix hard-coded localization and storage of weakness/resistance values as strings. Closes #1697
+* (stwlam) Replace rule-element based armor speed penalties with actor-data preparation. Closes #1699
+* (stwlam) If a world has actors but no stored schema version, store as low as recommended safe version
+* (stwlam) Add predicates to disrupting and alignment-damage runes
+* (stwlam) Move prepareSpeed method to CreaturePF2e, call from subclasses
+* (stwlam) Update BattleForm and RollNote rule elements to accommodate Elemental Form spell effects
+* (stwlam) Adapt BattleForm rule element to work with _pest form_ spell effects
+* (stwlam) Set better defaults in BattleForm rule element
+* (stwlam) Add a _wild shape_ spell effect that alters battle forms
+* (stwlam) Validate actor types from rule elements via overridable static property
+* (stwlam) Allow finer cone-rotation increments
+* (stwlam) Do not apply Pathfinder effect-area rules to templates when a square grid isn't in use
+* (stwlam) Only show the troubleshooting button to GMs
+* (stwlam) Show weapon level in a tooltip when adjusted by materials and runes
+* (stwlam) Have BattleForm validation be a little more forgiving
+* (stwlam) Set invalid proficiency ranks to untrained or legendary instead of sending an error message
+* (stwlam) Set a class:<class-slug> roll option, mainly for homebrew use
+* (stwlam) Remove experimental perception automation toggle
+* (stwlam) Set a roll option stating whether an actor is armored
+* (stwlam) Add a RollOption rule element, use with Unburdened Iron and Armored Stealth feats
+* (stwlam) Prevent "custom" getting added as a trait when a custom trait is entered
+* (stwlam) Move ancestry vision features from independent items to system data on ancestry items
+* (stwlam) Add automatic detection of spellcasting targets for superstition instinct
+* (stwlam) Fill out sense and trait automation for Fungus Leshy heritage
+* (stwlam) Remove PC-only items from non-PCs
+* (stwlam) Reorganize familiar sheet
+* (stwlam) Allow a rule element to declare that it does not require its parent item to be invested
+* (stwlam) Fix predication of creature speed modifiers
+* (stwlam) Allow users to retract time in the World Clock via holding down the ctrl key
+* (stwlam) Sort class features by level on PC sheet
+* (skulbuny) Polish stamina/resolve design in the sidebar
+* (Supe) Signature spells at other levels no longer have remove/edit buttons and have a tint
+* (Supe) NPCs can now set signature spells
+* (Supe) Add activation time getters to feat/actions. If passive returns null
+* (Supe) Add cast level and heighten to roll data
+* (Supe) Ensure expended has a value for prepared slots
+* (Supe) Remove spellcasting entry header visibility toggle for edit controls
+* (Supe) Make spell "Cast" button post the spell to chat
+* (Supe) Spells support damage card formatting when the automation flag is enabled
+* (Supe) Add bottom gap to feats list
+* (Supe) Allow roll data to be used for deferred inline rolls, and fix a bug from Foundry Core
+* (In3luki) API Change: Separate `CheckPF2e.roll` and `CheckModifiersDialog`
+* (In3luki) Add consumables to available NPC attack effect choices
+* (In3luki) Add "Consumable" label and the remaining quantity to NPC attack effects from consumables
+* (Chup) Remove unused CSS from legacy styles
+* (Chup) More CSS tag refactors
+* (Chup) Fix character navigation hover color. Closes #1329
+* (Chup) Fix styling of PFS player and character numbers
+* (Chup) Refactor CSS for details labels in character and vehicle sheet
+* (Chup) Ensure unique IDs for specific UI elements across sheets for different actors
+* (Cerapter) Add ability to hide slotless levels in Spellbooks
+* (n1xx1) Add a checkbox in the NPC sheet to make it lootable on death
+* (Tikael) Add mental trait to feat trait list
+* (Tikael) Add thrown 25 and 50 traits
+* (xdy) Add source filtering to most tabs on the compendium browser
+* (nikolaj-a) Experimental damage roll chat card format
+* (nikolaj-a) Use default roll options for modifiers
+
+
 ## Version 2.13.5
 ### Bug Fixes
 * (stwlam) Fix duplicated modifiers to NPC damage on multiple rolls

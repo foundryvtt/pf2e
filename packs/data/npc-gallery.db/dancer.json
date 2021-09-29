@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -58,6 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
+            "flavorText": "<p>Dance can be used to tell stories, share emotions, provide entertainment, and display a performer's athletic ability. The dancer is a 5th-level challenge for dance contests.</p>\n<hr />\n<p>Performances can serve as entertainment, expressions of beauty, or part of a shared culture.</p>",
             "level": {
                 "value": 1
             },
@@ -118,7 +120,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "T1Cmn9qKH2x1OAOX",
+            "_id": "6f2BYZjHROeKmuNl",
             "data": {
                 "MAP": {
                     "value": ""
@@ -126,7 +128,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -152,10 +154,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -201,10 +203,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -224,16 +226,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 3
@@ -248,9 +250,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -287,14 +289,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "3BdeZFjrYolqnmjN",
+            "_id": "uBrl3zYakAsOXqbM",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -310,10 +316,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Worth 10 GP</p>"
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -365,9 +371,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "clothing-fine",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -380,16 +386,20 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "worn"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.jJZbdMHMdh8UL2j8"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-fine.webp",
-            "name": "Clothing and Jewelry",
+            "name": "Clothing with Jewelry",
             "sort": 200000,
             "type": "equipment"
         },
@@ -550,7 +560,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round;</p>\n<p><strong>Effect</strong> The dancer @Compendium[pf2e.actionspf2e.Stride]{Strides} up to their Speed. Once during this movement, when the dancer is adjacent to a creature, the dancer can make that creature attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"17\" data-pf2-label=\"Fascinating Dance DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, that creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with the dancer until the end of its next turn.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round;</p>\n<p><strong>Effect</strong> The dancer Strides up to their Speed. Once during this movement, when the dancer is adjacent to a creature, the dancer can make that creature attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"17\" data-pf2-label=\"Fascinating Dance DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, that creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with the dancer until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -576,7 +586,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Fascinating Dance",
             "sort": 600000,
             "type": "action"
@@ -687,13 +697,10 @@
             "type": "lore"
         },
         {
-            "_id": "o3L6C5ZiRcwmproc",
+            "_id": "7RDjgYcmwKNdhNZc",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 13
@@ -701,7 +708,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "When Dancing",
+                        "predicate": {
+                            "all": [
+                                "action:dance"
+                            ]
+                        },
+                        "selector": "performance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -712,12 +731,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 when dancing",
+                        "options": "action:dance"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance (+15 when dancing)",
+            "name": "Performance",
             "sort": 1000000,
             "type": "lore"
         },

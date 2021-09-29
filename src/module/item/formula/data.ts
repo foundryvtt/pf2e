@@ -8,7 +8,7 @@ export class FormulaData extends BaseNonPhysicalItemData<FormulaPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/lore.svg";
 }
 
-export interface FormulaData extends Omit<FormulaSource, "_id" | "effects"> {
+export interface FormulaData extends Omit<FormulaSource, "effects" | "flags"> {
     type: FormulaSource["type"];
     data: FormulaSource["data"];
     readonly _source: FormulaSource;

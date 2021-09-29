@@ -64,6 +64,7 @@ abstract class RuleElementPF2e {
             console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
             data.ignored = true;
         }
+        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
 
         this.data = {
             priority: 100,
@@ -100,7 +101,7 @@ abstract class RuleElementPF2e {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+        return (this.data.ignored = !item.isEquipped || (item.isInvested === false && !!this.data.requiresInvestment));
     }
 
     set ignored(value: boolean) {
