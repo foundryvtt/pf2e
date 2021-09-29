@@ -110,6 +110,9 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
 
+        // Familiar abilities
+        attributes.familiarAbilities = { value: 0 };
+
         // Saves and skills
         const saves: DeepPartial<CharacterSaves> = this.data.data.saves;
         for (const save of SAVE_TYPES) {
@@ -694,29 +697,6 @@ export class CharacterPF2e extends CreaturePF2e {
         const { otherSpeeds } = systemData.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
             otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
-        }
-
-        // Familiar Abilities
-        {
-            const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers["familiar-abilities"] || [])
-                .map((m) => m.clone())
-                .forEach((m) => {
-                    m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? ["familiar-abilities"]));
-                    modifiers.push(m);
-                });
-
-            const stat = mergeObject(
-                new StatisticModifier("familiar-abilities", modifiers),
-                systemData.attributes.familiarAbilities,
-                { overwrite: false }
-            );
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.attributes.familiarAbilities = stat;
         }
 
         // Automatic Actions

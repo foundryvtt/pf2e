@@ -255,7 +255,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     heroPoints: { rank: ZeroToThree; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
-    familiarAbilities: StatisticModifier;
+    familiarAbilities: { value: number };
 
     /** The character's natural reach */
     reach: {
