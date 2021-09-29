@@ -40,7 +40,6 @@ import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
-import { EnrichContent } from "@scripts/ui/enrich-content";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 
 /**
@@ -230,10 +229,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (this.actor.type !== "character") {
-            EnrichContent.enrichHTML(html);
-            InlineRollsLinks.listen(html);
-        }
+        if (this.actor.type !== "character") InlineRollsLinks.listen(html);
 
         // Roll Save Checks
         html.find(".save-name").on("click", (event) => {

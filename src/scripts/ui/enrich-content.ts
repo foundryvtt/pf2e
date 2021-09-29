@@ -21,7 +21,7 @@ export const EnrichContent = {
         return data;
     },
 
-    enrichHTML: (data: JQuery): void => {
+    /*enrichHTML: (data: JQuery): void => {
         const $links = data.find(".action-description, .editor-content");
         $links.each((_idx, link) => {
             let itemName;
@@ -31,9 +31,10 @@ export const EnrichContent = {
                 itemName = link.closest(".sheet.pf2e.item")?.getElementsByClassName("window-title")[0].innerHTML;
             link.innerHTML = TextEditor.enrichHTML(EnrichContent.enrichString(link.innerHTML, itemName));
         });
-    },
+    },*/
 
-    enrichString: (data: string, itemName: string | undefined = undefined): string => {
+    //enrichString: (data: string, itemName: string | undefined = undefined): string => {
+    enrichString: (data: string): string => {
         if (!(typeof data === "string")) return data;
         let replaced = true;
         let replacedData;
@@ -42,12 +43,12 @@ export const EnrichContent = {
                 switch (p1) {
                     case "Localize":
                         return EnrichContent.createLocalize(p2);
-                    case "Save":
+                    /*case "Save":
                         return EnrichContent.createSave(p2, itemName);
                     case "Check":
                         return EnrichContent.createCheck(p2);
                     case "Template":
-                        return EnrichContent.createTemplate(p2);
+                        return EnrichContent.createTemplate(p2);*/
                 }
                 return match;
             });
@@ -62,7 +63,7 @@ export const EnrichContent = {
         return EnrichContent.enrichString(game.i18n.localize(data));
     },
 
-    createSave(data: string, itemName: string | undefined): string {
+    /*createSave(data: string, itemName: string | undefined): string {
         const strParams = data.split("|");
 
         //data validations
@@ -114,5 +115,5 @@ export const EnrichContent = {
         html.setAttribute("data-pf2-distance", strParams[1]);
         html.innerHTML = strParams[2];
         return html.outerHTML;
-    },
+    },*/
 };

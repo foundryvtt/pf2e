@@ -16,7 +16,6 @@ import {
 import { ErrorPF2e, sluggify, tupleHasValue } from "@module/utils";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
-import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -425,7 +424,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        EnrichContent.enrichHTML(html);
         InlineRollsLinks.listen(html);
 
         // Active Effect controls
