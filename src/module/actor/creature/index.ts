@@ -23,9 +23,10 @@ import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
+import { SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -288,6 +289,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         } else {
             throw Error("Custom modifiers can only be removed by name (string) or index (number)");
         }
+    }
+
+    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
+    async toggleRollOption(domain: string, optionName: string) {
+        if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
+            throw new Error(`${domain} is not a supported roll`);
+        }
+        const flag = `rollOptions.${domain}.${optionName}`;
+        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
     }
 
     prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
