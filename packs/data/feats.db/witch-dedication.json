@@ -19,6 +19,7 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,9 +29,11 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "familiar-abilities",
-                "type": "base",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.attributes.familiarAbilities.value",
+                "phase": "afterDerived",
+                "priority": 1,
                 "value": 1
             }
         ],
