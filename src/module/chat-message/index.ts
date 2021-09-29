@@ -14,9 +14,9 @@ import { DamageChatCard } from "@system/damage/chat-card";
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
-        const damageRoll = this.getFlag("pf2e", "damageRoll");
-        const fromRollTable = this.getFlag("core", "RollTable") !== undefined;
-        const isRoll = damageRoll || this.isRoll;
+        const isDamageRoll = !!this.getFlag("pf2e", "damageRoll");
+        const fromRollTable = !!this.getFlag("core", "RollTable");
+        const isRoll = isDamageRoll || this.isRoll;
         const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
         return isRoll && !(isD20 || fromRollTable);
     }
@@ -131,6 +131,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         options: DocumentModificationContext,
         user: foundry.documents.BaseUser
     ): Promise<void> {
+        this.data.flags = expandObject(this.data.flags ?? {}) as ChatMessageFlagsPF2e;
         if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
             data.flags ??= {};
             await DamageChatCard.preformat(this, data);
@@ -171,15 +172,17 @@ declare namespace ChatMessagePF2e {
 }
 
 interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.ChatMessageData<T> {
-    flags: Record<string, Record<string, unknown>> & {
-        pf2e?: {
-            context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
-            origin?: { type: ItemType; uuid: string } | null;
-            modifierName?: string;
-            modifiers?: ModifierPF2e[];
-            preformatted?: "flavor" | "content" | "both";
-        } & Record<string, unknown>;
-    };
+    flags: ChatMessageFlagsPF2e;
 }
+
+type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
+    pf2e?: {
+        context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
+        origin?: { type: ItemType; uuid: string } | null;
+        modifierName?: string;
+        modifiers?: ModifierPF2e[];
+        preformatted?: "flavor" | "content" | "both";
+    } & Record<string, unknown>;
+};
 
 export { ChatMessagePF2e };
