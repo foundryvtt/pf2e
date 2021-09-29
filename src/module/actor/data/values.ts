@@ -112,6 +112,7 @@ export const RESISTANCE_TYPES = new Set([
     "area-damage",
     "critical-hits",
     "protean anatomy",
+    "hardness",
 ] as const);
 
 export const SKILL_ABBREVIATIONS = [
