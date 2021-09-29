@@ -3,25 +3,19 @@ export {};
 declare global {
     /** Define a two-sided coin term that can be used as part of a Roll formula */
     class Coin extends DiceTerm<CoinData> {
-        /** @override */
         constructor(termData: CoinData);
 
-        /** @override */
-        static DENOMINATION: "c";
+        static override DENOMINATION: "c";
 
-        /** @override */
-        static MODIFIERS: {
+        static override MODIFIERS: {
             c: "call";
         };
 
-        /** @override */
-        roll({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): DiceTermResult;
+        override roll({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): DiceTermResult;
 
-        /** @override */
-        getResultLabel(result: object): string;
+        override getResultLabel(result: object): string;
 
-        /** @override */
-        getResultCSS(result: object): string[];
+        override getResultCSS(result: object): string[];
 
         /* -------------------------------------------- */
         /*  Term Modifiers                              */
@@ -37,6 +31,6 @@ declare global {
     }
 
     interface CoinData extends DiceTermData {
-        faces?: 2;
+        faces: 2;
     }
 }

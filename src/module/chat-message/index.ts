@@ -2,7 +2,6 @@ import type { ActorPF2e } from "@actor";
 import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemType } from "@item/data";
 import { ItemPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierPF2e } from "@module/modifiers";
@@ -10,12 +9,27 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { DamageChatCard } from "@system/damage/chat-card";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
+    /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
+    constructor(
+        data: DeepPartial<ChatMessageSourcePF2e> = {},
+        context: DocumentConstructionContext<ChatMessagePF2e> = {}
+    ) {
+        data.flags ??= { core: {}, pf2e: {} };
+        data.flags.core ??= {};
+        data.flags.pf2e ??= {};
+        super(data, context);
+    }
+
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
-        const isDamageRoll = !!this.getFlag("pf2e", "damageRoll");
-        const fromRollTable = !!this.getFlag("core", "RollTable");
+        if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
+            return false;
+        }
+        const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
+        const fromRollTable = !!this.data.flags.core.RollTable;
         const isRoll = isDamageRoll || this.isRoll;
         const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
         return isRoll && !(isD20 || fromRollTable);
@@ -131,11 +145,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         options: DocumentModificationContext,
         user: foundry.documents.BaseUser
     ): Promise<void> {
-        this.data.flags = expandObject(this.data.flags ?? {}) as ChatMessageFlagsPF2e;
+        data.flags ??= { core: {}, pf2e: {} };
+        this.data.flags = expandObject(this.data.flags ?? { core: {}, pf2e: {} }) as ChatMessageFlagsPF2e;
         if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
-            data.flags ??= {};
             await DamageChatCard.preformat(this, data);
-            setProperty(data, "flags.pf2e.preformatted", "both");
+            data.flags.pf2e.preformatted = "both";
             this.data.update(data);
         }
         return super._preCreate(data, options, user);
@@ -170,19 +184,5 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 declare namespace ChatMessagePF2e {
     function getSpeakerActor(speaker: foundry.data.ChatSpeakerSource | foundry.data.ChatSpeakerData): ActorPF2e | null;
 }
-
-interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.ChatMessageData<T> {
-    flags: ChatMessageFlagsPF2e;
-}
-
-type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
-    pf2e?: {
-        context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
-        origin?: { type: ItemType; uuid: string } | null;
-        modifierName?: string;
-        modifiers?: ModifierPF2e[];
-        preformatted?: "flavor" | "content" | "both";
-    } & Record<string, unknown>;
-};
 
 export { ChatMessagePF2e };

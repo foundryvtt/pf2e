@@ -11,7 +11,7 @@
 
         <div class="top-section">
             <div class="top-quick-container">
-                <span class="hp-current pf-large" title="{{localize 'PF2E.MaxHitPointsShortLabel'}}: {{data.attributes.hp.max}}">
+                <span class="hp-current pf-large" title="{{localize "PF2E.MaxHitPointsShortLabel"}}: {{data.attributes.hp.max}}">
                     <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
                     <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
                 </span>
@@ -22,7 +22,7 @@
 
                 <div class="traits-bar">
                     {{#unless (eq data.traits.rarity.value "common")}}
-                    <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
+                        <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
                     {{/unless}}
                     {{#if data.details.isComplex}}<span class="trait">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
                     {{#each actorTraits as |trait id|}}
@@ -125,10 +125,7 @@
                         {{#if hasHPDetails}}
                             <span class="stat-detail">{{{data.attributes.hp.details}}}</span>
                         {{/if}}
-
-
                     </span>
-
                     {{#if hasImmunities}}
                         <span class="stat-list major-stat">
                             <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
@@ -137,25 +134,22 @@
                             {{/each}}
                         </span>
                     {{/if}}
-
-                    {{#if hasResistances}}
-                        <span class="stat-list major-stat">
-                            <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
-                            {{#each data.traits.dr as |trait id|}}
-                                <span class="stat-value">{{trait.label}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
-                            {{/each}}
-                        </span>
-                    {{/if}}
-
                     {{#if hasWeaknesses}}
                         <span class="stat-list major-stat">
                             <label class="stat-title">{{localize "PF2E.WeaknessesLabel"}}</label>
                             {{#each data.traits.dv as |trait id|}}
-                                <span class="stat-value">{{trait.label}}: {{trait.value}}</span>
+                                <span class="stat-value">{{localize trait.label}}: {{trait.value}}</span>
                             {{/each}}
                         </span>
                     {{/if}}
-
+                    {{#if hasResistances}}
+                        <span class="stat-list major-stat">
+                            <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
+                            {{#each data.traits.dr as |trait id|}}
+                                <span class="stat-value">{{localize trait.label}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
+                            {{/each}}
+                        </span>
+                    {{/if}}
                 </span>
             </div>
         {{/if}}
