@@ -280,7 +280,10 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadTab(tab: TabName): Promise<void> {
-        if (this.data[tab]) return;
+        if (this.data[tab]) {
+            this.activateResultListeners();
+            return;
+        }
         const data = await (async (): Promise<Record<string, unknown> | null> => {
             switch (tab) {
                 case "settings":
