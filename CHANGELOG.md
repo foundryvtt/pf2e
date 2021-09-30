@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 2.14.3
+### Bug Fixes
+* (stwlam) Fix drawing from rollable tables while experimental damage cards are enabled
+* (stwlam) Fix rendering of item sheets when returning to previously visited tab in compendium browser. Closes #1741
+* (stwlam) Skip checking for available spell slots when casting a ritual
+
+### Content Changes
+* (InfamousSky) Assign icons to Secrets of Magic spells which were missing them
+
+
 ## Version 2.14.2
 ### Bug Fixes
 * (stwlam) Exclude fate dice and coin rolls from damage formatting
