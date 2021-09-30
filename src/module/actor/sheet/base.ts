@@ -1274,6 +1274,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * underlying base value.
      */
     protected getIntendedChange(propertyPath: string, update: number): number {
+        if (this.actor.type === "npc") return update;
         const base = getProperty(this.actor.data._source, propertyPath);
         const prepared = getProperty(this.actor.data, propertyPath);
 

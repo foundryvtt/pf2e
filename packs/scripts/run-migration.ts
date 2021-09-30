@@ -26,6 +26,7 @@ import { Migration669NPCAttackEffects } from "@module/migration/migrations/669-n
 import { Migration670NoCustomTrait } from "@module/migration/migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "@module/migration/migrations/670-ancestry-vision";
 import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-no-pc-items-on-non-pcs";
+import { Migration672RemoveNPCBaseProperties } from "@module/migration/migrations/672-remove-npc-base-properties";
 
 const migrations: MigrationBase[] = [
     new Migration650StringifyWeaponProperties(),
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration670NoCustomTrait(),
     new Migration670AncestryVision(),
     new Migration671NoPCItemsOnNonPCs(),
+    new Migration672RemoveNPCBaseProperties(),
 ];
 
 global.deepClone = function (original: any): any {
