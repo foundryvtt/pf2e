@@ -9,7 +9,7 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { DamageChatCard } from "@system/damage/chat-card";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
+import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -17,9 +17,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         data: DeepPartial<ChatMessageSourcePF2e> = {},
         context: DocumentConstructionContext<ChatMessagePF2e> = {}
     ) {
-        data.flags ??= { core: {}, pf2e: {} };
-        data.flags.core ??= {};
-        data.flags.pf2e ??= {};
+        data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
         super(data, context);
     }
 
@@ -145,12 +143,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         options: DocumentModificationContext,
         user: foundry.documents.BaseUser
     ): Promise<void> {
-        data.flags ??= { core: {}, pf2e: {} };
-        this.data.flags = expandObject(this.data.flags ?? { core: {}, pf2e: {} }) as ChatMessageFlagsPF2e;
         if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
-            await DamageChatCard.preformat(this, data);
-            data.flags.pf2e.preformatted = "both";
-            this.data.update(data);
+            await DamageChatCard.preformat(this);
         }
         return super._preCreate(data, options, user);
     }
