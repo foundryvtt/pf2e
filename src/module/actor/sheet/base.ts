@@ -1126,15 +1126,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             callback: (result) => {
                 const { spellcastingType, tradition, ability, flexible } = result;
 
-                let name = "";
-                if (spellcastingType === "ritual") {
-                    name = game.i18n.localize(CONFIG.PF2E.preparationType["ritual"]);
-                } else {
-                    name = game.i18n.format("PF2E.SpellCastingFormat", {
-                        preparationType: game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType] ?? ""),
-                        tradition: tradition ? game.i18n.localize(CONFIG.PF2E.magicTraditions[tradition]) : "",
-                    });
-                }
+                const name =
+                    spellcastingType === "ritual"
+                        ? game.i18n.localize(CONFIG.PF2E.preparationType["ritual"])
+                        : game.i18n.format("PF2E.SpellCastingFormat", {
+                              preparationType: game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType] ?? ""),
+                              traditionSpells: game.i18n.format(`PF2E.TraditionSpells.${tradition.titleCase()}`, {
+                                  tradition: game.i18n.localize(CONFIG.PF2E.magicTraditions[tradition || "arcane"]),
+                              }),
+                          });
 
                 // Define new spellcasting entry
                 const actor = this.actor;
