@@ -141,6 +141,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         if (!actor) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
+        if (this.isRitual) return true;
 
         if (this.isFocusPool) {
             const currentPoints = actor.data.data.resources.focus?.value ?? 0;
