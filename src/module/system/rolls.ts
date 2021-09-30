@@ -333,7 +333,7 @@ export class CheckPF2e {
             }
         }
 
-        const flags = duplicate(message.data.flags.pf2e);
+        const flags = duplicate(message.data.flags.pf2e) ?? {};
         const modifiers = (flags.modifiers ?? []).map((modifier) => ModifierPF2e.fromObject(modifier));
         const check = new StatisticModifier(flags.modifierName ?? "", modifiers);
         const context = flags.context;
