@@ -14,7 +14,7 @@ export interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
 }
 
 export type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
-    pf2e: {
+    pf2e?: {
         damageRoll?: boolean;
         context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
         origin?: { type: ItemType; uuid: string } | null;

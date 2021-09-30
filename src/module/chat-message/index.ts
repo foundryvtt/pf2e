@@ -26,7 +26,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
             return false;
         }
-        const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
+        const isDamageRoll = !!this.data.flags.pf2e?.damageRoll;
         const fromRollTable = !!this.data.flags.core.RollTable;
         const isRoll = isDamageRoll || this.isRoll;
         const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;

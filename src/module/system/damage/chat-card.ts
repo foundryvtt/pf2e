@@ -274,7 +274,7 @@ const UNPARSEABLE_ROLL_SYNTAX = [...MATH_FUNCTION_NAMES];
 export const DamageChatCard = {
     preformat: async (message: ChatMessagePF2e) => {
         const data = message.data._source;
-        const preformatted = data.flags.pf2e.preformatted;
+        const preformatted = data.flags.pf2e?.preformatted;
         if (preformatted === "both") return;
         if (!message.isDamageRoll) return;
 
@@ -370,6 +370,7 @@ export const DamageChatCard = {
                 data.roll = JSON.stringify(roll);
             }
         }
-        data.flags.pf2e.preformatted = "both";
+
+        mergeObject(data.flags, { pf2e: { preformatted: "both" } });
     },
 };
