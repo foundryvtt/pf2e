@@ -239,7 +239,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const sheetData: NPCSheetData = await super.getData();
 
         // recall knowledge DCs
-        const identifyCreatureData = sheetData.identifyCreatureData = this.getIdentifyCreatureData();
+        const identifyCreatureData = (sheetData.identifyCreatureData = this.getIdentifyCreatureData());
         sheetData.identifySkillDC = identifyCreatureData.skill.dc;
         sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
         sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join("/");
@@ -314,6 +314,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return sheetData;
     }
 
+    /** Skip this since the sheet shows the user the source value when focusing on an input element to edit */
+    protected override getIntendedChange(_propertyPath: string, update: number): number {
+        return update;
+    }
+
     /**
      * Subscribe to events from the sheet.
      * @param html HTML content ready to render the sheet.
@@ -335,7 +340,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (!this.options.editable) return;
 
         html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
-        html.find(".skills-edit").on("click", (event) => this.onSkillsEditClicked(event));
+        html.find(".skills-edit").on("click", () => {
+            new NPCSkillsEditor(this.actor).render(true);
+        });
 
         // Adjustments
         html.find(".npc-elite-adjustment").on("click", () => this.onClickMakeElite());
@@ -770,12 +777,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         } else if (action || item || spell) {
             this.onClickExpandable(event);
         }
-    }
-
-    private onSkillsEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const skillsEditor = new NPCSkillsEditor(this.actor);
-        skillsEditor.render(true);
     }
 
     private onClickExpandable(event: JQuery.ClickEvent): void {
