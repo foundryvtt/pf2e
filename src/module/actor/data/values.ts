@@ -66,6 +66,7 @@ export const IMMUNITY_TYPES = new Set([
     "detection",
     "death-effects",
     "disease",
+    "divination",
     "emotion",
     "evocation",
     "fear-effects",
