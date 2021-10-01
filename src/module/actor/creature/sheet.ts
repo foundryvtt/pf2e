@@ -124,7 +124,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
                 proficiency.icon = this.getProficiencyIcon(proficiency.rank);
                 proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
-                proficiency.label = label;
+                proficiency.label = game.i18n.localize(label);
                 proficiency.value = ProficiencyModifier.fromLevelAndRank(
                     sheetData.data.details.level.value,
                     proficiency.rank || 0
