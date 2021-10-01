@@ -363,7 +363,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options: args.options ?? [], notes },
+                    { actor: this, type: "perception-check", options: args.options ?? [], dc: args.dc, notes },
                     args.event,
                     args.callback
                 );
@@ -404,7 +404,7 @@ export class NPCPF2e extends CreaturePF2e {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         CheckPF2e.roll(
                             new CheckModifier(label, stat),
-                            { actor: this, type: "skill-check", options: args.options, notes },
+                            { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes },
                             args.event,
                             args.callback
                         );
