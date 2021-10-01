@@ -334,7 +334,13 @@ export const DamageChatCard = {
         } else {
             // remove empty damage types
             Object.entries(types).forEach(([type, categories]) => {
-                if (!categories || Object.keys(categories).length === 0) {
+                const empty =
+                    !categories ||
+                    Object.keys(categories).length === 0 ||
+                    !Object.values(categories).find(
+                        (category) => category.modifier !== 0 || Object.keys(category.results).length > 0
+                    );
+                if (empty) {
                     delete types[type];
                 }
             });
