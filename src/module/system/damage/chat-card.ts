@@ -83,10 +83,16 @@ function processRollTerms(
     for (const term of terms) {
         const { parts, type, base, categories } = getTermParts(term, flavor);
         if (term instanceof OperatorTerm) {
-            if (["+", "-"].includes(term.operator) && operand instanceof Die) {
+            if (["+", "-"].includes(term.operator)) {
                 const category = ensureDamageCategory(types, categories, base, type, 1);
-                applyDiceResult(category, operand, 1);
-                operand = null;
+                if (operand instanceof Die) {
+                    applyDiceResult(category, operand, 1);
+                    operand = null;
+                } else if (operand instanceof NumericTerm) {
+                    const signedOperand = term.operator === "-" ? -operand.number : +operand.number;
+                    applyModifier(category, signedOperand, 1);
+                    operand = null;
+                }
             }
             operator = term;
         } else if (term instanceof Die) {
@@ -328,7 +334,13 @@ export const DamageChatCard = {
         } else {
             // remove empty damage types
             Object.entries(types).forEach(([type, categories]) => {
-                if (!categories || Object.keys(categories).length === 0) {
+                const empty =
+                    !categories ||
+                    Object.keys(categories).length === 0 ||
+                    !Object.values(categories).find(
+                        (category) => category.modifier !== 0 || Object.keys(category.results).length > 0
+                    );
+                if (empty) {
                     delete types[type];
                 }
             });

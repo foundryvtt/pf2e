@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 2.14.4
+### Bug Fixes
+* (stwlam) Fix experimental damage card formatting given a roll formula of all constants
+
+
 ## Version 2.14.3
 ### Bug Fixes
 * (stwlam) Fix drawing from rollable tables while experimental damage cards are enabled
