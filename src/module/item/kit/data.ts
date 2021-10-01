@@ -5,7 +5,7 @@ import type { KitPF2e } from ".";
 export type KitSource = BaseNonPhysicalItemSource<"kit", KitSystemData>;
 
 export class KitData extends BaseNonPhysicalItemData<KitPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/feat.svg";
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/kit.svg";
 }
 
 export interface KitData extends Omit<KitSource, "effects" | "flags"> {
@@ -21,7 +21,7 @@ export interface KitEntryData {
     quantity: number;
     name: string;
     isContainer: boolean;
-    items?: { [key: number]: KitEntryData };
+    items?: Record<string, KitEntryData>;
 }
 
 export interface KitSystemData extends ItemSystemData {
