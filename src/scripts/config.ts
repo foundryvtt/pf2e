@@ -226,11 +226,23 @@ const conditionTypes: Record<ConditionType, string> = {
     wounded: "PF2E.ConditionTypeWounded",
 };
 
+const magicSchools: Record<MagicSchool, string> = {
+    abjuration: "PF2E.TraitAbjuration",
+    conjuration: "PF2E.TraitConjuration",
+    divination: "PF2E.TraitDivination",
+    enchantment: "PF2E.TraitEnchantment",
+    evocation: "PF2E.TraitEvocation",
+    illusion: "PF2E.TraitIllusion",
+    necromancy: "PF2E.TraitNecromancy",
+    transmutation: "PF2E.TraitTransmutation",
+};
+
 const immunityTypes: Record<ImmunityType, string> = {
     ...conditionTypes,
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
     confusion: "PF2E.TraitConfusion",
@@ -239,16 +251,13 @@ const immunityTypes: Record<ImmunityType, string> = {
     detection: "PF2E.TraitDetection",
     "death-effects": "PF2E.TraitDeathEffects",
     disease: "PF2E.TraitDisease",
-    divination: "PF2E.TraitDivination",
     emotion: "PF2E.TraitEmotion",
-    evocation: "PF2E.TraitEvocation",
     "fear-effects": "PF2E.TraitFearEffects",
     ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
-    necromancy: "PF2E.TraitNecromancy",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
@@ -303,17 +312,6 @@ const magicTraditions: Record<MagicTradition, string> = {
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
-};
-
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
 };
 
 const weaponCategories = {
