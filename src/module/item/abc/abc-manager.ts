@@ -50,17 +50,22 @@ export class AncestryBackgroundClassManager {
         }
     }
 
-    static async ensureClassFeaturesForLevel(
-        classItem: ClassPF2e,
-        actor: CharacterPF2e,
-        minLevelInput?: number
-    ): Promise<void> {
-        const minLevel: number = minLevelInput ?? classItem.data.flags.pf2e?.insertedClassFeaturesLevel ?? 0;
-        const classFeaturesToCreate = await this.getClassFeaturesForLevel(classItem, minLevel, actor.level);
+    /** Add or remove class features as appropriate to the PC's level */
+    static async ensureClassFeaturesForLevel(actor: CharacterPF2e, newLevel: number): Promise<void> {
+        const actorClass = actor.class;
+        if (!actorClass) return;
 
-        if (classFeaturesToCreate.length > 0) {
+        const current = actor.itemTypes.feat.filter((feat) => feat.featType.value === "classfeature");
+        if (newLevel > actor.level) {
+            const classFeaturesToCreate = (
+                await this.getClassFeaturesForLevel(actorClass, actor.level, newLevel)
+            ).filter(
+                (feature) => !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
+            );
             await actor.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
-            classItem.setFlag(game.system.id, "insertedClassFeaturesLevel", actor.level);
+        } else if (newLevel < actor.level) {
+            const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
+            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete);
         }
     }
 

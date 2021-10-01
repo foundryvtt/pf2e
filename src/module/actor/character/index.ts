@@ -49,6 +49,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
+import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -202,6 +203,12 @@ export class CharacterPF2e extends CreaturePF2e {
                     characterData.attributes.resolve.max
                 );
             }
+        }
+
+        // Add or remove class features as necessary
+        const newLevel = data.data?.details?.level?.value ?? this.level;
+        if (newLevel !== this.level) {
+            await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
         }
 
         await super._preUpdate(data, options, user);
