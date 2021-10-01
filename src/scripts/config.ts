@@ -239,6 +239,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     detection: "PF2E.TraitDetection",
     "death-effects": "PF2E.TraitDeathEffects",
     disease: "PF2E.TraitDisease",
+    divination: "PF2E.TraitDivination",
     emotion: "PF2E.TraitEmotion",
     evocation: "PF2E.TraitEvocation",
     "fear-effects": "PF2E.TraitFearEffects",
