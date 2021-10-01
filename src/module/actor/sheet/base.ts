@@ -1429,6 +1429,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
         // Identify which item summaries are expanded currently
         const expandedItemElements = this.element.find(".item.expanded[data-item-id]");
+        const expandedActionElements = this.element.find(".item.expanded[data-action-index]");
+        const openActionIdxs = new Set(expandedActionElements.map((_i, el) => el.dataset.actionIndex));
 
         // Create a list of records that act as identification keys for expanded entries
         const sheetOptions = (this.constructor as typeof ActorSheetPF2e).defaultOptions;
@@ -1452,6 +1454,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
 
             this.toggleItemSummary(result.find(searchProps.join("")), { instant: true });
+        }
+        for (const elementIdx of openActionIdxs) {
+            result.find(`.item[data-action-index=${elementIdx}]`).toggleClass("expanded");
         }
 
         return result;
