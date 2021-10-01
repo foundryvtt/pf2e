@@ -83,10 +83,16 @@ function processRollTerms(
     for (const term of terms) {
         const { parts, type, base, categories } = getTermParts(term, flavor);
         if (term instanceof OperatorTerm) {
-            if (["+", "-"].includes(term.operator) && operand instanceof Die) {
+            if (["+", "-"].includes(term.operator)) {
                 const category = ensureDamageCategory(types, categories, base, type, 1);
-                applyDiceResult(category, operand, 1);
-                operand = null;
+                if (operand instanceof Die) {
+                    applyDiceResult(category, operand, 1);
+                    operand = null;
+                } else if (operand instanceof NumericTerm) {
+                    const signedOperand = term.operator === "-" ? -operand.number : +operand.number;
+                    applyModifier(category, signedOperand, 1);
+                    operand = null;
+                }
             }
             operator = term;
         } else if (term instanceof Die) {
