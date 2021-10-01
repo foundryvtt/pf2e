@@ -19,7 +19,7 @@ import {
     CharacterArmorClass,
     CharacterAttributes,
     CharacterData,
-    CharacterProficiencyData,
+    CharacterProficiency,
     CharacterSaves,
     CharacterStrike,
     CharacterSystemData,
@@ -147,7 +147,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
-            const proficiency: Partial<CharacterProficiencyData> = martial[category] ?? {};
+            const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
             martial[category] = proficiency;
         }
@@ -1350,7 +1350,7 @@ export class CharacterPF2e extends CreaturePF2e {
     async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
-        const newProficiency: CharacterProficiencyData = { rank: 0, value: 0, breakdown: "", custom: true };
+        const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`data.martial.${key}`]: newProficiency });
     }
 
