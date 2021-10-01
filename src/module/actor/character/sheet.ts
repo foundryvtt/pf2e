@@ -14,6 +14,8 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e } from "@module/utils";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { CharacterProficiency } from "./data";
+import { WEAPON_CATEGORIES } from "@item/weapon/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -124,6 +126,26 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.prepareSpellcasting(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+
+        // Sort attack/defense proficiencies
+        const combatProficiencies: Record<string, CharacterProficiency> = sheetData.data.martial;
+        const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
+        const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
+        sheetData.data.martial = Object.entries(combatProficiencies)
+            .sort(([keyA, a], [keyB, b]) =>
+                isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
+                    ? -1
+                    : !isWeaponProficiency(keyA) && isWeaponProficiency(keyB)
+                    ? 1
+                    : (a.label ?? "").localeCompare(b.label ?? "")
+            )
+            .reduce(
+                (proficiencies: Record<string, CharacterProficiency>, [key, proficiency]) => ({
+                    ...proficiencies,
+                    [key]: proficiency,
+                }),
+                {}
+            );
 
         // Return data for rendering
         return sheetData;
