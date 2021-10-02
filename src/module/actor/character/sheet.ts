@@ -47,8 +47,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         await super._updateObject(event, formData);
     }
 
-    override getData(options?: ActorSheetOptions) {
-        const sheetData = super.getData(options);
+    override async getData(options?: ActorSheetOptions) {
+        const sheetData = await super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;

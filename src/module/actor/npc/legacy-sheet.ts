@@ -46,8 +46,8 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         return super.title;
     }
 
-    override getData() {
-        const sheetData = super.getData();
+    override async getData() {
+        const sheetData = await super.getData();
         /** Use the simple NPC loot-sheet variant if in loot mode */
         if (this.isLootSheet) {
             return this.getLootData(sheetData);
