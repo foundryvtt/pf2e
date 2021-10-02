@@ -16,6 +16,7 @@ import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { CraftingFormulaData } from "@item/formula/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -115,6 +116,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        sheetData.knownFormulas = await this.prepareCraftingFormulas();
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -596,6 +598,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+    }
+
+    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
+        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
+        const craftingFormulas = await this.actor.getCraftingFormulas();
+        for (const formula of craftingFormulas) {
+            const level = formula.level || 0;
+            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
+        }
+        return knownFormulas;
     }
 
     /* -------------------------------------------- */
