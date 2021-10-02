@@ -24,8 +24,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return `${path}hazard-sheet-no-edit.html`;
     }
 
-    override getData(): any {
-        const sheetData = super.getData();
+    override async getData() {
+        const sheetData = await super.getData();
 
         // Update save labels
         for (const key of SAVE_TYPES) {

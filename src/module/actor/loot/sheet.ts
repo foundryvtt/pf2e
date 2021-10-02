@@ -31,8 +31,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    override getData(): LootSheetDataPF2e {
-        const sheetData: ActorSheetDataPF2e<LootPF2e> = super.getData();
+    override async getData(): Promise<LootSheetDataPF2e> {
+        const sheetData: ActorSheetDataPF2e<LootPF2e> = await super.getData();
         const isLoot = this.actor.data.data.lootSheetType === "Loot";
         return { ...sheetData, isLoot };
     }

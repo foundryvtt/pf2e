@@ -16,7 +16,7 @@ export class RecallKnowledgePopup extends Application {
         super(options);
     }
 
-    override getData() {
+    override async getData() {
         const data = this.data;
         return {
             specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),

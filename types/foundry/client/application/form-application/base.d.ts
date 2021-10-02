@@ -47,7 +47,7 @@ declare global {
         /** Is the Form Application currently editable? */
         get isEditable(): boolean;
 
-        getData(options?: TOptions): FormApplicationData<TObject>;
+        getData(options?: TOptions): FormApplicationData<TObject> | Promise<FormApplicationData<TObject>>;
 
         protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
 

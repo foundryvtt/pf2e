@@ -341,9 +341,9 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
         });
 
-        html.find(".recall-knowledge-breakdown").on("click", (event) => {
+        html.find(".recall-knowledge-breakdown").on("click", async (event) => {
             event.preventDefault();
-            const { identifyCreatureData } = this.getData();
+            const { identifyCreatureData } = await this.getData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
     }
