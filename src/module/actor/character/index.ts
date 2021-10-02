@@ -56,7 +56,6 @@ import { CraftingFormula } from "@item/formula";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
-
     craftingFormulas!: CraftingFormulaData[];
 
     static override get schema(): typeof CharacterData {
@@ -254,6 +253,11 @@ export class CharacterPF2e extends CreaturePF2e {
         // Compute ability modifiers from raw ability scores.
         for (const abl of Object.values(systemData.abilities)) {
             abl.mod = Math.floor((abl.value - 10) / 2);
+        }
+
+        // crafting formulas saved on the actor
+        if (systemData.formulas?.length) {
+            this.craftingFormulas.push(...systemData.formulas);
         }
 
         const synthetics = this.prepareCustomModifiers(rules);
@@ -823,8 +827,6 @@ export class CharacterPF2e extends CreaturePF2e {
             ...weaponProficiencies,
             ...groupProficiencies,
         };
-
-        this.craftingFormulas = systemData.formulas;
 
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
