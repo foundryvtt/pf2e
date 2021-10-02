@@ -50,9 +50,14 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { isPhysicalData } from "@item/data/helpers";
+import { CraftingFormulaData } from "@item/formula/data";
+import { CraftingFormula } from "@item/formula";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
+
+    craftingFormulas!: CraftingFormulaData[];
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
@@ -83,6 +88,30 @@ export class CharacterPF2e extends CreaturePF2e {
 
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || "str";
+    }
+
+    async getCraftingFormulas() {
+        const decorated: Promise<CraftingFormula>[] = [];
+        for (const formula of this.craftingFormulas) {
+            decorated.push(
+                new Promise<CraftingFormula>((resolve) => {
+                    fromUuid(formula.uuid).then((item) => {
+                        const copy = new CraftingFormula(formula);
+                        if (!(item instanceof ItemPF2e)) {
+                            console.warn(`PF2E | Unable to look up item with UUID ${formula.uuid}`);
+                        } else if (!isPhysicalData(item.data)) {
+                            console.warn(`PF2E | ${item.name} (${formula.uuid}) is not a physical item.`);
+                        } else {
+                            copy.name = item.name;
+                            copy._level = item.data.data.level.value;
+                            copy._rarity = item.data.data.traits.rarity.value;
+                        }
+                        resolve(copy);
+                    });
+                })
+            );
+        }
+        return Promise.all(decorated);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -175,6 +204,8 @@ export class CharacterPF2e extends CreaturePF2e {
         // Keep in place until the source of sense-data corruption is found
         const traits = this.data.data.traits;
         traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
+
+        this.craftingFormulas = [];
     }
 
     protected override async _preUpdate(
@@ -792,6 +823,8 @@ export class CharacterPF2e extends CreaturePF2e {
             ...weaponProficiencies,
             ...groupProficiencies,
         };
+
+        this.craftingFormulas = systemData.formulas;
 
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
