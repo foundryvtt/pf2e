@@ -115,6 +115,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        await this.prepareCraftingFormulas(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -216,9 +217,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores: LoreData[] = [];
-
-        // Formulas
-        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -548,12 +546,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulk,
             actorData.data?.traits?.size?.value ?? "med"
         );
-        const craftingFormulas = this.actor.craftingFormulas;
-        for (const formula of craftingFormulas) {
-            const level = formula.level || 0;
-            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
-        }
-        actorData.knownFormulas = knownFormulas;
     }
 
     protected prepareSpellcasting(sheetData: any) {
@@ -605,6 +597,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+    }
+
+    protected async prepareCraftingFormulas(sheetData: any) {
+        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
+        const craftingFormulas = await this.actor.getCraftingFormulas();
+        for (const formula of craftingFormulas) {
+            const level = formula.level || 0;
+            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
+        }
+        sheetData.knownFormulas = knownFormulas;
     }
 
     /* -------------------------------------------- */

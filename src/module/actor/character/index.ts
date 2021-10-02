@@ -102,7 +102,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         } else if (!isPhysicalData(item.data)) {
                             console.warn(`PF2E | ${item.name} (${formula.uuid}) is not a physical item.`);
                         } else {
-                            copy.name = `Formula: ${item.name}`;
+                            copy.name = item.name;
                             copy._level = item.data.data.level.value;
                             copy._rarity = item.data.data.traits.rarity.value;
                         }
