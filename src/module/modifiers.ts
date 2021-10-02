@@ -60,6 +60,8 @@ export interface RawModifier {
     critical?: boolean;
     /** Any notes about this modifier. */
     notes?: string;
+    /** Whether the modifier has been ignored due to something automatic, rather than by the user */
+    autoIgnored: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** The list of roll options to use during actor data preparation instead of the default roll options for the statistic */
@@ -76,6 +78,7 @@ export class ModifierPF2e implements RawModifier {
     modifier: number;
     type: ModifierType;
     enabled: boolean;
+    autoIgnored: boolean;
     ignored: boolean;
     source?: string;
     custom: boolean;
@@ -104,6 +107,7 @@ export class ModifierPF2e implements RawModifier {
         this.modifier = modifier;
         this.type = isValidModifierType(type) ? type : "untyped";
         this.enabled = enabled;
+        this.autoIgnored = false;
         this.ignored = false;
         this.custom = false;
         this.source = source;
@@ -334,7 +338,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
 
     for (const modifier of modifiers) {
         // Always disable ignored modifiers and don't do anything further with them.
-        if (modifier.ignored) {
+        if (modifier.ignored || modifier.autoIgnored) {
             modifier.enabled = false;
             continue;
         }
@@ -483,6 +487,7 @@ export class DiceModifierPF2e implements RawModifier {
     /** If true, these dice overide the base damage dice of the weapon. */
     override?: DamageDiceOverride;
     ignored: boolean;
+    autoIgnored: boolean;
     enabled: boolean;
     custom: boolean;
     predicate: PredicatePF2e;
@@ -511,6 +516,7 @@ export class DiceModifierPF2e implements RawModifier {
         this.predicate = new PredicatePF2e(param.predicate);
         this.enabled = PredicatePF2e.test!(this.predicate);
         this.ignored = !this.enabled;
+        this.autoIgnored = false;
     }
 }
 
