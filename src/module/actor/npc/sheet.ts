@@ -219,8 +219,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    override getData(): NPCSheetData {
-        const sheetData: NPCSheetData = super.getData();
+    override async getData(): Promise<NPCSheetData> {
+        const sheetData: NPCSheetData = await super.getData();
 
         // recall knowledge DCs
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
@@ -332,9 +332,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
 
-        html.find(".recall-knowledge button.breakdown").on("click", (event) => {
+        html.find(".recall-knowledge button.breakdown").on("click", async (event) => {
             event.preventDefault();
-            const { identifyCreatureData } = this.getData();
+            const { identifyCreatureData } = await this.getData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
     }

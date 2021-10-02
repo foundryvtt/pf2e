@@ -19,8 +19,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override async getData() {
+        const sheetData: any = await super.getData();
 
         // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;

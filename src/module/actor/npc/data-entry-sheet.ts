@@ -19,9 +19,9 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
 
     protected prepareItems(_sheetData: { actor: ActorDataPF2e }): void {}
 
-    override getData() {
+    override async getData() {
         return {
-            ...super.getData(),
+            ...(await super.getData()),
             app: {
                 id: this.id,
             },

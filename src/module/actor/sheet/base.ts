@@ -79,7 +79,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return false;
     }
 
-    override getData(options: ActorSheetOptions = this.options): ActorSheetDataPF2e<TActor> {
+    override getData(
+        options: ActorSheetOptions = this.options
+    ): ActorSheetDataPF2e<TActor> | Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
         const actorData = this.actor.toObject(false);
