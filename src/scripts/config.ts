@@ -1286,6 +1286,7 @@ export const PF2ECONFIG = {
         "thrown-40": "PF2E.TraitThrown40",
         "thrown-60": "PF2E.TraitThrown60",
         "thrown-100": "PF2E.TraitThrown100",
+        time:"PF2E.TraitTime",
         trip: "PF2E.TraitTrip",
         twin: "PF2E.TraitTwin",
         "two-hand-d8": "PF2E.TraitTwoHandD8",
