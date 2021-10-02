@@ -42,7 +42,7 @@ import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { adjustDCByRarity, calculateDC } from "@module/dc";
-import { CraftingFormula } from "@item/formula/data";
+import { CraftingFormula } from "@item/formula";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
