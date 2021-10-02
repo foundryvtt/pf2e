@@ -1,6 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "./base";
 import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@module/damage-calculation";
+import { MAGIC_SCHOOLS } from "@module/item/spell/data/values";
 
 export const ABILITY_ABBREVIATIONS = ["str", "dex", "con", "int", "wis", "cha"] as const;
 
@@ -58,25 +59,20 @@ export const IMMUNITY_TYPES = new Set([
     ...DAMAGE_CATEGORIES,
     ...DAMAGE_TRAITS,
     ...DAMAGE_TYPES,
-    "abjuration",
+    ...MAGIC_SCHOOLS,
     "area-damage",
     "auditory",
     "confusion",
-    "conjuration",
     "critical-hits",
     "curse",
     "detection",
     "death-effects",
     "disease",
-    "divination",
     "emotion",
-    "enchantment",
     "evocation",
     "fear-effects",
     "healing",
-    "illusion",
     "inhaled",
-    "necromancy",
     "nonlethal-attacks",
     "object-immunities",
     "olfactory",
@@ -88,7 +84,6 @@ export const IMMUNITY_TYPES = new Set([
     "spellDeflection",
     "swarm-attacks",
     "swarm-mind",
-    "transmutation",
     "trip",
     "visual",
 ] as const);
