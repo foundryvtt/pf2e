@@ -51,8 +51,7 @@ import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { isPhysicalData } from "@item/data/helpers";
-import { CraftingFormulaData } from "@item/formula/data";
-import { CraftingFormula } from "@item/formula";
+import { CraftingFormula, CraftingFormulaData } from "@module/crafting/formula";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;

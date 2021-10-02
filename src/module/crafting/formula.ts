@@ -1,10 +1,8 @@
 import { Rarity } from "@module/data";
 import { adjustDCByRarity, calculateDC } from "@module/dc";
-import { ItemPF2e } from "../index";
-import { CraftingFormulaData, FormulaData } from "./data";
 
 export class CraftingFormula implements CraftingFormulaData {
-    uuid: CompendiumUUID;
+    uuid: ItemUUID;
     img: ImagePath;
     name: string;
     _level?: number;
@@ -37,12 +35,13 @@ export class CraftingFormula implements CraftingFormulaData {
     }
 }
 
-export class FormulaPF2e extends ItemPF2e {
-    static override get schema(): typeof FormulaData {
-        return FormulaData;
-    }
-}
-
-export interface FormulaPF2e {
-    readonly data: FormulaData;
+export interface CraftingFormulaData {
+    uuid: ItemUUID;
+    img: ImagePath;
+    name: string;
+    level: number;
+    dc?: number;
+    description: string;
+    price: string;
+    rarity?: Rarity;
 }

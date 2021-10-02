@@ -81,7 +81,7 @@ declare module foundry {
 
         interface ItemFlags {
             core?: {
-                sourceId: string;
+                sourceId: ItemUUID;
             };
             [key: string]: Record<string, unknown> | undefined;
         }
