@@ -1,13 +1,13 @@
 {
-    "_id": "1HEIUP4MCD8JVLrI",
+    "_id": "yG27Ixwdpxqbrhzf",
     "data": {
         "description": {
-            "value": ""
+            "value": "<p>The bosun orders an ally to attack or to get in position. Until the end of the ally's next turn, they a +10 status bonus to their Speeds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
@@ -15,19 +15,14 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.ragewight-rage",
-                "priority": 10,
-                "value": "true"
-            },
-            {
-                "key": "TempHP",
-                "value": "@details.level.value + 4"
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "status",
+                "value": 10
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Gamemastery Guide"
         },
         "start": {
             "initiative": null,
@@ -47,7 +42,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/rage.webp",
-    "name": "Effect: Rage - Ragewight",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Bosun's Command - Speed Bonus",
     "type": "effect"
 }

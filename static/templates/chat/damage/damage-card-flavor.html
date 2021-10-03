@@ -1,4 +1,4 @@
-<div style="display: flex; justify-content: space-between;">
+<div>
     {{#if flavor}}
         {{{flavor}}}
     {{/if}}
@@ -20,7 +20,7 @@
 {{/if}}
 {{#if breakdown}}
     <hr />
-    <div style="display:flex; flex-wrap:wrap;">
+    <div class="tags">
         {{#each breakdown as |part|}}
             <span class="damage-tag damage-tag-{{part.tag}}">{{part.label}}</span>
         {{/each}}

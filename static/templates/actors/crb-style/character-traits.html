@@ -116,7 +116,7 @@
 </div>
 {{/if}}
 
-<div class="tags">
+<div class="character-traits">
     <div class="pc pc_speed-types">
         <span class="details-label">
             {{localize 'PF2E.SpeedTypes'}}
@@ -155,43 +155,43 @@
             {{/if}}
         </ol>
     </div>
-</div>
-<div class="pc pc_languages">
-    <span class="details-label">
-        {{localize 'PF2E.Languages'}}
-    </span>
-    <ul class="tags">
-        {{#each data.traits.languages.selected as |v k|}}
-        <li class="tag tag_alt {{k}}">
-            {{localize v}}
-        </li>
-        {{/each}}
-        {{#if @root.owner}}
-            <li class="tag tag_secondary edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
+    <div class="pc pc_languages">
+        <span class="details-label">
+            {{localize 'PF2E.Languages'}}
+        </span>
+        <ul class="tags">
+            {{#each data.traits.languages.selected as |v k|}}
+            <li class="tag tag_alt {{k}}">
+                {{localize v}}
             </li>
-        {{/if}}
-    </ul>
-</div>
+            {{/each}}
+            {{#if @root.owner}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
 
-<div class="pc pc_traits">
-    <span class="details-label">
-        {{localize 'PF2E.Traits'}}
-    </span>
-    <ul class="tags">
-        {{#each data.traits.traits.selected as |v k|}}
-        <li class="tag tag_alt {{k}}">
-            {{localize v}}
-        </li>
-        {{/each}}
-        {{#if @root.owner}}
-            <li class="tag tag_secondary edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
+    <div class="pc pc_traits">
+        <span class="details-label">
+            {{localize 'PF2E.Traits'}}
+        </span>
+        <ul class="tags">
+            {{#each data.traits.traits.selected as |v k|}}
+            <li class="tag tag_alt {{k}}">
+                {{localize v}}
             </li>
-        {{/if}}
-    </ul>
+            {{/each}}
+            {{#if @root.owner}}
+                <li class="tag tag_secondary edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
 </div>

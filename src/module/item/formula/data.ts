@@ -1,5 +1,6 @@
 import { ItemLevelData, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { Rarity } from "@module/data";
 import { FormulaPF2e } from ".";
 
 export type FormulaSource = BaseNonPhysicalItemSource<"formula", FormulaSystemData>;
@@ -8,13 +9,24 @@ export class FormulaData extends BaseNonPhysicalItemData<FormulaPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/lore.svg";
 }
 
-export interface FormulaData extends Omit<FormulaSource, "_id" | "effects"> {
+export interface FormulaData extends Omit<FormulaSource, "effects" | "flags"> {
     type: FormulaSource["type"];
     data: FormulaSource["data"];
     readonly _source: FormulaSource;
 }
 
 type ItemUUID = `Compendium.${string}.${string}` | `Item.${string}.${string}`;
+
+export interface CraftingFormulaData {
+    uuid: CompendiumUUID;
+    img: ImagePath;
+    name: string;
+    level?: number;
+    dc?: number;
+    description: string;
+    price: string;
+    rarity?: Rarity;
+}
 
 interface FormulaSystemData extends ItemSystemData, ItemLevelData {
     craftedItem: {

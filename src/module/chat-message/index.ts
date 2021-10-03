@@ -1,8 +1,7 @@
-import type { ActorPF2e } from "@actor/index";
+import type { ActorPF2e } from "@actor";
 import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemType } from "@item/data";
 import { ItemPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierPF2e } from "@module/modifiers";
@@ -10,13 +9,26 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { DamageChatCard } from "@system/damage/chat-card";
+import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
+    /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
+    constructor(
+        data: DeepPartial<ChatMessageSourcePF2e> = {},
+        context: DocumentConstructionContext<ChatMessagePF2e> = {}
+    ) {
+        data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
+        super(data, context);
+    }
+
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
-        const damageRoll = this.getFlag("pf2e", "damageRoll");
-        const fromRollTable = this.getFlag("core", "RollTable") !== undefined;
-        const isRoll = damageRoll || this.isRoll;
+        if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
+            return false;
+        }
+        const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
+        const fromRollTable = !!this.data.flags.core.RollTable;
+        const isRoll = isDamageRoll || this.isRoll;
         const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
         return isRoll && !(isD20 || fromRollTable);
     }
@@ -88,8 +100,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         if (this.isDamageRoll) {
-            await DamageChatCard.decorate(this, $html);
             await DamageButtons.append(this, $html);
+
+            // Clean up styling of old damage messages
+            $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
         }
 
         CriticalHitAndFumbleCards.appendButtons(this, $html);
@@ -124,6 +138,17 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
+    protected override async _preCreate(
+        data: PreDocumentId<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ): Promise<void> {
+        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
+            await DamageChatCard.preformat(this);
+        }
+        return super._preCreate(data, options, user);
+    }
+
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
         options: DocumentModificationContext,
@@ -152,17 +177,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
 declare namespace ChatMessagePF2e {
     function getSpeakerActor(speaker: foundry.data.ChatSpeakerSource | foundry.data.ChatSpeakerData): ActorPF2e | null;
-}
-
-interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.ChatMessageData<T> {
-    flags: Record<string, Record<string, unknown>> & {
-        pf2e?: {
-            context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
-            origin?: { type: ItemType; uuid: string } | null;
-            modifierName?: string;
-            modifiers?: ModifierPF2e[];
-        } & Record<string, unknown>;
-    };
 }
 
 export { ChatMessagePF2e };

@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 13,
                 "details": "",
                 "value": 13
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -58,6 +59,7 @@
                 "value": "N"
             },
             "creatureType": "",
+            "flavorText": "<p>A harrow deck is a set of 54 cards with symbolic illustrations that serves as a sacred divining tool. Feared by the superstitious and avoided by those who know better than to tempt fate, harrow readers live and work in traveling communities, often moving from town to town as opportunities arise. For encounters involving social interaction, the harrow reader is a 3rd-level challenge.</p>\n<hr />\n<p>Those initiated into the hidden truths and forbidden secrets of the world are forever transformed-or so they claim. To the cynical, a mystic is nothing more than a charlatan or zealot. Others profess to sense an aura around such luminaries and treat them with reverence, lest they offend some harbinger of unspeakable doom.</p>",
             "level": {
                 "value": -1
             },
@@ -118,7 +120,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "eVnirKhgIp5NakTu",
+            "_id": "n9rJXw2aS8iyMFMx",
             "data": {
                 "MAP": {
                     "value": ""
@@ -126,7 +128,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "sickle",
                 "bonus": {
                     "value": 0
                 },
@@ -155,7 +157,7 @@
                     "value": "<p>Originally a farming tool used for reaping grain, this one‑handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -212,15 +214,15 @@
                 "property1": {
                     "critDamage": "",
                     "critDamageType": "",
-                    "critDice": null,
+                    "critDice": "",
                     "critDie": "",
                     "criticalConditionType": "",
-                    "criticalConditionValue": null,
+                    "criticalConditionValue": "",
                     "damageType": "",
-                    "dice": null,
+                    "dice": "",
                     "die": "",
                     "strikeConditionType": "",
-                    "strikeConditionValue": null,
+                    "strikeConditionValue": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -248,9 +250,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "sickle",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -282,18 +284,22 @@
                     "value": "simple"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ynnBwzkzsR6B73iO"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
             "name": "Sickle",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "SlF9yCAFiY2LVrSj",
+            "_id": "6yYpHdgmK8DUSuP8",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -309,7 +315,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Used by gamblers and seers alike, this deck of cards comes in several varieties.</p>\n<hr />\n<p>Simple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -355,7 +361,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
                 },
                 "quantity": {
                     "value": 1
@@ -364,9 +370,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "harrow-deck-simple",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
                 },
                 "stackGroup": {
                     "value": ""
@@ -379,16 +385,20 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/artifacts/deck-of-many-things.webp",
-            "name": "Harrow Deck",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.C1j0Zs26TPVjplbs"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp",
+            "name": "Harrow Deck (Simple)",
             "sort": 200000,
             "type": "equipment"
         },
@@ -458,7 +468,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "First encounter of the day",
+                        "property": "flags.pf2e.rollOptions.all.fated-doom"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "fated-doom"
+                            ]
+                        },
+                        "selector": "initiative",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -590,13 +617,10 @@
             "type": "lore"
         },
         {
-            "_id": "eINGtPvyx5IFKIEQ",
+            "_id": "fTKnuO5HCLkBEtPH",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 10
@@ -604,7 +628,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Fortune-Telling",
+                        "predicate": {
+                            "all": [
+                                "action:fortune-telling"
+                            ]
+                        },
+                        "selector": "performance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -615,12 +651,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+11 when fortune-telling",
+                        "options": "action:fortune-telling"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance (+11 when fortune-telling)",
+            "name": "Performance",
             "sort": 800000,
             "type": "lore"
         },

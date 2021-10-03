@@ -17,9 +17,9 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         this.onSubmitCallback = callback;
     }
 
-    override getData() {
+    override async getData() {
         return {
-            ...super.getData(),
+            ...(await super.getData()),
             maxQuantity: this.options.maxQuantity,
         };
     }

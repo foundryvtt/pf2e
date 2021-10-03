@@ -18,7 +18,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         return this.object;
     }
 
-    override getData() {
+    override async getData() {
         const item = this.object;
         const notMatchingTraditionModifier = game.settings.get("pf2e", "identifyMagicNotMatchingTraditionModifier");
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
@@ -27,7 +27,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             notMatchingTraditionModifier,
         });
         return {
-            ...super.getData(),
+            ...(await super.getData()),
             isMagic: dcs instanceof IdentifyMagicDCs,
             isAlchemical: dcs instanceof IdentifyAlchemyDCs,
             dcs,

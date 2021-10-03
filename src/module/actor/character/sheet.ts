@@ -14,6 +14,9 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e } from "@module/utils";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { CharacterProficiency } from "./data";
+import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { CraftingFormulaData } from "@item/formula/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -42,20 +45,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 "data.hp.value": formData["data.attributes.shield.hp.value"],
             });
         }
-        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
-
-        const updatedLevel = this.actor.data.data.details.level.value;
-        const actorClasses = this.actor.itemTypes.class;
-        if (updatedLevel != previousLevel && actorClasses.length > 0) {
-            for await (const actorClass of actorClasses) {
-                await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(actorClass, this.actor);
-            }
-        }
     }
 
-    override getData(options?: ActorSheetOptions) {
-        const sheetData = super.getData(options);
+    override async getData(options?: ActorSheetOptions) {
+        const sheetData = await super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -122,8 +116,29 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        sheetData.knownFormulas = await this.prepareCraftingFormulas();
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+
+        // Sort attack/defense proficiencies
+        const combatProficiencies: Record<string, CharacterProficiency> = sheetData.data.martial;
+        const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
+        const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
+        sheetData.data.martial = Object.entries(combatProficiencies)
+            .sort(([keyA, a], [keyB, b]) =>
+                isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
+                    ? -1
+                    : !isWeaponProficiency(keyA) && isWeaponProficiency(keyB)
+                    ? 1
+                    : (a.label ?? "").localeCompare(b.label ?? "")
+            )
+            .reduce(
+                (proficiencies: Record<string, CharacterProficiency>, [key, proficiency]) => ({
+                    ...proficiencies,
+                    [key]: proficiency,
+                }),
+                {}
+            );
 
         // Return data for rendering
         return sheetData;
@@ -156,7 +171,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Feats
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: string; feat?: FeatData }[];
+            feats: { id: string; level: number | string; feat?: FeatData }[];
             bonusFeats: FeatData[];
         }
         const tempFeats: FeatData[] = [];
@@ -172,7 +187,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.archetype.feats.push({ id: `archetype-${level}`, level: `${level}` });
+                featSlots.archetype.feats.push({ id: `archetype-${level}`, level });
             }
         } else {
             // Use delete so it is in the right place on the sheet
@@ -371,14 +386,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // class
             else if (itemData.type === "class") {
-                const classItem = itemData as ClassData;
+                const classItem: ClassData = itemData;
                 const mapFeatLevels = (featLevels: number[], prefix: string) => {
                     if (!featLevels) {
                         return [];
                     }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level: `${level}` }));
+                        .map((level) => ({ id: `${prefix}-${level}`, level }));
                 };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry");
@@ -391,11 +406,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (game.settings.get("pf2e", "ancestryParagonVariant")) {
             featSlots.ancestry.feats.unshift({
                 id: "ancestry-bonus",
-                level: "1",
+                level: 1,
             });
             for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
                 const index = (level + 1) / 2;
-                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level: `${level}` });
+                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level });
             }
         }
 
@@ -445,6 +460,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
         }
+        featSlots.classfeature.bonusFeats.sort((a, b) => (a.data.level.value > b.data.level.value ? 1 : -1));
 
         // assign mode to actions
         Object.values(actions)
@@ -582,6 +598,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+    }
+
+    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
+        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
+        const craftingFormulas = await this.actor.getCraftingFormulas();
+        for (const formula of craftingFormulas) {
+            const level = formula.level || 0;
+            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
+        }
+        return knownFormulas;
     }
 
     /* -------------------------------------------- */

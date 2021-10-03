@@ -280,7 +280,10 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadTab(tab: TabName): Promise<void> {
-        if (this.data[tab]) return;
+        if (this.data[tab]) {
+            this.activateResultListeners();
+            return;
+        }
         const data = await (async (): Promise<Record<string, unknown> | null> => {
             switch (tab) {
                 case "settings":
@@ -314,10 +317,11 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadActions() {
-        console.debug("PF2e System | Compendium Browser | Started loading feats");
+        console.debug("PF2e System | Compendium Browser | Started loading actions");
 
         const actions: Record<string, CompendiumIndexData> = {};
-        const indexFields = ["img", "data.actionType.value"];
+        const indexFields = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
+        const sources: Set<string> = new Set();
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("action"), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
@@ -333,7 +337,13 @@ export class CompendiumBrowser extends Application {
                     if (actionData.data.actionType.value === "passive") actionData.img = this._getActionImg("passive");
                     // record the pack the feat was read from
                     actionData.compendium = pack.collection;
+                    actionData.filters = {
+                        traits: actionData.data.traits.value,
+                        source: actionData.data.source.value,
+                    };
                     actions[actionData._id] = actionData;
+
+                    CompendiumBrowser.extractSources(actionData, sources, actionData.data.source);
                 }
             }
         }
@@ -345,11 +355,12 @@ export class CompendiumBrowser extends Application {
             actionTraits: sortedObject(CONFIG.PF2E.featTraits),
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
+            source: [...sources].sort(),
         };
     }
 
     async loadBestiary() {
-        console.debug("PF2e System | Compendium Browser | Started loading actors");
+        console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
 
         const bestiaryActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
@@ -365,7 +376,7 @@ export class CompendiumBrowser extends Application {
                         );
                         continue;
                     }
-                    // record the pack the feat was read from
+                    // record the pack the bestiary actor was read from
                     actorData.compendium = pack.collection;
                     actorData.filters = {};
 
@@ -374,28 +385,13 @@ export class CompendiumBrowser extends Application {
                     actorData.filters.alignment = actorData.data.details.alignment.value;
                     actorData.filters.actorSize = actorData.data.traits.size.value;
 
-                    // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
-                    if (actorData.data.details.source && actorData.data.details.source.value) {
-                        const actorSource = actorData.data.details.source.value;
-                        if (actorSource.includes("pg.")) {
-                            actorData.filters.source = actorSource.split("pg.")[0].trim();
-                        } else if (actorSource.includes("page.")) {
-                            actorData.filters.source = actorSource.split("page.")[0].trim();
-                        } else {
-                            actorData.filters.source = actorSource;
-                        }
-                    }
-
-                    // add the source to the filter list.
-                    if (actorData.filters.source) {
-                        sources.add(actorData.filters.source);
-                    }
-
                     // add actor to bestiaryActors object
                     bestiaryActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
                     actorData.filters.rarity = actorData.data.traits.rarity.value;
+
+                    CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -414,7 +410,7 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadHazards() {
-        console.debug("PF2e System | Compendium Browser | Started loading actors");
+        console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
 
         const hazardActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
@@ -439,23 +435,8 @@ export class CompendiumBrowser extends Application {
                     actorData.filters.traits = actorData.data.traits.traits.value;
 
                     // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry
-                    if (actorData.data.details.source && actorData.data.details.source.value) {
-                        const actorSource = actorData.data.details.source.value;
-                        if (actorSource.includes("pg.")) {
-                            actorData.filters.source = actorSource.split("pg.")[0].trim();
-                        } else if (actorSource.includes("page.")) {
-                            actorData.filters.source = actorSource.split("page.")[0].trim();
-                        } else {
-                            actorData.filters.source = actorSource;
-                        }
-                    }
 
                     actorData.filters.complex = actorData.data.details.isComplex ? "complex" : "simple";
-
-                    // add the source to the filter list.
-                    if (actorData.filters.source) {
-                        sources.add(actorData.filters.source);
-                    }
 
                     // add actor to bestiaryActors object
                     hazardActors[actorData._id] = actorData;
@@ -470,6 +451,8 @@ export class CompendiumBrowser extends Application {
                         }
                         return "common";
                     })();
+
+                    CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -485,16 +468,17 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadEquipment() {
-        console.debug("PF2e System | Compendium Browser | Started loading feats");
+        console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: Record<string, CompendiumIndexData> = {};
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
         const kitFields = ["img", "data.price.value", "data.traits"];
-        const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value"];
+        const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
         const armorFields = [...baseFields, "data.armorType.value", "data.group.value"];
         const weaponFields = [...baseFields, "data.weaponType.value", "data.group.value"];
         const indexFields = [...new Set([...armorFields, ...weaponFields])];
+        const sources: Set<string> = new Set();
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("equipment"), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
@@ -518,7 +502,7 @@ export class CompendiumBrowser extends Application {
                         continue;
                     }
 
-                    // record the pack the feat was read from
+                    // record the pack the inventory item was read from
                     itemData.compendium = pack.collection;
 
                     // add item.type into the correct format for filtering
@@ -538,6 +522,8 @@ export class CompendiumBrowser extends Application {
 
                     // add spell to spells array
                     inventoryItems[itemData._id] = itemData;
+
+                    CompendiumBrowser.extractSources(itemData, sources, itemData.data.source);
                 }
             }
         }
@@ -560,6 +546,7 @@ export class CompendiumBrowser extends Application {
             rarities: CONFIG.PF2E.rarityTraits,
             weaponTypes: CONFIG.PF2E.weaponTypes,
             weaponGroups: CONFIG.PF2E.weaponGroups,
+            source: [...sources].sort(),
         };
     }
 
@@ -572,6 +559,7 @@ export class CompendiumBrowser extends Application {
         const ancestries: Set<string> = new Set();
         const times: Set<string> = new Set();
         const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
+        const sources: Set<string> = new Set();
         const indexFields = [
             "img",
             "data.prerequisites.value",
@@ -580,12 +568,14 @@ export class CompendiumBrowser extends Application {
             "data.featType.value",
             "data.level.value",
             "data.traits",
+            "data.source.value",
         ];
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("feat"), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index) {
                 if (featData.type === "feat") {
+                    featData.filters = {};
                     if (!hasAllIndexFields(featData, indexFields)) {
                         console.warn(
                             `Feat '${featData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
@@ -660,11 +650,13 @@ export class CompendiumBrowser extends Application {
                         times.add(time);
                     }
 
-                    // add spell to spells array
+                    // add feat to feats array
                     feats[featData._id] = featData;
 
                     // Add rarity for filtering
                     featData.data.rarity = deepClone(featData.data.traits.rarity);
+
+                    CompendiumBrowser.extractSources(featData, sources, featData.data.source);
                 }
             }
         }
@@ -701,6 +693,7 @@ export class CompendiumBrowser extends Application {
             featAncestry: ancestryObj,
             featTimes: [...times].sort(),
             rarities: CONFIG.PF2E.rarityTraits,
+            source: [...sources].sort(),
         };
     }
 
@@ -712,6 +705,7 @@ export class CompendiumBrowser extends Application {
         const schools: Set<MagicSchool> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
+        const sources: Set<string> = new Set();
         const indexFields = [
             "img",
             "data.level.value",
@@ -720,11 +714,14 @@ export class CompendiumBrowser extends Application {
             "data.time",
             "data.school.value",
             "data.traits",
+            "data.source.value",
         ];
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("spell"), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const spellData of index) {
+                spellData.filters = {};
+
                 if (spellData.type === "spell") {
                     if (!hasAllIndexFields(spellData, indexFields)) {
                         console.warn(
@@ -779,6 +776,8 @@ export class CompendiumBrowser extends Application {
 
                     // Add rarity for filtering
                     spellData.data.rarity = deepClone(spellData.data.traits.rarity);
+
+                    CompendiumBrowser.extractSources(spellData, sources, spellData.data.source);
                 }
             }
         }
@@ -806,6 +805,7 @@ export class CompendiumBrowser extends Application {
             traditions: CONFIG.PF2E.magicTraditions,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: sortedObject({ ...CONFIG.PF2E.spellOtherTraits, ...CONFIG.PF2E.damageTraits }),
+            source: [...sources].sort(),
         };
     }
 
@@ -1101,7 +1101,7 @@ export class CompendiumBrowser extends Application {
         return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
-    _getActionImg(action: string) {
+    _getActionImg(action: string): string {
         const img: Record<string, string> = {
             1: "systems/pf2e/icons/actions/OneAction.webp",
             2: "systems/pf2e/icons/actions/TwoActions.webp",
@@ -1124,7 +1124,7 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async filterItems(li: JQuery) {
+    async filterItems(li: JQuery): Promise<void> {
         let counter = 0;
         li.hide();
         for (const spell of li) {
@@ -1140,7 +1140,7 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    getFilterResult(element: HTMLElement) {
+    getFilterResult(element: HTMLElement): boolean {
         if (this.sorters.text) {
             const searches = this.sorters.text.split(",");
             for (const search of searches) {
@@ -1199,7 +1199,7 @@ export class CompendiumBrowser extends Application {
         return true;
     }
 
-    private resetFilters() {
+    private resetFilters(): void {
         this.sorters = {
             text: "",
             castingtime: "",
@@ -1305,5 +1305,26 @@ export class CompendiumBrowser extends Application {
             $list[0].append(row);
         }
         this.activateResultListeners();
+    }
+
+    private static extractSources(
+        indexData: CompendiumIndexData,
+        sources: Set<string>,
+        sourcePath: { value: string }
+    ): void {
+        if (sourcePath && sourcePath.value) {
+            if (sourcePath.value.includes("pg.")) {
+                indexData.filters.source = sourcePath.value.split("pg.")[0].trim();
+            } else if (sourcePath.value.includes("page.")) {
+                indexData.filters.source = sourcePath.value.split("page.")[0].trim();
+            } else {
+                indexData.filters.source = sourcePath.value;
+            }
+        }
+
+        // add the source to the filter list.
+        if (indexData.filters.source) {
+            sources.add(indexData.filters.source);
+        }
     }
 }

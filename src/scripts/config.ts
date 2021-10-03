@@ -226,11 +226,23 @@ const conditionTypes: Record<ConditionType, string> = {
     wounded: "PF2E.ConditionTypeWounded",
 };
 
+const magicSchools: Record<MagicSchool, string> = {
+    abjuration: "PF2E.TraitAbjuration",
+    conjuration: "PF2E.TraitConjuration",
+    divination: "PF2E.TraitDivination",
+    enchantment: "PF2E.TraitEnchantment",
+    evocation: "PF2E.TraitEvocation",
+    illusion: "PF2E.TraitIllusion",
+    necromancy: "PF2E.TraitNecromancy",
+    transmutation: "PF2E.TraitTransmutation",
+};
+
 const immunityTypes: Record<ImmunityType, string> = {
     ...conditionTypes,
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
     confusion: "PF2E.TraitConfusion",
@@ -240,19 +252,17 @@ const immunityTypes: Record<ImmunityType, string> = {
     "death-effects": "PF2E.TraitDeathEffects",
     disease: "PF2E.TraitDisease",
     emotion: "PF2E.TraitEmotion",
-    evocation: "PF2E.TraitEvocation",
     "fear-effects": "PF2E.TraitFearEffects",
     ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
-    necromancy: "PF2E.TraitNecromancy",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
     polymorph: "PF2E.TraitPolymorph",
-    possession: "PF2E.TraitPosession",
+    possession: "PF2E.TraitPossession",
     scrying: "PF2E.TraitScrying",
     sleep: "PF2E.TraitSleep",
     spellDeflection: "PF2E.TraitSpellDeflection",
@@ -302,17 +312,6 @@ const magicTraditions: Record<MagicTradition, string> = {
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
-};
-
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
 };
 
 const weaponCategories = {
@@ -386,8 +385,10 @@ const traitsDescriptions = {
     tethered: "PF2E.TraitDescriptionTethered",
     "thrown-10": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
+    "thrown-25": "PF2E.TraitDescriptionThrown",
     "thrown-30": "PF2E.TraitDescriptionThrown",
     "thrown-40": "PF2E.TraitDescriptionThrown",
+    "thrown-50": "PF2E.TraitDescriptionThrown",
     "thrown-60": "PF2E.TraitDescriptionThrown",
     "thrown-100": "PF2E.TraitDescriptionThrown",
     trip: "PF2E.TraitDescriptionTrip",
@@ -1414,6 +1415,7 @@ export const PF2ECONFIG = {
         exploration: "PF2E.TraitExploration",
         fear: "PF2E.TraitFear",
         flourish: "PF2E.TraitFlourish",
+        injury: "PF2E.TraitInjury",
         magical: "PF2E.TraitMagical",
         mental: "PF2E.TraitMental",
         metamagic: "PF2E.TraitMetamagic",
@@ -1421,6 +1423,7 @@ export const PF2ECONFIG = {
         oath: "PF2E.TraitOath",
         open: "PF2E.TraitOpen",
         "pervasive-magic": "PF2E.TraitPervasiveMagic",
+        poison: "PF2E.TraitPoison",
         press: "PF2E.TraitPress",
         stance: "PF2E.TraitStance",
         stamina: "PF2E.TraitStamina",
@@ -1446,6 +1449,8 @@ export const PF2ECONFIG = {
         ...damageTraits,
         ...magicSchools,
         ...magicTraditions,
+        ...magicTraditions,
+        aquatic: "PF2E.TraitAquatic",
         alchemical: "PF2E.TraitAlchemical",
         auditory: "PF2E.TraitAuditory",
         environmental: "PF2E.TraitEnvironmental",
@@ -1674,7 +1679,6 @@ export const PF2ECONFIG = {
         pfsboon: "PF2E.FeatPFSBoonHeader",
         deityboon: "PF2E.FeatDeityBoonHeader",
         curse: "PF2E.FeatCurseHeader",
-        variantrule: "PF2E.FeatVariantRule",
     },
 
     actionTypes: {

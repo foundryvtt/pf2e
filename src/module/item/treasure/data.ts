@@ -7,7 +7,7 @@ export class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/treasure.svg";
 }
 
-export interface TreasureData extends Omit<TreasureSource, "_id" | "effects"> {
+export interface TreasureData extends Omit<TreasureSource, "effects" | "flags"> {
     type: TreasureSource["type"];
     data: TreasureSource["data"];
     readonly _source: TreasureSource;

@@ -3,7 +3,7 @@ import type { ItemPF2e } from "@item";
 import { ActionDefaultOptions } from "@system/actions/actions";
 
 /** A macro for the Rest for the Night quasi-action */
-export async function restForTheNight(options: ActionDefaultOptions): Promise<void> {
+export async function restForTheNight(options: ActionDefaultOptions): Promise<void | ChatMessage> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const characters = actors.filter((actor): actor is CharacterPF2e => actor?.data.type === "character");
     if (actors.length === 0) {
@@ -178,7 +178,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         messages.push(reducedConditions.length > 0 ? `${reducedString} reduced by 1.` : null);
 
         // Send chat message with results
-        ChatMessage.create({
+        return ChatMessage.create({
             user: game.user.id,
             content: messages.join(" "),
             speaker: { alias: actorName },

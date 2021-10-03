@@ -20,7 +20,7 @@ export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spell.svg";
 }
 
-export interface SpellData extends Omit<SpellSource, "_id" | "effects"> {
+export interface SpellData extends Omit<SpellSource, "effects" | "flags"> {
     type: SpellSource["type"];
     data: SpellSource["data"];
     readonly _source: SpellSource;

@@ -2,7 +2,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { MATH_FUNCTION_NAMES } from "@module/data";
 
-function asDamageDieSize(faces: number) {
+function asDamageDieSize(faces: number): DamageDieSize {
     return `d${faces}` as DamageDieSize;
 }
 
@@ -83,10 +83,16 @@ function processRollTerms(
     for (const term of terms) {
         const { parts, type, base, categories } = getTermParts(term, flavor);
         if (term instanceof OperatorTerm) {
-            if (["+", "-"].includes(term.operator) && operand instanceof Die) {
+            if (["+", "-"].includes(term.operator)) {
                 const category = ensureDamageCategory(types, categories, base, type, 1);
-                applyDiceResult(category, operand, 1);
-                operand = null;
+                if (operand instanceof Die) {
+                    applyDiceResult(category, operand, 1);
+                    operand = null;
+                } else if (operand instanceof NumericTerm) {
+                    const signedOperand = term.operator === "-" ? -operand.number : +operand.number;
+                    applyModifier(category, signedOperand, 1);
+                    operand = null;
+                }
             }
             operator = term;
         } else if (term instanceof Die) {
@@ -272,9 +278,9 @@ function prepareCardData(
 const UNPARSEABLE_ROLL_SYNTAX = [...MATH_FUNCTION_NAMES];
 
 export const DamageChatCard = {
-    decorate: async (message: ChatMessagePF2e, html: JQuery): Promise<void> => {
-        if (!game.settings.get("pf2e", "automation.experimentalDamageFormatting")) return;
-        const preformatted = message.data.flags.pf2e?.preformatted as string;
+    preformat: async (message: ChatMessagePF2e) => {
+        const data = message.data._source;
+        const preformatted = data.flags.pf2e.preformatted;
         if (preformatted === "both") return;
         if (!message.isDamageRoll) return;
 
@@ -287,15 +293,7 @@ export const DamageChatCard = {
             return;
         }
 
-        const $flavor = (() => {
-            let flavor = html.find(".flavor-text");
-            if (!flavor.length) {
-                flavor = $("<div class='flavor-text'></div>");
-                html.find("header.message-header").after(flavor);
-            }
-            return flavor;
-        })();
-        const originalFlavor = $flavor.html()?.trim();
+        const originalFlavor = data.flavor?.trim();
         if (originalFlavor?.includes("suppress-formatting")) return;
         const context: DamageBreakdownContext = {
             suppress: {
@@ -312,7 +310,7 @@ export const DamageChatCard = {
         const types = prepareCardData(processed, notes, context);
 
         // flavor
-        if (["both", "flavor"].includes(preformatted)) {
+        if (["both", "flavor"].includes(preformatted ?? "")) {
             // skip processing for messages with preformatted flavor
         } else {
             const flavor = await renderTemplate("systems/pf2e/templates/chat/damage/damage-card-flavor.html", {
@@ -323,36 +321,67 @@ export const DamageChatCard = {
                     },
                 },
                 flavor: message.data.flags.pf2e?.flavor ?? originalFlavor ?? "",
-                //formula: message.roll.formula,
                 notes: message.data.flags.pf2e?.notes ?? notes,
                 outcome: message.data.flags.pf2e?.outcome,
                 traits: message.data.flags.pf2e?.traits ?? [],
             });
-            $flavor.html(flavor?.trim() ?? "");
+            data.flavor = flavor?.trim();
         }
 
         // content
-        if (["both", "content"].includes(preformatted)) {
+        if (["both", "content"].includes(preformatted ?? "")) {
             // skip processing for messages with preformatted content
         } else {
-            const formula = Object.entries(types)
-                .map(([type, categories]) => {
-                    const base = DamageCategory.fromDamageType(type);
-                    return Object.values(categories)
-                        .map((result) => {
-                            const categories = result.categories.filter((c) => c !== base).join(" ");
-                            return `${result.formula} ${categories} ${type}`;
-                        })
-                        .join(" + ");
-                })
-                .join(" + ");
+            // remove empty damage types
+            Object.entries(types).forEach(([type, categories]) => {
+                const empty =
+                    !categories ||
+                    Object.keys(categories).length === 0 ||
+                    !Object.values(categories).find(
+                        (category) => category.modifier !== 0 || Object.keys(category.results).length > 0
+                    );
+                if (empty) {
+                    delete types[type];
+                }
+            });
+
+            const formula =
+                Object.entries(types)
+                    .map(([type, categories]) => {
+                        const base = DamageCategory.fromDamageType(type);
+                        return Object.values(categories)
+                            .map((result) => {
+                                const categories = result.categories.filter((c) => c !== base).join(" ");
+                                return `${result.formula} ${categories} ${type}`;
+                            })
+                            .join(" + ");
+                    })
+                    .join(" + ") || game.i18n.localize("PF2E.Damage.NoDamageFormulaLabel");
             const total = Object.values(types)
                 .flatMap((categories) => Object.values(categories))
                 .reduce((accumulator, current) => accumulator + current.total, 0);
             const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-card-content.html", {
                 damage: { formula, notes, total, types },
             });
-            html.find(".message-content").html(content.trim());
+            data.content = content.trim();
+
+            // strip out persistent damage from the roll terms to ensure modules like Dice So Nice will react properly
+            // to the roll data
+            if (!context.suppress.persistentNotes) {
+                const roll = message.roll;
+                const stripPersistentDamageTerms = (terms: RollTerm[]) => {
+                    const copy = terms.filter((term) => !term.flavor?.includes("persistent"));
+                    copy.filter((term): term is PoolTerm => term instanceof PoolTerm).forEach((term) => {
+                        term.terms = stripPersistentDamageTerms(term.terms);
+                    });
+                    return copy;
+                };
+                roll.terms = stripPersistentDamageTerms(roll.terms);
+                roll["_formula"] = formula;
+                roll["_total"] = total;
+                data.roll = JSON.stringify(roll);
+            }
         }
+        data.flags.pf2e.preformatted = "both";
     },
 };

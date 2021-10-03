@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 25,
                 "details": "",
                 "value": 25
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -58,6 +59,7 @@
                 "value": "CE"
             },
             "creatureType": "",
+            "flavorText": "<p>There is perhaps nothing more anathematic to peace than an antipaladin. Dedicated holy warriors to the darkest and foulest of deities, antipaladins work to fulfill the vile wishes of their evil masters. The zeal with which they implement the plans of dark gods makes them truly fearsome foes for anyone allied with the forces of good.</p>\n<hr />\n<p>Villains pursue selfish and cruel goals, trampling over anyone foolish or purehearted enough to stand in their way.</p>",
             "level": {
                 "value": 5
             },
@@ -123,10 +125,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ildzkirLxeREoROx",
+            "_id": "YEsqZ1pmCAbdEHfI",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -135,10 +137,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "focus"
                 },
                 "proficiency": {
@@ -149,7 +149,7 @@
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -181,9 +181,9 @@
                         "value": 0
                     },
                     "slot3": {
-                        "max": 1,
+                        "max": 0,
                         "prepared": [],
-                        "value": 1
+                        "value": 0
                     },
                     "slot4": {
                         "max": 0,
@@ -221,13 +221,12 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "20",
-                    "item": 0,
+                    "dc": 0,
                     "mod": 0,
-                    "value": 10
+                    "value": 0
                 },
                 "tradition": {
-                    "value": "arcane"
+                    "value": "divine"
                 },
                 "traits": {
                     "custom": "",
@@ -245,7 +244,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "po9P7I3J1qLlOn8U",
+            "_id": "4OFNlh90eUu8uq1T",
             "data": {
                 "ability": {
                     "value": ""
@@ -278,12 +277,12 @@
                                 "categories": [],
                                 "value": "negative"
                             },
-                            "value": "3d6"
+                            "value": "1d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>The antipaladin infuses the target with negative energy. If the target is living, this deals [[/r 3d6 #negative]]{3d6 negative damage} (basic Fortitude save); on a failed saving throw, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>If the target is a willing undead creature, the target regains 18 Hit Points, and if it is one of the antipaladin's allies, it also gains a +2 status bonus to damage rolls for 1 round.</p>"
+                    "value": "<p>You infuse the target with negative energy. If the target is living, this deals 1d6 negative negative damage (basic Fortitude save); on a failed save, the target also takes a -2 status penalty to AC for 1 round.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Touch of Corruption]{Spell Effect: Touch of Corruption}</p>\n<p>If the target is a willing undead creature, the target instead regains 6 Hit Points, and if you are the undead target, you also gain a +2 status bonus to damage rolls for 1 round.</p>\n<p>@Compendium[pf2e.spells-srd.Touch of Corruption (Healing)]{Touch of Corruption (Healing)}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage dealt to a living creature by 1d6 or increase the Hit Points regained by undead by 6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -292,10 +291,10 @@
                     "value": false
                 },
                 "level": {
-                    "value": 3
+                    "value": 1
                 },
                 "location": {
-                    "value": "ildzkirLxeREoROx"
+                    "value": "YEsqZ1pmCAbdEHfI"
                 },
                 "materials": {
                     "value": ""
@@ -314,6 +313,12 @@
                     "basic": "basic",
                     "value": "fortitude"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -323,9 +328,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "touch-of-corruption",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Advanced Player's Guide"
                 },
                 "spellType": {
                     "value": "save"
@@ -347,20 +352,22 @@
                     "rarity": {
                         "value": "uncommon"
                     },
-                    "value": [
-                        "negative"
-                    ]
+                    "value": []
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jFmWSIpJGGebim6y"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/touch-of-corruption.webp",
             "name": "Touch of Corruption",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "IlEMwQAUIX2l7Ax2",
+            "_id": "ZjgPLpEe5iol2515",
             "data": {
                 "MAP": {
                     "value": ""
@@ -368,7 +375,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "greataxe",
                 "bonus": {
                     "value": 0
                 },
@@ -394,10 +401,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
+                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -490,9 +497,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "greataxe",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -526,14 +533,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.8COlYvHe6hKCXY8x"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/greataxe.webp",
             "name": "Greataxe",
             "sort": 300000,
             "type": "weapon"
         },
         {
-            "_id": "7BrsszvJByRjDJRS",
+            "_id": "fY3wdBhx9wOA7Sim",
             "data": {
                 "MAP": {
                     "value": ""
@@ -541,7 +552,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "javelin",
                 "bonus": {
                     "value": 0
                 },
@@ -567,10 +578,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.<br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -616,10 +627,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "1 sp"
@@ -639,16 +650,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 10
@@ -663,9 +674,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "javelin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -699,14 +710,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.JNt7GmLCCVz5BiEI"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
             "name": "Javelin",
             "sort": 400000,
             "type": "weapon"
         },
         {
-            "_id": "W1qBY4CLUWlYzenc",
+            "_id": "8YBoViifj7UjajwS",
             "data": {
                 "armor": {
                     "value": 5
@@ -714,7 +729,7 @@
                 "armorType": {
                     "value": "heavy"
                 },
-                "baseItem": null,
+                "baseItem": "half-plate",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -731,13 +746,13 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor (see below) and a pair of gauntlets.</p>"
+                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
                 },
                 "dex": {
                     "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": "3"
@@ -789,36 +804,6 @@
                 "price": {
                     "value": "18 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -842,9 +827,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "half-plate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -10
@@ -863,21 +848,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "4"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.pRoikbRo5HFW6YUB"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/halfplate.webp",
             "name": "Half Plate",
             "sort": 500000,
             "type": "armor"
         },
         {
-            "_id": "TWVabcP3fVWjcU06",
+            "_id": "jzYOlfnOgSpmNWoF",
             "data": {
                 "activation": {
                     "condition": "",
@@ -918,7 +907,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a status bonus to your Speed for the listed duration. The bonus is +5 feet, and the duration is 1 minute.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Cheetah's Elixir (Lesser)]{Effect: Cheetah's Elixir (Lesser)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -979,9 +968,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "cheetahs-elixir-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -1000,7 +989,11 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -1017,7 +1010,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tyt6rFtv32MZ4DT9"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cheetahs-elixir.webp",
             "name": "Cheetah's Elixir (Lesser)",
             "sort": 600000,
@@ -1128,7 +1125,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin;</p>\n<p><strong>Effect</strong> The antipaladin increases the amount of damage they take by [[/r 2d6]] and deals [[/r 2d6]] damage to the triggering enemy, choosing evil or negative damage. In addition, the antipaladin deals [[/r 2]] extra damage of the chosen type with their @Compendium[pf2e.actionspf2e.Strike]{Strikes} against the triggering creature until the end of the antipaladin's next turn.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy within 15 feet damages the antipaladin;</p>\n<p><strong>Effect</strong> The antipaladin increases the amount of damage [[/r 2d6 #damage]]{they take by 2d6} and deals 2d6 to the triggering enemy, choosing [[/r 2d6 #evil]]{evil damage} or [[/r 2d6 #negative]]{negative damage}. In addition, the antipaladin deals [[/r 2 #damage]]{2 extra damage} of the chosen type with their Strikes against the triggering creature until the end of the antipaladin's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1175,7 +1172,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The antipaladin makes a melee @Compendium[pf2e.actionspf2e.Strike]{Strike}. If they hit and deal damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical hit.</p>"
+                    "value": "<p>The antipaladin makes a melee Strike. If they hit and deal damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1201,7 +1198,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Intimidating Strike",
             "sort": 1000000,
             "type": "action"
