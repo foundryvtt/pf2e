@@ -69,6 +69,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/background-sidebar.html",
         "systems/pf2e/templates/items/backpack-details.html",
         "systems/pf2e/templates/items/backpack-sidebar.html",
+        "systems/pf2e/templates/items/book-details.html",
+        "systems/pf2e/templates/items/book-sidebar.html",
         "systems/pf2e/templates/items/treasure-sidebar.html",
         "systems/pf2e/templates/items/class-details.html",
         "systems/pf2e/templates/items/consumable-details.html",

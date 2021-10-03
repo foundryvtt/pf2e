@@ -27,6 +27,7 @@ import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@
 import { AbilityString } from "@actor/data/base";
 import { SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
+import { BookData } from "@item/book";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -622,7 +623,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
                 type: "equipment",
                 items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<EquipmentData> => itemData.type === "equipment"
+                    (itemData): itemData is InventoryItem<EquipmentData | BookData> =>
+                        itemData.type === "equipment" || itemData.type === "book"
                 ),
             },
             consumable: {

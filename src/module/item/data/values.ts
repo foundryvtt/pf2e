@@ -20,8 +20,15 @@ export class MystifiedTraits {
     }
 }
 
-export const PHYSICAL_ITEM_TYPES = ["armor", "backpack", "consumable", "equipment", "treasure", "weapon"] as const;
-export const TRADITION_TRAITS = ["arcane", "primal", "divine", "occult"] as const;
+export const PHYSICAL_ITEM_TYPES = [
+    "armor",
+    "backpack",
+    "book",
+    "consumable",
+    "equipment",
+    "treasure",
+    "weapon",
+] as const;
 
 export const PRECIOUS_MATERIAL_TYPES = [
     "adamantine",

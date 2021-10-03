@@ -1,5 +1,4 @@
 import { PhysicalItemPF2e } from "../physical";
-import { TRADITION_TRAITS } from "../data/values";
 import { RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from "./data";
@@ -13,6 +12,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
+import { MAGIC_TRADITIONS } from "@item/spell/data";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -74,7 +74,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
         const traitsFromRunes = runesData.flatMap((datum: { traits: readonly WeaponTrait[] }) => datum.traits);
-        const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
+        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
         const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
 

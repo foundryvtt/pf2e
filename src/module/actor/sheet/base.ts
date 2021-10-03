@@ -42,7 +42,7 @@ import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { adjustDCByRarity, calculateDC } from "@module/dc";
-import { CraftingFormula } from "@item/formula";
+import { CraftingFormula } from "@module/crafting/formula";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 
 /**
@@ -897,10 +897,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const actorFormulas = actor.craftingFormulas;
                 if (formula && !actorFormulas.find((f) => f.uuid === formula.uuid)) {
                     actorFormulas.push(formula);
-                    await (actor as CharacterPF2e).update(
-                        { "data.formulas": actorFormulas },
-                        { recursive: true, keepId: true }
-                    );
+                    await actor.update({ "data.formulas": actorFormulas }, { recursive: true, keepId: true });
                 }
             }
             return [item];
@@ -1195,7 +1192,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 img: itemData.img,
                 level: itemData.data.level.value,
                 name: itemData.name,
-                uuid: itemData.flags.core.sourceId as CompendiumUUID,
+                uuid: itemData.flags.core.sourceId,
                 price: itemData.data.price.value,
                 rarity: itemData.data.traits.rarity.value,
             };

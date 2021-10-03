@@ -28,7 +28,7 @@ import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
-import { CraftingFormulaData } from "@item/formula/data";
+import { CraftingFormulaData } from "@module/crafting/formula";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
