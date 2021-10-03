@@ -1,6 +1,7 @@
 import { ItemPF2e } from "../index";
 import { FeatData, FeatType } from "./data";
 import { OneToThree } from "@module/data";
+import { UserPF2e } from "@module/user";
 
 export class FeatPF2e extends ItemPF2e {
     static override get schema(): typeof FeatData {
@@ -12,6 +13,10 @@ export class FeatPF2e extends ItemPF2e {
             value: this.data.data.featType.value,
             label: game.i18n.localize(CONFIG.PF2E.featTypes[this.data.data.featType.value]),
         };
+    }
+
+    get level(): number {
+        return this.data.data.level.value;
     }
 
     get activationTime() {
@@ -37,7 +42,7 @@ export class FeatPF2e extends ItemPF2e {
     protected override async _preUpdate(
         data: DeepPartial<FeatPF2e["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         const actionCount = data.data?.actions;
         if (actionCount) {

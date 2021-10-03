@@ -2,6 +2,7 @@ import {
     ActionPF2e,
     AncestryPF2e,
     BackgroundPF2e,
+    BookPF2e,
     ArmorPF2e,
     ClassPF2e,
     ConditionPF2e,
@@ -226,11 +227,23 @@ const conditionTypes: Record<ConditionType, string> = {
     wounded: "PF2E.ConditionTypeWounded",
 };
 
+const magicSchools: Record<MagicSchool, string> = {
+    abjuration: "PF2E.TraitAbjuration",
+    conjuration: "PF2E.TraitConjuration",
+    divination: "PF2E.TraitDivination",
+    enchantment: "PF2E.TraitEnchantment",
+    evocation: "PF2E.TraitEvocation",
+    illusion: "PF2E.TraitIllusion",
+    necromancy: "PF2E.TraitNecromancy",
+    transmutation: "PF2E.TraitTransmutation",
+};
+
 const immunityTypes: Record<ImmunityType, string> = {
     ...conditionTypes,
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
     confusion: "PF2E.TraitConfusion",
@@ -240,14 +253,12 @@ const immunityTypes: Record<ImmunityType, string> = {
     "death-effects": "PF2E.TraitDeathEffects",
     disease: "PF2E.TraitDisease",
     emotion: "PF2E.TraitEmotion",
-    evocation: "PF2E.TraitEvocation",
     "fear-effects": "PF2E.TraitFearEffects",
     ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
-    necromancy: "PF2E.TraitNecromancy",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
@@ -302,17 +313,6 @@ const magicTraditions: Record<MagicTradition, string> = {
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
     primal: "PF2E.TraitPrimal",
-};
-
-const magicSchools: Record<MagicSchool, string> = {
-    abjuration: "PF2E.TraitAbjuration",
-    conjuration: "PF2E.TraitConjuration",
-    divination: "PF2E.TraitDivination",
-    enchantment: "PF2E.TraitEnchantment",
-    evocation: "PF2E.TraitEvocation",
-    illusion: "PF2E.TraitIllusion",
-    necromancy: "PF2E.TraitNecromancy",
-    transmutation: "PF2E.TraitTransmutation",
 };
 
 const weaponCategories = {
@@ -1216,6 +1216,19 @@ export const PF2ECONFIG = {
         positive: "PF2E.TraitPositive",
         propulsive: "PF2E.TraitPropulsive",
         range: "PF2E.TraitRange",
+        "range-5": "PF2E.TraitRange5",
+        "range-10": "PF2E.TraitRange10",
+        "range-15": "PF2E.TraitRange15",
+        "range-20": "PF2E.TraitRange20",
+        "range-25": "PF2E.TraitRange25",
+        "range-30": "PF2E.TraitRange30",
+        "range-40": "PF2E.TraitRange40",
+        "range-50": "PF2E.TraitRange50",
+        "range-60": "PF2E.TraitRange60",
+        "range-70": "PF2E.TraitRange70",
+        "range-80": "PF2E.TraitRange80",
+        "range-90": "PF2E.TraitRange90",
+        "range-100": "PF2E.TraitRange100",
         "range-increment-5": "PF2E.TraitRangeIncrement5",
         "range-increment-10": "PF2E.TraitRangeIncrement10",
         "range-increment-15": "PF2E.TraitRangeIncrement15",
@@ -1285,6 +1298,7 @@ export const PF2ECONFIG = {
         "thrown-40": "PF2E.TraitThrown40",
         "thrown-60": "PF2E.TraitThrown60",
         "thrown-100": "PF2E.TraitThrown100",
+        time: "PF2E.TraitTime",
         trip: "PF2E.TraitTrip",
         twin: "PF2E.TraitTwin",
         "two-hand-d8": "PF2E.TraitTwoHandD8",
@@ -1680,7 +1694,6 @@ export const PF2ECONFIG = {
         pfsboon: "PF2E.FeatPFSBoonHeader",
         deityboon: "PF2E.FeatDeityBoonHeader",
         curse: "PF2E.FeatCurseHeader",
-        variantrule: "PF2E.FeatVariantRule",
     },
 
     actionTypes: {
@@ -2346,6 +2359,7 @@ export const PF2ECONFIG = {
             effect: EffectPF2e,
             ancestry: AncestryPF2e,
             background: BackgroundPF2e,
+            book: BookPF2e,
             class: ClassPF2e,
             feat: FeatPF2e,
             lore: LorePF2e,

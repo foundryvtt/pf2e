@@ -52,6 +52,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
+                "book",
                 "consumable",
                 "equipment",
                 "feat",
@@ -172,6 +173,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(): ItemSheetDataPF2e<TItem> {
         const itemData = this.item.clone({}, { keepId: true }).data;
+        itemData.data.rules = itemData.toObject().data.rules;
+
         const isEditable = this.isEditable;
         return {
             hasSidebar: false,
