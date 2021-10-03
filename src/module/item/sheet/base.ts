@@ -52,6 +52,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
+                "book",
                 "consumable",
                 "equipment",
                 "feat",

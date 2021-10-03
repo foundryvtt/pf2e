@@ -132,7 +132,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         };
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         $("i.fa-info-circle.small[title]").tooltipster({
             animation: "fade",

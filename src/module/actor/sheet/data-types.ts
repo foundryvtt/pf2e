@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { LootPF2e } from "@actor/loot";
+import { BookData } from "@item/book";
 import { getContainerMap } from "@item/container/helpers";
 import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from "@item/data";
 import { IdentificationData, MystifiedData } from "@item/physical/data";
@@ -38,7 +39,7 @@ interface SheetItemList<D extends PhysicalItemData> {
 export interface SheetInventory {
     weapon: SheetItemList<WeaponData>;
     armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData>;
+    equipment: SheetItemList<EquipmentData | BookData>;
     consumable: SheetItemList<ConsumableData>;
     treasure: SheetItemList<TreasureData>;
 }
