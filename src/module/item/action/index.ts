@@ -1,6 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { ActionData } from "./data";
 import { OneToThree } from "@module/data";
+import { UserPF2e } from "@module/user";
 
 export class ActionPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {
@@ -40,7 +41,7 @@ export class ActionPF2e extends ItemPF2e {
     protected override async _preUpdate(
         data: DeepPartial<ActionPF2e["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         const actionCount = data.data?.actions;
         if (actionCount) {
