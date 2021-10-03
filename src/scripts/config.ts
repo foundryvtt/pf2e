@@ -631,6 +631,7 @@ const creatureTraits = {
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
     "sea devil": "PF2E.TraitSeaDevil",
+    seugathi: "PF2E.TraitSeugathi",
     serpentfolk: "PF2E.TraitSerpentfolk",
     shabti: "PF2E.TraitShabti",
     shadow: "PF2E.TraitShadow",
