@@ -242,11 +242,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        // Melee Attack summaries
-        html.find(".item .melee-name h4").on("click", (event) => {
-            this.onItemSummary(event);
-        });
-
         // Melee Weapon Rolling
         html.find("button:not(.recall-knowledge-breakdown)").on("click", (event) => {
             event.preventDefault();
