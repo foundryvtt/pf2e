@@ -23,11 +23,17 @@
             {
                 "key": "TempHP",
                 "label": "Rage",
-                "value": "max(@details.level.value,0) + @abilities.con.mod"
+                "value": "@details.level.value + @abilities.con.mod + @custom.modifiers.rageMod"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.custom.modifiers.rageMod",
+                "value": 0
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Bestiary"
         },
         "start": {
             "initiative": null,

@@ -5,7 +5,6 @@ import {
     DamageDicePF2e,
     DiceModifierPF2e,
     ModifierPF2e,
-    ModifierPredicate,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
     RawModifier,
@@ -16,6 +15,7 @@ import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-defini
 import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
 import { ActorPF2e } from "@actor";
+import { PredicatePF2e } from "@system/predication";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -359,7 +359,7 @@ export class WeaponDamagePF2e {
             const strikingList: StrikingPF2e[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
-                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
+                    .filter((wp) => PredicatePF2e.test(wp.predicate, options))
                     .forEach((wp) => strikingList.push(wp));
             });
 
@@ -494,15 +494,15 @@ export class WeaponDamagePF2e {
                 );
                 for (const modifier of modifiers) {
                     const predicate =
-                        modifier.predicate instanceof ModifierPredicate
+                        modifier.predicate instanceof PredicatePF2e
                             ? modifier.predicate
-                            : new ModifierPredicate(modifier.predicate ?? {});
+                            : new PredicatePF2e(modifier.predicate ?? {});
                     modifier.ignored = !predicate.test(options);
                     numericModifiers.push(modifier);
                 }
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
-                    .filter((note) => ModifierPredicate.test(note.predicate, options))
+                    .filter((note) => PredicatePF2e.test(note.predicate, options))
                     .forEach((note) => notes.push(note));
             });
         }
@@ -564,7 +564,7 @@ export class WeaponDamagePF2e {
                 d.name += ` ${d.category}`;
             }
             d.label = d.name;
-            d.enabled = new ModifierPredicate(d.predicate ?? {}).test(options);
+            d.enabled = new PredicatePF2e(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
 
@@ -849,7 +849,7 @@ export class WeaponDamagePF2e {
             rule.applyDamageExclusion?.(notIgnored);
         }
         for (const modifier of notIgnored) {
-            modifier.ignored = !new ModifierPredicate(modifier.predicate ?? {}).test(options);
+            modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
         }
     }
 

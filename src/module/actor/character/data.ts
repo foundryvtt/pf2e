@@ -3,7 +3,6 @@ import {
     Alignment,
     CreatureAttributes,
     BaseCreatureData,
-    BaseCreatureResources,
     BaseCreatureSource,
     CreatureHitPoints,
     CreatureSystemData,
@@ -13,7 +12,6 @@ import {
 } from "@actor/creature/data";
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -30,6 +28,7 @@ import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
+import { CraftingFormulaData } from "@item/formula/data";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -37,15 +36,17 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/mystery-man.svg";
 }
 
-export interface CharacterData extends Omit<CharacterSource, "effects" | "items" | "token"> {
+export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
     data: CharacterSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: CharacterSource;
 }
 
 export interface CharacterSkillData extends SkillData {
+    /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
+    /** Whether this skill is subject to an armor check penalty */
+    armor: boolean;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -110,7 +111,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillAbbreviation, CharacterSkillData>;
+    skills: { [K in SkillAbbreviation]: CharacterSkillData };
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
@@ -123,6 +124,8 @@ export interface CharacterSystemData extends CreatureSystemData {
     };
 
     resources: CharacterResources;
+
+    formulas: CraftingFormulaData[];
 }
 
 interface CharacterSaveData extends SaveData {
@@ -130,9 +133,10 @@ interface CharacterSaveData extends SaveData {
 }
 export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
-export interface CharacterProficiencyData extends ProficiencyData {
+export interface CharacterProficiency extends ProficiencyData {
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
+    label?: string;
     /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
     custom?: true;
     /** A weapon familiarity from an ancestry feat */
@@ -143,14 +147,14 @@ export interface CharacterProficiencyData extends ProficiencyData {
     };
 }
 
-export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiencyData>;
-export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiencyData>;
+export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
+export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiency>;
 
 export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
-type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProficiencyData>;
+type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProficiency>;
 
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
-type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
+type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiency>;
 
 export type CombatProficiencies = CategoryProficiencies &
     Partial<BaseWeaponProficiencies> &
@@ -206,11 +210,9 @@ interface PathfinderSocietyData {
 
 export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
-interface CharacterResources extends BaseCreatureResources {
-    investiture: {
-        value: number;
-        max: number;
-    };
+interface CharacterResources {
+    focus: { value: number; max: number };
+    investiture: { value: number; max: number };
 }
 
 interface CharacterPerception extends PerceptionData {
@@ -257,7 +259,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     heroPoints: { rank: ZeroToThree; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
-    familiarAbilities: StatisticModifier;
+    familiarAbilities: { value: number };
 
     /** The character's natural reach */
     reach: {

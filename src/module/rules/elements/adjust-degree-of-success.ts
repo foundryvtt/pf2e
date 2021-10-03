@@ -2,8 +2,7 @@ import { RuleElementPF2e } from "../rule-element";
 import { CharacterData, NPCData } from "@actor/data";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { DegreeOfSuccessAdjustment, PF2CheckDCModifiers } from "@system/check-degree-of-success";
-import { ModifierPredicate } from "@module/modifiers";
+import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/check-degree-of-success";
 import { RuleElementData } from "../rules-data-definitions";
 import { tupleHasValue } from "@module/utils";
 
@@ -23,7 +22,7 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
                 modifiers: adjustment,
             };
             if (this.data.predicate) {
-                completeAdjustment.predicate = new ModifierPredicate(this.data.predicate);
+                completeAdjustment.predicate = this.data.predicate;
             }
 
             const skill = this.skillAbbreviationFromString(selector);
@@ -76,7 +75,7 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
         return;
     }
 
-    isAdjustmentData(adjustment: PF2CheckDCModifiers): boolean {
+    isAdjustmentData(adjustment: CheckDCModifiers): boolean {
         const adjusts = ["criticalFailure", "failure", "success", "criticalSuccess", "all"];
         const modifiers = ["one-degree-better", "one-degree-worse"];
 
@@ -92,6 +91,6 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
 
 export interface PF2AdjustDegreeOfSuccessRuleElement {
     data: RuleElementData & {
-        adjustment?: PF2CheckDCModifiers;
+        adjustment?: CheckDCModifiers;
     };
 }

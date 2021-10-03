@@ -1,3 +1,4 @@
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -29,7 +30,7 @@ export class SpellPF2e extends ItemPF2e {
 
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
-        return this.actor?.itemTypes?.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+        return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
     }
 
     /**
@@ -91,12 +92,13 @@ export class SpellPF2e extends ItemPF2e {
 
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
         const rollData = super.getRollData();
-        if (this.actor) {
+        if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
+            const { abilities } = this.actor.data.data;
             if (!spellcasting?.data && this.data.data.trickMagicItemData) {
-                rollData["mod"] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
+                rollData["mod"] = abilities[this.data.data.trickMagicItemData.ability].mod;
             } else {
-                rollData["mod"] = this.actor.getAbilityMod(spellcasting?.ability ?? "int");
+                rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
             }
         }
 
@@ -109,12 +111,15 @@ export class SpellPF2e extends ItemPF2e {
 
     /** Calculates the full damage formula for a specific spell level */
     getDamageFormula(castLevel?: number, rollData: object = {}) {
+        const experimentalDamageFormat = game.settings.get("pf2e", "automation.experimentalDamageFormatting");
+
         castLevel = this.computeCastLevel(castLevel);
         const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
         const formulas = [];
         for (const [idx, damage] of this.damage.entries()) {
-            // Persistent / Splash are currently not supported
-            if (damage.type.subtype === "persistent" || damage.type.subtype === "splash") {
+            // Persistent / Splash are currently not supported for regular modes
+            const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
+            if (!experimentalDamageFormat && isPersistentOrSplash) {
                 continue;
             }
 
@@ -155,11 +160,23 @@ export class SpellPF2e extends ItemPF2e {
             // If no formula, continue
             if (parts.length === 0) continue;
 
+            // Assemble damage categories
+            const categories = [];
+            if (damage.type.subtype) {
+                categories.push(damage.type.subtype);
+            }
+            categories.push(...(damage.type.categories ?? []), damage.type.value);
+
             // Return the final result, but turn all "+ -" into just "-"
             // These must be padded to support - or roll parsing will fail (Foundry 0.8)
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            formulas.push(DicePF2e.combineTerms(baseFormulaFixed).formula);
+            const formula = DicePF2e.combineTerms(baseFormulaFixed).formula;
+            if (experimentalDamageFormat) {
+                formulas.push(`{${formula}}[${categories.join(",")}]`);
+            } else {
+                formulas.push(formula);
+            }
         }
 
         return formulas.join(" + ");
@@ -172,7 +189,7 @@ export class SpellPF2e extends ItemPF2e {
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
-    prepareSiblingData(this: Embedded<SpellPF2e>): void {
+    override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
@@ -284,9 +301,7 @@ export class SpellPF2e extends ItemPF2e {
         const trickMagicItemData = itemData.data.trickMagicItemData;
         const systemData = itemData.data;
         const rollData = deepClone(this.actor.data.data);
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === systemData.location.value
-        )?.data;
+        const spellcastingEntry = this.actor.spellcasting.get(systemData.location.value)?.data;
         const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)

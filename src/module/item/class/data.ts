@@ -10,7 +10,7 @@ export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/class.svg";
 }
 
-export interface ClassData extends Omit<ClassSource, "_id" | "effects"> {
+export interface ClassData extends Omit<ClassSource, "effects" | "flags"> {
     type: ClassSource["type"];
     data: ClassSource["data"];
     readonly _source: ClassSource;

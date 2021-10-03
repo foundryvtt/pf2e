@@ -16,8 +16,8 @@ import {
     MODIFIER_TYPE,
     ModifierPF2e,
     StatisticModifier,
-    ModifierPredicate,
 } from "@module/modifiers";
+import { PredicatePF2e } from "@system/predication";
 
 describe("#modifiers", () => {
     each([
@@ -196,47 +196,47 @@ describe("#modifiers", () => {
     });
 
     test("ensure modifier predicate without criteria activates with empty options list", () => {
-        const predicate = new ModifierPredicate({});
+        const predicate = new PredicatePF2e();
         expect(predicate.test([])).toBe(true);
     });
 
     test("ensure modifier predicate with all criterium activates with single options list", () => {
-        const predicate = new ModifierPredicate({ all: ["dummy1"] });
+        const predicate = new PredicatePF2e({ all: ["dummy1"] });
         expect(predicate.test(["dummy0", "dummy1", "dummy2"])).toBe(true);
     });
 
     test("ensure modifier predicate with all criterium activates with multiple options list", () => {
-        const predicate = new ModifierPredicate({ all: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ all: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy0", "dummy1", "dummy2"])).toBe(true);
     });
 
     test("ensure modifier predicate with all criterium deactivates with non-matching options list", () => {
-        const predicate = new ModifierPredicate({ all: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ all: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy1", "dummy2", "dummy3"])).toBe(false);
     });
 
     test("ensure modifier predicate with any criterium activates with single options list", () => {
-        const predicate = new ModifierPredicate({ any: ["dummy1"] });
+        const predicate = new PredicatePF2e({ any: ["dummy1"] });
         expect(predicate.test(["dummy0", "dummy1", "dummy2"])).toBe(true);
     });
 
     test("ensure modifier predicate with any criterium activates with multiple options list", () => {
-        const predicate = new ModifierPredicate({ any: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ any: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy1", "dummy2", "dummy3"])).toBe(true);
     });
 
     test("ensure modifier predicate with any criterium deactivates with non-matching options list", () => {
-        const predicate = new ModifierPredicate({ any: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ any: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy3", "dummy4", "dummy5"])).toBe(false);
     });
 
     test("ensure modifier predicate with not criterium activates with non-matching options list", () => {
-        const predicate = new ModifierPredicate({ not: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ not: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy3", "dummy4", "dummy5"])).toBe(true);
     });
 
     test("ensure modifier predicate with not criterium deactivates with overlapping options list", () => {
-        const predicate = new ModifierPredicate({ not: ["dummy0", "dummy1", "dummy2"] });
+        const predicate = new PredicatePF2e({ not: ["dummy0", "dummy1", "dummy2"] });
         expect(predicate.test(["dummy2", "dummy3", "dummy4"])).toBe(false);
     });
 });

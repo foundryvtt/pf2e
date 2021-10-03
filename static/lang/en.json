@@ -821,6 +821,7 @@
         "CreateActionTitle": "Create Action",
         "CreateAttackTitle": "Create Attack",
         "CreateFeatTitle": "Create Feat",
+        "CreateFormulaTitle": "Create Formula",
         "CreateItemTitle": "Create Item",
         "CreateLabelUniversal": "Create",
         "CreateSkillTitle": "Create Skill",
@@ -853,8 +854,9 @@
         "CurrentHitPointsShortLabel": "Current HP",
         "CurrentStaminaPointsShortLabel": "Current SP",
         "CurrentStaminaTitle": "The amount of stamina points you have",
-        "DCLabel": "DC: {dc}",
-        "DCWithValue": "DC {dc} {text}",
+        "Damage": {
+            "NoDamageFormulaLabel": "No damage"
+        },
         "DamageCategoriesLabel": "Damage Categories",
         "DamageDieD10": "d10",
         "DamageDieD12": "d12",
@@ -870,6 +872,8 @@
         "DCAdjustmentHard": "hard",
         "DCAdjustmentVeryHard": "very hard",
         "DCAdjustmentIncrediblyHard": "incredibly hard",
+        "DCLabel": "DC: {dc}",
+        "DCWithValue": "DC {dc} {text}",
         "DefencesLabel": "Defences",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
@@ -959,7 +963,6 @@
         "FeatTypeSkill": "Skill Feat",
         "FeaturesAncestryHeader": "Ancestry Features",
         "FeaturesClassHeader": "Class Features",
-        "FeatVariantRule": "Variant Rule",
         "Feet": "feet",
         "FlatBonusHP": "Flat Bonus HP",
         "FlatBonusHPTitle": "Adds a static number to your HP",
@@ -979,6 +982,8 @@
             "Previous": "Previous"
         },
         "Foot": "Foot",
+        "FormulaKnownTitle": "Known Formulas",
+        "FormulaListEmpty": "Empty (drag formula/item here)",
         "FormulaPlaceholder": "Formula",
         "FormulaSheet": {
             "DescriptionUnknown": "This formula is completely filled with drawings of small stick men, stains from some unknown liquid, non-sensical rhymes written in children's letters, and other seemingly random markings. It must have been made by goblins, and makes no sense to you.<hr><b>Note:</b> This formula is referencing a missing or invalid item.",
@@ -1035,6 +1040,12 @@
             "CannotAddType": "{type} items cannot be added to this actor.",
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
+            },
+            "Ancestry": {
+                "Vision": {
+                    "Label": "Vision",
+                    "Normal": "Normal Vision"
+                }
             },
             "Armor": {
                 "Base": {
@@ -1551,6 +1562,7 @@
             "AdjustDegreeOfSuccess": "Adjust Degree of Success",
             "BaseSpeed": "Base Speed",
             "BattleForm": "Battle Form",
+            "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
@@ -1572,6 +1584,7 @@
             "TokenSize": "Token Size",
             "RecoveryCheckDC": "Recovery Check DC",
             "Resistance": "Resistance",
+            "RollOption": "Roll Option",
             "Weakness": "Weakness",
             "WeaponPotency": "Weapon Potency",
             "NewRuleElement": "New Rule Element",
@@ -1689,6 +1702,10 @@
                 "EffectExpiration": {
                     "Name": "Effects auto-expire",
                     "Hint": "Effects automatically disable attached rule elements when the duration expires."
+                },
+                "ExperimentalDamageFormatting": {
+                    "Name": "Use experimental damage chat card formatting",
+                    "Hint": "Parse damage roll data and decorate the resulting chat card with differently formatted roll formulas, damage types and categories, and roll notes for splash and persistent damage."
                 },
                 "LootableNPCs": {
                     "Name": "NPCs are lootable",
@@ -2022,7 +2039,7 @@
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
-        "SpellCastingFormat": "{tradition} {preparationType} Spells",
+        "SpellCastingFormat": "{preparationType} {traditionSpells}",
         "SpellComponentF": "Focus",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
@@ -2033,6 +2050,8 @@
         "SpellComponentShortV": "V",
         "SpellComponentsLabel": "Components",
         "SpellSlotEmpty": "Empty Slot (drag spell here)",
+        "SpellSlotNotEnoughError": "Cannot cast {name} at the {level}, not enough spell slots",
+        "SpellSlotExpendedError": "Cannot cast {name}, spell is already expended",
         "SpellPrimaryCheckLabel": "Primary Check",
         "SpellSecondaryChecksLabel": "Secondary Checks",
         "SpellSecondaryCasters": "Secondary Casters",
@@ -2159,6 +2178,7 @@
         "TabActionsEncounterLabel": "Encounter",
         "TabActionsExplorationLabel": "Exploration",
         "TabCharacterLabel": "Character",
+        "TabCraftingLabel": "Crafting",
         "TabDescriptionLabel": "Description",
         "TabDetailsLabel": "Details",
         "TabEffectsLabel": "Effects",
@@ -2203,6 +2223,12 @@
         "TotalTreasure": "Total Treasure",
         "TotalCoinage": "Total Coinage",
         "TotalWealth": "Total Wealth",
+        "TraditionSpells": {
+            "Arcane": "{tradition} Spells",
+            "Divine": "{tradition} Spells",
+            "Occult": "{tradition} Spells",
+            "Primal": "{tradition} Spells"
+        },
         "TrainedSkillsLabel": "Trained Skills",
         "Traits": "Traits",
         "TraitAasimar": "Aasimar",
@@ -3256,13 +3282,14 @@
         "WeightTitle": "Your weight",
         "WorldClock": {
             "Button": {
-                "AddOneRound": "+1 Round",
-                "AddOneMinute": "+1 Minute",
-                "AddTenMinutes": "+10 Minutes",
-                "AddOneHour": "+1 Hour",
-                "AddOneDay": "+1 Day",
-                "AddOneWeek": "+1 Week",
-                "Advance": "Advance"
+                "AddOneRound": "1 Round",
+                "AddOneMinute": "1 Minute",
+                "AddTenMinutes": "10 Minutes",
+                "AddOneHour": "1 Hour",
+                "AddOneDay": "1 Day",
+                "AddOneWeek": "1 Week",
+                "Advance": "Advance",
+                "Retract": "Retract"
             },
             "Placeholder": "Number",
             "Title": "World Clock",
@@ -3651,7 +3678,7 @@
             "Familiar": "Familiar",
             "Creature": "Creature",
             "Perception": "Perception",
-            "Defenses": "Defenses",
+            "Defenses": "Defense",
             "ArmorClass": "Armor Class",
             "Offenses": "Offenses",
             "AttackRoll": "Attack Roll",

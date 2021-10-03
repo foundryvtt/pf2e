@@ -10,7 +10,7 @@ export class BackgroundData extends BaseNonPhysicalItemData<BackgroundPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/background.svg";
 }
 
-export interface BackgroundData extends Omit<BackgroundSource, "_id" | "effects"> {
+export interface BackgroundData extends Omit<BackgroundSource, "effects" | "flags"> {
     type: BackgroundSource["type"];
     data: BackgroundSource["data"];
     readonly _source: BackgroundSource;

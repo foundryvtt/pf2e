@@ -1,6 +1,6 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { SpellPF2e } from "@item/spell";
-import { OneToTen, ZeroToTen } from "@module/data";
+import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@module/utils";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
@@ -77,7 +77,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     get rank() {
         const actor = this.actor;
         if (actor instanceof CharacterPF2e && this.isInnate) {
-            const allRanks = actor.itemTypes.spellcastingEntry.map((entry) => entry.data.data.proficiency.value ?? 0);
+            const allRanks = actor.spellcasting.map((entry) => entry.data.data.proficiency.value ?? 0);
             return Math.max(1, ...allRanks);
         }
 
@@ -120,6 +120,69 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         // Wipe the internal spells collection so it can be rebuilt later.
         // We can't build the spells collection here since actor.items might not be populated
         this._spells = null;
+    }
+
+    /** Casts the given spell as if it was part of this spellcasting entry */
+    async cast(
+        spell: SpellPF2e,
+        options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
+    ) {
+        const consume = options.consume ?? true;
+        const message = options.message ?? true;
+        const level = options.level ?? spell.heightenedLevel;
+        const valid = !consume || spell.isCantrip || (await this.consume(spell.name, level, options.slot));
+        if (message && valid) {
+            await spell.toMessage(undefined, { data: { spellLvl: level } });
+        }
+    }
+
+    async consume(name: string, level: number, slot?: number) {
+        const actor = this.actor;
+        if (!actor) {
+            throw ErrorPF2e("Spellcasting entries require an actor");
+        }
+        if (this.isRitual) return true;
+
+        if (this.isFocusPool) {
+            const currentPoints = actor.data.data.resources.focus?.value ?? 0;
+            if (currentPoints > 0) {
+                await actor.update({ "data.resources.focus.value": currentPoints - 1 });
+                return true;
+            } else {
+                ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
+                return false;
+            }
+        }
+
+        const levelLabel = game.i18n.localize(CONFIG.PF2E.spellLevels[level as OneToTen]);
+        const slotKey = goesToEleven(level) ? (`slot${level}` as const) : "slot0";
+        if (this.data.data.slots === null) {
+            return false;
+        }
+
+        if (this.isPrepared && !this.isFlexible) {
+            if (slot === null || typeof slot === "undefined") {
+                throw ErrorPF2e("Slot is a required argument for prepared spells");
+            }
+
+            const isExpended = this.data.data.slots[slotKey].prepared[slot].expended ?? false;
+            if (isExpended) {
+                ui.notifications.warn(game.i18n.format("PF2E.SpellSlotExpendedError", { name }));
+                return false;
+            }
+
+            await this.setSlotExpendedState(level, slot, true);
+            return true;
+        }
+
+        const slots = this.data.data.slots[slotKey].value;
+        if (slots > 0) {
+            await this.update({ [`data.slots.${slotKey}.value`]: slots - 1 });
+            return true;
+        } else {
+            ui.notifications.warn(game.i18n.format("PF2E.SpellSlotNotEnoughError", { name, level: levelLabel }));
+            return false;
+        }
     }
 
     /**

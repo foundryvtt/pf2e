@@ -8,7 +8,8 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { CharacterPF2e } from "@actor/character";
-import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { Rollable } from "@actor/data/base";
 
 /**
  * Base class for NPC and character sheets
@@ -95,8 +96,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override getData(options?: ActorSheetOptions) {
+        const sheetData: any = super.getData(options);
         // Update martial-proficiency labels
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
@@ -123,7 +124,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
                 proficiency.icon = this.getProficiencyIcon(proficiency.rank);
                 proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
-                proficiency.label = label;
+                proficiency.label = game.i18n.localize(label);
                 proficiency.value = ProficiencyModifier.fromLevelAndRank(
                     sheetData.data.details.level.value,
                     proficiency.rank || 0
@@ -224,7 +225,19 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [property]: value }]);
         });
 
-        // Roll Recovery Flat Check when Dying
+        // Roll skill checks
+        html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
+            const skills: Record<string, Rollable | undefined> = this.actor.data.data.skills;
+            const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
+            const skill = skills[key];
+            if (skill) {
+                const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const options = this.actor.getRollOptions(["all", "skill-check", longForms[key] ?? key]);
+                skill.roll({ event, options });
+            }
+        });
+
+        // Roll recovery flat check when Dying
         html.find(".recoveryCheck.rollable").on("click", () => {
             this.actor.rollRecovery();
         });
@@ -260,7 +273,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
-            const entryData = this.actor.itemTypes.spellcastingEntry.find((item) => item.id === index)?.data;
+            const entryData = this.actor.spellcasting.get(index)?.data;
             if (entryData && entryData.data.attack?.roll) {
                 entryData.data.attack.roll({ event });
             }
@@ -274,6 +287,25 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (item) {
                 item.rollSpellcastingEntryCheck(event);
             }
+        });
+
+        // Casting spells and consuming slots
+        html.find(".cast-spell-button").on("click", (event) => {
+            const $spellEl = $(event.currentTarget).closest(".item");
+            const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
+            const entry = this.actor.spellcasting.get(entryId);
+            if (!entry) {
+                console.warn("PF2E System | Failed to load spellcasting entry");
+                return;
+            }
+
+            const spell = entry.spells.get(itemId);
+            if (!spell) {
+                console.warn("PF2E System | Failed to load spell");
+                return;
+            }
+
+            entry.cast(spell, { slot: slotId, level: spellLvl });
         });
 
         // Action Rolling (strikes)

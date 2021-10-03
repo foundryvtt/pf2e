@@ -1,6 +1,5 @@
 import {
     AbilityString,
-    ActorFlagsPF2e,
     ActorSystemData,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
@@ -25,10 +24,9 @@ export class BaseCreatureData<
     TSystemData extends CreatureSystemData = CreatureSystemData
 > extends BaseActorDataPF2e<TActor> {}
 
-export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "items" | "token"> {
+export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CreatureType;
     data: BaseCreatureSource["data"];
-    flags: ActorFlagsPF2e;
     readonly _source: BaseCreatureSource;
 }
 
@@ -49,9 +47,7 @@ export interface CreatureSystemData extends ActorSystemData {
     damageDice: Record<string, DamageDicePF2e[]>;
 
     /** Saving throw data */
-    saves: Record<SaveType, StatisticModifier>;
-
-    resources: BaseCreatureResources;
+    saves: Record<SaveType, StatisticModifier & Rollable>;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -91,7 +87,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export type SkillData = StatisticModifier & RawSkillData & Rollable;
 
-/** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
+/** The full save data for a character; including its modifiers and other details */
 export type SaveData = SkillData & { saveDetail?: string };
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -110,8 +106,6 @@ export interface CreatureSpeeds extends StatisticModifier {
     otherSpeeds: LabeledSpeed[];
     /** The derived value after applying modifiers, bonuses, and penalties */
     total: number;
-    /** A textual breakdown of the base speed and any modifiers applied to it */
-    breakdown?: string;
 }
 
 export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
@@ -125,13 +119,6 @@ export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
-export interface BaseCreatureResources {
-    focus?: {
-        value: number;
-        max: number;
-    };
-    negativeHealing: boolean;
-}
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 
 export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";

@@ -188,7 +188,7 @@ declare class Application<TOptions extends ApplicationOptions = ApplicationOptio
      * This function may either return an Object directly, or a Promise which resolves to an Object
      * If undefined, the default implementation will return an empty object allowing only for rendering of static HTML
      */
-    getData(options?: ApplicationOptions): object;
+    getData(options?: ApplicationOptions): object | Promise<object>;
 
     /**
      * Render the Application by evaluating it's HTML template against the object of data provided by the getData method

@@ -13,7 +13,7 @@ export class ContainerData extends BasePhysicalItemData<ContainerPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/backpack.svg";
 }
 
-export interface ContainerData extends Omit<ContainerSource, "_id" | "effects"> {
+export interface ContainerData extends Omit<ContainerSource, "effects" | "flags"> {
     type: ContainerSource["type"];
     data: ContainerSource["data"];
     readonly _source: ContainerSource;

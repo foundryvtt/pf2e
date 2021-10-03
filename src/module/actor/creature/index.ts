@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, ModifierPredicate, RawModifier, RawPredicate, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -8,7 +8,7 @@ import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { DegreeOfSuccessAdjustment, PF2CheckDC } from "@system/check-degree-of-success";
+import { DegreeOfSuccessAdjustment, CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -24,6 +24,7 @@ import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@module/utils";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -173,6 +174,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
+    // Set whether this actor is wearing armor
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+    }
+
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
@@ -255,7 +262,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             modifier.custom = true;
 
             // modifier predicate
-            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
             modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
@@ -291,13 +298,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
         synthetics: RuleElementSynthetics
     ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
+        const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
+        const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
+            .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
+            .flat()
+            .map((modifier) => {
+                modifier.ignored = !modifier.predicate.test(modifier.defaultRollOptions ?? rollOptions);
+                return modifier;
+            });
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = ["land-speed", "speed"]
-                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                .flat();
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
                 systemData.attributes.speed,
@@ -319,9 +331,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
             const base = Number(speed.value ?? 0);
-            const modifiers: ModifierPF2e[] = [`${speed.type}-speed`, "speed"]
-                .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-                .flat();
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
                 speed,
@@ -367,6 +376,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
 
+    /* -------------------------------------------- */
+    /*  Rolls                                       */
+    /* -------------------------------------------- */
+
     /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
@@ -380,7 +393,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryMod = getProperty(this.data.data.attributes, "dying.recoveryMod") || 0;
 
-        const dc: PF2CheckDC = {
+        const dc: CheckDC = {
             label: game.i18n.format("PF2E.Recovery.rollingDescription", {
                 dying,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
@@ -438,7 +451,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
-        let dc: PF2CheckDC | undefined;
+        let dc: CheckDC | undefined;
         let distance: number | undefined;
         if (ctx.target?.actor instanceof CreaturePF2e) {
             dc = {
@@ -508,8 +521,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
             if (target.actor.hitPoints.negativeHealing) {
                 options.push("target:negative-healing");
             }
-            const targetConditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
 
+            const { itemTypes } = target.actor;
+            const targetConditions = itemTypes.condition.filter((condition) => condition.fromSystem);
+            const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
             options.push(
                 ...targetConditions
                     .map((condition) => [
@@ -517,7 +532,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                         `target:condition:${condition.slug}`,
                     ])
                     .flat(),
-                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`)
+                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`),
+                ...(targetIsSpellcaster ? ["target:caster"] : []).flat()
             );
         }
 

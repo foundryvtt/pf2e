@@ -19,7 +19,7 @@ import { WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
 import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
 import { PF2EffectTargetRuleElement } from "./elements/effect-target";
-import { PF2ActorTraits } from "@module/rules/elements/actor-traits";
+import { ActorTraitsRuleElement } from "@module/rules/elements/actor-traits";
 import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
 import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
 import { AELikeRuleElement } from "./elements/ae-like";
@@ -29,12 +29,15 @@ import { BattleFormRuleElement } from "./elements/battle-form/rule-element";
 import { ImmunityRuleElement } from "./elements/iwr/immunity";
 import { WeaknessRuleElement } from "./elements/iwr/weakness";
 import { ResistanceRuleElement } from "./elements/iwr/resistance";
+import { RollOptionRuleElement } from "./elements/roll-option";
+import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting-formula";
 
 /**
  * @category RuleElement
  */
 export class RuleElements {
     static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
+        ActorTraits: ActorTraitsRuleElement,
         FlatModifier: FlatModifierRuleElement,
         MageArmor: PF2MageArmorRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
@@ -47,14 +50,15 @@ export class RuleElements {
         TokenImage: PF2TokenImageRuleElement,
         BattleForm: BattleFormRuleElement,
         BaseSpeed: PF2BaseSpeedRuleElement,
+        CraftingFormula: CraftingFormulaRuleElement,
         Immunity: ImmunityRuleElement,
+        RollOption: RollOptionRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
         Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
         EffectTarget: PF2EffectTargetRuleElement,
-        ActorTraits: PF2ActorTraits,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
         Resistance: ResistanceRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,

@@ -272,13 +272,6 @@
                 },
                 "hp": 8,
                 "items": {
-                    "3hk4v": {
-                        "id": "DRtaqOHXTRtGRIUT",
-                        "img": "systems/pf2e/icons/features/ancestry/low-light-vision.webp",
-                        "level": 1,
-                        "name": "Low-Light Vision",
-                        "pack": "pf2e.ancestryfeatures"
-                    },
                     "64eou": {
                         "id": "oCIO7UJqbpTkI62l",
                         "img": "systems/pf2e/icons/default-icons/feat.svg",
@@ -312,7 +305,7 @@
                         "strix"
                     ]
                 },
-                "vision": "normal"
+                "vision": "lowLightVision"
             },
             "effects": [],
             "flags": {
@@ -324,68 +317,6 @@
             "name": "Strix",
             "sort": 0,
             "type": "ancestry"
-        },
-        {
-            "_id": "T55Zo0xg9PAKyvKz",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A creature with low-light vision can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
-                },
-                "featType": {
-                    "value": "ancestryfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "Sense",
-                        "label": "PF2E.SensesLowLightVision",
-                        "selector": "lowLightVision"
-                    }
-                ],
-                "slug": "low-light-vision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "elf",
-                        "gnome",
-                        "half-elf",
-                        "half-orc",
-                        "leshy",
-                        "shoony"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/low-light-vision.webp",
-            "name": "Low-Light Vision",
-            "sort": 100000,
-            "type": "feat"
         },
         {
             "_id": "WS6pxAex2HYU3jLL",
@@ -2408,9 +2339,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": []
                 },
                 "usage": {
@@ -2561,9 +2489,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "alchemical",
@@ -2720,9 +2645,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": [
                         "consumable",
@@ -3026,9 +2948,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "alchemical",
                         "consumable",
@@ -3184,9 +3103,6 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "usage": {
-                        "value": "held-in-one-hand"
-                    },
                     "value": [
                         "alchemical",
                         "consumable",
@@ -3302,9 +3218,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "usage": {
-                        "value": "held-in-one-hand"
                     },
                     "value": []
                 },
@@ -3547,67 +3460,6 @@
             "name": "Gold Pieces",
             "sort": 0,
             "type": "treasure"
-        },
-        {
-            "_id": "POCdtsFmhYxlbiDE",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You can see in darkness and dim light just as well as you can see in bright light, though your vision in darkness is in black and white.</p>"
-                },
-                "featType": {
-                    "value": "ancestryfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "Sense",
-                        "label": "PF2E.SensesDarkvision",
-                        "selector": "darkvision"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "token.brightSight",
-                        "value": 500
-                    }
-                ],
-                "slug": "darkvision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.HHVQDp61ehcpdiU8"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/darkvision.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "type": "feat"
         }
     ],
     "name": "Zerryd",

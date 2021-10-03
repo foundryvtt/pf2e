@@ -84,7 +84,7 @@ export class DamageRollModifiersDialog extends Application {
                 return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
             .join("");
-        flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
+        flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
 
         const notes = ((damage.notes ?? []) as RollNotePF2e[])
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
@@ -167,7 +167,7 @@ export class DamageRollModifiersDialog extends Application {
         };
 
         const item: ItemPF2e | null = context.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.type } : null;
+        const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
@@ -183,6 +183,7 @@ export class DamageRollModifiersDialog extends Application {
                     pf2e: {
                         damageRoll: rollData,
                         origin,
+                        preformatted: "both",
                     },
                 },
             },

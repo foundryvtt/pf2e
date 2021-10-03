@@ -49,7 +49,7 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         }
     }
 
-    override getData(): PopupData {
+    override async getData(): Promise<PopupData> {
         const selectedTokens = canvas.tokens.controlled.filter(
             (token) => token.actor && token.actor.id !== this.object.id
         );
@@ -58,6 +58,6 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             name: token.name,
             checked: token.actor!.hasPlayerOwner,
         }));
-        return { ...super.getData(), tokenInfo };
+        return { ...(await super.getData()), tokenInfo };
     }
 }

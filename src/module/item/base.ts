@@ -94,14 +94,17 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
      */
-    async toMessage(event?: JQuery.TriggeredEvent, { create = true } = {}): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(
+        event?: JQuery.TriggeredEvent,
+        { create = true, data = {} } = {}
+    ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
-        const contextualData = nearestItem.dataset || {};
+        const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
@@ -113,7 +116,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
                 actor: this.actor,
-                token: this.actor.getActiveTokens()[0],
+                token: this.actor.getActiveTokens()[0]?.document,
             }),
             flags: {
                 core: {
@@ -148,6 +151,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
+    }
+
+    /** Ensure the presence of the pf2e flag scope */
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.flags.pf2e ??= {};
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
@@ -369,9 +378,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 : this.toObject();
         if (itemData.type !== "spell") throw new Error("Wrong item type!");
 
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === itemData.data.location.value
-        );
+        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
         if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
 
         const modifiers: ModifierPF2e[] = [];

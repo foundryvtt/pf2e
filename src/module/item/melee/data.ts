@@ -8,7 +8,7 @@ export class MeleeData extends BaseNonPhysicalItemData<MeleePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/melee.svg";
 }
 
-export interface MeleeData extends Omit<MeleeSource, "_id" | "effects"> {
+export interface MeleeData extends Omit<MeleeSource, "effects" | "flags"> {
     type: MeleeSource["type"];
     data: MeleeSource["data"];
     readonly _source: MeleeSource;

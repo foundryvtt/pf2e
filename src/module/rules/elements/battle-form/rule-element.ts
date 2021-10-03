@@ -112,7 +112,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Set temporary hit points */
-    onCreate(actorUpdates: Record<string, unknown>): void {
+    override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
 
         const tempHP = this.overrides.tempHP;
@@ -124,7 +124,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Add any new traits and remove the armor check penalty if this battle form ignores it */
-    onBeforePrepareData(): void {
+    override onBeforePrepareData(): void {
         if (this.ignored) return;
         const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
@@ -145,7 +145,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
+    override onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
         this.prepareAC();
@@ -158,7 +158,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Remove temporary hit points */
-    onDelete(actorUpdates: Record<string, unknown>): void {
+    override onDelete(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
 
         const tempHP = this.overrides.tempHP;
@@ -375,7 +375,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         statistic.applyStackingRules();
     }
 
-    applyDamageExclusion(modifiers: RawModifier[]): void {
+    override applyDamageExclusion(modifiers: RawModifier[]): void {
         if (this.data.ownUnarmed) return;
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
