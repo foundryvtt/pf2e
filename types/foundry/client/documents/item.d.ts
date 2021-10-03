@@ -59,4 +59,6 @@ declare global {
         getFlag(scope: string, key: string): any;
         getFlag(scope: "core", key: "sourceId"): string | undefined;
     }
+
+    type ItemUUID = `Item.${string}` | `Actor.${string}.Item.${string}` | `Compendium.${string}.${string}`;
 }

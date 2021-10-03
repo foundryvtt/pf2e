@@ -1,15 +1,15 @@
 import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
-import { ItemPF2e, ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { CharacterPF2e } from "@actor/character";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { Rollable } from "@actor/data/base";
+import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 
 /**
  * Base class for NPC and character sheets
@@ -22,79 +22,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         return options;
     }
 
-    protected override renderItemSummary(
-        div: JQuery,
-        item: Embedded<ItemPF2e>,
-        chatData: any = item.getChatData({ secrets: this.actor.isOwner })
-    ) {
-        super.renderItemSummary(div, item, chatData);
-        const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
-            case "spell":
-                if (chatData.isSave) {
-                    buttons.append(
-                        `<span>${game.i18n.localize("PF2E.SaveDCLabel")} ${chatData.save.dc} ${chatData.save.basic} ${
-                            chatData.save.str
-                        }</span>`
-                    );
-                }
-
-                if (this.actor instanceof CharacterPF2e) {
-                    if (chatData.isAttack) {
-                        buttons.append(
-                            `<span><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                                "PF2E.AttackLabel"
-                            )}</button></span>`
-                        );
-                    }
-                    if (chatData.hasDamage) {
-                        buttons.append(
-                            `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
-                        );
-                    }
-                }
-
-                break;
-            case "consumable":
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
-                    buttons.append(
-                        `<span><button class="consume" data-action="consume">${game.i18n.localize(
-                            "PF2E.ConsumableUseLabel"
-                        )} ${item.name}</button></span>`
-                    );
-                break;
-            default:
-        }
-
-        div.append(buttons);
-
-        buttons.find("button").on("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const spell = item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
-
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case "toggleHands":
-                    if (item.data.type === "weapon") {
-                        item.update({ "data.hands.value": !item.data.data.hands.value });
-                        this._render();
-                    }
-
-                    break;
-                case "spellAttack":
-                    spell?.rollAttack(event);
-                    break;
-                case "spellDamage":
-                    spell?.rollDamage(event);
-                    break;
-                case "consume":
-                    if (item instanceof ConsumablePF2e) item.consume();
-                    break;
-            }
-        });
-    }
+    override itemRenderer = new CreatureSheetItemRenderer(this);
 
     override getData(options?: ActorSheetOptions) {
         const sheetData: any = super.getData(options);
@@ -124,7 +52,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
                 proficiency.icon = this.getProficiencyIcon(proficiency.rank);
                 proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
-                proficiency.label = label;
+                proficiency.label = game.i18n.localize(label);
                 proficiency.value = ProficiencyModifier.fromLevelAndRank(
                     sheetData.data.details.level.value,
                     proficiency.rank || 0

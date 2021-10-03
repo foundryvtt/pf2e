@@ -24,8 +24,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return `${path}hazard-sheet-no-edit.html`;
     }
 
-    override getData(): any {
-        const sheetData = super.getData();
+    override async getData() {
+        const sheetData = await super.getData();
 
         // Update save labels
         for (const key of SAVE_TYPES) {
@@ -141,11 +141,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
-
-        // Melee Attack summaries
-        html.find(".item .melee-name h4").on("click", (event) => {
-            this.onItemSummary(event);
-        });
 
         // NPC Weapon Rolling
         html.find("button").on("click", (event) => {

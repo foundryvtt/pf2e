@@ -3,7 +3,8 @@ import { getContainerMap } from "@item/container/helpers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { calculateWealth } from "@item/treasure/helpers";
 import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e } from "@item/data";
+import { ItemDataPF2e, PhysicalItemData } from "@item/data";
+import { PhysicalItemType } from "@item/physical/data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions() {
@@ -19,8 +20,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override async getData() {
+        const sheetData: any = await super.getData();
 
         // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
@@ -59,7 +60,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     protected prepareItems(sheetData: any) {
         const actorData = sheetData.actor;
         // Inventory
-        const inventory: Record<string, { label: string; items: ItemDataPF2e[] }> = {
+        const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
@@ -124,7 +125,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                         );
                         itemData.wieldedTwoHanded = physicalData.data.hands.value;
                     }
-                    inventory[itemData.type].items.push(itemData);
+                    if (physicalData.type === "book") {
+                        inventory.equipment.items.push(itemData);
+                    } else {
+                        inventory[physicalData.type].items.push(itemData);
+                    }
                 }
             }
 

@@ -200,7 +200,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
             );
         }
         if (typeof item.flags.core?.sourceId === "string") {
-            item.flags.core.sourceId = (item.flags.core.sourceId as string).replace(
+            item.flags.core.sourceId = item.flags.core.sourceId.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
                 (_full, first, _replace, dot, itemId): string => {
                     const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)
@@ -208,7 +208,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
                         : "??";
                     return first + packName + dot + itemId;
                 }
-            );
+            ) as ItemUUID;
         }
     }
 

@@ -4,6 +4,7 @@ import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@module/utils";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
+import { UserPF2e } from "@module/user";
 
 export interface SpellcastingSlotLevel {
     label: string;
@@ -141,6 +142,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         if (!actor) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
+        if (this.isRitual) return true;
 
         if (this.isFocusPool) {
             const currentPoints = actor.data.data.resources.focus?.value ?? 0;
@@ -433,7 +435,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     protected override async _preUpdate(
         data: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         // Clamp slot updates
         if (data.data?.slots) {

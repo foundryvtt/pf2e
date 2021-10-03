@@ -19,7 +19,7 @@ import {
     CharacterArmorClass,
     CharacterAttributes,
     CharacterData,
-    CharacterProficiencyData,
+    CharacterProficiency,
     CharacterSaves,
     CharacterStrike,
     CharacterSystemData,
@@ -49,9 +49,13 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
+import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { isPhysicalData } from "@item/data/helpers";
+import { CraftingFormula, CraftingFormulaData } from "@module/crafting/formula";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
+    craftingFormulas!: CraftingFormulaData[];
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
@@ -84,6 +88,30 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.data.data.details.keyability.value || "str";
     }
 
+    async getCraftingFormulas() {
+        const decorated: Promise<CraftingFormula>[] = [];
+        for (const formula of this.craftingFormulas) {
+            decorated.push(
+                new Promise<CraftingFormula>((resolve) => {
+                    fromUuid(formula.uuid).then((item) => {
+                        const copy = new CraftingFormula(formula);
+                        if (!(item instanceof ItemPF2e)) {
+                            console.warn(`PF2E | Unable to look up item with UUID ${formula.uuid}`);
+                        } else if (!isPhysicalData(item.data)) {
+                            console.warn(`PF2E | ${item.name} (${formula.uuid}) is not a physical item.`);
+                        } else {
+                            copy.name = item.name;
+                            copy._level = item.data.data.level.value;
+                            copy._rarity = item.data.data.traits.rarity.value;
+                        }
+                        resolve(copy);
+                    });
+                })
+            );
+        }
+        return Promise.all(decorated);
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -109,6 +137,9 @@ export class CharacterPF2e extends CreaturePF2e {
         hitPoints.recoveryMultiplier = 1;
         attributes.ancestryhp = 0;
         attributes.classhp = 0;
+
+        // Familiar abilities
+        attributes.familiarAbilities = { value: 0 };
 
         // Saves and skills
         const saves: DeepPartial<CharacterSaves> = this.data.data.saves;
@@ -146,7 +177,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
-            const proficiency: Partial<CharacterProficiencyData> = martial[category] ?? {};
+            const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
             martial[category] = proficiency;
         }
@@ -174,6 +205,8 @@ export class CharacterPF2e extends CreaturePF2e {
         // Keep in place until the source of sense-data corruption is found
         const traits = this.data.data.traits;
         traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
+
+        this.craftingFormulas = [];
     }
 
     protected override async _preUpdate(
@@ -204,6 +237,12 @@ export class CharacterPF2e extends CreaturePF2e {
             }
         }
 
+        // Add or remove class features as necessary
+        const newLevel = data.data?.details?.level?.value ?? this.level;
+        if (newLevel !== this.level) {
+            await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
+        }
+
         await super._preUpdate(data, options, user);
     }
 
@@ -216,6 +255,11 @@ export class CharacterPF2e extends CreaturePF2e {
         // Compute ability modifiers from raw ability scores.
         for (const abl of Object.values(systemData.abilities)) {
             abl.mod = Math.floor((abl.value - 10) / 2);
+        }
+
+        // crafting formulas saved on the actor
+        if (systemData.formulas?.length) {
+            this.craftingFormulas.push(...systemData.formulas);
         }
 
         const synthetics = this.prepareCustomModifiers(rules);
@@ -694,29 +738,6 @@ export class CharacterPF2e extends CreaturePF2e {
         const { otherSpeeds } = systemData.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
             otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
-        }
-
-        // Familiar Abilities
-        {
-            const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers["familiar-abilities"] || [])
-                .map((m) => m.clone())
-                .forEach((m) => {
-                    m.ignored = !m.predicate.test(this.getRollOptions(m.defaultRollOptions ?? ["familiar-abilities"]));
-                    modifiers.push(m);
-                });
-
-            const stat = mergeObject(
-                new StatisticModifier("familiar-abilities", modifiers),
-                systemData.attributes.familiarAbilities,
-                { overwrite: false }
-            );
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            systemData.attributes.familiarAbilities = stat;
         }
 
         // Automatic Actions
@@ -1343,7 +1364,7 @@ export class CharacterPF2e extends CreaturePF2e {
     async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
-        const newProficiency: CharacterProficiencyData = { rank: 0, value: 0, breakdown: "", custom: true };
+        const newProficiency: CharacterProficiency = { rank: 0, value: 0, breakdown: "", custom: true };
         await this.update({ [`data.martial.${key}`]: newProficiency });
     }
 

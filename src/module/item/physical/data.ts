@@ -99,6 +99,9 @@ export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> 
 
 export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     traits: PhysicalItemTraits;
+    level: {
+        value: number;
+    };
     quantity: {
         value: number;
     };

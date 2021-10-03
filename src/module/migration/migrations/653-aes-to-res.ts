@@ -1,7 +1,7 @@
 import { AbilityString, ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import { CharacterProficiencyData } from "@actor/character/data";
+import { CharacterProficiency } from "@actor/character/data";
 
 /** Remove `ActiveEffect`s from classes, convert AE changes on several item types to AE-likes */
 export class Migration653AEstoREs extends MigrationBase {
@@ -36,7 +36,7 @@ export class Migration653AEstoREs extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { martial: Record<string, CharacterProficiencyData> } = actorSource.data;
+        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.data;
         systemData.martial = {}; // Only remove on compendium JSON
 
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements
