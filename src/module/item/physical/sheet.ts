@@ -1,12 +1,12 @@
 import { ItemSheetPF2e } from "../sheet/base";
 import { PhysicalItemPF2e } from "@item/physical";
-import { ItemSheetDataPF2e, PhysicalItemSheetDataPF2e } from "@item/sheet/data-types";
+import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
-    override getData(): PhysicalItemSheetDataPF2e<TItem> {
-        const sheetData: ItemSheetDataPF2e<TItem> = super.getData();
+    override async getData(): Promise<PhysicalItemSheetData<TItem>> {
+        const sheetData: ItemSheetDataPF2e<TItem> = await super.getData();
 
         // Set the source item data for editing
         const identifiedData = this.item.getMystifiedData("identified", { source: true });

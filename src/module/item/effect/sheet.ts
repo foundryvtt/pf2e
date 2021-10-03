@@ -4,8 +4,8 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
 export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
-    override getData(): EffectSheetData {
-        const data: ItemSheetDataPF2e<EffectPF2e> = super.getData();
+    override async getData(): Promise<EffectSheetData> {
+        const data: ItemSheetDataPF2e<EffectPF2e> = await super.getData();
         type EffectTargetSource = RuleElementSource & { scope: string };
         const effectTargetRules = data.item.data.rules.filter(
             (rule): rule is EffectTargetSource => rule.key.endsWith("EffectTarget") && typeof rule.scope === "string"

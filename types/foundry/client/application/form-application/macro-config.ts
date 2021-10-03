@@ -3,13 +3,13 @@
  *
  * @see {@link Macro} The Macro Entity which is being configured
  */
-declare class MacroConfig<MacroType extends Macro> extends DocumentSheet<MacroType> {
-    override getData(options?: DocumentSheetOptions): MacroConfigData;
+declare class MacroConfig<TMacro extends Macro> extends DocumentSheet<TMacro> {
+    override getData(options?: DocumentSheetOptions): MacroConfigData<TMacro>;
 
     override activateListeners(html: JQuery): void;
 }
 
-declare interface MacroConfigData extends DocumentSheetData {
+declare interface MacroConfigData<TMacro extends Macro> extends DocumentSheetData<TMacro> {
     macroTypes: Game["system"]["entityTypes"]["Macro"] | ["chat"];
     macroScopes: typeof CONST["MACRO_SCOPES"];
 }

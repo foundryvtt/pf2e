@@ -41,7 +41,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return options;
     }
 
-    override getData() {
+    override async getData() {
         const data: any = this.getBaseData();
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
