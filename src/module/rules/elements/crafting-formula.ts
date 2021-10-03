@@ -15,7 +15,7 @@ export class CraftingFormulaRuleElement extends RuleElementPF2e {
             actor.craftingFormulas.push({
                 description: this.data.description ?? this.item.description,
                 img: this.data.img ?? this.item.img,
-                level: this.data.level,
+                level: this.data.level ?? 0,
                 name: this.data.name ?? this.item.name,
                 price: this.data.price ?? "-",
                 uuid: this.data.uuid,
@@ -33,6 +33,6 @@ export interface CraftingFormulaRuleElement {
         level?: number;
         name?: string;
         price?: string;
-        uuid: CompendiumUUID;
+        uuid: ItemUUID;
     };
 }

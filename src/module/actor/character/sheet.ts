@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
@@ -16,7 +16,8 @@ import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { CraftingFormulaData } from "@item/formula/data";
+import { CraftingFormulaData } from "@module/crafting/formula";
+import { PhysicalItemType } from "@item/physical/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -151,10 +152,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData: any = sheetData.actor;
         // Inventory
         const inventory: Record<
-            string,
+            Exclude<PhysicalItemType, "book">,
             {
                 label: string;
-                items: ItemDataPF2e[];
+                items: PhysicalItemData[];
                 investedItemCount?: number;
                 investedMax?: number;
                 overInvested?: boolean;
@@ -286,7 +287,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         itemData.wieldedTwoHanded = physicalData.data.hands.value;
                         attacks.weapon.items.push(itemData);
                     }
-                    inventory[itemData.type].items.push(itemData);
+                    if (physicalData.type === "book") {
+                        inventory.equipment.items.push(itemData);
+                    } else {
+                        inventory[physicalData.type].items.push(itemData);
+                    }
                 }
             }
 

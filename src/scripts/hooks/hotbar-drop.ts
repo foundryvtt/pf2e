@@ -12,9 +12,10 @@ export function listen() {
         const slotInt = Number(slot);
         // check for item link
         let item: ItemPF2e | undefined;
-        if (data.type === "Item" && data.id) {
-            const prefix = data.pack ? `Compendium.${data.pack}` : "Item";
-            item = (await fromUuid(`${prefix}.${data.id}` as CompendiumUUID)) as ItemPF2e;
+        if (data.type === "Item" && data.id && typeof data.id === "string") {
+            const pack: unknown = data.pack;
+            const prefix = pack && typeof pack === "string" ? (`Compendium.${pack}` as const) : ("Item" as const);
+            item = (await fromUuid(`${prefix}.${data.id}`)) as ItemPF2e;
         }
 
         if (item instanceof EffectPF2e) {

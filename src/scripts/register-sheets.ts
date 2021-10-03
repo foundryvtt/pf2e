@@ -18,8 +18,8 @@ import { ActorSheetPF2eDataEntryNPC } from "@actor/npc/data-entry-sheet";
 import { FeatSheetPF2e } from "@item/feat/sheet";
 import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
-import { FormulaSheetPF2e } from "@item/formula/sheet";
 import { EffectSheetPF2e } from "@item/effect/sheet";
+import { BookSheetPF2e } from "@item/book/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -105,29 +105,25 @@ export function registerSheets() {
     }
 
     for (const itemType of PHYSICAL_ITEM_TYPES) {
-        if (itemType === "weapon") continue;
+        if (["book", "weapon"].includes(itemType)) continue;
         Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
         });
     }
-    Items.registerSheet("pf2e", WeaponSheetPF2e, {
-        types: ["weapon"],
-        label: game.i18n.format(sheetLabel, { type: localizeType("weapon") }),
-        makeDefault: true,
-    });
 
     const sheetEntries = [
         ["action", ActionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
         ["background", BackgroundSheetPF2e],
+        ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
         ["feat", FeatSheetPF2e],
         ["effect", EffectSheetPF2e],
         ["spell", SpellSheetPF2e],
         ["kit", KitSheetPF2e],
-        ["formula", FormulaSheetPF2e],
+        ["weapon", WeaponSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
         Items.registerSheet("pf2e", Sheet, {
