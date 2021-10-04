@@ -17,7 +17,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatPF2e } from "@module/combat";
 import { CombatantPF2e } from "@module/combatant";
 import { FolderPF2e } from "@module/folder";
-import { registerHandlebarsHelpers } from "@module/handlebars";
+import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { MacroPF2e } from "@module/macro";
 import {
     AmbientLightDocumentPF2e,

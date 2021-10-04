@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
 import { MagicSchool } from "@item/spell/data";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
-import { ErrorPF2e, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import { ActorPF2e, FamiliarPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
 

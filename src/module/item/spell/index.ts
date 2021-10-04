@@ -5,7 +5,7 @@ import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { OneToTen, OneToThree, TwoToThree } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
-import { ordinal, toNumber, objectHasKey } from "@module/utils";
+import { ordinal, toNumber, objectHasKey } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 

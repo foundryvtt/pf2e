@@ -23,7 +23,7 @@ import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */

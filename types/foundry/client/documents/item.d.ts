@@ -52,6 +52,8 @@ declare global {
 
         get collection(): Items<this>;
 
+        get uuid(): ItemUUID;
+
         _sheet: ItemSheet<Item> | null;
 
         get sheet(): ItemSheet<Item>;

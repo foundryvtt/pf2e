@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor/index";
-import { groupBy } from "@module/utils";
+import { groupBy } from "@util";
 import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from "@item/data";
 import type { PhysicalItemPF2e } from "@item/index";
 import { isPhysicalData } from "@item/data/helpers";

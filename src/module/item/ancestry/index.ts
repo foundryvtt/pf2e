@@ -3,7 +3,7 @@ import { CharacterPF2e } from "@actor";
 import { Size } from "@module/data";
 import { ABCItemPF2e } from "../abc";
 import { AncestryData } from "./data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {

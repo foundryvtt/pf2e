@@ -632,6 +632,7 @@ const creatureTraits = {
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
     "sea devil": "PF2E.TraitSeaDevil",
+    seugathi: "PF2E.TraitSeugathi",
     serpentfolk: "PF2E.TraitSerpentfolk",
     shabti: "PF2E.TraitShabti",
     shadow: "PF2E.TraitShadow",
@@ -1229,6 +1230,7 @@ export const PF2ECONFIG = {
         "range-80": "PF2E.TraitRange80",
         "range-90": "PF2E.TraitRange90",
         "range-100": "PF2E.TraitRange100",
+        "range-120": "PF2E.TraitRange120",
         "range-increment-5": "PF2E.TraitRangeIncrement5",
         "range-increment-10": "PF2E.TraitRangeIncrement10",
         "range-increment-15": "PF2E.TraitRangeIncrement15",
@@ -1716,8 +1718,10 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
-        hour: "PF2E.Frequency.hour",
-        day: "PF2E.Frequency.day",
+        PT10M: "PF2E.Duration.PT10M",
+        PT1H: "PF2E.Duration.PT1H",
+        PT24H: "PF2E.Duration.PT24H",
+        day: "PF2E.Duration.day",
     },
 
     // Proficiency Multipliers

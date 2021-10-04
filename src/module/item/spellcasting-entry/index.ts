@@ -1,7 +1,7 @@
 import { CharacterPF2e, CreaturePF2e } from "@actor";
 import { SpellPF2e } from "@item/spell";
 import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
-import { groupBy, ErrorPF2e } from "@module/utils";
+import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
 import { UserPF2e } from "@module/user";

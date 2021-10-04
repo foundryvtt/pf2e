@@ -1,4 +1,4 @@
-import { combineObjects } from "../../utils";
+import { combineObjects } from "../../../util";
 
 /** The possible standard damage die sizes. */
 export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";

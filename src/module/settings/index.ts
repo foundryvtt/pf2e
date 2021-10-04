@@ -2,7 +2,7 @@ import { VariantRulesSettings } from "./variant-rules";
 import { WorldClockSettings } from "./world-clock";
 import { HomebrewElements } from "./homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";

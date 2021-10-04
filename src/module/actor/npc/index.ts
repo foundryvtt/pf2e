@@ -14,7 +14,7 @@ import { RollParameters } from "@system/rolls";
 import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
 import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";

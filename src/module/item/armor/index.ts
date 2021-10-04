@@ -1,6 +1,6 @@
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { addSign } from "@module/utils";
+import { addSign } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { getArmorBonus } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";

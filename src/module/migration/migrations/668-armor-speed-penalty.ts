@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Remove RuleElement implementation of armor speed penalties  */

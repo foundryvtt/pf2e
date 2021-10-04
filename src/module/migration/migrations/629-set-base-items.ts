@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { BaseArmorType } from "@item/armor/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { ItemSourcePF2e } from "@item/data";

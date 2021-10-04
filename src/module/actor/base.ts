@@ -4,7 +4,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";

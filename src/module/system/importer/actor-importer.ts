@@ -2,7 +2,7 @@ import { CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { AncestrySource, BackgroundSource, ClassSource } from "@item/data";
 import { ABCManagerOptions, AncestryBackgroundClassManager } from "@item/abc/abc-manager";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 
 export class ActorImporter {
     /**

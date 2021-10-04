@@ -4,7 +4,7 @@ import { FeatTrait } from "@item/feat/data";
 import { SpellTrait } from "@item/spell/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
-import { DocumentSchemaRecord, Rarity, ValuesList } from "@module/data";
+import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
 
@@ -36,6 +36,11 @@ export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
 export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait;
 
 export type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
+
+export interface ActionCost {
+    type: ActionType;
+    value: OneToThree | null;
+}
 
 export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
     rarity: { value: Rarity };

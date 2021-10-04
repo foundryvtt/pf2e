@@ -3,7 +3,7 @@ import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from "@
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { CharacterPF2e } from "@actor/index";
 import type { FeatSource } from "@item/feat/data";
-import { ErrorPF2e, sluggify } from "@module/utils";
+import { ErrorPF2e, sluggify } from "@util";
 
 export interface ABCManagerOptions {
     assurance?: string[];
