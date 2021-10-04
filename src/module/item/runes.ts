@@ -77,61 +77,83 @@ interface RuneDiceModifier {
     predicate?: RawPredicate;
 }
 
-function toModifier(
-    rune: WeaponPropertyRuneType,
-    { damageType = undefined, dieSize = "d6", diceNumber = 1, predicate }: RuneDiceModifier
-): DiceModifierPF2e {
-    const traits: string[] = [];
-    if (damageType) {
-        traits.push(damageType);
-    }
-    return new DiceModifierPF2e({
-        name: CONFIG.PF2E.weaponPropertyRunes[rune],
-        diceNumber,
-        dieSize,
-        damageType,
-        traits,
-        predicate,
+function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): DiceModifierPF2e[] {
+    dice = deepClone(dice);
+    return dice.map((die) => {
+        const traits: string[] = die.damageType ? [die.damageType] : [];
+        return new DiceModifierPF2e({
+            name: CONFIG.PF2E.weaponPropertyRunes[rune],
+            diceNumber: die.diceNumber ?? 1,
+            dieSize: die.dieSize ?? "d6",
+            damageType: die.damageType,
+            traits,
+            predicate: die.predicate,
+        });
     });
 }
 
-const runeDamageModifiers: Map<string, RuneDiceModifier> = new Map([
-    ["anarchic", { damageType: "chaotic", predicate: { all: ["target:trait:lawful"] } }],
-    ["axiomatic", { damageType: "lawful", predicate: { all: ["target:trait:chaotic"] } }],
-    ["corrosive", { damageType: "acid" }],
-    ["disrupting", { damageType: "positive", predicate: { any: ["target:trait:undead", "target:negative-healing"] } }],
-    ["flaming", { damageType: "fire" }],
-    ["frost", { damageType: "cold" }],
+const runeDamageModifiers: Map<string, RuneDiceModifier[]> = new Map([
+    ["anarchic", [{ damageType: "chaotic", predicate: { all: ["target:trait:lawful"] } }]],
+    ["axiomatic", [{ damageType: "lawful", predicate: { all: ["target:trait:chaotic"] } }]],
+    ["corrosive", [{ damageType: "acid" }]],
+    [
+        "brilliant",
+        [
+            { damageType: "fire", dieSize: "d4" },
+            { damageType: "good", dieSize: "d4", predicate: { all: ["target:trait:fiend"] } },
+            {
+                damageType: "positive",
+                dieSize: "d4",
+                predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+            },
+        ],
+    ],
+    [
+        "disrupting",
+        [{ damageType: "positive", predicate: { any: ["target:trait:undead", "target:negative-healing"] } }],
+    ],
+    ["flaming", [{ damageType: "fire" }]],
+    ["frost", [{ damageType: "cold" }]],
+    [
+        "greaterBrilliant",
+        [
+            { damageType: "fire", dieSize: "d4" },
+            { damageType: "good", dieSize: "d4", predicate: { all: ["target:trait:fiend"] } },
+            {
+                damageType: "positive",
+                dieSize: "d4",
+                predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+            },
+        ],
+    ],
+    ["greaterCorrosive", [{ damageType: "acid" }]],
     [
         "greaterDisrupting",
-        {
-            damageType: "positive",
-            diceNumber: 2,
-            predicate: { any: ["target:trait:undead", "target:negative-healing"] },
-        },
+        [
+            {
+                damageType: "positive",
+                diceNumber: 2,
+                predicate: { any: ["target:trait:undead", "target:negative-healing"] },
+            },
+        ],
     ],
-    ["greaterCorrosive", { damageType: "acid" }],
-    ["greaterFlaming", { damageType: "fire" }],
-    ["greaterFrost", { damageType: "cold" }],
-    ["greaterImpactful", { damageType: "force", dieSize: "d6" }],
-    ["greaterShock", { damageType: "electricity" }],
-    ["greaterThundering", { damageType: "sonic" }],
-    ["holy", { damageType: "good", predicate: { all: ["target:trait:evil"] } }],
-    ["impactful", { damageType: "force", dieSize: "d6" }],
-    ["serrating", { dieSize: "d4" }],
-    ["shock", { damageType: "electricity" }],
-    ["thundering", { damageType: "sonic" }],
-    ["unholy", { damageType: "evil", predicate: { all: ["target:trait:good"] } }],
+    ["greaterFlaming", [{ damageType: "fire" }]],
+    ["greaterFrost", [{ damageType: "cold" }]],
+    ["greaterImpactful", [{ damageType: "force", dieSize: "d6" }]],
+    ["greaterShock", [{ damageType: "electricity" }]],
+    ["greaterThundering", [{ damageType: "sonic" }]],
+    ["holy", [{ damageType: "good", predicate: { all: ["target:trait:evil"] } }]],
+    ["impactful", [{ damageType: "force", dieSize: "d6" }]],
+    ["serrating", [{ dieSize: "d4" }]],
+    ["shock", [{ damageType: "electricity" }]],
+    ["thundering", [{ damageType: "sonic" }]],
+    ["unholy", [{ damageType: "evil", predicate: { all: ["target:trait:good"] } }]],
 ]);
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
-    const diceModifiers: DiceModifierPF2e[] = [];
-    for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
+    return getPropertyRunes(itemData, getPropertySlots(itemData)).flatMap((rune) => {
         const modifierConfig = runeDamageModifiers.get(rune);
-        if (modifierConfig) {
-            diceModifiers.push(toModifier(rune, modifierConfig));
-        }
-    }
-    return diceModifiers;
+        return modifierConfig ? toModifiers(rune, modifierConfig) : [];
+    });
 }
 
 export function hasGhostTouchRune(itemData: WeaponData): boolean {
