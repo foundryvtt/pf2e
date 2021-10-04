@@ -1230,6 +1230,7 @@ export const PF2ECONFIG = {
         "range-80": "PF2E.TraitRange80",
         "range-90": "PF2E.TraitRange90",
         "range-100": "PF2E.TraitRange100",
+        "range-120": "PF2E.TraitRange120",
         "range-increment-5": "PF2E.TraitRangeIncrement5",
         "range-increment-10": "PF2E.TraitRangeIncrement10",
         "range-increment-15": "PF2E.TraitRangeIncrement15",
