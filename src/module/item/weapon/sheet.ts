@@ -3,7 +3,7 @@ import { PreciousMaterialGrade } from "@item/physical/data";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { PhysicalItemSheetDataPF2e } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
 import { objectHasKey } from "@module/utils";
@@ -18,7 +18,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             number?: OneToFour;
             label?: string;
         }
-        const sheetData: ItemSheetDataPF2e<WeaponPF2e> & {
+        const sheetData: PhysicalItemSheetDataPF2e<WeaponPF2e> & {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
         } = super.getData();
 
