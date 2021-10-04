@@ -23,11 +23,12 @@
         },
         "attributes": {
             "ac": {
+                "base": 24,
                 "details": "",
                 "value": 24
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -65,7 +66,7 @@
                 "value": "NE"
             },
             "creatureType": "",
-            "flavorText": "<p>These ancient denizens of the Shadow Plane appear as grayish humanoid torsos covered in translucent funeral veils of shadow. Silent and mysterious, they float about, absent legs to hold them aloft. Never speaking a word aloud, they instead reach into the minds of creatures around them to whisper and mumble curses, threats, and strange bits of forlorn augury.</p>\n<p>These haunting creatures are revered by calignis as proxies of the Forsaken-a strange array of ancestor-like demigods whom many calignis worship. Some even believe owbs are the Forsaken manifested.</p>\n<p>A multitude of owbs visit and even remain to advise caligni communities, as varied in personality as the Forsaken. All owbs share a hatred of light and color, except for the flickering glow of the burning cold magic they can hurl as a weapon. Owbs who live among calignis tend to prohibit the use of light and color, using their curse of darkness to quench violators if necessary. The only other similarity across all owbs is their entrenched desire to manipulate their charges through mind-reading and deception, though such manipulation can be either subtle or overt.</p>\n<hr />\n<p>Commonly called owbs, or lesser owbs by more powerful owb prophets, most of these mysterious creatures focus on manipulating caligni culture. Among calignis, an owb hides from mortals they deem beneath them-even including calignis in their charge. An owb prefers to select one caligni leader to control from the shadows, manipulating them using charisma and magic. Through coersion of such agents, owbs maintain a steady hand in the politics of the community, either blessing and breaking pacts with other creatures or acting as intermediaries and ambassadors between calignis and powerful external entities.</p>",
+            "flavorText": "<p>Commonly called owbs, or lesser owbs by more powerful owb prophets, most of these mysterious creatures focus on manipulating caligni culture. Among calignis, an owb hides from mortals they deem beneath them-even including calignis in their charge. An owb prefers to select one caligni leader to control from the shadows, manipulating them using charisma and magic. Through coersion of such agents, owbs maintain a steady hand in the politics of the community, either blessing and breaking pacts with other creatures or acting as intermediaries and ambassadors between calignis and powerful external entities.</p>\n<hr />\n<p>These ancient denizens of the Shadow Plane appear as grayish humanoid torsos covered in translucent funeral veils of shadow. Silent and mysterious, they float about, absent legs to hold them aloft. Never speaking a word aloud, they instead reach into the minds of creatures around them to whisper and mumble curses, threats, and strange bits of forlorn augury.</p>\n<p>These haunting creatures are revered by calignis as proxies of the Forsaken-a strange array of ancestor-like demigods whom many calignis worship. Some even believe owbs are the Forsaken manifested.</p>\n<p>A multitude of owbs visit and even remain to advise caligni communities, as varied in personality as the Forsaken. All owbs share a hatred of light and color, except for the flickering glow of the burning cold magic they can hurl as a weapon. Owbs who live among calignis tend to prohibit the use of light and color, using their curse of darkness to quench violators if necessary. The only other similarity across all owbs is their entrenched desire to manipulate their charges through mind-reading and deception, though such manipulation can be either subtle or overt.</p>",
             "level": {
                 "value": 6
             },
@@ -107,7 +108,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "can't speak any language, telepathy 100 feet",
+                "custom": "(Can't Speak Any Languages), Telepathy 100 feet",
                 "selected": [],
                 "value": [
                     "caligni"
@@ -138,7 +139,7 @@
             "_id": "hOw5tSnjUxLLAqdY",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1559,7 +1560,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 1d8 #persistent cold]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
+                    "value": "<p>[[/r {1d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -1630,7 +1631,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 1400000,
             "type": "action"
@@ -1678,7 +1679,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
             "sort": 1500000,
             "type": "action"
@@ -1730,7 +1731,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 Feet",
             "sort": 1600000,
             "type": "action"
@@ -1778,7 +1779,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1700000,
             "type": "action"
@@ -1796,7 +1797,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The owb inflicts a curse on one creature taking persistent cold damage from their burning cold Strike, stealing the victim's vibrancy. The creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"curse,darkness,evocation,occult\" data-pf2-label=\"Curse of Darkness DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>On a failure, the creature gains light blindness and its coloration turns to washed out shades of gray, along with all equipment it carries, wields, or wears. These effects have an unlimited duration. Regardless of the result of its save, the creature is temporarily immune for 1 minute.</p>\n<p>If the owb uses this ability on a caligni, the curse can't be removed short of @Compendium[pf2e.spells-srd.Wish]{Wish} or similar powerful magic.</p>"
+                    "value": "<p>The owb inflicts a curse on one creature taking persistent cold damage from their burning cold Strike, stealing the victim's vibrancy. The creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"curse,darkness,evocation,occult\" data-pf2-label=\"Curse of Darkness DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>On a failure, the creature gains @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness} and its coloration turns to washed out shades of gray, along with all equipment it carries, wields, or wears. These effects have an unlimited duration. Regardless of the result of its save, the creature is temporarily immune for 1 minute.</p>\n<p>If the owb uses this ability on a caligni, the curse can't be removed short of @Compendium[pf2e.spells-srd.Wish]{Wish} or similar powerful magic.</p>"
                 },
                 "requirements": {
                     "value": ""
