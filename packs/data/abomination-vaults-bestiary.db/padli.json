@@ -133,9 +133,6 @@
                 "autoHeightenLevel": {
                     "value": null
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "description": {
                     "value": ""
                 },
@@ -736,9 +733,6 @@
                 },
                 "areasize": {
                     "value": "20-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2798,7 +2792,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "occult-ward"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.occult-ward"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
