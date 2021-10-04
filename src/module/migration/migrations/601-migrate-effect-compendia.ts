@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 
 export class Migration601SplitEffectCompendia extends MigrationBase {
     static override version = 0.601;

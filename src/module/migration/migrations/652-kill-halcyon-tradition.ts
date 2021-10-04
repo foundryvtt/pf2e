@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
 import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 interface TraditionDataOld {

@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/data";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 
 const LEGIT_TRADITIONS = ["arcane", "divine", "occult", "primal", "focus", "ritual", "halcyon", ""] as const;

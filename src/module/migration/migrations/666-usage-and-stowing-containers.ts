@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { ItemTraits } from "@item/data/base";
 import { isPhysicalData } from "@item/data/helpers";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Set appropriate usage and mark certain containers as being for stowing */

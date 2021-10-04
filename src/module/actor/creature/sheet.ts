@@ -3,7 +3,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";

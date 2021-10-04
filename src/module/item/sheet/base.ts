@@ -13,7 +13,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 

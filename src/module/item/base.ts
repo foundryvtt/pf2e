@@ -6,7 +6,7 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e } from "@actor";
 import { RuleElementPF2e, RuleElements } from "../rules/rules";

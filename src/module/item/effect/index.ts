@@ -1,5 +1,5 @@
 import { UserPF2e } from "@module/user";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { EffectData } from "./data";
 

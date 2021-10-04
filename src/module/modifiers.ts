@@ -1,7 +1,7 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e } from "./utils";
+import { ErrorPF2e } from "../util";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     "proficiency:untrained",

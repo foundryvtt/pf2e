@@ -1,5 +1,5 @@
 import { IdentifyCreatureData } from "@module/recall-knowledge";
-import { padArray } from "@module/utils";
+import { padArray } from "@util";
 
 export class RecallKnowledgePopup extends Application {
     static override get defaultOptions() {

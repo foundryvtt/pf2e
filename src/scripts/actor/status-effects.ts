@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@system/localize";
 import { StatusEffectIconType } from "@scripts/config";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
 import { CombatPF2e } from "@module/combat";
