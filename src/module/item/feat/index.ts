@@ -19,7 +19,7 @@ export class FeatPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
-    get activationTime() {
+    get actionCost() {
         const actionType = this.data.data.actionType.value || "passive";
         if (actionType === "passive") return null;
 

@@ -8,7 +8,7 @@ export class ActionPF2e extends ItemPF2e {
         return ActionData;
     }
 
-    get activationTime() {
+    get actionCost() {
         const actionType = this.data.data.actionType.value || "passive";
         if (actionType === "passive") return null;
 
