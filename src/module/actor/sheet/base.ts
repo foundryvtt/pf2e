@@ -1,6 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ConditionPF2e, ContainerPF2e, KitPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -41,8 +41,6 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
-import { adjustDCByRarity, calculateDC } from "@module/dc";
-import { CraftingFormula } from "@module/crafting/formula";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 
 /**
@@ -890,14 +888,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
-        } else if (isPhysicalData(itemData) && craftingTab) {
-            if (actor instanceof CharacterPF2e) {
-                const formula = this.createFormulaFromItem(itemData);
-                const actorFormulas = actor.craftingFormulas;
-                if (formula && !actorFormulas.find((f) => f.uuid === formula.uuid)) {
-                    actorFormulas.push(formula);
-                    await actor.update({ "data.formulas": actorFormulas }, { recursive: true, keepId: true });
-                }
+        } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
+            const formula = { uuid: item.sourceId ?? item.uuid };
+            const actorFormulas = actor.data.data.formulas;
+            if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
+                actorFormulas.push(formula);
+                await actor.update({ "data.formulas": actorFormulas });
             }
             return [item];
         }
@@ -1181,23 +1177,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
-    }
-
-    private createFormulaFromItem(itemData: PhysicalItemSource): CraftingFormula | undefined {
-        if (itemData.flags.core?.sourceId) {
-            return {
-                dc: adjustDCByRarity(calculateDC(itemData.data.level.value), itemData.data.traits.rarity.value),
-                description: itemData.data.description.value,
-                img: itemData.img,
-                level: itemData.data.level.value,
-                name: itemData.name,
-                uuid: itemData.flags.core.sourceId,
-                price: itemData.data.price.value,
-                rarity: itemData.data.traits.rarity.value,
-            };
-        } else {
-            return;
-        }
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {

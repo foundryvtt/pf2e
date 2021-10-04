@@ -35,7 +35,7 @@ import {
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
 import { ErrorPF2e, toNumber } from "@util";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, WeaponPF2e } from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../index";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
@@ -50,9 +50,9 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
-import { isPhysicalData } from "@item/data/helpers";
 import { CraftingFormula, CraftingFormulaData } from "@module/crafting/formula";
 import { UserPF2e } from "@module/user";
+import { fromUUIDs } from "@util/from-uuids";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -89,28 +89,11 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.data.data.details.keyability.value || "str";
     }
 
-    async getCraftingFormulas() {
-        const decorated: Promise<CraftingFormula>[] = [];
-        for (const formula of this.craftingFormulas) {
-            decorated.push(
-                new Promise<CraftingFormula>((resolve) => {
-                    fromUuid(formula.uuid).then((item) => {
-                        const copy = new CraftingFormula(formula);
-                        if (!(item instanceof ItemPF2e)) {
-                            console.warn(`PF2E | Unable to look up item with UUID ${formula.uuid}`);
-                        } else if (!isPhysicalData(item.data)) {
-                            console.warn(`PF2E | ${item.name} (${formula.uuid}) is not a physical item.`);
-                        } else {
-                            copy.name = item.name;
-                            copy._level = item.data.data.level.value;
-                            copy._rarity = item.data.data.traits.rarity.value;
-                        }
-                        resolve(copy);
-                    });
-                })
-            );
-        }
-        return Promise.all(decorated);
+    async getCraftingFormulas(): Promise<CraftingFormula[]> {
+        const formulaMap = new Map(this.craftingFormulas.map((data) => [data.uuid, data]));
+        return (await fromUUIDs(this.craftingFormulas.map((data) => data.uuid)))
+            .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
+            .map((item) => new CraftingFormula(item, formulaMap.get(item.uuid)!.dc));
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */

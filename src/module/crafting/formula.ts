@@ -1,47 +1,45 @@
+import { PhysicalItemPF2e } from "@item";
 import { Rarity } from "@module/data";
-import { adjustDCByRarity, calculateDC } from "@module/dc";
+import { calculateDC } from "@module/dc";
 
 export class CraftingFormula implements CraftingFormulaData {
-    uuid: ItemUUID;
-    img: ImagePath;
-    name: string;
-    _level?: number;
-    _dc?: number;
-    description: string;
-    price: string;
-    _rarity?: Rarity;
+    /** The difficulty class to craft this item */
+    dc: number;
 
-    constructor(data: CraftingFormulaData) {
-        this._dc = data.dc;
-        this._level = data.level;
-        this.name = data.name;
-        this._rarity = data.rarity;
-        this.uuid = data.uuid;
-        this.description = data.description;
-        this.price = data.price;
-        this.img = data.img;
+    constructor(private item: PhysicalItemPF2e, dc?: number) {
+        this.dc = dc ?? calculateDC(item.level, { rarity: item.rarity });
     }
 
-    get dc(): number {
-        return this._dc ?? adjustDCByRarity(calculateDC(this.level), this.rarity);
+    get uuid(): ItemUUID {
+        return this.item.uuid;
+    }
+
+    get img(): ImagePath {
+        return this.item.img;
+    }
+
+    get name(): string {
+        return this.item.name;
     }
 
     get level(): number {
-        return this._level ?? 0;
+        return this.item.level;
     }
 
     get rarity(): Rarity {
-        return this._rarity ?? "common";
+        return this.item.rarity;
+    }
+
+    get price(): string {
+        return this.item.price;
+    }
+
+    get description(): string {
+        return this.item.description;
     }
 }
 
 export interface CraftingFormulaData {
     uuid: ItemUUID;
-    img: ImagePath;
-    name: string;
-    level: number;
     dc?: number;
-    description: string;
-    price: string;
-    rarity?: Rarity;
 }

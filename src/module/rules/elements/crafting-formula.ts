@@ -1,38 +1,45 @@
 import { ActorType } from "@actor/data";
 import { CharacterPF2e } from "@actor";
 import { RuleElementPF2e } from "../rule-element";
-import { RuleElementData } from "../rules-data-definitions";
+import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
+import { ItemPF2e } from "@item";
 
 /**
  * @category RuleElement
  */
-export class CraftingFormulaRuleElement extends RuleElementPF2e {
+class CraftingFormulaRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    override onBeforePrepareData() {
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            actor.craftingFormulas.push({
-                description: this.data.description ?? this.item.description,
-                img: this.data.img ?? this.item.img,
-                level: this.data.level ?? 0,
-                name: this.data.name ?? this.item.name,
-                price: this.data.price ?? "-",
-                uuid: this.data.uuid,
-            });
-        } else {
-            console.warn(`PF2E | Malformed crafting formula data in CraftingFormula rule element on item:`, this.item);
+    constructor(data: CraftingFormulaSource, item: Embedded<ItemPF2e>) {
+        if (!(typeof data.uuid === "string" && /^(?:Compendium|Item)\..*[a-z0-9]{16}$/i.test(data.uuid))) {
+            console.warn(
+                `PF2e System | Crafting formula rule element on ${item.name} (${item.uuid}) has a malformed UUID`
+            );
+            data.ignored = true;
         }
+        super(data, item);
+    }
+
+    override onBeforePrepareData(): void {
+        if (this.ignored) return;
+
+        const actor = this.actor;
+        actor.craftingFormulas.push({ uuid: this.data.uuid });
     }
 }
 
-export interface CraftingFormulaRuleElement {
-    data: RuleElementData & {
-        description?: string;
-        img?: ImagePath;
-        level?: number;
-        name?: string;
-        price?: string;
-        uuid: ItemUUID;
-    };
+interface CraftingFormulaRuleElement extends RuleElementPF2e {
+    data: CraftingFormulaData;
+
+    get actor(): CharacterPF2e;
 }
+
+interface CraftingFormulaData extends RuleElementData {
+    uuid: ItemUUID;
+}
+
+interface CraftingFormulaSource extends RuleElementSource {
+    uuid?: unknown;
+}
+
+export { CraftingFormulaRuleElement };
