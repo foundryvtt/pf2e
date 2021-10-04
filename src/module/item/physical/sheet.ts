@@ -33,7 +33,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const id = randomID(16);
             const action: ItemActivation = {
                 id,
-                activationTime: { value: 1, type: "action" },
+                actionCost: { value: 1, type: "action" },
                 components: { command: false, envision: false, interact: false, cast: false },
                 description: { value: "" },
                 frequency: { value: 0, max: 0, duration: null },
@@ -68,11 +68,16 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         // Normalize nullable fields for embedded actions
         const expanded = expandObject(formData) as DeepPartial<BasePhysicalItemSource>;
         for (const action of Object.values(expanded.data?.activations ?? [])) {
-            if (action.activationTime) {
-                if (!action.activationTime.value || action.activationTime.type !== "action") {
-                    action.activationTime.value = null;
+            // Ensure activation time is in a proper format
+            const actionCost = action.actionCost;
+            if (actionCost) {
+                const isAction = actionCost.type === "action";
+                if (!actionCost.value) {
+                    actionCost.value = isAction ? actionCost.value || 1 : null;
                 }
             }
+
+            // Ensure frequency is a proper format
             if (action.frequency && !action.frequency?.duration) action.frequency.duration = null;
         }
 

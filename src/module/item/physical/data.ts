@@ -1,5 +1,5 @@
 import {
-    ActionType,
+    ActionCost,
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     ItemLevelData,
@@ -12,7 +12,7 @@ import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
 import { ConsumableTrait } from "@item/consumable/data";
-import { OneToThree, Size } from "@module/data";
+import { Size } from "@module/data";
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
@@ -109,10 +109,7 @@ export interface ItemActivation {
     description: {
         value: string;
     };
-    activationTime: {
-        type: ActionType;
-        value: OneToThree | null;
-    };
+    actionCost: ActionCost;
     components: {
         command: boolean;
         envision: boolean;
