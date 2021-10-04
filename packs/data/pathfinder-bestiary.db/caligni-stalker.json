@@ -31,7 +31,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "death flame",
                 "max": 60,
                 "temp": 0,
                 "value": 60
@@ -59,7 +59,7 @@
                 "value": "CN"
             },
             "creatureType": "Humanoid",
-            "flavorText": "<p>Caligni stalkers are often leaders of caligni enclaves.</p>\n<p>Calignis lurk in subterranean cities, creeping to the surface to steal, stalk, or make mischief. Each caligni serves in a specific role and grows into a specific form as determined by supernatural traditions and influences in caligni society. Regardless of their size or role, all calignis are gaunt, with pale flesh and white eyes. Some surface dwellers call the caligni &ldquo;dark folk,&rdquo; a term they dislike because it doesn&rsquo;t reflect either their appearance or character, only their environment. Each individual in caligni society serves a specific role. At times, certain roles so rarely find suitable candidates that a community might only see a few individuals fill them in an entire generation.</p>",
+            "flavorText": "<p>Caligni stalkers are often leaders of caligni enclaves.</p>\n<p>Calignis lurk in subterranean cities, creeping to the surface to steal, stalk, or make mischief. Each caligni serves in a specific role and grows into a specific form as determined by supernatural traditions and influences in caligni society. Regardless of their size or role, all calignis are gaunt, with pale flesh and white eyes. Some surface dwellers call the caligni \"dark folk,\" a term they dislike because it doesn't reflect either their appearance or character, only their environment. Each individual in caligni society serves a specific role. At times, certain roles so rarely find suitable candidates that a community might only see a few individuals fill them in an entire generation.</p>",
             "level": {
                 "value": 4
             },
@@ -107,7 +107,7 @@
                 "value": "common"
             },
             "senses": {
-                "value": "greater darkvision"
+                "value": "greater darkvision, light blindness"
             },
             "size": {
                 "value": "med"
@@ -239,7 +239,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -1243,7 +1243,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the stalker dies, their body combusts in a flash of white-hot flame.</p>\n<p>All creatures in <span data-pf2-effect-area=\"burst\" data-pf2-distance=\"20\">20-foot burst</span> take [[/r 5d6 #fire]]{5d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"light,damaging-effect\" data-pf2-label=\"Death Flame DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The stalker's gear and treasure are unaffected by the flames and are left in a pile where they died.</p>"
+                    "value": "<p>When the stalker dies, their body combusts in a flash of white-hot flame. All creatures in <span data-pf2-effect-area=\"burst\" data-pf2-distance=\"20\">20-foot burst</span> take [[/r {5d6}[fire]]]{5d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"light,damaging-effect\" data-pf2-label=\"Death Flame DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The stalker's gear and treasure are unaffected by the flames and are left in a pile where they died.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1280,7 +1280,7 @@
             "_id": "TBdYRcS0ksv5LN2M",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1363,7 +1363,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Double Slice",
             "sort": 1300000,
             "type": "action"
@@ -1427,7 +1427,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Caligni Stalker deals an extra [[/r 1d6 #precision]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The Caligni Stalker deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1477,50 +1477,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1500000,
-            "type": "action"
-        },
-        {
-            "_id": "hXRSkJV5YazDinQF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"alchemical,consumable,injury,poison\" data-pf2-label=\"Black Smear Poison DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> As stage 1</p>\n<p><strong>Stage 3</strong> [[/r 1d6 #poison]]{1d6 poison damage}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Black Smear Poison",
-            "sort": 1600000,
             "type": "action"
         },
         {
