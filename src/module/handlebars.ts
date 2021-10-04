@@ -153,4 +153,12 @@ export function registerHandlebarsHelpers() {
         }
         return results.join("");
     });
+
+    Handlebars.registerHelper("developMode", function (this: unknown, body: Handlebars.HelperOptions) {
+        if (BUILD_MODE === "development") {
+            return body.fn(this);
+        }
+
+        return "";
+    });
 }
