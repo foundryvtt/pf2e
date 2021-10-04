@@ -166,6 +166,8 @@ declare global {
     interface TokenDocument {
         readonly parent: Scene | null;
 
+        get uuid(): TokenDocumentUUID;
+
         _sheet: TokenConfig<TokenDocument> | null;
 
         readonly _object: Token<TokenDocument> | null;
@@ -184,6 +186,8 @@ declare global {
             context?: DocumentModificationContext
         ): Promise<TokenDocument[]>;
     }
+
+    type TokenDocumentUUID = `Scene.${string}.Token.${string}`;
 
     interface TokenAttributes {
         bar: string[];

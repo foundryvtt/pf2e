@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { PhysicalItemSource } from "@item/data";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     tokenInfo: Array<{

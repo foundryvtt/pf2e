@@ -24,7 +24,7 @@ import {
     SELECTABLE_TAG_FIELDS,
     TagSelectorOptions,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { SKILL_DICTIONARY } from "@actor/data/values";

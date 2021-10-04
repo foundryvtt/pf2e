@@ -6,7 +6,7 @@ import {
 import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 
 type TrickMagicItemSkill = TrickMagicItemPopup["SKILLS"][number];

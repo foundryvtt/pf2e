@@ -6,7 +6,7 @@ import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";

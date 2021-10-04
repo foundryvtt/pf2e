@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/index";
 import { SpellSource } from "@item/spell/data";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: ScrollWandCallback;

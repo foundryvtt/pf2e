@@ -6,7 +6,7 @@ import yargs from "yargs";
 import { JSDOM } from "jsdom";
 import type { ActorPF2e } from "@actor/base";
 import type { ItemPF2e } from "@item/base";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import systemJSON from "system.json";
 import templateJSON from "static/template.json";
 

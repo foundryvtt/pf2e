@@ -11,7 +11,7 @@ import { goesToEleven, ZeroToThree } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";

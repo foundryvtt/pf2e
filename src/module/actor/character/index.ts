@@ -34,7 +34,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e, toNumber } from "@module/utils";
+import { ErrorPF2e, toNumber } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../index";
 import { LocalizePF2e } from "@module/system/localize";

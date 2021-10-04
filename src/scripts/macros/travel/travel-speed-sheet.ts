@@ -10,7 +10,7 @@ import {
     TravelDuration,
     Trip,
 } from "./travel-speed";
-import { Fraction, zip } from "@module/utils";
+import { Fraction, zip } from "@util";
 import { CharacterPF2e } from "@actor/character";
 
 type DetectionModeData = "none" | "everything" | "before";

@@ -1,7 +1,7 @@
 import { AbilityString, CharacterData, NPCData } from "@actor/data";
 import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { objectHasKey, tupleHasValue } from "@module/utils";
+import { objectHasKey, tupleHasValue } from "@util";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 

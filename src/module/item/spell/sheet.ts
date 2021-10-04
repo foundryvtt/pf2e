@@ -2,7 +2,7 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e, SpellSheetData } from "../sheet/data-types";
 import { SpellDamage, SpellSystemData } from "./data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 
 const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
     interval: 1,

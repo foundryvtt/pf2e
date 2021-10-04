@@ -19,7 +19,7 @@ import {
     TreasureData,
     WeaponData,
 } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
 import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
 import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from "./data";

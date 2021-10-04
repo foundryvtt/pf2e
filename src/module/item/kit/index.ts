@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { KitData, KitEntryData } from "./data";
 
 const SYSTEM_EQUIPMENT_PACK_ID = "pf2e.equipment-srd";

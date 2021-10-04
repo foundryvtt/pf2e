@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { HazardPF2e } from ".";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
