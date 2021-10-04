@@ -294,11 +294,19 @@ export const DamageChatCard = {
         }
 
         const originalFlavor = data.flavor?.trim();
-        if (originalFlavor?.includes("suppress-formatting")) return;
+        if (data.flags.pf2e.suppressFormatting ?? originalFlavor?.includes("suppress-formatting")) return;
         const context: DamageBreakdownContext = {
             suppress: {
-                splashInlineRolls: originalFlavor?.includes("suppress-splash-inline-roll") ?? false,
-                persistentNotes: originalFlavor?.includes("suppress-persistent-notes") ?? false,
+                splashInlineRolls: !!(
+                    data.flags.pf2e.suppressSplashInlineRoll ??
+                    originalFlavor?.includes("suppress-splash-inline-roll") ??
+                    false
+                ),
+                persistentNotes: !!(
+                    data.flags.pf2e.suppressPersistentNotes ??
+                    originalFlavor?.includes("suppress-persistent-notes") ??
+                    false
+                ),
             },
         };
 
