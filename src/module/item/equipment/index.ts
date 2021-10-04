@@ -1,5 +1,5 @@
 import { LocalizePF2e } from "@module/system/localize";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { EquipmentData, EquipmentTrait } from "./data";
 

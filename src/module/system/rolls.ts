@@ -9,7 +9,7 @@ import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { fontAwesomeIcon } from "@module/utils";
+import { fontAwesomeIcon } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";

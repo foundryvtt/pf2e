@@ -4,7 +4,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { FeatPF2e } from "@item/feat";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { ABCItemPF2e } from "../abc";
 import { ClassData, ClassTrait } from "./data";
 

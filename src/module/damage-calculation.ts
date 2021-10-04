@@ -1,7 +1,7 @@
 import { Alignment } from "@actor/creature/data";
 import { ModeOfBeing } from "@actor/data";
 import { isChaotic, isEvil, isGood, isLawful } from "./alignment";
-import { groupBy, sum } from "./utils";
+import { groupBy, sum } from "../util";
 
 const physicalDamageTypes = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const lifeEnergyDamageTypes = ["positive", "negative"] as const;

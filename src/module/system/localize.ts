@@ -1,4 +1,4 @@
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import * as translationsPF2e from "static/lang/en.json";
 
 type TranslationsPF2e = Record<string, TranslationDictionaryValue> & typeof translationsPF2e;

@@ -1,5 +1,5 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
-import { fontAwesomeIcon } from "@module/utils";
+import { fontAwesomeIcon } from "@util";
 
 export const RenderSettings = {
     listen: (): void => {

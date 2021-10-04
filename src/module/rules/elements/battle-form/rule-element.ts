@@ -6,7 +6,7 @@ import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";

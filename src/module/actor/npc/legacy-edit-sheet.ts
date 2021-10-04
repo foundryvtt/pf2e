@@ -3,7 +3,7 @@ import { SKILL_DICTIONARY } from "@actor/data/values";
 import { NPCPF2e } from ".";
 import { identifyCreature } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { getActionIcon, objectHasKey } from "@module/utils";
+import { getActionIcon, objectHasKey } from "@util";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { SpellcastingSheetData } from "./sheet";
 import { ItemDataPF2e } from "@item/data";

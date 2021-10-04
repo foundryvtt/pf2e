@@ -186,8 +186,8 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
  * @param obj The object to check
  * @param key The key to check
  */
-export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
-    return key in obj;
+export function objectHasKey<O extends object>(obj: O, key: unknown): key is keyof O {
+    return (typeof key === "string" || typeof key === "number") && key in obj;
 }
 
 /**
@@ -275,7 +275,7 @@ export function getActionGlyph(action: string | number | null | { type: string; 
     return actionGlyphMap[sanitized] ?? "";
 }
 
-export function ErrorPF2e(message: string) {
+export function ErrorPF2e(message: string): Error {
     return Error(`PF2e System | ${message}`);
 }
 

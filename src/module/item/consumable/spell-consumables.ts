@@ -3,7 +3,7 @@ import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor/index";
 import { ConsumableData, ConsumableSource, SpellSource, TrickMagicItemCastData } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
 import { calculateDC, DCOptions } from "@module/dc";
-import { ErrorPF2e, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, tupleHasValue } from "@util";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",

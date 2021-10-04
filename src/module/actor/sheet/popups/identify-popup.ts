@@ -1,6 +1,6 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from "@item/identification";
 import { PhysicalItemPF2e } from "@item/physical";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
     static override get defaultOptions(): FormApplicationOptions {
