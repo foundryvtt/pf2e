@@ -46,7 +46,7 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     activeEffects: AESheetData;
 }
 
-export interface PhysicalItemSheetDataPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
