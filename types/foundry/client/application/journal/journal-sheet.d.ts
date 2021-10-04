@@ -4,8 +4,8 @@
  * @param entity The JournalEntry instance which is being edited
  * @param options Application options
  */
-declare class JournalSheet extends DocumentSheet<JournalEntry> {
-    constructor(object: JournalEntry, options?: DocumentSheetOptions);
+declare class JournalSheet<TJournalEntry extends JournalEntry> extends DocumentSheet<TJournalEntry> {
+    constructor(object: TJournalEntry, options?: DocumentSheetOptions);
 
     protected _sheetMode: string | null;
 
@@ -24,7 +24,7 @@ declare class JournalSheet extends DocumentSheet<JournalEntry> {
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[];
 
-    override getData(options: DocumentSheetOptions): DocumentSheetData;
+    override getData(options: DocumentSheetOptions): DocumentSheetData<TJournalEntry>;
 
     override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 

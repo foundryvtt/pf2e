@@ -10,8 +10,8 @@ const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
-    override getData(): SpellSheetData {
-        const data: ItemSheetDataPF2e<SpellPF2e> = super.getData();
+    override async getData(): Promise<SpellSheetData> {
+        const data: ItemSheetDataPF2e<SpellPF2e> = await super.getData();
 
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
