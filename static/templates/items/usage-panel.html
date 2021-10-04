@@ -4,7 +4,7 @@
         <header>
             <strong>{{localize "PF2E.ItemActivate.Label"}}</strong>
             {{#unless action.components.cast}}
-                {{{actionGlyph action.activationTime}}}
+                {{{actionGlyph action.actionCost}}}
             {{/unless}}
             {{action.componentsLabel}}
             <div class="item-controls">
@@ -14,17 +14,16 @@
 
         <div class="details-container-flex-row">
             <div class="details-container-flex-row activation-time">
-                <select name="{{base}}.activationTime.type" data-dtype="String">
-                    {{#select action.activationTime.type}}
+                <select name="{{base}}.actionCost.type" data-dtype="String">
+                    {{#select action.actionCost.type}}
                         {{#each @root.actionTypes as |name type|}}
                             <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
-                {{#if (eq action.activationTime.type "action")}}
-                <select name="{{base}}.activationTime.value" data-dtype="Number">
-                    {{#select action.activationTime.value}}
-                        <option value=""></option>
+                {{#if (eq action.actionCost.type "action")}}
+                <select name="{{base}}.actionCost.value" data-dtype="Number">
+                    {{#select action.actionCost.value}}
                         {{#each @root.actionsNumber as |name type|}}
                             <option value="{{type}}">{{localize name}}</option>
                         {{/each}}
