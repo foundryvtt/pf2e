@@ -477,7 +477,8 @@ export class CompendiumBrowser extends Application {
         const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
         const armorFields = [...baseFields, "data.armorType.value", "data.group.value"];
         const weaponFields = [...baseFields, "data.weaponType.value", "data.group.value"];
-        const indexFields = [...new Set([...armorFields, ...weaponFields])];
+        const consumableFields = [...baseFields, "data.consumableType.value"];
+        const indexFields = [...new Set([...armorFields, ...weaponFields, ...consumableFields])];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("equipment"), indexFields)) {
@@ -492,6 +493,8 @@ export class CompendiumBrowser extends Application {
                         if (!hasAllIndexFields(itemData, armorFields)) skip = true;
                     } else if (itemData.type === "kit") {
                         if (!hasAllIndexFields(itemData, kitFields)) skip = true;
+                    } else if (itemData.type === "consumable") {
+                        if (!hasAllIndexFields(itemData, consumableFields)) skip = true;
                     } else {
                         if (!hasAllIndexFields(itemData, baseFields)) skip = true;
                     }
@@ -517,6 +520,7 @@ export class CompendiumBrowser extends Application {
                         "source",
                         "armorType",
                         "weaponType",
+                        "consumableType",
                         "group",
                     ];
 
@@ -544,6 +548,7 @@ export class CompendiumBrowser extends Application {
                 kit: game.i18n.localize("ITEM.TypeKit"),
             },
             rarities: CONFIG.PF2E.rarityTraits,
+            consumableTypes: CONFIG.PF2E.consumableTypes,
             weaponTypes: CONFIG.PF2E.weaponTypes,
             weaponGroups: CONFIG.PF2E.weaponGroups,
             source: [...sources].sort(),
@@ -1220,6 +1225,7 @@ export class CompendiumBrowser extends Application {
             itemtypes: {},
             rarity: {},
             weapontype: {},
+            consumabletype: {},
             proficiencies: {},
             actorsize: {},
             alignment: {},
