@@ -1,3 +1,5 @@
+import { EnrichContent } from "./ui/enrich-content";
+
 /** Patch EntityCollection and Compendium classes to fix Foundry bug causing new compendium entities to be created from
  *  derived data
  */
@@ -19,6 +21,8 @@ export function patchTextEditor(): void {
     const baseEnrichHTML = TextEditor.enrichHTML;
     TextEditor.enrichHTML = function enrichHTML(content: string, options?: EnrichHTMLOptions) {
         content = baseEnrichHTML.call(this, content, options);
+
+        content = EnrichContent.enrichString(content);
 
         const $html = $("<div/>");
         $html.html(content);
