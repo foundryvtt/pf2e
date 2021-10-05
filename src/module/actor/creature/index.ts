@@ -172,6 +172,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
         }
+
+        for (const changeEntries of Object.values(this.data.data.autoChanges)) {
+            changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+        }
     }
 
     // Set whether this actor is wearing armor
