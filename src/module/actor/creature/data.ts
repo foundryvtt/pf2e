@@ -94,8 +94,8 @@ export type SaveData = SkillData & { saveDetail?: string };
 export interface CreatureAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
+    hardness?: { value: number };
     perception: { value: number };
-
     speed: CreatureSpeeds;
 }
 
