@@ -204,13 +204,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        // Read-Only Actions
-        const readonlyActions: Record<string, { label: string; actions: any[] }> = {
-            interaction: { label: "Interaction Actions", actions: [] },
-            defensive: { label: "Defensive Actions", actions: [] },
-            offensive: { label: "Offensive Actions", actions: [] },
-        };
-
         const readonlyEquipment: unknown[] = [];
 
         const attacks: { weapon: { label: string; items: WeaponData[]; type: "weapon" } } = {
@@ -308,27 +301,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         parseInt((itemData.data.actions || {}).value, 10) || 1
                     ).imageUrl;
                     actions[actionType].actions.push(itemData);
-
-                    // Read-Only Actions
-                    if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                        switch (itemData.data.actionCategory.value) {
-                            case "interaction":
-                                readonlyActions.interaction.actions.push(itemData);
-                                actorData.hasInteractionActions = true;
-                                break;
-                            case "defensive":
-                                readonlyActions.defensive.actions.push(itemData);
-                                actorData.hasDefensiveActions = true;
-                                break;
-                            // Should be offensive but throw anything else in there too
-                            default:
-                                readonlyActions.offensive.actions.push(itemData);
-                                actorData.hasOffensiveActions = true;
-                        }
-                    } else {
-                        readonlyActions.offensive.actions.push(itemData);
-                        actorData.hasOffensiveActions = true;
-                    }
                 }
             }
 
@@ -362,31 +334,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
-
-                // Read-Only Actions
-                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                    switch (itemData.data.actionCategory.value) {
-                        case "interaction":
-                            readonlyActions.interaction.actions.push(itemData);
-                            actorData.hasInteractionActions = true;
-                            break;
-                        case "defensive":
-                            readonlyActions.defensive.actions.push(itemData);
-                            actorData.hasDefensiveActions = true;
-                            break;
-                        case "offensive":
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                            break;
-                        // Should be offensive but throw anything else in there too
-                        default:
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                    }
-                } else {
-                    readonlyActions.offensive.actions.push(itemData);
-                    actorData.hasOffensiveActions = true;
-                }
             }
 
             // class
@@ -484,7 +431,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
-        actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
 
