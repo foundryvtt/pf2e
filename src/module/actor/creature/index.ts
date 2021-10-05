@@ -154,6 +154,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
         hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
+        attributes.hardness ??= { value: 0 };
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
