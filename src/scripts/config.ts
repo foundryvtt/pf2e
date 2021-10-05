@@ -71,6 +71,7 @@ const ancestryTraits = {
     lizardfolk: "PF2E.TraitLizardfolk",
     orc: "PF2E.TraitOrc",
     oread: "PF2E.TraitOread",
+    poppet: "PF2E.TraitPoppet",
     ratfolk: "PF2E.TraitRatfolk",
     shisk: "PF2E.TraitShisk",
     shoony: "PF2E.TraitShoony",
