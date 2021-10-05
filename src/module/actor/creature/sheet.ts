@@ -16,12 +16,6 @@ import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    static override get defaultOptions() {
-        const options = super.defaultOptions;
-        options.itemIdentificationAttributes.push("data-spell-lvl", "data-slot-id");
-        return options;
-    }
-
     override itemRenderer = new CreatureSheetItemRenderer(this);
 
     override getData(options?: ActorSheetOptions) {
