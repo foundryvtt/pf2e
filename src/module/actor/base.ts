@@ -212,6 +212,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
+        this.data.data.autoChanges = {};
         this.preparePrototypeToken();
 
         // Setup the basic structure of pf2e flags with roll options
