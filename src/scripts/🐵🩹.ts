@@ -40,6 +40,4 @@ export function patchTextEditor(): void {
 
         return $html.html();
     };
-
-    // Todo TextEditor has a function activateListeners. Idea for future optimization: Overwrite the function and add the eventListeners for the pf2 inline buttons directly there.
 }
