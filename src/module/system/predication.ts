@@ -118,7 +118,7 @@ class StatementValidator {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.and) &&
-            statement.and.every((subProp) => this.isStatement(subProp))
+            statement.and.every((subProp) => this.isAtomic(subProp))
         );
     }
 
@@ -126,7 +126,7 @@ class StatementValidator {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.or) &&
-            statement.or.every((subProp) => this.isStatement(subProp))
+            statement.or.every((subProp) => this.isAtomic(subProp))
         );
     }
 
@@ -134,18 +134,16 @@ class StatementValidator {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.nor) &&
-            statement.nor.every((subProp) => this.isStatement(subProp))
+            statement.nor.every((subProp) => this.isAtomic(subProp))
         );
     }
 
     private static isNot(statement: { not?: unknown }): boolean {
-        return Object.keys(statement).length === 1 && !!statement.not && this.isStatement(statement.not);
+        return Object.keys(statement).length === 1 && !!statement.not && this.isAtomic(statement.not);
     }
 
     private static isIf(statement: { if?: unknown; then?: unknown }): boolean {
-        return (
-            Object.keys(statement).length === 2 && this.isStatement(statement.if) && this.isStatement(statement.then)
-        );
+        return Object.keys(statement).length === 2 && this.isAtomic(statement.if) && this.isAtomic(statement.then);
     }
 }
 
