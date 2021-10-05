@@ -28,7 +28,7 @@ import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { SKILL_DICTIONARY } from "@actor/data/values";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, ActorSheetOptionsPF2e } from "./data-types";
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
@@ -51,12 +51,11 @@ import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
  * @category Actor
  */
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-    static override get defaultOptions(): ActorSheetOptionsPF2e {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             submitOnClose: false,
-            itemIdentificationAttributes: [],
             scrollY: [
                 ".sheet-sidebar",
                 ".spellcastingEntry-list",
