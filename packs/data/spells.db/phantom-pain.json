@@ -15,6 +15,7 @@
             "value": "spell"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": true
@@ -25,11 +26,22 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "mental"
                     },
                     "value": "2d4"
+                },
+                "1": {
+                    "applyMod": false,
+                    "type": {
+                        "categories": [],
+                        "subtype": "persistent",
+                        "value": "mental"
+                    },
+                    "value": "1d4"
                 }
             }
         },
@@ -67,7 +79,8 @@
         },
         "scaling": {
             "damage": {
-                "0": "2d4"
+                "0": "2d4",
+                "1": "1d4"
             },
             "interval": 1
         },
