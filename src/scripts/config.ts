@@ -524,7 +524,7 @@ const traitsDescriptions = {
     druid: "PF2E.TraitDescriptionDruid",
     fighter: "PF2E.TraitDescriptionFighter",
     gunslinger: "PF2E.TraitDescriptionGunslinger",
-    inventor: "PF2E.TraitDescriptionInvetor",
+    inventor: "PF2E.TraitDescriptionInventor",
     investigator: "PF2E.TraitDescriptionInvestigator",
     monk: "PF2E.TraitDescriptionMonk",
     oracle: "PF2E.TraitDescriptionOracle",
