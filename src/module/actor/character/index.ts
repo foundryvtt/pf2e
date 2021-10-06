@@ -160,7 +160,8 @@ export class CharacterPF2e extends CreaturePF2e {
         // Resources
         const { resources } = this.data.data;
         resources.investiture = { value: 0, max: 10 };
-        resources.focus = { value: 0, max: 0 };
+        resources.focus ??= { value: 0, max: 0 };
+        resources.focus.max = 0;
 
         // Magic proficiencies
         systemData.magic = MAGIC_TRADITIONS.reduce(
