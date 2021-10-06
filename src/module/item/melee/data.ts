@@ -1,4 +1,4 @@
-import { ItemSystemData } from "@item/data/base";
+import { ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import type { MeleePF2e } from ".";
 
@@ -19,7 +19,11 @@ export interface MeleeDamageRoll {
     damageType: string;
 }
 
+export type NPCAttackTrait = keyof ConfigPF2e["PF2E"]["npcAttackTraits"];
+export type NPCAttackTraits = ItemTraits<NPCAttackTrait>;
+
 export interface MeleeSystemData extends ItemSystemData {
+    traits: NPCAttackTraits;
     attack: {
         value: string;
     };
