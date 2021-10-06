@@ -1,7 +1,7 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@util";
@@ -505,7 +505,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 if (!actor) return;
                 if (actor.data.data.saves[save]?.roll) {
                     const options = actor.getRollOptions(["all", "saving-throw", save]);
-                    options.push("magical", "spell");
+                    if (item instanceof SpellPF2e) {
+                        options.push("magical", "spell");
+                        if (Object.keys(item.data.data.damage.value).length > 0) {
+                            options.push("damaging-effect");
+                        }
+                    }
                     if (itemTraits) {
                         options.push(...itemTraits);
                     }

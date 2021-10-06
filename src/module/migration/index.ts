@@ -74,6 +74,7 @@ import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "./migrations/670-ancestry-vision";
 import { Migration671NoPCItemsOnNonPCs } from "./migrations/671-no-pc-items-on-non-pcs";
 import { Migration672RemoveNPCBaseProperties } from "./migrations/672-remove-npc-base-properties";
+import { Migration673RemoveBulwarkREs } from "./migrations/673-remove-bulwark-res";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -152,6 +153,7 @@ export class Migrations {
         Migration670AncestryVision,
         Migration671NoPCItemsOnNonPCs,
         Migration672RemoveNPCBaseProperties,
+        Migration673RemoveBulwarkREs,
     ];
 
     static get latestVersion(): number {
