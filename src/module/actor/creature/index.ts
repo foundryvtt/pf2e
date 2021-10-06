@@ -23,7 +23,7 @@ import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
@@ -154,6 +154,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
         hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
+        attributes.hardness ??= { value: 0 };
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
@@ -171,6 +172,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
+        }
+
+        for (const changeEntries of Object.values(this.data.data.autoChanges)) {
+            changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
         }
     }
 

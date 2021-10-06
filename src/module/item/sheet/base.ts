@@ -13,7 +13,7 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 
@@ -41,7 +41,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return options;
     }
 
-    override getData() {
+    override async getData() {
         const data: any = this.getBaseData();
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;

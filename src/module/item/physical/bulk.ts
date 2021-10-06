@@ -1,5 +1,5 @@
 import { Size, SIZES } from "@module/data";
-import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@module/utils";
+import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@util";
 import { ItemDataPF2e, PhysicalItemData } from "../data";
 import { isPhysicalData } from "../data/helpers";
 

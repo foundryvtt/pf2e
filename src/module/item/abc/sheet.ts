@@ -17,7 +17,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         };
     }
 
-    override getData(): ABCSheetData<TItem> {
+    override async getData(): Promise<ABCSheetData<TItem>> {
         const itemType = this.item.type;
 
         return {

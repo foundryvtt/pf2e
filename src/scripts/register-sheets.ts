@@ -9,7 +9,7 @@ import { NPCSheetPF2e } from "@actor/npc/sheet";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { KitSheetPF2e } from "@item/kit/sheet";
 import { AncestrySheetPF2e } from "@item/ancestry/sheet";
-import { BackgroundSheetPF2e } from "@item/sheet/background";
+import { BackgroundSheetPF2e } from "@item/background/sheet";
 import { ClassSheetPF2e } from "@item/class/sheet";
 import { SpellSheetPF2e } from "@item/spell/sheet";
 import { LocalizePF2e } from "@system/localize";

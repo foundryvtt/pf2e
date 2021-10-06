@@ -19,7 +19,7 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from "./dc";
-import { toNumber } from "./utils";
+import { toNumber } from "../util";
 
 const identifySkills = new Map<string, SkillAbbreviation[]>();
 identifySkills.set("aberration", ["occ"]);

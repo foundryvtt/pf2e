@@ -1,9 +1,10 @@
 import {
     Abilities,
     Alignment,
-    CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
+    CreatureAttributes,
+    CreatureHitPoints,
     CreatureSystemData,
     SaveData,
     SkillData,
@@ -13,6 +14,7 @@ import {
     DexterityModifierCapData,
     PerceptionData,
     RawInitiativeData,
+    Rollable,
     StrikeData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
@@ -76,11 +78,16 @@ interface RawNPCStrike extends StrikeData {
 /** The full data for a NPC action (used primarily for strikes.) */
 export type NPCStrike = StatisticModifier & RawNPCStrike;
 
-// NPCs have an additional 'base' field used for computing the modifiers.
-/** Normal armor class data, but with an additional 'base' value. */
-type NPCArmorClassData = ArmorClassData & { base?: number };
-/** Normal save data, but with an additional 'base' value. */
-type NPCSaveData = SaveData & { base?: number; saveDetail: string };
+/** AC data with an additional "base" value */
+export interface NPCArmorClass extends ArmorClassData {
+    base?: number;
+}
+
+/** Save data with an additional "base" value */
+export interface NPCSaveData extends SaveData {
+    base?: number;
+    saveDetail: string;
+}
 /** Saves with NPCSaveData */
 interface NPCSaves {
     fortitude: NPCSaveData;
@@ -88,9 +95,16 @@ interface NPCSaves {
     will: NPCSaveData;
 }
 
-/** Normal skill data, but with an additional 'base' value. */
-type NPCPerceptionData = PerceptionData & { base?: number };
-/** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
+export interface NPCHitPoints extends CreatureHitPoints {
+    base?: number;
+}
+
+/** Perception data with an additional "base" value */
+export interface NPCPerception extends PerceptionData {
+    base?: number;
+}
+
+/** Skill data with a "base" value and whether the skill should be rendered (visible) */
 export interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
@@ -98,16 +112,12 @@ export interface NPCSkillData extends SkillData {
     expanded: string;
 }
 
-interface NPCInitiativeData extends RawInitiativeData {
-    circumstance: number;
-    status: number;
-}
+type NPCInitiativeData = RawInitiativeData & StatisticModifier & Rollable;
 
 export interface NPCAttributes extends CreatureAttributes {
-    /** The armor class of this NPC. */
-    ac: NPCArmorClassData;
-    /** The perception score for this NPC. */
-    perception: NPCPerceptionData;
+    ac: NPCArmorClass;
+    hp: NPCHitPoints;
+    perception: NPCPerception;
 
     /** Sources of the dexterity modifier cap to AC */
     dexCap: DexterityModifierCapData[];

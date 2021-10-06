@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 export class Migration658MonkUnarmoredProficiency extends MigrationBase {

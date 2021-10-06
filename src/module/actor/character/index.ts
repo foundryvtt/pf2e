@@ -34,7 +34,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e, toNumber } from "@module/utils";
+import { ErrorPF2e, toNumber } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../index";
 import { LocalizePF2e } from "@module/system/localize";
@@ -160,7 +160,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Resources
         const { resources } = this.data.data;
         resources.investiture = { value: 0, max: 10 };
-        resources.focus = mergeObject({ value: 0, max: 0 }, resources.focus ?? {});
+        resources.focus = { value: 0, max: 0 };
 
         // Magic proficiencies
         systemData.magic = MAGIC_TRADITIONS.reduce(

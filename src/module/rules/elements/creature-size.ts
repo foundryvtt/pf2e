@@ -2,7 +2,7 @@ import { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
 

@@ -1,7 +1,7 @@
 import { PhysicalItemPF2e } from "@item/index";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { ActorPF2e } from "./index";
 
 export interface ItemTransferData {

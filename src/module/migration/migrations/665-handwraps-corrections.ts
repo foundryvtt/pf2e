@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Correct the usage and misspelled icon filename for handwraps of mighty blows */
