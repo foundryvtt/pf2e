@@ -60,6 +60,8 @@ export const CLASS_TRAITS = [
     "cleric",
     "druid",
     "fighter",
+    "gunslinger",
+    "inventor",
     "investigator",
     "magus",
     "monk",
