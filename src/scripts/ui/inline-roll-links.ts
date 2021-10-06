@@ -323,7 +323,7 @@ export const InlineRollsLinks = {
         });
 
         $links.filter("[data-pf2-effect-area]").on("click", (event) => {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData = "{}" } = event.currentTarget.dataset;
+            const { pf2EffectArea, pf2Distance, pf2TemplateData = "{}", pf2Traits } = event.currentTarget.dataset;
             const templateConversion: Record<string, string> = {
                 burst: "circle",
                 emanation: "circle",
@@ -347,6 +347,16 @@ export const InlineRollsLinks = {
                 }
 
                 templateData.fillColor ||= game.user.color;
+
+                if (pf2Traits) {
+                    templateData.flags = {
+                        pf2e: {
+                            origin: {
+                                traits: pf2Traits.split(","),
+                            },
+                        },
+                    };
+                }
 
                 const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
                 const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
