@@ -1379,6 +1379,7 @@ export const PF2ECONFIG = {
         aura: "PF2E.TraitAura",
         chaotic: "PF2E.TraitChaotic",
         clockwork: "PF2E.TraitClockwork",
+        cobbled: "PF2E.TraitCobbled",
         companion: "PF2E.TraitCompanion",
         cold: "PF2E.TraitCold",
         contract: "PF2E.TraitContract",
