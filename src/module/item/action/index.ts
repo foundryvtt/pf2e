@@ -2,13 +2,14 @@ import { ItemPF2e } from "@item/base";
 import { ActionData } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
+import { ActionCost } from "@item/data/base";
 
 export class ActionPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {
         return ActionData;
     }
 
-    get actionCost() {
+    get actionCost(): ActionCost | null {
         const actionType = this.data.data.actionType.value || "passive";
         if (actionType === "passive") return null;
 
@@ -29,7 +30,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
+    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
 
         // Feat properties
