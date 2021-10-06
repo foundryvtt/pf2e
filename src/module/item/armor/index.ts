@@ -89,6 +89,22 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
     }
 
+    override prepareActorData(this: Embedded<ArmorPF2e>): void {
+        if (this.isArmor && this.isEquipped) {
+            const traits = this.traits;
+            for (const [trait, domain] of [
+                ["bulwark", "saving-throw"],
+                ["flexible", "skill-check"],
+                ["noisy", "skill-check"],
+            ] as const) {
+                if (traits.has(trait)) {
+                    const checkOptions = (this.actor.rollOptions[domain] ??= {});
+                    checkOptions[`self:armor:trait:${trait}`] = true;
+                }
+            }
+        }
+    }
+
     override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);

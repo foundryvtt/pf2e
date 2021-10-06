@@ -546,7 +546,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 proficiency = wornArmor.category;
                 // armor check penalty
-                if (systemData.abilities.str.value < Number(wornArmor.strength ?? 0)) {
+                if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
                     armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
                 }
                 const armorBonus =
@@ -604,7 +604,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Skill modifiers
 
-        const skills: Partial<CharacterSystemData["skills"]> = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
+        // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
+        const skills: Partial<CharacterSystemData["skills"]> = {};
 
         for (const shortForm of SKILL_ABBREVIATIONS) {
             const skill = systemData.skills[shortForm];
@@ -616,16 +617,34 @@ export class CharacterPF2e extends CreaturePF2e {
             // workaround for the shortform skill names
             const longForm = SKILL_DICTIONARY[shortForm];
 
-            if (wornArmor?.traits.has("flexible") && ["acr", "ath"].includes(shortForm)) {
-                this.data.flags.pf2e.rollOptions[longForm] = { "armor:ignore-check-penalty": true };
+            // Indicate that the strength requirement of this actor's armor is met
+            if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
+                const skillCheckOptions = (this.rollOptions["skill-check"] ??= {});
+                skillCheckOptions[`self:armor:strength-requirement-met`] = true;
             }
-            if (skill.armor && systemData.attributes.ac.check && systemData.attributes.ac.check < 0) {
+
+            if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
                 const armorCheckPenalty = new ModifierPF2e(
                     "PF2E.ArmorCheckPenalty",
-                    systemData.attributes.ac.check,
+                    wornArmor.checkPenalty,
                     MODIFIER_TYPE.UNTYPED
                 );
+
+                // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
+                if (["acr", "ath"].includes(shortForm)) {
+                    armorCheckPenalty.predicate.not.push(
+                        "self:armor:strength-requirement-met",
+                        "self:armor:trait:flexible"
+                    );
+                } else if (shortForm === "ste" && wornArmor.traits.has("noisy")) {
+                    armorCheckPenalty.predicate.not.push({
+                        and: ["self:armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
+                    });
+                } else {
+                    armorCheckPenalty.predicate.not.push("self:armor:strength-requirement-met");
+                }
+
                 modifiers.push(armorCheckPenalty);
             }
 
