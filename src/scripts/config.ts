@@ -1418,6 +1418,7 @@ export const PF2ECONFIG = {
         skill: "PF2E.TraitSkill",
         fortune: "PF2E.TraitFortune",
         downtime: "PF2E.TraitDowntime",
+        time: "PF2E.TraitTime",
         secret: "PF2E.TraitSecret",
         additive1: "PF2E.TraitAdditive1",
         additive2: "PF2E.TraitAdditive2",
