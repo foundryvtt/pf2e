@@ -377,32 +377,41 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Saves
         const { wornArmor } = this;
-        for (const saveName of ["fortitude", "reflex", "will"] as const) {
-            const save = systemData.saves[saveName];
+        for (const saveType of SAVE_TYPES) {
+            const save = systemData.saves[saveType];
             // Base modifiers from ability scores & level/proficiency rank.
-            const ability = save.ability;
-            const modifiers = [
-                AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
-                ProficiencyModifier.fromLevelAndRank(this.level, save.rank),
-            ];
+            const abilityModifier = AbilityModifier.fromAbilityScore(
+                save.ability,
+                systemData.abilities[save.ability].value
+            );
+            const modifiers = [abilityModifier, ProficiencyModifier.fromLevelAndRank(this.level, save.rank)];
             const notes: RollNotePF2e[] = [];
 
-            // Add resiliency bonuses for wearing armor with a resiliency rune.
-            if (wornArmor) {
+            // Add resilient bonuses for wearing armor with a resilient rune.
+            if (wornArmor?.data.data.resiliencyRune.value) {
                 const resilientBonus = getResiliencyBonus(wornArmor.data.data);
                 if (resilientBonus > 0 && wornArmor.isInvested) {
                     modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
             }
+            if (wornArmor?.traits.has("bulwark") && saveType === "reflex") {
+                const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
+                bulwarkModifier.predicate = new PredicatePF2e({
+                    all: ["damaging-effect"],
+                    not: ["self:armor:bulwark-all"],
+                });
+                modifiers.push(bulwarkModifier);
+                abilityModifier.predicate.not.push(
+                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
+                    "self:armor:bulwark-all"
+                );
 
-            // Add explicit item bonuses which were set on this save; hopefully this will be superceded
-            // by just using custom modifiers in the future.
-            if (save.item) {
-                modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", Number(save.item), MODIFIER_TYPE.ITEM));
+                const reflexRollOptions = (this.rollOptions["reflex"] ??= {});
+                reflexRollOptions["self:armor:trait:bulwark"] = true;
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            const rollOptions = [saveName, `${ability}-based`, "saving-throw", "all"];
+            const rollOptions = [saveType, `${save.ability}-based`, "saving-throw", "all"];
             rollOptions.forEach((key) => {
                 (statisticsModifiers[key] || [])
                     .map((m) => m.clone())
@@ -412,10 +421,15 @@ export class CharacterPF2e extends CreaturePF2e {
                     });
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
+            for (const modifier of modifiers) {
+                modifier.ignored = !modifier.predicate.test(
+                    this.getRollOptions(modifier.defaultRollOptions ?? rollOptions)
+                );
+            }
 
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
             // overwrite potentially changed fields.
-            const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, { overwrite: false });
+            const stat = mergeObject(new StatisticModifier(saveType, modifiers), save, { overwrite: false });
             stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = (stat.modifiers as ModifierPF2e[])
@@ -424,7 +438,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
+                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, save.rank);
@@ -439,7 +453,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             };
 
-            systemData.saves[saveName] = stat;
+            systemData.saves[saveType] = stat;
         }
 
         // Martial
@@ -542,7 +556,7 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = "unarmored";
 
-            if (wornArmor) {
+            if (wornArmor?.checkPenalty) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 proficiency = wornArmor.category;
                 // armor check penalty
