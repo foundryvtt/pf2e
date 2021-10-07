@@ -27,6 +27,8 @@ export interface RollParameters {
     options?: string[];
     /** Optional DC data for the roll */
     dc?: CheckDC;
+    /** Optional fate data for the roll */
+    fate?: FateString;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */
@@ -37,7 +39,7 @@ export interface RollParameters {
     item?: Embedded<ItemPF2e> | null;
 }
 
-export type FateString = "none" | "fortune" | "misfortune";
+export type FateString = "none" | "fortune" | "misfortune" | "assurance" | "override";
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -48,8 +50,17 @@ export interface CheckModifiersContext {
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
-    /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
+    /** Fortune effect which applies to the roll:
+     * 'fortune' (2 dice, keep higher)
+     * 'misfortune' (2 dice, keep lower)
+     * 'assurance' (10 + proficiency)
+     * 'override' (Replace dice roll with value specified in fateOverride)
+     */
     fate?: FateString;
+    /** The value to use instead of a dice roll for fate 'override'*/
+    fateOverride?: number;
+    /** The actor which initiated this roll. */
+
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
@@ -157,6 +168,9 @@ export class CheckPF2e {
         } else if (ctx.fate === "fortune") {
             dice = "2d20kh";
             options.push("PF2E.TraitFortune");
+        } else if (ctx.fate === "assurance" || ctx.fate === "override") {
+            dice = String(ctx.fateOverride ?? 10);
+            options.push("PF2E.TraitFortune");
         }
 
         const speaker: { actor?: ActorPF2e } = {};
@@ -176,18 +190,22 @@ export class CheckPF2e {
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
 
-        const modifierBreakdown = check.modifiers
-            .filter((m) => m.enabled)
-            .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
-            })
-            .join("");
+        // const modifierBreakdown = check.modifiers
+        //     .filter((m) => m.enabled)
+        //     .map((m) => {
+        //         const label = game.i18n.localize(m.label ?? m.name);
+        //         return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
+        //     })
+        //     .join("");
 
-        const optionStyle =
-            "white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);";
+        CheckModifiersDialog.checkAssurance(check, context);
+
+        // const optionStyle =
+        //     "white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);";
+        const modifierBreakdown = this.buildModifiers(ctx, dice, check);
         const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
+            // .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
+            .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
@@ -283,7 +301,9 @@ export class CheckPF2e {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !["fortune", "misfortune"].includes(ctx.fate),
+                        // canReroll: !["fortune", "misfortune"].includes(ctx.fate),
+                        canReroll: !["fortune", "misfortune", "assurance", "override"].includes(ctx.fate),
+                        isCheck: true,
                         context,
                         unsafe: flavor,
                         modifierName: check.name,
@@ -303,6 +323,32 @@ export class CheckPF2e {
         }
 
         return message;
+    }
+
+    private static buildModifiers(ctx: ExtendedCheckModifersContext, dice: string, check: StatisticModifier) {
+        let modifierBreakdown = "";
+
+        const optionTemplate = (content: string, style = "") => {
+            return `<span class="tag tag_alt" style="${style}">${content}</span>`;
+        };
+        const fortuneTemplate = (fortune: string) =>
+            optionTemplate(`${game.i18n.localize(`PF2E.Roll.${fortune}`)} ${dice}`, "background: var(--primary);");
+
+        if (ctx.fate === "assurance") {
+            modifierBreakdown += fortuneTemplate("Assurance");
+        } else if (ctx.fate === "override") {
+            modifierBreakdown += fortuneTemplate("Override");
+        }
+
+        modifierBreakdown += check.modifiers
+            .filter((m) => m.enabled)
+            .map((m) => {
+                const label = game.i18n.localize(m.label ?? m.name);
+                return optionTemplate(`${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`);
+            })
+            .join("");
+
+        return modifierBreakdown;
     }
 
     /** Reroll a rolled check given a chat message. */

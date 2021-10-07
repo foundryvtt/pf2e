@@ -1,5 +1,5 @@
-import { ModifierPF2e, StatisticModifier } from "../modifiers";
-import { CheckModifiersContext, FateString } from "./rolls";
+import { MODIFIER_TYPE, ModifierPF2e, StatisticModifier } from "../modifiers";
+import { CheckModifiersContext } from "./rolls";
 import { LocalizePF2e } from "./localize";
 
 /**
@@ -34,27 +34,53 @@ export class CheckModifiersDialog extends Application {
         } else {
             this.context.rollMode = game.settings.get("core", "rollMode") ?? "roll";
         }
+
+        CheckModifiersDialog.checkAssurance(check, this.context);
     }
 
     override getData() {
         const fortune = this.context.fate === "fortune";
         const misfortune = this.context.fate === "misfortune";
-        const none = fortune === misfortune;
+        const assurance = this.context.fate === "assurance";
+        const override = this.context.fate === "override";
+
+        const none = !fortune && !misfortune && !assurance && !override;
+
+        const fateOverride: number = +(this?.context?.fateOverride ?? 10);
+
         return {
             appId: this.id,
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
-            fortune,
-            none,
-            misfortune,
+            fate: {
+                fortune: fortune,
+                misfortune: misfortune,
+                assurance: assurance,
+                override: override,
+                overrideValue: fateOverride,
+                none: none,
+            },
+            assuranceAllowed: this?.context?.type === "skill-check",
         };
+    }
+
+    /**
+     * If the fate condition is "assurance" then auto-disable all non-proficiency bonuses. Using the "autoIgnored"
+     * rather "ignored" means that, if the fate is changed from "assurance", the previously-enabled modifiers will
+     * be automatically re-enabled.
+     */
+    static checkAssurance(check: StatisticModifier, context: CheckModifiersContext) {
+        const isAssurance = context.fate === "assurance";
+        check.modifiers
+            .filter((m) => m.type !== MODIFIER_TYPE.PROFICIENCY)
+            .forEach((m) => (m.autoIgnored = isAssurance));
+        check.applyStackingRules();
     }
 
     override activateListeners(html: JQuery) {
         html.find(".roll").on("click", (_event) => {
-            this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as FateString;
             this.resolve(true);
             this.isResolved = true;
             this.close();
@@ -69,6 +95,9 @@ export class CheckModifiersDialog extends Application {
 
         html.find(".add-modifier-panel").on("click", ".add-modifier", (event) => this.onAddModifier(event));
         html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
+        html.find(".fate")
+            .on("click", "input[type=radio]", (event) => this.onChangeFate(event))
+            .on("input", "input[type=number]", (event) => this.onChangeFateOverride(event));
 
         // Dialog settings menu
         const $settings = html.closest(`#${this.id}`).find("a.header-button.settings");
@@ -122,6 +151,39 @@ export class CheckModifiersDialog extends Application {
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
         this.context.rollMode = ($(event.currentTarget).val() ?? "roll") as RollMode;
+    }
+
+    onChangeFate(event: JQuery.ClickEvent) {
+        this.context.fate = event.currentTarget.getAttribute("value");
+        if (
+            this.context.fate === "assurance" ||
+            (this.context.fate === "override" && this.context.fateOverride === undefined)
+        ) {
+            this.context.fateOverride = 10;
+        }
+
+        CheckModifiersDialog.checkAssurance(this.check, this.context);
+        this.render();
+    }
+
+    onChangeFateOverride(event: JQuery.TriggeredEvent) {
+        let fateOverride = event.currentTarget.value;
+        let refresh = false;
+
+        if (fateOverride % 1 !== 0) {
+            fateOverride = Math.floor(fateOverride);
+            refresh = true;
+        }
+
+        if (fateOverride < 1 || fateOverride > 20) {
+            fateOverride = Math.clamped(fateOverride, 1, 20);
+            refresh = true;
+        }
+
+        this.context.fateOverride = fateOverride;
+        if (refresh) {
+            this.render();
+        }
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {

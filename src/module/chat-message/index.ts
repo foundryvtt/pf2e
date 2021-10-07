@@ -28,9 +28,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
         const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
         const fromRollTable = !!this.data.flags.core.RollTable;
+        const isCheck = !!this.data.flags.pf2e.isCheck;
         const isRoll = isDamageRoll || this.isRoll;
         const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
-        return isRoll && !(isD20 || fromRollTable);
+        return isRoll && !(isD20 || fromRollTable || isCheck);
     }
 
     /** Get the actor associated with this chat message */
@@ -169,6 +170,7 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     get roll(): Rolled<Roll<RollDataPF2e>>;
 
     getFlag(scope: "core", key: "RollTable"): unknown;
+    getFlag(scope: "pf2e", key: "isCheck"): boolean | undefined;
     getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
     getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
     getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
