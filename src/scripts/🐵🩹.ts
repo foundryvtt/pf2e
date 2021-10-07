@@ -21,7 +21,7 @@ export function patchTextEditor(): void {
     const baseEnrichHTML = TextEditor.enrichHTML;
     TextEditor.enrichHTML = function enrichHTML(content: string, options?: EnrichHTMLOptions) {
         content = EnrichContent.enrichString(content);
-        
+
         content = baseEnrichHTML.call(this, content, options);
 
         const $html = $("<div/>");
