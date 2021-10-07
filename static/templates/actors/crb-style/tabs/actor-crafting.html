@@ -5,6 +5,18 @@
                 <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
                     {{localize 'PF2E.FormulaKnownTitle'}}
                 </h3>
+
+                {{#if @root.owner}}
+                <div class="item-controls">
+                    <a class="item-control toggle-free-crafting" title="Toggle free crafting">
+                        {{#if actor.flags.pf2e.freeCrafting}} 
+                            <i class="far fa-check-square"></i>
+                            {{else}}
+                            <i class="far fa-square"></i>
+                        {{/if}}
+                    </a>
+                </div>
+                {{/if}}
             </div>
             <ol class="directory-list item-list formula-list">
                 <!-- Add section for each formula level -->
@@ -17,6 +29,7 @@
 
                     <div class="formula-dc-header">DC</div>
                     <div class="formula-cost-header">Cost</div>
+                    <div class="formula-quantity-header">Quantity</div>
 
                     {{#if @root.owner}}
                     <div class="item-controls">
@@ -39,9 +52,20 @@
 
                     <div class="formula-dc">{{craftedItem.dc}}</div>
                     <div class="formula-cost">{{craftedItem.price}}</div>
+                    <div class="formula-quantity">
+                        <a class="formula-decrease-quantity">
+                            -
+                        </a>
+                        <input type="number" value="1"/>
+                        <a class="formula-increase-quantity">
+                            +
+                        </a>
+                    </div>
 
                     {{#if @root.owner}}
                     <div class="item-controls">
+                        <a class="item-control craft-item" title="Craft" data-item-uuid="{{craftedItem.uuid}}" data-craft-dc="{{craftedItem.dc}}" data-item-price="{{craftedItem.price}}"><i
+                            class="fas fa-hammer"></i></a>
                         <a class="item-control formula-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i
                                 class="fas fa-trash"></i></a>
                     </div>

@@ -1,0 +1,26 @@
+<div class="crafting">
+    <form>
+        <div class="form-group">
+            <label>Item:</label>
+            <input name="itemName" type="text" disabled value="{{itemName}}">
+        </div>
+        <hr>
+        <div class="form-group">
+            <label>Craft DC:</label>
+            <input name="craftDC" type="number" value="{{craftDC}}">
+        </div>
+        <div class="form-group">
+            <label>Item Cost:</label>
+            <input name="itemPrice" type="text" value="{{itemPrice}}">
+        </div>
+        <div class="form-group">
+            <label>Quantity:</label>
+            <input name="quantity" type="number" value="{{itemQuantity}}" min="1">
+        </div>
+        {{#if actorUntrained}}
+        <p>
+            Warning: Must be at least Trained in Crafting to Craft.
+        </p>
+        {{/if}}
+    </form>
+</div>

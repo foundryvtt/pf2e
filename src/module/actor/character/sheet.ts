@@ -12,12 +12,13 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@util";
-import { LorePF2e } from "@item";
+import { LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
+import { CraftingForm, performRoll } from "@module/crafting/crafting";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -749,6 +750,94 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
             item.update(data);
+        });
+
+        html.find(".craft-item").on("click", async (event) => {
+            const itemUuid = $(event.currentTarget).data().itemUuid;
+            const craftDC: number = $(event.currentTarget).data().craftDc;
+            const itemPrice: String = $(event.currentTarget).data().itemPrice;
+            const itemQuantity = Number(
+                $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
+            );
+            const actor = this.actor;
+            const actorUntrained = actor.data.data.skills.cra.rank === 0;
+            const item = await fromUuid(itemUuid);
+
+            if (!(item instanceof PhysicalItemPF2e)) {
+                return;
+            }
+
+            if (this.actor.getFlag("pf2e", "freeCrafting")) {
+                const itemObject = item.toObject();
+                itemObject.data.quantity.value = itemQuantity;
+
+                const result = await actor.addItemToActor(itemObject, undefined);
+                if (!result) {
+                    ui.notifications.warn("Could not add items");
+                    return;
+                }
+
+                ChatMessage.create({
+                    user: game.user.id,
+                    content: `${actor.name} receives ${itemQuantity}x ${item.name}.`,
+                    speaker: { alias: actor.name },
+                });
+                return;
+            }
+
+            const content = await renderTemplate("systems/pf2e/templates/actors/crafting-form-dialog.html", {
+                itemName: item.name,
+                itemPrice: itemPrice,
+                craftDC: craftDC,
+                itemQuantity: itemQuantity,
+                actorUntrained: actorUntrained,
+            });
+
+            new Dialog({
+                title: "Craft Item",
+                content,
+                buttons: {
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: "Cancel",
+                    },
+                    craft: {
+                        icon: '<i class="fa fa-hammer"></i>',
+                        label: "Craft",
+                        callback: (html: JQuery) => {
+                            const form: CraftingForm = {
+                                dc: Number(html.find('[name="craftDC"]').val()),
+                                price: <string>html.find('[name="itemPrice"]').val(),
+                                quantity: Number(html.find('[name="quantity"]').val()),
+                                itemUuid: itemUuid,
+                            };
+                            performRoll(actor, item, event, form);
+                        },
+                    },
+                },
+                default: "craft",
+            }).render(true);
+        });
+
+        html.find(".formula-increase-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            $(event.currentTarget)
+                .siblings("input")
+                .first()
+                .val(value + 1);
+        });
+
+        html.find(".formula-decrease-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            if (value > 0)
+                $(event.currentTarget)
+                    .siblings("input")
+                    .first()
+                    .val(value - 1);
+        });
+
+        html.find(".toggle-free-crafting").on("click", () => {
+            this.actor.setFlag("pf2e", "freeCrafting", !this.actor.getFlag(game.system.id, "freeCrafting"));
         });
     }
 
