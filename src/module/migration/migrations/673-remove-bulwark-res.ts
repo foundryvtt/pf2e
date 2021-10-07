@@ -3,6 +3,7 @@ import { MigrationBase } from "../base";
 import { sluggify } from "@util";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
+/** Remove bulwark armor rule elements */
 export class Migration673RemoveBulwarkREs extends MigrationBase {
     static override version = 0.673;
 
