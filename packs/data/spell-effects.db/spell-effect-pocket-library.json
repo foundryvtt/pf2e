@@ -1,0 +1,91 @@
+{
+    "_id": "9ZIP6gWSp9OTEu8i",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Pocket Library]{Pocket Library}</p>\n<p>During the duration of this spell, you can call forth a tome from the extradimensional library when attempting a Recall Knowledge check using your chosen skill. This is part of the action to Recall Knowledge. You must have a hand free to do so. The tome appears in your hand, open to an appropriate page. This grants you a +1 status bonus on the Recall Knowledge check. If you roll a critical failure on this check, you get a failure instead. If the roll is successful and the subject is a creature, you gain additional information or context about the creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "pocket-library"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 1
+                        },
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 3
+                        },
+                        {
+                            "start": 9,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "pocket-library"
+                    ]
+                },
+                "type": "skill"
+            },
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.skill-check.pocket-library"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/pocket-library.webp",
+    "name": "Spell Effect: Pocket Library",
+    "type": "effect"
+}
