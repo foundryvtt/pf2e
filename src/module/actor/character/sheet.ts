@@ -760,6 +760,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             );
             if (!itemUuid) return;
 
+            const actor = this.actor;
+            const actorUntrained = actor.data.data.skills.cra.rank === 0;
+
             if (this.actor.getFlag("pf2e", "freeCrafting")) {
                 const item = await fromUuid(itemUuid);
                 if (!(item instanceof PhysicalItemPF2e)) {
