@@ -93,7 +93,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const formulaMap = new Map(this.craftingFormulas.map((data) => [data.uuid, data]));
         return (await fromUUIDs(this.craftingFormulas.map((data) => data.uuid)))
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
-            .map((item) => new CraftingFormula(item, formulaMap.get(item.uuid)!.dc));
+            .map((item) => {
+                const { dc, batchSize } = formulaMap.get(item.uuid) ?? {};
+                return new CraftingFormula(item, { dc, batchSize });
+            });
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */

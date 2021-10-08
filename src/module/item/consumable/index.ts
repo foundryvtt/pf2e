@@ -16,6 +16,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         return this.data.data.consumableType.value;
     }
 
+    get isAmmunition(): boolean {
+        return this.consumableType === "ammo";
+    }
+
     get charges() {
         return {
             current: this.data.data.charges.value,
