@@ -758,6 +758,7 @@ const consumableTraits = {
     ingested: "PF2E.TraitIngested",
     inhaled: "PF2E.TraitInhaled",
     injury: "PF2E.TraitInjury",
+    kobold: "PF2E.TraitKobold",
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
     mechanical: "PF2E.TraitMechanical",
