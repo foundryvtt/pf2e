@@ -1,5 +1,5 @@
 import { ConsumablePF2e, MeleePF2e, SpellPF2e } from "@item";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { StatisticModifier } from "@module/modifiers";
 
 export const ChatCards = {
@@ -26,9 +26,10 @@ export const ChatCards = {
             if (item) {
                 const spell =
                     item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
-                const strike: StatisticModifier = actor.data.data.actions?.find(
-                    (a: StatisticModifier) => a.item === item.id
-                );
+                const strike: StatisticModifier =
+                    "actions" in actor.data.data
+                        ? actor.data.data.actions.find((a: StatisticModifier) => a.item === item.id) ?? null
+                        : null;
                 const rollOptions = actor.getRollOptions(["all", "attack-roll"]);
 
                 if (action === "weaponAttack") {
@@ -66,18 +67,18 @@ export const ChatCards = {
                 // Consumable usage
                 else if (action === "consume" && item instanceof ConsumablePF2e) item.consume();
                 else if (action === "save") ActorPF2e.rollSave(event, item);
-            } else {
+            } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = card.attr("data-strike-index");
                 const strikeName = card.attr("data-strike-name");
                 const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
                 if (strikeAction && strikeAction.name === strikeName) {
-                    const options = (actor as ActorPF2e).getRollOptions(["all", "attack-roll"]);
+                    const options = actor.getRollOptions(["all", "attack-roll"]);
                     if (action === "strikeAttack") strikeAction.variants[0].roll({ event: event, options });
                     else if (action === "strikeAttack2") strikeAction.variants[1].roll({ event: event, options });
                     else if (action === "strikeAttack3") strikeAction.variants[2].roll({ event: event, options });
-                    else if (action === "strikeDamage") strikeAction.damage({ event: event, options });
-                    else if (action === "strikeCritical") strikeAction.critical({ event: event, options });
+                    else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
+                    else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
                 }
             }
         });

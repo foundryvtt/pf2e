@@ -372,6 +372,9 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollCounteract(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
+        if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) {
+            return;
+        }
         const itemData =
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)

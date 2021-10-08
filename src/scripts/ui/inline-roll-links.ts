@@ -171,10 +171,10 @@ export const InlineRollsLinks = {
                     break;
                 }
                 default: {
-                    const skillActors = actors.filter((actor) => "skills" in actor.data.data);
+                    const skillActors = actors.filter((actor): actor is CreaturePF2e => "skills" in actor.data.data);
                     const skill = SKILL_EXPANDED[pf2Check!]?.shortform ?? pf2Check!;
                     for (const actor of skillActors) {
-                        const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
+                        const skillCheck = actor.data.data.skills[skill ?? ""];
                         if (skill && skillCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
@@ -233,7 +233,7 @@ export const InlineRollsLinks = {
             if (actors.length) {
                 const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
                 const skill = SKILL_EXPANDED[pf2SkillCheck!]?.shortform ?? pf2SkillCheck!;
-                const skillActors = actors.filter((actor) => "skills" in actor.data.data);
+                const skillActors = actors.filter((actor): actor is CreaturePF2e => "skills" in actor.data.data);
                 for (const actor of skillActors) {
                     const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
                     if (skill && skillCheck) {

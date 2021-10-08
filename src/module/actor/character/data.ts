@@ -38,7 +38,7 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
 
 export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
-    data: CharacterSource["data"];
+    data: CharacterSystemData;
     readonly _source: CharacterSource;
 }
 
