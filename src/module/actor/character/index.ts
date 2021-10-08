@@ -394,7 +394,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
             }
-            if (wornArmor?.traits.has("bulwark") && saveType === "reflex") {
+
+            if (saveType === "reflex" && wornArmor?.traits.has("bulwark")) {
                 const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
                 bulwarkModifier.predicate = new PredicatePF2e({
                     all: ["damaging-effect"],
@@ -405,9 +406,6 @@ export class CharacterPF2e extends CreaturePF2e {
                     { and: ["self:armor:trait:bulwark", "damaging-effect"] },
                     "self:armor:bulwark-all"
                 );
-
-                const reflexRollOptions = (this.rollOptions["reflex"] ??= {});
-                reflexRollOptions["self:armor:trait:bulwark"] = true;
             }
 
             // Add custom modifiers and roll notes relevant to this save.
