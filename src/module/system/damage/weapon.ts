@@ -14,7 +14,7 @@ import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
 import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 
 export interface DamagePartials {
@@ -118,7 +118,7 @@ export function ensureWeaponSize(
 export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon: any,
-        actor: ActorPF2e,
+        actor: NPCPF2e,
         traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: any,
@@ -227,7 +227,7 @@ export class WeaponDamagePF2e {
 
     static calculate(
         weapon: WeaponData,
-        actor: ActorPF2e,
+        actor: CharacterPF2e | NPCPF2e,
         traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: Record<string, DamageDicePF2e[]>,

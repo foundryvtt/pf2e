@@ -34,6 +34,7 @@ export interface FamiliarSystemData extends CreatureSystemData {
             value: string;
         };
     };
+    actions?: undefined;
     attack: StatisticModifier & Rollable;
     attributes: FamiliarAttributes;
     skills: Record<SkillAbbreviation, SkillData>;
@@ -41,6 +42,4 @@ export interface FamiliarSystemData extends CreatureSystemData {
         id: string | null;
         ability: AbilityString | null;
     };
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
 }

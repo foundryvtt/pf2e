@@ -12,7 +12,6 @@ import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
@@ -925,40 +924,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         } else {
             throw Error("Dice can only be removed by name (string) or index (number)");
         }
-    }
-
-    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(rollName: string, optionName: string) {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-            throw new Error(`${rollName} is not a supported roll`);
-        }
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
-    }
-
-    /** Set the given roll option. */
-    async setRollOption(rollName: string, optionName: string, enabled: boolean) {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-            throw new Error(`${rollName} is not a supported roll`);
-        }
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.setFlag(game.system.id, flag, !!enabled);
-    }
-
-    /** Unset (i.e., delete entirely) the given roll option. */
-    async unsetRollOption(rollName: string, optionName: string) {
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.unsetFlag(game.system.id, flag);
-    }
-
-    /** Enable the given roll option for thie given roll name. */
-    async enableRollOption(rollName: string, optionName: string) {
-        return this.setRollOption(rollName, optionName, true);
-    }
-
-    /** Disable the given roll option for the given roll name. */
-    async disableRollOption(rollName: string, optionName: string) {
-        return this.setRollOption(rollName, optionName, false);
     }
 
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
