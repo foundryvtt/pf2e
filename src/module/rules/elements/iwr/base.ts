@@ -15,7 +15,14 @@ abstract class IWRRuleElement extends RuleElementPF2e {
 
     abstract get property(): unknown[];
 
-    abstract validate(value?: unknown): boolean;
+    validate(value: unknown): boolean {
+        return (
+            this.data.type in this.dictionary &&
+            typeof value == "number" &&
+            value > 0 &&
+            (!this.data.except || typeof this.data.except === "string")
+        );
+    }
 
     abstract getIWR(value?: unknown): string | object | null;
 
