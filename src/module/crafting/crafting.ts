@@ -203,16 +203,6 @@ function checkRequirements(actor: CharacterPF2e, item: PhysicalItemPF2e): Requir
     }
     requirements.push(proficiencyRequirement);
 
-    /* TOTO - Crafting type REQs
-    for (const craftingType of formulaData.data.craftingType.value) {
-        const value = actor.data.flags.pf2e?.crafting?.types?.[craftingType] ?? false;
-        const craftingTypeRequirement: Requirement = {
-            label: `Can Craft ${game.i18n.localize(CONFIG.PF2E.craftingTypes[craftingType])} Items`,
-            value: value,
-        };
-        requirements.push(craftingTypeRequirement);
-    }
-    */
 
     return requirements;
 }

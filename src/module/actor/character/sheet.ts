@@ -837,7 +837,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         html.find(".toggle-free-crafting").on("click", () => {
-            this.actor.setFlag("pf2e", "freeCrafting", !this.actor.getFlag(game.system.id, "freeCrafting"));
+            this.actor.setFlag("pf2e", "freeCrafting", !this.actor.getFlag("pf2e", "freeCrafting"));
         });
     }
 

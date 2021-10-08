@@ -775,11 +775,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         const result = await this.addItemToActor(newItemData, container);
 
-        if (!result) {
-            return null;
-        }
-
-        return item;
+        return result ? item : null;
     }
 
     async addItemToActor(
