@@ -753,19 +753,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         html.find(".craft-item").on("click", async (event) => {
-            const itemUuid = $(event.currentTarget).data().itemUuid;
-            const craftDC: number = $(event.currentTarget).data().craftDc;
-            const itemPrice: String = $(event.currentTarget).data().itemPrice;
+            const { itemUuid, craftDc, itemPrice } = event.currentTarget.dataset;
             const itemQuantity = Number(
                 $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
             );
-            const actor = this.actor;
-            const actorUntrained = actor.data.data.skills.cra.rank === 0;
+            if (!itemUuid) return;
             const item = await fromUuid(itemUuid);
 
             if (!(item instanceof PhysicalItemPF2e)) {
                 return;
             }
+
+            const actor = this.actor;
+            const actorUntrained = actor.data.data.skills.cra.rank === 0;
 
             if (this.actor.getFlag("pf2e", "freeCrafting")) {
                 const itemObject = item.toObject();
@@ -788,7 +788,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const content = await renderTemplate("systems/pf2e/templates/actors/crafting-form-dialog.html", {
                 itemName: item.name,
                 itemPrice: itemPrice,
-                craftDC: craftDC,
+                craftDC: craftDc,
                 itemQuantity: itemQuantity,
                 actorUntrained: actorUntrained,
             });
