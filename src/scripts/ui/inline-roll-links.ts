@@ -4,6 +4,7 @@ import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { StatisticBuilder } from "@system/statistic";
+import { calculateDC } from "@module/dc";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -84,7 +85,7 @@ export const InlineRollsLinks = {
         });
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
             const actors = resolveActors();
 
             switch (pf2Check) {
@@ -176,9 +177,16 @@ export const InlineRollsLinks = {
                     for (const actor of skillActors) {
                         const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
                         if (skill && skillCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                                : undefined;
+                            const dc = { label: pf2Label, value: 20 } as CheckDC;
+                            if (pf2Dc === "level") {
+                                const proficiencyWithoutLevel: boolean =
+                                    game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+                                const level = actor.data.data.details.level.value;
+                                const adjustment = Number.isInteger(Number(pf2Adjustment)) ? Number(pf2Adjustment) : 0;
+                                dc.value = calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
+                            } else {
+                                dc.value = Number.isInteger(Number(pf2Dc)) ? Number(pf2Dc) : 20;
+                            }
                             const options = actor.getRollOptions(["all", "skill-check", skill]);
                             if (pf2Traits) {
                                 const traits = pf2Traits
