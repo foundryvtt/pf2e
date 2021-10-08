@@ -9,22 +9,18 @@ class WeaknessRuleElement extends IWRRuleElement {
         return this.actor.data.data.traits.dv;
     }
 
-    validate(value: unknown): boolean {
-        return (
-            this.data.type in this.dictionary &&
-            typeof value == "number" &&
-            value > 0 &&
-            (!this.data.except || typeof this.data.except === "string")
-        );
-    }
-
     getIWR(value: number): LabeledWeakness | null {
         const weaknesses = this.property;
-        const current = weaknesses.find((weakness) => (weakness.type = this.data.type));
-        if (current)
-            this.data.override
-                ? weaknesses.splice(weaknesses.indexOf(current), 1)
-                : (current.value = Math.max(current.value, value));
+        const current = weaknesses.find((weakness) => weakness.type === this.data.type);
+        if (current) {
+            if (this.data.override) {
+                weaknesses.splice(weaknesses.indexOf(current), 1);
+            } else {
+                current.value = Math.max(current.value, value);
+                return null;
+            }
+        }
+
         return {
             label: this.dictionary[this.data.type],
             type: this.data.type,

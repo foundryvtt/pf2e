@@ -242,9 +242,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.rules = this.items.contents
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
-            .sort((elementA, elementB) => {
-                return elementA.priority > elementB.priority ? 1 : -1;
-            });
+            .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
