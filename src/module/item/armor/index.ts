@@ -93,7 +93,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         if (this.isArmor && this.isEquipped) {
             const traits = this.traits;
             for (const [trait, domain] of [
-                ["bulwark", "saving-throw"],
+                ["bulwark", "reflex"],
                 ["flexible", "skill-check"],
                 ["noisy", "skill-check"],
             ] as const) {
