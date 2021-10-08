@@ -445,9 +445,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!itemUuid) return;
 
             if (this.actor instanceof CharacterPF2e) {
-                const actorFormulas = this.actor.data.data.formulas;
+                const actorFormulas = this.actor.data.toObject().data.crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "data.formulas": actorFormulas });
+                this.actor.update({ "data.crafting.formulas": actorFormulas });
             }
         });
 
@@ -890,10 +890,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
             const formula = { uuid: item.sourceId ?? item.uuid };
-            const actorFormulas = actor.data.data.formulas;
+            const actorFormulas = actor.data.toObject().data.crafting.formulas;
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
                 actorFormulas.push(formula);
-                await actor.update({ "data.formulas": actorFormulas });
+                await actor.update({ "data.crafting.formulas": actorFormulas });
             }
             return [item];
         }

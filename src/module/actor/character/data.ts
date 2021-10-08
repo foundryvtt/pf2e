@@ -125,7 +125,10 @@ export interface CharacterSystemData extends CreatureSystemData {
 
     resources: CharacterResources;
 
-    formulas: CraftingFormulaData[];
+    /** Crafting-related data, including known formulas */
+    crafting: {
+        formulas: CraftingFormulaData[];
+    };
 }
 
 interface CharacterSaveData extends SaveData {

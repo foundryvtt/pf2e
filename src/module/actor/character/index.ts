@@ -36,7 +36,7 @@ import {
 } from "@module/rules/rules-data-definitions";
 import { ErrorPF2e, toNumber } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { CreaturePF2e } from "../index";
+import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
 import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
@@ -50,13 +50,12 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
-import { CraftingFormula, CraftingFormulaData } from "@module/crafting/formula";
-import { UserPF2e } from "@module/user";
+import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
+import { UserPF2e } from "@module/user";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
-    craftingFormulas!: CraftingFormulaData[];
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
@@ -90,8 +89,9 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        const formulaMap = new Map(this.craftingFormulas.map((data) => [data.uuid, data]));
-        return (await fromUUIDs(this.craftingFormulas.map((data) => data.uuid)))
+        const { formulas } = this.data.data.crafting;
+        const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
+        return (await fromUUIDs(formulas.map((data) => data.uuid)))
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
                 const { dc, batchSize } = formulaMap.get(item.uuid) ?? {};
@@ -193,8 +193,6 @@ export class CharacterPF2e extends CreaturePF2e {
         // Keep in place until the source of sense-data corruption is found
         const traits = this.data.data.traits;
         traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
-
-        this.craftingFormulas = [];
     }
 
     protected override async _preUpdate(
@@ -243,11 +241,6 @@ export class CharacterPF2e extends CreaturePF2e {
         // Compute ability modifiers from raw ability scores.
         for (const abl of Object.values(systemData.abilities)) {
             abl.mod = Math.floor((abl.value - 10) / 2);
-        }
-
-        // crafting formulas saved on the actor
-        if (systemData.formulas?.length) {
-            this.craftingFormulas.push(...systemData.formulas);
         }
 
         const synthetics = this.prepareCustomModifiers(rules);
