@@ -17,7 +17,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
             rulesBasedVision: {
                 name: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
-                default: false,
+                default: true,
                 type: Boolean,
                 onChange: () => {
                     window.location.reload();
