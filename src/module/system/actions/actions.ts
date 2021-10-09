@@ -5,7 +5,7 @@ import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e
 import { CheckPF2e } from "../rolls";
 import { StatisticWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { CheckDC, DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -51,6 +51,12 @@ export interface SkillActionOptions extends ActionDefaultOptions {
     skill?: string;
 }
 
+export interface CheckResultCallback {
+    actor: ActorPF2e;
+    outcome?: typeof DegreeOfSuccessText[number];
+    roll: Rolled<Roll>;
+}
+
 interface SimpleRollActionCheckOptions {
     actors: ActorPF2e | ActorPF2e[] | undefined;
     statName: string;
@@ -66,6 +72,7 @@ interface SimpleRollActionCheckOptions {
     difficultyClass?: CheckDC;
     difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
     extraNotes?: (selector: string) => RollNotePF2e[];
+    callback?: (result: CheckResultCallback) => void;
 }
 
 export class ActionsPF2e {
@@ -237,7 +244,10 @@ export class ActionsPF2e {
                         traits: options.traits,
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
-                    options.event
+                    options.event,
+                    (roll, outcome) => {
+                        options.callback?.({ actor, outcome, roll });
+                    }
                 );
             });
         } else {

@@ -95,7 +95,7 @@ export class CheckPF2e {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         event?: JQuery.Event,
-        callback?: (roll: Rolled<Roll>) => void
+        callback?: (roll: Rolled<Roll>, outcome?: typeof DegreeOfSuccessText[number]) => void
     ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
         if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -297,7 +297,7 @@ export class CheckPF2e {
         );
 
         if (callback) {
-            callback(roll);
+            callback(roll, ctx.outcome);
         }
 
         return message;
