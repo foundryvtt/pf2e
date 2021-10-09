@@ -13,7 +13,14 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "type": "untyped",
+                "value": "2 * @data.details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -33,28 +40,7 @@
             "value": []
         }
     },
-    "effects": [
-        {
-            "_id": "8YQMz1bE1gaUT27X",
-            "changes": [
-                {
-                    "key": "data.attributes.hp.modifiers",
-                    "mode": 2,
-                    "value": "{\"type\":\"untyped\",\"modifier\":\"2 * @data.details.level.value\"}"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/actions/Passive.webp",
-            "label": "Tough",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/actions/Passive.webp",
     "name": "Tough",
