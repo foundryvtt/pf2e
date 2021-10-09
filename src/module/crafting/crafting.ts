@@ -52,14 +52,9 @@ function escapeHtml(html: string) {
     return p.innerHTML;
 }
 
-function calculateDaysToNoCost(
-    itemCost: Partial<Coins>,
-    materialCost: Partial<Coins>,
-    reductionPerDay: Partial<Coins>
-): number {
+function calculateDaysToNoCost(itemCost: Coins, materialCost: Coins, reductionPerDay: Coins): number {
     return Math.ceil(
-        (coinValueInCopper(itemCost as Coins) - coinValueInCopper(materialCost as Coins)) /
-            coinValueInCopper(reductionPerDay as Coins)
+        (coinValueInCopper(itemCost) - coinValueInCopper(materialCost)) / coinValueInCopper(reductionPerDay)
     );
 }
 
