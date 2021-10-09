@@ -1,7 +1,8 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
     <div class="notes-text flexcol">
         {{editor content=data.details.flavorText target="data.details.flavorText" button=true editable=editable}}
-        <div class="source section-container" flex="0">
+        {{#if data.details.source.author}}
+        <div class="source section-container" style="flex:0">
             <div class="section-header">
                 <h4>{{localize "PF2E.Source.Label"}}</h4>
             </div>
@@ -11,12 +12,11 @@
                     {{data.details.source.value}}
                 </p>
                 {{/if}}
-                {{#if data.details.source.author}}
                 <div class="tag-legacy source-author">
                     {{data.details.source.author}}
                 </div>
-                {{/if}}
             </div>
         </div>
+        {{/if}}
     </div>
 </div>
