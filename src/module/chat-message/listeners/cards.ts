@@ -91,22 +91,7 @@ export const ChatCards = {
                 const craftingResult = JSON.parse(craftingResultString) as CraftingResult;
                 if (craftingResult === undefined) return;
 
-                if (action === "finish-crafting") {
-                    const itemObject = item.toObject();
-                    itemObject.data.quantity.value = craftingResult.quantity;
-
-                    const result = await actor.addItemToActor(itemObject, undefined);
-                    if (!result) {
-                        ui.notifications.warn("Could not add items");
-                        return;
-                    }
-
-                    ChatMessage.create({
-                        user: game.user.id,
-                        content: `${actor.name} receives ${craftingResult.quantity}x ${item.name}.`,
-                        speaker: { alias: actor.name },
-                    });
-                } else if (action == "pay-crafting-costs") {
+                if (action == "pay-crafting-costs") {
                     const coinsToRemove = button.hasClass("full")
                         ? craftingResult.costs.itemPrice
                         : craftingResult.costs.materials;
@@ -119,9 +104,21 @@ export const ChatCards = {
                         ui.notifications.warn("Insufficient coins");
                         return;
                     }
+
+                    const itemObject = item.toObject();
+                    itemObject.data.quantity.value = craftingResult.quantity;
+
+                    const result = await actor.addItemToActor(itemObject, undefined);
+                    if (!result) {
+                        ui.notifications.warn("Could not add items");
+                        return;
+                    }
+
                     ChatMessage.create({
                         user: game.user.id,
-                        content: `${actor.name} pays ${coinsToString(coinsToRemove)} crafting costs.`,
+                        content: `${actor.name} pays ${coinsToString(coinsToRemove)} crafting costs and receives ${
+                            craftingResult.quantity
+                        }x ${item.name}.`,
                         speaker: { alias: actor.name },
                     });
                 } else if (action === "lose-materials") {

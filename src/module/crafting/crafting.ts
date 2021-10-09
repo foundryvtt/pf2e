@@ -64,17 +64,14 @@ async function chatTemplate(craftingResult: CraftingResult) {
     const itemCost = escapeHtml(coinsToString(craftingResult.costs.itemPrice));
     const lostMaterials = escapeHtml(coinsToString(craftingResult.costs.lostMaterials));
     const craftingData = JSON.stringify(craftingResult);
-
-    const uuid = craftingResult.itemUuid;
-    const index = uuid.indexOf(".");
-    const itemLink = `@${uuid.substr(0, index)}[${uuid.substr(index + 1)}]`;
+    const itemLink = "@" + craftingResult.itemUuid.replace(".", "[") + "]";
 
     const strings = {
         reductionPerDay: reductionPerDay,
         materialCost: materialCost,
         itemCost: itemCost,
         lostMaterials: lostMaterials,
-        itemLink: itemLink,
+        itemLink: TextEditor.enrichHTML(itemLink),
     };
 
     const content = await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
@@ -213,12 +210,5 @@ export async function craftItem(
         },
     };
 
-    const content = await chatTemplate(craftingResult);
-
-    const chatData = {
-        user: game.user.id,
-        content,
-        speaker: ChatMessage.getSpeaker(),
-    };
-    ChatMessage.create(chatData, {});
+    return await chatTemplate(craftingResult);
 }
