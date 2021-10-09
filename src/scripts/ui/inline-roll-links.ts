@@ -178,7 +178,7 @@ export const InlineRollsLinks = {
                         const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
                         if (skill && skillCheck) {
                             const dc = { label: pf2Label, value: 20 } as CheckDC;
-                            if (pf2Dc === "level") {
+                            if (pf2Dc === "@self.level") {
                                 const proficiencyWithoutLevel: boolean =
                                     game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
                                 const level = actor.data.data.details.level.value;
