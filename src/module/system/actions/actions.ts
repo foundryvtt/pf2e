@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base";
+import ChatMessageData = foundry.data.ChatMessageData;
 import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
@@ -53,6 +54,7 @@ export interface SkillActionOptions extends ActionDefaultOptions {
 
 export interface CheckResultCallback {
     actor: ActorPF2e;
+    message?: ChatMessage | ChatMessageData;
     outcome?: typeof DegreeOfSuccessText[number];
     roll: Rolled<Roll>;
 }
@@ -73,6 +75,7 @@ interface SimpleRollActionCheckOptions {
     difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
+    createMessage?: boolean;
 }
 
 export class ActionsPF2e {
@@ -162,7 +165,7 @@ export class ActionsPF2e {
         );
     }
 
-    static simpleRollActionCheck(options: SimpleRollActionCheckOptions) {
+    static async simpleRollActionCheck(options: SimpleRollActionCheckOptions) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
         if (Array.isArray(options.actors)) {
@@ -235,6 +238,7 @@ export class ActionsPF2e {
                     check,
                     {
                         actor,
+                        createMessage: options.createMessage,
                         dc,
                         type: options.checkType,
                         options: finalOptions,
@@ -245,8 +249,8 @@ export class ActionsPF2e {
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
                     options.event,
-                    (roll, outcome) => {
-                        options.callback?.({ actor, outcome, roll });
+                    (roll, outcome, message) => {
+                        options.callback?.({ actor, message, outcome, roll });
                     }
                 );
             });

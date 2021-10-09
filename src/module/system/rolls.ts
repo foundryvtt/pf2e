@@ -13,6 +13,7 @@ import { fontAwesomeIcon } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
+import ChatMessageData = foundry.data.ChatMessageData;
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -95,7 +96,11 @@ export class CheckPF2e {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         event?: JQuery.Event,
-        callback?: (roll: Rolled<Roll>, outcome?: typeof DegreeOfSuccessText[number]) => void
+        callback?: (
+            roll: Rolled<Roll>,
+            outcome: typeof DegreeOfSuccessText[number] | undefined,
+            message: ChatMessage | ChatMessageData
+        ) => Promise<void> | void
     ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
         if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -297,7 +302,7 @@ export class CheckPF2e {
         );
 
         if (callback) {
-            callback(roll, ctx.outcome);
+            await callback(roll, ctx.outcome, message);
         }
 
         return message;
