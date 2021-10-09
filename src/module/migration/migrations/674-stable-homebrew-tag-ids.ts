@@ -20,7 +20,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
             const homebrewTags = this.homebrewTags[key];
             for (const tag of homebrewTags) {
                 const index = documentTags.indexOf(tag.id);
-                if (index !== -1) documentTags.splice(index, 1, `hb.${sluggify(tag.value)}`);
+                if (index !== -1) documentTags.splice(index, 1, `hb_${sluggify(tag.value)}`);
             }
         }
     }
@@ -41,7 +41,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
             const tags: { id: string; value: string }[] = this.homebrewTags[key];
 
             for (const tag of tags) {
-                tag.id = `hb.${sluggify(tag.value)}`;
+                tag.id = `hb_${sluggify(tag.value)}`;
                 const tagMap: Record<string, string> =
                     key === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[key];
                 tagMap[tag.id] = tag.value;
