@@ -148,7 +148,7 @@ async function chatTemplate(craftingResult: CraftingResult) {
 
 export function performRoll(actor: CharacterPF2e, item: PhysicalItemPF2e, event: JQuery.Event, form: CraftingForm) {
     const options = actor.getRollOptions(["all", "skill-check", "crafting"]);
-    options.push("action:craft");
+    options.push("action:craft", "int-based");
     for (const trait of item.traits) {
         options.push(trait);
     }
@@ -202,7 +202,6 @@ function checkRequirements(actor: CharacterPF2e, item: PhysicalItemPF2e): Requir
         proficiencyRequirement.value = false;
     }
     requirements.push(proficiencyRequirement);
-
 
     return requirements;
 }
