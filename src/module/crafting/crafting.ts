@@ -9,7 +9,7 @@ import {
     multiplyCoinValue,
 } from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@module/degree-of-success";
-import { CharacterPF2e } from "@actor/character";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
 import { PhysicalItemPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
@@ -139,7 +139,7 @@ export async function craftItem(
     roll: Rolled<Roll<RollDataPF2e>>,
     quantity: number,
     dc: number,
-    actor: CharacterPF2e,
+    actor: ActorPF2e,
     itemUuid: string
 ) {
     const itemPrice = extractPriceFromItem({
@@ -162,6 +162,10 @@ export async function craftItem(
     };
 
     const degreeOfSuccess = roll.data.degreeOfSuccess || 0;
+
+    if (!(actor instanceof CharacterPF2e)) {
+        return;
+    }
 
     const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
 
