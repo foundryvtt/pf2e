@@ -5,7 +5,6 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration663FixSpellDamage } from "@module/migration/migrations/663-fix-spell-damage";
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
 import { Migration666UsageAndStowingContainers } from "@module/migration/migrations/666-usage-and-stowing-containers";
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
@@ -16,9 +15,9 @@ import { Migration670AncestryVision } from "@module/migration/migrations/670-anc
 import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-no-pc-items-on-non-pcs";
 import { Migration672RemoveNPCBaseProperties } from "@module/migration/migrations/672-remove-npc-base-properties";
 import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
+import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 
 const migrations: MigrationBase[] = [
-    new Migration663FixSpellDamage(),
     new Migration665HandwrapsCorrections(),
     new Migration666UsageAndStowingContainers(),
     new Migration667HPSubProperties(),
@@ -29,6 +28,7 @@ const migrations: MigrationBase[] = [
     new Migration671NoPCItemsOnNonPCs(),
     new Migration672RemoveNPCBaseProperties(),
     new Migration673RemoveBulwarkREs(),
+    new Migration675FlatModifierAEsToREs(),
 ];
 
 global.deepClone = function (original: any): any {
