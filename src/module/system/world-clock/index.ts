@@ -59,8 +59,19 @@ export class WorldClock extends Application {
 
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
+        const yearOffset = (() => {
+            switch (this.dateTheme) {
+                case "AR":
+                    return CONFIG.PF2E.worldClock.AR.yearOffset;
+                case "AD":
+                    return CONFIG.PF2E.worldClock.AD.yearOffset;
+                default:
+                    // 'CE'
+                    return 0;
+            }
+        })();
         const value = game.settings.get("pf2e", "worldClock.worldCreatedOn");
-        return DateTime.fromISO(value).toUTC();
+        return DateTime.fromISO(value).plus({ years: yearOffset }).toUTC();
     }
 
     /** The current date and time of the game world */
@@ -92,17 +103,7 @@ export class WorldClock extends Application {
 
     /** The year in the game */
     private get year(): number {
-        const actualYear = this.worldTime.year;
-
-        switch (this.dateTheme) {
-            case "AR":
-                return actualYear + CONFIG.PF2E.worldClock.AR.yearOffset;
-            case "AD":
-                return Math.abs(actualYear + CONFIG.PF2E.worldClock.AD.yearOffset);
-            default:
-                // 'CE'
-                return actualYear;
-        }
+        return this.worldTime.year;
     }
 
     /** The month in the game */
