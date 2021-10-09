@@ -1,7 +1,7 @@
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { StatisticModifier } from "@module/modifiers";
-import { CraftingResult, performRoll } from "@module/crafting/crafting";
+import { CraftingResult } from "@module/crafting/crafting";
 import { attemptToRemoveCoinsByValue, coinsToString } from "@item/treasure/helpers";
 
 export const ChatCards = {
@@ -93,7 +93,7 @@ export const ChatCards = {
 
                 if (action === "finish-crafting") {
                     const itemObject = item.toObject();
-                    itemObject.data.quantity.value = craftingResult.form.quantity;
+                    itemObject.data.quantity.value = craftingResult.quantity;
 
                     const result = await actor.addItemToActor(itemObject, undefined);
                     if (!result) {
@@ -103,7 +103,7 @@ export const ChatCards = {
 
                     ChatMessage.create({
                         user: game.user.id,
-                        content: `${actor.name} receives ${craftingResult.form.quantity}x ${item.name}.`,
+                        content: `${actor.name} receives ${craftingResult.quantity}x ${item.name}.`,
                         speaker: { alias: actor.name },
                     });
                 } else if (action == "pay-crafting-costs") {
@@ -139,8 +139,7 @@ export const ChatCards = {
                             speaker: { alias: actor.name },
                         });
                     }
-                } else if (action === "retry-crafting")
-                    performRoll(actor as CharacterPF2e, item, event, craftingResult.form);
+                }
             }
         });
     },

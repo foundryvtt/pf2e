@@ -18,7 +18,8 @@ import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
-import { CraftingForm, performRoll } from "@module/crafting/crafting";
+import { craft } from "@system/actions/crafting/craft";
+import { CheckDC } from "@system/check-degree-of-success";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -753,25 +754,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         html.find(".craft-item").on("click", async (event) => {
-            const { itemUuid, craftDc, itemPrice } = event.currentTarget.dataset;
+            const { itemUuid, craftDc } = event.currentTarget.dataset;
             const itemQuantity = Number(
                 $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
             );
             if (!itemUuid) return;
-            const item = await fromUuid(itemUuid);
-
-            if (!(item instanceof PhysicalItemPF2e)) {
-                return;
-            }
-
-            const actor = this.actor;
-            const actorUntrained = actor.data.data.skills.cra.rank === 0;
 
             if (this.actor.getFlag("pf2e", "freeCrafting")) {
+                const item = await fromUuid(itemUuid);
+                if (!(item instanceof PhysicalItemPF2e)) {
+                    return;
+                }
                 const itemObject = item.toObject();
                 itemObject.data.quantity.value = itemQuantity;
 
-                const result = await actor.addItemToActor(itemObject, undefined);
+                const result = await this.actor.addItemToActor(itemObject, undefined);
                 if (!result) {
                     ui.notifications.warn("Could not add items");
                     return;
@@ -779,44 +776,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 ChatMessage.create({
                     user: game.user.id,
-                    content: `${actor.name} receives ${itemQuantity}x ${item.name}.`,
-                    speaker: { alias: actor.name },
+                    content: `${this.actor.name} receives ${itemQuantity}x ${item.name}.`,
+                    speaker: { alias: this.actor.name },
                 });
                 return;
             }
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/crafting-form-dialog.html", {
-                itemName: item.name,
-                itemPrice: itemPrice,
-                craftDC: craftDc,
-                itemQuantity: itemQuantity,
-                actorUntrained: actorUntrained,
-            });
+            const dc: CheckDC = {
+                value: Number(craftDc),
+                visibility: "all",
+                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                scope: "CheckOutcome",
+            };
 
-            new Dialog({
-                title: "Craft Item",
-                content,
-                buttons: {
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
-                    craft: {
-                        icon: '<i class="fa fa-hammer"></i>',
-                        label: "Craft",
-                        callback: (html: JQuery) => {
-                            const form: CraftingForm = {
-                                dc: Number(html.find('[name="craftDC"]').val()),
-                                price: <string>html.find('[name="itemPrice"]').val(),
-                                quantity: Number(html.find('[name="quantity"]').val()),
-                                itemUuid: itemUuid,
-                            };
-                            performRoll(actor, item, event, form);
-                        },
-                    },
-                },
-                default: "craft",
-            }).render(true);
+            craft({ dc: dc, uuid: itemUuid, quantity: itemQuantity, event: event, actors: this.actor });
         });
 
         html.find(".formula-increase-quantity").on("click", async (event) => {

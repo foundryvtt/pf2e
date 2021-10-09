@@ -3,6 +3,7 @@ import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
+import { CharacterPF2e } from "@actor";
 
 interface CraftActionOptions extends SkillActionOptions {
     dc?: CheckDC;
@@ -84,6 +85,13 @@ class SelectItemDialog extends Application {
 
 export async function craft(options: CraftActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "crafting");
+
+    // ensure single character
+    if (!(options.actors instanceof CharacterPF2e)) {
+        return;
+    }
+
+    const actor = options.actors;
 
     // resolve item
     const item = await (async () => {

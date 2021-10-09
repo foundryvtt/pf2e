@@ -1,4 +1,4 @@
-<div class="pf2e chat-card" data-crafting-result="{{craftingData}}" data-item-uuid="{{craftingResult.form.itemUuid}}">
+<div class="pf2e chat-card" data-crafting-result="{{craftingData}}" data-item-uuid="{{craftingResult.itemUuid}}">
     <header class="card-header flexrow">
         <img src="{{craftingResult.item.img}}" title="Craft" width="36" height="36">
         <h3>Craft: {{strings.itemLink}}</h3>
@@ -9,8 +9,7 @@
         {{/each}}
         <p>Check item description for additional requirements.</p>
         <hr>
-        <p><strong>Result</strong>: <span style="color: {{successColor}}">{{strings.degreeOfSuccess}} (DC: {{craftingResult.form.dc}}, Roll: {{craftingResult.roll.roll}})</span></p>
-        <p><strong>Quantity:</strong> {{craftingResult.form.quantity}}</p>
+        <p><strong>Quantity:</strong> {{craftingResult.quantity}}</p>
         <p><strong>Total Cost:</strong> {{strings.itemCost}}</p>
         <p><strong>Material Cost:</strong> {{strings.materialCost}}</p>
         <hr>
@@ -28,7 +27,6 @@
                 {{#if craftingResult.successFlags.criticalFailure}}
                     <button type="button" data-action="lose-materials">Lose {{strings.lostMaterials}} of Materials</button>
                 {{/if}}
-                <button type="button" data-action="retry-crafting">Retry Crafting</button>
         {{/if}}
     </div>
 </div>

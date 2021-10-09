@@ -4,11 +4,9 @@
 import { Coins, coinValueInCopper, extractPriceFromItem } from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@module/degree-of-success";
 import { CharacterPF2e } from "@actor/character";
-import { CheckModifier } from "../modifiers";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
 import { PhysicalItemPF2e } from "@item";
-import { CheckPF2e, RollDataPF2e } from "@system/rolls";
-import { CheckDC } from "@system/check-degree-of-success";
+import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 
 export interface CraftingResult {
@@ -31,46 +29,14 @@ export interface CraftingResult {
     };
     requirements: Requirement[];
     daysForZeroCost: number;
-    form: CraftingForm;
     item: PhysicalItemPF2e;
+    itemUuid: string;
+    quantity: number;
 }
 
 export interface Requirement {
     value: boolean;
     label: string;
-}
-
-export interface TimeSpent {
-    value: number;
-    unit: string;
-}
-
-export interface CraftingForm {
-    dc: number;
-    price: string;
-    quantity: number;
-    itemUuid: string;
-}
-
-function multiplyCoinValue(coins: Coins, factor: number): Coins {
-    const result: Coins = {
-        pp: 0,
-        gp: 0,
-        sp: 0,
-        cp: 0,
-    };
-    let remainder = 0;
-    for (const [key, value] of Object.entries(coins)) {
-        let newValue = value! * factor + remainder;
-        if (!Number.isInteger(newValue)) {
-            remainder = (newValue - Math.floor(newValue)) * 10;
-            newValue = Math.floor(newValue);
-        } else {
-            remainder = 0;
-        }
-        result[key as keyof Coins] = newValue;
-    }
-    return result;
 }
 
 function coinsToString(coins: Partial<Coins>) {
@@ -82,18 +48,6 @@ function coinsToString(coins: Partial<Coins>) {
         }
     });
     return mapResult.filter((string) => string != null).join(", ");
-}
-
-function degreeOfSuccessLabel(degreeOfSuccessLabel: DegreeOfSuccess) {
-    if (degreeOfSuccessLabel === 0) {
-        return "Critical Failure";
-    } else if (degreeOfSuccessLabel === 1) {
-        return "Failure";
-    } else if (degreeOfSuccessLabel === 2) {
-        return "Success";
-    } else {
-        return "Critical Success";
-    }
 }
 
 function escapeHtml(html: string) {
@@ -115,20 +69,17 @@ function calculateDaysToNoCost(
 }
 
 async function chatTemplate(craftingResult: CraftingResult) {
-    const degreeOfSuccess = degreeOfSuccessLabel(craftingResult.roll.degreeOfSuccess);
     const reductionPerDay = escapeHtml(coinsToString(craftingResult.costs.reductionPerDay));
     const materialCost = escapeHtml(coinsToString(craftingResult.costs.materials));
     const itemCost = escapeHtml(coinsToString(craftingResult.costs.itemPrice));
     const lostMaterials = escapeHtml(coinsToString(craftingResult.costs.lostMaterials));
-    const successColor = craftingResult.roll.degreeOfSuccess > 1 ? "darkgreen" : "darkred";
     const craftingData = JSON.stringify(craftingResult);
 
-    const uuid = craftingResult.form.itemUuid;
+    const uuid = craftingResult.itemUuid;
     const index = uuid.indexOf(".");
     const itemLink = `@${uuid.substr(0, index)}[${uuid.substr(index + 1)}]`;
 
     const strings = {
-        degreeOfSuccess: degreeOfSuccess,
         reductionPerDay: reductionPerDay,
         materialCost: materialCost,
         itemCost: itemCost,
@@ -138,36 +89,11 @@ async function chatTemplate(craftingResult: CraftingResult) {
 
     const content = await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
         craftingResult: craftingResult,
-        successColor: successColor,
         strings: strings,
         craftingData: craftingData,
     });
 
     return content;
-}
-
-export function performRoll(actor: CharacterPF2e, item: PhysicalItemPF2e, event: JQuery.Event, form: CraftingForm) {
-    const options = actor.getRollOptions(["all", "skill-check", "crafting"]);
-    options.push("action:craft", "int-based");
-    for (const trait of item.traits) {
-        options.push(trait);
-    }
-
-    const dc: CheckDC = {
-        value: form.dc,
-        visibility: "all",
-        adjustments: actor.data.data.skills["cra"].adjustments,
-        scope: "CheckOutcome",
-    };
-
-    CheckPF2e.roll(
-        new CheckModifier("Craft", actor.data.data.skills.cra, []),
-        { actor, type: "skill-check", options, dc: dc },
-        event,
-        (roll) => {
-            craftItem(item, roll, form, actor);
-        }
-    );
 }
 
 function checkRequirements(actor: CharacterPF2e, item: PhysicalItemPF2e): Requirement[] {
@@ -224,14 +150,16 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
 export async function craftItem(
     item: PhysicalItemPF2e,
     roll: Rolled<Roll<RollDataPF2e>>,
-    form: CraftingForm,
-    actor: CharacterPF2e
+    quantity: number,
+    dc: number,
+    actor: CharacterPF2e,
+    itemUuid: string
 ) {
     const itemPrice = extractPriceFromItem({
-        data: { quantity: { value: form.quantity }, price: { value: form.price } },
+        data: { quantity: { value: quantity }, price: item.data.data.price },
     });
     const materialCosts = extractPriceFromItem({
-        data: { quantity: { value: form.quantity * 0.5 }, price: { value: form.price } },
+        data: { quantity: { value: quantity * 0.5 }, price: item.data.data.price },
     });
 
     let lostMaterials: Coins = {
@@ -261,7 +189,9 @@ export async function craftItem(
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
-        lostMaterials = multiplyCoinValue(materialCosts, 0.1);
+        lostMaterials = extractPriceFromItem({
+            data: { quantity: { value: quantity * 0.05 }, price: item.data.data.price },
+        });
     }
 
     let daysForZeroCost = 0;
@@ -281,13 +211,14 @@ export async function craftItem(
         },
         roll: {
             degreeOfSuccess: degreeOfSuccess,
-            dc: form.dc,
+            dc: dc,
             roll: roll.total,
         },
         requirements: requirements,
         daysForZeroCost: daysForZeroCost,
-        form: form,
         item: item,
+        itemUuid: itemUuid,
+        quantity: quantity,
         successFlags: {
             criticalSuccess: degreeOfSuccess === 3,
             success: degreeOfSuccess >= 2,
