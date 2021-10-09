@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { craftItem } from "@module/crafting/crafting";
 
 interface CraftActionOptions extends SkillActionOptions {
