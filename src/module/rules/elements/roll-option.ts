@@ -8,7 +8,6 @@ import { AELikeConstructionData, AELikeRuleElement } from "./ae-like";
 class RollOptionRuleElement extends AELikeRuleElement {
     constructor(data: RollOptionConstructionData, item: Embedded<ItemPF2e>) {
         data.mode = "override";
-        data.domain ??= "all";
         data.value ??= true;
         data.path = `flags.pf2e.rollOptions.${data.domain}.${data.option}`;
         super(data, item);
