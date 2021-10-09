@@ -1,7 +1,13 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import { Coins, coinValueInCopper, extractPriceFromItem, multiplyCoinValue } from "@module/item/treasure/helpers";
+import {
+    Coins,
+    coinsToString,
+    coinValueInCopper,
+    extractPriceFromItem,
+    multiplyCoinValue,
+} from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@module/degree-of-success";
 import { CharacterPF2e } from "@actor/character";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
@@ -37,17 +43,6 @@ export interface CraftingResult {
 export interface Requirement {
     value: boolean;
     label: string;
-}
-
-function coinsToString(coins: Partial<Coins>) {
-    const mapResult = Object.entries(coins).map(([key, value]) => {
-        if (value > 0) {
-            return `${value} ${game.i18n.localize(CONFIG.PF2E.currencies[key as keyof Coins])}`;
-        } else {
-            return null;
-        }
-    });
-    return mapResult.filter((string) => string != null).join(", ");
 }
 
 function escapeHtml(html: string) {
@@ -159,7 +154,6 @@ export async function craftItem(
         data: { quantity: { value: quantity }, price: item.data.data.price },
     });
     const materialCosts = multiplyCoinValue(itemPrice, 0.5);
-    console.log(materialCosts);
 
     let lostMaterials: Coins = {
         pp: 0,
