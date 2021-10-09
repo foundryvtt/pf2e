@@ -5,7 +5,7 @@ import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e
 import { CheckPF2e } from "../rolls";
 import { StatisticWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -49,6 +49,23 @@ export interface ActionDefaultOptions {
 
 export interface SkillActionOptions extends ActionDefaultOptions {
     skill?: string;
+}
+
+interface SimpleRollActionCheckOptions {
+    actors: ActorPF2e | ActorPF2e[] | undefined;
+    statName: string;
+    actionGlyph: ActionGlyph | undefined;
+    title: string;
+    subtitle: string;
+    modifiers: ModifierPF2e[] | undefined;
+    rollOptions: string[];
+    extraOptions: string[];
+    traits: string[];
+    checkType: CheckType;
+    event: JQuery.Event;
+    difficultyClass?: CheckDC;
+    difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
+    extraNotes?: (selector: string) => RollNotePF2e[];
 }
 
 export class ActionsPF2e {
@@ -138,27 +155,13 @@ export class ActionsPF2e {
         );
     }
 
-    static simpleRollActionCheck(
-        actors: ActorPF2e | ActorPF2e[] | undefined,
-        statName: string,
-        actionGlyph: ActionGlyph | undefined,
-        title: string,
-        subtitle: string,
-        modifiers: ModifierPF2e[] | undefined,
-        rollOptions: string[],
-        extraOptions: string[],
-        traits: string[],
-        checkType: CheckType,
-        event: JQuery.Event,
-        difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
-        extraNotes?: (selector: string) => RollNotePF2e[]
-    ) {
+    static simpleRollActionCheck(options: SimpleRollActionCheckOptions) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
-        if (Array.isArray(actors)) {
-            rollers.push(...actors);
-        } else if (actors) {
-            rollers.push(actors);
+        if (Array.isArray(options.actors)) {
+            rollers.push(...options.actors);
+        } else if (options.actors) {
+            rollers.push(options.actors);
         } else if (canvas.tokens.controlled.length) {
             rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
         } else if (game.user.character) {
@@ -171,14 +174,17 @@ export class ActionsPF2e {
         if (rollers.length) {
             rollers.forEach((actor) => {
                 let flavor = "";
-                if (actionGlyph) {
-                    flavor += `<span class="pf2-icon">${actionGlyph}</span> `;
+                if (options.actionGlyph) {
+                    flavor += `<span class="pf2-icon">${options.actionGlyph}</span> `;
                 }
-                flavor += `<b>${game.i18n.localize(title)}</b>`;
-                flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-                const stat = getProperty(actor, statName) as StatisticModifier;
-                const check = new CheckModifier(flavor, stat, modifiers ?? []);
-                const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                flavor += `<b>${game.i18n.localize(options.title)}</b>`;
+                flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
+                const stat = getProperty(actor, options.statName) as StatisticModifier;
+                const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
+                const finalOptions = actor
+                    .getRollOptions(options.rollOptions)
+                    .concat(options.extraOptions)
+                    .concat(options.traits);
                 {
                     // options for roller's conditions
                     const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
@@ -186,7 +192,9 @@ export class ActionsPF2e {
                 }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = (() => {
-                    if (target && target.actor instanceof CreaturePF2e) {
+                    if (options.difficultyClass) {
+                        return options.difficultyClass;
+                    } else if (target && target.actor instanceof CreaturePF2e) {
                         const targetOptions: string[] = [];
 
                         // target's conditions
@@ -203,7 +211,7 @@ export class ActionsPF2e {
                         targetOptions.push(...targetTraits);
 
                         // try to resolve target's defense stat and calculate DC
-                        const dc = difficultyClassStatistic?.(target.actor)?.dc({
+                        const dc = options.difficultyClassStatistic?.(target.actor)?.dc({
                             options: finalOptions.concat(targetOptions),
                         });
                         if (dc) {
@@ -221,13 +229,15 @@ export class ActionsPF2e {
                     {
                         actor,
                         dc,
-                        type: checkType,
+                        type: options.checkType,
                         options: finalOptions,
-                        notes: (stat.notes ?? []).concat(extraNotes ? extraNotes(statName) : []),
-                        traits,
-                        title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
+                        notes: (stat.notes ?? []).concat(
+                            options.extraNotes ? options.extraNotes(options.statName) : []
+                        ),
+                        traits: options.traits,
+                        title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
-                    event
+                    options.event
                 );
             });
         } else {
