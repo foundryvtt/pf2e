@@ -9,7 +9,7 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
 
     private hasRuleElement(rules: RuleElementSource[]): boolean {
         return rules.some(
-            (rule) => rule.key?.endsWith("FlatModifier") && rule.predicate?.all?.includes("self:armor:bulwark")
+            (rule) => rule.key?.endsWith("FlatModifier") && rule.predicate?.all?.includes("self:armor:trait:bulwark")
         );
     }
 
