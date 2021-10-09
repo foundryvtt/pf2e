@@ -1,7 +1,7 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import { Coins, coinValueInCopper, extractPriceFromItem } from "@module/item/treasure/helpers";
+import { Coins, coinValueInCopper, extractPriceFromItem, multiplyCoinValue } from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@module/degree-of-success";
 import { CharacterPF2e } from "@actor/character";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
@@ -158,9 +158,8 @@ export async function craftItem(
     const itemPrice = extractPriceFromItem({
         data: { quantity: { value: quantity }, price: item.data.data.price },
     });
-    const materialCosts = extractPriceFromItem({
-        data: { quantity: { value: quantity * 0.5 }, price: item.data.data.price },
-    });
+    const materialCosts = multiplyCoinValue(itemPrice, 0.5);
+    console.log(materialCosts);
 
     let lostMaterials: Coins = {
         pp: 0,
@@ -189,9 +188,7 @@ export async function craftItem(
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
-        lostMaterials = extractPriceFromItem({
-            data: { quantity: { value: quantity * 0.05 }, price: item.data.data.price },
-        });
+        lostMaterials = multiplyCoinValue(materialCosts, 0.1);
     }
 
     let daysForZeroCost = 0;
