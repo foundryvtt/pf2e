@@ -233,7 +233,12 @@ export class ActionsPF2e {
                             const dc = dcStat.dc({ extraRollOptions });
                             const labelKey = `PF2E.CreatureStatisticDC.${dcStat.slug}`;
                             return {
+<<<<<<< HEAD
                                 label: game.i18n.format(labelKey, { creature: target.name, dc: "{dc}" }),
+=======
+                                target: target.name,
+                                label: game.i18n.format(dc.labelKey, { dc: "{dc}" }),
+>>>>>>> ccc93b56d1 (Disconnect target name from DC to allow for future target obfuscation/mystification)
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
                             };

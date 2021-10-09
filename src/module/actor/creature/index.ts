@@ -648,6 +648,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 ...attackTraits.map((trait) => `trait:${trait}`),
             ]);
 
+<<<<<<< HEAD
             const { attributes } = contextActor;
             if (attributes.ac) {
                 dc = {
@@ -658,6 +659,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     scope: "AttackOutcome",
                     value: attributes.ac.value,
                 };
+=======
+            dc = {
+                target: ctx.target.name,
+                label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
+                    dc: "{dc}",
+                }),
+                scope: "AttackOutcome",
+                value: contextActor.attributes.ac.value,
+            };
+
+            // calculate distance
+            const self = canvas.tokens.controlled.find((token) => token.actor?.id === this.id);
+            if (self && canvas.grid?.grid instanceof SquareGrid) {
+                const groundDistance = MeasuredTemplatePF2e.measureDistance(self.position, ctx.target.position);
+                const elevationDiff = Math.abs(self.data.elevation - ctx.target.data.elevation);
+                distance = Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
+>>>>>>> ccc93b56d1 (Disconnect target name from DC to allow for future target obfuscation/mystification)
             }
         }
         return {
