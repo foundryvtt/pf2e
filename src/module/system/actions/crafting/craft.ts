@@ -136,7 +136,7 @@ export async function craft(options: CraftActionOptions) {
             // react to check result, creating the item in the actor's inventory on a success
             if (result.message instanceof ChatMessageData) {
                 const flavor = await (async () => {
-                    if (["criticalSuccess", "success"].includes(result.outcome ?? "")) {
+                    if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
                         return await renderCraftingInline(
                             item,
                             result.roll,
