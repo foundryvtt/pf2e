@@ -133,6 +133,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
+                    docSource.name = docSource.name.trim();
 
                     (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: docSource.token.disposition,
@@ -144,6 +145,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 }
                 if (isItemSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
+                    docSource.name = docSource.name.trim();
+
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
                         const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
@@ -271,7 +274,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             .replace(/&nbsp;/g, " ")
             .replace(/ {2,}/g, " ")
             .replace(/<p> ?<\/p>/g, "")
-            .replace(/<\/p> ?<p>/g, "</p><p>")
+            .replace(/<\/p> ?<p>/g, "</p>\n<p>")
             .replace(/<p>[ \r\n]+/g, "<p>")
             .replace(/[ \r\n]+<\/p>/g, "</p>")
             .replace(/<(?:b|strong)>\s*/g, "<strong>")
