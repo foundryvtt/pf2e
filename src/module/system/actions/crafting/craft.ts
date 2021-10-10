@@ -137,16 +137,9 @@ export async function craft(options: CraftActionOptions) {
             if (result.message instanceof ChatMessageData) {
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(
-                            item,
-                            result.roll,
-                            quantity,
-                            result.actor,
-                            options.uuid || ""
-                        );
-                    } else {
-                        return "";
+                        return await renderCraftingInline(item, result.roll, quantity, result.actor);
                     }
+                    return "";
                 })();
                 if (flavor) {
                     result.message.update({ flavor: result.message.flavor + flavor });
