@@ -86,7 +86,7 @@ export const ChatCards = {
                     else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
                     else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
                 }
-                if (action == "pay-crafting-costs") {
+                if (action === "pay-crafting-costs") {
                     const itemUuid = card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;

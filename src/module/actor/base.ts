@@ -774,7 +774,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         const result = await this.addItemToActor(newItemData, container);
-
         return result ? item : null;
     }
 
