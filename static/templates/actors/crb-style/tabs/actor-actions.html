@@ -31,7 +31,7 @@
                         </li>
                         {{#each actor.data.actions as |action ai|}}
                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                        <li class="item expandable" data-action-index="{{ai}}">
+                        <li class="item expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
                             <div class="item-name rollable">
                                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
                                     <i class="fas fa-dice-d20"></i>
@@ -75,6 +75,8 @@
                         </li>
                         {{/if}}
                         {{/each}}
+                    </ol>
+                    <ol class="actions-list item-list inventory-list directory-list">
                         {{#each actor.actions as |section sid|}}
                             <li class="action-header">
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
@@ -110,7 +112,7 @@
                 </div>
 
                 <div id="exploration" class="actions-panel">
-                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                    <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}
@@ -144,7 +146,7 @@
                 </div>
 
                 <div id="downtime" class="actions-panel">
-                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                    <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}
