@@ -136,8 +136,7 @@ export async function renderCraftingInline(
     item: PhysicalItemPF2e,
     roll: Rolled<Roll<RollDataPF2e>>,
     quantity: number,
-    actor: ActorPF2e,
-    itemUuid: string
+    actor: ActorPF2e
 ) {
     if (!(actor instanceof CharacterPF2e)) return;
 
@@ -150,9 +149,8 @@ export async function renderCraftingInline(
 
     return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
         daysForZeroCost: daysForZeroCost,
-        strings: prepStrings(costs, itemUuid),
-        img: item.img,
-        itemUuid: itemUuid,
+        strings: prepStrings(costs, item.uuid),
+        item,
         quantity: quantity,
         success: degreeOfSuccess > 1,
         criticalFailure: degreeOfSuccess === 0,

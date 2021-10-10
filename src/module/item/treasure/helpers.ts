@@ -1,7 +1,7 @@
-import type { ActorPF2e } from "@actor/index";
+import type { ActorPF2e } from "@actor";
 import { groupBy } from "@util";
 import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from "@item/data";
-import type { PhysicalItemPF2e } from "@item/index";
+import type { PhysicalItemPF2e } from "@item";
 import { isPhysicalData } from "@item/data/helpers";
 
 export const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
@@ -23,7 +23,7 @@ export function coinsToString(coins: Coins): string {
         return "0 gp";
     }
 
-    const denomination = DENOMINATIONS.reduce((highest, denomination) => {
+    const denomination = [...DENOMINATIONS].reverse().reduce((highest, denomination) => {
         return coins[denomination] > 0 ? denomination : highest;
     });
 
@@ -89,6 +89,7 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
 /**
  * Converts the price of an item to the Coin structure
  * @param itemData
+ * @param quantity
  */
 export function extractPriceFromItem(
     itemData: { data: { price: { value: string }; quantity: { value: number } } },
