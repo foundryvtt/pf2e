@@ -8,7 +8,7 @@ import { calculateDC, DCOptions } from "../../module/dc";
 import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from "../../module/degree-of-success";
 
 // you have to be at least trained to earn income
-type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
+export type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
 type Rewards = {
     [rank in TrainedProficiencies]: Partial<Coins>;
 };
@@ -56,7 +56,7 @@ const earnIncomeTable = {
 type IncomeLevelMap = typeof earnIncomeTable;
 type IncomeEarnerLevel = keyof IncomeLevelMap;
 type IncomeForLevel = IncomeLevelMap[IncomeEarnerLevel];
-function getIncomeForLevel(level: number): IncomeForLevel {
+export function getIncomeForLevel(level: number): IncomeForLevel {
     return earnIncomeTable[Math.clamped(level, 0, 21) as IncomeEarnerLevel];
 }
 

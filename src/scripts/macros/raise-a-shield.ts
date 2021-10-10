@@ -2,7 +2,7 @@ import { CharacterPF2e } from "@actor/character";
 import { NPCPF2e } from "@actor/npc";
 import { EffectPF2e } from "@item/effect";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { ActionDefaultOptions } from "@system/actions/actions";
 import { LocalizePF2e } from "@system/localize";
 

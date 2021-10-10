@@ -3,7 +3,8 @@ import { getContainerMap } from "@item/container/helpers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { calculateWealth } from "@item/treasure/helpers";
 import { VehiclePF2e } from "@actor/vehicle";
-import { ItemDataPF2e } from "@item/data";
+import { ItemDataPF2e, PhysicalItemData } from "@item/data";
+import { PhysicalItemType } from "@item/physical/data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions() {
@@ -19,8 +20,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
-    override getData() {
-        const sheetData: any = super.getData();
+    override async getData() {
+        const sheetData: any = await super.getData();
 
         // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
@@ -59,7 +60,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     protected prepareItems(sheetData: any) {
         const actorData = sheetData.actor;
         // Inventory
-        const inventory: Record<string, { label: string; items: ItemDataPF2e[] }> = {
+        const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
@@ -73,12 +74,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
-        // Read-Only Actions
-        const readonlyActions: Record<string, { label: string; actions: any }> = {
-            interaction: { label: "Interaction Actions", actions: [] },
-            defensive: { label: "Defensive Actions", actions: [] },
-            offensive: { label: "Offensive Actions", actions: [] },
         };
 
         // Iterate through items, allocating to containers
@@ -124,7 +119,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                         );
                         itemData.wieldedTwoHanded = physicalData.data.hands.value;
                     }
-                    inventory[itemData.type].items.push(itemData);
+                    if (physicalData.type === "book") {
+                        inventory.equipment.items.push(itemData);
+                    } else {
+                        inventory[physicalData.type].items.push(itemData);
+                    }
                 }
             }
 
@@ -139,31 +138,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
-
-                // Read-Only Actions
-                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                    switch (itemData.data.actionCategory.value) {
-                        case "interaction":
-                            readonlyActions.interaction.actions.push(itemData);
-                            actorData.hasInteractionActions = true;
-                            break;
-                        case "defensive":
-                            readonlyActions.defensive.actions.push(itemData);
-                            actorData.hasDefensiveActions = true;
-                            break;
-                        case "offensive":
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                            break;
-                        // Should be offensive but throw anything else in there too
-                        default:
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                    }
-                } else {
-                    readonlyActions.offensive.actions.push(itemData);
-                    actorData.hasOffensiveActions = true;
-                }
             }
 
             for (const itemData of sheetData.items) {
@@ -177,8 +151,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         actorData.inventory = inventory;
         // actorData.attacks = attacks;
         actorData.actions = actions;
-        actorData.readonlyActions = readonlyActions;
-        // actorData.readonlyEquipment = readonlyEquipment;
     }
 
     override activateListeners(html: JQuery) {

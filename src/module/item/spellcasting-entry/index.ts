@@ -1,9 +1,10 @@
-import { CharacterPF2e, CreaturePF2e } from "@actor";
+import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
 import { SpellPF2e } from "@item/spell";
 import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
-import { groupBy, ErrorPF2e } from "@module/utils";
+import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
+import { UserPF2e } from "@module/user";
 
 export interface SpellcastingSlotLevel {
     label: string;
@@ -138,7 +139,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     async consume(name: string, level: number, slot?: number) {
         const actor = this.actor;
-        if (!actor) {
+        if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
         if (this.isRitual) return true;
@@ -276,7 +277,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
     getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
-        if (!(this.actor instanceof CreaturePF2e)) {
+        if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
 
@@ -434,7 +435,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     protected override async _preUpdate(
         data: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         // Clamp slot updates
         if (data.data?.slots) {

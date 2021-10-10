@@ -1,10 +1,9 @@
 import { PhysicalItemPF2e } from "../physical";
-import { TRADITION_TRAITS } from "../data/values";
-import { RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
+import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
-import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from "./data";
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponPropertyRuneType, WeaponTrait } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { ErrorPF2e, sluggify } from "@module/utils";
+import { ErrorPF2e, sluggify } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -13,6 +12,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
+import { MAGIC_TRADITIONS } from "@item/spell/data";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -67,6 +67,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.processMaterialAndRunes();
     }
 
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        const systemData = this.data.data;
+        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+        this.data.data.runes = {
+            potency: potencyRune.value ?? 0,
+            striking: getStrikingDice({ strikingRune }),
+            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                (rune): rune is WeaponPropertyRuneType => !!rune
+            ),
+        };
+    }
+
     processMaterialAndRunes(): void {
         const systemData = this.data.data;
 
@@ -74,7 +88,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
         const traitsFromRunes = runesData.flatMap((datum: { traits: readonly WeaponTrait[] }) => datum.traits);
-        const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
+        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
         const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
 

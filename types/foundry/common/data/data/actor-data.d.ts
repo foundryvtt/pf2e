@@ -69,7 +69,7 @@ declare module foundry {
 
         interface ActorFlags {
             core?: {
-                sourceId: string;
+                sourceId: ActorUUID;
             };
             [key: string]: Record<string, any> | undefined;
         }

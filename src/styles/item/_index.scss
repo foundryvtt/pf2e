@@ -53,9 +53,18 @@
         > section.sheet-body {
             > .tabs {
                 border-bottom: 1px solid var(--secondary-background);
+                a {
+                    flex: 1 1 auto;
+                }
                 a.active {
                     text-decoration: underline;
                 }
+            }
+
+            input[type="text"], input[type="number"] {
+                background: rgba(255, 255, 255, 0.5);
+                border: 1px solid #aaa;
+                padding: 3px;
             }
 
             > .tab.active {
@@ -64,14 +73,6 @@
                 /** Any tab */
                 .editor {
                     height: 100%;
-                }
-
-                input {
-                    &[type="text"], &[type="number"] {
-                        background: rgba(255, 255, 255, 0.5);
-                        border: 1px solid #aaa;
-                        padding: 3px;
-                    }
                 }
 
                 /** Details */
@@ -115,12 +116,23 @@
                 /** Active Effects */
                 @import 'active-effects';
             }
+
+            .editor {
+                --space-s: 0.25em;
+                --space-m: 0.5em;
+                --space-l: 1em;
+                --space-xl: 1.5em;
+                --radius: 3px;
+                @include tinymce-system-specific;
+            }
         }
     }
 
-    h3 .item-controls {
-        float: right;
-        cursor: pointer;
+    h3, header {
+        .item-controls {
+            float: right;
+            cursor: pointer;
+        }
     }
 
     .form-list {
@@ -287,6 +299,44 @@
             line-height: 24px;
             font-size: 14px;
             text-align: center;
+        }
+    }
+
+    .item-usage {
+        padding: 8px 8px 0;
+        overflow-y: auto;
+
+        header {
+            font-size: 1.05em;
+            margin-bottom: 0.25em;
+            line-height: 1.25em;
+        }
+
+        .activation-time {
+            flex: 1;
+            height: 20px;
+        }
+
+        .frequency {
+            flex: 1;
+            gap: 4px;
+            input[type="number"] {
+                border: none;
+                background: none;
+                text-align: right;
+                margin: 0 0 0 24px;
+            }
+            & > select:first-child {
+                margin-left: 24px;
+            }
+        }
+
+        .usage-action .editor {
+            min-height: 28px;
+        }
+
+        .tox {
+            min-height: 150px;
         }
     }
 

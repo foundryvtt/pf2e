@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
-import { sluggify, tupleHasValue } from "@module/utils";
+import { sluggify, tupleHasValue } from "@util";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
 import { MigrationBase } from "../base";
 

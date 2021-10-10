@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { KitData, KitEntryData } from "./data";
 
 const SYSTEM_EQUIPMENT_PACK_ID = "pf2e.equipment-srd";
@@ -38,26 +38,26 @@ export class KitPF2e extends ItemPF2e {
                 // Filtered out just before item creation
                 return null;
             }
-
             if (!(inflatedItem instanceof PhysicalItemPF2e)) {
                 throw ErrorPF2e(`${kitEntry.pack ?? "World item"} ${kitEntry.name}} (${kitEntry.id}) not found`);
             }
 
-            inflatedItem.data.update({
+            const clonedItem = inflatedItem.clone();
+            clonedItem.data.update({
                 "data.quantity.value": kitEntry.quantity,
                 "data.containerId.value": containerId,
             });
 
             // Get items in this container and inflate any items that might be contained inside
-            if (inflatedItem instanceof ContainerPF2e && kitEntry.items) {
-                const container = await ContainerPF2e.create(inflatedItem.toObject(), { parent: actor });
+            if (clonedItem instanceof ContainerPF2e && kitEntry.items) {
+                const container = await ContainerPF2e.create(clonedItem.toObject(), { parent: actor });
                 if (container) {
                     await this.dumpContents(actor, Object.values(kitEntry.items), container.id);
                 }
                 return null;
             }
 
-            return inflatedItem;
+            return clonedItem;
         });
 
         const createData = (await Promise.all(promises))

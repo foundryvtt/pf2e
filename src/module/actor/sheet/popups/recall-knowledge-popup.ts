@@ -1,5 +1,5 @@
 import { IdentifyCreatureData } from "@module/recall-knowledge";
-import { padArray } from "@module/utils";
+import { padArray } from "@util";
 
 export class RecallKnowledgePopup extends Application {
     static override get defaultOptions() {
@@ -16,7 +16,7 @@ export class RecallKnowledgePopup extends Application {
         super(options);
     }
 
-    override getData() {
+    override async getData() {
         const data = this.data;
         return {
             specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),

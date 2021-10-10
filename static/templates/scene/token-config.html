@@ -1,5 +1,4 @@
 <form class="flexcol {{cssClasses}}" autocomplete="off">
-
     <!-- Token Configuration Tabs -->
     <nav class="sheet-tabs tabs">
         <a class="item" data-tab="character"><i class="fas fa-user"></i> {{localize "Character"}}</a>
@@ -8,7 +7,6 @@
         <a class="item" data-tab="vision"><i class="fas fa-eye"></i> {{localize "Vision"}}</a>
         <a class="item" data-tab="resources"><i class="fas fa-heart"></i> {{localize "Resources"}}</a>
     </nav>
-
     <!-- Token Character -->
     <div class="tab" data-tab="character">
         <p class="notes">{{localize "TOKEN.CharInstructions"}}</p>
@@ -16,14 +14,12 @@
             <label>{{localize "TOKEN.CharNameplate"}}</label>
             <input type="text" name="name" placeholder="{{ localize 'Name' }}" value="{{object.name}}"/>
         </div>
-
         <div class="form-group">
             <label>{{localize "TOKEN.CharShowNameplate"}}</label>
             <select name="displayName" data-dtype="Number">
                 {{selectOptions displayModes selected=object.displayName }}
             </select>
         </div>
-
         {{#unless isPrototype}}
             <div class="form-group">
                 <label>{{localize "TOKEN.CharActor"}}</label>
@@ -37,12 +33,10 @@
                 </select>
             </div>
         {{/unless}}
-
         <div class="form-group">
             <label>{{localize "TOKEN.CharLink"}}</label>
             <input type="checkbox" name="actorLink" data-dtype="Boolean" {{checked object.actorLink}}/>
         </div>
-
         <div class="form-group">
             <label>{{localize "TOKEN.CharDisposition"}}</label>
             <select name="disposition" data-dtype="Number">
@@ -50,7 +44,6 @@
             </select>
         </div>
     </div>
-
     <!-- Token Image -->
     <div class="tab" data-tab="image">
         <fieldset class="size">
@@ -71,7 +64,7 @@
                     <input type="number" min="0.5" step="0.5" name="height" placeholder="units" value="{{object.height}}"  {{disabled object.flags.pf2e.linkToActorSize}} />
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group scale">
                 <label>{{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span></label>
                 <div class="form-fields">
                     {{rangePicker name="scale" value=object.scale min="0.2" max="3.0" step="0.1"}}

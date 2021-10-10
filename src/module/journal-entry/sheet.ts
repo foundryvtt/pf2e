@@ -1,7 +1,7 @@
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import "../../styles/tinymce.scss";
 
-export class JournalSheetPF2e extends JournalSheet {
+export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
     static get theme(): "pf2eTheme" | "foundry" {
         return game.settings.get("pf2e", "journalEntryTheme");
     }

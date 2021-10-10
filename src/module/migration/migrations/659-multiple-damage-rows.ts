@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { SpellDamage, SpellSystemData } from "@item/spell/data";
 import { DamageType } from "@module/damage-calculation";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 
 const formulaHasValue = (value?: string | null): value is string => {

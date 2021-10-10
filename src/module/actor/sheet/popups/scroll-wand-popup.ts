@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor/index";
 import { SpellSource } from "@item/spell/data";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: ScrollWandCallback;
@@ -29,8 +29,8 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override getData(): FormApplicationData<ActorPF2e> {
-        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = super.getData();
+    override async getData(): Promise<FormApplicationData<ActorPF2e>> {
+        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = await super.getData();
 
         if (!this.spellData) {
             throw ErrorPF2e("ScrollWandPopup | Could not read spelldata");

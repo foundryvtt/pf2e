@@ -5,19 +5,6 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration650StringifyWeaponProperties } from "@module/migration/migrations/650-stringify-weapon-properties";
-import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651-ephemeral-focus-pool";
-import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
-import { Migration653AEstoREs } from "@module/migration/migrations/653-aes-to-res";
-import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654-action-type-count";
-import { Migration655CreatureTokenSizes } from "@module/migration/migrations/655-creature-token-sizes";
-import { Migration656OtherFocusPoolSources } from "@module/migration/migrations/656-other-focus-pool-sources";
-import { Migration657RemoveSetProperty } from "@module/migration/migrations/657-remove-set-property";
-import { Migration658MonkUnarmoredProficiency } from "@module/migration/migrations/658-monk-unarmored-proficiency";
-import { Migration659MultipleDamageRows } from "@module/migration/migrations/659-multiple-damage-rows";
-import { Migration660DerivedSpellTraits } from "@module/migration/migrations/660-derived-spell-traits";
-import { Migration661NumifyVehicleDimensions } from "@module/migration/migrations/661-numify-vehicle-dimensions";
-import { Migration663FixSpellDamage } from "@module/migration/migrations/663-fix-spell-damage";
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
 import { Migration666UsageAndStowingContainers } from "@module/migration/migrations/666-usage-and-stowing-containers";
 import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
@@ -26,21 +13,11 @@ import { Migration669NPCAttackEffects } from "@module/migration/migrations/669-n
 import { Migration670NoCustomTrait } from "@module/migration/migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "@module/migration/migrations/670-ancestry-vision";
 import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-no-pc-items-on-non-pcs";
+import { Migration672RemoveNPCBaseProperties } from "@module/migration/migrations/672-remove-npc-base-properties";
+import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
+import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 
 const migrations: MigrationBase[] = [
-    new Migration650StringifyWeaponProperties(),
-    new Migration651EphemeralFocusPool(),
-    new Migration652KillHalcyonTradition(),
-    new Migration653AEstoREs(),
-    new Migration654ActionTypeAndCount(),
-    new Migration655CreatureTokenSizes(),
-    new Migration656OtherFocusPoolSources(),
-    new Migration657RemoveSetProperty(),
-    new Migration658MonkUnarmoredProficiency(),
-    new Migration659MultipleDamageRows(),
-    new Migration660DerivedSpellTraits(),
-    new Migration661NumifyVehicleDimensions(),
-    new Migration663FixSpellDamage(),
     new Migration665HandwrapsCorrections(),
     new Migration666UsageAndStowingContainers(),
     new Migration667HPSubProperties(),
@@ -49,6 +26,9 @@ const migrations: MigrationBase[] = [
     new Migration670NoCustomTrait(),
     new Migration670AncestryVision(),
     new Migration671NoPCItemsOnNonPCs(),
+    new Migration672RemoveNPCBaseProperties(),
+    new Migration673RemoveBulwarkREs(),
+    new Migration675FlatModifierAEsToREs(),
 ];
 
 global.deepClone = function (original: any): any {

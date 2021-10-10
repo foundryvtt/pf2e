@@ -24,13 +24,13 @@
         <p class="notes">{{localize "PF2E.SettingsQuickRollsNotes"}}</p>
     </div>
 
-    {{#if developMode}}
+    {{#developMode}}
         <div class="form-group">
             <label>{{localize "PF2E.UserSettings.DarkvisionFilter.Label"}}</label>
             <input type="checkbox" name="darkvisionFilter" {{checked darkvisionFilter}} data-dtype="Boolean">
             <p class="notes">{{localize "PF2E.UserSettings.DarkvisionFilter.Hint"}}</p>
         </div>
-    {{/if}}
+    {{/developMode}}
 
     <div style="width: 60%; margin: 20px auto 0px auto;">
         <button type="submit" name="submit"><i class="fas fa-save"></i> {{localize "PLAYERS.SaveConfig"}}</button>

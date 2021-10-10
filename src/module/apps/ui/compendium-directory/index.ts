@@ -1,5 +1,5 @@
 import { LocalizePF2e } from "@module/system/localize";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { PackFolderPF2e } from "./folder";
 
 type FolderName = keyof typeof LocalizePF2e.translations.PF2E.CompendiumDirectory.Folders;

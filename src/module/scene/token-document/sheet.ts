@@ -21,24 +21,34 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
 
     /** Hide token-sight settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
-        $html.find<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]').on("change", (event) => {
-            const $dimensions = $(event.currentTarget).closest("fieldset").find('input[type="number"]');
-            const newSetting = !$dimensions.prop("disabled");
-            $dimensions.prop("disabled", newSetting);
+        const $linkToActorSize = $html.find<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]');
+        if ($linkToActorSize.prop("checked")) {
+            this.disableScale($html);
+        }
+
+        $linkToActorSize.on("change", (event) => {
+            const $sizeInputs = $(event.currentTarget)
+                .closest("fieldset")
+                .find('input[type="number"], input[type="range"]');
+            const newSetting = $linkToActorSize.prop("checked");
+            $sizeInputs.prop("disabled", newSetting);
             if (newSetting === true) {
                 if (this.actor instanceof VehiclePF2e) {
                     const { dimensions } = this.actor;
                     const width = Math.max(Math.round(dimensions.width / 5), 1);
                     const length = Math.max(Math.round(dimensions.length / 5), 1);
-                    $dimensions.filter('[name="width"]').val(width);
-                    $dimensions.filter('[name="height"]').val(length);
+                    $sizeInputs.filter('[name="width"]').val(width);
+                    $sizeInputs.filter('[name="height"]').val(length);
                 } else {
-                    $dimensions.val(this.dimensionsFromActorSize);
+                    $sizeInputs.filter('[name="width"], [name="height"]').val(this.dimensionsFromActorSize);
                 }
+                this.disableScale($html);
             } else {
                 const source = this.token.data._source;
-                $dimensions.filter('[name="width"]').val(source.width);
-                $dimensions.filter('[name="height"]').val(source.height);
+                $sizeInputs.filter('[name="width"]').val(source.width);
+                $sizeInputs.filter('[name="height"]').val(source.height);
+                $sizeInputs.filter('[name="scale"]').val(source.scale);
+                this.enableScale($html);
             }
         });
 
@@ -48,6 +58,26 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         }
 
         super.activateListeners($html);
+    }
+
+    /** Disable the range input for token scale and style to indicate as much */
+    private disableScale($html: JQuery): void {
+        const $scale = $html.find(".form-group.scale");
+        $scale.addClass("children-disabled");
+
+        const constrainedScale = this.actor?.size === "sm" ? 0.8 : 1;
+        $scale.find('input[type="range"]').prop({ disabled: true }).val(constrainedScale);
+        $scale.find(".range-value").text(constrainedScale);
+    }
+
+    /** Reenable range input for token scale and restore normal styling */
+    private enableScale($html: JQuery): void {
+        const $scale = $html.find(".form-group.scale");
+        $scale.removeClass("children-disabled");
+        $scale.find('input[type="range"]').prop({ disabled: false });
+
+        const $range = $scale.find<HTMLInputElement>('input[type="range"]');
+        $scale.find(".range-value").text(String($range.val()));
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>) {

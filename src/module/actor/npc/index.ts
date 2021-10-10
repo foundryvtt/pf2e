@@ -14,7 +14,7 @@ import { RollParameters } from "@system/rolls";
 import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
 import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";
@@ -163,15 +163,15 @@ export class NPCPF2e extends CreaturePF2e {
             this.data.data.details.level.value -= 1;
         }
 
-        // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
-        for (const abl of Object.values(this.data.data.abilities)) {
-            abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
-            abl.value = abl.mod * 2 + 10;
+        // Compute 10+mod ability scores from ability modifiers
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.mod = Number(ability.mod) || 0;
+            ability.value = ability.mod * 2 + 10;
         }
 
         // Hit Points
         {
-            const base: number = data.attributes.hp.base ?? data.attributes.hp.value;
+            const base = data.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [];
             (statisticsModifiers.hp || [])
                 .map((m) => m.clone())
@@ -215,7 +215,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
+            const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
@@ -287,7 +287,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Saving Throws
         for (const saveName of SAVE_TYPES) {
             const save = data.saves[saveName];
-            const base: number = save.base ?? Number(save.value);
+            const base = save.value;
             const ability = save.ability;
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
@@ -332,7 +332,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Perception
         {
-            const base: number = data.attributes.perception.base ?? Number(data.attributes.perception.value);
+            const base = data.attributes.perception.value;
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
@@ -363,7 +363,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options: args.options ?? [], notes },
+                    { actor: this, type: "perception-check", options: args.options ?? [], dc: args.dc, notes },
                     args.event,
                     args.callback
                 );
@@ -404,7 +404,7 @@ export class NPCPF2e extends CreaturePF2e {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         CheckPF2e.roll(
                             new CheckModifier(label, stat),
-                            { actor: this, type: "skill-check", options: args.options, notes },
+                            { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes },
                             args.event,
                             args.callback
                         );
@@ -435,7 +435,7 @@ export class NPCPF2e extends CreaturePF2e {
                 // assume lore, if skill cannot be looked up
                 const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
 
-                const base: number = (itemData.data.mod as any).base ?? Number(itemData.data.mod.value);
+                const base = itemData.data.mod.value;
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(
@@ -501,7 +501,7 @@ export class NPCPF2e extends CreaturePF2e {
                 let ability: AbilityString;
                 {
                     ability = itemData.data.weaponType?.value === "ranged" ? "dex" : "str";
-                    const bonus = Number(itemData.data?.bonus?.value ?? 0);
+                    const bonus = Number(itemData.data.bonus?.value) || 0;
                     if (traits.includes("finesse")) {
                         ability = "dex";
                     } else if (traits.includes("brutal")) {

@@ -1,11 +1,12 @@
 import type { ActorPF2e } from "@actor/base";
+import ChatMessageData = foundry.data.ChatMessageData;
 import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
 import { StatisticWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -21,6 +22,7 @@ import { longJump } from "./athletics/long-jump";
 import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import { trip } from "./athletics/trip";
+import { craft } from "@system/actions/crafting/craft";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
 import { impersonate } from "./deception/impersonate";
@@ -51,6 +53,32 @@ export interface SkillActionOptions extends ActionDefaultOptions {
     skill?: string;
 }
 
+export interface CheckResultCallback {
+    actor: ActorPF2e;
+    message?: ChatMessage | ChatMessageData;
+    outcome?: typeof DegreeOfSuccessText[number];
+    roll: Rolled<Roll>;
+}
+
+interface SimpleRollActionCheckOptions {
+    actors: ActorPF2e | ActorPF2e[] | undefined;
+    statName: string;
+    actionGlyph: ActionGlyph | undefined;
+    title: string;
+    subtitle: string;
+    modifiers: ModifierPF2e[] | undefined;
+    rollOptions: string[];
+    extraOptions: string[];
+    traits: string[];
+    checkType: CheckType;
+    event: JQuery.Event;
+    difficultyClass?: CheckDC;
+    difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
+    extraNotes?: (selector: string) => RollNotePF2e[];
+    callback?: (result: CheckResultCallback) => void;
+    createMessage?: boolean;
+}
+
 export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
@@ -73,6 +101,9 @@ export class ActionsPF2e {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+
+        // crafting
+        actions.craft = craft;
 
         // deception
         actions.createADiversion = createADiversion;
@@ -138,27 +169,13 @@ export class ActionsPF2e {
         );
     }
 
-    static simpleRollActionCheck(
-        actors: ActorPF2e | ActorPF2e[] | undefined,
-        statName: string,
-        actionGlyph: ActionGlyph | undefined,
-        title: string,
-        subtitle: string,
-        modifiers: ModifierPF2e[] | undefined,
-        rollOptions: string[],
-        extraOptions: string[],
-        traits: string[],
-        checkType: CheckType,
-        event: JQuery.Event,
-        difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
-        extraNotes?: (selector: string) => RollNotePF2e[]
-    ) {
+    static async simpleRollActionCheck(options: SimpleRollActionCheckOptions) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
-        if (Array.isArray(actors)) {
-            rollers.push(...actors);
-        } else if (actors) {
-            rollers.push(actors);
+        if (Array.isArray(options.actors)) {
+            rollers.push(...options.actors);
+        } else if (options.actors) {
+            rollers.push(options.actors);
         } else if (canvas.tokens.controlled.length) {
             rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
         } else if (game.user.character) {
@@ -171,14 +188,17 @@ export class ActionsPF2e {
         if (rollers.length) {
             rollers.forEach((actor) => {
                 let flavor = "";
-                if (actionGlyph) {
-                    flavor += `<span class="pf2-icon">${actionGlyph}</span> `;
+                if (options.actionGlyph) {
+                    flavor += `<span class="pf2-icon">${options.actionGlyph}</span> `;
                 }
-                flavor += `<b>${game.i18n.localize(title)}</b>`;
-                flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-                const stat = getProperty(actor, statName) as StatisticModifier;
-                const check = new CheckModifier(flavor, stat, modifiers ?? []);
-                const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                flavor += `<b>${game.i18n.localize(options.title)}</b>`;
+                flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
+                const stat = getProperty(actor, options.statName) as StatisticModifier;
+                const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
+                const finalOptions = actor
+                    .getRollOptions(options.rollOptions)
+                    .concat(options.extraOptions)
+                    .concat(options.traits);
                 {
                     // options for roller's conditions
                     const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
@@ -186,7 +206,9 @@ export class ActionsPF2e {
                 }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = (() => {
-                    if (target && target.actor instanceof CreaturePF2e) {
+                    if (options.difficultyClass) {
+                        return options.difficultyClass;
+                    } else if (target && target.actor instanceof CreaturePF2e) {
                         const targetOptions: string[] = [];
 
                         // target's conditions
@@ -203,7 +225,7 @@ export class ActionsPF2e {
                         targetOptions.push(...targetTraits);
 
                         // try to resolve target's defense stat and calculate DC
-                        const dc = difficultyClassStatistic?.(target.actor)?.dc({
+                        const dc = options.difficultyClassStatistic?.(target.actor)?.dc({
                             options: finalOptions.concat(targetOptions),
                         });
                         if (dc) {
@@ -220,14 +242,20 @@ export class ActionsPF2e {
                     check,
                     {
                         actor,
+                        createMessage: options.createMessage,
                         dc,
-                        type: checkType,
+                        type: options.checkType,
                         options: finalOptions,
-                        notes: (stat.notes ?? []).concat(extraNotes ? extraNotes(statName) : []),
-                        traits,
-                        title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
+                        notes: (stat.notes ?? []).concat(
+                            options.extraNotes ? options.extraNotes(options.statName) : []
+                        ),
+                        traits: options.traits,
+                        title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
-                    event
+                    options.event,
+                    (roll, outcome, message) => {
+                        options.callback?.({ actor, message, outcome, roll });
+                    }
                 );
             });
         } else {

@@ -1,4 +1,11 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemTraits } from "../data/base";
+import {
+    ActionCost,
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemLevelData,
+    ItemSystemData,
+    ItemTraits,
+} from "../data/base";
 import type { PhysicalItemPF2e } from "@item/physical";
 import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
 import { EquipmentTrait } from "@item/equipment/data";
@@ -97,8 +104,31 @@ export interface IdentificationData {
 export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
 export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
 
+export interface ItemActivation {
+    id: string;
+    description: {
+        value: string;
+    };
+    actionCost: ActionCost;
+    components: {
+        command: boolean;
+        envision: boolean;
+        interact: boolean;
+        cast: boolean;
+    };
+    frequency: {
+        value: number;
+        max: number;
+        /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
+        duration: null | keyof ConfigPF2e["PF2E"]["frequencies"];
+    };
+}
+
 export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     traits: PhysicalItemTraits;
+    level: {
+        value: number;
+    };
     quantity: {
         value: number;
     };
@@ -161,4 +191,5 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     invested?: {
         value: boolean | null;
     };
+    activations?: Record<string, ItemActivation>;
 }

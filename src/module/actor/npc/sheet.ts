@@ -1,7 +1,7 @@
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
-import { NPCSkillsEditor } from "@system/npc-skills-editor";
+import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
@@ -19,14 +19,15 @@ import {
     TreasureData,
     WeaponData,
 } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
 import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
-import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
+import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
 import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
+import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
 import { SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
+import { BookData } from "@item/book";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -54,8 +55,17 @@ interface Attack {
 
 type Attacks = Attack[];
 
+/** Highlight such a statistic if adjusted by data preparation */
+interface WithAdjustments {
+    adjustedHigher?: boolean;
+    adjustedLower?: boolean;
+}
+
 interface NPCSystemSheetData extends NPCSystemData {
     attributes: NPCAttributes & {
+        ac: NPCArmorClass & WithAdjustments;
+        hp: HitPointsData & WithAdjustments;
+        perception: PerceptionData & WithAdjustments;
         shieldBroken?: boolean;
     };
     details: NPCSystemData["details"] & {
@@ -63,7 +73,8 @@ interface NPCSystemSheetData extends NPCSystemData {
             localizedName?: string;
         };
     };
-    sortedSkills: Record<string, NPCSkillData>;
+    sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
+    saves: Record<SaveType, NPCSaveData & WithAdjustments>;
     traits: CreatureTraitsData & {
         senses: NPCSheetLabeledValue[];
         size: {
@@ -109,6 +120,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     notAdjusted: boolean;
     inventory: SheetInventory;
     hasShield?: boolean;
+    hasHardness?: boolean;
     configLootableNpc?: boolean;
 }
 
@@ -190,7 +202,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
-        this.preparePerception(sheetData.data);
         this.prepareSkills(sheetData.data);
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
@@ -219,13 +230,16 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    override getData(): NPCSheetData {
-        const sheetData: NPCSheetData = super.getData();
+    private getIdentifyCreatureData(): IdentifyCreatureData {
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+        return identifyCreature(this.actor.data, { proficiencyWithoutLevel });
+    }
+
+    override async getData(): Promise<NPCSheetData> {
+        const sheetData: NPCSheetData = await super.getData();
 
         // recall knowledge DCs
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        const identifyCreatureData = identifyCreature(sheetData, { proficiencyWithoutLevel });
-        sheetData.identifyCreatureData = identifyCreatureData;
+        const identifyCreatureData = (sheetData.identifyCreatureData = this.getIdentifyCreatureData());
         sheetData.identifySkillDC = identifyCreatureData.skill.dc;
         sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
         sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join("/");
@@ -284,10 +298,25 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
+        const { ac, hp, perception, hardness } = sheetData.data.attributes;
+        ac.adjustedHigher = ac.value > Number(ac.base);
+        ac.adjustedLower = ac.value < Number(ac.base);
+        hp.adjustedHigher = hp.max > Number(hp.base);
+        hp.adjustedLower = hp.max < Number(hp.base);
+        perception.adjustedHigher = perception.totalModifier > Number(perception.base);
+        perception.adjustedLower = perception.totalModifier < Number(perception.base);
+
+        sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
+
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         // Return data for rendering
         return sheetData;
+    }
+
+    /** Skip this since the sheet shows the user the source value when focusing on an input element to edit */
+    protected override getIntendedChange(_propertyPath: string, update: number): number {
+        return update;
     }
 
     /**
@@ -311,7 +340,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (!this.options.editable) return;
 
         html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
-        html.find(".skills-edit").on("click", (event) => this.onSkillsEditClicked(event));
+        html.find(".skills-edit").on("click", () => {
+            new NPCSkillsEditor(this.actor).render(true);
+        });
 
         // Adjustments
         html.find(".npc-elite-adjustment").on("click", () => this.onClickMakeElite());
@@ -325,17 +356,31 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         // Spontaneous Spell slot reset handler:
         html.find(".spell-slots-increment-reset").on("click", (event) => this.onSpellSlotIncrementReset(event));
 
-        // Display base values on enter
-        html.find(".modifier")
-            .on("focusin", (event) => this.baseInputOnFocus(event))
-            .on("focusout", (event) => this.baseInputOnFocusOut(event));
-
         html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
 
         html.find(".recall-knowledge button.breakdown").on("click", (event) => {
             event.preventDefault();
-            const { identifyCreatureData } = this.getData();
+            const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
+        });
+
+        html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
+            $input.val(baseValue).attr({ name: propertyPath, type: "number" }).css({ color: "black" });
+        });
+
+        html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
+            const preparedValue = Number(getProperty(this.actor.data, propertyPath)) || 0;
+            const newValue = Number($input.val()) || 0;
+            if (newValue === baseValue) {
+                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+            }
         });
     }
 
@@ -389,16 +434,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         actorData.details.alignment.localizedName = localizedName;
     }
 
-    private preparePerception(actorData: NPCSystemSheetData) {
-        const perception = actorData.attributes.perception;
-
-        if (perception.base !== undefined && perception.base > 0) {
-            perception.readableValue = `+${perception.base}`;
-        } else {
-            perception.readableValue = perception.base;
-        }
-    }
-
     protected prepareSenses(actorData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
         for (const sense of actorData.traits.senses) {
@@ -413,10 +448,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         const skills = actorData.skills;
         for (const skillId of sortedSkillsIds) {
-            skills[skillId].label =
-                skillId in CONFIG.PF2E.skillList
-                    ? game.i18n.localize("PF2E.Skill" + skills[skillId].name)
-                    : skills[skillId].name;
+            const skill = skills[skillId];
+            skill.label =
+                skillId in CONFIG.PF2E.skillList ? game.i18n.localize("PF2E.Skill" + skills[skillId].name) : skill.name;
+            skill.adjustedHigher = skill.value > Number(skill.base);
+            skill.adjustedLower = skill.value < Number(skill.base);
         }
 
         sortedSkillsIds.sort((a: string, b: string) => {
@@ -457,14 +493,13 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private prepareSaves(actorData: NPCSystemSheetData) {
-        const fortitude = actorData.saves.fortitude;
-        const reflex = actorData.saves.reflex;
-        const will = actorData.saves.will;
-
-        fortitude.labelShort = game.i18n.localize("PF2E.SavesFortitudeShort");
-        reflex.labelShort = game.i18n.localize("PF2E.SavesReflexShort");
-        will.labelShort = game.i18n.localize("PF2E.SavesWillShort");
+    private prepareSaves(systemData: NPCSystemSheetData) {
+        for (const saveType of SAVE_TYPES) {
+            const save = systemData.saves[saveType];
+            save.labelShort = game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`);
+            save.adjustedHigher = save.totalModifier > Number(save.base);
+            save.adjustedLower = save.totalModifier < Number(save.base);
+        }
     }
 
     /**
@@ -622,7 +657,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 label: game.i18n.localize("PF2E.InventoryEquipmentHeader"),
                 type: "equipment",
                 items: itemsData.filter(
-                    (itemData): itemData is InventoryItem<EquipmentData> => itemData.type === "equipment"
+                    (itemData): itemData is InventoryItem<EquipmentData | BookData> =>
+                        itemData.type === "equipment" || itemData.type === "book"
                 ),
             },
             consumable: {
@@ -741,41 +777,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         } else if (action || item || spell) {
             this.onClickExpandable(event);
         }
-    }
-
-    private baseInputOnFocus(event: JQuery.FocusInEvent) {
-        const input = $(event.currentTarget);
-        const baseProperty = input.attr("data-base-property") ?? "";
-        const baseValue = getProperty(this.actor.data, baseProperty);
-        if (baseProperty && baseValue) {
-            input.attr("name", baseProperty);
-            input.val(baseValue);
-            input.removeClass("positive-modifier");
-            input.removeClass("negative-modifier");
-        }
-    }
-
-    private baseInputOnFocusOut(event: JQuery.FocusOutEvent) {
-        const input = $(event.currentTarget);
-        const displayValue = input.attr("data-display-value");
-        const baseProperty = input.attr("data-base-property") ?? "";
-        const baseValue = getProperty(this.actor.data, baseProperty);
-        if (displayValue) {
-            const totalModifier = Number(displayValue);
-            if (totalModifier > baseValue) {
-                input.addClass("positive-modifier");
-            } else if (totalModifier < baseValue) {
-                input.addClass("negative-modifier");
-            }
-            input.removeAttr("name");
-            input.val(displayValue);
-        }
-    }
-
-    private onSkillsEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const skillsEditor = new NPCSkillsEditor(this.actor);
-        skillsEditor.render(true);
     }
 
     private onClickExpandable(event: JQuery.ClickEvent): void {
