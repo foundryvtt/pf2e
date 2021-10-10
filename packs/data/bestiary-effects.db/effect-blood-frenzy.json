@@ -15,36 +15,20 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "flags.pf2e.rollOptions.all.blood-frenzy",
-                "value": 1
+                "key": "RollOption",
+                "domain": "all",
+                "option": "bloodFrenzy"
             },
             {
                 "key": "TempHP",
                 "label": "Blood Frenzy",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 7
-                        },
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 8
-                        },
-                        {
-                            "end": 5,
-                            "start": 4,
-                            "value": 11
-                        },
-                        {
-                            "start": 6,
-                            "value": 15
-                        }
-                    ]
-                }
+                "value": "@details.level.value + @abilities.con.mod + @custom.modifiers.frenzyMod"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.custom.modifiers.frenzyMod",
+                "value": 0
             }
         ],
         "source": {
