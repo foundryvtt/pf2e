@@ -18,6 +18,9 @@ import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
+import { craft } from "@system/actions/crafting/craft";
+import { CheckDC } from "@system/check-degree-of-success";
+import { craftItem } from "@module/crafting/crafting";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -749,6 +752,49 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
             item.update(data);
+        });
+
+        html.find(".craft-item").on("click", async (event) => {
+            const { itemUuid, craftDc } = event.currentTarget.dataset;
+            const itemQuantity = Number(
+                $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
+            );
+            if (!itemUuid) return;
+
+            if (this.actor.getFlag("pf2e", "freeCrafting")) {
+                craftItem(itemUuid, itemQuantity, this.actor);
+                return;
+            }
+
+            const dc: CheckDC = {
+                value: Number(craftDc),
+                visibility: "all",
+                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                scope: "CheckOutcome",
+            };
+
+            craft({ dc: dc, uuid: itemUuid, quantity: itemQuantity, event: event, actors: this.actor });
+        });
+
+        html.find(".formula-increase-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            $(event.currentTarget)
+                .siblings("input")
+                .first()
+                .val(value + 1);
+        });
+
+        html.find(".formula-decrease-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            if (value > 0)
+                $(event.currentTarget)
+                    .siblings("input")
+                    .first()
+                    .val(value - 1);
+        });
+
+        html.find(".toggle-free-crafting").on("click", () => {
+            this.actor.setFlag("pf2e", "freeCrafting", !this.actor.getFlag("pf2e", "freeCrafting"));
         });
     }
 
