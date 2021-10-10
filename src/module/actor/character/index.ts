@@ -94,8 +94,8 @@ export class CharacterPF2e extends CreaturePF2e {
         return (await fromUUIDs(formulas.map((data) => data.uuid)))
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
-                const { dc, batchSize } = formulaMap.get(item.uuid) ?? {};
-                return new CraftingFormula(item, { dc, batchSize });
+                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
+                return new CraftingFormula(item, { dc, batchSize, deletable });
             });
     }
 
@@ -178,6 +178,11 @@ export class CharacterPF2e extends CreaturePF2e {
                 breakdown: "",
             };
         }
+
+        // Decorate crafting formulas stored directly on the actor
+        this.data.data.crafting.formulas.forEach((formula) => {
+            formula.deletable = true;
+        });
 
         // Toggles
         systemData.toggles = {
