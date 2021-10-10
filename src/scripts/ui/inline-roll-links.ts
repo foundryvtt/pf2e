@@ -331,7 +331,13 @@ export const InlineRollsLinks = {
         });
 
         $links.filter("[data-pf2-effect-area]").on("click", (event) => {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData = "{}", pf2Traits } = event.currentTarget.dataset;
+            const {
+                pf2EffectArea,
+                pf2Distance,
+                pf2TemplateData = "{}",
+                pf2Traits,
+                pf2Width,
+            } = event.currentTarget.dataset;
             const templateConversion: Record<string, string> = {
                 burst: "circle",
                 emanation: "circle",
@@ -348,7 +354,7 @@ export const InlineRollsLinks = {
                 templateData.distance ||= Number(pf2Distance);
 
                 if (templateData.t === "ray") {
-                    templateData.width ||= canvas.dimensions.distance;
+                    templateData.width ||= pf2Width ? Number(pf2Width) : canvas.dimensions.distance;
                 }
                 if (templateData.t === "cone") {
                     templateData.angle ||= 90;
