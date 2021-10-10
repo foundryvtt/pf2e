@@ -442,9 +442,9 @@ export class ConditionManager {
         // Work around Foundry bug in which `keepId` is ignored when creating embedded documents on synethic actors
         // https://gitlab.com/foundrynet/foundryvtt/-/issues/5826
         source._id = randomID(16);
-        const sources = [...actor.toObject().items, source, ...this.createAdditionallyAppliedConditions(source)];
+        const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
         actor.isToken
-            ? await actor.update({ items: sources }, { keepId: true })
+            ? await actor.update({ items: [...actor.toObject().items, ...sources] }, { keepId: true })
             : await ItemPF2e.createDocuments(sources, { parent: actor, keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
