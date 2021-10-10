@@ -1,8 +1,12 @@
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { StatisticModifier } from "@module/modifiers";
-import { CraftingResult } from "@module/crafting/crafting";
-import { attemptToRemoveCoinsByValue, coinsToString } from "@item/treasure/helpers";
+import {
+    attemptToRemoveCoinsByValue,
+    coinsToString,
+    extractPriceFromItem,
+    multiplyCoinValue,
+} from "@item/treasure/helpers";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -82,19 +86,15 @@ export const ChatCards = {
                     else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
                     else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
                 }
-
-                const itemUuid = card.attr("data-item-uuid") || "";
-                const item = await fromUuid(itemUuid);
-                if (item === null || !(item instanceof PhysicalItemPF2e)) return;
-                const craftingResultString = card.attr("data-crafting-result");
-                if (craftingResultString === undefined) return;
-                const craftingResult = JSON.parse(craftingResultString) as CraftingResult;
-                if (craftingResult === undefined) return;
-
                 if (action == "pay-crafting-costs") {
-                    const coinsToRemove = button.hasClass("full")
-                        ? craftingResult.costs.itemPrice
-                        : craftingResult.costs.materials;
+                    const itemUuid = card.attr("data-item-uuid") || "";
+                    const item = await fromUuid(itemUuid);
+                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+                    const quantity = Number(card.attr("data-crafting-quantity")) || 1;
+                    const craftingCost = extractPriceFromItem({
+                        data: { quantity: { value: quantity }, price: item.data.data.price },
+                    });
+                    const coinsToRemove = button.hasClass("full") ? craftingCost : multiplyCoinValue(craftingCost, 0.5);
                     if (
                         !(await attemptToRemoveCoinsByValue({
                             actor: actor,
@@ -106,7 +106,7 @@ export const ChatCards = {
                     }
 
                     const itemObject = item.toObject();
-                    itemObject.data.quantity.value = craftingResult.quantity;
+                    itemObject.data.quantity.value = quantity;
 
                     const result = await actor.addItemToActor(itemObject, undefined);
                     if (!result) {
@@ -116,16 +116,24 @@ export const ChatCards = {
 
                     ChatMessage.create({
                         user: game.user.id,
-                        content: `${actor.name} pays ${coinsToString(coinsToRemove)} crafting costs and receives ${
-                            craftingResult.quantity
-                        }x ${item.name}.`,
+                        content: `${actor.name} pays ${coinsToString(
+                            coinsToRemove
+                        )} crafting costs and receives ${quantity}x ${item.name}.`,
                         speaker: { alias: actor.name },
                     });
                 } else if (action === "lose-materials") {
+                    const itemUuid = card.attr("data-item-uuid") || "";
+                    const item = await fromUuid(itemUuid);
+                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+                    const quantity = Number(card.attr("data-crafting-quantity")) || 1;
+                    const craftingCost = extractPriceFromItem({
+                        data: { quantity: { value: quantity }, price: item.data.data.price },
+                    });
+                    const materialCosts = multiplyCoinValue(craftingCost, 0.5);
                     if (
                         !(await attemptToRemoveCoinsByValue({
                             actor: actor,
-                            coinsToRemove: craftingResult.costs.lostMaterials,
+                            coinsToRemove: multiplyCoinValue(materialCosts, 0.1),
                         }))
                     ) {
                         ui.notifications.warn("Insufficient coins");

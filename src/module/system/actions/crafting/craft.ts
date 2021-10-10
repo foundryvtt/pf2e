@@ -4,7 +4,7 @@ import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
 import { ActorPF2e } from "@actor";
-import { craftItem } from "@module/crafting/crafting";
+import { renderCraftingInline } from "@module/crafting/crafting";
 
 interface CraftActionOptions extends SkillActionOptions {
     dc?: CheckDC;
@@ -145,7 +145,7 @@ export async function craft(options: CraftActionOptions) {
             if (result.message instanceof ChatMessageData) {
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success"].includes(result.outcome ?? "")) {
-                        return await craftItem(item, result.roll, quantity, actor, options.uuid || "");
+                        return await renderCraftingInline(item, result.roll, quantity, actor, options.uuid || "");
                     } else {
                         return "";
                     }

@@ -1,22 +1,22 @@
-<div class="pf2e chat-card" data-crafting-result="{{craftingData}}" data-item-uuid="{{craftingResult.itemUuid}}">
+<div class="pf2e chat-card" data-crafting-result="{{craftingData}}" data-item-uuid="{{itemUuid}}" data-crafting-quantity="{{quantity}}">
     <div class="card-content">
         <div style="display: flex; align-items: center; padding-bottom: 3px;">
-            <img src="{{craftingResult.item.img}}" style="height:32px; width:32px; margin-right: 3px;">
-            <h3>{{craftingResult.quantity}} x {{{strings.itemLink}}}</h3>
+            <img src="{{img}}" style="height:32px; width:32px; margin-right: 3px;">
+            <h3>{{quantity}} x {{{strings.itemLink}}}</h3>
         </div>
         <hr>
-        {{#if craftingResult.successFlags.success}}
+        {{#if success}}
             <p><strong>Discount per Day:</strong> {{strings.reductionPerDay}}</p>
-            <p><strong>Days until no Additional Cost:</strong> {{craftingResult.daysForZeroCost}}</p>
+            <p><strong>Days until no Additional Cost:</strong> {{daysForZeroCost}}</p>
         {{/if}}
     </div>
     <hr>
     <div class="card-buttons">
-        {{#if craftingResult.successFlags.success}}
+        {{#if success}}
             <button type="button" data-action="pay-crafting-costs" class="materials">Pay {{strings.materialCost}} Material Costs and Craft</button>
             <button type="button" data-action="pay-crafting-costs" class="full">Pay {{strings.itemCost}} Full Costs and Craft</button>
             {{else}}
-                {{#if craftingResult.successFlags.criticalFailure}}
+                {{#if criticalFailure}}
                     <button type="button" data-action="lose-materials">Lose {{strings.lostMaterials}} of Materials</button>
                 {{/if}}
         {{/if}}
