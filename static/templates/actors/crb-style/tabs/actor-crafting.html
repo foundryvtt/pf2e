@@ -27,9 +27,9 @@
                         <h3>{{localize 'PF2E.LevelN' level=lvl}}</h3>
                     </div>
 
-                    <div class="formula-dc-header">{{localize "PF2E.Spells.DCLabel"}}</div>
+                    <div class="formula-dc-header">{{localize "PF2E.CraftDCTitle"}}</div>
                     <div class="formula-cost-header">{{localize "PF2E.SpellCostLabel"}}</div>
-                    <div class="formula-quantity-header">{{localize "PF2E.Inventory.Header.QuantityLabel"}}</div>
+                    <div class="formula-quantity-header">{{localize "PF2E.CraftQuantityTitle"}}</div>
 
                     {{#if @root.owner}}
                     <div class="item-controls">
@@ -64,7 +64,7 @@
 
                     {{#if @root.owner}}
                     <div class="item-controls">
-                        <a class="item-control craft-item" title="Craft" data-item-uuid="{{craftedItem.uuid}}" data-craft-dc="{{craftedItem.dc}}" data-item-price="{{craftedItem.price}}"><i
+                        <a class="item-control craft-item" title="{{localize "PF2E.CraftItemTitle"}}" data-item-uuid="{{craftedItem.uuid}}" data-craft-dc="{{craftedItem.dc}}" data-item-price="{{craftedItem.price}}"><i
                             class="fas fa-hammer"></i></a>
                         <a class="item-control formula-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i
                                 class="fas fa-trash"></i></a>
