@@ -11,7 +11,7 @@ import { goesToEleven, ZeroToThree } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
@@ -555,17 +555,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
-        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
         const craftingFormulas = await this.actor.getCraftingFormulas();
-        for (const formula of craftingFormulas) {
-            const level = formula.level || 0;
-            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
-        }
-        return knownFormulas;
+        return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /**
