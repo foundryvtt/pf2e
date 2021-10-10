@@ -522,8 +522,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !["condition", "martial", "spellcastingEntry"].includes(itemType) &&
-                !(itemType === "formula" && BUILD_MODE === "production")
+                !(
+                    ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
+                    (itemType === "book" && BUILD_MODE === "production")
+                )
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
