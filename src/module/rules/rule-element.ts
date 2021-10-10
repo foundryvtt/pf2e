@@ -11,6 +11,7 @@ import {
     RuleElementSynthetics,
     RuleValue,
 } from "./rules-data-definitions";
+import { getStrikingDice, getResiliencyBonus } from "@module/item/runes";
 
 export class TokenEffect implements TemporaryEffect {
     public data: { disabled: boolean; icon: string; tint: string } = {
@@ -247,11 +248,37 @@ abstract class RuleElementPF2e {
                 })?.value ?? bracketFallthrough;
         }
 
-        return value instanceof Object && defaultValue instanceof Object
-            ? mergeObject(defaultValue, value, { inplace: false })
-            : typeof value === "string" && value.includes("@") && evaluate
-            ? Roll.safeEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
-            : value;
+        if (this.item.data.type === "armor") {
+            return value instanceof Object && defaultValue instanceof Object
+                ? mergeObject(defaultValue, value, { inplace: false })
+                : typeof value === "string" && value.includes("@") && evaluate
+                ? Roll.safeEval(
+                      Roll.replaceFormulaData(value, {
+                          ...this.actor.data.data,
+                          item: this.item.data.data,
+                          resiliency: getResiliencyBonus(this.item.data.data),
+                      })
+                  )
+                : value;
+        } else if (this.item.data.type === "weapon") {
+            return value instanceof Object && defaultValue instanceof Object
+                ? mergeObject(defaultValue, value, { inplace: false })
+                : typeof value === "string" && value.includes("@") && evaluate
+                ? Roll.safeEval(
+                      Roll.replaceFormulaData(value, {
+                          ...this.actor.data.data,
+                          item: this.item.data.data,
+                          striking: getStrikingDice(this.item.data.data),
+                      })
+                  )
+                : value;
+        } else {
+            return value instanceof Object && defaultValue instanceof Object
+                ? mergeObject(defaultValue, value, { inplace: false })
+                : typeof value === "string" && value.includes("@") && evaluate
+                ? Roll.safeEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+                : value;
+        }
     }
 
     private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {
