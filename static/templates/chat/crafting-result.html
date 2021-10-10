@@ -6,18 +6,18 @@
         </div>
         <hr>
         {{#if success}}
-            <p><strong>Discount per Day:</strong> {{strings.reductionPerDay}}</p>
-            <p><strong>Days until no Additional Cost:</strong> {{daysForZeroCost}}</p>
+            <p><strong>{{localize "PF2E.Actions.Craft.Details.Discount"}}</strong> {{strings.reductionPerDay}}</p>
+            <p><strong>{{localize "PF2E.Actions.Craft.Details.DaysForNoCost"}}</strong> {{daysForZeroCost}}</p>
         {{/if}}
     </div>
     <hr>
     <div class="card-buttons">
         {{#if success}}
-            <button type="button" data-action="pay-crafting-costs" class="materials">Pay {{strings.materialCost}} Material Costs and Craft</button>
-            <button type="button" data-action="pay-crafting-costs" class="full">Pay {{strings.itemCost}} Full Costs and Craft</button>
+            <button type="button" data-action="pay-crafting-costs" class="materials">{{strings.materialCost}}</button>
+            <button type="button" data-action="pay-crafting-costs" class="full">{{strings.itemCost}}</button>
             {{else}}
                 {{#if criticalFailure}}
-                    <button type="button" data-action="lose-materials">Lose {{strings.lostMaterials}} of Materials</button>
+                    <button type="button" data-action="lose-materials">{{strings.lostMaterials}}</button>
                 {{/if}}
         {{/if}}
     </div>

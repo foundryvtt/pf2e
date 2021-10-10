@@ -32,9 +32,15 @@ function calculateDaysToNoCost(costs: Costs): number {
 function prepStrings(costs: Costs, itemUuid: string) {
     return {
         reductionPerDay: coinsToString(costs.reductionPerDay),
-        materialCost: coinsToString(costs.materials),
-        itemCost: coinsToString(costs.itemPrice),
-        lostMaterials: coinsToString(costs.lostMaterials),
+        materialCost: game.i18n.format("PF2E.Actions.Craft.Details.PayMaterials", {
+            cost: coinsToString(costs.materials),
+        }),
+        itemCost: game.i18n.format("PF2E.Actions.Craft.Details.PayFull", {
+            cost: coinsToString(costs.itemPrice),
+        }),
+        lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
+            cost: coinsToString(costs.lostMaterials),
+        }),
         itemLink: TextEditor.enrichHTML("@" + itemUuid.replace(".", "[") + "]"),
     };
 }

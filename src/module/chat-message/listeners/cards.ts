@@ -116,9 +116,12 @@ export const ChatCards = {
 
                     ChatMessage.create({
                         user: game.user.id,
-                        content: `${actor.name} pays ${coinsToString(
-                            coinsToRemove
-                        )} crafting costs and receives ${quantity}x ${item.name}.`,
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                            actorName: actor.name,
+                            cost: coinsToString(coinsToRemove),
+                            quantity: quantity,
+                            itemName: item.name,
+                        }),
                         speaker: { alias: actor.name },
                     });
                 } else if (action === "lose-materials") {
@@ -130,17 +133,21 @@ export const ChatCards = {
                         data: { quantity: { value: quantity }, price: item.data.data.price },
                     });
                     const materialCosts = multiplyCoinValue(craftingCost, 0.5);
+                    const coinsToRemove = multiplyCoinValue(materialCosts, 0.1);
                     if (
                         !(await attemptToRemoveCoinsByValue({
                             actor: actor,
-                            coinsToRemove: multiplyCoinValue(materialCosts, 0.1),
+                            coinsToRemove: coinsToRemove,
                         }))
                     ) {
                         ui.notifications.warn("Insufficient coins");
                     } else {
                         ChatMessage.create({
                             user: game.user.id,
-                            content: actor.name + " loses materials.",
+                            content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                                actorName: actor.name,
+                                cost: coinsToString(coinsToRemove),
+                            }),
                             speaker: { alias: actor.name },
                         });
                     }
