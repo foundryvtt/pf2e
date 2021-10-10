@@ -3,6 +3,7 @@ import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
+import { renderCraftingInline } from "@module/crafting/crafting";
 
 interface CraftActionOptions extends SkillActionOptions {
     dc?: CheckDC;
@@ -134,18 +135,15 @@ export async function craft(options: CraftActionOptions) {
         callback: async (result) => {
             // react to check result, creating the item in the actor's inventory on a success
             if (result.message instanceof ChatMessageData) {
-                const link = "@" + item.uuid.replace(".", "[") + "]";
                 const flavor = await (async () => {
-                    if (["criticalSuccess", "success"].includes(result.outcome ?? "")) {
-                        return `
-                            <div style="display: flex; align-items: center; padding-bottom: 3px;">
-                              <img src="${item.img}" style="height:32px; width:32px; margin-right: 3px;">
-                              <span>${quantity} &times; ${TextEditor.enrichHTML(link)}</span>
-                            </div>
-                            <div style="padding-bottom: 3px;">
-                              <button type="button">Pay to get item</button>
-                            </div>
-                        `; // replace this with a call to renderTemplate()
+                    if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
+                        return await renderCraftingInline(
+                            item,
+                            result.roll,
+                            quantity,
+                            result.actor,
+                            options.uuid || ""
+                        );
                     } else {
                         return "";
                     }

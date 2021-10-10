@@ -3,7 +3,7 @@ import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
-import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
+import { ConditionData, WeaponData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
@@ -773,24 +773,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = traits.has("invested") ? false : null;
         }
 
+        const result = await this.addItemToActor(newItemData, container);
+        return result ? item : null;
+    }
+
+    async addItemToActor(
+        itemData: PhysicalItemSource,
+        container?: Embedded<ContainerPF2e>
+    ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(targetActor, newItemData);
+        const stackItem = this.findStackableItem(this, itemData);
         if (stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + quantity;
+            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
             await stackItem.update({ "data.quantity.value": stackQuantity });
             return stackItem;
         }
 
         // Otherwise create a new item
-        const result = await ItemPF2e.create(newItemData, { parent: targetActor });
+        const result = await ItemPF2e.create(itemData, { parent: this });
         if (!result) {
             return null;
         }
-        const movedItem = targetActor.physicalItems.get(result.id);
+        const movedItem = this.physicalItems.get(result.id);
         if (!movedItem) return null;
-        await targetActor.stowOrUnstow(movedItem, container);
+        await this.stowOrUnstow(movedItem, container);
 
-        return item;
+        return movedItem;
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */

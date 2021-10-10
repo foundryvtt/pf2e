@@ -105,6 +105,28 @@ export function extractPriceFromItem(
     }
 }
 
+export function multiplyCoinValue(coins: Coins, factor: number): Coins {
+    if (factor % 1 === 0) {
+        return {
+            pp: coins.pp * factor,
+            gp: coins.gp * factor,
+            sp: coins.sp * factor,
+            cp: coins.cp * factor,
+        };
+    } else {
+        const pp = coins.pp * factor;
+        const gp = coins.gp * factor + (pp % 1) * 10;
+        const sp = coins.sp * factor + (gp % 1) * 10;
+        const cp = coins.cp * factor + (sp % 1) * 10;
+        return {
+            pp: Math.floor(pp),
+            gp: Math.floor(gp),
+            sp: Math.floor(sp),
+            cp: Math.floor(cp),
+        };
+    }
+}
+
 /**
  * Utility function to be used with various categories
  * @param items
