@@ -1,12 +1,12 @@
 export const EnrichContent = {
     getParams: (data: string): Map<string, string> | string => {
         const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
-        let parameters = new Map();
+        const parameters = new Map();
 
         const params = data.trim().split("|");
         if (!Array.isArray(params)) return error;
 
-        for (let arr of params) {
+        for (const arr of params) {
             const a = arr.trim().split(":");
             if (!(a.length === 2)) return error;
 
@@ -64,7 +64,7 @@ export const EnrichContent = {
             if (options?.rollData) {
                 for (const [k, v] of Object.entries(options.rollData)) {
                     if (k === "item") {
-                        let t = v.traits.value.join(",");
+                        const t = v.traits.value.join(",");
                         if (!(v.traits.custom === "")) t.append(`, ${v.traits.custom}`);
                         params.set("traits", t);
                     } else params.set("traits", "");
