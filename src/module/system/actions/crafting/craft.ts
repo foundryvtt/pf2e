@@ -11,19 +11,88 @@ interface CraftActionOptions extends SkillActionOptions {
     uuid?: string;
 }
 
+interface ItemDropData {
+    id?: string;
+    pack?: string;
+    type: "Item";
+}
+
+class SelectItemDialog extends Application {
+    private item: PhysicalItemPF2e | null = null;
+
+    private constructor(private resolve: (value: PhysicalItemPF2e | null) => void) {
+        super({
+            classes: ["select-craft-item-dialog"],
+            template: "systems/pf2e/templates/system/actions/craft-target-item.html",
+            title: "PF2E.Actions.Craft.SelectItemDialog.Title",
+            width: 270,
+        });
+    }
+
+    override async getData() {
+        const data: { item?: PhysicalItemPF2e | null } = await super.getData();
+        data.item = this.item;
+        return data;
+    }
+
+    override activateListeners(html: JQuery) {
+        super.activateListeners(html);
+
+        html.on("drop", async (event) => {
+            const json = event.originalEvent?.dataTransfer?.getData("text/plain");
+            if (!json?.startsWith("{") || !json.endsWith("}")) return;
+
+            const data: Partial<ItemDropData> = JSON.parse(json);
+            const item = await (async () => {
+                if (data.type === "Item" && data.pack && data.id) {
+                    return await fromUuid(`Compendium.${data.pack}.${data.id}`);
+                } else if (data.type === "Item" && data.id) {
+                    return await fromUuid(`Item.${data.id}`);
+                }
+                return null;
+            })();
+
+            if (item instanceof PhysicalItemPF2e) {
+                this.item = item;
+                this.render();
+            } else {
+                ui.notifications.error(game.i18n.localize("PF2E.Actions.Craft.Error.ItemReferenceMismatch"));
+            }
+        });
+
+        html.find("[data-event-handler=craft]").on("click", () => {
+            this.close();
+        });
+
+        html.find("[data-event-handler=cancel]").on("click", () => {
+            this.item = null;
+            this.close();
+        });
+    }
+
+    override close(options?: { force?: boolean }): Promise<void> {
+        this.resolve(this.item);
+        return super.close(options);
+    }
+
+    static async getItem(): Promise<PhysicalItemPF2e | null> {
+        return new Promise((resolve) => {
+            new SelectItemDialog(resolve).render(true);
+        });
+    }
+}
+
 export async function craft(options: CraftActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item = await (async () => {
-        return options.item ?? (options.uuid ? fromUuid(options.uuid) : null) ?? null; // show dialog to support drag and drop items
+        return options.item ?? (options.uuid ? fromUuid(options.uuid) : null) ?? SelectItemDialog.getItem();
     })();
 
     // ensure item is a valid crafting target
     if (!item) {
-        ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Craft.Warning.MissingItem", { uuid: options.uuid ?? null })
-        );
+        console.log("No item selected to craft - aborting.");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));
@@ -39,6 +108,7 @@ export async function craft(options: CraftActionOptions) {
     const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
     const dc: CheckDC = options.dc ?? {
         value: calculateDC(item.level, { proficiencyWithoutLevel }),
+        visibility: "all",
     };
 
     ActionsPF2e.simpleRollActionCheck({
