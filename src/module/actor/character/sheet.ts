@@ -776,7 +776,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 ChatMessage.create({
                     user: game.user.id,
-                    content: `${this.actor.name} receives ${itemQuantity}x ${item.name}.`,
+                    content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
+                        actorName: this.actor.name,
+                        quantity: itemQuantity,
+                        itemName: item.name,
+                    }),
                     speaker: { alias: this.actor.name },
                 });
                 return;
