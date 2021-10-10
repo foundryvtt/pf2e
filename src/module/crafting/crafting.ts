@@ -107,6 +107,31 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
     }
 }
 
+export async function craftItem(itemUuid: string, itemQuantity: number, actor: ActorPF2e) {
+    const item = await fromUuid(itemUuid);
+    if (!(item instanceof PhysicalItemPF2e)) {
+        return;
+    }
+    const itemObject = item.toObject();
+    itemObject.data.quantity.value = itemQuantity;
+
+    const result = await actor.addItemToActor(itemObject, undefined);
+    if (!result) {
+        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+        return;
+    }
+
+    ChatMessage.create({
+        user: game.user.id,
+        content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
+            actorName: actor.name,
+            quantity: itemQuantity,
+            itemName: item.name,
+        }),
+        speaker: { alias: actor.name },
+    });
+}
+
 export async function renderCraftingInline(
     item: PhysicalItemPF2e,
     roll: Rolled<Roll<RollDataPF2e>>,

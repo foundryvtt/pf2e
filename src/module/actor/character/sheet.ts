@@ -20,6 +20,7 @@ import { CraftingFormulaData } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
+import { craftItem } from "@module/crafting/crafting";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -761,28 +762,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (!itemUuid) return;
 
             if (this.actor.getFlag("pf2e", "freeCrafting")) {
-                const item = await fromUuid(itemUuid);
-                if (!(item instanceof PhysicalItemPF2e)) {
-                    return;
-                }
-                const itemObject = item.toObject();
-                itemObject.data.quantity.value = itemQuantity;
-
-                const result = await this.actor.addItemToActor(itemObject, undefined);
-                if (!result) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
-                    return;
-                }
-
-                ChatMessage.create({
-                    user: game.user.id,
-                    content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
-                        actorName: this.actor.name,
-                        quantity: itemQuantity,
-                        itemName: item.name,
-                    }),
-                    speaker: { alias: this.actor.name },
-                });
+                craftItem(itemUuid, itemQuantity, this.actor);
                 return;
             }
 
