@@ -15,8 +15,8 @@ import {
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
-    ProficiencyData,
-    RawSkillData,
+    RawStatistic,
+    AbilityBasedStatistic,
     RollToggle,
     StrikeData,
 } from "@actor/data/base";
@@ -43,6 +43,7 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
 }
 
 export interface CharacterSkillData extends SkillData {
+    ability: AbilityString;
     /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
@@ -132,11 +133,13 @@ export interface CharacterSystemData extends CreatureSystemData {
 }
 
 interface CharacterSaveData extends SaveData {
+    ability: AbilityString;
+    /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
 }
 export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
-export interface CharacterProficiency extends ProficiencyData {
+export interface CharacterProficiency extends RawStatistic {
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
     label?: string;
@@ -166,7 +169,7 @@ export type CombatProficiencies = CategoryProficiencies &
 export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-export interface ClassDCData extends StatisticModifier, RawSkillData {
+export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
     rank: ZeroToFour;
 }
 

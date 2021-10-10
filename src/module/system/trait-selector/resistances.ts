@@ -1,4 +1,5 @@
-import { ActorPF2e, NPCPF2e, HazardPF2e } from "@actor/index";
+import { ActorPF2e } from "@actor/index";
+import { ErrorPF2e } from "@util";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
@@ -22,14 +23,19 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
     }
 
     override getData() {
+        const actorSource = deepClone(this.object.data._source);
+        if (actorSource.type === "familiar") {
+            throw ErrorPF2e("Resistances cannot be saved to familiar data");
+        }
+
         const data: any = super.getData();
 
-        if (this.object instanceof NPCPF2e || this.object instanceof HazardPF2e) {
+        if (actorSource.type === "npc" || actorSource.type === "hazard") {
             data.hasExceptions = true;
         }
 
         const choices: any = {};
-        const resistances = this.object.data._source.data.traits.dr;
+        const resistances = actorSource.data.traits.dr;
         Object.entries(this.choices).forEach(([type, label]) => {
             const resistance = resistances.find((resistance) => resistance.type === type);
             choices[type] = {

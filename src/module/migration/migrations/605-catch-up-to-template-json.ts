@@ -17,7 +17,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         this.addEffects(actorData);
 
         // Add custom trait property
-        if (!(typeof actorData.data.traits.traits.custom === "string")) {
+        if ("traits" in actorData.data && !(typeof actorData.data.traits.traits.custom === "string")) {
             actorData.data.traits.traits.custom = "";
         }
 

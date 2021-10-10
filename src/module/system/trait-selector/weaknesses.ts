@@ -1,4 +1,5 @@
-import { ActorPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
+import { ErrorPF2e } from "@util";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
@@ -19,12 +20,15 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
     override getData() {
         const data: any = super.getData();
 
-        if (this.object instanceof NPCPF2e) {
+        const actorSource = deepClone(this.object.data._source);
+        if (actorSource.type === "npc") {
             data.hasExceptions = true;
+        } else if (actorSource.type === "familiar") {
+            throw ErrorPF2e("Weaknesses cannot be saved to familiar data");
         }
 
         const choices: any = {};
-        const weaknesses = this.object.data._source.data.traits.dv;
+        const weaknesses = actorSource.data.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
             const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {
