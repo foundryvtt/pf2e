@@ -8,7 +8,7 @@
 
                 {{#if @root.owner}}
                 <div class="item-controls">
-                    <a class="item-control toggle-free-crafting" title="Toggle free crafting">
+                    <a class="item-control toggle-free-crafting" title="{{localize "PF2E.ToggleFreeCrafting"}}">
                         {{#if actor.flags.pf2e.freeCrafting}} 
                             <i class="far fa-check-square"></i>
                             {{else}}
@@ -27,9 +27,9 @@
                         <h3>{{localize 'PF2E.LevelN' level=lvl}}</h3>
                     </div>
 
-                    <div class="formula-dc-header">DC</div>
-                    <div class="formula-cost-header">Cost</div>
-                    <div class="formula-quantity-header">Quantity</div>
+                    <div class="formula-dc-header">{{localize "PF2E.Spells.DCLabel"}}</div>
+                    <div class="formula-cost-header">{{localize "PF2E.SpellCostLabel"}}</div>
+                    <div class="formula-quantity-header">{{localize "PF2E.Inventory.Header.QuantityLabel"}}</div>
 
                     {{#if @root.owner}}
                     <div class="item-controls">

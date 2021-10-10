@@ -101,7 +101,7 @@ export const ChatCards = {
                             coinsToRemove: coinsToRemove,
                         }))
                     ) {
-                        ui.notifications.warn("Insufficient coins");
+                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                         return;
                     }
 
@@ -110,7 +110,7 @@ export const ChatCards = {
 
                     const result = await actor.addItemToActor(itemObject, undefined);
                     if (!result) {
-                        ui.notifications.warn("Could not add items");
+                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
                         return;
                     }
 
@@ -140,7 +140,7 @@ export const ChatCards = {
                             coinsToRemove: coinsToRemove,
                         }))
                     ) {
-                        ui.notifications.warn("Insufficient coins");
+                        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     } else {
                         ChatMessage.create({
                             user: game.user.id,

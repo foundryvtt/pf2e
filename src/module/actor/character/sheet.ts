@@ -770,7 +770,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 const result = await this.actor.addItemToActor(itemObject, undefined);
                 if (!result) {
-                    ui.notifications.warn("Could not add items");
+                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
                     return;
                 }
 
