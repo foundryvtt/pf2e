@@ -61,8 +61,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** The compendium source ID of the actor **/
-    get sourceId(): string | null {
-        return this.getFlag("core", "sourceId") ?? null;
+    get sourceId(): ActorUUID | null {
+        return this.data.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this actor, updated after each data migration */

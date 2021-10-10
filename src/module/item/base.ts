@@ -57,8 +57,8 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The compendium source ID of the item **/
-    get sourceId(): string | null {
-        return this.getFlag("core", "sourceId") ?? null;
+    get sourceId(): ItemUUID | null {
+        return this.data.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
