@@ -2015,7 +2015,6 @@ export const PF2ECONFIG = {
         ekujae: "PF2E.LanguageEkujae",
         erutaki: "PF2E.LanguageErutaki",
         garundi: "PF2E.LanguageGarundi",
-        giant: "PF2E.LanguageGiant",
         girtablilu: "PF2E.LanguageGirtablilu",
         gnoll: "PF2E.LanguageGnoll",
         goloma: "PF2E.LanguageGoloma",
