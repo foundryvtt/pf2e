@@ -29,7 +29,7 @@
             .item-controls {
                 color: white;
                 text-transform: uppercase;
-                font-size: 0.7em;
+                font-size: 1em;
                 letter-spacing: 0.05em;
                 font-family: var(--sans-serif);
                 flex: 1 0 auto;
@@ -194,6 +194,24 @@
                             &:hover {
                                 text-shadow: 0 0 2px white;
                             }
+                    }
+                }
+
+                .formula-quantity {
+                    display: flex;
+                    justify-content: center;
+
+                    .formula-decrease-quantity,
+                    .formula-increase-quantity {
+                        height: 100%;
+                        width: 18px;
+                        text-align: center;
+                        @include flex-center;
+                    }
+
+                    input {
+                        width: 24px;
+                        text-align: center;
                     }
                 }
             }
