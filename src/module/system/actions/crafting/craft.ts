@@ -3,7 +3,6 @@ import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
-import { ActorPF2e } from "@actor";
 import { renderCraftingInline } from "@module/crafting/crafting";
 
 interface CraftActionOptions extends SkillActionOptions {
@@ -87,13 +86,6 @@ class SelectItemDialog extends Application {
 export async function craft(options: CraftActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "crafting");
 
-    // ensure single character
-    if (!(options.actors instanceof ActorPF2e)) {
-        return;
-    }
-
-    const actor = options.actors;
-
     // resolve item
     const item = await (async () => {
         return options.item ?? (options.uuid ? fromUuid(options.uuid) : null) ?? SelectItemDialog.getItem();
@@ -145,7 +137,13 @@ export async function craft(options: CraftActionOptions) {
             if (result.message instanceof ChatMessageData) {
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(item, result.roll, quantity, actor, options.uuid || "");
+                        return await renderCraftingInline(
+                            item,
+                            result.roll,
+                            quantity,
+                            result.actor,
+                            options.uuid || ""
+                        );
                     } else {
                         return "";
                     }
