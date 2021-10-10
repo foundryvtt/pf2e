@@ -1,7 +1,7 @@
 import { ModifierPF2e } from "@module/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import type { ConditionData, ConditionSource } from "@item/data";
-import { ConditionPF2e } from "@item";
+import { ConditionPF2e, ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
@@ -444,8 +444,8 @@ export class ConditionManager {
         source._id = randomID(16);
         const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
         actor.isToken
-            ? await actor.update({ items: sources }, { keepId: true })
-            : await ConditionPF2e.createDocuments(sources, { parent: actor, keepId: true });
+            ? await actor.update({ items: [...actor.toObject().items, ...sources] }, { keepId: true })
+            : await ItemPF2e.createDocuments(sources, { parent: actor, keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 

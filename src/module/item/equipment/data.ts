@@ -19,7 +19,7 @@ export interface EquipmentData extends Omit<EquipmentSource, "effects" | "flags"
 }
 
 export type EquipmentTrait = keyof ConfigPF2e["PF2E"]["equipmentTraits"];
-type EquipmentTraits = PhysicalItemTraits<EquipmentTrait>;
+export type EquipmentTraits = PhysicalItemTraits<EquipmentTrait>;
 
 interface EquipmentSystemData extends MagicItemSystemData {
     traits: EquipmentTraits;

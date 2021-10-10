@@ -3,7 +3,7 @@ import { SKILL_DICTIONARY } from "@actor/data/values";
 import { NPCPF2e } from ".";
 import { identifyCreature } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
-import { getActionIcon, objectHasKey } from "@module/utils";
+import { getActionIcon, objectHasKey } from "@util";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { SpellcastingSheetData } from "./sheet";
 import { ItemDataPF2e } from "@item/data";
@@ -242,11 +242,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        // Melee Attack summaries
-        html.find(".item .melee-name h4").on("click", (event) => {
-            this.onItemSummary(event);
-        });
-
         // Melee Weapon Rolling
         html.find("button:not(.recall-knowledge-breakdown)").on("click", (event) => {
             event.preventDefault();
@@ -341,9 +336,9 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
         });
 
-        html.find(".recall-knowledge-breakdown").on("click", (event) => {
+        html.find(".recall-knowledge-breakdown").on("click", async (event) => {
             event.preventDefault();
-            const { identifyCreatureData } = this.getData();
+            const { identifyCreatureData } = await this.getData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
     }

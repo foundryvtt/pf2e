@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Remove RuleElement implementation of armor speed penalties  */
@@ -22,7 +22,7 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
         } else if (itemSource.type === "feat") {
             // Use rollOptions flags for ignoring the armor speed and stealth penalties
             if (slug === "unburdened-iron") {
-                const rule: RollOption = { key: "RollOption", option: "armor:ignore-speed-penalty" };
+                const rule: RollOption = { key: "RollOption", domain: "speed", option: "armor:ignore-speed-penalty" };
                 itemSource.data.rules = [rule];
             } else if (slug === "armored-stealth") {
                 const rule: RollOption = { key: "RollOption", domain: "stealth", option: "armor:ignore-noisy-penalty" };

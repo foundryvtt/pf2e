@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
@@ -11,15 +11,22 @@ import { goesToEleven, ZeroToThree } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { CharacterProficiency } from "./data";
+import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { CraftingFormulaData } from "@module/crafting/formula";
+import { PhysicalItemType } from "@item/physical/data";
+import { craft } from "@system/actions/crafting/craft";
+import { CheckDC } from "@system/check-degree-of-success";
+import { craftItem } from "@module/crafting/crafting";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "pc"],
-            width: 700,
+            width: 750,
             height: 800,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }],
             showUnpreparedSpells: false,
@@ -42,20 +49,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 "data.hp.value": formData["data.attributes.shield.hp.value"],
             });
         }
-        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
-
-        const updatedLevel = this.actor.data.data.details.level.value;
-        const actorClasses = this.actor.itemTypes.class;
-        if (updatedLevel != previousLevel && actorClasses.length > 0) {
-            for await (const actorClass of actorClasses) {
-                await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(actorClass, this.actor);
-            }
-        }
     }
 
-    override getData(options?: ActorSheetOptions) {
-        const sheetData = super.getData(options);
+    override async getData(options?: ActorSheetOptions) {
+        const sheetData = await super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -122,8 +120,29 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        sheetData.knownFormulas = await this.prepareCraftingFormulas();
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+
+        // Sort attack/defense proficiencies
+        const combatProficiencies: Record<string, CharacterProficiency> = sheetData.data.martial;
+        const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
+        const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
+        sheetData.data.martial = Object.entries(combatProficiencies)
+            .sort(([keyA, a], [keyB, b]) =>
+                isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
+                    ? -1
+                    : !isWeaponProficiency(keyA) && isWeaponProficiency(keyB)
+                    ? 1
+                    : (a.label ?? "").localeCompare(b.label ?? "")
+            )
+            .reduce(
+                (proficiencies: Record<string, CharacterProficiency>, [key, proficiency]) => ({
+                    ...proficiencies,
+                    [key]: proficiency,
+                }),
+                {}
+            );
 
         // Return data for rendering
         return sheetData;
@@ -136,10 +155,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorData: any = sheetData.actor;
         // Inventory
         const inventory: Record<
-            string,
+            Exclude<PhysicalItemType, "book">,
             {
                 label: string;
-                items: ItemDataPF2e[];
+                items: PhysicalItemData[];
                 investedItemCount?: number;
                 investedMax?: number;
                 overInvested?: boolean;
@@ -186,13 +205,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
-
-        // Read-Only Actions
-        const readonlyActions: Record<string, { label: string; actions: any[] }> = {
-            interaction: { label: "Interaction Actions", actions: [] },
-            defensive: { label: "Defensive Actions", actions: [] },
-            offensive: { label: "Offensive Actions", actions: [] },
         };
 
         const readonlyEquipment: unknown[] = [];
@@ -271,7 +283,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         itemData.wieldedTwoHanded = physicalData.data.hands.value;
                         attacks.weapon.items.push(itemData);
                     }
-                    inventory[itemData.type].items.push(itemData);
+                    if (physicalData.type === "book") {
+                        inventory.equipment.items.push(itemData);
+                    } else {
+                        inventory[physicalData.type].items.push(itemData);
+                    }
                 }
             }
 
@@ -288,27 +304,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         parseInt((itemData.data.actions || {}).value, 10) || 1
                     ).imageUrl;
                     actions[actionType].actions.push(itemData);
-
-                    // Read-Only Actions
-                    if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                        switch (itemData.data.actionCategory.value) {
-                            case "interaction":
-                                readonlyActions.interaction.actions.push(itemData);
-                                actorData.hasInteractionActions = true;
-                                break;
-                            case "defensive":
-                                readonlyActions.defensive.actions.push(itemData);
-                                actorData.hasDefensiveActions = true;
-                                break;
-                            // Should be offensive but throw anything else in there too
-                            default:
-                                readonlyActions.offensive.actions.push(itemData);
-                                actorData.hasOffensiveActions = true;
-                        }
-                    } else {
-                        readonlyActions.offensive.actions.push(itemData);
-                        actorData.hasOffensiveActions = true;
-                    }
                 }
             }
 
@@ -342,31 +337,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
-
-                // Read-Only Actions
-                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                    switch (itemData.data.actionCategory.value) {
-                        case "interaction":
-                            readonlyActions.interaction.actions.push(itemData);
-                            actorData.hasInteractionActions = true;
-                            break;
-                        case "defensive":
-                            readonlyActions.defensive.actions.push(itemData);
-                            actorData.hasDefensiveActions = true;
-                            break;
-                        case "offensive":
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                            break;
-                        // Should be offensive but throw anything else in there too
-                        default:
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                    }
-                } else {
-                    readonlyActions.offensive.actions.push(itemData);
-                    actorData.hasOffensiveActions = true;
-                }
             }
 
             // class
@@ -464,7 +434,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
-        actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
 
@@ -585,8 +554,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
+    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
+        const craftingFormulas = await this.actor.getCraftingFormulas();
+        return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
+    }
+
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /**
@@ -773,6 +747,45 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
             item.update(data);
+        });
+
+        html.find(".craft-item").on("click", async (event) => {
+            const { itemUuid, craftDc } = event.currentTarget.dataset;
+            const itemQuantity = Number(
+                $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
+            );
+            if (!itemUuid) return;
+
+            if (this.actor.getFlag("pf2e", "freeCrafting")) {
+                craftItem(itemUuid, itemQuantity, this.actor);
+                return;
+            }
+
+            const dc: CheckDC = {
+                value: Number(craftDc),
+                visibility: "all",
+                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                scope: "CheckOutcome",
+            };
+
+            craft({ dc: dc, uuid: itemUuid, quantity: itemQuantity, event: event, actors: this.actor });
+        });
+
+        html.find(".formula-increase-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            $(event.currentTarget)
+                .siblings("input")
+                .first()
+                .val(value + 1);
+        });
+
+        html.find(".formula-decrease-quantity").on("click", async (event) => {
+            const value = Number($(event.currentTarget).siblings("input").first().val());
+            if (value > 0)
+                $(event.currentTarget)
+                    .siblings("input")
+                    .first()
+                    .val(value - 1);
         });
     }
 

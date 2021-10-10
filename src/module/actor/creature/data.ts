@@ -7,6 +7,7 @@ import {
     HitPointsData,
     RawSkillData,
     Rollable,
+    StrikeData,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
@@ -48,6 +49,8 @@ export interface CreatureSystemData extends ActorSystemData {
 
     /** Saving throw data */
     saves: Record<SaveType, StatisticModifier & Rollable>;
+
+    actions?: StrikeData[];
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -94,8 +97,8 @@ export type SaveData = SkillData & { saveDetail?: string };
 export interface CreatureAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
+    hardness?: { value: number };
     perception: { value: number };
-
     speed: CreatureSpeeds;
 }
 

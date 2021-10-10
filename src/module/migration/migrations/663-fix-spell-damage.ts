@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 function createBasicDamage(value: string, applyMod: boolean, damageType: DamageType) {

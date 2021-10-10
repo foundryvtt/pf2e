@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import { FeatPF2e, ItemPF2e } from "@item";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSource, RuleElementData, RuleValue } from "../rules-data-definitions";
 
@@ -74,37 +74,62 @@ class AELikeRuleElement extends RuleElementPF2e {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
                     return this.warn("path");
                 }
-                setProperty(this.actor.data, this.path, (current ?? 0) * change);
+                const newValue = (current ?? 0) * change;
+                setProperty(this.actor.data, this.path, newValue);
+                this.logChange(change);
                 break;
             }
             case "add": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
                     return this.warn("path");
                 }
-                setProperty(this.actor.data, this.path, (current ?? 0) + change);
+                const newValue = (current ?? 0) + change;
+                setProperty(this.actor.data, this.path, newValue);
+                this.logChange(change);
                 break;
             }
             case "downgrade": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
                     return this.warn("path");
                 }
-                setProperty(this.actor.data, this.path, Math.min(current ?? 0, change));
+                const newValue = Math.min(current ?? 0, change);
+                setProperty(this.actor.data, this.path, newValue);
+                this.logChange(change);
                 break;
             }
             case "upgrade": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
                     return this.warn("path");
                 }
-                setProperty(this.actor.data, this.path, Math.max(current ?? 0, change));
+                const newValue = Math.max(current ?? 0, change);
+                setProperty(this.actor.data, this.path, newValue);
+                this.logChange(change);
                 break;
             }
             case "override": {
                 const currentValue = getProperty(this.actor.data, this.path);
                 if (typeof change === typeof currentValue || currentValue === undefined) {
                     setProperty(this.actor.data, this.path, change);
+                    if (typeof change === "string") this.logChange(change);
                 }
             }
         }
+    }
+
+    /** Log the numeric change of an actor data property */
+    private logChange(value: string | number): void {
+        const { item, mode } = this;
+        if (typeof value === "string" && mode !== "override") return;
+
+        const level =
+            item instanceof FeatPF2e
+                ? Number(/-(\d+)$/.exec(item.data.data.location ?? "")?.[1]) || item.level
+                : "level" in item && typeof item["level"] === "number"
+                ? item["level"]
+                : null;
+        const { autoChanges } = this.actor.data.data;
+        const entries = (autoChanges[this.path] ??= []);
+        entries.push({ mode, level, value, source: this.item.name });
     }
 
     private warn(path: string): void {
@@ -113,6 +138,13 @@ class AELikeRuleElement extends RuleElementPF2e {
             `PF2e System | "${path}" property on RuleElement from item ${item.name} (${item.uuid}) is invalid`
         );
     }
+}
+
+export interface AutoChangeEntry {
+    source: string;
+    level: number | null;
+    value: number | string;
+    mode: AELikeChangeMode;
 }
 
 interface AELikeRuleElement extends RuleElementPF2e {

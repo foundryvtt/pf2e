@@ -96,6 +96,7 @@ export function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
 
 export interface DCOptions {
     proficiencyWithoutLevel?: boolean;
+    rarity?: Rarity;
 }
 
 /**
@@ -103,16 +104,19 @@ export interface DCOptions {
  * @param level
  * @param proficiencyWithoutLevel
  */
-export function calculateDC(level: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
+export function calculateDC(
+    level: number,
+    { proficiencyWithoutLevel = false, rarity = "common" }: DCOptions = {}
+): number {
     // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
     // stored as a string, which we can't catch at compile time
     const dc = dcByLevel.get(level) ?? 14;
     if (proficiencyWithoutLevel) {
         // -1 shouldn't be subtracted since it's just
         // a creature level and not related to PC levels
-        return dc - Math.max(level, 0);
+        return adjustDCByRarity(dc - Math.max(level, 0), rarity);
     } else {
-        return dc;
+        return adjustDCByRarity(dc, rarity);
     }
 }
 

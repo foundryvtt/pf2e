@@ -1,5 +1,5 @@
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { toNumber } from "@module/utils";
+import { toNumber } from "@util";
 
 /**
  * Extends all drag and drop events on entity links to contain PF2e specific information

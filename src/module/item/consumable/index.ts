@@ -2,7 +2,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
 import { PhysicalItemPF2e, SpellPF2e } from "@item";
 import { TrickMagicItemCastData } from "@item/data";
-import { ErrorPF2e, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { canCastConsumable } from "./spell-consumables";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
@@ -14,6 +14,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     get consumableType(): ConsumableType {
         return this.data.data.consumableType.value;
+    }
+
+    get isAmmunition(): boolean {
+        return this.consumableType === "ammo";
     }
 
     get charges() {

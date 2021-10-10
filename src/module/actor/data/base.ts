@@ -8,6 +8,7 @@ import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
+import { AutoChangeEntry } from "@module/rules/elements/ae-like";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
@@ -70,7 +71,11 @@ export type HitPointsData = StatisticModifier & BaseHitPointsData;
 export interface ActorSystemData {
     attributes: BaseActorAttributes;
     traits: BaseTraitsData;
+    /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
+    /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
+    autoChanges: Record<string, AutoChangeEntry[] | undefined>;
+    /** A record of this actor's current world schema version as well a log of the last migration to occur */
     schema: DocumentSchemaRecord;
 }
 

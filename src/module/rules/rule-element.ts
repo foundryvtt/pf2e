@@ -54,6 +54,7 @@ abstract class RuleElementPF2e {
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
         data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+        data = deepClone(data);
 
         const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
             item.actor.data.type

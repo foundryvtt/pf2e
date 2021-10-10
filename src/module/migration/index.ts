@@ -73,6 +73,10 @@ import { Migration669NPCAttackEffects } from "./migrations/669-npc-attack-effect
 import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "./migrations/670-ancestry-vision";
 import { Migration671NoPCItemsOnNonPCs } from "./migrations/671-no-pc-items-on-non-pcs";
+import { Migration672RemoveNPCBaseProperties } from "./migrations/672-remove-npc-base-properties";
+import { Migration673RemoveBulwarkREs } from "./migrations/673-remove-bulwark-res";
+import { Migration674StableHomebrewTagIDs } from "./migrations/674-stable-homebrew-tag-ids";
+import { Migration675FlatModifierAEsToREs } from "./migrations/675-flat-modifier-aes-to-res";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -150,6 +154,10 @@ export class Migrations {
         Migration670NoCustomTrait,
         Migration670AncestryVision,
         Migration671NoPCItemsOnNonPCs,
+        Migration672RemoveNPCBaseProperties,
+        Migration673RemoveBulwarkREs,
+        Migration674StableHomebrewTagIDs,
+        Migration675FlatModifierAEsToREs,
     ];
 
     static get latestVersion(): number {

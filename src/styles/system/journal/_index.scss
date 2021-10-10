@@ -21,23 +21,17 @@
         }
 
         .editor-content {
-            --space-s: 0.25em;
-            --space-m: 0.5em;
-            --space-l: 1em;
-            --space-xl: 1.5em;
-            --space-2xl: 2em;
-            --radius: 3px;
             --p-space: var(--space-l);
             --max-width: 570px;
             display: flex;
             flex-direction: column;
-            font-family: var(--journal-serif);
             font-size: 1.2em;
             line-height: 1.5;
             color: var(--body);
             padding-bottom: 2em;
 
-            @import "tinymce";
+            @include journal-entries-pf2e;
+            @include tinymce-system-specific;
         }
 
         button[type="submit"] {

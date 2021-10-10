@@ -48,9 +48,9 @@ export interface HazardSystemData extends ActorSystemData {
         routine: string;
     };
     attributes: HazardAttributes;
-    saves: Record<SaveType, SaveData>;
+    saves: HazardSaves;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
 }
+
+type HazardSaves = Record<SaveType, SaveData>;

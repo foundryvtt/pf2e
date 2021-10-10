@@ -56,7 +56,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         });
     };
 
-    async function applyChanges($html: JQuery) {
+    const applyChanges = ($html: JQuery): void => {
         if (actor === undefined) {
             ui.notifications.warn(translations.BadArgs);
         } else {
@@ -83,7 +83,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
             roll();
         }
-    }
+    };
 
     if (actor === undefined) {
         ui.notifications.warn(translations.BadArgs);
