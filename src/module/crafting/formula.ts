@@ -9,7 +9,13 @@ export class CraftingFormula implements CraftingFormulaData {
     /** Some items can be created in multiples with a single crafting check */
     batchSize: number;
 
-    constructor(private item: PhysicalItemPF2e, { dc, batchSize }: { dc?: number; batchSize?: number } = {}) {
+    /** Whether or not this formula is saved directly on the actor and can be deleted */
+    deletable: boolean;
+
+    constructor(
+        private item: PhysicalItemPF2e,
+        { dc, batchSize, deletable }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
+    ) {
         this.dc = dc ?? calculateDC(item.level, { rarity: item.rarity });
 
         /** Use the passed batch size if provided or otherwise according to the following */
@@ -22,6 +28,8 @@ export class CraftingFormula implements CraftingFormulaData {
                     (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
                 return isMundaneAmmo ? 10 : item.slug === "rations" ? 28 : isConsumable ? 4 : 1;
             })();
+
+        this.deletable = deletable ?? false;
     }
 
     get uuid(): ItemUUID {
@@ -57,4 +65,5 @@ export interface CraftingFormulaData {
     uuid: ItemUUID;
     dc?: number;
     batchSize?: number;
+    deletable?: boolean;
 }

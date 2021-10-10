@@ -787,10 +787,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     .first()
                     .val(value - 1);
         });
-
-        html.find(".toggle-free-crafting").on("click", () => {
-            this.actor.setFlag("pf2e", "freeCrafting", !this.actor.getFlag("pf2e", "freeCrafting"));
-        });
     }
 
     /** Handle changing of proficiency-rank via dropdown */
