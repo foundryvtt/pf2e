@@ -26,7 +26,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "pc"],
-            width: 700,
+            width: 750,
             height: 800,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }],
             showUnpreparedSpells: false,
