@@ -17,6 +17,7 @@ import { Migration672RemoveNPCBaseProperties } from "@module/migration/migration
 import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
 import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
+import { Migration678SeparateNPCAttackTraits } from "@module/migration/migrations/678-separate-npc-attack-traits";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -31,8 +32,10 @@ const migrations: MigrationBase[] = [
     new Migration673RemoveBulwarkREs(),
     new Migration675FlatModifierAEsToREs(),
     new Migration677RuleValueDataRefs(),
+    new Migration678SeparateNPCAttackTraits(),
 ];
 
+// eslint-disable @typescript-eslint/no-explicit-any
 global.deepClone = function (original: any): any {
     // Simple types
     if (typeof original !== "object" || original === null) return original;
@@ -53,6 +56,7 @@ global.deepClone = function (original: any): any {
     }
     return clone;
 };
+// eslint-enable @typescript-eslint/no-explicit-any
 
 const packsDataPath = path.resolve(process.cwd(), "packs/data");
 

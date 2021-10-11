@@ -79,6 +79,7 @@ import { Migration674StableHomebrewTagIDs } from "./migrations/674-stable-homebr
 import { Migration675FlatModifierAEsToREs } from "./migrations/675-flat-modifier-aes-to-res";
 import { Migration676ReplaceItemsWithRELikeAEs } from "./migrations/676-replace-items-with-re-like-aes";
 import { Migration677RuleValueDataRefs } from "./migrations/677-rule-value-data-refs";
+import { Migration678SeparateNPCAttackTraits } from "./migrations/678-separate-npc-attack-traits";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -162,6 +163,7 @@ export class Migrations {
         Migration675FlatModifierAEsToREs,
         Migration676ReplaceItemsWithRELikeAEs,
         Migration677RuleValueDataRefs,
+        Migration678SeparateNPCAttackTraits,
     ];
 
     static get latestVersion(): number {

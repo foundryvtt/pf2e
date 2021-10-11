@@ -49,10 +49,8 @@ export class TagSelectorBasic extends TagSelectorBase {
 
     override getData() {
         const property = (() => {
-            const property: unknown = getProperty(
-                (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
-                this.objectProperty
-            );
+            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
+            const property: unknown = getProperty(document.toObject(), this.objectProperty);
 
             if (isValuesList(property)) {
                 const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
