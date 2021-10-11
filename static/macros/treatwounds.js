@@ -6,10 +6,8 @@ function CheckFeat(slug) {
 }
 const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) => {
     const options = actor.getRollOptions(["all", "skill-check", "medicine"]);
-
     options.push("treat wounds");
     options.push("action:treat-wounds");
-
     const dc = {
         value: DC,
     };
@@ -21,7 +19,6 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
     if (riskysurgery) {
         options.push("risky-surgery");
     }
-
     med.roll({
         dc: dc,
         event: event,
@@ -29,7 +26,6 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
         callback: (roll) => {
             let healFormula, successLabel;
             const magicHands = CheckFeat("magic-hands");
-
             const bonusString = bonus > 0 ? `+ ${bonus}` : "";
             if (roll.data.degreeOfSuccess === 3) {
                 healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
@@ -44,26 +40,28 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
                 successLabel = "Critical Failure";
             }
             if (riskysurgery) {
-                healFormula = roll.data.degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
+                ChatMessage.create({
+                    user: game.user.id,
+                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                    flavor: `<strong>Damage Roll: Risky Surgery</strong>`,
+                    roll: new Roll("{1d8}[slashing]").roll(),
+                    speaker: ChatMessage.getSpeaker(),
+                });
             }
             if (healFormula !== undefined) {
-                const healRoll = new Roll(healFormula).roll();
+                const healRoll = new Roll(`{${healFormula}}[healing]`).roll();
                 const rollType = roll.data.degreeOfSuccess > 1 ? "Healing" : "Damage";
-                ChatMessage.create(
-                    {
-                        user: game.user.id,
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                        flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
-                        roll: healRoll,
-                        speaker: ChatMessage.getSpeaker(),
-                    },
-                    {}
-                );
+                ChatMessage.create({
+                    user: game.user.id,
+                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                    flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
+                    roll: healRoll,
+                    speaker: ChatMessage.getSpeaker(),
+                });
             }
         },
     });
 };
-
 async function applyChanges($html) {
     for (const token of canvas.tokens.controlled) {
         var med = token.actor.data.data.skills.med;
@@ -77,7 +75,6 @@ async function applyChanges($html) {
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
         const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
-
         // Handle Rule Interpretation
         if (game.user.isGM) {
             await game.settings.set(
@@ -86,9 +83,7 @@ async function applyChanges($html) {
                 $html.find('[name="strict_rules"]')[0]?.checked
             );
         }
-
         var usedProf = 0;
-
         if (game.settings.get("pf2e", "RAI.TreatWoundsAltSkills")) {
             if (skill === "cra") {
                 med = token.actor.data.data.skills["cra"];
@@ -117,11 +112,9 @@ async function applyChanges($html) {
             () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing }),
             () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing }),
         ][usedProf];
-
         roll();
     }
 }
-
 if (token === undefined) {
     ui.notifications.warn("No token is selected.");
 } else {
@@ -138,10 +131,8 @@ ${
 <form>
 <div class="form-group">
 <label>Treat Wounds Skill:</label>
-
 <select id="skill" name="skill">
 <option value="med">Medicine</option>
-
 ${chirurgeon ? `<option value="cra">Crafting</option>` : ``}
 ${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
 </select>
