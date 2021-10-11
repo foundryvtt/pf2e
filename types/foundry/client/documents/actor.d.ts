@@ -206,5 +206,5 @@ declare global {
         ): Promise<A[] | A | undefined>;
     }
 
-    type ActorUUID = `Actor.${string}` | `Compendium.${string}.${string}`;
+    type ActorUUID = `Actor.${string}` | CompendiumUUID;
 }
