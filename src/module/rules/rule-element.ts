@@ -205,9 +205,7 @@ abstract class RuleElementPF2e {
 
         if (this.isBracketedValue(valueData)) {
             const bracketNumber = ((): number => {
-                if (!valueData?.field) {
-                    return Number(getProperty(this.actor.data, "data.details.level.value")) || 0;
-                }
+                if (!valueData?.field) return this.actor.level;
                 const field = String(valueData.field);
                 const separator = field.indexOf("|");
                 const source = field.substring(0, separator);
