@@ -19,10 +19,44 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Use Orc Superstition",
+                "property": "flags.pf2e.rollOptions.all.orc-superstition"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Orc Superstition",
+                "predicate": {
+                    "all": [
+                        "orc-superstition"
+                    ],
+                    "any": [
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult",
+                        "magical",
+                        "abjuration",
+                        "conjuration",
+                        "divination",
+                        "enchantment",
+                        "evocation",
+                        "illusion",
+                        "necromancy",
+                        "transmutation"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

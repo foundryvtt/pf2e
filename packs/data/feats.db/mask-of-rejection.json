@@ -27,7 +27,25 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Reroll using Mask of Rejection",
+                "property": "flags.pf2e.rollOptions.all.mask-of-rejection"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Mask of Rejection",
+                "predicate": {
+                    "all": [
+                        "mask-of-rejection"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
