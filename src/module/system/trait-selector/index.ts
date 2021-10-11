@@ -84,6 +84,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "ancestryItemTraits",
     "levels",
     "dcAdjustments",
+    "npcAttackTraits",
 ] as const;
 
 export type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];

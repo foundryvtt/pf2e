@@ -7,6 +7,7 @@ import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
+import { NPCAttackTrait } from "@item/melee/data";
 
 export interface BaseItemSourcePF2e<
     TItemType extends ItemType = ItemType,
@@ -33,7 +34,7 @@ export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
     readonly _source: BaseItemSourcePF2e;
 }
 
-export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait;
+export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait | NPCAttackTrait;
 
 export type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
 
