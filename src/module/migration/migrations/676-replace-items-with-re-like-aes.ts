@@ -4,7 +4,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ErrorPF2e } from "@util";
 import { MigrationBase } from "../base";
 
-/** Convert experimental FlatModifier `ActiveEffect`s to Rule Elements */
+/** Replace items containing FlatModifier `ActiveEffect`s with latest ones without */
 export class Migration676ReplaceItemsWithRELikeAEs extends MigrationBase {
     static override version = 0.676;
 
