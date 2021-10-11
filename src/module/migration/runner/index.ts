@@ -96,17 +96,21 @@ export class MigrationRunner extends MigrationRunnerBase {
         })();
         if (!updatedItem) return null;
 
-        const baseAEs = baseItem.effects;
-        const updatedAEs = updatedItem.effects;
+        const baseAEs = [...baseItem.effects];
+        const updatedAEs = [...updatedItem.effects];
         const aeDiff = this.diffCollection(baseAEs, updatedAEs);
         if (aeDiff.deleted.length > 0) {
             try {
-                await item.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
+                    item.effects.some((effect) => effect.id === deletedId)
+                );
+                await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
             } catch (error) {
                 console.error(error);
             }
         }
 
+        updatedItem.effects = item.actor?.isToken ? updatedAEs : aeDiff.updated;
         return updatedItem;
     }
 
@@ -122,21 +126,19 @@ export class MigrationRunner extends MigrationRunnerBase {
         })();
         if (!updatedActor) return null;
 
-        const baseItems = baseActor.items;
-        const baseAEs = baseActor.effects;
-        const updatedItems = updatedActor.items;
-        const updatedAEs = updatedActor.effects;
-
-        baseActor.items = [];
-        updatedActor.items = [];
-        baseActor.effects = [];
-        updatedActor.effects = [];
+        const baseItems = [...baseActor.items];
+        const baseAEs = [...baseActor.effects];
+        const updatedItems = [...updatedActor.items];
+        const updatedAEs = [...updatedActor.effects];
 
         // We pull out the items here so that the embedded document operations get called
         const itemDiff = this.diffCollection(baseItems, updatedItems);
         if (itemDiff.deleted.length > 0) {
             try {
-                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted, { noHook: true });
+                const finalDeleted = itemDiff.deleted.filter((deletedId) =>
+                    actor.items.some((item) => item.id === deletedId)
+                );
+                await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true });
             } catch (error) {
                 console.error(error);
             }
@@ -145,7 +147,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         const aeDiff = this.diffCollection(baseAEs, updatedAEs);
         if (aeDiff.deleted.length > 0) {
             try {
-                await actor.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+                const finalDeleted = aeDiff.deleted.filter((deletedId) =>
+                    actor.effects.some((effect) => effect.id === deletedId)
+                );
+                await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
             } catch (error) {
                 console.error(error);
             }
@@ -159,7 +164,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        updatedActor.items = itemDiff.updated;
+        updatedActor.items = actor.isToken ? updatedItems : itemDiff.updated;
         return updatedActor;
     }
 
