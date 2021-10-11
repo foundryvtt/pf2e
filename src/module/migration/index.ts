@@ -77,6 +77,7 @@ import { Migration672RemoveNPCBaseProperties } from "./migrations/672-remove-npc
 import { Migration673RemoveBulwarkREs } from "./migrations/673-remove-bulwark-res";
 import { Migration674StableHomebrewTagIDs } from "./migrations/674-stable-homebrew-tag-ids";
 import { Migration675FlatModifierAEsToREs } from "./migrations/675-flat-modifier-aes-to-res";
+import { Migration676ReplaceItemsWithRELikeAEs } from "./migrations/676-replace-items-with-re-like-aes";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -158,6 +159,7 @@ export class Migrations {
         Migration673RemoveBulwarkREs,
         Migration674StableHomebrewTagIDs,
         Migration675FlatModifierAEsToREs,
+        Migration676ReplaceItemsWithRELikeAEs,
     ];
 
     static get latestVersion(): number {

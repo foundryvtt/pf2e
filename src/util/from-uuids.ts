@@ -3,14 +3,15 @@ import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "./misc";
 
-type IDLookups = Record<"actor" | "item" | "scene", string[]> & {
+type IDLookups = Record<"actor" | "item" | "scene", DocumentUUID[]> & {
     pack: Record<string, string[]>;
 };
 
 /** Retrieve multiple documents by UUID */
 export async function fromUUIDs(uuids: (ActorUUID | TokenDocumentUUID)[]): Promise<ActorPF2e[]>;
 export async function fromUUIDs(uuids: ItemUUID[]): Promise<ItemPF2e[]>;
-export async function fromUUIDs(uuids: string[]): Promise<ActorPF2e[] | ItemPF2e[]> {
+export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ActorPF2e[] | ItemPF2e[]>;
+export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ActorPF2e[] | ItemPF2e[]> {
     const lookups = uuids.reduce(
         (partialLookups: IDLookups, uuid) => {
             const parts = uuid.split(".");
