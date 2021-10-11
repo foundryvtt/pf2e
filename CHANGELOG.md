@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.15.1
+### Bug Fixes
+* (stwlam) Fix item transfers between actors
+* (stwlam) Separate Risky Surgery slashing damage from Treat Wounds healing roll
+
+
 ## Version 2.15.0
 ### Bug Fixes
 * (r2roberts) All NPC skills and perception should send their DCs to the roll method. Closes #1749
