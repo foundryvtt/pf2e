@@ -16,6 +16,7 @@ import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-
 import { Migration672RemoveNPCBaseProperties } from "@module/migration/migrations/672-remove-npc-base-properties";
 import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
 import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
+import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -29,6 +30,7 @@ const migrations: MigrationBase[] = [
     new Migration672RemoveNPCBaseProperties(),
     new Migration673RemoveBulwarkREs(),
     new Migration675FlatModifierAEsToREs(),
+    new Migration677RuleValueDataRefs(),
 ];
 
 global.deepClone = function (original: any): any {
