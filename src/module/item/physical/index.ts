@@ -7,6 +7,7 @@ import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
+import { UserPF2e } from "@module/user";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -241,6 +242,20 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
 
         return traitData;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Set to unequipped upon acquiring */
+    protected override async _preCreate(
+        data: PreDocumentId<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preCreate(data, options, user);
+        if (this.isEmbedded) this.data.update({ "data.equipped.value": false });
     }
 }
 
