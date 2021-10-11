@@ -7,6 +7,8 @@
 * (stwlam) Merge JSON actor/item import data with latest system model
 * (stwlam) Replace items containing AE-based flat modifiers with latest versions (tough, toughness, and mountain's stoutness)
 * (stwlam) Fix setting of defaults for BattleForm rule elements
+* (stwlam) Ensure newly created owned physical items are unequipped
+* (stwlam) Ensure already-deleted items aren't re-deleted during a migration
 * (Supe) Delay ammo consumption until _after_ the attack roll is made, not before
 
 
