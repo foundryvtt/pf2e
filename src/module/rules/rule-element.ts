@@ -245,10 +245,22 @@ abstract class RuleElementPF2e {
                 })?.value ?? bracketFallthrough;
         }
 
+        const saferEval = (formula: string): number => {
+            try {
+                return Roll.safeEval(formula);
+            } catch {
+                const { item } = this;
+                console.warn(
+                    `PF2e System | Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`
+                );
+                return 0;
+            }
+        };
+
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? Roll.safeEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+            ? saferEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
             : value;
     }
 
