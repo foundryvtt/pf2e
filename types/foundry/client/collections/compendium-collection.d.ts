@@ -159,12 +159,8 @@ declare global {
     }
 
     type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
-    type DocumentUUID =
-        | `${CompendiumDocumentType}.${string}`
-        | `Compendium.${CompendiumDocumentType}.${string}`
-        | ActorUUID
-        | ItemUUID
-        | TokenDocumentUUID;
+    type CompendiumUUID = `Compendium.${string}.${string}`;
+    type DocumentUUID = `${CompendiumDocumentType}.${string}` | CompendiumUUID | TokenDocumentUUID;
     function fromUuid(uuid: string): Promise<ClientDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {

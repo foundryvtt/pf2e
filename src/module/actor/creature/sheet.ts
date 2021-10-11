@@ -246,18 +246,18 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const action = this.actor.data.data.actions?.[Number(actionIndex)];
             if (!action) return;
 
-            if (action.selectedAmmoId) {
-                const ammo = this.actor.items.get(action.selectedAmmoId);
-                if (ammo instanceof ConsumablePF2e) {
-                    if (ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                        return;
-                    }
-                    ammo.consume();
-                }
+            const ammo = (() => {
+                if (!action.selectedAmmoId) return null;
+                const ammo = this.actor.items.get(action.selectedAmmoId ?? "");
+                return ammo instanceof ConsumablePF2e ? ammo : null;
+            })();
+
+            if (ammo && ammo.quantity < 1) {
+                ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                return;
             }
 
-            action.variants[Number(variantIndex)]?.roll({ event });
+            action.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.

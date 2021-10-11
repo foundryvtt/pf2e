@@ -98,7 +98,7 @@ declare interface Array<T> {
      * @param find   A function to use as input to findIndex
      * @return The removed item or null if none was found
      */
-    findSplice(find: (element: T) => boolean): T | null;
+    findSplice(find: (element: T) => boolean, replace?: T): T | null;
 }
 
 declare interface RegExp {
