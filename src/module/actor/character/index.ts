@@ -1178,6 +1178,7 @@ export class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
+            origin: this.items.get(weapon.id),
         });
 
         if (weapon.group && ["bow", "sling", "dart"].includes(weapon.group)) {

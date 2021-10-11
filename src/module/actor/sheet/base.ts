@@ -304,7 +304,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Toggle equip
         html.find(".item-toggle-equip").on("click", (event) => {
             const f = $(event.currentTarget);
-            const itemId = f.parents(".item").attr("data-item-id") ?? "";
+            const itemId = f.closest("[data-item-id]").attr("data-item-id") ?? "";
             const active = f.hasClass("active");
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.equipped.value": !active }]);
         });

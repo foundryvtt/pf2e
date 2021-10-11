@@ -165,7 +165,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // strikes
-        html.find(".strikes-list [data-action-index]").on("click", ".action-name", (event) => {
+        html.find(".strikes-list [data-action-index]").on("click", ".action-name h4", (event) => {
             $(event.currentTarget).parents(".expandable").toggleClass("expanded");
         });
 
