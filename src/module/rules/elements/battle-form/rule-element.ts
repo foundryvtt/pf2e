@@ -26,7 +26,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         super(data, item);
-        this.initialize(data);
+        this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
     }

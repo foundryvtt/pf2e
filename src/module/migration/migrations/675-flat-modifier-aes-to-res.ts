@@ -27,6 +27,9 @@ export class Migration675FlatModifierAEsToREs extends MigrationBase {
                 return null;
             }
         })();
+        if (typeof aeModifier?.modifier === "string") {
+            aeModifier.modifier.replace("@data.", "@");
+        }
         return aeModifier && { key: "FlatModifier", type: aeModifier.type, value: aeModifier.modifier, selector: "hp" };
     }
 
