@@ -5,7 +5,7 @@ import { MigrationBase } from "../base";
 
 /** Remove exclusive NPC attack traits from weapons */
 export class Migration678SeparateNPCAttackTraits extends MigrationBase {
-    static override version = 0.676;
+    static override version = 0.678;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "weapon") {
