@@ -9,7 +9,7 @@ class ImmunityRuleElement extends IWRRuleElement {
         return this.actor.data.data.traits.di.value;
     }
 
-    validate(): boolean {
+    override validate(): boolean {
         return this.data.type in this.dictionary;
     }
 

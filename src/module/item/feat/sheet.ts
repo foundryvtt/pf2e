@@ -3,8 +3,8 @@ import { FeatSheetData, ItemSheetDataPF2e } from "../sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
-    override getData(): FeatSheetData {
-        const data: ItemSheetDataPF2e<FeatPF2e> = super.getData();
+    override async getData(): Promise<FeatSheetData> {
+        const data: ItemSheetDataPF2e<FeatPF2e> = await super.getData();
         return {
             ...data,
             featTypes: CONFIG.PF2E.featTypes,

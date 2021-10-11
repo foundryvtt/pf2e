@@ -69,6 +69,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/background-sidebar.html",
         "systems/pf2e/templates/items/backpack-details.html",
         "systems/pf2e/templates/items/backpack-sidebar.html",
+        "systems/pf2e/templates/items/book-details.html",
+        "systems/pf2e/templates/items/book-sidebar.html",
         "systems/pf2e/templates/items/treasure-sidebar.html",
         "systems/pf2e/templates/items/class-details.html",
         "systems/pf2e/templates/items/consumable-details.html",
@@ -91,6 +93,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/melee-details.html",
         "systems/pf2e/templates/items/weapon-details.html",
         "systems/pf2e/templates/items/weapon-sidebar.html",
+        "systems/pf2e/templates/items/usage-panel.html",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",

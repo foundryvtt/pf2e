@@ -3,24 +3,24 @@ import { PreciousMaterialGrade } from "@item/physical/data";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
-    override getData() {
+    override async getData() {
         interface PropertyRuneSheetSlot extends WeaponPropertyRuneSlot {
             name?: string;
             number?: OneToFour;
             label?: string;
         }
-        const sheetData: ItemSheetDataPF2e<WeaponPF2e> & {
+        const sheetData: PhysicalItemSheetData<WeaponPF2e> & {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
-        } = super.getData();
+        } = await super.getData();
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = sheetData.data.potencyRune.value ?? 0;
@@ -132,7 +132,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         };
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         $("i.fa-info-circle.small[title]").tooltipster({
             animation: "fade",

@@ -22,6 +22,21 @@
             &:last-child {
                 margin: 6px 0;
             }
+            .form-group.scale.children-disabled {
+                input[type="range"] {
+                    opacity: 0.5;
+                    pointer-events: none;
+
+                    &::-webkit-slider-thumb, ::-moz-range-thumb {
+                        visibility: hidden;
+                    }
+                }
+                .range-value {
+                    border: none;
+                    background-color: rgba(0, 0, 0, 0.05);
+                    color: #777;
+                }
+            }
         }
     }
 }

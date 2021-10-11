@@ -209,6 +209,9 @@
                 }
             },
             "martial": {},
+            "crafting": {
+                "formulas": []
+            },
             "pfs": {
                 "playerNumber": "",
                 "characterNumber": "",
@@ -224,8 +227,7 @@
                     "RO": 0,
                     "VW": 0
                 }
-            },
-            "formulas": []
+            }
         },
         "npc": {
             "templates": [
@@ -506,26 +508,27 @@
     },
     "Item": {
         "types": [
-            "weapon",
-            "melee",
             "armor",
+            "backpack",
+            "book",
             "equipment",
             "consumable",
             "treasure",
-            "lore",
-            "martial",
-            "spell",
-            "spellcastingEntry",
+            "weapon",
+            "action",
             "ancestry",
             "background",
             "class",
-            "feat",
-            "action",
-            "backpack",
-            "kit",
             "condition",
             "effect",
-            "formula"
+            "feat",
+            "kit",
+            "lore",
+            "melee",
+            "spell",
+            "spellcastingEntry",
+            "formula",
+            "martial"
         ],
         "templates": {
             "common": {
@@ -707,6 +710,16 @@
             "usage": {
                 "value": "worn"
             }
+        },
+        "book": {
+            "templates": [
+                "common",
+                "physical",
+                "itemLevel"
+            ],
+            "subtype": "formula",
+            "capacity": 1,
+            "items": []
         },
         "treasure": {
             "templates": [
@@ -1033,18 +1046,7 @@
                 "value": 0
             }
         },
-        "formula": {
-            "templates": [
-                "common"
-            ],
-            "craftedItem": {
-                "uuid": "",
-                "name": "",
-                "description": "",
-                "img": "",
-                "level": 0                
-            }
-        },
+        "formula": {},
         "martial": {},
         "action": {
             "templates": [

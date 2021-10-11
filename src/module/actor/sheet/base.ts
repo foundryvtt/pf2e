@@ -1,7 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, ConditionPF2e, ContainerPF2e, KitPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
-import { isItemSystemData, isPhysicalData } from "@item/data/helpers";
+import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
     calculateTotalWealth,
@@ -24,11 +24,11 @@ import {
     SELECTABLE_TAG_FIELDS,
     TagSelectorOptions,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@module/utils";
+import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { SKILL_DICTIONARY } from "@actor/data/values";
-import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, ActorSheetOptionsPF2e } from "./data-types";
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
@@ -41,8 +41,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
-import { adjustDCByRarity, calculateDC } from "@module/dc";
-import { CraftingFormula } from "@item/formula";
+import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -50,12 +49,11 @@ import { CraftingFormula } from "@item/formula";
  * @category Actor
  */
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-    static override get defaultOptions(): ActorSheetOptionsPF2e {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             submitOnClose: false,
-            itemIdentificationAttributes: [],
             scrollY: [
                 ".sheet-sidebar",
                 ".spellcastingEntry-list",
@@ -72,6 +70,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             ],
         });
     }
+
+    /** Implementation used to handle the toggling and rendering of item summaries */
+    itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
 
     override get isEditable(): boolean {
         return this.actor.canUserModify(game.user, "update");
@@ -223,9 +224,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Item summaries
-        html.find(".item .item-name h4").on("click", (event) => {
-            this.onItemSummary(event);
-        });
+        this.itemRenderer.activateListeners(html);
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -446,9 +445,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!itemUuid) return;
 
             if (this.actor instanceof CharacterPF2e) {
-                const actorFormulas = this.actor.data.data.formulas;
+                const actorFormulas = this.actor.data.toObject().data.crafting.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "data.formulas": actorFormulas });
+                this.actor.update({ "data.crafting.formulas": actorFormulas });
             }
         });
 
@@ -889,17 +888,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
-        } else if (isPhysicalData(itemData) && craftingTab) {
-            if (actor instanceof CharacterPF2e) {
-                const formula = this.createFormulaFromItem(itemData);
-                const actorFormulas = actor.craftingFormulas;
-                if (formula && !actorFormulas.find((f) => f.uuid === formula.uuid)) {
-                    actorFormulas.push(formula);
-                    await (actor as CharacterPF2e).update(
-                        { "data.formulas": actorFormulas },
-                        { recursive: true, keepId: true }
-                    );
-                }
+        } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
+            const formula = { uuid: item.sourceId ?? item.uuid };
+            const actorFormulas = actor.data.toObject().data.crafting.formulas;
+            if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
+                actorFormulas.push(formula);
+                await actor.update({ "data.crafting.formulas": actorFormulas });
             }
             return [item];
         }
@@ -975,117 +969,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "");
         item?.toChat(event);
-    }
-
-    /**
-     * Handles expanding and contracting the item summary,
-     * delegating the populating of the item summary to renderItemSummary()
-     */
-    protected onItemSummary(event: JQuery.ClickEvent) {
-        const $li = $(event.currentTarget).closest("li");
-        this.toggleItemSummary($li);
-    }
-
-    /**
-     * Triggers toggling the visibility of an item summary element,
-     * delegating the populating of the item summary to renderItemSummary()
-     */
-    toggleItemSummary($li: JQuery, options: { instant?: boolean } = {}) {
-        const itemId = $li.attr("data-item-id");
-        const itemType = $li.attr("data-item-type");
-
-        if (itemType === "spellSlot") return;
-
-        const item = this.actor.items.get(itemId ?? "");
-        if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
-
-        // Toggle summary
-        if ($li.hasClass("expanded")) {
-            const $summary = $li.children(".item-summary");
-            if (options.instant) {
-                $summary.remove();
-            } else {
-                $summary.slideUp(200, () => $summary.remove());
-            }
-        } else {
-            const $summary = $('<div class="item-summary">');
-            const chatData = item.getChatData({ secrets: this.actor.isOwner }, $li.data());
-            this.renderItemSummary($summary, item, chatData);
-            $li.append($summary);
-            if (options.instant) {
-                InlineRollsLinks.listen($summary);
-            } else {
-                $summary.hide().slideDown(200, () => {
-                    InlineRollsLinks.listen($summary);
-                });
-            }
-        }
-
-        $li.toggleClass("expanded");
-    }
-
-    /**
-     * Called when an item summary is expanded and needs to be filled out.
-     * @todo Move this to templates
-     */
-    protected renderItemSummary(
-        div: JQuery,
-        item: Embedded<ItemPF2e>,
-        chatData = item.getChatData({ secrets: this.actor.isOwner })
-    ) {
-        const localize = game.i18n.localize.bind(game.i18n);
-
-        const props = $('<div class="item-properties tags"></div>');
-        if (item instanceof PhysicalItemPF2e) {
-            const mystifiedClass = item.isIdentified ? "" : " mystified";
-            const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
-            props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
-        }
-
-        if (Array.isArray(chatData.properties)) {
-            const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? " mystified" : "";
-            chatData.properties
-                .filter((property): property is string => typeof property === "string")
-                .forEach((property) => {
-                    props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
-                });
-        }
-
-        // append traits (only style the tags if they contain description data)
-        const traits = chatData["traits"];
-        if (Array.isArray(traits)) {
-            for (const trait of traits) {
-                if (trait.excluded) continue;
-                const label: string = game.i18n.localize(trait.label);
-                const mystifiedClass = trait.mystified ? "mystified" : [];
-                if (trait.description) {
-                    const classes = ["tag", mystifiedClass].flat().join(" ");
-                    const description = game.i18n.localize(trait.description);
-                    const $trait = $(`<span class="${classes}" title="${description}">${label}</span>`).tooltipster({
-                        animation: "fade",
-                        maxWidth: 400,
-                        theme: "crb-hover",
-                        contentAsHTML: true,
-                    });
-                    props.append($trait);
-                } else {
-                    const classes: string = ["tag", "tag_alt", mystifiedClass].flat().join(" ");
-                    props.append(`<span class="${classes}">${label}</span>`);
-                }
-            }
-        }
-
-        if (item instanceof PhysicalItemPF2e && item.data.data.stackGroup.value !== "coins") {
-            const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
-            div.append($(`<p>${priceLabel}</p>`));
-        }
-
-        div.append(props);
-
-        const description = isItemSystemData(chatData)
-            ? chatData.description.value
-            : TextEditor.enrichHTML(item.description);
-        div.append(`<div class="item-description">${description}</div></div>`);
     }
 
     /** Opens an item container */
@@ -1296,23 +1179,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
     }
 
-    private createFormulaFromItem(itemData: PhysicalItemSource): CraftingFormula | undefined {
-        if (itemData.flags.core?.sourceId) {
-            return {
-                dc: adjustDCByRarity(calculateDC(itemData.data.level.value), itemData.data.traits.rarity.value),
-                description: itemData.data.description.value,
-                img: itemData.img,
-                level: itemData.data.level.value,
-                name: itemData.name,
-                uuid: itemData.flags.core.sourceId as CompendiumUUID,
-                price: itemData.data.price.value,
-                rarity: itemData.data.traits.rarity.value,
-            };
-        } else {
-            return;
-        }
-    }
-
     protected onTraitSelector(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
@@ -1405,38 +1271,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Override of inner render function to maintain item summary state */
     protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
-        // Identify which item summaries are expanded currently
-        const expandedItemElements = this.element.find(".item.expanded[data-item-id]");
-        const expandedActionElements = this.element.find(".item.expanded[data-action-index]");
-        const openActionIdxs = new Set(expandedActionElements.map((_i, el) => el.dataset.actionIndex));
-
-        // Create a list of records that act as identification keys for expanded entries
-        const sheetOptions = (this.constructor as typeof ActorSheetPF2e).defaultOptions;
-        const properties = ["data-item-id", ...sheetOptions.itemIdentificationAttributes];
-        const openItems: Record<string, string>[] = expandedItemElements
-            .map((_i, el) => {
-                const $el = $(el);
-                const pairs = properties.map((prop) => [prop, $el.attr(prop)]);
-                return Object.fromEntries(pairs.filter((pair) => typeof pair[1] !== "undefined"));
-            })
-            .get();
-
-        // Render the sheet
-        const result = await super._renderInner(data, options);
-
-        // Re-open hidden item summaries
-        for (const itemProps of openItems) {
-            const searchProps = [".item"];
-            for (const [key, value] of Object.entries(itemProps)) {
-                searchProps.push(`[${key}=${value}]`);
-            }
-
-            this.toggleItemSummary(result.find(searchProps.join("")), { instant: true });
-        }
-        for (const elementIdx of openActionIdxs) {
-            result.find(`.item[data-action-index=${elementIdx}]`).toggleClass("expanded");
-        }
-
-        return result;
+        return this.itemRenderer.saveAndRestoreState(() => {
+            return super._renderInner(data, options);
+        });
     }
 }

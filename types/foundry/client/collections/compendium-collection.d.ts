@@ -54,7 +54,7 @@ declare global {
         /** A convenience reference to the label which should be used as the title for the Compendium pack. */
         get title(): string;
 
-        override get(key: string, options: Record<string, unknown>): TDocument | undefined;
+        override get(key: string, options?: Record<string, unknown>): TDocument | undefined;
 
         override set(id: string, document: TDocument): this;
 
@@ -159,8 +159,9 @@ declare global {
     }
 
     type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
-    type CompendiumUUID = `${"Compendium" | CompendiumDocumentType}.${string}.${string}`;
-    function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
+    type CompendiumUUID = `Compendium.${string}.${string}`;
+    type DocumentUUID = `${CompendiumDocumentType}.${string}` | CompendiumUUID | TokenDocumentUUID;
+    function fromUuid(uuid: string): Promise<ClientDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
         readonly entity: T extends Actor

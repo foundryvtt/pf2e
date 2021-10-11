@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor/base";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ItemPF2e } from "@item/base";
 import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { LootData, LootSource } from "./data";
 import { ActiveEffectPF2e } from "@module/active-effect";

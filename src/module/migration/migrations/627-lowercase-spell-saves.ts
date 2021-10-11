@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 
 const AllSaves = ["fortitude", "reflex", "will"] as const;

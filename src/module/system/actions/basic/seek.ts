@@ -2,22 +2,21 @@ import { ActionsPF2e, SkillActionOptions } from "../actions";
 
 export function seek(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "perception");
-    ActionsPF2e.simpleRollActionCheck(
-        options.actors,
-        property,
-        options.glyph ?? "A",
-        "PF2E.Actions.Seek.Title",
+    ActionsPF2e.simpleRollActionCheck({
+        actors: options.actors,
+        statName: property,
+        actionGlyph: options.glyph ?? "A",
+        title: "PF2E.Actions.Seek.Title",
         subtitle,
-        options.modifiers,
-        ["all", checkType, stat, "action:seek"],
-        ["action:seek"],
-        ["concentrate", "secret"],
+        modifiers: options.modifiers,
+        rollOptions: ["all", checkType, stat, "action:seek"],
+        extraOptions: ["action:seek"],
+        traits: ["concentrate", "secret"],
         checkType,
-        options.event,
-        undefined,
-        (selector: string) => [
+        event: options.event,
+        extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.Seek", "success"),
-        ]
-    );
+        ],
+    });
 }

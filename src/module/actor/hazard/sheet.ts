@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { HazardPF2e } from ".";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
@@ -141,11 +141,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
-
-        // Melee Attack summaries
-        html.find(".item .melee-name h4").on("click", (event) => {
-            this.onItemSummary(event);
-        });
 
         // NPC Weapon Rolling
         html.find("button").on("click", (event) => {

@@ -1,6 +1,6 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DiceModifierPF2e } from "@module/modifiers";
-import { isBlank, toNumber } from "@module/utils";
+import { isBlank, toNumber } from "@util";
 import { DamageDieSize } from "@system/damage/damage";
 import { RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
@@ -57,17 +57,17 @@ const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> 
     ["majorStriking", 3],
 ]);
 
-export function getStrikingDice(itemData: WeaponData["data"]): ZeroToThree {
+export function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
-const resilientRuneValues: Map<ResilientRuneType, ZeroToThree> = new Map([
+const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined> = new Map([
     ["resilient", 1],
     ["greaterResilient", 2],
     ["majorResilient", 3],
 ]);
-export function getResiliencyBonus(itemData: ArmorData["data"]): ZeroToThree {
-    return resilientRuneValues.get(itemData?.resiliencyRune?.value) ?? 0;
+export function getResiliencyBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
+    return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
 interface RuneDiceModifier {

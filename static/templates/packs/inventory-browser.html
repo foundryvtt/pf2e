@@ -34,6 +34,14 @@
                 {{/each}}
             </dl>
         </div>
+        <div class="filtercontainer" id="consumablesfilter">
+            <h3>{{localize "PF2E.BrowserFilterConsumable"}}</h3>
+            <dl style="display:none;">
+                {{#each consumableTypes as |consumableType key|}}
+                    <label><dt><input type="checkbox" name="consumabletype-{{lower key}}"></dt><dd>{{localize consumableType}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
         <div class="filtercontainer" id="armorTypefilter">
             <h3>{{localize "PF2E.BrowserFilterArmorFilters"}}</h3>
             <dl style="display:none;">

@@ -52,7 +52,7 @@ declare global {
         /** A convenience reference to the item type (data.type) of this Actor */
         get type(): string;
 
-        override get uuid(): string;
+        override get uuid(): ActorUUID | TokenDocumentUUID;
 
         /** Apply any transformations to the Actor data which are caused by ActiveEffects. */
         applyActiveEffects(): void;
@@ -205,4 +205,6 @@ declare global {
             context?: DocumentModificationContext
         ): Promise<A[] | A | undefined>;
     }
+
+    type ActorUUID = `Actor.${string}` | CompendiumUUID;
 }

@@ -21,21 +21,31 @@
             flex-basis: 100%;
             position: relative;
             z-index: 2;
-            padding: 0 1em;
+            padding: 0 0 0 1em;
             border-radius: 0.25em;
             box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
             cursor: pointer;
 
             .item-controls {
                 color: white;
-                text-transform: uppercase;
                 font-size: 0.7em;
                 letter-spacing: 0.05em;
                 font-family: var(--sans-serif);
                 flex: 1 0 auto;
 
-                a {
-                    padding: 2px;
+                .toggle-free-crafting {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    * {
+                        flex: 1 0 auto;
+                    }
+
+                    input[type=checkbox] {
+                        height: 1em;
+                        width: 1em;
+                    }
                 }
             }
 
@@ -167,6 +177,10 @@
                     justify-self: end;
                     font-size: 10px;
                     margin-right: 4px;
+
+                    .item-control.disabled {
+                        opacity: 0.3;
+                    }
                 }
 
                 .item-summary {
@@ -194,6 +208,24 @@
                             &:hover {
                                 text-shadow: 0 0 2px white;
                             }
+                    }
+                }
+
+                .formula-quantity {
+                    display: flex;
+                    justify-content: center;
+
+                    .formula-decrease-quantity,
+                    .formula-increase-quantity {
+                        height: 100%;
+                        width: 18px;
+                        text-align: center;
+                        @include flex-center;
+                    }
+
+                    input {
+                        width: 24px;
+                        text-align: center;
                     }
                 }
             }

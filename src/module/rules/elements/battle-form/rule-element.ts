@@ -6,7 +6,7 @@ import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";
@@ -26,7 +26,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         super(data, item);
-        this.initialize(data);
+        this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
     }

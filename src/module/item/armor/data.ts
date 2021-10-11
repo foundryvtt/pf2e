@@ -4,7 +4,7 @@ import {
     MagicItemSystemData,
     PhysicalItemTraits,
 } from "@item/physical/data";
-import { ZeroToFour } from "@module/data";
+import { ZeroToFour, ZeroToThree } from "@module/data";
 import type { LocalizePF2e } from "@module/system/localize";
 import type { ArmorPF2e } from ".";
 
@@ -70,6 +70,11 @@ interface ArmorSystemData extends MagicItemSystemData {
     };
     propertyRune4: {
         value: string;
+    };
+    runes: {
+        potency: number;
+        resilient: ZeroToThree;
+        property: string[];
     };
 }
 

@@ -14,7 +14,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    override getData() {
+    override async getData() {
         const data = super.getBaseData();
         const traits = this.prepareOptions(CONFIG.PF2E.classTraits, data.data.traits, { selectedOnly: true });
         return {

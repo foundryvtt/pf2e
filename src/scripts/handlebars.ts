@@ -1,4 +1,4 @@
-import { getActionGlyph } from "./utils";
+import { getActionGlyph } from "../util";
 
 export function registerHandlebarsHelpers() {
     Handlebars.registerHelper("pad", (value, length, character) => {
@@ -152,5 +152,13 @@ export function registerHandlebarsHelpers() {
             results.push(block.fn(i));
         }
         return results.join("");
+    });
+
+    Handlebars.registerHelper("developMode", function (this: unknown, body: Handlebars.HelperOptions) {
+        if (BUILD_MODE === "development") {
+            return body.fn(this);
+        }
+
+        return "";
     });
 }

@@ -8,6 +8,7 @@ import { MigrationBase } from "@module/migration/base";
 import { BaseWeaponType } from "@item/weapon/data";
 
 import "@yaireo/tagify/src/tagify.scss";
+import { sluggify } from "@util";
 
 export type ConfigPF2eHomebrewList = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewList}`;
@@ -115,7 +116,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= randomID(16) as HomebrewTag<typeof key>["id"];
+                tag.id ??= `hb_${sluggify(tag.value)}` as HomebrewTag<typeof key>["id"];
             }
 
             return this.processDeletions(key, data[key]);
@@ -131,7 +132,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
     private processDeletions(listKey: ConfigPF2eHomebrewList, newTagList: HomebrewTag[]): MigrationBase | null {
-        const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}` as const); // `;
+        const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
 

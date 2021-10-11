@@ -28,7 +28,7 @@ import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
-import { CraftingFormulaData } from "@item/formula/data";
+import { CraftingFormulaData } from "@module/crafting/formula";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -38,7 +38,7 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
 
 export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
-    data: CharacterSource["data"];
+    data: CharacterSystemData;
     readonly _source: CharacterSource;
 }
 
@@ -125,7 +125,10 @@ export interface CharacterSystemData extends CreatureSystemData {
 
     resources: CharacterResources;
 
-    formulas: CraftingFormulaData[];
+    /** Crafting-related data, including known formulas */
+    crafting: {
+        formulas: CraftingFormulaData[];
+    };
 }
 
 interface CharacterSaveData extends SaveData {
