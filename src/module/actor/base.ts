@@ -773,8 +773,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = traits.has("invested") ? false : null;
         }
 
-        const result = await this.addItemToActor(newItemData, container);
-        return result ? item : null;
+        return targetActor.addItemToActor(newItemData, container);
     }
 
     async addItemToActor(
