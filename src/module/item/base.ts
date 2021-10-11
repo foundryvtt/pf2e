@@ -534,8 +534,11 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const data: ItemSourcePF2e = JSON.parse(json);
+        const importData = JSON.parse(json);
+        const systemModel = deepClone(game.system.model.Item[importData.type]);
+        const data: ItemSourcePF2e = mergeObject({ data: systemModel }, importData);
         this.data.update(game.items.prepareForImport(data), { recursive: false });
+
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),

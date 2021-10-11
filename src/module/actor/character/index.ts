@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { getArmorBonus, getResiliencyBonus } from "@item/runes";
+import { getResiliencyBonus } from "@item/runes";
 import {
     AbilityModifier,
     DEXTERITY,
@@ -539,16 +539,17 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = "unarmored";
 
-            if (wornArmor?.checkPenalty) {
-                dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-                proficiency = wornArmor.category;
-                // armor check penalty
-                if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
-                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
+            if (wornArmor) {
+                if (wornArmor.checkPenalty) {
+                    dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+                    proficiency = wornArmor.category;
+                    // armor check penalty
+                    if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
+                        armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
+                    }
                 }
-                const armorBonus =
-                    wornArmor.isInvested === false ? wornArmor.acBonus : getArmorBonus(wornArmor.data.data);
-                modifiers.push(new ModifierPF2e(wornArmor.name, armorBonus, MODIFIER_TYPE.ITEM));
+
+                modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
 
             // proficiency

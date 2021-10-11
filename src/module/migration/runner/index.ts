@@ -34,11 +34,16 @@ export class MigrationRunner extends MigrationRunnerBase {
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
             const source = document.data._source;
-            const updated =
-                "items" in source
-                    ? await runner.getUpdatedActor(source, runner.migrations)
-                    : await runner.getUpdatedItem(source, runner.migrations);
-            document.data.update(updated);
+            const updated = await (async () => {
+                try {
+                    return "items" in source
+                        ? await runner.getUpdatedActor(source, runner.migrations)
+                        : await runner.getUpdatedItem(source, runner.migrations);
+                } catch {
+                    return null;
+                }
+            })();
+            if (updated) document.data.update(updated);
         }
     }
 
