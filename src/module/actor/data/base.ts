@@ -210,6 +210,9 @@ export interface StrikeData {
     ammo?: RawObject<ConsumableData>[];
     /** Currently selected ammo id that will be consumed when rolling this action */
     selectedAmmoId?: string;
+
+    /** The item that generated this strike */
+    origin?: ItemPF2e;
 }
 
 export interface RollToggle {
