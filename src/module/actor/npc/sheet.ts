@@ -259,7 +259,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value];
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
-        sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
+        sheetData.traits = this.prepareOptions(CONFIG.PF2E.creatureTraits, sheetData.data.traits.traits);
         this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
@@ -519,11 +519,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             .forEach((item) => {
                 // Format action traits
                 const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
-                const configWeaponTraits = CONFIG.PF2E.weaponTraits;
+                const configAttackTraits = CONFIG.PF2E.npcAttackTraits;
 
                 const traits = item.data.traits.value.map((traitString) => {
-                    const label = objectHasKey(configWeaponTraits, traitString)
-                        ? CONFIG.PF2E.weaponTraits[traitString]
+                    const label = objectHasKey(configAttackTraits, traitString)
+                        ? configAttackTraits[traitString]
                         : traitString.charAt(0).toUpperCase() + traitString.slice(1);
 
                     const description = objectHasKey(configTraitDescriptions, traitString)
@@ -544,8 +544,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
                 if (hasType) {
                     const actionTrait = systemData.actionType.value;
-                    const label = objectHasKey(configWeaponTraits, actionTrait)
-                        ? configWeaponTraits[actionTrait]
+                    const label = objectHasKey(configAttackTraits, actionTrait)
+                        ? configAttackTraits[actionTrait]
                         : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
                     const description = objectHasKey(configTraitDescriptions, actionTrait)
                         ? configTraitDescriptions[actionTrait]
@@ -576,21 +576,15 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
-        const traitDescriptions = CONFIG.PF2E.traitsDescriptions;
+        const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
+        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
         return sheetData.actions.map((attack) => {
             const traits = attack.traits
-                .map((strikeTrait) => {
-                    const description = objectHasKey(traitDescriptions, strikeTrait.name)
-                        ? traitDescriptions[strikeTrait.name]
-                        : "";
-
-                    const trait = {
-                        label: strikeTrait.label,
-                        description,
-                    };
-                    return trait;
-                })
+                .map((strikeTrait) => ({
+                    label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
+                    description: traitDescriptions[strikeTrait.name] ?? "",
+                }))
                 .sort((a, b) => {
                     if (a.label < b.label) return -1;
                     if (a.label > b.label) return 1;
