@@ -889,10 +889,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 itemData.data.level.value = level;
             }
         } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
-            const formula = { uuid: item.sourceId ?? item.uuid };
             const actorFormulas = actor.data.toObject().data.crafting.formulas;
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
-                actorFormulas.push(formula);
+                actorFormulas.push({ uuid: item.uuid });
                 await actor.update({ "data.crafting.formulas": actorFormulas });
             }
             return [item];
