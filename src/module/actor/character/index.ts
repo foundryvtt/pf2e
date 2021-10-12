@@ -594,10 +594,18 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Shield
-        const shield = this.heldShield?.data;
-        if (shield) {
-            systemData.attributes.shield.value = shield.data.hp.value;
-            systemData.attributes.shield.max = shield.data.maxHp.value;
+        const { heldShield } = this;
+        if (heldShield) {
+            const { hitPoints } = heldShield;
+            systemData.attributes.shield.value = hitPoints.value;
+            systemData.attributes.shield.max = hitPoints.max;
+
+            if (heldShield.speedPenalty) {
+                const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
+                speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
+                statisticsModifiers.speed ??= [];
+                statisticsModifiers.speed.push(speedPenalty);
+            }
         }
 
         // Skill modifiers
