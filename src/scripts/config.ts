@@ -838,6 +838,7 @@ const featTraits = {
     "pervasive-magic": "PF2E.TraitPervasiveMagic",
     poison: "PF2E.TraitPoison",
     press: "PF2E.TraitPress",
+    spellshot: "PF2E.TraitSpellshot",
     stance: "PF2E.TraitStance",
     stamina: "PF2E.TraitStamina",
     "true-name": "PF2E.TraitTrueName",
