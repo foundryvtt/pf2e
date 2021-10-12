@@ -921,7 +921,6 @@ const weaponTraits = {
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
     water: "PF2E.TraitWater",
-    "modular-b-P-or-s": "PF2E.TraitModular",
 };
 
 const npcAttackTraits = {
@@ -1562,10 +1561,13 @@ export const PF2ECONFIG = {
         40: "PF2E.WeaponRange40",
         50: "PF2E.WeaponRange50",
         60: "PF2E.WeaponRange60",
+        70: "PF2E.WeaponRange70",
         80: "PF2E.WeaponRange80",
+        90: "PF2E.WeaponRange90",
         100: "PF2E.WeaponRange100",
         120: "PF2E.WeaponRange120",
         140: "PF2E.WeaponRange140",
+        150: "PF2E.WeaponRange150",
     }, // TODO: Compute range!
 
     weaponMAP: {
