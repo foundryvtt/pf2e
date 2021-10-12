@@ -91,6 +91,8 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
+        const { current, max } = this.charges;
+
         if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
             if (canCastConsumable(this.actor, this.data)) {
                 this.castEmbeddedSpell();
@@ -106,8 +108,15 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
                 });
             }
         } else {
+            const exhausted = max > 1 && current === 1;
+            const key = exhausted ? "Exhaust" : max > 1 ? "UseMulti" : "Use";
+            const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
+                name: this.name,
+                current: current - 1,
+            });
+
+            // If using this consumable creates a roll, we need to show it
             const cv = this.data.data.consume.value;
-            const content = `Uses ${this.name}`;
             if (cv) {
                 new Roll(cv).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -123,23 +132,22 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
 
         const quantity = this.quantity;
-        const charges = this.data.data.charges;
 
         // Optionally destroy the item
-        if (this.autoDestroy && charges.value <= 1) {
+        if (this.autoDestroy && current <= 1) {
             if (quantity <= 1) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
                     "data.quantity.value": Math.max(quantity - 1, 0),
-                    "data.charges.value": charges.max,
+                    "data.charges.value": max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(charges.value - 1, 0),
+                "data.charges.value": Math.max(current - 1, 0),
             });
         }
     }
