@@ -109,7 +109,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             }
         } else {
             const exhausted = max > 1 && current === 1;
-            const key = exhausted ? "Exhaust" : max > 1 ? "UseMulti" : "Use";
+            const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: current - 1,
