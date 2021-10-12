@@ -19,10 +19,37 @@
         "level": {
             "value": 5
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "action:climb",
+                        "action:swim"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "action:climb",
+                        "action:swim"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you roll a success on an Athletics check to  Climb or  Swim, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
