@@ -636,13 +636,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             let updatedShieldHp = -1;
             if (attribute === "attributes.shield") {
                 if (shield?.isBroken === false) {
-                    let shieldHitPoints = shield.hitPoints.current;
+                    let shieldHitPoints = shield.hitPoints.value;
                     if (isDelta && value < 0) {
                         // shield block
                         value = Math.min(shield.hardness + value, 0); // value is now a negative modifier (or zero), taking into account hardness
                         if (value < 0) {
                             attribute = "attributes.hp"; // update the actor's hit points after updating the shield
-                            shieldHitPoints = Math.clamped(shield.hitPoints.current + value, 0, shield.hitPoints.max);
+                            shieldHitPoints = Math.clamped(shield.hitPoints.value + value, 0, shield.hitPoints.max);
                         }
                     } else {
                         shieldHitPoints = Math.clamped(value, 0, shield.hitPoints.max);

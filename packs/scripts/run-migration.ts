@@ -18,6 +18,8 @@ import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-r
 import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
 import { Migration678SeparateNPCAttackTraits } from "@module/migration/migrations/678-separate-npc-attack-traits";
+import { Migration679TowerShieldSpeedPenalty } from "@module/migration/migrations/679-tower-shield-speed-penalty";
+import { sluggify } from "@util";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -33,6 +35,7 @@ const migrations: MigrationBase[] = [
     new Migration675FlatModifierAEsToREs(),
     new Migration677RuleValueDataRefs(),
     new Migration678SeparateNPCAttackTraits(),
+    new Migration679TowerShieldSpeedPenalty(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
@@ -173,8 +176,10 @@ async function migrate() {
                     }
                     return updatedActor;
                 } else if (isItemData(source)) {
+                    source.data.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
+                    delete (updatedItem.data as { slug?: unknown }).slug;
                     return updatedItem;
                 } else if (isMacroData(source)) {
                     return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);

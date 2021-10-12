@@ -80,6 +80,7 @@ import { Migration675FlatModifierAEsToREs } from "./migrations/675-flat-modifier
 import { Migration676ReplaceItemsWithRELikeAEs } from "./migrations/676-replace-items-with-re-like-aes";
 import { Migration677RuleValueDataRefs } from "./migrations/677-rule-value-data-refs";
 import { Migration678SeparateNPCAttackTraits } from "./migrations/678-separate-npc-attack-traits";
+import { Migration679TowerShieldSpeedPenalty } from "./migrations/679-tower-shield-speed-penalty";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -164,6 +165,7 @@ export class Migrations {
         Migration676ReplaceItemsWithRELikeAEs,
         Migration677RuleValueDataRefs,
         Migration678SeparateNPCAttackTraits,
+        Migration679TowerShieldSpeedPenalty,
     ];
 
     static get latestVersion(): number {
