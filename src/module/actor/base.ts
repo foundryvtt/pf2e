@@ -773,10 +773,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = traits.has("invested") ? false : null;
         }
 
-        return targetActor.addItemToActor(newItemData, container);
+        return targetActor.addToInventory(newItemData, container);
     }
 
-    async addItemToActor(
+    async addToInventory(
         itemData: PhysicalItemSource,
         container?: Embedded<ContainerPF2e>
     ): Promise<Embedded<PhysicalItemPF2e> | null> {

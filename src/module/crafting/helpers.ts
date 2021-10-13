@@ -107,15 +107,11 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
     }
 }
 
-export async function craftItem(itemUuid: string, itemQuantity: number, actor: ActorPF2e) {
-    const item = await fromUuid(itemUuid);
-    if (!(item instanceof PhysicalItemPF2e)) {
-        return;
-    }
-    const itemObject = item.toObject();
-    itemObject.data.quantity.value = itemQuantity;
+export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e) {
+    const itemSource = item.toObject();
+    itemSource.data.quantity.value = itemQuantity;
 
-    const result = await actor.addItemToActor(itemObject, undefined);
+    const result = await actor.addToInventory(itemSource);
     if (!result) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
         return;
