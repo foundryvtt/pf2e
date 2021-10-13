@@ -1192,9 +1192,16 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Sets the ammo list if its an ammo using weapon group
         if (weapon.group && ["firearm", "bow", "sling", "dart"].includes(weapon.group)) {
-            action.ammo = ammos
-                .map((ammo) => ({ compatible: ammo.isAmmoFor(weapon), data: ammo.toObject(false) }))
-                .sort((ammo1, ammo2) => (ammo1.compatible === ammo2.compatible ? 0 : ammo1.compatible ? -1 : 1));
+            const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+            const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+
+            const ammo = weapon.ammo;
+            const selected = ammo && {
+                id: ammo.id,
+                ammo,
+                compatible: ammo.isAmmoFor(weapon),
+            };
+            action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
         action.selectedAmmoCompatible = !!weapon.ammo?.isAmmoFor(weapon);

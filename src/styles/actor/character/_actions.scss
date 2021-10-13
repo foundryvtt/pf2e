@@ -315,23 +315,25 @@
                     }
                 }
 
-                select, button {
+                button {
                     @include micro;
-                }
-
-                select {
-                    width: 100%;
                 }
             }
         }
     }
 
     select[name="ammo-used"] {
-        &[data-compatible="false"], & option[data-compatible="false"] {
-            color: #ffffff66;
+        width: 100%;
+        font-family: var(--sans-serif);
+        font-weight: normal;
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 0.8em;
+        &[data-compatible="false"] {
+            color: #ffffff99;
         }
 
-        & option[data-compatible="true"] {
+        option, optgroup {
             color: white;
         }
     }
