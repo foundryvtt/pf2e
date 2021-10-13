@@ -1,0 +1,80 @@
+{
+    "_id": "z92LsdpE98QdwILa",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p>\n<hr />\n<p>After years of using black powder weaponry in dimly lit spaces, you've become accustomed to dazzling flashes of light and sudden shifts in illumination. You gain a +1 circumstance bonus to saving throws against visual effects. If you roll a success on a saving throw against a visual effect, you get a critical success instead.</p>"
+        },
+        "featType": {
+            "value": "ancestry"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "visual"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "visual"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "visual"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a save against a visual effect, you get a critical success instead.</p>"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "uncommon"
+            },
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Adaptive Vision",
+    "type": "feat"
+}
