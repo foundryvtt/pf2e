@@ -96,11 +96,15 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Demon, Shadow from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Neville White.
     *  Secrets of Magic © 2021, Paizo Inc.; Authors: Amirali Attar Olyaee, Kate Baker, Minty Belmont, Logan Bonner, James Case, Jessica Catalan, John Compton, Katina Davis, Jesse Decker, Chris Eng, Eleanor Ferron, Leo Glass, Joan Hong, Vanessa Hoskins, Jason Keeley, Joshua Kim, Luis Loza, Ron Lundeen, Liane Merciel, David N. Ross, Ianara Natividad, Chesley Oxendine, Stephen Radney‑MacFarland, Shiv Ramdas, Mikhail Rekun, Simone D. Sallé, Michael Sayre, Mark Seifter, Sen H.H.S., Shay Snow, Kendra Leigh Speedling, Tan Shao Han, Calliope Lee Taylor, Mari Tokuda, Jason Tondro, Clark Valentine, Ruvaid Virk, Andrew White, Landon Winkler, Tonya Woldridge, and Isis Wozniakowska.
 
+* Guns and Gears
+    * Pathfinder Guns & Gears © 2021, Paizo Inc.; Authors: Logan Bonner, Jessica Catalan, John Compton, Andrew D. Geels, Steven Hammond, Sen H.H.S., Brent Holtsberry, Jason Keeley, Dustin Knight, Luis Loza, Ron Lundeen, Chris Mastey, Liane Merciel, Jacob W. Michaels, Dave Nelson, Samantha Phelan, Mikhail Rekun, Stephen Radney-MacFarland, Sydney Meeker, Kendra Leigh Speedling, Michael Sayre., Mark Seifter, Andrew Stoeckle, Calliope Lee Taylor, Andrew White, and Scott D. Young. 
+
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
     *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
+    *  Pathfinder Adventure: Night of the Gray Death © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -241,6 +245,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
 	*  Pathfinder Lost Omens The Mwangi Expanse © 2021, Paizo Inc.; Authors: Laura-Shay Adams, Mariam Ahmad, Jahmal Brown, Misha Bushyager, Alexandria Bustion, Duan Byrd, John Compton, Sarah Davis, Mara Lynn Butler, Kent Hamilton, Amanda Hamon, Sasha Laranoa Harving, Gabriel Hicks, TK Johnson, Michelle Jones, Jason Keeley, Joshua Kim, Travis Lionel, Ron Lundeen, Stephanie Lundeen, Hilary Moon Murphy, Lu Pellazar, Mikhail Rekun, Nate Wright, and Jabari Weathers
+    * Dragon, Faerie from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    * Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    * Pathfinder Lost Omens Grand Bazaar © 2021, Paizo Inc.; Authors: Tineke Bolleman, Logan Bonner, Jessica Catalan, Dominique Dickey, Dana Ebert, Steven Hammond, Sen H.H.S., Dustin Knight, Avi Kool, Aaron Lascano, Carlos Luna, Ron Lundeen, Sydney Meeker, Randal Meyer, Jacob Michaels, Matt Morris, Andrew Mullen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Erin Roberts, David N. Ross, Simone Sallé, Mark Seifter, Shay Snow, Ashton Sperry, Amber Stewart, Andrew Stoeckle, Isabelle Thorne, Jason Tondro, and Scott D. Young.
 
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
