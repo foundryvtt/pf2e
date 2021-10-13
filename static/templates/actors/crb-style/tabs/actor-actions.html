@@ -41,6 +41,12 @@
                                         <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
                                         {{#if action.origin}}
                                             <div class="action-options" data-item-id="{{action.origin.id}}">
+                                                {{#with action.ammunition.selected.ammo.charges}}
+                                                    {{#if (gt max 1)}}
+                                                        <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
+                                                    {{/if}}
+                                                {{/with}}
+
                                                 {{#if (eq action.origin.type "weapon")}}
                                                     <a class="item-control item-toggle-equip {{#if action.origin.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.weaponEquipped"}}"><i class="fas fa-tshirt"></i></a>
                                                 {{/if}}
