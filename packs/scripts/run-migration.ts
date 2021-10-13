@@ -3,6 +3,7 @@ import * as path from "path";
 import { populateFoundryUtilFunctions } from "../../tests/fixtures/foundryshim";
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
+import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
@@ -19,7 +20,7 @@ import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/6
 import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
 import { Migration678SeparateNPCAttackTraits } from "@module/migration/migrations/678-separate-npc-attack-traits";
 import { Migration679TowerShieldSpeedPenalty } from "@module/migration/migrations/679-tower-shield-speed-penalty";
-import { sluggify } from "@util";
+import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set-weapon-hands";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -36,6 +37,7 @@ const migrations: MigrationBase[] = [
     new Migration677RuleValueDataRefs(),
     new Migration678SeparateNPCAttackTraits(),
     new Migration679TowerShieldSpeedPenalty(),
+    new Migration680SetWeaponHands(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
