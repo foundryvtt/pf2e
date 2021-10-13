@@ -1055,6 +1055,7 @@ const npcAttackTraits = {
     "reload-0": "PF2E.TraitReload0",
     "reload-1": "PF2E.TraitReload1",
     "reload-2": "PF2E.TraitReload2",
+    "reload-1-min": "PF2E.TraitReload1Min",
 };
 
 const actionTraits = {
