@@ -1611,7 +1611,7 @@ export const PF2ECONFIG = {
         1: "1",
         2: "2",
         3: "3",
-        60: "1 min",
+        30: "1 min",
     },
 
     armorTypes: {
