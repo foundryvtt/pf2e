@@ -17,7 +17,7 @@ type StackDefinitions = Record<string, StackDefinition>;
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-const stackDefinitions: StackDefinitions = {
+export const stackDefinitions: StackDefinitions = {
     bolts: {
         size: 10,
         lightBulk: 1,

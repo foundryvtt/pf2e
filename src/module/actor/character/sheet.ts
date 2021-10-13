@@ -16,13 +16,16 @@ import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { CraftingFormulaData } from "@module/crafting/formula";
+import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
-import { craftItem } from "@module/crafting/crafting";
+import { craftItem } from "@module/crafting/helpers";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+    // A cache of this PC's known formulas, for use by sheet callbacks
+    private knownFormulas!: Map<string, CraftingFormula>;
+
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "pc"],
@@ -120,7 +123,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
-        sheetData.knownFormulas = await this.prepareCraftingFormulas();
+
+        const formulasByLevel = await this.prepareCraftingFormulas();
+        sheetData.crafting = {
+            noCost: this.actor.data.flags.pf2e.freeCrafting,
+            knownFormulas: formulasByLevel,
+        };
+        this.knownFormulas = new Map(
+            Object.values(formulasByLevel)
+                .flat()
+                .map((formula): [string, CraftingFormula] => [formula.uuid, formula])
+        );
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -554,7 +567,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
+    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
         const craftingFormulas = await this.actor.getCraftingFormulas();
         return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
@@ -749,43 +762,42 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
-        html.find(".craft-item").on("click", async (event) => {
-            const { itemUuid, craftDc } = event.currentTarget.dataset;
+        const $formulas = html.find(".craftingEntry-list");
+
+        $formulas.find(".craft-item").on("click", async (event) => {
+            const { itemUuid } = event.currentTarget.dataset;
             const itemQuantity = Number(
                 $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
             );
-            if (!itemUuid) return;
+            const formula = this.knownFormulas.get(itemUuid ?? "");
+            if (!formula) return;
 
-            if (this.actor.getFlag("pf2e", "freeCrafting")) {
-                craftItem(itemUuid, itemQuantity, this.actor);
+            if (this.actor.data.flags.pf2e.freeCrafting) {
+                craftItem(formula.item, itemQuantity, this.actor);
                 return;
             }
 
             const dc: CheckDC = {
-                value: Number(craftDc),
+                value: formula.dc,
                 visibility: "all",
                 adjustments: this.actor.data.data.skills["cra"].adjustments,
                 scope: "CheckOutcome",
             };
 
-            craft({ dc: dc, uuid: itemUuid, quantity: itemQuantity, event: event, actors: this.actor });
+            craft({ dc, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
-        html.find(".formula-increase-quantity").on("click", async (event) => {
-            const value = Number($(event.currentTarget).siblings("input").first().val());
-            $(event.currentTarget)
-                .siblings("input")
-                .first()
-                .val(value + 1);
-        });
+        $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
+            const $target = $(event.currentTarget);
 
-        html.find(".formula-decrease-quantity").on("click", async (event) => {
-            const value = Number($(event.currentTarget).siblings("input").first().val());
-            if (value > 0)
-                $(event.currentTarget)
-                    .siblings("input")
-                    .first()
-                    .val(value - 1);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const formula = this.knownFormulas.get(itemUUID ?? "");
+            if (!formula) throw ErrorPF2e("Formula not found");
+
+            const batchSize = formula.minimumBatchSize;
+            const step = $target.text().trim() === "+" ? batchSize : -batchSize;
+            const value = Number($target.siblings("input").val()) || step;
+            $target.siblings("input").val(Math.max(value + step, batchSize));
         });
     }
 
