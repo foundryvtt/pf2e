@@ -1,5 +1,5 @@
 {
-    "_id": "vv63fioCtOvDIdF2",
+    "_id": "EZuWfYSv3ASLyKtu",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've steeled your mind with incredible resolve. Your proficiency rank for Will saves increases to master. When you roll a success at a Will save, you get a critical success instead.</p>"
+            "value": "<p>You've learned to move quickly to avoid explosions, dragon's breath, and worse. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -26,21 +26,21 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": "will",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+                "selector": "reflex",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Reflex save, you get a critical success instead.</p>"
             },
             {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "selector": "will",
+                "selector": "reflex",
                 "type": "save"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.saves.will.rank",
+                "path": "data.saves.reflex.rank",
                 "value": 3
             }
         ],
@@ -53,15 +53,13 @@
                 "value": "common"
             },
             "value": [
-                "druid",
-                "inventor",
-                "investigator"
+                "gunslinger"
             ]
         }
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/resolve.webp",
-    "name": "Resolve (Level 11)",
+    "img": "systems/pf2e/icons/features/classes/evasion.webp",
+    "name": "Evasion (Level 11)",
     "type": "feat"
 }

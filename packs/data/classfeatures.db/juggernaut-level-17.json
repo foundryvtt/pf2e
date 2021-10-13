@@ -1,5 +1,5 @@
 {
-    "_id": "vv63fioCtOvDIdF2",
+    "_id": "ojB0UJWpSekQPjT7",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,13 +11,13 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've steeled your mind with incredible resolve. Your proficiency rank for Will saves increases to master. When you roll a success at a Will save, you get a critical success instead.</p>"
+            "value": "<p>Your body is accustomed to physical hardship and resistant to a wide range of ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": 11
+            "value": 17
         },
         "location": "",
         "prerequisites": {
@@ -26,21 +26,21 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": "will",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+                "selector": "fortitude",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Fortitude save, you get a critical success instead.</p>"
             },
             {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "selector": "will",
+                "selector": "fortitude",
                 "type": "save"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.saves.will.rank",
+                "path": "data.saves.fortitude.rank",
                 "value": 3
             }
         ],
@@ -53,15 +53,14 @@
                 "value": "common"
             },
             "value": [
-                "druid",
-                "inventor",
-                "investigator"
+                "gunslinger",
+                "inventor"
             ]
         }
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/resolve.webp",
-    "name": "Resolve (Level 11)",
+    "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
+    "name": "Juggernaut (Level 17)",
     "type": "feat"
 }
