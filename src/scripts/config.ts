@@ -1593,6 +1593,8 @@ export const PF2ECONFIG = {
         120: "PF2E.WeaponRange120",
         140: "PF2E.WeaponRange140",
         150: "PF2E.WeaponRange150",
+        180: "PF2E.WeaponRange180",
+        240: "PF2E.WeaponRange240",
     }, // TODO: Compute range!
 
     weaponMAP: {
@@ -1609,6 +1611,7 @@ export const PF2ECONFIG = {
         1: "1",
         2: "2",
         3: "3",
+        60: "1 min",
     },
 
     armorTypes: {
