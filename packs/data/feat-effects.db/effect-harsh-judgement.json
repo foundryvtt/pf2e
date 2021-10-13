@@ -1,0 +1,97 @@
+{
+    "_id": "raoz523QRsj5WjcF",
+    "data": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to Perception checks to Seek your condemned foe and on Intimidation checks to Demoralize them. You have a -1 circumstance penalty to Perception checks to Seek creatures other than your condemned foe and on Intimidation checks to Demoralize anyone other than your condemned foe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Target is Condemned Foe",
+                "property": "flags.pf2e.rollOptions.all.harsh-judgement"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": {
+                    "all": [
+                        "harsh-judgement",
+                        "action:seek"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Non-Condemned Foe",
+                "predicate": {
+                    "all": [
+                        "action:seek"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": {
+                    "all": [
+                        "harsh-judgement",
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Seeking Condemned Foe",
+                "predicate": {
+                    "all": [
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Harsh Judgement",
+    "type": "effect"
+}
