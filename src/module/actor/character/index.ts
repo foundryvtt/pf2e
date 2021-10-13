@@ -1190,14 +1190,14 @@ export class CharacterPF2e extends CreaturePF2e {
             origin: this.items.get(weapon.id),
         });
 
-        // Set the ammo list if ranged. If repeating, it uses cartridges instead.
+        // Sets the ammo list if its an ammo using weapon group
         if (weapon.group && ["firearm", "bow", "sling", "dart"].includes(weapon.group)) {
-            if (weapon.traits.has("repeating")) {
-                action.ammo = ammos.filter((a) => a.charges.max > 1).map((ammo) => ammo.toObject(false));
-            } else {
-                action.ammo = ammos.filter((a) => a.charges.max <= 1).map((ammo) => ammo.toObject(false));
-            }
+            action.ammo = ammos
+                .map((ammo) => ({ compatible: ammo.isAmmoFor(weapon), data: ammo.toObject(false) }))
+                .sort((ammo1, ammo2) => (ammo1.compatible === ammo2.compatible ? 0 : ammo1.compatible ? -1 : 1));
         }
+
+        action.selectedAmmoCompatible = !!weapon.ammo?.isAmmoFor(weapon);
 
         action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(
             [...weaponTraits].map((trait) => {

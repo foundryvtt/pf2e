@@ -54,10 +54,12 @@
                                         <button type="button" class="tag damage-strike">{{localize 'PF2E.DamageLabel'}}</button>
                                         <button type="button" class="tag critical-strike">{{localize 'PF2E.CriticalDamageLabel'}}</button>
                                         {{#if action.ammo}}
-                                        <select name="ammo-used">
+                                        <select name="ammo-used" {{#if action.selectedAmmoId}}data-compatible="{{action.selectedAmmoCompatible}}"{{/if}}>
                                             <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
                                             {{#each action.ammo as |item|}}
-                                            <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
+                                                <option value="{{ item.data._id }}" data-compatible="{{item.compatible}}" {{#if (eq action.selectedAmmoId item.data._id)}}selected{{/if}}>
+                                                    {{ item.data.name }} ({{ item.data.data.quantity.value }})
+                                                </option>
                                             {{/each}}
                                         </select>
                                         {{/if}}

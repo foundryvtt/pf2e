@@ -207,9 +207,10 @@ export interface StrikeData {
     variants: { label: string; roll: RollFunction }[];
 
     /** A list of ammo to choose for this attack */
-    ammo?: RawObject<ConsumableData>[];
+    ammo?: { compatible: boolean; data: RawObject<ConsumableData> }[];
     /** Currently selected ammo id that will be consumed when rolling this action */
     selectedAmmoId?: string;
+    selectedAmmoCompatible?: boolean;
 
     /** The item that generated this strike */
     origin?: ItemPF2e;
