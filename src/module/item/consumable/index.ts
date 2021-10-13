@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
-import { PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { TrickMagicItemCastData } from "@item/data";
 import { ErrorPF2e, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -87,6 +87,16 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
         const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
         return game.i18n.format(formatString, { item: itemType });
+    }
+
+    isAmmoFor(weapon: ItemPF2e): boolean {
+        if (!(weapon instanceof WeaponPF2e)) {
+            console.warn("Cannot load a consumable into a non-weapon");
+            return false;
+        }
+
+        const { max } = this.charges;
+        return weapon.traits.has("repeating") ? max > 1 : max <= 1;
     }
 
     /** Use a consumable item, sending the result to chat */
