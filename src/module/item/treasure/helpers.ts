@@ -18,7 +18,8 @@ export function coinValueInCopper(coins: Coins) {
 }
 
 /** Convert a `Coins` object into a price string */
-export function coinsToString(coins: Coins): string {
+export function coinsToString({ cp = 0, sp = 0, gp = 0, pp = 0 }: Partial<Coins>): string {
+    const coins: Coins = { cp, sp, gp, pp };
     if (DENOMINATIONS.every((denomination) => coins[denomination] === 0)) {
         return "0 gp";
     }

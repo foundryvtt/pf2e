@@ -12,6 +12,7 @@ import {
 } from "@actor/creature/data";
 import {
     AbilityString,
+    ActorFlagsPF2e,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -30,7 +31,9 @@ import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 
-export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
+export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
+    flags: DeepPartial<CharacterFlags>;
+}
 
 export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSystemData> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/mystery-man.svg";
@@ -39,8 +42,15 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
 export interface CharacterData extends Omit<CharacterSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CharacterSource["type"];
     data: CharacterSystemData;
+    flags: CharacterFlags;
     readonly _source: CharacterSource;
 }
+
+type CharacterFlags = ActorFlagsPF2e & {
+    pf2e: {
+        freeCrafting: boolean;
+    };
+};
 
 export interface CharacterSkillData extends SkillData {
     /** The proficiency rank ("TEML") */

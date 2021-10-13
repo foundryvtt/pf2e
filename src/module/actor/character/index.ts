@@ -104,6 +104,9 @@ export class CharacterPF2e extends CreaturePF2e {
         super.prepareBaseData();
         const systemData: DeepPartial<CharacterSystemData> = this.data.data;
 
+        // Flags
+        this.data.flags.pf2e.freeCrafting ??= false;
+
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
         attributes.ac = { modifiers: [] };
