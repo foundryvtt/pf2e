@@ -1204,7 +1204,6 @@ export class CharacterPF2e extends CreaturePF2e {
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
-
         action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(
             [...weaponTraits].map((trait) => {
                 const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
