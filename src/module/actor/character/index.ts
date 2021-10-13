@@ -1190,8 +1190,18 @@ export class CharacterPF2e extends CreaturePF2e {
             origin: this.items.get(weapon.id),
         });
 
-        if (weapon.group && ["bow", "sling", "dart"].includes(weapon.group)) {
-            action.ammo = ammos.map((ammo) => ammo.toObject(false));
+        // Sets the ammo list if its an ammo using weapon group
+        if (weapon.group && ["firearm", "bow", "sling", "dart"].includes(weapon.group)) {
+            const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+            const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+
+            const ammo = weapon.ammo;
+            const selected = ammo && {
+                id: ammo.id,
+                ammo,
+                compatible: ammo.isAmmoFor(weapon),
+            };
+            action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
         action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(
