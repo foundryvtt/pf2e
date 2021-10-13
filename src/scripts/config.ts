@@ -1005,6 +1005,8 @@ const npcAttackTraits = {
     "range-90": "PF2E.TraitRange90",
     "range-100": "PF2E.TraitRange100",
     "range-120": "PF2E.TraitRange120",
+    "range-180": "PF2E.TraitRange180",
+    "range-240": "PF2E.TraitRange240",
     "range-increment-5": "PF2E.TraitRangeIncrement5",
     "range-increment-10": "PF2E.TraitRangeIncrement10",
     "range-increment-15": "PF2E.TraitRangeIncrement15",
