@@ -1076,6 +1076,7 @@ const npcAttackTraits = {
     "reload-0": "PF2E.TraitReload0",
     "reload-1": "PF2E.TraitReload1",
     "reload-2": "PF2E.TraitReload2",
+    "reload-1-min": "PF2E.TraitReload1Min",
 };
 
 const actionTraits = {
@@ -1613,6 +1614,8 @@ export const PF2ECONFIG = {
         120: "PF2E.WeaponRange120",
         140: "PF2E.WeaponRange140",
         150: "PF2E.WeaponRange150",
+        180: "PF2E.WeaponRange180",
+        240: "PF2E.WeaponRange240",
     }, // TODO: Compute range!
 
     weaponMAP: {
@@ -1629,6 +1632,7 @@ export const PF2ECONFIG = {
         1: "1",
         2: "2",
         3: "3",
+        30: "1 min",
     },
 
     armorTypes: {
