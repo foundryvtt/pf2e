@@ -86,20 +86,15 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                 if (trait.excluded) continue;
                 const label: string = game.i18n.localize(trait.label);
                 const mystifiedClass = trait.mystified ? "mystified" : [];
+                const classes = ["tag", mystifiedClass].flat().join(" ");
+                const $trait = $(`<span class="${classes}">${label}</span>`);
                 if (trait.description) {
-                    const classes = ["tag", mystifiedClass].flat().join(" ");
                     const description = game.i18n.localize(trait.description);
-                    const $trait = $(`<span class="${classes}" title="${description}">${label}</span>`).tooltipster({
-                        animation: "fade",
-                        maxWidth: 400,
-                        theme: "crb-hover",
-                        contentAsHTML: true,
-                    });
-                    props.append($trait);
-                } else {
-                    const classes: string = ["tag", "tag_alt", mystifiedClass].flat().join(" ");
-                    props.append(`<span class="${classes}">${label}</span>`);
+                    $trait
+                        .attr({ title: description })
+                        .tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
                 }
+                props.append($trait);
             }
         }
 
