@@ -598,30 +598,6 @@ export class NPCPF2e extends CreaturePF2e {
                             action.damageBreakdown[0] + ` -2 ${game.i18n.localize("PF2E.NPC.Adjustment.WeakLabel")}`;
                     }
                 }
-                // Add attack effects to traits.
-                const attackTraits: { name: string; label: string; toggle: boolean }[] = [];
-                itemData.data.attackEffects.value.forEach((attackEffect: string) => {
-                    const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
-                    const key = sluggify(attackEffect);
-                    const actions = this.itemTypes.action;
-                    const consumables = this.itemTypes.consumable;
-                    const label =
-                        game.i18n.localize(localizationMap[key]) ??
-                        actions.flatMap((action) =>
-                            action.slug === key || sluggify(action.name) === key ? action.name : []
-                        )[0] ??
-                        consumables.flatMap((consumable) =>
-                            consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
-                        )[0];
-                    if (label) {
-                        attackTraits.push({
-                            name: key,
-                            label,
-                            toggle: false,
-                        });
-                    }
-                });
-                action.traits.push(...attackTraits);
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
                 const meleeItem = this.items.get(itemData._id);

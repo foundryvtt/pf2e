@@ -1,4 +1,5 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { stackDefinitions } from "@item/physical/bulk";
 import { Rarity } from "@module/data";
 import { calculateDC } from "@module/dc";
 
@@ -13,23 +14,16 @@ export class CraftingFormula implements CraftingFormulaData {
     deletable: boolean;
 
     constructor(
-        private item: PhysicalItemPF2e,
-        { dc, batchSize, deletable }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
+        public item: PhysicalItemPF2e,
+        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
     ) {
         this.dc = dc ?? calculateDC(item.level, { rarity: item.rarity });
 
         /** Use the passed batch size if provided or otherwise according to the following */
-        this.batchSize =
-            batchSize ??
-            (() => {
-                const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
-                const isConsumable =
-                    (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
-                    (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
-                return isMundaneAmmo ? 10 : item.slug === "rations" ? 28 : isConsumable ? 4 : 1;
-            })();
+        this.batchSize = Math.max(batchSize ?? 1, this.minimumBatchSize);
 
-        this.deletable = deletable ?? false;
+        /** Is the formula on the actor and therefore deletable? */
+        this.deletable = deletable;
     }
 
     get uuid(): ItemUUID {
@@ -54,6 +48,23 @@ export class CraftingFormula implements CraftingFormulaData {
 
     get price(): string {
         return this.item.price;
+    }
+
+    get minimumBatchSize(): number {
+        return stackDefinitions[this.item.data.data.stackGroup.value]?.size ?? 1;
+    }
+
+    get defaultBatchSize(): number {
+        const { item } = this;
+        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
+        const isConsumable =
+            (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
+            (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
+
+        return Math.max(
+            this.minimumBatchSize,
+            isMundaneAmmo ? 10 : item.slug === "rations" ? 28 : isConsumable ? 4 : 1
+        );
     }
 
     get description(): string {

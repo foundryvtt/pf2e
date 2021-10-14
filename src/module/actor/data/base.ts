@@ -9,6 +9,7 @@ import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
 import { AutoChangeEntry } from "@module/rules/elements/ae-like";
+import { ConsumablePF2e } from "@item";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
@@ -206,10 +207,19 @@ export interface StrikeData {
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction }[];
 
-    /** A list of ammo to choose for this attack */
-    ammo?: RawObject<ConsumableData>[];
-    /** Currently selected ammo id that will be consumed when rolling this action */
-    selectedAmmoId?: string;
+    /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
+    ammunition?: {
+        compatible: RawObject<ConsumableData>[];
+        incompatible: RawObject<ConsumableData>[];
+        selected?: {
+            id: string;
+            compatible: boolean;
+            ammo: ConsumablePF2e;
+        };
+    };
+
+    /** The item that generated this strike */
+    origin?: ItemPF2e;
 }
 
 export interface RollToggle {

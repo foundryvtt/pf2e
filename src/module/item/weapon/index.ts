@@ -13,6 +13,7 @@ import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { ConsumablePF2e } from "@item";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -52,6 +53,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get isMelee(): boolean {
         return !this.isRanged || !["axe", "club", "hammer", "knife", "spear"].includes(this.group ?? "");
+    }
+
+    get ammo(): ConsumablePF2e | null {
+        const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
+        return ammo instanceof ConsumablePF2e ? ammo : null;
     }
 
     override prepareBaseData(): void {

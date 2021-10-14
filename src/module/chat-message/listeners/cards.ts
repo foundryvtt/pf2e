@@ -108,7 +108,7 @@ export const ChatCards = {
                     const itemObject = item.toObject();
                     itemObject.data.quantity.value = quantity;
 
-                    const result = await actor.addItemToActor(itemObject, undefined);
+                    const result = await actor.addToInventory(itemObject, undefined);
                     if (!result) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
                         return;

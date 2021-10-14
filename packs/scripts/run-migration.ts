@@ -3,6 +3,7 @@ import * as path from "path";
 import { populateFoundryUtilFunctions } from "../../tests/fixtures/foundryshim";
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
+import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
@@ -17,6 +18,9 @@ import { Migration672RemoveNPCBaseProperties } from "@module/migration/migration
 import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
 import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
+import { Migration678SeparateNPCAttackTraits } from "@module/migration/migrations/678-separate-npc-attack-traits";
+import { Migration679TowerShieldSpeedPenalty } from "@module/migration/migrations/679-tower-shield-speed-penalty";
+import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set-weapon-hands";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -31,8 +35,12 @@ const migrations: MigrationBase[] = [
     new Migration673RemoveBulwarkREs(),
     new Migration675FlatModifierAEsToREs(),
     new Migration677RuleValueDataRefs(),
+    new Migration678SeparateNPCAttackTraits(),
+    new Migration679TowerShieldSpeedPenalty(),
+    new Migration680SetWeaponHands(),
 ];
 
+// eslint-disable @typescript-eslint/no-explicit-any
 global.deepClone = function (original: any): any {
     // Simple types
     if (typeof original !== "object" || original === null) return original;
@@ -53,6 +61,7 @@ global.deepClone = function (original: any): any {
     }
     return clone;
 };
+// eslint-enable @typescript-eslint/no-explicit-any
 
 const packsDataPath = path.resolve(process.cwd(), "packs/data");
 
@@ -169,8 +178,10 @@ async function migrate() {
                     }
                     return updatedActor;
                 } else if (isItemData(source)) {
+                    source.data.slug = sluggify(source.name);
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
+                    delete (updatedItem.data as { slug?: unknown }).slug;
                     return updatedItem;
                 } else if (isMacroData(source)) {
                     return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);

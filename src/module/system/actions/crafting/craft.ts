@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
 import ChatMessageData = foundry.data.ChatMessageData;
-import { renderCraftingInline } from "@module/crafting/crafting";
+import { renderCraftingInline } from "@module/crafting/helpers";
 
 interface CraftActionOptions extends SkillActionOptions {
     dc?: CheckDC;
@@ -87,13 +87,11 @@ export async function craft(options: CraftActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
-    const item = await (async () => {
-        return options.item ?? (options.uuid ? fromUuid(options.uuid) : null) ?? SelectItemDialog.getItem();
-    })();
+    const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
 
     // ensure item is a valid crafting target
     if (!item) {
-        console.log("No item selected to craft - aborting.");
+        console.warn("PF2e System | No item selected to craft: aborting");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(game.i18n.format("PF2E.Actions.Craft.Warning.NotPhysicalItem", { item: item.name }));

@@ -11,6 +11,7 @@ export type TagSelectorType = typeof TAG_SELECTOR_TYPES[number];
 // CONFIG properties that can be used in a tag selector
 export const SELECTABLE_TAG_FIELDS = [
     "abilities",
+    "actionTraits",
     "skills",
     "martialSkills",
     "currencies",
@@ -84,6 +85,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "ancestryItemTraits",
     "levels",
     "dcAdjustments",
+    "npcAttackTraits",
 ] as const;
 
 export type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];
