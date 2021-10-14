@@ -1190,7 +1190,13 @@ export class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            origin: this.items.get(weapon.id),
+        });
+
+        // Add origin property as a getter to prevent overflow
+        Object.defineProperty(action, "origin", {
+            get: () => {
+                return this.items.get(weapon.id);
+            },
         });
 
         // Sets the ammo list if its an ammo using weapon group
@@ -1201,7 +1207,6 @@ export class CharacterPF2e extends CreaturePF2e {
             const ammo = weapon.ammo;
             const selected = ammo && {
                 id: ammo.id,
-                ammo,
                 compatible: ammo.isAmmoFor(weapon),
             };
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
