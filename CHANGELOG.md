@@ -1,5 +1,52 @@
 # Patch Notes:
 
+## Version 2.16.0
+### Bug Fixes
+* (Chup) Fix to CSS for PC inventory sheet so floating shield icon shows up. Closes #1782
+
+### New Features
+* (stwlam) Impose an equipped shield's speed penalty, if any
+* (Supe) Weapons can be equipped and unequipped from the strike list on PCs
+
+### Content Changes
+* (TMun, Tikael, stwlam, VestOfHolding, SpartanCPA, fryguy) Content from newly released books:
+    * Guns & Gears: Archetypes, classes, class features, feats, equipment
+    * Lost Omens: Grand Bazaar: Ancestry, archetypes, equipment, and vehicles
+    * Strength of Thousands book 3 and 4: NPCs
+    * Night of the Gray Death: Equipment, NPCs, and spells
+* (TMun, VestOfHolding, Tikael, stwlam) Adds runes and missing traits for Guns & Gears and Lost Omens: Grand Bazaar
+* (SpartanCPA) Add healing type to Healer's Gloves roll buttons
+* (SpartanCPA) Make NPC Rage a `RollOption` element
+* (SpartanCPA) Move Goblin Scuttle and Wind Up to Creature Family Ability Glossary
+* (SpartanCPA) Brush up of viper swarm
+* (SpartanCPA) Add a variant icon for Immunity to Guidance
+* (SpartanCPA) `@Localize` Attack of Opportunity
+* (rectulo) Fix formatting of _power word kill_ and _lose the path_ spell descriptions
+* (rectulo) Fix typo in _spray of stars_ spell description
+* (rectulo) Add missing sentence to greater retrieval prism description
+* (InfamousSky) Fix area, change to attack type, and add inline damage to _black tentacles_ spell. Closes #1778
+* (InfamousSky) Add icons to Secrets of Magic Elementalist focus spells
+* (InfamousSky) Add icons to summoner class features
+* (Zaquariah) Add _pocket library_ spell effect
+* (Zaquariah) Ensure existing battleform effects don't benefit from Automatic Bonus Progression
+* (stwlam) Add base gun weapon types
+* (stwlam) Set hands/usage types for weapons
+* (xdy) Add source to equipment, remaining Strength of Thousands hazards, Malevolence NPCs
+* (TMun) Add a note regarding conflux spells to all magus focus spells. Closes #1738
+* (cepvep) Add automation for orc ancestry feats levels 1 through 5
+* (Shakespar) Add a pair of fulu icons
+
+### Core System Improvements
+* (SpartanCPA) Update Bestiary Ability Glossary with `@Localize`
+* (Tikael) Allow line templates to be made wider than 5 ft
+* (stwlam) Separate out NPC attack traits from weapon traits
+* (stwlam) Refrain from including NPC attack effects as damage traits
+* (stwlam) Save item UUID instead of source ID to a formula to allow for derivative-item crafting
+* (stwlam) Enforce minimum batch sizes for crafting
+* (Supe) Ammo consumption message can be localized, new messages for partial consumption and exhausted
+* (Supe) Improve support for ranged weapons with the `repeating` trait
+
+
 ## Version 2.15.2
 ### Bug Fixes
 * (stwlam) Fix rule element stat references with erroneous `data` prefix
