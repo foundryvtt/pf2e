@@ -37,19 +37,45 @@
                                     <i class="fas fa-dice-d20"></i>
                                 </div>
                                 <div class="actions-title">
-                                    <h4 class="action-name">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+                                    <div class="action-name">
+                                        <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+                                        {{#if action.origin}}
+                                            <div class="action-options" data-item-id="{{action.origin.id}}">
+                                                {{#with action.ammunition.selected.ammo.charges}}
+                                                    {{#if (gt max 1)}}
+                                                        <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
+                                                    {{/if}}
+                                                {{/with}}
+
+                                                {{#if (eq action.origin.type "weapon")}}
+                                                    <a class="item-control item-toggle-equip {{#if action.origin.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.weaponEquipped"}}"><i class="fas fa-tshirt"></i></a>
+                                                {{/if}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
                                     <div class="button-group tags">
                                         {{#each action.variants as |variant vi|}}
                                         <button type="button" class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                                         {{/each}}
                                         <button type="button" class="tag damage-strike">{{localize 'PF2E.DamageLabel'}}</button>
                                         <button type="button" class="tag critical-strike">{{localize 'PF2E.CriticalDamageLabel'}}</button>
-                                        {{#if action.ammo}}
-                                        <select name="ammo-used">
+                                        {{#if action.ammunition}}
+                                        <select name="ammo-used" {{#if action.ammunition.selected}}data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
                                             <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
-                                            {{#each action.ammo as |item|}}
-                                            <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
-                                            {{/each}}
+                                            <optgroup label="{{localize "PF2E.ConsumableCompatibleLabel"}}">
+                                                {{#each action.ammunition.compatible as |item|}}
+                                                    <option value="{{item._id}}" data-compatible="true" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                        {{ item.name }} ({{ item.data.quantity.value }})
+                                                    </option>
+                                                {{/each}}
+                                            </optgroup>
+                                            <optgroup label="{{localize "PF2E.ConsumableIncompatibleLabel"}}">
+                                                {{#each action.ammunition.incompatible as |item|}}
+                                                    <option value="{{item._id}}" data-compatible="false" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                        {{ item.name }} ({{ item.data.quantity.value }})
+                                                    </option>
+                                                {{/each}}
+                                            </optgroup>
                                         </select>
                                         {{/if}}
                                     </div>

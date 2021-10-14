@@ -1,4 +1,4 @@
-import { ActionType, ItemSystemData } from "@item/data/base";
+import { ActionType, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ActionPF2e } from ".";
 import { OneToThree } from "@module/data";
@@ -15,7 +15,11 @@ export interface ActionData extends Omit<ActionSource, "effects" | "flags"> {
     readonly _source: ActionSource;
 }
 
+export type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
+export type ActionTraits = ItemTraits<ActionTrait>;
+
 interface ActionSystemData extends ItemSystemData {
+    traits: ActionTraits;
     actionType: {
         value: ActionType;
     };

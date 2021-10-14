@@ -5,16 +5,20 @@
             "value": ""
         },
         "area": {
-            "areaType": "",
-            "value": null
+            "areaType": "burst",
+            "value": "20"
         },
         "areasize": {
             "value": "20-foot burst adjacent to a flat surface"
+        },
+        "autoHeightenLevel": {
+            "value": null
         },
         "category": {
             "value": "spell"
         },
         "components": {
+            "focus": false,
             "material": true,
             "somatic": true,
             "verbal": true
@@ -25,8 +29,10 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "bludgeoning"
                     },
                     "value": "3d6"
@@ -34,7 +40,7 @@
             }
         },
         "description": {
-            "value": "<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
+            "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal [[/r {1d6}[bludgeoning]]]{1d6 Bludgeoning Damage} to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
         },
         "duration": {
             "value": "1 minute"
@@ -78,7 +84,7 @@
             "value": "Pathfinder Core Rulebook"
         },
         "spellType": {
-            "value": "save"
+            "value": "attack"
         },
         "sustained": {
             "value": false

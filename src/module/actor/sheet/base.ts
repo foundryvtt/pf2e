@@ -304,7 +304,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Toggle equip
         html.find(".item-toggle-equip").on("click", (event) => {
             const f = $(event.currentTarget);
-            const itemId = f.parents(".item").attr("data-item-id") ?? "";
+            const itemId = f.closest("[data-item-id]").attr("data-item-id") ?? "";
             const active = f.hasClass("active");
             this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.equipped.value": !active }]);
         });
@@ -889,10 +889,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 itemData.data.level.value = level;
             }
         } else if (item instanceof PhysicalItemPF2e && actor instanceof CharacterPF2e && craftingTab) {
-            const formula = { uuid: item.sourceId ?? item.uuid };
             const actorFormulas = actor.data.toObject().data.crafting.formulas;
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
-                actorFormulas.push(formula);
+                actorFormulas.push({ uuid: item.uuid });
                 await actor.update({ "data.crafting.formulas": actorFormulas });
             }
             return [item];
