@@ -1,6 +1,17 @@
 # Patch Notes:
 
-## Version 2.16.0
+## Version 2.16.3
+### Bug Fixes
+* (Supe) Fix error when opening token configuration dialog
+* (Supe) Fix display of traits in action sheet
+* (Chup) Fix styling of item and hazard traits if more than two lines are displayed
+* (stwlam) Fix rendering of homebrew traits on actor sheets
+
+### Content Changes
+* (n1xx1) Remove duplicate `concussive` trait description
+
+
+## Version 2.16.2
 ### Bug Fixes
 * (Chup) Fix to CSS for PC inventory sheet so floating shield icon shows up. Closes #1782
 
