@@ -10,6 +10,7 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import {
+    AbilityString,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -85,6 +86,7 @@ export interface NPCArmorClass extends ArmorClassData {
 
 /** Save data with an additional "base" value */
 export interface NPCSaveData extends SaveData {
+    ability: AbilityString;
     base?: number;
     saveDetail: string;
 }

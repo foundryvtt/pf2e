@@ -181,6 +181,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                             args.callback
                         );
                     },
+                    value: 0,
                 });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
