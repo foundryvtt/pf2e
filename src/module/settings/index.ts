@@ -56,11 +56,20 @@ export function registerSettings() {
         },
     });
 
+    game.settings.register("pf2e", "tokens.autoscale", {
+        name: "PF2E.SETTINGS.Tokens.Autoscale.Name",
+        hint: "PF2E.SETTINGS.Tokens.Autoscale.Hint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean,
+    });
+
     game.settings.register("pf2e", "ignoreCoinBulk", {
         name: "PF2E.SETTINGS.IgnoreCoinBulk.Name",
         hint: "PF2E.SETTINGS.IgnoreCoinBulk.Hint",
         scope: "world",
-        config: true,
+        config: false,
         default: false,
         type: Boolean,
     });
