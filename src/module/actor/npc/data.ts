@@ -45,7 +45,7 @@ export interface NPCSystemData extends CreatureSystemData {
         /** The alignment this creature has. */
         alignment: { value: Alignment };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
-        level: { value: number };
+        level: { base?: number; value: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
         /** The type of this creature (such as 'undead') */
