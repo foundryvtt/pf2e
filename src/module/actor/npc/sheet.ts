@@ -69,6 +69,7 @@ interface NPCSystemSheetData extends NPCSystemData {
         shieldBroken?: boolean;
     };
     details: NPCSystemData["details"] & {
+        level: NPCSystemData["details"]["level"] & WithAdjustments;
         alignment: {
             localizedName?: string;
         };
@@ -298,6 +299,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
+        const { level } = sheetData.data.details;
+        level.adjustedHigher = level.value > Number(level.base);
+        level.adjustedLower = level.value < Number(level.base);
         const { ac, hp, perception, hardness } = sheetData.data.attributes;
         ac.adjustedHigher = ac.value > Number(ac.base);
         ac.adjustedLower = ac.value < Number(ac.base);
