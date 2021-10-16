@@ -1,5 +1,5 @@
 {
-    "_id": "HFHSh2RWuxa4GhhQ",
+    "_id": "niTXgGvicNulEUEW",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your heritage traces to azarketis living deep beneath the sea, and you can handle the chilling depths more easily than most. You gain resistance to cold equal to half your level, and you don't treat environmental cold as one degree more severe when you are wet. You adapt to pressure changes from being deep underwater automatically without ill effect.</p>"
+            "value": "<p>Your predecessors dwelled in the Shadow Plane's deepest, most treacherous regions. You might cast a denser shadow, have a slower pulse, or find comfort in the embrace of darkness. You gain negative resistance equal to half your level (minimum 1).</p>"
         },
         "featType": {
             "value": "heritage"
@@ -26,12 +26,12 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "cold",
-                "value": "floor(@details.level.value/2)"
+                "type": "negative",
+                "value": "max(1,floor(@details.level.value/2))"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "traits": {
             "custom": "",
@@ -39,13 +39,13 @@
                 "value": "common"
             },
             "value": [
-                "azarketi"
+                "fetchling"
             ]
         }
     },
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feat.svg",
-    "name": "Benthic Azarketi",
+    "name": "Deep Fetchling (Negative)",
     "type": "feat"
 }
