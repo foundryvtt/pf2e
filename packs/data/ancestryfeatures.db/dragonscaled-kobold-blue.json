@@ -1,5 +1,5 @@
 {
-    "_id": "HFHSh2RWuxa4GhhQ",
+    "_id": "EvjouBfTEIzjfRwk",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your heritage traces to azarketis living deep beneath the sea, and you can handle the chilling depths more easily than most. You gain resistance to cold equal to half your level, and you don't treat environmental cold as one degree more severe when you are wet. You adapt to pressure changes from being deep underwater automatically without ill effect.</p>"
+            "value": "<p>Your scales are especially colorful, possessing some of the same resistance a dragon possesses. You gain electricity resistance equal to half your level (minimum 1). Double this resistance against dragons' Breath Weapons.</p>"
         },
         "featType": {
             "value": "heritage"
@@ -26,12 +26,12 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "cold",
-                "value": "floor(@details.level.value/2)"
+                "type": "electricity",
+                "value": "max(1,floor(@details.level.value/2))"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
@@ -39,13 +39,13 @@
                 "value": "common"
             },
             "value": [
-                "azarketi"
+                "kobold"
             ]
         }
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
-    "name": "Benthic Azarketi",
+    "img": "systems/pf2e/icons/features/ancestry/dragonscaled-kobold.webp",
+    "name": "Dragonscaled Kobold (Blue)",
     "type": "feat"
 }
