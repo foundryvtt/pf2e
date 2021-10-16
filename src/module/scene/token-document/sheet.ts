@@ -32,7 +32,7 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
                 .find('input[type="number"], input[type="range"]');
             const newSetting = $linkToActorSize.prop("checked");
             $sizeInputs.prop("disabled", newSetting);
-            if (newSetting === true) {
+            if (game.settings.get("pf2e", "tokens.autoscale") && newSetting === true) {
                 if (this.actor instanceof VehiclePF2e) {
                     const { dimensions } = this.actor;
                     const width = Math.max(Math.round(dimensions.width / 5), 1);
@@ -62,6 +62,9 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
 
     /** Disable the range input for token scale and style to indicate as much */
     private disableScale($html: JQuery): void {
+        // If autoscaling is disabled, keep form input enabled
+        if (!game.settings.get("pf2e", "tokens.autoscale")) return;
+
         const $scale = $html.find(".form-group.scale");
         $scale.addClass("children-disabled");
 
