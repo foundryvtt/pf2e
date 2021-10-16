@@ -1,5 +1,13 @@
 # Patch Notes:
 
+## Version 2.16.4
+
+### Announcement: United Paizo Workers
+Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc – publisher of the Pathfinder and Starfinder roleplaying games – are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America’s CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.
+
+[https://unitedpaizoworkers.org](https://unitedpaizoworkers.org/)
+
+
 ## Version 2.16.3
 ### Bug Fixes
 * (Supe) Fix error when opening token configuration dialog
