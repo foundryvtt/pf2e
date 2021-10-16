@@ -128,6 +128,7 @@ export class NPCPF2e extends CreaturePF2e {
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { details } = this.data.data;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -140,11 +141,11 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value, "elite"),
+                    this.getHpAdjustment(details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value += 1;
+            details.level = { base: details.level.value, value: details.level.value + 1 };
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED));
@@ -156,11 +157,13 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
+                    this.getHpAdjustment(details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value -= 1;
+            details.level = { base: details.level.value, value: details.level.value - 1 };
+        } else {
+            details.level.base = details.level.value;
         }
 
         // Compute 10+mod ability scores from ability modifiers
