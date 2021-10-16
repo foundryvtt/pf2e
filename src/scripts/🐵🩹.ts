@@ -20,7 +20,7 @@ export function patchTokenClasses(): void {
 export function patchTextEditor(): void {
     const baseEnrichHTML = TextEditor.enrichHTML;
     TextEditor.enrichHTML = function enrichHTML(content: string, options?: EnrichHTMLOptions) {
-        content = EnrichContent.enrichString(content);
+        content = EnrichContent.enrichString(content, options);
 
         content = baseEnrichHTML.call(this, content, options);
 
