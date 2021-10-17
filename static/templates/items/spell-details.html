@@ -266,8 +266,8 @@
             <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
             <select name="data.scaling.interval" data-dtype="Number">
                 {{#select data.scaling.interval}}
-                    {{#each @root.spellScalingModes as |name key|}}
-                        <option value="{{key}}">{{localize name}}</option>
+                    {{#each @root.spellScalingIntervals as |key|}}
+                        <option value="{{key}}">{{localize "PF2E.SpellScalingInterval.Selection" interval=key}}</option>
                     {{/each}}
                 {{/select}}
             </select>
