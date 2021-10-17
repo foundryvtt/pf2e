@@ -1,34 +1,28 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
     <div class="notes-text flexcol">
         {{editor content=data.details.flavorText target="data.details.flavorText" button=true editable=editable}}
-        {{#if (or data.details.source.value data.details.source.author)}}
         <div class="source section-container" style="flex:0">
             <div class="section-header">
                 <h4>{{localize "PF2E.Source.Label"}}</h4>
             </div>
-            <div class="section-body">
-                {{#if data.details.source.value}}
+            <div class="section-body flexrow">
                 {{# if options.editable }}
-                    <p class="flexrow">
+                    <p>
                         <span style="flex:0">Source: </span>
                         <input name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="Sourcebook" />
                     </p>
                 {{else}}
                     <p>Source: {{data.details.source.value}}</p>
                 {{/if}}
-                {{/if}}
-                {{#if data.details.source.author}}
                 {{# if options.editable }}
-                    <p class="flexrow">
+                    <p>
                         <span style="flex:0">Author: </span>
                         <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="Author" />
                     </p>
                 {{else}}
                     <p>Author: {{data.details.source.author}}</p>
                 {{/if}}
-                {{/if}}
             </div>
         </div>
-        {{/if}}
     </div>
 </div>
