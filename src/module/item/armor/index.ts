@@ -57,9 +57,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
 
-    get hitPoints(): { current: number; max: number } {
+    get hitPoints(): { value: number; max: number } {
         return {
-            current: this.data.data.hp.value,
+            value: this.data.data.hp.value,
             max: this.data.data.maxHp.value,
         };
     }
@@ -73,7 +73,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isBroken(): boolean {
-        return this.hitPoints.current <= this.brokenThreshold;
+        return this.hitPoints.value <= this.brokenThreshold;
     }
 
     override prepareBaseData(): void {

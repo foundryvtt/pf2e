@@ -128,6 +128,7 @@ export class NPCPF2e extends CreaturePF2e {
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { details } = this.data.data;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -140,11 +141,11 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value, "elite"),
+                    this.getHpAdjustment(details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value += 1;
+            details.level = { base: details.level.value, value: details.level.value + 1 };
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED));
@@ -156,11 +157,13 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
+                    this.getHpAdjustment(details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value -= 1;
+            details.level = { base: details.level.value, value: details.level.value - 1 };
+        } else {
+            details.level.base = details.level.value;
         }
 
         // Compute 10+mod ability scores from ability modifiers
@@ -598,30 +601,6 @@ export class NPCPF2e extends CreaturePF2e {
                             action.damageBreakdown[0] + ` -2 ${game.i18n.localize("PF2E.NPC.Adjustment.WeakLabel")}`;
                     }
                 }
-                // Add attack effects to traits.
-                const attackTraits: { name: string; label: string; toggle: boolean }[] = [];
-                itemData.data.attackEffects.value.forEach((attackEffect: string) => {
-                    const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
-                    const key = sluggify(attackEffect);
-                    const actions = this.itemTypes.action;
-                    const consumables = this.itemTypes.consumable;
-                    const label =
-                        game.i18n.localize(localizationMap[key]) ??
-                        actions.flatMap((action) =>
-                            action.slug === key || sluggify(action.name) === key ? action.name : []
-                        )[0] ??
-                        consumables.flatMap((consumable) =>
-                            consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
-                        )[0];
-                    if (label) {
-                        attackTraits.push({
-                            name: key,
-                            label,
-                            toggle: false,
-                        });
-                    }
-                });
-                action.traits.push(...attackTraits);
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
                 const meleeItem = this.items.get(itemData._id);

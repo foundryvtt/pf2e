@@ -24,7 +24,6 @@
             padding: 0 0 0 1em;
             border-radius: 0.25em;
             box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
-            cursor: pointer;
 
             .item-controls {
                 color: white;
@@ -67,7 +66,11 @@
             position: relative;
             z-index: 1;
 
-            .item {
+            .formula-item {
+                height: 2.05em;
+            }
+
+            .formula-level-header, .formula-item {
                 display: flex;
                 align-items: center;
                 justify-items: center;
@@ -113,7 +116,7 @@
                         padding: 4px 0;
                     }
 
-                    .item-name {
+                    .level-name {
                         line-height: 1;
                         gap: 0.5em;
                         h3 {
@@ -123,14 +126,16 @@
                 }
 
                 .item-name {
+                    cursor: pointer;
+                }
+
+                .level-name, .item-name {
                     justify-self: start;
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
                     flex-wrap: nowrap;
                     line-height: 1.5;
-                    cursor: pointer;
-                    min-height: 28px;
                     flex-basis: 50%;
 
                     h3 {
@@ -214,13 +219,15 @@
                 .formula-quantity {
                     display: flex;
                     justify-content: center;
+                    align-items: center;
 
                     .formula-decrease-quantity,
                     .formula-increase-quantity {
+                        font-family: monospace;
+                        @include flex-center;
                         height: 100%;
                         width: 18px;
                         text-align: center;
-                        @include flex-center;
                     }
 
                     input {

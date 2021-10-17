@@ -104,6 +104,9 @@ export class CharacterPF2e extends CreaturePF2e {
         super.prepareBaseData();
         const systemData: DeepPartial<CharacterSystemData> = this.data.data;
 
+        // Flags
+        this.data.flags.pf2e.freeCrafting ??= false;
+
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
         attributes.ac = { modifiers: [] };
@@ -594,10 +597,18 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Shield
-        const shield = this.heldShield?.data;
-        if (shield) {
-            systemData.attributes.shield.value = shield.data.hp.value;
-            systemData.attributes.shield.max = shield.data.maxHp.value;
+        const { heldShield } = this;
+        if (heldShield) {
+            const { hitPoints } = heldShield;
+            systemData.attributes.shield.value = hitPoints.value;
+            systemData.attributes.shield.max = hitPoints.max;
+
+            if (heldShield.speedPenalty) {
+                const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
+                speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
+                statisticsModifiers.speed ??= [];
+                statisticsModifiers.speed.push(speedPenalty);
+            }
         }
 
         // Skill modifiers
@@ -1181,8 +1192,24 @@ export class CharacterPF2e extends CreaturePF2e {
             selectedAmmoId: itemData.data.selectedAmmoId,
         });
 
-        if (weapon.group && ["bow", "sling", "dart"].includes(weapon.group)) {
-            action.ammo = ammos.map((ammo) => ammo.toObject(false));
+        // Add origin property as a getter to prevent overflow
+        Object.defineProperty(action, "origin", {
+            get: () => {
+                return this.items.get(weapon.id);
+            },
+        });
+
+        // Sets the ammo list if its an ammo using weapon group
+        if (weapon.group && ["firearm", "bow", "sling", "dart"].includes(weapon.group)) {
+            const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+            const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
+
+            const ammo = weapon.ammo;
+            const selected = ammo && {
+                id: ammo.id,
+                compatible: ammo.isAmmoFor(weapon),
+            };
+            action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
 
         action.traits = [{ name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false }].concat(

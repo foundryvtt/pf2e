@@ -126,6 +126,7 @@
                 display: flex;
                 align-items: center;
                 margin-right: auto;
+                flex: 1;
 
                 h4 {
                     cursor: pointer;
@@ -159,7 +160,12 @@
                 }
 
                 .actions-title {
+                    flex: 1;
                     .action-name {
+                        display: flex;
+                        flex-direction: row;
+                    }
+                    .action-name h4 {
                         cursor: pointer;
                         &:hover {
                             color: var(--primary);
@@ -169,6 +175,33 @@
                             }
                         }
                     }
+                }
+
+                .action-options {
+                    display: flex;
+                    margin-left: auto;
+
+                    .item-toggle-equip {
+                        color: rgba(black, 0.5);
+                        &.active {
+                            color: var(--secondary);
+                        }
+                    }
+                }
+            }
+
+            .ammo-remaining {
+                white-space: nowrap;
+                margin-right: 8px;
+                display: flex;
+                font-family: var(--sans-serif);
+                font-weight: 600;
+                gap: 3px;
+                .ammo-icon {
+                    display: inline-block;
+                    width: 14px;
+                    height: 14px;
+                    background-image: url("../assets/icons/heavy-bullets.svg") !important;
                 }
             }
 
@@ -297,14 +330,26 @@
                     }
                 }
 
-                select, button {
+                button {
                     @include micro;
                 }
-
-                select {
-                    width: 100%;
-                }
             }
+        }
+    }
+
+    select[name="ammo-used"] {
+        width: 100%;
+        font-family: var(--sans-serif);
+        font-weight: normal;
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 0.8em;
+        &[data-compatible="false"] {
+            color: #ffffff99;
+        }
+
+        option, optgroup {
+            color: white;
         }
     }
 }

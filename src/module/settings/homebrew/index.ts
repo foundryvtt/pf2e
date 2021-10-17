@@ -156,6 +156,9 @@ export class HomebrewElements extends SettingsMenuPF2e {
             const elements = game.settings.get("pf2e", settingsKey);
             for (const element of elements) {
                 coreElements[element.id] = element.value;
+                if (key === "magicSchools") {
+                    (CONFIG.PF2E.spellTraits as Record<string, string>)[element.id] = element.value;
+                }
             }
         }
 
