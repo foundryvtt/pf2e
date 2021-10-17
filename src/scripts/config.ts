@@ -2077,25 +2077,6 @@ export const PF2ECONFIG = {
         druidic: "PF2E.LanguageDruidic",
     },
 
-    spellScalingModes: {
-        1: "PF2E.SpellScalingModeLevel1",
-        2: "PF2E.SpellScalingModeLevel2",
-        3: "PF2E.SpellScalingModeLevel3",
-        4: "PF2E.SpellScalingModeLevel4",
-    },
-
-    spellHeightenedLevels: {
-        levelsecond: "PF2E.SpellScalingModeLevelsecond",
-        levelthird: "PF2E.SpellScalingModeLevelthird",
-        levelfourth: "PF2E.SpellScalingModeLevelfourth",
-        levelfifth: "PF2E.SpellScalingModeLevelfifth",
-        levelsixth: "PF2E.SpellScalingModeLevelsixth",
-        levelseventh: "PF2E.SpellScalingModeLevelseventh",
-        leveleighth: "PF2E.SpellScalingModeLeveleighth",
-        levelninth: "PF2E.SpellScalingModeLevelninth",
-        leveltenth: "PF2E.SpellScalingModeLeveltenth",
-    },
-
     attackEffects: {
         grab: "PF2E.AttackEffectGrab",
         "improved-grab": "PF2E.AttackEffectImprovedGrab",
