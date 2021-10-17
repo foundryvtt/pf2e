@@ -19,6 +19,7 @@
         "level": {
             "value": 13
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,26 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": {
+                    "any": [
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult",
+                        "magical"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you succeed at a saving throw against a spell or magical effect, you gain temporary Hit Points equal to double the spell's level, or equal to the level if the magical effect isn't a spell. These temporary Hit Points last until the end of your next turn."
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
