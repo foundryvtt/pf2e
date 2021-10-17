@@ -976,7 +976,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype" || "dualclass") {
+        if (featSlotType === "archetype" || featSlotType == "dualclass") {
             // Archetype feat slots are class feat slots
             featSlotType = "class";
         }
