@@ -5,23 +5,20 @@
             <div class="section-header">
                 <h4>{{localize "PF2E.Source.Label"}}</h4>
             </div>
-            <div class="section-body flexrow">
-                {{# if options.editable }}
-                    <p>
-                        <span style="flex:0">Source: </span>
-                        <input name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="Sourcebook" />
-                    </p>
-                {{else}}
-                    <p>Source: {{data.details.source.value}}</p>
-                {{/if}}
-                {{# if options.editable }}
-                    <p>
-                        <span style="flex:0">Author: </span>
-                        <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="Author" />
-                    </p>
-                {{else}}
-                    <p>Author: {{data.details.source.author}}</p>
-                {{/if}}
+            <div class="section-body">
+                <p class="flexrow" style="flex-basis: 100%; align-items: center;">
+                    {{# if options.editable }}
+                    <input name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="Sourcebook" style="flex:2"/>
+                    {{else}}
+                    <span style="flex:2">{{data.details.source.value}}</span>
+                    {{/if}}
+                    {{# if options.editable }}
+                    <span style="flex:0">{{localize "PF2E.Source.AuthorLabel"}}</span>
+                    <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="Author"/>
+                    {{else}}
+                    <span>{{localize "PF2E.Source.AuthorLabel"}} {{data.details.source.author}}</span>
+                    {{/if}}
+                </p>
             </div>
         </div>
     </div>
