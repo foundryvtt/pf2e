@@ -27,6 +27,14 @@ const SETTINGS = {
         default: 0,
         type: Boolean,
     },
+    dualClassVariant: {
+        name: "PF2E.SETTINGS.Variant.DualClass.Name",
+        hint: "PF2E.SETTINGS.Variant.DualClass.Hint",
+        scope: "world",
+        config: false,
+        default: 0,
+        type: Boolean,
+    },
     automaticBonusVariant: {
         name: "PF2E.SETTINGS.Variant.AutomaticBonus.Name",
         hint: "PF2E.SETTINGS.Variant.AutomaticBonus.Hint",
