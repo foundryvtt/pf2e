@@ -14,18 +14,24 @@
             "value": "<p>You have weakness to fire damage equal to one-third your level (minimum 1).</p>"
         },
         "featType": {
-            "value": "bonus"
+            "value": "ancestryfeature"
         },
         "level": {
-            "value": 0
+            "value": 1
         },
         "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "fire",
+                "value": "max(1,floor(@details.level.value/3))"
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Grand Bazaar"
         },
         "traits": {
             "custom": "",
