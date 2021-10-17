@@ -1,0 +1,42 @@
+<form class="{{cssClass}} npc-sheet" autocomplete="off">
+    <div class = "side-bar">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
+        <div class="side-bar-section effects">
+            <div class="side-bar-section-header">
+                <div class="side-bar-label">
+                    <i class="fas fa-adjust"></i>
+                    <h4>{{localize "PF2E.EffectsLabel"}}</h4>
+                </div>
+            </div>
+            <div class="side-bar-section-content">
+                <div class="effects-list inventory-list">
+                    {{#each conditions as |condition index|}}
+                        <div class="item item-name effect expandable" title="{{condition.name}}" data-item-id="{{condition._id}}" data-action-index="{{index}}">
+                            <div class="item-image" style="background-image: url({{condition.img}})"></div>
+                        </div>
+                    {{/each}}
+                    {{#each effectItems as |effect|}}
+                        {{#if @first}}<div class="separator"></div>{{/if}}
+                        <div class="item effect expandable" title="{{effect.name}}" data-item-id="{{effect._id}}">
+                            <div class="item-image" style="background-image: url({{effect.img}})"></div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="npc-body">
+        <header class="npc-sheet-header">
+            <div class="name flexrow">
+                <span class="non-editable name-value">{{actor.name}}</span>
+            </div>
+            <div class="description flexrow" >{{data.details.blurb}}</div>
+        </header>
+        <hr />
+        <section class="sheet-body">
+            <div class="public-notes">
+                {{{enrichHTML data.details.publicNotes}}}
+            </div>
+        </section>
+    </div>
+</form>
