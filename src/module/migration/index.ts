@@ -82,6 +82,7 @@ import { Migration677RuleValueDataRefs } from "./migrations/677-rule-value-data-
 import { Migration678SeparateNPCAttackTraits } from "./migrations/678-separate-npc-attack-traits";
 import { Migration679TowerShieldSpeedPenalty } from "./migrations/679-tower-shield-speed-penalty";
 import { Migration680SetWeaponHands } from "./migrations/680-set-weapon-hands";
+import { Migration681GiantLanguageToJotun } from "./migrations/681-giant-language-to-jotun";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -168,6 +169,7 @@ export class Migrations {
         Migration678SeparateNPCAttackTraits,
         Migration679TowerShieldSpeedPenalty,
         Migration680SetWeaponHands,
+        Migration681GiantLanguageToJotun,
     ];
 
     static get latestVersion(): number {
