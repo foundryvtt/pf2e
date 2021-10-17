@@ -196,7 +196,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /**
      * Prepares items in the actor for easier access during sheet rendering.
-     * @param actorData Data from the actor associated to this sheet.
+     * @param sheetData Data from the actor associated to this sheet.
      */
     protected prepareItems(sheetData: NPCSheetData) {
         this.prepareAbilities(sheetData.data.abilities);
@@ -422,34 +422,34 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private prepareSize(actorData: NPCSystemSheetData) {
-        const size = actorData.traits.size.value;
+    private prepareSize(sheetSystemData: NPCSystemSheetData) {
+        const size = sheetSystemData.traits.size.value;
         const localizationKey = this.getSizeLocalizedKey(size);
         const localizedName = game.i18n.localize(localizationKey);
 
-        actorData.traits.size.localizedName = localizedName;
+        sheetSystemData.traits.size.localizedName = localizedName;
     }
 
-    private prepareAlignment(actorData: NPCSystemSheetData) {
-        const alignmentCode = actorData.details.alignment.value;
+    private prepareAlignment(sheetSystemData: NPCSystemSheetData) {
+        const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
-        actorData.details.alignment.localizedName = localizedName;
+        sheetSystemData.details.alignment.localizedName = localizedName;
     }
 
-    protected prepareSenses(actorData: NPCSystemSheetData) {
+    protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
-        for (const sense of actorData.traits.senses) {
+        for (const sense of sheetSystemData.traits.senses) {
             sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
         }
     }
 
-    private prepareSkills(actorData: NPCSystemSheetData) {
+    private prepareSkills(sheetSystemData: NPCSystemSheetData) {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(actorData.skills);
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
 
-        const skills = actorData.skills;
+        const skills = sheetSystemData.skills;
         for (const skillId of sortedSkillsIds) {
             const skill = skills[skillId];
             skill.label =
@@ -474,7 +474,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             sortedSkills[skillId] = skills[skillId];
         }
 
-        actorData.sortedSkills = sortedSkills;
+        sheetSystemData.sortedSkills = sortedSkills;
     }
 
     private prepareSpeeds(sheetData: NPCSystemSheetData) {
@@ -507,9 +507,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /**
      * Prepares the actions list to be accessible from the sheet.
-     * @param actorData Data of the actor to be shown in the sheet.
+     * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(actorData: NPCSheetData) {
+    private prepareActions(sheetData: NPCSheetData) {
         const actions: ActionActions = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -559,7 +559,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
         }
 
-        actorData.actions = actions;
+        sheetData.actions = actions;
     }
 
     private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
