@@ -62,20 +62,24 @@
                                         {{#if action.ammunition}}
                                         <select name="ammo-used" {{#if action.ammunition.selected}}data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
                                             <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
-                                            <optgroup label="{{localize "PF2E.ConsumableCompatibleLabel"}}">
-                                                {{#each action.ammunition.compatible as |item|}}
-                                                    <option value="{{item._id}}" data-compatible="true" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
-                                                        {{ item.name }} ({{ item.data.quantity.value }})
-                                                    </option>
-                                                {{/each}}
-                                            </optgroup>
-                                            <optgroup label="{{localize "PF2E.ConsumableIncompatibleLabel"}}">
-                                                {{#each action.ammunition.incompatible as |item|}}
-                                                    <option value="{{item._id}}" data-compatible="false" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
-                                                        {{ item.name }} ({{ item.data.quantity.value }})
-                                                    </option>
-                                                {{/each}}
-                                            </optgroup>
+                                            {{#if action.ammunition.compatible}}
+                                                <optgroup label="{{localize "PF2E.ConsumableCompatibleLabel"}}">
+                                                    {{#each action.ammunition.compatible as |item|}}
+                                                        <option value="{{item._id}}" data-compatible="true" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                            {{ item.name }} ({{ item.data.quantity.value }})
+                                                        </option>
+                                                    {{/each}}
+                                                </optgroup>
+                                            {{/if}}
+                                            {{#if action.ammunition.incompatible}}
+                                                <optgroup label="{{localize "PF2E.ConsumableIncompatibleLabel"}}">
+                                                    {{#each action.ammunition.incompatible as |item|}}
+                                                        <option value="{{item._id}}" data-compatible="false" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                            {{ item.name }} ({{ item.data.quantity.value }})
+                                                        </option>
+                                                    {{/each}}
+                                                </optgroup>
+                                            {{/if}}
                                         </select>
                                         {{/if}}
                                     </div>
