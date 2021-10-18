@@ -85,6 +85,7 @@ import { Migration680SetWeaponHands } from "./migrations/680-set-weapon-hands";
 import { Migration681GiantLanguageToJotun } from "./migrations/681-giant-language-to-jotun";
 import { Migration682BiographyFields } from "./migrations/682-biography-fields";
 import { Migration683FlavorTextToPublicNotes } from "./migrations/683-flavortext-to-public-notes";
+import { Migration684RationsToConsumable } from "./migrations/684-rations-to-consumable";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -174,6 +175,7 @@ export class Migrations {
         Migration681GiantLanguageToJotun,
         Migration682BiographyFields,
         Migration683FlavorTextToPublicNotes,
+        Migration684RationsToConsumable,
     ];
 
     static get latestVersion(): number {
