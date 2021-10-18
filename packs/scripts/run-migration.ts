@@ -113,6 +113,8 @@ function JSONstringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
+        if (key.startsWith("-=")) return;
+
         if (/^[a-z0-9]{20,}$/g.test(key)) {
             idKeys.push(key);
         } else {
@@ -186,6 +188,8 @@ async function migrate() {
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
                     delete (updatedItem.data as { slug?: unknown }).slug;
+                    delete (source.data as { slug?: unknown }).slug;
+
                     return updatedItem;
                 } else if (isMacroData(source)) {
                     return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
