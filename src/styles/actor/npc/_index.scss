@@ -70,6 +70,10 @@ $adjusted-lower: #cc3311;
             }
         }
 
+        .description {
+            margin: 8px;
+        }
+
         .traits-list-container {
             display: flex;
             flex-direction: row;
@@ -98,6 +102,10 @@ $adjusted-lower: #cc3311;
             }
         }
     }
+
+    hr {
+        margin: 10px 6px 10px 0;
+      }
 
     .side-bar {
         flex: 160px 0 0;
@@ -328,9 +336,8 @@ $adjusted-lower: #cc3311;
     .sheet-body {
         flex: auto;
         .tab {
-            &:not(.notes) {
-                overflow: hidden scroll;
-            }
+            overflow: hidden scroll;
+            
 
             .identification-skills {
                 ul {
@@ -347,6 +354,10 @@ $adjusted-lower: #cc3311;
                 }
             }
         }
+    }
+
+    .public-notes {
+        margin-left: 8px;
     }
 
     input.adjustable, span.adjustable {
@@ -917,19 +928,48 @@ $adjusted-lower: #cc3311;
         overflow-y: hidden;
     }
 
-    .notes-text {
-        color: #333;
-        width: 100%;
-        height: 100%;
-        overflow-y: hidden;
-        > .editor {
-            padding: 0 8px;
-            > a.editor-edit {
-                right: 8px;
+    .notes {
+        padding-right: 20px !important;
+
+        .details-label {
+            margin-left: 8px;
+            padding: 4px;
+            font-family: var(--sans-serif);
+            font-size: 10px;
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--primary);
+        
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+
+        .notes-text {
+            margin-left: 8px;
+            padding: 4px;
+            color: #333;
+    
+            .editor {
+                min-height: 200px;
+                height: 100%;
+                width: 100%;
+    
+                .editor-edit {
+                    background: var(--primary);
+                    color: white;
+                }
+    
+                .editor-content {
+                    min-height: 200px;
+                    height: 100%;
+                    width: 100%;
+                    overflow-y: inherit;
+                }
             }
         }
     }
-
+    
     &.dead {
         .profile {
             background-size: cover;
