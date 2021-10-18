@@ -5,8 +5,10 @@ import { MigrationBase } from "../base";
 interface CharacterSystemDataOld extends CharacterSystemData {
     details: CharacterSystemData["details"] & {
         biography: CharacterSystemData["details"]["biography"] & {
-            public?: string;
-            value?: string;
+            public?: string | null;
+            "-=public"?: string | null;
+            value?: string | null;
+            "-=value"?: string | null;
         };
     };
 }
@@ -15,19 +17,27 @@ interface CharacterSystemDataOld extends CharacterSystemData {
 export class Migration682BiographyFields extends MigrationBase {
     static override version = 0.682;
 
+    /** Fix Biography migration. Correctly migrate fields and then remove them*/
     replaceBiographyData(old: CharacterSystemDataOld): void {
-        if (old.details.biography.public) {
+        if (old.details.biography.public != "" && old.details.biography.public != undefined) {
             old.details.biography.appearance = old.details.biography.public;
         } else {
             old.details.biography.appearance = "";
         }
-        if (old.details.biography.value) {
+        if (old.details.biography.value != "" && old.details.biography.value != undefined) {
             old.details.biography.campaignNotes = old.details.biography.value;
         } else {
             old.details.biography.campaignNotes = "";
         }
-        delete old.details.biography.public;
-        delete old.details.biography.value;
+        if ("game" in globalThis) {
+            // inside Foundry
+            old.details.biography["-=public"] = null;
+            old.details.biography["-=value"] = null;
+        } else {
+            // migration runner
+            delete old.details.biography.public;
+            delete old.details.biography.value;
+        }
         old.details.biography.backstory = "";
         old.details.biography.birthPlace = "";
         old.details.biography.attitude = "";
@@ -42,7 +52,6 @@ export class Migration682BiographyFields extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type != "character") return;
-
         this.replaceBiographyData(actorSource.data as CharacterSystemDataOld);
     }
 }
