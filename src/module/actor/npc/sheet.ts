@@ -173,7 +173,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override get template(): string {
         if (this.isLootSheet) {
             return "systems/pf2e/templates/actors/npc/loot-sheet.html";
-        } else if (!game.user.isGM && this.actor.limited) {
+        } else if (this.actor.limited) {
             return "systems/pf2e/templates/actors/limited/npc-sheet.html";
         }
         return "systems/pf2e/templates/actors/npc/sheet.html";
