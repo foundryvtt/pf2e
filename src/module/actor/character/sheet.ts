@@ -204,9 +204,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonus: { label: "PF2E.FeatBonusHeader", feats: [], bonusFeats: [] },
         };
         if (game.settings.get("pf2e", "dualClassVariant")) {
-            let level = 1;
-            featSlots.dualclass.feats.push({ id: `dualclass-1`, level });
-            for (level = 2; level <= actorData.data.details.level.value; level += 2) {
+            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1 });
+            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
                 featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level });
             }
         } else {
