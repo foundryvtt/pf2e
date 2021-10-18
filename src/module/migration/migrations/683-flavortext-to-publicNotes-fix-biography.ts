@@ -32,8 +32,13 @@ export class Migration683FlavorTextToPublicNotesAndFixBiography extends Migratio
         } else {
             old.details.publicNotes = "";
         }
-        delete old.details.flavorText;
-        old.details["-=flavorText"] = null;
+        if ("game" in globalThis) {
+            // inside Foundry
+            old.details["-=flavorText"] = null;
+        } else {
+            // outside of Foundry
+            delete old.details.flavorText;
+        }
         old.details.blurb = "";
         old.details.privateNotes = "";
     }
@@ -43,13 +48,23 @@ export class Migration683FlavorTextToPublicNotesAndFixBiography extends Migratio
         if (old.details.biography.public != "" && old.details.biography.public != undefined) {
             old.details.biography.appearance = old.details.biography.public;
         }
-        delete old.details.biography.public;
-        old.details.biography["-=public"] = null;
+        if ("game" in globalThis) {
+            // inside Foundry
+            old.details.biography["-=public"] = null;
+        } else {
+            // outside of Foundry
+            delete old.details.biography.public;
+        }
         if (old.details.biography.value != "" && old.details.biography.value != undefined) {
             old.details.biography.campaignNotes = old.details.biography.value;
         }
-        delete old.details.biography.value;
-        old.details.biography["-=value"] = null;
+        if ("game" in globalThis) {
+            // inside Foundry
+            old.details.biography["-=value"] = null;
+        } else {
+            // outside of Foundry
+            delete old.details.biography.value;
+        }
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
