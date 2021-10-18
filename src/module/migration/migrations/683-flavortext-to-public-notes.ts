@@ -17,22 +17,20 @@ export class Migration683FlavorTextToPublicNotes extends MigrationBase {
     replaceFlavorTextData(old: NPCSystemDataOld): void {
         if (old.details.flavorText) {
             old.details.publicNotes = old.details.flavorText;
-        } else {
-            old.details.publicNotes = "";
-        }
-        if ("game" in globalThis) {
-            // inside Foundry
             old.details["-=flavorText"] = null;
         } else {
+            old.details.publicNotes ??= "";
+        }
+        if (!("game" in globalThis)) {
             // migration runner
             delete old.details.flavorText;
         }
-        old.details.blurb = "";
-        old.details.privateNotes = "";
+        old.details.blurb ??= "";
+        old.details.privateNotes ??= "";
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type != "npc") return;
-        this.replaceFlavorTextData(actorSource.data as NPCSystemDataOld);
+        this.replaceFlavorTextData(actorSource.data);
     }
 }
