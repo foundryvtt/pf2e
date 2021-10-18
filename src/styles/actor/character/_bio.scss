@@ -1,6 +1,70 @@
 .biography {
     padding-right: 20px !important;
 
+    h3 {
+        margin-top: 0.75em;
+        font-family: var(--serif);
+        font-weight: 600;
+        color: var(--primary);
+        line-height: 1;
+        border-bottom: 1px solid var(--primary);
+    }
+    input {
+        font-family: var(--body-serif);
+        font-weight: bold;
+        width: calc(100% - 6px);
+        border-bottom: 1px solid #d3ccbc;
+        text-transform: capitalize;
+        &::placeholder {
+            filter: opacity(0.5);
+            color: var(--body);
+        }
+        &:focus {
+            border-bottom: 1px solid #644f33;
+            &::placeholder {
+                color: transparent;
+            }
+        }
+        &[type="number"] {
+          padding-bottom: 0;
+          padding-left: 4px;
+        }
+    }
+
+    hr {
+        margin: 10px 6px 10px 0;
+      }
+
+    .bio {
+        h3 {
+            grid-area: mod;
+            border: none;
+            @include p-reset;
+            background-color: rgba($body-color, 0.1);
+            height: 26px;
+            padding: 8px 4px 6px;
+            color: var(--body);
+            font-family: var(--body-serif);
+            font-size: 14px;
+            font-weight: 700;
+            width: calc(100% - 6px);
+            i {
+              position: relative;
+              right: -2px;
+              top: -2px;
+              float: right;
+            }
+
+            span.value {
+              display: inline-block;
+              max-width: 87%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+        }
+    }
+
     .biography-content {
         margin-left: 8px;
         padding: 4px;
@@ -103,6 +167,52 @@
                 height: 100%;
                 width: 100%;
                 overflow-y: inherit;
+            }
+        }
+    }
+
+    .biography-details {
+        display:block;
+
+        .bio {
+            margin-bottom: 8px;
+
+            span {
+              width: 100%;
+            }
+        }
+    }
+
+    .biography-personality {
+        display: flex;
+        flex-wrap: wrap;
+
+        .h3 {
+            display: block;
+        }
+
+        .bio {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex: 50%;
+            margin-bottom: 8px;
+
+            span {
+              width: 100%;
+            }
+        }
+    }
+
+    .biography-campaign-notes {
+        display:block;
+
+        .bio {
+            margin-bottom: 8px;
+
+            span {
+              width: 100%;
             }
         }
     }

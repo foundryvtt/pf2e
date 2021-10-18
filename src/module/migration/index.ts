@@ -83,6 +83,7 @@ import { Migration678SeparateNPCAttackTraits } from "./migrations/678-separate-n
 import { Migration679TowerShieldSpeedPenalty } from "./migrations/679-tower-shield-speed-penalty";
 import { Migration680SetWeaponHands } from "./migrations/680-set-weapon-hands";
 import { Migration681GiantLanguageToJotun } from "./migrations/681-giant-language-to-jotun";
+import { Migration682BiographyFields } from "./migrations/682-biography-fields";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -170,6 +171,7 @@ export class Migrations {
         Migration679TowerShieldSpeedPenalty,
         Migration680SetWeaponHands,
         Migration681GiantLanguageToJotun,
+        Migration682BiographyFields,
     ];
 
     static get latestVersion(): number {

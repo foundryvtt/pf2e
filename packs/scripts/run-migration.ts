@@ -22,6 +22,7 @@ import { Migration678SeparateNPCAttackTraits } from "@module/migration/migration
 import { Migration679TowerShieldSpeedPenalty } from "@module/migration/migrations/679-tower-shield-speed-penalty";
 import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set-weapon-hands";
 import { Migration681GiantLanguageToJotun } from "@module/migration/migrations/681-giant-language-to-jotun";
+import { Migration682BiographyFields } from "@module/migration/migrations/682-biography-fields";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -40,6 +41,7 @@ const migrations: MigrationBase[] = [
     new Migration679TowerShieldSpeedPenalty(),
     new Migration680SetWeaponHands(),
     new Migration681GiantLanguageToJotun(),
+    new Migration682BiographyFields(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
