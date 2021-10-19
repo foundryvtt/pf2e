@@ -15,6 +15,7 @@ import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@m
 import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
+import { CreatureSensePF2e } from "./sense";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -94,7 +95,7 @@ export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"];
 
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: SenseData[];
+    senses: CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */

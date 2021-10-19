@@ -498,6 +498,23 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.perception = stat;
         }
 
+        // Senses
+        const { senses } = this.data.data.traits;
+        for (const { sense, predicate, force } of synthetics.senses) {
+            if (predicate && !predicate.test(this.getRollOptions(["all", "sense"]))) continue;
+            const existing = senses.find((oldSense) => oldSense.type === sense.type);
+            if (!existing) {
+                senses.push(sense);
+                continue;
+            }
+            if (force) {
+                senses.findSplice((oldSense) => oldSense === existing, sense);
+                continue;
+            }
+            if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
+            if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
+        }
+
         // Class DC
         {
             const modifiers = [
