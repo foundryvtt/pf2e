@@ -17,9 +17,12 @@ export const EnrichContent = {
     },
 
     enrichString: (data: string, options?: EnrichHTMLOptions): string => {
+        //enrich inline damage buttons with default chat labels and default button labels
+        data = EnrichContent.enrichInlineRolls(data, options);
+
+        //enrich @ inline commands: Localize, Template, Check, Recharge
         const entityTypes: String[] = ["Localize", "Template"];
         const rgx = new RegExp(`@(${entityTypes.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
-        if (!(typeof data === "string")) return data;
         let replaced = true;
         let replacedData;
         do {
@@ -37,6 +40,88 @@ export const EnrichContent = {
         } while (replaced);
         return data;
     },
+
+    //enrich inline damage buttons with default chat labels and default button labels
+    enrichInlineRolls(data: string, options?: EnrichHTMLOptions): string {
+        const rgx = new RegExp(
+            `\\[\\[(\\/r|\\/br) ((?:{[^}]+}\\[[^\\]]+\\][\\+]*)+)(?: #([^\\]]+))?\\]\\](?:{([^}]+)})?`,
+            "g"
+        );
+        data = data.replace(rgx, (match: string, p1: string, p2: string, p3: string, p4: string) => {
+            //check for and correct syntax to persistent damage
+            const rgx = new RegExp(`\\[(\\w+),persistent\\]`, "g");
+            p2 = p2.replace(rgx, (match: string, p1: string) => {
+                match = `[persistent,${p1}]`;
+                return match;
+            });
+
+            //if no chat label is entered directly use the item name from rollOptions if available
+            if (!(typeof p3 === "string")) {
+                if (options?.rollData) {
+                    for (const [k, v] of Object.entries(options.rollData)) {
+                        if (k === "item") {
+                            p3 = v.name;
+                        }
+                    }
+                } else p3 = "Roll";
+            }
+
+            //if no button label is entered directly use the roll's damage components to create a default label
+            if (!(typeof p4 === "string")) {
+                const rollComps = p2.split("+");
+
+                //loop through the damage components
+                for (const arr of rollComps) {
+                    let dType = "";
+                    let translated = true;
+                    let persistent = false;
+
+                    const a = arr.replace(/\{/g, "").replace(/\]/g, "").split("}[");
+
+                    //get localized damage die
+                    const rgx = new RegExp(`(${Object.keys(CONFIG.PF2E.damageDie).join("|")})`, "g");
+
+                    a[0] = a[0].replace(rgx, (match: string) => {
+                        return game.i18n.localize(CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]);
+                    });
+
+                    //check for persistent damge
+                    if (a[1].search("persistent") > -1) {
+                        persistent = true;
+                        dType = a[1].replace("persistent", "").replace(",", "");
+                    } else dType = a[1];
+
+                    //get localized damage or healing type
+                    if (Object.keys(CONFIG.PF2E.damageTypes).includes(dType))
+                        dType = game.i18n.localize(
+                            CONFIG.PF2E.damageTypes[dType as keyof typeof CONFIG.PF2E.damageTypes]
+                        );
+                    else if (Object.keys(CONFIG.PF2E.healingTypes).includes(dType))
+                        dType = game.i18n.localize(
+                            CONFIG.PF2E.healingTypes[dType as keyof typeof CONFIG.PF2E.healingTypes]
+                        );
+                    else translated = false;
+
+                    if (translated) {
+                        a[1] = dType;
+                        if (persistent)
+                            a[1] = a[1].concat(
+                                ` (${game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"])})`
+                            );
+                    }
+
+                    if (!(typeof p4 === "string")) p4 = `${a[0]} ${a[1]}`;
+                    else p4 = p4.concat(` and ${a[0]} ${a[1]}`);
+                }
+            }
+
+            match = `[[${p1} ${p2} #${p3}]]{${p4}}`;
+
+            return match;
+        });
+        return data;
+    },
+
     createLocalize(data: string, options?: EnrichHTMLOptions): string {
         return EnrichContent.enrichString(game.i18n.localize(data), options);
     },
@@ -79,6 +164,24 @@ export const EnrichContent = {
                 params.set("traits", traits.concat(",damaging-effect").replace(/^,/, ""));
         }
 
+        //if no button label is entered directly create default label
+        let tSize = `${params.get("distance") ?? ""} ${game.i18n.localize("PF2E.Feet")}`;
+        let tType = params.get("type") ?? "";
+
+        if (!label) {
+            if (Object.keys(CONFIG.PF2E.areaSizes).includes(params.get("distance") ?? "0"))
+                tSize = game.i18n.localize(
+                    CONFIG.PF2E.areaSizes[
+                        parseInt(params.get("distance") ?? "0", 10) as keyof typeof CONFIG.PF2E.areaSizes
+                    ]
+                );
+            if (Object.keys(CONFIG.PF2E.areaTypes).includes(params.get("type") ?? ""))
+                tType = game.i18n.localize(
+                    CONFIG.PF2E.areaTypes[params.get("type") as keyof typeof CONFIG.PF2E.areaTypes]
+                );
+        }
+
+        //add the html elements used for the inline buttons
         const html = document.createElement("span");
         html.setAttribute("data-pf2-effect-area", params.get("type") ?? "");
         html.setAttribute("data-pf2-distance", params.get("distance") ?? "");
@@ -86,8 +189,8 @@ export const EnrichContent = {
         html.innerHTML =
             label ??
             game.i18n.format("PF2E.InlineButtons.TemplateLabel", {
-                type: params.get("type") ?? "",
-                unit: params.get("distance") ?? "",
+                type: tType,
+                size: tSize,
             });
         if (params.get("type") === "line") html.setAttribute("data-pf2-width", params.get("width") ?? "5");
         return html.outerHTML;
