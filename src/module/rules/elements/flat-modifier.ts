@@ -8,7 +8,7 @@ import { ActorType } from "@actor/data";
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e {
-    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     override onBeforePrepareData(_actorData: unknown, { statisticsModifiers }: RuleElementSynthetics) {
         if (this.ignored) return;
