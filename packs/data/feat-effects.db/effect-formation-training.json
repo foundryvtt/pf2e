@@ -1,0 +1,73 @@
+{
+    "_id": "LVPodfYEWKtK3fUW",
+    "data": {
+        "description": {
+            "value": "<p>Granted by Formation Training</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Formation Training",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Formation Training",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "AoE Reflex Save",
+                "property": "flags.pf2e.rollOptions.damage-roll.formation-aoe"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Formation Training AoE Reflex",
+                "predicate": {
+                    "all": [
+                        "formation-aoe"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/anima-invocation.webp",
+    "name": "Effect: Formation Training",
+    "type": "effect"
+}
