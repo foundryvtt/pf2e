@@ -645,8 +645,10 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Indicate that the strength requirement of this actor's armor is met
             if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
-                const skillCheckOptions = (this.rollOptions["skill-check"] ??= {});
-                skillCheckOptions[`self:armor:strength-requirement-met`] = true;
+                for (const selector of ["skill-check", "initiative"]) {
+                    const rollOptions = (this.rollOptions[selector] ??= {});
+                    rollOptions["self:armor:strength-requirement-met"] = true;
+                }
             }
 
             if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
