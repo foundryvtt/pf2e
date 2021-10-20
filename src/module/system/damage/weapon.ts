@@ -83,6 +83,12 @@ export function ensureWeaponCategory(options: string[], weaponCategory: "simple"
     }
 }
 
+export function ensureWeaponGroup(options: string[], weaponGroup: string | null) {
+    if (weaponGroup && !options.some((option) => option.toLowerCase().startsWith("weapon:group:"))) {
+        options.push(`weapon:group:${weaponGroup}`);
+    }
+}
+
 const WEAPON_SIZE_EXPANDED = {
     tiny: "tiny",
     sm: "small",

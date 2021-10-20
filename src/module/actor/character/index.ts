@@ -11,7 +11,7 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from "@module/modifiers";
-import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
+import { ensureWeaponCategory, ensureWeaponGroup, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "../data/values";
 import {
@@ -1133,6 +1133,7 @@ export class CharacterPF2e extends CreaturePF2e {
             .concat(`${ability}-attack`);
         ensureProficiencyOption(defaultOptions, proficiencyRank);
         ensureWeaponCategory(defaultOptions, weapon.category);
+        ensureWeaponGroup(defaultOptions, weapon.group);
         ensureWeaponSize(defaultOptions, weapon.size, this.size);
         const notes: RollNotePF2e[] = [];
 
