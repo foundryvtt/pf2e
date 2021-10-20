@@ -10,7 +10,7 @@ import {
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
-        $html.find(".card-buttons button").on("click", async (event) => {
+        $html.find('.card-buttons button, [data-action="consume"]').on("click", async (event) => {
             event.preventDefault();
 
             // Extract card data
@@ -71,8 +71,17 @@ export const ChatCards = {
                 else if (action === "spellCounteract") item.rollCounteract(event);
                 else if (action === "spellTemplate") item.placeTemplate(event);
                 // Consumable usage
-                else if (action === "consume" && item instanceof ConsumablePF2e) item.consume();
-                else if (action === "save") ActorPF2e.rollSave(event, item);
+                else if (action === "consume") {
+                    if (item instanceof ConsumablePF2e) {
+                        item.consume();
+                    } else if (item instanceof MeleePF2e) {
+                        // Button is from an NPC attack effect
+                        const consumable = actor.items.get(button.attr("data-item") ?? "");
+                        if (consumable instanceof ConsumablePF2e) {
+                            consumable.consume();
+                        }
+                    }
+                } else if (action === "save") ActorPF2e.rollSave(event, item);
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = card.attr("data-strike-index");
                 const strikeName = card.attr("data-strike-name");
