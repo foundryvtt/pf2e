@@ -7,10 +7,11 @@ import {
     extractPriceFromItem,
     multiplyCoinValue,
 } from "@item/treasure/helpers";
+import { LocalizePF2e } from "@system/localize";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
-        $html.find(".card-buttons button").on("click", async (event) => {
+        $html.find('.card-buttons button, button[data-action="consume"]').on("click", async (event) => {
             event.preventDefault();
 
             // Extract card data
@@ -71,8 +72,30 @@ export const ChatCards = {
                 else if (action === "spellCounteract") item.rollCounteract(event);
                 else if (action === "spellTemplate") item.placeTemplate(event);
                 // Consumable usage
-                else if (action === "consume" && item instanceof ConsumablePF2e) item.consume();
-                else if (action === "save") ActorPF2e.rollSave(event, item);
+                else if (action === "consume") {
+                    if (item instanceof ConsumablePF2e) {
+                        item.consume();
+                    } else if (item instanceof MeleePF2e) {
+                        // Button is from an NPC attack effect
+                        const consumable = actor.items.get(button.attr("data-item") ?? "");
+                        if (consumable instanceof ConsumablePF2e) {
+                            const oldQuant = consumable.data.data.quantity.value;
+                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            await consumable.consume();
+                            const currentQuant = oldQuant === 1 ? 0 : consumable.data.data.quantity.value;
+                            let flavor = message.data.flavor?.replace(
+                                toReplace,
+                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                            );
+                            if (currentQuant === 0) {
+                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
+                            }
+                            await message.update({ flavor });
+                            message.render(true);
+                        }
+                    }
+                } else if (action === "save") ActorPF2e.rollSave(event, item);
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = card.attr("data-strike-index");
                 const strikeName = card.attr("data-strike-name");

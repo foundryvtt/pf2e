@@ -22,6 +22,7 @@ import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { Attitude, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
+import { LocalizePF2e } from "@system/localize";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -932,7 +933,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
         const formatItemName = (item: ItemPF2e): string => {
             if (item instanceof ConsumablePF2e) {
-                return `${item.name} - ${game.i18n.localize("ITEM.TypeConsumable")} (${item.data.data.quantity.value})`;
+                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.data.data.quantity.value}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };
