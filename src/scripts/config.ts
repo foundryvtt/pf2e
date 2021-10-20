@@ -23,7 +23,7 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
-import { WeaponPropertyRuneType } from "@item/weapon/data";
+import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageCategory, DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
@@ -1096,62 +1096,10 @@ const actionTraits = {
     ...npcAttackTraits,
 };
 
-const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
-    kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
-    returning: "PF2E.WeaponPropertyRuneReturning",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
-    disrupting: "PF2E.WeaponPropertyRuneDisrupting",
-    pacifying: "PF2E.WeaponPropertyRunePacifying",
-    fearsome: "PF2E.WeaponPropertyRuneFearsome",
-    shifting: "PF2E.WeaponPropertyRuneShifting",
-    conducting: "PF2E.WeaponPropertyRuneConducting",
-    wounding: "PF2E.WeaponPropertyRuneWounding",
-    bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
-    corrosive: "PF2E.WeaponPropertyRuneCorrosive",
-    cunning: "PF2E.WeaponPropertyRuneCunning",
-    flaming: "PF2E.WeaponPropertyRuneFlaming",
-    frost: "PF2E.WeaponPropertyRuneFrost",
-    shock: "PF2E.WeaponPropertyRuneShock",
-    thundering: "PF2E.WeaponPropertyRuneThundering",
-    grievous: "PF2E.WeaponPropertyRuneGrievous",
-    serrating: "PF2E.WeaponPropertyRuneSerrating",
-    anarchic: "PF2E.WeaponPropertyRuneAnarchic",
-    axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
-    holy: "PF2E.WeaponPropertyRuneHoly",
-    unholy: "PF2E.WeaponPropertyRuneUnholy",
-    greaterFearsome: "PF2E.WeaponPropertyRuneGreaterFearsome",
-    dancing: "PF2E.WeaponPropertyRuneDancing",
-    spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
-    greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
-    keen: "PF2E.WeaponPropertyRuneKeen",
-    greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
-    greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
-    greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
-    greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
-    greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
-    greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    speed: "PF2E.WeaponPropertyRuneSpeed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
-    bane: "PF2E.WeaponPropertyRuneBane",
-    brilliant: "PF2E.WeaponPropertyRuneBrilliant",
-    extending: "PF2E.WeaponPropertyRuneExtending",
-    greaterBrilliant: "PF2E.WeaponPropertyRuneGreaterBrilliant",
-    greaterExtending: "PF2E.WeaponPropertyRuneGreaterExtending",
-    greaterImpactful: "PF2E.WeaponPropertyRuneGreaterImpactful",
-    impactful: "PF2E.WeaponPropertyRuneImpactful",
-    energizing: "PF2E.WeaponPropertyRuneEnergizing",
-    bloodthirsty: "PF2E.WeaponPropertyRuneBloodthirsty",
-    crushing: "PF2E.WeaponPropertyRuneCrushing",
-    greaterCrushing: "PF2E.WeaponPropertyRuneGreaterCrushing",
-    anchoring: "PF2E.WeaponPropertyRuneAnchoring",
-    greaterAnchoring: "PF2E.WeaponPropertyRuneGreaterAnchoring",
-    hauling: "PF2E.WeaponPropertyRuneHauling",
-    greaterHauling: "PF2E.WeaponPropertyRuneGreaterHauling",
-    hopeful: "PF2E.WeaponPropertyRuneHopeful",
-    fanged: "PF2E.WeaponPropertyRuneFanged",
-    greaterFanged: "PF2E.WeaponPropertyRuneGreaterFanged",
-    majorFanged: "PF2E.WeaponPropertyRuneMajorFanged",
+const weaponPropertyRunes: Record<string, string> = {
+    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {}),
 };
 
 // Creature and Equipment Sizes
@@ -2099,6 +2047,12 @@ export const PF2ECONFIG = {
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },
         CE: { yearOffset: 0 },
+    },
+
+    runes: {
+        weapon: {
+            property: { ...WEAPON_PROPERTY_RUNES },
+        },
     },
 
     monsterAbilities: () => {

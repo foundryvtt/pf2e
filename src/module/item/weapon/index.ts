@@ -145,10 +145,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune1.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune2.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune3.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune4.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune1.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 
