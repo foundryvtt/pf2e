@@ -111,7 +111,7 @@ export const EnrichContent = {
                     }
 
                     if (!(typeof p4 === "string")) p4 = `${a[0]} ${a[1]}`;
-                    else p4 = p4.concat(` and ${a[0]} ${a[1]}`);
+                    else p4 = p4.concat(` + ${a[0]} ${a[1]}`);
                 }
             }
 
