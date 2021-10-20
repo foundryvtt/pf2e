@@ -51,6 +51,12 @@ export interface NPCSystemData extends CreatureSystemData {
         source: { value: string };
         /** The type of this creature (such as 'undead') */
         creatureType: string;
+        /** A very brief description */
+        blurb: string;
+        /** The in depth descripton and any other public notes */
+        publicNotes: string;
+        /** The private GM notes */
+        privateNotes: string;
     };
 
     /** Any special attributes for this NPC, such as AC or health. */

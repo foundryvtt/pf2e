@@ -346,6 +346,8 @@ const traitsDescriptions = {
     android: "PF2E.TraitDescriptionAndroid",
     artifact: "PF2E.TraitDescriptionArtifact",
     attached: "PF2E.TraitDescriptionAttached",
+    "attached-to-shield": "PF2E.TraitDescriptionAttached",
+    "attached-to-crossbow-or-firearm": "PF2E.TraitDescriptionAttached",
     backstabber: "PF2E.TraitDescriptionBackstabber",
     backswing: "PF2E.TraitDescriptionBackswing",
     bomb: "PF2E.TraitDescriptionBomb",
@@ -955,6 +957,8 @@ const weaponTraits = {
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
     attached: "PF2E.TraitAttached",
+    "attached-to-shield": "PF2E.TraitAttachedToShield",
+    "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
     backstabber: "PF2E.TraitBackstabber",
     backswing: "PF2E.TraitBackswing",
@@ -2015,7 +2019,6 @@ export const PF2ECONFIG = {
         ekujae: "PF2E.LanguageEkujae",
         erutaki: "PF2E.LanguageErutaki",
         garundi: "PF2E.LanguageGarundi",
-        giant: "PF2E.LanguageGiant",
         girtablilu: "PF2E.LanguageGirtablilu",
         gnoll: "PF2E.LanguageGnoll",
         goloma: "PF2E.LanguageGoloma",
@@ -2076,25 +2079,6 @@ export const PF2ECONFIG = {
         shae: "PF2E.LanguageShae",
         yithian: "PF2E.LanguageYithian",
         druidic: "PF2E.LanguageDruidic",
-    },
-
-    spellScalingModes: {
-        1: "PF2E.SpellScalingModeLevel1",
-        2: "PF2E.SpellScalingModeLevel2",
-        3: "PF2E.SpellScalingModeLevel3",
-        4: "PF2E.SpellScalingModeLevel4",
-    },
-
-    spellHeightenedLevels: {
-        levelsecond: "PF2E.SpellScalingModeLevelsecond",
-        levelthird: "PF2E.SpellScalingModeLevelthird",
-        levelfourth: "PF2E.SpellScalingModeLevelfourth",
-        levelfifth: "PF2E.SpellScalingModeLevelfifth",
-        levelsixth: "PF2E.SpellScalingModeLevelsixth",
-        levelseventh: "PF2E.SpellScalingModeLevelseventh",
-        leveleighth: "PF2E.SpellScalingModeLeveleighth",
-        levelninth: "PF2E.SpellScalingModeLevelninth",
-        leveltenth: "PF2E.SpellScalingModeLeveltenth",
     },
 
     attackEffects: {

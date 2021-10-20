@@ -1,9 +1,10 @@
 import { RuleElementPF2e } from "../rule-element";
-import { SenseAcuity, SenseData } from "@actor/creature/data";
-import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
+import { SenseAcuity } from "@actor/creature/data";
+import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
-import { ActorType } from "@actor/data";
+import { ActorType, CreatureData } from "@actor/data";
 import { ItemPF2e } from "@item";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 /**
  * @category RuleElement
@@ -11,55 +12,33 @@ import { ItemPF2e } from "@item";
 export class SenseRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar"];
 
-    private static isMoreAcute(replacement?: SenseAcuity, existing?: SenseAcuity): boolean {
-        if (!replacement && existing) return false;
-        return (
-            (replacement && !existing) ||
-            (replacement === "precise" && ["imprecise", "vague"].includes(existing!)) ||
-            (replacement === "imprecise" && existing === "vague")
-        );
-    }
-
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+    constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>) {
+        data.force ??= false;
+        data.range ??= "";
+        data.acuity ??= "precise";
         const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
         data.label ??= defaultLabels[data.selector ?? ""];
+
         super(data, item);
     }
 
-    override onBeforePrepareData(): void {
+    override onBeforePrepareData(_actorData: CreatureData, synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
-        const range = this.resolveValue(this.data.range);
-        const senses = this.actor.data.data.traits.senses;
-
+        const range = this.resolveValue(this.data.range, "");
         if (this.data.selector) {
-            const existing = senses.find((sense) => sense.type === this.data.selector);
-            const source = `${this.item.id}-${this.item.name}-${this.data.key}`;
-            if (existing) {
-                // upgrade existing sense, if it has longer range or is more acute
-                if (range && existing.value < range) {
-                    existing.source = source;
-                    existing.value = range;
-                }
-                if (this.data.acuity && SenseRuleElement.isMoreAcute(this.data.acuity, existing.acuity)) {
-                    existing.source = source;
-                    existing.acuity = this.data.acuity;
-                }
-            } else {
-                const sense: SenseData & { source: string } = {
-                    label: this.label,
-                    source: source,
-                    type: this.data.selector,
-                    value: "",
-                };
-                if (range) {
-                    sense.value = range;
-                }
-                if (this.data.acuity) {
-                    sense.acuity = this.data.acuity;
-                }
-                senses.push(sense);
-            }
+            const newSense = new CreatureSensePF2e({
+                label: this.label,
+                type: this.data.selector,
+                acuity: this.data.acuity,
+                value: String(range),
+                source: this.item.name,
+            });
+            synthetics.senses.push({
+                sense: newSense,
+                predicate: this.data.predicate ?? null,
+                force: this.data.force,
+            });
         } else {
             console.warn("PF2E | Sense requires at least a selector field and a label field or item name");
         }
@@ -68,9 +47,18 @@ export class SenseRuleElement extends RuleElementPF2e {
 
 export interface SenseRuleElement {
     get actor(): CharacterPF2e | FamiliarPF2e;
+    data: SenseRuleElementData;
+}
 
-    data: RuleElementData & {
-        acuity?: SenseAcuity;
-        range?: string;
-    };
+interface SenseRuleElementData extends RuleElementData {
+    label: string;
+    force: boolean;
+    acuity: SenseAcuity;
+    range: string | number;
+}
+
+interface SenseRuleElementSource extends RuleElementSource {
+    acuity?: string;
+    range?: string | number | null;
+    force?: boolean;
 }

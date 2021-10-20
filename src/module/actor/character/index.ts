@@ -11,7 +11,7 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from "@module/modifiers";
-import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
+import { ensureWeaponCategory, ensureWeaponGroup, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "../data/values";
 import {
@@ -498,6 +498,23 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.perception = stat;
         }
 
+        // Senses
+        const { senses } = this.data.data.traits;
+        for (const { sense, predicate, force } of synthetics.senses) {
+            if (predicate && !predicate.test(this.getRollOptions(["all", "sense"]))) continue;
+            const existing = senses.find((oldSense) => oldSense.type === sense.type);
+            if (!existing) {
+                senses.push(sense);
+                continue;
+            }
+            if (force) {
+                senses.findSplice((oldSense) => oldSense === existing, sense);
+                continue;
+            }
+            if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
+            if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
+        }
+
         // Class DC
         {
             const modifiers = [
@@ -628,8 +645,10 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Indicate that the strength requirement of this actor's armor is met
             if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
-                const skillCheckOptions = (this.rollOptions["skill-check"] ??= {});
-                skillCheckOptions[`self:armor:strength-requirement-met`] = true;
+                for (const selector of ["skill-check", "initiative"]) {
+                    const rollOptions = (this.rollOptions[selector] ??= {});
+                    rollOptions["self:armor:strength-requirement-met"] = true;
+                }
             }
 
             if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
@@ -1114,6 +1133,7 @@ export class CharacterPF2e extends CreaturePF2e {
             .concat(`${ability}-attack`);
         ensureProficiencyOption(defaultOptions, proficiencyRank);
         ensureWeaponCategory(defaultOptions, weapon.category);
+        ensureWeaponGroup(defaultOptions, weapon.group);
         ensureWeaponSize(defaultOptions, weapon.size, this.size);
         const notes: RollNotePF2e[] = [];
 

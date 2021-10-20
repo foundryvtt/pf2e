@@ -40,7 +40,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellComponents: this.formatSpellComponents(data.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
-            spellScalingModes: CONFIG.PF2E.spellScalingModes,
+            spellScalingIntervals: [1, 2, 3, 4],
         };
     }
 

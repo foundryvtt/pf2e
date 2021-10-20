@@ -131,7 +131,6 @@ export class SpellPF2e extends ItemPF2e {
             if (formulas.length === 0) {
                 if (this.data.data.duration.value === "" && this.actor) {
                     if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
-                        console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                         parts.push(String(castLevel));
                     }
                 }
