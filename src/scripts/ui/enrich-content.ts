@@ -3,14 +3,14 @@ export const EnrichContent = {
         const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
         const parameters = new Map();
 
-        const params = data.trim().split("|");
-        if (!Array.isArray(params)) return error;
+        const paramString = data.trim().split("|");
+        if (!Array.isArray(paramString)) return error;
 
-        for (const arr of params) {
-            const a = arr.trim().split(":");
-            if (!(a.length === 2)) return error;
+        for (const param of paramString) {
+            const paramComponents = param.trim().split(":");
+            if (!(paramComponents.length === 2)) return error;
 
-            parameters.set(a[0].trim(), a[1].trim());
+            parameters.set(paramComponents[0].trim(), paramComponents[1].trim());
         }
 
         return parameters;
@@ -26,15 +26,18 @@ export const EnrichContent = {
         let replaced = true;
         let replacedData;
         do {
-            replacedData = data.replace(rgx, (match: string, p1: string, p2: string, p3: string) => {
-                switch (p1) {
-                    case "Localize":
-                        return EnrichContent.createLocalize(p2, options);
-                    case "Template":
-                        return EnrichContent.createTemplate(p2, p3, options);
+            replacedData = data.replace(
+                rgx,
+                (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
+                    switch (inlineType) {
+                        case "Localize":
+                            return EnrichContent.createLocalize(paramString, options);
+                        case "Template":
+                            return EnrichContent.createTemplate(paramString, buttonLabel, options);
+                    }
+                    return match;
                 }
-                return match;
-            });
+            );
             if (replacedData === data) replaced = false;
             data = replacedData;
         } while (replaced);
@@ -47,84 +50,83 @@ export const EnrichContent = {
             `\\[\\[(\\/r|\\/br) ((?:{[^}]+}\\[[^\\]]+\\][\\+]*)+)(?: #([^\\]]+))?\\]\\](?:{([^}]+)})?`,
             "g"
         );
-        data = data.replace(rgx, (match: string, p1: string, p2: string, p3: string, p4: string) => {
-            //check for and correct syntax to persistent damage
-            const rgx = new RegExp(`\\[(\\w+),persistent\\]`, "g");
-            p2 = p2.replace(rgx, (match: string, p1: string) => {
-                match = `[persistent,${p1}]`;
-                return match;
-            });
-
-            //if no chat label is entered directly use the item name from rollOptions if available
-            if (!(typeof p3 === "string")) {
-                if (options?.rollData) {
-                    for (const [k, v] of Object.entries(options.rollData)) {
-                        if (k === "item") {
-                            p3 = v.name;
+        data = data.replace(
+            rgx,
+            (match: string, rollType: string, rolls: string, chatLabel: string, buttonLabel: string) => {
+                //if no chat label is entered directly use the item name from rollOptions if available
+                if (!(typeof chatLabel === "string")) {
+                    if (options?.rollData) {
+                        for (const [k, v] of Object.entries(options.rollData)) {
+                            if (k === "item") {
+                                chatLabel = v.name;
+                            }
                         }
-                    }
-                } else p3 = "Roll";
-            }
-
-            //if no button label is entered directly use the roll's damage components to create a default label
-            if (!(typeof p4 === "string")) {
-                const rollComps = p2.split("+");
-
-                //loop through the damage components
-                for (const arr of rollComps) {
-                    let dType = "";
-                    let translated = true;
-                    let persistent = false;
-
-                    const a = arr.replace(/\{/g, "").replace(/\]/g, "").split("}[");
-
-                    //get localized damage die
-                    const rgx = new RegExp(`(${Object.keys(CONFIG.PF2E.damageDie).join("|")})`, "g");
-
-                    a[0] = a[0].replace(rgx, (match: string) => {
-                        return game.i18n.localize(CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]);
-                    });
-
-                    //check for persistent damge
-                    if (a[1].search("persistent") > -1) {
-                        persistent = true;
-                        dType = a[1].replace("persistent", "").replace(",", "");
-                    } else dType = a[1];
-
-                    //get localized damage or healing type
-                    if (Object.keys(CONFIG.PF2E.damageTypes).includes(dType))
-                        dType = game.i18n.localize(
-                            CONFIG.PF2E.damageTypes[dType as keyof typeof CONFIG.PF2E.damageTypes]
-                        );
-                    else if (Object.keys(CONFIG.PF2E.healingTypes).includes(dType))
-                        dType = game.i18n.localize(
-                            CONFIG.PF2E.healingTypes[dType as keyof typeof CONFIG.PF2E.healingTypes]
-                        );
-                    else translated = false;
-
-                    if (translated) {
-                        a[1] = dType;
-                        if (persistent)
-                            a[1] = a[1].concat(
-                                ` (${game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"])})`
-                            );
-                    }
-
-                    if (!(typeof p4 === "string")) p4 = `${a[0]} ${a[1]}`;
-                    else p4 = p4.concat(` + ${a[0]} ${a[1]}`);
+                    } else chatLabel = "Roll";
                 }
+
+                //if no button label is entered directly use the roll's roll parts to create a default label
+                if (!(typeof buttonLabel === "string")) {
+                    const rollParts = rolls.split("+");
+
+                    //loop through the different roll parts
+                    for (const rollPart of rollParts) {
+                        let dType = "";
+                        let translated = true;
+                        let persistent = false;
+
+                        const rollComponent = rollPart.replace(/\{/g, "").replace(/\]/g, "").split("}[");
+
+                        //get localized damage die
+                        const rgx = new RegExp(`(${Object.keys(CONFIG.PF2E.damageDie).join("|")})`, "g");
+
+                        rollComponent[0] = rollComponent[0].replace(rgx, (match: string) => {
+                            return game.i18n.localize(
+                                CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]
+                            );
+                        });
+
+                        //check for persistent damge
+                        if (rollComponent[1].search("persistent") > -1) {
+                            persistent = true;
+                            dType = rollComponent[1].replace("persistent", "").replace(",", "");
+                        } else dType = rollComponent[1];
+
+                        //get localized damage or healing type
+                        if (Object.keys(CONFIG.PF2E.damageTypes).includes(dType))
+                            dType = game.i18n.localize(
+                                CONFIG.PF2E.damageTypes[dType as keyof typeof CONFIG.PF2E.damageTypes]
+                            );
+                        else if (Object.keys(CONFIG.PF2E.healingTypes).includes(dType))
+                            dType = game.i18n.localize(
+                                CONFIG.PF2E.healingTypes[dType as keyof typeof CONFIG.PF2E.healingTypes]
+                            );
+                        else translated = false;
+
+                        if (translated) {
+                            rollComponent[1] = dType;
+                            if (persistent)
+                                rollComponent[1] = rollComponent[1].concat(
+                                    ` (${game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"])})`
+                                );
+                        }
+
+                        if (!(typeof buttonLabel === "string")) buttonLabel = `${rollComponent[0]} ${rollComponent[1]}`;
+                        else buttonLabel = buttonLabel.concat(` + ${rollComponent[0]} ${rollComponent[1]}`);
+                    }
+                }
+
+                match = `[[${rollType} ${rolls} #${chatLabel}]]{${buttonLabel}}`;
+
+                return match;
             }
-
-            match = `[[${p1} ${p2} #${p3}]]{${p4}}`;
-
-            return match;
-        });
+        );
         return data;
     },
 
     createLocalize(data: string, options?: EnrichHTMLOptions): string {
         return EnrichContent.enrichString(game.i18n.localize(data), options);
     },
+
     createTemplate(data: string, label?: string, options?: EnrichHTMLOptions): string {
         //get parameters from data
         const params = EnrichContent.getParams(data);
@@ -149,9 +151,9 @@ export const EnrichContent = {
             if (options?.rollData) {
                 for (const [k, v] of Object.entries(options.rollData)) {
                     if (k === "item") {
-                        const t = v.traits.value.join(",");
-                        if (!(v.traits.custom === "")) t.append(`, ${v.traits.custom}`);
-                        params.set("traits", t);
+                        const traits = v.traits.value.join(",");
+                        if (!(v.traits.custom === "")) traits.append(`, ${v.traits.custom}`);
+                        params.set("traits", traits);
                     } else params.set("traits", "");
                 }
             } else params.set("traits", "");
