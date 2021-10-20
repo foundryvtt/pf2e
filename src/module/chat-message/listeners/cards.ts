@@ -7,6 +7,7 @@ import {
     extractPriceFromItem,
     multiplyCoinValue,
 } from "@item/treasure/helpers";
+import { LocalizePF2e } from "@system/localize";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -78,7 +79,16 @@ export const ChatCards = {
                         // Button is from an NPC attack effect
                         const consumable = actor.items.get(button.attr("data-item") ?? "");
                         if (consumable instanceof ConsumablePF2e) {
-                            consumable.consume();
+                            const oldQuant = consumable.data.data.quantity.value;
+                            const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
+                            await consumable.consume();
+                            const currentQuant = oldQuant === 1 ? 0 : consumable.data.data.quantity.value;
+                            const flavor = message.data.flavor?.replace(
+                                toReplace,
+                                `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
+                            );
+                            await message.update({ flavor });
+                            message.render(true);
                         }
                     }
                 } else if (action === "save") ActorPF2e.rollSave(event, item);
