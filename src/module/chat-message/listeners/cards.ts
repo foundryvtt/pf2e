@@ -11,7 +11,7 @@ import { LocalizePF2e } from "@system/localize";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
-        $html.find('.card-buttons button, [data-action="consume"]').on("click", async (event) => {
+        $html.find('.card-buttons button, button[data-action="consume"]').on("click", async (event) => {
             event.preventDefault();
 
             // Extract card data
@@ -83,10 +83,14 @@ export const ChatCards = {
                             const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.data.data.quantity.value;
-                            const flavor = message.data.flavor?.replace(
+                            let flavor = message.data.flavor?.replace(
                                 toReplace,
                                 `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
                             );
+                            if (currentQuant === 0) {
+                                const buttonStr = `>${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                                flavor = flavor?.replace(buttonStr, " disabled" + buttonStr);
+                            }
                             await message.update({ flavor });
                             message.render(true);
                         }
