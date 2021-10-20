@@ -2,7 +2,6 @@ import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/va
 import { PreciousMaterialGrade } from "@item/physical/data";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
@@ -95,10 +94,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
 
         const weaponPropertyRunes = Object.fromEntries(
-            WEAPON_PROPERTY_RUNE_TYPES.map((key): [string, string] => [
-                key,
-                game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[key]),
-            ]).sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
+            Object.entries(CONFIG.PF2E.runes.weapon.property)
+                .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
+                .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
         return {
