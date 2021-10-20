@@ -19,10 +19,69 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Saving or defending against hazards",
+                "property": "flags.pf2e.rollOptions.all.hazard"
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Opponent rolling Deception or Diplomacy for initiative",
+                "property": "flags.pf2e.rollOptions.all.twitchyDeceptionDiplomacy"
+            },
+            {
+                "key": "FlatModifier",
+                "name": "Twitchy",
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "name": "Twitchy (Opponent rolling Deception or Diplomacy)",
+                "predicate": {
+                    "all": [
+                        "twitchyDeceptionDiplomacy"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "hazard"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "hazard"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
