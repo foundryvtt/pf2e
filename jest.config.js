@@ -12,6 +12,7 @@ module.exports = {
         "^@module/(.*)$": "<rootDir>/src/module/$1",
         "^@scripts/(.*)$": "<rootDir>/src/scripts/$1",
         "^@system/(.*)$": "<rootDir>/src/module/system/$1",
+        "^@util$": "<rootDir>/src/util",
     },
     setupFiles: ["./tests/setup.ts"],
     globals: {

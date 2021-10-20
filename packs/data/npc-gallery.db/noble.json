@@ -57,11 +57,13 @@
             "alignment": {
                 "value": "N"
             },
+            "blurb": "",
             "creatureType": "",
-            "flavorText": "<p>Envied by many and detested by still others, nobles exude confidence and gentility. Gossip and gambling are often nobles' favorite pastimes. Day-to-day life for a noble is often a mixture of business and leisure, and to an onlooker, such a lifestyle can appear to be nothing more than a string of meals, parties, and game halls. However, despite what some might believe, life as a noble is often quite dangerous and requires far more intellect than it would appear-along with a healthy dose of suspicion.</p>\n<hr />\n<p>Though adventurers travel through perilous dungeons and across treacherous wilderness, sometimes the most dangerous place they can end up is in a noble court.</p>",
             "level": {
                 "value": 3
             },
+            "privateNotes": "",
+            "publicNotes": "<p>Envied by many and detested by still others, nobles exude confidence and gentility. Gossip and gambling are often nobles' favorite pastimes. Day-to-day life for a noble is often a mixture of business and leisure, and to an onlooker, such a lifestyle can appear to be nothing more than a string of meals, parties, and game halls. However, despite what some might believe, life as a noble is often quite dangerous and requires far more intellect than it would appear-along with a healthy dose of suspicion.</p>\n<hr />\n<p>Though adventurers travel through perilous dungeons and across treacherous wilderness, sometimes the most dangerous place they can end up is in a noble court.</p>",
             "source": {
                 "value": "Pathfinder Gamemastery Guide"
             }
@@ -119,7 +121,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ABdOYEG7QKTdlJFH",
+            "_id": "2pjdLpOsf10e25Mu",
             "data": {
                 "MAP": {
                     "value": ""
@@ -251,7 +253,7 @@
                 },
                 "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -298,7 +300,7 @@
             "type": "weapon"
         },
         {
-            "_id": "EqzYrKBmph0pbZqX",
+            "_id": "kbXfg2ermyAfTYHC",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -314,7 +316,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns. You gain a +1 item bonus to checks to Make an Impression on nobility or other upper‑class folk while wearing high‑fashion fine clothing.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to checks to Make an Impression on nobility</li>\n</ul>"
                 },
                 "equipped": {
                     "value": true
@@ -345,13 +347,13 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 3
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": ""
+                    "value": "0"
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -360,18 +362,31 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": "55 gp"
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "High-Fashion Clothes (Make an Impression on nobility)",
+                        "predicate": {
+                            "any": [
+                                "action:make-an-impression"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
-                "slug": "clothing-fine",
+                "slug": "clothing-high-fashion-fine",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -393,11 +408,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.jJZbdMHMdh8UL2j8"
+                    "sourceId": "Compendium.pf2e.equipment-srd.rXZxM7SbqEnvXyal"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-fine.webp",
-            "name": "Clothing (Fine)",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-high-fashion.webp",
+            "name": "Clothing (High-Fashion Fine)",
             "sort": 200000,
             "type": "equipment"
         },
@@ -496,7 +511,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/consumables/potions/potion-of-resistance.webp",
             "name": "Silver Flask",
             "sort": 300000,
             "type": "equipment"
@@ -521,7 +536,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -596,13 +611,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/treasure/art-objects/major-art-object/diamond-ring-with-platinum-band.webp",
             "name": "Signet Ring",
             "sort": 400000,
             "type": "equipment"
         },
         {
-            "_id": "32D7OV1HftfKMMvm",
+            "_id": "Nv6NVuyp91007LQt",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -624,7 +639,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""

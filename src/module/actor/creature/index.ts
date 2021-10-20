@@ -23,8 +23,10 @@ import { LightLevels } from "@module/scene/data";
 import { Statistic, StatisticBuilder } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { UserPF2e } from "@module/user";
+import { SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -131,9 +133,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
                           ? shield
                           : null;
                   const withMoreHP =
-                      bestShield.hitPoints.current > shield.hitPoints.current
+                      bestShield.hitPoints.value > shield.hitPoints.value
                           ? bestShield
-                          : shield.hitPoints.current > bestShield.hitPoints.current
+                          : shield.hitPoints.value > bestShield.hitPoints.value
                           ? shield
                           : null;
                   const withBetterHardness =
@@ -154,6 +156,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
         hitPoints.negativeHealing = false;
         hitPoints.modifiers = [];
+        attributes.hardness ??= { value: 0 };
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
@@ -172,6 +175,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
         }
+
+        for (const changeEntries of Object.values(this.data.data.autoChanges)) {
+            changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+        }
     }
 
     // Set whether this actor is wearing armor
@@ -186,12 +193,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const actorData = this.data;
         const synthetics: RuleElementSynthetics = {
             damageDice: {},
+            multipleAttackPenalties: {},
+            rollNotes: {},
+            senses: [],
             statisticsModifiers: {},
             strikes: [],
-            rollNotes: {},
-            weaponPotency: {},
             striking: {},
-            multipleAttackPenalties: {},
+            weaponPotency: {},
         };
         const statisticsModifiers = synthetics.statisticsModifiers;
 
@@ -282,6 +290,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         } else {
             throw Error("Custom modifiers can only be removed by name (string) or index (number)");
         }
+    }
+
+    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
+    async toggleRollOption(domain: string, optionName: string) {
+        if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
+            throw new Error(`${domain} is not a supported roll`);
+        }
+        const flag = `rollOptions.${domain}.${optionName}`;
+        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
     }
 
     prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
@@ -585,13 +602,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<CreaturePF2e["data"]["_source"]>,
+        data: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
+        user: UserPF2e
     ) {
         // Clamp focus points
-        const focus = data.data?.resources?.focus;
-        if (focus) {
+        const focus = data.data && "resources" in data.data ? data.data?.resources?.focus ?? null : null;
+        if (focus && "resources" in this.data.data) {
             if (typeof focus.max === "number") {
                 focus.max = Math.clamped(focus.max, 0, 3);
             }

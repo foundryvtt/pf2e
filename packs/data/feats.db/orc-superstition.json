@@ -19,10 +19,35 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.orc-superstition"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Orc Superstition",
+                "predicate": {
+                    "all": [
+                        "orc-superstition"
+                    ],
+                    "any": [
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult",
+                        "magical"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

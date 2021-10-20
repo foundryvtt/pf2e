@@ -3,7 +3,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
@@ -16,12 +16,6 @@ import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    static override get defaultOptions() {
-        const options = super.defaultOptions;
-        options.itemIdentificationAttributes.push("data-spell-lvl", "data-slot-id");
-        return options;
-    }
-
     override itemRenderer = new CreatureSheetItemRenderer(this);
 
     override getData(options?: ActorSheetOptions) {
@@ -171,7 +165,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // strikes
-        html.find(".strikes-list [data-action-index]").on("click", ".action-name", (event) => {
+        html.find(".strikes-list [data-action-index]").on("click", ".action-name h4", (event) => {
             $(event.currentTarget).parents(".expandable").toggleClass("expanded");
         });
 
@@ -181,7 +175,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
             const actionIndex = $(event.currentTarget).closest("[data-action-index]").attr("data-action-index");
-            this.actor.data.data.actions[Number(actionIndex)].damage({ event });
+            this.actor.data.data.actions?.[Number(actionIndex)]?.damage?.({ event });
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
@@ -193,7 +187,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents("[data-action-index]").attr("data-action-index");
-            this.actor.data.data.actions[Number(actionIndex)].critical({ event });
+            this.actor.data.data.actions?.[Number(actionIndex)]?.critical?.({ event });
         });
 
         html.find(".spell-attack").on("click", (event) => {
@@ -241,7 +235,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            this.actor.data.data.actions[Number(actionIndex)].roll({ event });
+            this.actor.data.data.actions?.[Number(actionIndex)]?.roll?.({ event });
         });
 
         html.find('[data-variant-index].variant-strike, [data-action="npcAttack"]').on("click", (event) => {
@@ -249,21 +243,21 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
             const variantIndex = $(event.currentTarget).attr("data-variant-index");
-            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const action = this.actor.data.data.actions?.[Number(actionIndex)];
             if (!action) return;
 
-            if (action.selectedAmmoId) {
-                const ammo = this.actor.items.get(action.selectedAmmoId);
-                if (ammo instanceof ConsumablePF2e) {
-                    if (ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                        return;
-                    }
-                    ammo.consume();
-                }
+            const ammo = (() => {
+                if (!action.selectedAmmoId) return null;
+                const ammo = this.actor.items.get(action.selectedAmmoId ?? "");
+                return ammo instanceof ConsumablePF2e ? ammo : null;
+            })();
+
+            if (ammo && ammo.quantity < 1) {
+                ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                return;
             }
 
-            action.variants[Number(variantIndex)]?.roll({ event });
+            action.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.
@@ -273,6 +267,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         );
 
         html.find(".spell-list .focus-points").on("click contextmenu", (event) => {
+            if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) return;
+
             const change = event.type === "click" ? 1 : -1;
             const focusPool = this.actor.data.data.resources.focus;
             const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);

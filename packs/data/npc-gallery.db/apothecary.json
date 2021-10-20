@@ -57,11 +57,13 @@
             "alignment": {
                 "value": "N"
             },
+            "blurb": "",
             "creatureType": "",
-            "flavorText": "<p>Surrounded by bottles and bins of crushed herbs, curative minerals, and potent extracts, the apothecary skillfully combines materials into unguents and medicines. For encounters involving making medicine or alchemical contests, the apothecary is a 3rd-level challenge.</p>\n<hr />\n<p>The world is a dangerous place. Thankfully, there are those who devote their lives to easing the pain and suffering of others.</p>",
             "level": {
                 "value": -1
             },
+            "privateNotes": "",
+            "publicNotes": "<p>Surrounded by bottles and bins of crushed herbs, curative minerals, and potent extracts, the apothecary skillfully combines materials into unguents and medicines. For encounters involving making medicine or alchemical contests, the apothecary is a 3rd-level challenge.</p>\n<hr />\n<p>The world is a dangerous place. Thankfully, there are those who devote their lives to easing the pain and suffering of others.</p>",
             "source": {
                 "value": "Pathfinder Gamemastery Guide"
             }
@@ -126,7 +128,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0fYF0RDXqw6RB7nK",
+            "_id": "tVAzg3UKldmyachB",
             "data": {
                 "MAP": {
                     "value": ""
@@ -232,16 +234,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 2
@@ -255,8 +257,19 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
                         "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 2*(1d6) #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
                     }
                 ],
                 "size": {
@@ -264,7 +277,7 @@
                 },
                 "slug": "acid-flask-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -313,7 +326,7 @@
             "type": "weapon"
         },
         {
-            "_id": "LlYc92UOjKx21Upj",
+            "_id": "Yh3y4ZVuQtNitkrQ",
             "data": {
                 "MAP": {
                     "value": ""
@@ -393,13 +406,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -419,16 +432,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -445,7 +458,7 @@
                 },
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -493,7 +506,7 @@
             "type": "weapon"
         },
         {
-            "_id": "BhfP2QCbcXQVjYhI",
+            "_id": "2B42tVGi3YO1t4rU",
             "data": {
                 "armor": {
                     "value": 1
@@ -565,13 +578,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -594,14 +607,13 @@
                 "resiliencyRune": {
                     "value": ""
                 },
-                "resilient": {},
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
                 "slug": "padded-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -640,7 +652,7 @@
             "type": "armor"
         },
         {
-            "_id": "sOzgzk33i0l78q8k",
+            "_id": "Pt3aKCU8XphLZtst",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -713,7 +725,7 @@
                 },
                 "slug": "healers-tools",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -744,7 +756,7 @@
             "type": "equipment"
         },
         {
-            "_id": "iEv0dskNR9XsPa9V",
+            "_id": "WKPSQhPteRbqC14q",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -791,7 +803,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 1
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -817,7 +829,7 @@
                 },
                 "slug": "mortar-of-hidden-meaning",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Lost Omens: Gods & Magic"
                 },
                 "stackGroup": {
                     "value": ""
@@ -848,7 +860,7 @@
             "type": "equipment"
         },
         {
-            "_id": "02W2R2yD5ga54tWz",
+            "_id": "uqf8ooby8JyaoZUQ",
             "data": {
                 "activation": {
                     "condition": "",
@@ -952,7 +964,7 @@
                 },
                 "slug": "elixir-of-life-minor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";

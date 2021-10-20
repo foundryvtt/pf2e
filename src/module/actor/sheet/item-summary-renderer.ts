@@ -3,10 +3,6 @@ import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 
-interface ActorSheetOptionsExtended extends ActorSheetOptions {
-    itemIdentificationAttributes?: string[];
-}
-
 /**
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
@@ -90,20 +86,15 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                 if (trait.excluded) continue;
                 const label: string = game.i18n.localize(trait.label);
                 const mystifiedClass = trait.mystified ? "mystified" : [];
+                const classes = ["tag", mystifiedClass].flat().join(" ");
+                const $trait = $(`<span class="${classes}">${label}</span>`);
                 if (trait.description) {
-                    const classes = ["tag", mystifiedClass].flat().join(" ");
                     const description = game.i18n.localize(trait.description);
-                    const $trait = $(`<span class="${classes}" title="${description}">${label}</span>`).tooltipster({
-                        animation: "fade",
-                        maxWidth: 400,
-                        theme: "crb-hover",
-                        contentAsHTML: true,
-                    });
-                    props.append($trait);
-                } else {
-                    const classes: string = ["tag", "tag_alt", mystifiedClass].flat().join(" ");
-                    props.append(`<span class="${classes}">${label}</span>`);
+                    $trait
+                        .attr({ title: description })
+                        .tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
                 }
+                props.append($trait);
             }
         }
 
@@ -120,35 +111,36 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         $div.append(`<div class="item-description">${description}</div></div>`);
     }
 
+    /**
+     * Executes a callback, performing a save and restore for all item summaries to maintain visual state.
+     * Most restorations are driven by a data-item-id attribute, however data-item-summary-id with a custom string
+     * can be used to avoid conflicts in areas such as spell preparation.
+     */
     async saveAndRestoreState(callback: () => Promise<JQuery<HTMLElement>>): Promise<JQuery<HTMLElement>> {
         // Identify which item and action summaries are expanded currently
-        const expandedItemElements = this.sheet.element.find(".item.expanded[data-item-id]");
-        const expandedActionElements = this.sheet.element.find(".item.expanded[data-action-index]");
+        const $element = this.sheet.element;
+        const expandedSummaryElements = $element.find(".item.expanded[data-item-summary-id]");
+        const expandedItemElements = $element.find(".item.expanded[data-item-id]:not([data-item-summary-id])");
+        const expandedActionElements = $element.find(".item.expanded[data-action-index]");
         const openActionIdxs = new Set(expandedActionElements.map((_i, el) => el.dataset.actionIndex));
 
         // Create a list of records that act as identification keys for expanded entries
-        const sheetOptions: ActorSheetOptionsExtended = (this.sheet.constructor as typeof ActorSheet).defaultOptions;
-        const properties = ["data-item-id", ...(sheetOptions.itemIdentificationAttributes || [])];
-        const openItems: Record<string, string>[] = expandedItemElements
-            .map((_i, el) => {
-                const $el = $(el);
-                const pairs = properties.map((prop) => [prop, $el.attr(prop)]);
-                return Object.fromEntries(pairs.filter((pair) => typeof pair[1] !== "undefined"));
-            })
-            .get();
+        const openItemsIds = expandedItemElements.map((_, el) => $(el).attr("data-item-id")).get();
+        const openSummaryIds = expandedSummaryElements.map((_, el) => $(el).attr("data-item-summary-id")).get();
 
         const result = await callback.apply(null);
 
         // Re-open hidden item summaries
-        for (const itemProps of openItems) {
-            const searchProps = [".item"];
-            for (const [key, value] of Object.entries(itemProps)) {
-                searchProps.push(`[${key}=${value}]`);
-            }
-
-            this.toggleItemSummary(result.find(searchProps.join("")), { instant: true });
+        for (const itemId of openItemsIds) {
+            const $item = result.find(`.item[data-item-id=${itemId}]:not([data-item-summary-id])`);
+            this.toggleItemSummary($item, { instant: true });
         }
 
+        for (const summaryId of openSummaryIds) {
+            this.toggleItemSummary(result.find(`.item[data-item-summary-id=${summaryId}]`), { instant: true });
+        }
+
+        // Reopen hidden actions
         for (const elementIdx of openActionIdxs) {
             result.find(`.item[data-action-index=${elementIdx}]`).toggleClass("expanded");
         }

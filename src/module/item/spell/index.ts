@@ -5,7 +5,7 @@ import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { OneToTen, OneToThree, TwoToThree } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
-import { ordinal, toNumber, objectHasKey } from "@module/utils";
+import { ordinal, toNumber, objectHasKey } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 
@@ -131,7 +131,6 @@ export class SpellPF2e extends ItemPF2e {
             if (formulas.length === 0) {
                 if (this.data.data.duration.value === "" && this.actor) {
                     if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
-                        console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                         parts.push(String(castLevel));
                     }
                 }

@@ -22,6 +22,16 @@
         </select>
     </div>
     <div class="form-group">
+        <label>{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
+        <select name="data.usage.value" data-dtype="String">
+            {{#select data.usage.value}}
+                <option value="held-in-one-hand">1</option>
+                <option value="held-in-one-plus-hands">1+</option>
+                <option value="held-in-two-hands">2</option>
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String">
             {{#select data.weight.value}}

@@ -1,6 +1,15 @@
 #tinymce {
+    @import "fonts", "mixins", "legacy", "globals";
+    --space-s: 0.25em;
+    --space-m: 0.5em;
+    --space-l: 1em;
+    --space-xl: 1.5em;
+    --space-2xl: 2em;
+    --radius: 3px;
+    
+    @include tinymce-system-specific;
+
     &.pf2e {
-        @import "fonts", "mixins", "legacy", "globals";
 
         font-family: var(--sans-serif);
         h1, h2, h3, h4 {
@@ -10,13 +19,7 @@
             font-weight: 500;
         }
 
-        --space-s: 0.25em;
-        --space-m: 0.5em;
-        --space-l: 1em;
-        --space-xl: 1.5em;
-        --space-2xl: 2em;
-        --radius: 3px;
-
-        @import "system/journal/tinymce";
+        @include journal-entries-pf2e;
+        @include tinymce-system-specific;
     }
 }

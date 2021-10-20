@@ -6,6 +6,8 @@ export class Migration612NormalizeRarities extends MigrationBase {
     static override version = 0.612;
 
     override async updateActor(actorData: ActorSourcePF2e) {
+        if (actorData.type === "familiar") return;
+
         const traits = actorData.data.traits;
         if (!(("rarity" in traits) as { rarity?: Rarity })) {
             traits.rarity = { value: "common" };

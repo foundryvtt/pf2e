@@ -6,7 +6,7 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e } from "@actor";
 import { RuleElementPF2e, RuleElements } from "../rules/rules";
@@ -57,8 +57,8 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The compendium source ID of the item **/
-    get sourceId(): string | null {
-        return this.getFlag("core", "sourceId") ?? null;
+    get sourceId(): ItemUUID | null {
+        return this.data.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -84,7 +84,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     override getRollData(): Record<string, unknown> {
-        const item = this.toObject(false).data;
+        const item = { name: this.name, ...this.toObject(false).data };
         if (!this.actor) return { item };
         const actor = this.actor.toObject(false).data;
         return { ...actor, actor, item };
@@ -372,6 +372,9 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollCounteract(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
+        if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) {
+            return;
+        }
         const itemData =
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
@@ -519,8 +522,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !["condition", "martial", "spellcastingEntry"].includes(itemType) &&
-                !(itemType === "formula" && BUILD_MODE === "production")
+                !(
+                    ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
+                    (itemType === "book" && BUILD_MODE === "production")
+                )
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
@@ -529,8 +534,11 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const data: ItemSourcePF2e = JSON.parse(json);
+        const importData = JSON.parse(json);
+        const systemModel = deepClone(game.system.model.Item[importData.type]);
+        const data: ItemSourcePF2e = mergeObject({ data: systemModel }, importData);
         this.data.update(game.items.prepareForImport(data), { recursive: false });
+
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),

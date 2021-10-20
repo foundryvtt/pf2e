@@ -2,7 +2,7 @@ import { VariantRulesSettings } from "./variant-rules";
 import { WorldClockSettings } from "./world-clock";
 import { HomebrewElements } from "./homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
@@ -56,11 +56,20 @@ export function registerSettings() {
         },
     });
 
+    game.settings.register("pf2e", "tokens.autoscale", {
+        name: "PF2E.SETTINGS.Tokens.Autoscale.Name",
+        hint: "PF2E.SETTINGS.Tokens.Autoscale.Hint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean,
+    });
+
     game.settings.register("pf2e", "ignoreCoinBulk", {
         name: "PF2E.SETTINGS.IgnoreCoinBulk.Name",
         hint: "PF2E.SETTINGS.IgnoreCoinBulk.Hint",
         scope: "world",
-        config: true,
+        config: false,
         default: false,
         type: Boolean,
     });
@@ -201,6 +210,14 @@ export function registerSettings() {
         scope: "client",
         config: true,
         default: true,
+        type: Boolean,
+    });
+
+    game.settings.register("pf2e", "seenUnionAnnouncement", {
+        name: "PF2E.UnitedPaizoWorkers.Title",
+        scope: "client",
+        config: false,
+        default: false,
         type: Boolean,
     });
 

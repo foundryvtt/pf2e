@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestrySource, ItemSourcePF2e } from "@item/data";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Move ancestry vision features from independent items to system data on ancestry items */

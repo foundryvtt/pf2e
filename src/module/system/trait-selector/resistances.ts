@@ -1,6 +1,7 @@
-import { ActorPF2e, NPCPF2e, HazardPF2e } from "@actor/index";
+import { ActorPF2e } from "@actor";
+import { ErrorPF2e } from "@util";
 import { TagSelectorBase } from "./base";
-import { SelectableTagField } from "./index";
+import { SelectableTagField } from ".";
 
 export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dr";
@@ -17,25 +18,34 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
         };
     }
 
+    private get actor(): ActorPF2e {
+        return this.object;
+    }
+
     protected get configTypes(): readonly SelectableTagField[] {
         return ["resistanceTypes"] as const;
     }
 
     override getData() {
+        const actorSource = this.actor.toObject();
+        if (actorSource.type === "familiar") {
+            throw ErrorPF2e("Resistances cannot be saved to familiar data");
+        }
+
         const data: any = super.getData();
 
-        if (this.object instanceof NPCPF2e || this.object instanceof HazardPF2e) {
+        if (actorSource.type === "npc" || actorSource.type === "hazard") {
             data.hasExceptions = true;
         }
 
-        const choices: any = {};
-        const resistances = this.object.data._source.data.traits.dr;
+        const choices: Record<string, { label: string; selected: boolean; value: number; exceptions: string }> = {};
+        const resistances = actorSource.data.traits.dr;
         Object.entries(this.choices).forEach(([type, label]) => {
             const resistance = resistances.find((resistance) => resistance.type === type);
             choices[type] = {
                 label,
                 selected: !!resistance,
-                value: resistance?.value ?? "",
+                value: resistance?.value ?? 0,
                 exceptions: resistance?.exceptions ?? "",
             };
         });
@@ -63,9 +73,7 @@ export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const update = this.getUpdateData(formData);
-        if (update) {
-            this.object.update({ [this.objectProperty]: update });
-        }
+        if (update) this.actor.update({ [this.objectProperty]: update });
     }
 
     protected getUpdateData(formData: Record<string, unknown>) {

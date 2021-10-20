@@ -8,7 +8,7 @@ import {
     weightToBulk,
 } from "../physical/bulk";
 import { PhysicalItemData } from "../data";
-import { groupBy } from "@module/utils";
+import { groupBy } from "@util";
 import { Size } from "@module/data";
 
 /**

@@ -136,6 +136,7 @@ const config: Configuration = {
             "@scene": path.resolve(__dirname, "src/module/scene"),
             "@scripts": path.resolve(__dirname, "src/scripts"),
             "@system": path.resolve(__dirname, "src/module/system"),
+            "@util": path.resolve(__dirname, "src/util"),
         },
         extensions: [".ts"],
     },

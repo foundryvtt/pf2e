@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { MagicSchool } from "@item/spell/data";
 
 /** Remove duplicate magic schools localization map */

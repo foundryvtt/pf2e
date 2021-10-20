@@ -1,4 +1,4 @@
-import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from "@module/data";
+import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValueAndMax, ValuesList } from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -8,13 +8,14 @@ import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
+import { AutoChangeEntry } from "@module/rules/elements/ae-like";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
-    TSystemData extends ActorSystemData = ActorSystemData
+    TSystemSource extends ActorSystemSource = ActorSystemSource
 > extends foundry.data.ActorSource {
     type: TActorType;
-    data: TSystemData;
+    data: TSystemSource;
     items: ItemSourcePF2e[];
     flags: DeepPartial<ActorFlagsPF2e>;
 }
@@ -67,11 +68,22 @@ export interface BaseActorAttributes {
 // expose _modifiers field to allow initialization in data preparation
 export type HitPointsData = StatisticModifier & BaseHitPointsData;
 
-export interface ActorSystemData {
+export interface ActorSystemSource {
+    attributes: {
+        hp: ValueAndMax;
+    };
+    traits?: BaseTraitsData;
+    /** A record of this actor's current world schema version as well a log of the last migration to occur */
+    schema: DocumentSchemaRecord;
+}
+
+export interface ActorSystemData extends ActorSystemSource {
     attributes: BaseActorAttributes;
     traits: BaseTraitsData;
+    /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
-    schema: DocumentSchemaRecord;
+    /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
+    autoChanges: Record<string, AutoChangeEntry[] | undefined>;
 }
 
 export type ImmunityType = SetElement<typeof IMMUNITY_TYPES>;
@@ -101,8 +113,8 @@ export interface BaseTraitsData {
     dv: LabeledWeakness[];
 }
 
-/** Data describing the proficiency with a given type of check */
-export interface ProficiencyData {
+/** Base data describing almost any actor statistic */
+export interface RawStatistic {
     /** The actual modifier for this martial type. */
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
@@ -112,9 +124,9 @@ export interface ProficiencyData {
 export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
 
 /** Basic skill and save data (not including custom modifiers). */
-export interface RawSkillData extends ProficiencyData {
+export interface AbilityBasedStatistic extends RawStatistic {
     /** The ability which this save scales off of. */
-    ability: AbilityString;
+    ability?: AbilityString;
 }
 
 /** A roll function which can be called to roll a given skill. */
@@ -131,7 +143,7 @@ export interface RawInitiativeData {
 /** The full data for charatcer initiative. */
 export type InitiativeData = CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
-export type PerceptionData = StatisticModifier & RawSkillData & Rollable;
+export type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
 
 /** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
@@ -201,10 +213,18 @@ export interface StrikeData {
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction }[];
 
-    /** A list of ammo to choose for this attack */
-    ammo?: RawObject<ConsumableData>[];
-    /** Currently selected ammo id that will be consumed when rolling this action */
-    selectedAmmoId?: string;
+    /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
+    ammunition?: {
+        compatible: RawObject<ConsumableData>[];
+        incompatible: RawObject<ConsumableData>[];
+        selected?: {
+            id: string;
+            compatible: boolean;
+        };
+    };
+
+    /** The item that generated this strike */
+    origin?: ItemPF2e;
 }
 
 export interface RollToggle {

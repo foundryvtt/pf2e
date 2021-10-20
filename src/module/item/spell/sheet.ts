@@ -2,7 +2,7 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e, SpellSheetData } from "../sheet/data-types";
 import { SpellDamage, SpellSystemData } from "./data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 
 const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
     interval: 1,
@@ -10,8 +10,8 @@ const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
-    override getData(): SpellSheetData {
-        const data: ItemSheetDataPF2e<SpellPF2e> = super.getData();
+    override async getData(): Promise<SpellSheetData> {
+        const data: ItemSheetDataPF2e<SpellPF2e> = await super.getData();
 
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
@@ -40,7 +40,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellComponents: this.formatSpellComponents(data.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
-            spellScalingModes: CONFIG.PF2E.spellScalingModes,
+            spellScalingIntervals: [1, 2, 3, 4],
         };
     }
 

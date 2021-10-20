@@ -2,6 +2,7 @@ import { DamageDicePF2e, ModifierPF2e } from "../modifiers";
 import { RollNotePF2e } from "../notes";
 import { WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 export type RuleElementSource = {
     key: string;
@@ -64,10 +65,17 @@ export interface MultipleAttackPenaltyPF2e {
 
 export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
+    multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
+    rollNotes: Record<string, RollNotePF2e[]>;
+    senses: SenseSynthetic[];
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: Embedded<WeaponPF2e>[];
-    rollNotes: Record<string, RollNotePF2e[]>;
-    weaponPotency: Record<string, WeaponPotencyPF2e[]>;
     striking: Record<string, StrikingPF2e[]>;
-    multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
+    weaponPotency: Record<string, WeaponPotencyPF2e[]>;
+}
+
+interface SenseSynthetic {
+    sense: CreatureSensePF2e;
+    predicate: PredicatePF2e | null;
+    force: boolean;
 }

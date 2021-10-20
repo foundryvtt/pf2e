@@ -2,7 +2,7 @@ import { MigrationBase } from "@module/migration/base";
 import { ItemSourcePF2e } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
 import { ConfigPF2eHomebrewList } from "./index";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 

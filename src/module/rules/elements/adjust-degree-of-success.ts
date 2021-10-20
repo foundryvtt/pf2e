@@ -4,7 +4,7 @@ import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/v
 import { SkillAbbreviation } from "@actor/creature/data";
 import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/check-degree-of-success";
 import { RuleElementData } from "../rules-data-definitions";
-import { tupleHasValue } from "@module/utils";
+import { tupleHasValue } from "@util";
 
 /**
  * @category RuleElement

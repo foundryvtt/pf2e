@@ -116,7 +116,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         // Updated actor with the sweet fruits of rest
         if (hpRestored > 0 || restoredList.length > 0) {
-            actor.update({ "data.attributes": attributes, "data.resources.focus": focus });
+            actor.update({ "data.attributes": attributes, "data.resources.focus.value": focus.value });
         }
         if (updateData.length > 0) {
             actor.updateEmbeddedDocuments("Item", updateData);

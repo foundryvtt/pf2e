@@ -2,25 +2,24 @@ import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/va
 import { PreciousMaterialGrade } from "@item/physical/data";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
-import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { PhysicalItemSheetData } from "@item/sheet/data-types";
 import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey } from "@module/utils";
+import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { WeaponPropertyRuneSlot } from "./data";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
-    override getData() {
+    override async getData() {
         interface PropertyRuneSheetSlot extends WeaponPropertyRuneSlot {
             name?: string;
             number?: OneToFour;
             label?: string;
         }
-        const sheetData: ItemSheetDataPF2e<WeaponPF2e> & {
+        const sheetData: PhysicalItemSheetData<WeaponPF2e> & {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
-        } = super.getData();
+        } = await super.getData();
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = sheetData.data.potencyRune.value ?? 0;
@@ -95,10 +94,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
 
         const weaponPropertyRunes = Object.fromEntries(
-            WEAPON_PROPERTY_RUNE_TYPES.map((key): [string, string] => [
-                key,
-                game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[key]),
-            ]).sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
+            Object.entries(CONFIG.PF2E.runes.weapon.property)
+                .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
+                .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
         return {
@@ -152,8 +150,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
+        formData["data.potencyRune.value"] ||= 0;
         // Set empty-string values and zeroes to null
-        formData["data.potencyRune.value"] ||= null;
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`data.propertyRune${slotNumber}.value`] ||= null;
         }

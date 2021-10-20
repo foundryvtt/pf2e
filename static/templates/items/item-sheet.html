@@ -30,6 +30,11 @@
                         <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                     {{/if}}
                 {{/if}}
+                {{#developMode}}
+                    {{#if item.isPhysical}}
+                        <a class="list-row" data-tab="usage">{{localize "PF2E.Usage"}}</a>
+                    {{/if}}
+                {{/developMode}}
                 {{#if (and item.isPhysical user.isGM)}}
                     <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
                 {{/if}}
@@ -52,6 +57,14 @@
                     {{> (detailsTemplate)}}
                 </div>
             {{/if}}
+
+            {{#developMode}}
+                {{#if item.isPhysical}}
+                    <div class="tab item-usage" data-tab="usage">
+                        {{> systems/pf2e/templates/items/usage-panel.html}}
+                    </div>
+                {{/if}}
+            {{/developMode}}
 
             <!-- Mystification Details -->
             {{#if (and item.isPhysical user.isGM)}}

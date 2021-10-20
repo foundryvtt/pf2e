@@ -25,22 +25,22 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             return;
         }
     }
-    ActionsPF2e.simpleRollActionCheck(
-        options.actors,
-        property,
-        options.glyph ?? "A",
+    ActionsPF2e.simpleRollActionCheck({
+        actors: options.actors,
+        statName: property,
+        actionGlyph: options.glyph ?? "A",
         title,
         subtitle,
-        options.modifiers,
-        ["all", checkType, stat, "action:create-a-diversion"],
-        ["action:create-a-diversion", options.variant],
-        traits.sort(),
+        modifiers: options.modifiers,
+        rollOptions: ["all", checkType, stat, "action:create-a-diversion"],
+        extraOptions: ["action:create-a-diversion", options.variant],
+        traits: traits.sort(),
         checkType,
-        options.event,
-        (target) => target.perception,
-        (selector: string) => [
+        event: options.event,
+        difficultyClassStatistic: (target) => target.perception,
+        extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.CreateADiversion", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.CreateADiversion", "failure"),
-        ]
-    );
+        ],
+    });
 }

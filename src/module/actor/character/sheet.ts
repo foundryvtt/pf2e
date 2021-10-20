@@ -11,19 +11,25 @@ import { goesToEleven, ZeroToThree } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e } from "@module/utils";
+import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { CraftingFormulaData } from "@module/crafting/formula";
+import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
+import { craft } from "@system/actions/crafting/craft";
+import { CheckDC } from "@system/check-degree-of-success";
+import { craftItem } from "@module/crafting/helpers";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+    // A cache of this PC's known formulas, for use by sheet callbacks
+    private knownFormulas!: Map<string, CraftingFormula>;
+
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["default", "sheet", "actor", "pc"],
-            width: 700,
+            width: 750,
             height: 800,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }],
             showUnpreparedSpells: false,
@@ -117,7 +123,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
-        sheetData.knownFormulas = await this.prepareCraftingFormulas();
+
+        const formulasByLevel = await this.prepareCraftingFormulas();
+        sheetData.crafting = {
+            noCost: this.actor.data.flags.pf2e.freeCrafting,
+            knownFormulas: formulasByLevel,
+        };
+        this.knownFormulas = new Map(
+            Object.values(formulasByLevel)
+                .flat()
+                .map((formula): [string, CraftingFormula] => [formula.uuid, formula])
+        );
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -181,11 +197,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             classfeature: { label: "PF2E.FeaturesClassHeader", feats: [], bonusFeats: [] },
             ancestry: { label: "PF2E.FeatAncestryHeader", feats: [], bonusFeats: [] },
             class: { label: "PF2E.FeatClassHeader", feats: [], bonusFeats: [] },
+            dualclass: { label: "PF2E.FeatDualClassHeader", feats: [], bonusFeats: [] },
             archetype: { label: "PF2E.FeatArchetypeHeader", feats: [], bonusFeats: [] },
             skill: { label: "PF2E.FeatSkillHeader", feats: [], bonusFeats: [] },
             general: { label: "PF2E.FeatGeneralHeader", feats: [], bonusFeats: [] },
             bonus: { label: "PF2E.FeatBonusHeader", feats: [], bonusFeats: [] },
         };
+        if (game.settings.get("pf2e", "dualClassVariant")) {
+            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1 });
+            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
+                featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level });
+            }
+        } else {
+            //Use delete so it is in the right place on the sheet
+            delete featSlots.dualclass;
+        }
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
                 featSlots.archetype.feats.push({ id: `archetype-${level}`, level });
@@ -202,13 +228,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
-        };
-
-        // Read-Only Actions
-        const readonlyActions: Record<string, { label: string; actions: any[] }> = {
-            interaction: { label: "Interaction Actions", actions: [] },
-            defensive: { label: "Defensive Actions", actions: [] },
-            offensive: { label: "Offensive Actions", actions: [] },
         };
 
         const readonlyEquipment: unknown[] = [];
@@ -308,27 +327,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         parseInt((itemData.data.actions || {}).value, 10) || 1
                     ).imageUrl;
                     actions[actionType].actions.push(itemData);
-
-                    // Read-Only Actions
-                    if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                        switch (itemData.data.actionCategory.value) {
-                            case "interaction":
-                                readonlyActions.interaction.actions.push(itemData);
-                                actorData.hasInteractionActions = true;
-                                break;
-                            case "defensive":
-                                readonlyActions.defensive.actions.push(itemData);
-                                actorData.hasDefensiveActions = true;
-                                break;
-                            // Should be offensive but throw anything else in there too
-                            default:
-                                readonlyActions.offensive.actions.push(itemData);
-                                actorData.hasOffensiveActions = true;
-                        }
-                    } else {
-                        readonlyActions.offensive.actions.push(itemData);
-                        actorData.hasOffensiveActions = true;
-                    }
                 }
             }
 
@@ -362,31 +360,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ).imageUrl;
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
-
-                // Read-Only Actions
-                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
-                    switch (itemData.data.actionCategory.value) {
-                        case "interaction":
-                            readonlyActions.interaction.actions.push(itemData);
-                            actorData.hasInteractionActions = true;
-                            break;
-                        case "defensive":
-                            readonlyActions.defensive.actions.push(itemData);
-                            actorData.hasDefensiveActions = true;
-                            break;
-                        case "offensive":
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                            break;
-                        // Should be offensive but throw anything else in there too
-                        default:
-                            readonlyActions.offensive.actions.push(itemData);
-                            actorData.hasOffensiveActions = true;
-                    }
-                } else {
-                    readonlyActions.offensive.actions.push(itemData);
-                    actorData.hasOffensiveActions = true;
-                }
             }
 
             // class
@@ -484,7 +457,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
-        actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
 
@@ -605,18 +577,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormulaData[]>> {
-        const knownFormulas: Record<number, CraftingFormulaData[]> = {};
+    protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
         const craftingFormulas = await this.actor.getCraftingFormulas();
-        for (const formula of craftingFormulas) {
-            const level = formula.level || 0;
-            knownFormulas[level] ? knownFormulas[level].push(formula) : (knownFormulas[level] = [formula]);
-        }
-        return knownFormulas;
+        return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /**
@@ -804,6 +771,44 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             item.update(data);
         });
+
+        const $formulas = html.find(".craftingEntry-list");
+
+        $formulas.find(".craft-item").on("click", async (event) => {
+            const { itemUuid } = event.currentTarget.dataset;
+            const itemQuantity = Number(
+                $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
+            );
+            const formula = this.knownFormulas.get(itemUuid ?? "");
+            if (!formula) return;
+
+            if (this.actor.data.flags.pf2e.freeCrafting) {
+                craftItem(formula.item, itemQuantity, this.actor);
+                return;
+            }
+
+            const dc: CheckDC = {
+                value: formula.dc,
+                visibility: "all",
+                adjustments: this.actor.data.data.skills["cra"].adjustments,
+                scope: "CheckOutcome",
+            };
+
+            craft({ dc, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
+        });
+
+        $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
+            const $target = $(event.currentTarget);
+
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const formula = this.knownFormulas.get(itemUUID ?? "");
+            if (!formula) throw ErrorPF2e("Formula not found");
+
+            const batchSize = formula.minimumBatchSize;
+            const step = $target.text().trim() === "+" ? batchSize : -batchSize;
+            const value = Number($target.siblings("input").val()) || step;
+            $target.siblings("input").val(Math.max(value + step, batchSize));
+        });
     }
 
     /** Handle changing of proficiency-rank via dropdown */
@@ -970,7 +975,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype") {
+        if (featSlotType === "archetype" || featSlotType == "dualclass") {
             // Archetype feat slots are class feat slots
             featSlotType = "class";
         }

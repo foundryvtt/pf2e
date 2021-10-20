@@ -52,6 +52,8 @@ declare global {
 
         get collection(): Items<this>;
 
+        get uuid(): ItemUUID;
+
         _sheet: ItemSheet<Item> | null;
 
         get sheet(): ItemSheet<Item>;
@@ -60,5 +62,5 @@ declare global {
         getFlag(scope: "core", key: "sourceId"): string | undefined;
     }
 
-    type ItemUUID = `Item.${string}` | `Actor.${string}.Item.${string}` | `Compendium.${string}.${string}`;
+    type ItemUUID = `Item.${string}` | `Actor.${string}.Item.${string}` | CompendiumUUID;
 }

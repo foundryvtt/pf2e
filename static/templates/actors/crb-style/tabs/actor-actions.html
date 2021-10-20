@@ -31,25 +31,55 @@
                         </li>
                         {{#each actor.data.actions as |action ai|}}
                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                        <li class="item expandable" data-action-index="{{ai}}">
+                        <li class="item expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
                             <div class="item-name rollable">
                                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
                                     <i class="fas fa-dice-d20"></i>
                                 </div>
                                 <div class="actions-title">
-                                    <h4 class="action-name">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+                                    <div class="action-name">
+                                        <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+                                        {{#if action.origin}}
+                                            <div class="action-options" data-item-id="{{action.origin.id}}">
+                                                {{#with action.origin.ammo.charges}}
+                                                    {{#if (gt max 1)}}
+                                                        <span class="ammo-remaining"><i class="ammo-icon"></i> {{current}}</span>
+                                                    {{/if}}
+                                                {{/with}}
+
+                                                {{#if (eq action.origin.type "weapon")}}
+                                                    <a class="item-control item-toggle-equip {{#if action.origin.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.weaponEquipped"}}"><i class="fas fa-tshirt"></i></a>
+                                                {{/if}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
                                     <div class="button-group tags">
                                         {{#each action.variants as |variant vi|}}
                                         <button type="button" class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                                         {{/each}}
                                         <button type="button" class="tag damage-strike">{{localize 'PF2E.DamageLabel'}}</button>
                                         <button type="button" class="tag critical-strike">{{localize 'PF2E.CriticalDamageLabel'}}</button>
-                                        {{#if action.ammo}}
-                                        <select name="ammo-used">
+                                        {{#if action.ammunition}}
+                                        <select name="ammo-used" {{#if action.ammunition.selected}}data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
                                             <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
-                                            {{#each action.ammo as |item|}}
-                                            <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
-                                            {{/each}}
+                                            {{#if action.ammunition.compatible}}
+                                                <optgroup label="{{localize "PF2E.ConsumableCompatibleLabel"}}">
+                                                    {{#each action.ammunition.compatible as |item|}}
+                                                        <option value="{{item._id}}" data-compatible="true" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                            {{ item.name }} ({{ item.data.quantity.value }})
+                                                        </option>
+                                                    {{/each}}
+                                                </optgroup>
+                                            {{/if}}
+                                            {{#if action.ammunition.incompatible}}
+                                                <optgroup label="{{localize "PF2E.ConsumableIncompatibleLabel"}}">
+                                                    {{#each action.ammunition.incompatible as |item|}}
+                                                        <option value="{{item._id}}" data-compatible="false" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
+                                                            {{ item.name }} ({{ item.data.quantity.value }})
+                                                        </option>
+                                                    {{/each}}
+                                                </optgroup>
+                                            {{/if}}
                                         </select>
                                         {{/if}}
                                     </div>
@@ -75,6 +105,8 @@
                         </li>
                         {{/if}}
                         {{/each}}
+                    </ol>
+                    <ol class="actions-list item-list inventory-list directory-list">
                         {{#each actor.actions as |section sid|}}
                             <li class="action-header">
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
@@ -110,7 +142,7 @@
                 </div>
 
                 <div id="exploration" class="actions-panel">
-                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                    <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}
@@ -144,7 +176,7 @@
                 </div>
 
                 <div id="downtime" class="actions-panel">
-                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                    <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}

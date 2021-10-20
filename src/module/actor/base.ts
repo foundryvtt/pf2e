@@ -1,10 +1,10 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
-import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@module/utils";
+import { ConditionData, WeaponData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ErrorPF2e, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -12,7 +12,6 @@ import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
@@ -62,8 +61,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** The compendium source ID of the actor **/
-    get sourceId(): string | null {
-        return this.getFlag("core", "sourceId") ?? null;
+    get sourceId(): ActorUUID | null {
+        return this.data.flags.core?.sourceId ?? null;
     }
 
     /** The recorded schema version of this actor, updated after each data migration */
@@ -212,6 +211,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
+        this.data.data.autoChanges = {};
         this.preparePrototypeToken();
 
         // Setup the basic structure of pf2e flags with roll options
@@ -241,9 +241,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.rules = this.items.contents
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
-            .sort((elementA, elementB) => {
-                return elementA.priority > elementB.priority ? 1 : -1;
-            });
+            .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
@@ -504,7 +502,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 if (!actor) return;
                 if (actor.data.data.saves[save]?.roll) {
                     const options = actor.getRollOptions(["all", "saving-throw", save]);
-                    options.push("magical", "spell");
+                    if (item instanceof SpellPF2e) {
+                        options.push("magical", "spell");
+                        if (Object.keys(item.data.data.damage.value).length > 0) {
+                            options.push("damaging-effect");
+                        }
+                    }
                     if (itemTraits) {
                         options.push(...itemTraits);
                     }
@@ -633,13 +636,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             let updatedShieldHp = -1;
             if (attribute === "attributes.shield") {
                 if (shield?.isBroken === false) {
-                    let shieldHitPoints = shield.hitPoints.current;
+                    let shieldHitPoints = shield.hitPoints.value;
                     if (isDelta && value < 0) {
                         // shield block
                         value = Math.min(shield.hardness + value, 0); // value is now a negative modifier (or zero), taking into account hardness
                         if (value < 0) {
                             attribute = "attributes.hp"; // update the actor's hit points after updating the shield
-                            shieldHitPoints = Math.clamped(shield.hitPoints.current + value, 0, shield.hitPoints.max);
+                            shieldHitPoints = Math.clamped(shield.hitPoints.value + value, 0, shield.hitPoints.max);
                         }
                     } else {
                         shieldHitPoints = Math.clamped(value, 0, shield.hitPoints.max);
@@ -770,24 +773,31 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = traits.has("invested") ? false : null;
         }
 
+        return targetActor.addToInventory(newItemData, container);
+    }
+
+    async addToInventory(
+        itemData: PhysicalItemSource,
+        container?: Embedded<ContainerPF2e>
+    ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(targetActor, newItemData);
+        const stackItem = this.findStackableItem(this, itemData);
         if (stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + quantity;
+            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
             await stackItem.update({ "data.quantity.value": stackQuantity });
             return stackItem;
         }
 
         // Otherwise create a new item
-        const result = await ItemPF2e.create(newItemData, { parent: targetActor });
+        const result = await ItemPF2e.create(itemData, { parent: this });
         if (!result) {
             return null;
         }
-        const movedItem = targetActor.physicalItems.get(result.id);
+        const movedItem = this.physicalItems.get(result.id);
         if (!movedItem) return null;
-        await targetActor.stowOrUnstow(movedItem, container);
+        await this.stowOrUnstow(movedItem, container);
 
-        return item;
+        return movedItem;
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
@@ -923,40 +933,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(rollName: string, optionName: string) {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-            throw new Error(`${rollName} is not a supported roll`);
-        }
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
-    }
-
-    /** Set the given roll option. */
-    async setRollOption(rollName: string, optionName: string, enabled: boolean) {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-            throw new Error(`${rollName} is not a supported roll`);
-        }
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.setFlag(game.system.id, flag, !!enabled);
-    }
-
-    /** Unset (i.e., delete entirely) the given roll option. */
-    async unsetRollOption(rollName: string, optionName: string) {
-        const flag = `rollOptions.${rollName}.${optionName}`;
-        return this.unsetFlag(game.system.id, flag);
-    }
-
-    /** Enable the given roll option for thie given roll name. */
-    async enableRollOption(rollName: string, optionName: string) {
-        return this.setRollOption(rollName, optionName, true);
-    }
-
-    /** Disable the given roll option for the given roll name. */
-    async disableRollOption(rollName: string, optionName: string) {
-        return this.setRollOption(rollName, optionName, false);
-    }
-
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
     getRollOptions(rollNames: string[]): string[] {
         const rollOptions = this.data.flags.pf2e.rollOptions;
@@ -1066,8 +1042,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const data: ActorSourcePF2e = JSON.parse(json);
+        const importData = JSON.parse(json);
+        const systemModel = deepClone(game.system.model.Actor[importData.type]);
+        const data: ActorSourcePF2e = mergeObject({ data: systemModel }, importData);
         this.data.update(game.actors.prepareForImport(data), { recursive: false });
+
         await MigrationRunner.ensureSchemaVersion(
             this,
             Migrations.constructFromVersion(this.schemaVersion ?? undefined),

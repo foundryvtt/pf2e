@@ -13,8 +13,8 @@ $common: #323232;
 $uncommon: #98513d;
 $rare: #002664;
 $unique: #54166e;
-$positive-modifier: #009988;
-$negative-modifer: #cc3311;
+$adjusted-higher: #009988;
+$adjusted-lower: #cc3311;
 
 @import "forms";
 @import "data-entry";
@@ -70,6 +70,10 @@ $negative-modifer: #cc3311;
             }
         }
 
+        .description {
+            margin: 8px;
+        }
+
         .traits-list-container {
             display: flex;
             flex-direction: row;
@@ -98,6 +102,10 @@ $negative-modifer: #cc3311;
             }
         }
     }
+
+    hr {
+        margin: 10px 6px 10px 0;
+      }
 
     .side-bar {
         flex: 160px 0 0;
@@ -159,10 +167,9 @@ $negative-modifer: #cc3311;
             }
 
             .armor-value {
-                flex: 0px;
+                flex: 0;
                 text-align: right;
-                font-weight: bold;
-                color: $value-color;
+                font-weight: 700;
                 padding-right: 4px;
             }
         }
@@ -248,19 +255,16 @@ $negative-modifer: #cc3311;
 
         .health-section {
             .side-bar-label {
-                color: $health-color;
                 align-items: center;
             }
 
             .health-value {
                 display: flex;
                 flex-direction: row;
-                color: $value-color;
                 flex: 0;
                 margin-left: auto;
 
                 input {
-                    color: $value-color;
                     &:first-child {
                         width: 36px;
                         text-align: right;
@@ -269,6 +273,7 @@ $negative-modifer: #cc3311;
                     &:last-child {
                         font-weight: bold;
                         text-align: center;
+                        margin-right: 4px;
                         &.lt10 {
                           width: 8px;
                         }
@@ -324,15 +329,6 @@ $negative-modifer: #cc3311;
                     text-align: center;
                     z-index: 1;
                 }
-                span.plus {
-                    &::before {
-                        left: -15px;
-                        top: -24px;
-                    }
-                    &.lt10::before {
-                        left: -10px;
-                    }
-                }
             }
         }
     }
@@ -340,9 +336,8 @@ $negative-modifer: #cc3311;
     .sheet-body {
         flex: auto;
         .tab {
-            &:not(.notes) {
-                overflow: hidden scroll;
-            }
+            overflow: hidden scroll;
+            
 
             .identification-skills {
                 ul {
@@ -361,32 +356,20 @@ $negative-modifer: #cc3311;
         }
     }
 
-    .section-body, .saves > .container {
-        input.modifier {
-            display: inline;
-            text-align: right;
+    .public-notes {
+        margin-left: 8px;
+    }
 
-            &.positive-modifier {
-                color: $positive-modifier;
-            }
+    input.adjustable, span.adjustable {
+        display: inline;
+        text-align: right;
 
-            &.negative-modifier {
-                color: $negative-modifer;
-            }
+        &.adjusted-higher {
+            color: $adjusted-higher;
         }
-        span.plus {
-            display: none;
-            height: 0;
-            &::before {
-                content: "+";
-                font-weight: normal;
-                position: relative;
-            }
-        }
-        input.modifier.not-negative:not(:focus) {
-            + span.plus {
-                display: inline;
-            }
+
+        &.adjusted-lower {
+            color: $adjusted-lower;
         }
     }
 
@@ -600,20 +583,22 @@ $negative-modifer: #cc3311;
 
     .labelled-field {
         display: flex;
-        flex: auto;
         flex-direction: row;
-        justify-content: flex-start;
         align-items: baseline;
 
         label {
-            min-width: 22px;
+            flex: 1;
             font-weight: bold;
         }
 
         input[type="text"], input[type="number"] {
-            flex: auto;
+            flex: 0;
             font-weight: normal;
-            margin-left: 6px !important;
+            margin: 1px 4px;
+            margin-left: auto;
+            min-width: 2.5em;
+            padding-right: 1px;
+            text-align: right;
         }
         &.hp-temp > label {
             margin-right: 0.5em;
@@ -643,12 +628,6 @@ $negative-modifer: #cc3311;
                     flex: 0 0 24px;
                     z-index: 1;
                 }
-                span.plus::before {
-                  left: -22px;
-                }
-                span.plus.lt10::before {
-                  left: -15px;
-                }
             }
         }
 
@@ -658,19 +637,12 @@ $negative-modifer: #cc3311;
 
             .list {
                 display: grid;
+                padding-left: 0.75em;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
-                label {
-                    padding-left: 8px;
-                }
                 input {
                     flex: 0 0 24px;
+                    margin-right: 1em;
                     z-index: 1;
-                }
-                span.plus::before {
-                  left: -21px;
-                }
-                span.plus.lt10::before {
-                  left: -15px;
                 }
             }
         }
@@ -752,6 +724,10 @@ $negative-modifer: #cc3311;
                     }
                 }
             }
+        }
+
+        &.languages {
+            flex: 1;
         }
     }
 
@@ -952,19 +928,48 @@ $negative-modifer: #cc3311;
         overflow-y: hidden;
     }
 
-    .notes-text {
-        color: #333;
-        width: 100%;
-        height: 100%;
-        overflow-y: hidden;
-        > .editor {
-            padding: 0 8px;
-            > a.editor-edit {
-                right: 8px;
+    .notes {
+        padding-right: 20px !important;
+
+        .details-label {
+            margin-left: 8px;
+            padding: 4px;
+            font-family: var(--sans-serif);
+            font-size: 10px;
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--primary);
+        
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+
+        .notes-text {
+            margin-left: 8px;
+            padding: 4px;
+            color: #333;
+    
+            .editor {
+                min-height: 200px;
+                height: 100%;
+                width: 100%;
+    
+                .editor-edit {
+                    background: var(--primary);
+                    color: white;
+                }
+    
+                .editor-content {
+                    min-height: 200px;
+                    height: 100%;
+                    width: 100%;
+                    overflow-y: inherit;
+                }
             }
         }
     }
-
+    
     &.dead {
         .profile {
             background-size: cover;

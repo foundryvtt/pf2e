@@ -6,7 +6,7 @@ import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";
@@ -26,7 +26,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
         super(data, item);
-        this.initialize(data);
+        this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides);
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
     }
@@ -123,8 +123,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    /** Add any new traits and remove the armor check penalty if this battle form ignores it */
-    override onBeforePrepareData(): void {
+    override onBeforePrepareData(_actorData: unknown, synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
         const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
@@ -133,6 +132,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             return;
         }
         this.setRollOptions();
+        this.prepareSenses(synthetics);
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
@@ -149,7 +149,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         this.prepareAC();
-        this.prepareSenses();
         this.prepareSize();
         this.prepareSkills();
         this.prepareSpeeds(synthetics);
@@ -201,14 +200,13 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Add new senses the character doesn't already have */
-    private prepareSenses(): void {
+    private prepareSenses(synthetics: RuleElementSynthetics): void {
         for (const senseType of SENSE_TYPES) {
             const newSense = this.overrides.senses[senseType];
             if (!newSense) continue;
             newSense.acuity ??= "precise";
-            const label = game.i18n.localize(CONFIG.PF2E.senses[senseType]);
-            const ruleData = { key: "Sense", label, selector: senseType, ...newSense };
-            new SenseRuleElement(ruleData, this.item).onBeforePrepareData();
+            const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
+            new SenseRuleElement(ruleData, this.item).onBeforePrepareData(this.actor.data, synthetics);
         }
     }
 

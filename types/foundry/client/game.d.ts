@@ -249,6 +249,10 @@ declare global {
                 Scene: string[];
                 User: string[];
             };
+            model: {
+                Actor: Record<string, object>;
+                Item: Record<string, object>;
+            };
         };
 
         /** A convenience accessor for the currently active Combat encounter */

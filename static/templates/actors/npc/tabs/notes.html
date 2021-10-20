@@ -1,5 +1,40 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
+    <div class = "notes-section public-notes">
+        <label class= "details-label">
+            {{localize "PF2E.NPC.PublicNotes"}}
+        </label>
+        <div class="notes-text">
+            {{editor content=data.details.publicNotes target="data.details.publicNotes" button=true editable=editable}}
+        </div>
+    </div>
+    <div class="notes-section private-notes">
+        <label class="details-label">
+            {{localize "PF2E.NPC.PrivateNotes"}}
+        </label>
+        <div class = "notes-text">
+            {{editor content=data.details.privateNotes target="data.details.privateNotes" button=true editable=editable}}
+        </div>
+    </div>
     <div class="notes-text flexcol">
-        {{editor content=data.details.flavorText target="data.details.flavorText" button=true editable=editable}}
+        <div class="source section-container" style="flex:0">
+            <div class="section-header">
+                <h4>{{localize "PF2E.Source.Label"}}</h4>
+            </div>
+            <div class="section-body">
+                <p class="flexrow" style="flex-basis: 100%; align-items: center;">
+                    {{# if options.editable }}
+                    <input name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize 'PF2E.Source.SourcePlaceholder'}}" style="flex:2"/>
+                    {{else}}
+                    <span style="flex:2">{{data.details.source.value}}</span>
+                    {{/if}}
+                    {{# if options.editable }}
+                    <span style="flex:0">{{localize "PF2E.Source.AuthorLabel"}}</span>
+                    <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="{{localize 'PF2E.Source.AuthorPlaceholder'}}"/>
+                    {{else}}
+                    <span>{{localize "PF2E.Source.AuthorLabel"}} {{data.details.source.author}}</span>
+                    {{/if}}
+                </p>
+            </div>
+        </div>
     </div>
 </div>

@@ -14,7 +14,7 @@ import { RollParameters } from "@system/rolls";
 import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
-import { sluggify } from "@module/utils";
+import { sluggify } from "@util";
 import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
 import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";
@@ -128,6 +128,7 @@ export class NPCPF2e extends CreaturePF2e {
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { details } = this.data.data;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -140,11 +141,11 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value, "elite"),
+                    this.getHpAdjustment(details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value += 1;
+            details.level = { base: details.level.value, value: details.level.value + 1 };
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED));
@@ -156,22 +157,24 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
+                    this.getHpAdjustment(details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value -= 1;
+            details.level = { base: details.level.value, value: details.level.value - 1 };
+        } else {
+            details.level.base = details.level.value;
         }
 
-        // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
-        for (const abl of Object.values(this.data.data.abilities)) {
-            abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
-            abl.value = abl.mod * 2 + 10;
+        // Compute 10+mod ability scores from ability modifiers
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.mod = Number(ability.mod) || 0;
+            ability.value = ability.mod * 2 + 10;
         }
 
         // Hit Points
         {
-            const base: number = data.attributes.hp.base ?? data.attributes.hp.value;
+            const base = data.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [];
             (statisticsModifiers.hp || [])
                 .map((m) => m.clone())
@@ -215,7 +218,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
+            const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
@@ -287,7 +290,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Saving Throws
         for (const saveName of SAVE_TYPES) {
             const save = data.saves[saveName];
-            const base: number = save.base ?? Number(save.value);
+            const base = save.value;
             const ability = save.ability;
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
@@ -332,7 +335,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Perception
         {
-            const base: number = data.attributes.perception.base ?? Number(data.attributes.perception.value);
+            const base = data.attributes.perception.value;
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
@@ -435,7 +438,7 @@ export class NPCPF2e extends CreaturePF2e {
                 // assume lore, if skill cannot be looked up
                 const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
 
-                const base: number = (itemData.data.mod as any).base ?? Number(itemData.data.mod.value);
+                const base = itemData.data.mod.value;
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(
@@ -501,7 +504,7 @@ export class NPCPF2e extends CreaturePF2e {
                 let ability: AbilityString;
                 {
                     ability = itemData.data.weaponType?.value === "ranged" ? "dex" : "str";
-                    const bonus = Number(itemData.data?.bonus?.value ?? 0);
+                    const bonus = Number(itemData.data.bonus?.value) || 0;
                     if (traits.includes("finesse")) {
                         ability = "dex";
                     } else if (traits.includes("brutal")) {
@@ -598,30 +601,6 @@ export class NPCPF2e extends CreaturePF2e {
                             action.damageBreakdown[0] + ` -2 ${game.i18n.localize("PF2E.NPC.Adjustment.WeakLabel")}`;
                     }
                 }
-                // Add attack effects to traits.
-                const attackTraits: { name: string; label: string; toggle: boolean }[] = [];
-                itemData.data.attackEffects.value.forEach((attackEffect: string) => {
-                    const localizationMap: Record<string, string> = CONFIG.PF2E.attackEffects;
-                    const key = sluggify(attackEffect);
-                    const actions = this.itemTypes.action;
-                    const consumables = this.itemTypes.consumable;
-                    const label =
-                        game.i18n.localize(localizationMap[key]) ??
-                        actions.flatMap((action) =>
-                            action.slug === key || sluggify(action.name) === key ? action.name : []
-                        )[0] ??
-                        consumables.flatMap((consumable) =>
-                            consumable.slug === key || sluggify(consumable.name) === key ? consumable.name : []
-                        )[0];
-                    if (label) {
-                        attackTraits.push({
-                            name: key,
-                            label,
-                            toggle: false,
-                        });
-                    }
-                });
-                action.traits.push(...attackTraits);
 
                 const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
                 const meleeItem = this.items.get(itemData._id);
@@ -826,11 +805,23 @@ export class NPCPF2e extends CreaturePF2e {
                         .join(", ");
                     attack.roll = (args: RollParameters) => {
                         const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
-                        const options = args.options ?? [];
+                        const ctx = this.createAttackRollContext(args.event!, [
+                            "all",
+                            "attack-roll",
+                            "spell-attack-roll",
+                        ]);
+                        const options = (args.options ?? []).concat(ctx.options);
                         ensureProficiencyOption(options, rank);
                         CheckPF2e.roll(
                             new CheckModifier(label, attack, args.modifiers ?? []),
-                            { actor: this, item: args.item, type: "spell-attack-roll", options, dc: args.dc, notes },
+                            {
+                                actor: this,
+                                item: args.item,
+                                type: "spell-attack-roll",
+                                options,
+                                dc: args.dc ?? ctx.dc,
+                                notes,
+                            },
                             args.event,
                             args.callback
                         );

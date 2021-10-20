@@ -3,8 +3,8 @@ import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
-    override getData() {
-        const data: ItemSheetDataPF2e<ActionPF2e> = super.getData();
+    override async getData() {
+        const data: ItemSheetDataPF2e<ActionPF2e> = await super.getData();
         const actorWeapons = this.actor?.itemTypes.weapon.map((weapon) => weapon.data) ?? [];
         const actionType = data.data.actionType.value || "action";
         const actionImg = (() => {
@@ -28,10 +28,10 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
             weapons: actorWeapons,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
-            featTraits: CONFIG.PF2E.featTraits,
+            actionTraits: CONFIG.PF2E.actionTraits,
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
-            traits: this.prepareOptions(CONFIG.PF2E.featTraits, data.data.traits),
+            traits: this.prepareOptions(CONFIG.PF2E.actionTraits, data.data.traits),
         };
     }
 }

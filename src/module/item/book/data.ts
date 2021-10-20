@@ -1,6 +1,5 @@
 import { EquipmentTraits } from "@item/equipment/data";
 import { BasePhysicalItemData, BasePhysicalItemSource, MagicItemSystemData } from "@item/physical/data";
-import { CraftingFormulaData } from "@module/crafting/formula";
 import type { BookPF2e } from "./document";
 
 export type BookSource = BasePhysicalItemSource<"book", BookSystemData>;
@@ -22,7 +21,7 @@ type BookSystemData = {
 
 interface FormulaBookSystemData extends MagicItemSystemData {
     subtype: "formula";
-    item: CraftingFormulaData[];
+    item: ItemUUID[];
 }
 
 interface SpellBookSystemData extends MagicItemSystemData {
