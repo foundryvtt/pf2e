@@ -15,156 +15,110 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "18 + @details.level.value"
-                        },
-                        {
-                            "start": 6,
-                            "value": "21 + @details.level.value"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Aberrant Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 13
-                        },
-                        {
-                            "start": 6,
-                            "value": 26
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 6,
-                            "value": 22
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 8
-                        },
-                        {
-                            "start": 6,
-                            "value": 13
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 6,
-                            "value": 23
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 6,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 30
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "key": "Strike",
-                "label": "Claw",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
-            },
-            {
                 "key": "Note",
                 "selector": "{item|_id}-damage",
                 "text": "<p class='compact-text'><strong>Grab</strong>: You can spend an action after a hit to Grab the target.</p>"
             },
             {
-                "key": "BaseSpeed",
-                "selector": "swim-speed",
-                "value": 25
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 25,
+                        "swim": 30
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "img": "systems/pf2e/icons/equipment/weapons/fist.webp",
+                            "traits": [
+                                "melee",
+                                "reach-10"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "aberration"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "ability": "str",
+                                        "baseType": "claw",
+                                        "category": "unarmed",
+                                        "damage": {
+                                            "damageType": "bludgeoning",
+                                            "dice": 2,
+                                            "die": "d8",
+                                            "modifier": 8
+                                        },
+                                        "group": "brawling",
+                                        "img": "systems/pf2e/icons/equipment/weapons/fist.webp",
+                                        "modifier": 18,
+                                        "traits": [
+                                            "melee",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 13
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 22,
+                                        "traits": [
+                                            "melee",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 26
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             }
         ],
         "source": {
