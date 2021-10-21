@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -96,42 +96,40 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Piercing",
+                    "exceptions": "",
                     "type": "piercing",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [
                 {
-                    "label": "Axe Vulnerability",
-                    "type": "axe vulnerability"
+                    "type": "axe",
+                    "value": 5
                 },
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
-                "custom": "speak with plants",
+                "custom": "Speak with Plants",
                 "selected": [],
                 "value": [
                     "arboreal",
                     "common",
-                    "sylvan",
-                    "custom"
+                    "sylvan"
                 ]
             },
             "rarity": {
                 "value": "common"
             },
             "senses": {
-                "value": "low-light vision"
+                "value": "low-light vision; speak with plants"
             },
             "size": {
                 "value": "huge"
@@ -149,10 +147,10 @@
     "img": "systems/pf2e/icons/bestiary-1/arboreal_regent.webp",
     "items": [
         {
-            "_id": "b60xBIcSHGaEnyeD",
+            "_id": "qqqYIHulqpSQmjAc",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -160,12 +158,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -173,10 +168,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -248,10 +243,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "26",
-                    "item": 0,
+                    "dc": 26,
                     "mod": 0,
-                    "value": 16
+                    "value": 18
                 },
                 "tradition": {
                     "value": "primal"
@@ -272,14 +266,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "1N3LllzsFoaqliCF",
+            "_id": "JgLAUNOR58PPWtCz",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -308,16 +305,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "b60xBIcSHGaEnyeD"
+                    "value": "qqqYIHulqpSQmjAc"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -331,9 +334,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "speak-with-plants",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=294"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -363,9 +372,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qvwIwJ9QBihy8R0t"
+                }
+            },
             "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
-            "name": "Speak with Plants",
+            "name": "Speak with Plants (Constant)",
             "sort": 200000,
             "type": "spell"
         },
@@ -376,6 +389,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -422,6 +436,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -468,6 +483,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -507,6 +523,102 @@
             "name": "Rock",
             "sort": 500000,
             "type": "melee"
+        },
+        {
+            "_id": "gRnmV8LgZS6qZ09j",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "DM0bCE11AyauvvEH",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 700000,
+            "type": "action"
         },
         {
             "_id": "esNHCG2RP8SOfTuA",
@@ -549,7 +661,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Axe Vulnerability",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -565,7 +677,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The arboreal regent causes a tree within 180 feet to uproot itself and fight as a minion using the statistics for an awakened tree. The arboreal regent can control up to two awakened trees at a time, and it can issue commands to both trees as a single action, which has the concentrate and auditory traits.</p>"
+                    "value": "<p>The arboreal regent causes a tree within 180 feet to uproot itself and fight as a minion using the statistics for an @Compendium[pf2e.pathfinder-bestiary.Awakened Tree]{Awakened Tree}. The arboreal regent can control up to two awakened trees at a time, and it can issue commands to both trees as a single action, which has the concentrate and auditory traits.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -582,8 +694,7 @@
                     },
                     "value": [
                         "concentrate",
-                        "primal",
-                        "auditory"
+                        "primal"
                     ]
                 },
                 "trigger": {
@@ -595,9 +706,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Awaken Tree",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -613,12 +724,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When an arboreal regent damages an item or structure, it deals an additional [[/r 2d10 #damage]]{2d10 damage} to that item or structure.</p>"
+                    "value": "<p>When an arboreal regent damages an item or structure, it deals an additional [[/r {2d10}[bludgeoning]]]{2d10 damage} to that item or structure.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.sunderObjects"
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 2,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "sunderObjects"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -641,11 +769,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sunder Objects",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "pPvWXuLB1ZzFQ0Sc",
+            "_id": "QcXlYliyTvqiEDHM",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -657,13 +785,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "throw-rock",
                 "source": {
                     "value": ""
                 },
@@ -682,10 +810,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -720,7 +852,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -755,7 +887,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -790,7 +922,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -825,7 +957,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -878,7 +1010,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         }
     ],
