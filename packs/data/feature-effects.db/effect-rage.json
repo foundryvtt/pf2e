@@ -24,6 +24,38 @@
                 "path": "flags.pf2e.rollOptions.all.rage",
                 "priority": 10,
                 "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "type": "untyped",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "melee"
+                    ],
+                    "not": [
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "type": "untyped",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "untyped",
+                "value": -1
             }
         ],
         "source": {
