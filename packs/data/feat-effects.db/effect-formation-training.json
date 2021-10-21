@@ -2,7 +2,7 @@
     "_id": "LVPodfYEWKtK3fUW",
     "data": {
         "description": {
-            "value": "<p>Granted by Formation Training</p>"
+            "value": "<p>Granted by Formation Training</p>\n<hr />\n<p>You know how to fight in formation with your brethren. When you are adjacent to at least two hobgoblin allies, you gain a +1 circumstance bonus to AC and saving throws. This bonus increases to +2 on Reflex saves against area effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,34 +11,31 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 5
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Formation Training",
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Formation Training",
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
             },
             {
-                "key": "PF2E.RuleElement.ToggleProperty",
-                "label": "AoE Reflex Save",
-                "property": "flags.pf2e.rollOptions.damage-roll.formation-aoe"
+                "key": "ToggleProperty",
+                "label": "Saving Against an Area Effect",
+                "property": "flags.pf2e.rollOptions.damage-roll.area-effect"
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Formation Training AoE Reflex",
+                "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "formation-aoe"
+                        "area-effect"
                     ]
                 },
                 "selector": "reflex",
@@ -47,7 +44,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Character Guide"
         },
         "start": {
             "initiative": null,
