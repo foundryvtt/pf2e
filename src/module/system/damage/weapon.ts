@@ -439,7 +439,7 @@ export class WeaponDamagePF2e {
 
         // fatal trait
         traits
-            .filter((t) => t.name.startsWith("fatal-"))
+            .filter((t) => t.name.startsWith("fatal-d"))
             .forEach((t) => {
                 const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
