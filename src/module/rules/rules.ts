@@ -18,7 +18,6 @@ import { RollNoteRuleElement } from "./elements/roll-note";
 import { WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
 import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
-import { PF2EffectTargetRuleElement } from "./elements/effect-target";
 import { ActorTraitsRuleElement } from "@module/rules/elements/actor-traits";
 import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
 import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
@@ -31,6 +30,7 @@ import { WeaknessRuleElement } from "./elements/iwr/weakness";
 import { ResistanceRuleElement } from "./elements/iwr/resistance";
 import { RollOptionRuleElement } from "./elements/roll-option";
 import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting-formula";
+import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
 
 /**
  * @category RuleElement
@@ -58,7 +58,7 @@ export class RuleElements {
         Striking: PF2StrikingRuleElement,
         Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
-        EffectTarget: PF2EffectTargetRuleElement,
+        EffectTarget: EffectTargetRuleElement,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
         Resistance: ResistanceRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
