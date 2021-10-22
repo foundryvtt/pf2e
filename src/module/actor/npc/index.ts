@@ -564,12 +564,12 @@ export class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
-                const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+                const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
                 action.traits = [
                     { name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false },
                 ].concat(
                     traits.map((trait) => {
-                        const key = weaponTraits[trait] ?? trait;
+                        const key = attackTraits[trait] ?? trait;
                         const option: StrikeTrait = {
                             name: trait,
                             label: game.i18n.localize(key),
@@ -578,6 +578,14 @@ export class NPCPF2e extends CreaturePF2e {
                         return option;
                     })
                 );
+                const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
+                action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
+                    const label =
+                        attackEffects[tag] ??
+                        this.itemTypes.action.find((action) => sluggify(action.name) === tag)?.name ??
+                        tag;
+                    return { tag, label };
+                });
                 if (
                     action.attackRollType === "PF2E.NPCAttackRanged" &&
                     !action.traits.some((trait) => trait.name === "range")
