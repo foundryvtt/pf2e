@@ -76,10 +76,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             event.preventDefault();
             const id = $(event.target).closest("[data-action='damage-delete']").attr("data-id");
             if (id) {
-                this.item.update({
-                    [`data.damage.value.-=${id}`]: null,
-                    [`data.scaling.damage.-=${id}`]: null,
-                });
+                const values = { [`data.damage.value.-=${id}`]: null };
+                if (this.item.data.data.scaling) {
+                    values[`data.scaling.damage.-=${id}`] = null;
+                }
+                this.item.update(values);
             }
         });
 
