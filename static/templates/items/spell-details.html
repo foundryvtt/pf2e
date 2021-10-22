@@ -212,15 +212,15 @@
             </div>
         </h3>
 
-        {{#each data.damage.value as |damage idx|}}
+        {{#each data.damage.value as |damage id|}}
             <div class="formula-section">
                 <div class="details-container-flex-row">
-                    <input type="text" name="data.damage.value.{{idx}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                    <input type="text" name="data.damage.value.{{id}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
                     <label>
                         <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
-                        <input type="checkbox" name="data.damage.value.{{idx}}.applyMod" value="0" data-dtype="Boolean" {{checked damage.applyMod}}/>
+                        <input type="checkbox" name="data.damage.value.{{id}}.applyMod" value="0" data-dtype="Boolean" {{checked damage.applyMod}}/>
                     </label>
-                    <select name="data.damage.value.{{idx}}.type.subtype" data-dtype="String">
+                    <select name="data.damage.value.{{id}}.type.subtype" data-dtype="String">
                         {{#select damage.type.subtype}}
                             <option></option>
                             {{#each @root.damageSubtypes as |name type|}}
@@ -228,7 +228,7 @@
                             {{/each}}
                         {{/select}}
                     </select>
-                    <select name="data.damage.value.{{idx}}.type.value" data-dtype="String">
+                    <select name="data.damage.value.{{id}}.type.value" data-dtype="String">
                         {{#select damage.type.value}}
                             <option value=""></option>
                             {{#each @root.damageTypes as |name type|}}
@@ -237,8 +237,8 @@
                         {{/select}}
                     </select>
                     <div class="item-controls">
-                        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.DamageCategoriesLabel" data-config-types="damageCategories" data-property="data.damage.value.{{idx}}.type.categories"><i class="fas fa-edit"></i></a>
-                        <a data-action="damage-delete" data-idx="{{idx}}"><i class="fas fa-trash"></i></a>
+                        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.DamageCategoriesLabel" data-config-types="damageCategories" data-property="data.damage.value.{{id}}.type.categories"><i class="fas fa-edit"></i></a>
+                        <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-trash"></i></a>
                     </div>
                 </div>
                 {{#if damage.type.categories}}
