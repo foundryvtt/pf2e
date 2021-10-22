@@ -5,6 +5,7 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { StatisticBuilder } from "@system/statistic";
 import { calculateDC } from "@module/dc";
+import { setCooldown } from "@scripts/macros/set-cooldown";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -377,6 +378,20 @@ export const InlineRollsLinks = {
                 ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
+            }
+        });
+
+        $links.filter("[data-pf2-cooldown]").on("click", (event) => {
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2Cooldown, pf2Unit } = event.currentTarget.dataset;
+                if (pf2Cooldown) {
+                    actors.forEach((actor) => {
+                        setCooldown(actor, pf2Cooldown, pf2Unit);
+                    });
+                } else {
+                    console.warn(`PF2e System | Unable to Create Cooldown'`);
+                }
             }
         });
     },
