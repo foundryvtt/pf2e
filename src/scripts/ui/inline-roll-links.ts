@@ -5,7 +5,8 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { StatisticBuilder } from "@system/statistic";
 import { calculateDC } from "@module/dc";
-import { setCooldown } from "@scripts/macros/set-cooldown";
+import { EffectPF2e } from "@item/effect";
+import { ErrorPF2e } from "@util";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -17,6 +18,31 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
+async function setCooldown(actor: ActorPF2e, cooldown: string, pf2Unit: string | undefined) {
+    const ITEM_UUID = "Compendium.pf2e.bestiary-effects.4oQSjijgpQ0zlVi0";
+    const effect = await fromUuid(ITEM_UUID);
+
+    if (!(effect instanceof EffectPF2e)) {
+        throw ErrorPF2e("Cooldown effect not found");
+    }
+
+    const effectSource = effect.toObject();
+
+    if (cooldown) {
+        if (cooldown.includes("d")) {
+            effectSource.data.duration.value = new Roll(cooldown).roll({ async: false }).total;
+        } else {
+            effectSource.data.duration.value = Number(cooldown);
+        }
+
+        if (pf2Unit) {
+            effectSource.data.duration.unit = pf2Unit;
+        }
+
+        await actor.createEmbeddedDocuments("Item", [effectSource]);
+    }
+}
+
 const inlineSelector = [
     "action",
     "check",
@@ -26,6 +52,8 @@ const inlineSelector = [
     "repost",
     "saving-throw",
     "skill-check",
+    "cooldown",
+    "test",
 ]
     .map((keyword) => `[data-pf2-${keyword}]`)
     .join(",");
@@ -383,15 +411,17 @@ export const InlineRollsLinks = {
 
         $links.filter("[data-pf2-cooldown]").on("click", (event) => {
             const actors = resolveActors();
-            if (actors.length) {
-                const { pf2Cooldown, pf2Unit } = event.currentTarget.dataset;
-                if (pf2Cooldown) {
+            const { pf2Cooldown, pf2Unit } = event.currentTarget.dataset;
+            if (pf2Cooldown) {
+                if (actors.length) {
                     actors.forEach((actor) => {
-                        setCooldown(actor, pf2Cooldown, pf2Unit);
+                        setCooldown(actor, pf2Cooldown, pf2Unit)
                     });
                 } else {
-                    console.warn(`PF2e System | Unable to Create Cooldown'`);
+                    console.warn(`PF2e System | Select an actor(s) to place the cooldown'`);
                 }
+            } else {
+                console.warn(`PF2e System | No cooldown set`)
             }
         });
     },
