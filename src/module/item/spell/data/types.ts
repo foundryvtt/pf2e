@@ -85,11 +85,11 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     damage: {
-        value: Record<number, SpellDamage>;
+        value: Record<string, SpellDamage>;
     };
     scaling?: {
         interval: number;
-        damage: Record<number, string>;
+        damage: Record<string, string>;
     };
     save: {
         basic: string;

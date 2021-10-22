@@ -2,8 +2,11 @@
     <div class="attack-header">
         <h4 class="attack-name tags">
             <span>{{action.name}}<span class="activity-icon">{{action.glyph}}</span></span>
-            {{#each traits as |trait traitIndex|}}
+            {{#each traits as |trait|}}
                 <div class="tag tag_transparent" title="{{localize trait.description}}">{{localize trait.label}}</div>
+            {{/each}}
+            {{#each action.additionalEffects as |effect|}}
+                <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
             {{/each}}
         </h4>
         <div class="attack-controls controls">
