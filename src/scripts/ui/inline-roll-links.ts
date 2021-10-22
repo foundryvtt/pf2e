@@ -415,13 +415,13 @@ export const InlineRollsLinks = {
             if (pf2Cooldown) {
                 if (actors.length) {
                     actors.forEach((actor) => {
-                        setCooldown(actor, pf2Cooldown, pf2Unit)
+                        setCooldown(actor, pf2Cooldown, pf2Unit);
                     });
                 } else {
                     console.warn(`PF2e System | Select an actor(s) to place the cooldown'`);
                 }
             } else {
-                console.warn(`PF2e System | No cooldown set`)
+                console.warn(`PF2e System | No cooldown set`);
             }
         });
     },
