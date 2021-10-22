@@ -18,6 +18,12 @@
                 "key": "BaseSpeed",
                 "selector": "land",
                 "value": "@attributes.speed.value"
+            },
+            {
+                "except": "force and ghost touch",
+                "key": "Resistance",
+                "type": "all",
+                "value": "10 + 5*floor((@item.level.value -6)/2)"
             }
         ],
         "source": {
