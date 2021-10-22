@@ -66,19 +66,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         html.find("[data-action='damage-create']").on("click", (event) => {
             event.preventDefault();
-            const damage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
+            const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({
-                "data.damage.value": { ...this.item.damage.concat(damage) },
+                [`data.damage.value.${randomID()}`]: emptyDamage,
             });
         });
 
         html.find("[data-action='damage-delete']").on("click", (event) => {
             event.preventDefault();
-            const idx = Number($(event.target).closest("[data-action='damage-delete']").attr("data-idx"));
-            const data = this.item.toObject();
-            delete data.data.damage.value[idx];
-            data.data.damage.value = { ...Object.values(data.data.damage.value) };
-            this.item.update(data, { recursive: false, diff: false });
+            const id = $(event.target).closest("[data-action='damage-delete']").attr("data-id");
+            if (id) {
+                this.item.update({
+                    [`data.damage.value.-=${id}`]: null,
+                    [`data.scaling.damage.-=${id}`]: null,
+                });
+            }
         });
 
         html.find("[data-action='scaling-create']").on("click", (event) => {
