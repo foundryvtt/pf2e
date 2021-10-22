@@ -549,7 +549,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 traits.splice(0, 0, trait);
             }
 
-            const actionType = item.actionCost?.type || "action";
+            const actionType = item.actionCost?.type || "passive";
             if (objectHasKey(actions, actionType)) {
                 actions[actionType].actions.push({
                     ...itemData,
