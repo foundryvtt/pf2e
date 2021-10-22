@@ -53,7 +53,6 @@ const inlineSelector = [
     "saving-throw",
     "skill-check",
     "cooldown",
-    "test",
 ]
     .map((keyword) => `[data-pf2-${keyword}]`)
     .join(",");
