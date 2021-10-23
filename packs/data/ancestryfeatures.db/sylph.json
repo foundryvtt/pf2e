@@ -23,7 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "add": [
+                    "sylph"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "self:low-light-vision:from-ancestry"
+                    ]
+                },
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
@@ -33,8 +53,6 @@
                 "value": "uncommon"
             },
             "value": [
-                "geniekin",
-                "sylph",
                 "versatile heritage"
             ]
         }

@@ -10,6 +10,7 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
     options.push("action:treat-wounds");
     const dc = {
         value: DC,
+        visibility: "all",
     };
     if (riskysurgery || mortalhealing) {
         dc.modifiers = {

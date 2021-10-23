@@ -83,6 +83,12 @@ export function ensureWeaponCategory(options: string[], weaponCategory: "simple"
     }
 }
 
+export function ensureWeaponGroup(options: string[], weaponGroup: string | null) {
+    if (weaponGroup && !options.some((option) => option.toLowerCase().startsWith("weapon:group:"))) {
+        options.push(`weapon:group:${weaponGroup}`);
+    }
+}
+
 const WEAPON_SIZE_EXPANDED = {
     tiny: "tiny",
     sm: "small",
@@ -316,6 +322,8 @@ export class WeaponDamagePF2e {
                 b: "bludgeoning",
                 p: "piercing",
                 s: "slashing",
+                fire: "fire",
+                positive: "positive",
             } as const;
             baseDamageType =
                 dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
@@ -433,7 +441,7 @@ export class WeaponDamagePF2e {
 
         // fatal trait
         traits
-            .filter((t) => t.name.startsWith("fatal-"))
+            .filter((t) => t.name.startsWith("fatal-d"))
             .forEach((t) => {
                 const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(

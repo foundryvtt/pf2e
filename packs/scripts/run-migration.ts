@@ -21,6 +21,9 @@ import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-
 import { Migration678SeparateNPCAttackTraits } from "@module/migration/migrations/678-separate-npc-attack-traits";
 import { Migration679TowerShieldSpeedPenalty } from "@module/migration/migrations/679-tower-shield-speed-penalty";
 import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set-weapon-hands";
+import { Migration681GiantLanguageToJotun } from "@module/migration/migrations/681-giant-language-to-jotun";
+import { Migration682BiographyFields } from "@module/migration/migrations/682-biography-fields";
+import { Migration683FlavorTextToPublicNotes } from "@module/migration/migrations/683-flavortext-to-public-notes";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -38,6 +41,9 @@ const migrations: MigrationBase[] = [
     new Migration678SeparateNPCAttackTraits(),
     new Migration679TowerShieldSpeedPenalty(),
     new Migration680SetWeaponHands(),
+    new Migration681GiantLanguageToJotun(),
+    new Migration682BiographyFields(),
+    new Migration683FlavorTextToPublicNotes(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
@@ -109,6 +115,8 @@ function JSONstringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
+        if (key.startsWith("-=")) return;
+
         if (/^[a-z0-9]{20,}$/g.test(key)) {
             idKeys.push(key);
         } else {
@@ -182,6 +190,8 @@ async function migrate() {
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
                     delete (updatedItem.data as { slug?: unknown }).slug;
+                    delete (source.data as { slug?: unknown }).slug;
+
                     return updatedItem;
                 } else if (isMacroData(source)) {
                     return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);

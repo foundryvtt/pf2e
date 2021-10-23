@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You develop tricks for using your weapons more effectively. Your proficiency ranks for simple and martial weapons and unarmed attacks increase to expert.</p>\n<p>If you have a weapon innovation, you gain access to the critical specialization effect with your innovation.</p>"
+            "value": "<p>You develop tricks for using your weapons more effectively. Your proficiency ranks for simple and martial weapons and unarmed attacks increase to expert.</p>\n<p>If you have a weapon @Compendium[pf2e.classfeatures.Innovation]{Innovation}, you gain access to the critical specialization effect with your innovation.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,7 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.simple.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.martial.rank",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,7 +58,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
     "name": "Inventor Weapon Expertise",
     "type": "feat"
 }

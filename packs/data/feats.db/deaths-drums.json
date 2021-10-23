@@ -19,10 +19,28 @@
         "level": {
             "value": 9
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Is taking Persistent Damage or is Wounded",
+                "property": "flags.pf2e.rollOptions.all.deaths-drums"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "deaths-drums"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

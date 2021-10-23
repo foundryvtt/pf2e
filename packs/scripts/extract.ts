@@ -634,7 +634,7 @@ async function extractPacks() {
     populateIdNameMap();
 
     const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
-        .filter((filename) => filename !== "Spells (SRD) - LICENSE")
+        .filter((filename) => filename !== ".gitkeep")
         .map((filename) => path.resolve(packsPath, filename));
 
     return (
@@ -643,10 +643,10 @@ async function extractPacks() {
                 const dbFilename = path.basename(filePath);
 
                 if (!dbFilename.endsWith(".db")) {
-                    throw PackError(`Pack file is not a DB file: '${dbFilename}'`);
+                    throw PackError(`Pack file is not a DB file: "${dbFilename}"`);
                 }
                 if (!fs.existsSync(filePath)) {
-                    throw PackError(`File not found: '${dbFilename}'`);
+                    throw PackError(`File not found: "${dbFilename}"`);
                 }
 
                 const outDirPath = path.resolve(dataPath, dbFilename);

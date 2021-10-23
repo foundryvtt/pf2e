@@ -16,8 +16,8 @@ import {
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
-    ProficiencyData,
-    RawSkillData,
+    RawStatistic,
+    AbilityBasedStatistic,
     RollToggle,
     StrikeData,
 } from "@actor/data/base";
@@ -53,6 +53,7 @@ type CharacterFlags = ActorFlagsPF2e & {
 };
 
 export interface CharacterSkillData extends SkillData {
+    ability: AbilityString;
     /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
@@ -97,7 +98,32 @@ export interface CharacterSystemData extends CreatureSystemData {
         /** Character nationality (i.e, what nation they hail from; user-provided field). */
         nationality: { value: string };
         /** User-provided biography for their character; value is HTML. */
-        biography: { value: string; public?: string };
+        biography: {
+            /** Character appearance (user-provided field). value is HTML */
+            appearance: string;
+            /** Character Backstory (user-provided field). value is HTML */
+            backstory: string;
+            /** Character birthPlace (user-provided field). */
+            birthPlace: string;
+            /** Character attitude (user-provided field). */
+            attitude: string;
+            /** Character beliefs (user-provided field). */
+            beliefs: string;
+            /** Character likes (user-provided field). */
+            likes: string;
+            /** Character dislikes (user-provided field). */
+            dislikes: string;
+            /** Character catchphrases (user-provided field). */
+            catchphrases: string;
+            /** Campaign notes (user-provided field). value is HTML */
+            campaignNotes: string;
+            /** Character allies (user-provided field). value is HTML */
+            allies: string;
+            /** Character enemies (user-provided field). value is HTML */
+            enemies: string;
+            /** Character organaizations (user-provided field). value is HTML */
+            organaizations: string;
+        };
 
         /** The amount of experience this character has. */
         xp: {
@@ -142,11 +168,13 @@ export interface CharacterSystemData extends CreatureSystemData {
 }
 
 interface CharacterSaveData extends SaveData {
+    ability: AbilityString;
+    /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
 }
 export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
-export interface CharacterProficiency extends ProficiencyData {
+export interface CharacterProficiency extends RawStatistic {
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
     label?: string;
@@ -176,7 +204,7 @@ export type CombatProficiencies = CategoryProficiencies &
 export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-export interface ClassDCData extends StatisticModifier, RawSkillData {
+export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
     rank: ZeroToFour;
 }
 

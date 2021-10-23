@@ -1,6 +1,7 @@
-import { ActorPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
+import { ErrorPF2e } from "@util";
 import { TagSelectorBase } from "./base";
-import { SelectableTagField } from "./index";
+import { SelectableTagField } from ".";
 
 export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dv";
@@ -12,6 +13,10 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
         });
     }
 
+    private get actor(): ActorPF2e {
+        return this.object;
+    }
+
     protected get configTypes(): readonly SelectableTagField[] {
         return ["weaknessTypes"] as const;
     }
@@ -19,18 +24,21 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
     override getData() {
         const data: any = super.getData();
 
-        if (this.object instanceof NPCPF2e) {
+        const actorSource = this.actor.toObject();
+        if (actorSource.type === "npc") {
             data.hasExceptions = true;
+        } else if (actorSource.type === "familiar") {
+            throw ErrorPF2e("Weaknesses cannot be saved to familiar data");
         }
 
-        const choices: any = {};
-        const weaknesses = this.object.data._source.data.traits.dv;
+        const choices: Record<string, { label: string; selected: boolean; value: number }> = {};
+        const weaknesses = actorSource.data.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
             const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {
                 label,
                 selected: !!current,
-                value: current?.value ?? "",
+                value: current?.value ?? 0,
             };
         });
         data.choices = choices;
@@ -57,7 +65,7 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         const update = this.getUpdateData(formData);
-        this.object.update({ [this.objectProperty]: update });
+        this.actor.update({ [this.objectProperty]: update });
     }
 
     protected getUpdateData(formData: Record<string, unknown>) {

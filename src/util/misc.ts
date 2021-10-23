@@ -1,3 +1,4 @@
+import { ActionCost } from "@item/data/base";
 import { LocalizePF2e } from "@system/localize";
 
 /**
@@ -240,14 +241,18 @@ const actionImgMap: Record<string, ImagePath> = {
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
 
-export function getActionIcon(actionType: string, fallback: ImagePath): ImagePath;
-export function getActionIcon(actionType: string, fallback: ImagePath | null): ImagePath | null;
-export function getActionIcon(actionType: string): ImagePath;
+export function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
+export function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
+export function getActionIcon(actionType: string | ActionCost | null): ImagePath;
 export function getActionIcon(
-    actionType: string,
+    action: string | ActionCost | null,
     fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
 ): ImagePath | null {
-    const sanitized = actionType.toLowerCase().trim();
+    if (action === null) return actionImgMap["passive"];
+    const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
+    const sanitized = String(value ?? "")
+        .toLowerCase()
+        .trim();
     return actionImgMap[sanitized] ?? fallback;
 }
 
