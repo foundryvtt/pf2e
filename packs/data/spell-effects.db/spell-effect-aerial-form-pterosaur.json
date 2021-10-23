@@ -15,35 +15,134 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "ac",
-                "type": "polymorph",
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 10
+                    },
+                    "strikes": {
+                        "beak": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
                 "value": {
                     "brackets": [
                         {
-                            "end": 5,
+                            "end": 4,
                             "start": 4,
-                            "value": "18 + @details.level.value"
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "beak": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "beak": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 10
+                            }
                         },
                         {
                             "start": 6,
-                            "value": "21 + @details.level.value"
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "beak": {
+                                        "damage": {
+                                            "dice": 6,
+                                            "modifier": 4
+                                        },
+                                        "modifier": 21,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
                         }
                     ],
                     "field": "item|data.level.value"
                 }
             },
             {
-                "key": "TempHP",
-                "label": " Form",
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
+                "selector": "fly-speed",
+                "type": "status",
                 "value": {
                     "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 5
-                        },
                         {
                             "end": 5,
                             "start": 5,
@@ -58,175 +157,9 @@
                 }
             },
             {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 6,
-                            "value": 21
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 5
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 8
-                        },
-                        {
-                            "start": 6,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "acrobatics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 6,
-                            "value": 23
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "med"
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 6,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 10
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": 40
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "fly-speed",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 6,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "label": "Scent",
-                "range": 30,
-                "selector": "scent"
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 3,
-                        "die": "d6"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Pterosaur Beak",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Aerial Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
+                "path": "flags.pf2e.disableABP",
                 "priority": 10,
                 "value": true
             }
