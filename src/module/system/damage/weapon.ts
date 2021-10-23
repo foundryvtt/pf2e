@@ -322,6 +322,8 @@ export class WeaponDamagePF2e {
                 b: "bludgeoning",
                 p: "piercing",
                 s: "slashing",
+                fire: "fire",
+                positive: "positive",
             } as const;
             baseDamageType =
                 dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
