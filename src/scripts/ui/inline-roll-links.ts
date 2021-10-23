@@ -18,7 +18,13 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
-async function setCooldown(actor: ActorPF2e, cooldown: string, pf2Unit: string | undefined) {
+async function setCooldown(
+    actor: ActorPF2e,
+    cooldown: string,
+    unit: string | undefined,
+    label: string | undefined,
+    showIcon: string | undefined
+) {
     const ITEM_UUID = "Compendium.pf2e.bestiary-effects.4oQSjijgpQ0zlVi0";
     const effect = await fromUuid(ITEM_UUID);
 
@@ -29,14 +35,24 @@ async function setCooldown(actor: ActorPF2e, cooldown: string, pf2Unit: string |
     const effectSource = effect.toObject();
 
     if (cooldown) {
-        if (cooldown.includes("d")) {
-            effectSource.data.duration.value = new Roll(cooldown).roll({ async: false }).total;
-        } else {
-            effectSource.data.duration.value = Number(cooldown);
+        if (unit) {
+            effectSource.data.duration.unit = unit;
         }
 
-        if (pf2Unit) {
-            effectSource.data.duration.unit = pf2Unit;
+        if (label) {
+            effectSource.name = label;
+        }
+
+        if (showIcon && effectSource.data.tokenIcon) {
+            effectSource.data.tokenIcon.show = showIcon === "true";
+        }
+
+        if (cooldown.includes("d")) {
+            const roll = await new Roll(cooldown).evaluate({ async: true });
+            roll.toMessage({}, { rollMode: "blindroll" });
+            effectSource.data.duration.value = Number(roll.total);
+        } else {
+            effectSource.data.duration.value = Number(cooldown);
         }
 
         await actor.createEmbeddedDocuments("Item", [effectSource]);
@@ -410,11 +426,11 @@ export const InlineRollsLinks = {
 
         $links.filter("[data-pf2-cooldown]").on("click", (event) => {
             const actors = resolveActors();
-            const { pf2Cooldown, pf2Unit } = event.currentTarget.dataset;
+            const { pf2Cooldown, pf2Unit, pf2Label, pf2ShowIcon } = event.currentTarget.dataset;
             if (pf2Cooldown) {
                 if (actors.length) {
                     actors.forEach((actor) => {
-                        setCooldown(actor, pf2Cooldown, pf2Unit);
+                        setCooldown(actor, pf2Cooldown, pf2Unit, pf2Label, pf2ShowIcon);
                     });
                 } else {
                     console.warn(`PF2e System | Select an actor(s) to place the cooldown'`);
