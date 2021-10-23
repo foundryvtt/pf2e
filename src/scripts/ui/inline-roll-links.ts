@@ -5,8 +5,6 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { StatisticBuilder } from "@system/statistic";
 import { calculateDC } from "@module/dc";
-import { EffectPF2e } from "@item/effect";
-import { ErrorPF2e } from "@util";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -19,27 +17,35 @@ function resolveActors(): ActorPF2e[] {
 }
 
 async function setCooldown(actor: ActorPF2e, cooldown: string, pf2Unit: string | undefined) {
+    interface cooldownEffect {
+        data: {
+            duration: {
+                value: Number;
+                unit: string;
+            };
+        };
+    }
+
     const ITEM_UUID = "Compendium.pf2e.bestiary-effects.4oQSjijgpQ0zlVi0";
     const effect = await fromUuid(ITEM_UUID);
 
-    if (!(effect instanceof EffectPF2e)) {
-        throw ErrorPF2e("Cooldown effect not found");
-    }
+    if (effect) {
+        const effectSource = effect.toObject() as cooldownEffect;
+        if (cooldown) {
+            if (cooldown.includes("d")) {
+                effectSource.data.duration.value = new Roll(cooldown).roll({ async: false }).total;
+            } else {
+                effectSource.data.duration.value = Number(cooldown);
+            }
 
-    const effectSource = effect.toObject();
+            if (pf2Unit) {
+                effectSource.data.duration.unit = pf2Unit;
+            }
 
-    if (cooldown) {
-        if (cooldown.includes("d")) {
-            effectSource.data.duration.value = new Roll(cooldown).roll({ async: false }).total;
-        } else {
-            effectSource.data.duration.value = Number(cooldown);
+            await actor.createEmbeddedDocuments("Item", [effectSource]);
         }
-
-        if (pf2Unit) {
-            effectSource.data.duration.unit = pf2Unit;
-        }
-
-        await actor.createEmbeddedDocuments("Item", [effectSource]);
+    } else {
+        console.warn(`PF2E System | Could not locate cooldown effect`)
     }
 }
 
