@@ -1,9 +1,9 @@
 {
-    "_id": "JbSbUomIHYwkqgAM",
+    "_id": "5f8EKdudDgYRBmqA",
     "data": {
         "attributes": {
             "ac": {
-                "value": 10
+                "value": 0
             },
             "hardness": 0,
             "hasHealth": false,
@@ -14,19 +14,19 @@
                 "value": 0
             },
             "stealth": {
-                "details": "(master)",
-                "value": 32
+                "details": "(expert)",
+                "value": 22
             }
         },
         "creatureType": "",
         "details": {
-            "description": "<p>An invisible magic rune emits a burst of psychic static and sends extraplanar creatures to Pharasma's realm.</p>",
-            "disable": "<p><span data-pf2-check=\"religion\" data-pf2-traits=\"uncommon,trap,magical\" data-pf2-label=\"Discharge Glyph DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">Religion</span> (master) or <span data-pf2-check=\"thievery\" data-pf2-traits=\"uncommon,trap,magical\" data-pf2-label=\"Discharge Glyph DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to discharge the glyph's power harmlessly, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} </em>(8th level; counteract DC 40) to counteract the glyph</p>",
+            "description": "A ghostly stinger appears in the air and jabs at anyone moving through the opening.",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"uncommon,magical,trap\" data-pf2-label=\"Prevent Ghostly Stinger from Forming DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to prevent the ghostly stinger from forming or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 34).</p>",
             "isComplex": false,
             "level": {
-                "value": 17
+                "value": 11
             },
-            "reset": "",
+            "reset": "The trap resets after 24 hours.",
             "routine": ""
         },
         "saves": {
@@ -76,7 +76,7 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "9lc94kalk84ogmt3",
+            "_id": "5v0abcv7hftaq55z",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -88,7 +88,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> A creature that isn't openly wearing a religious symbol of Pharasma passes over the glyph at the midpoint of the landing</div>\n<hr />\n<p><strong>Effect</strong> The glyph flares and discharges its energy. Each creature within 30 feet of the glyph takes [[/r {8d12 + 24}[mental]]]{8d12 + 24 mental damage} and must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"conjuration,divine,incapacitation,mental,teleportation,magical,trap,uncommon\" data-pf2-label=\"Wracking Eviction DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Will</span> saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and, if not on its home plane, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature takes full damage and is stupefied 1 for 1 minute. If not on its home plane, the creature is sent to a random location in the Boneyard.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute. If not on its home plane, the creature is sent to a random location in the Boneyard and can't return to the Material Plane until it receives permission to do so from a psychopomp of a higher level than the creature's level.</p>"
+                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> A creature who isn't wearing a religious symbol of Norgorber moves the trapdoor</div>\n<hr />\n<p><strong>Effect</strong> The trap targets the creature with <em>@Compendium[pf2e.equipment-srd.Purple Worm Venom]{Purple Worm} sting</em> (<span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison,trap,uncommon,magical\" data-pf2-label=\"Deadly Sting DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">Fortitude</span> save).</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 5d6 #poison]]{5d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6 #poison]]{6d6 poison damage} and enfeebled 2 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 8d6 #poison]]{8d6 poison damage} and enfeebled 2 (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -104,11 +104,9 @@
                         "value": "common"
                     },
                     "value": [
-                        "conjuration",
                         "divine",
-                        "incapacitation",
-                        "mental",
-                        "teleportation"
+                        "necromancy",
+                        "poison"
                     ]
                 },
                 "trigger": {
@@ -118,17 +116,17 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Wracking Eviction",
+            "name": "Deadly Sting",
             "sort": 0,
             "type": "action"
         }
     ],
-    "name": "Planar Eviction Trap",
+    "name": "Stinger Ward Trap",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Planar Eviction Trap",
+        "name": "Stinger Ward Trap",
         "width": 1
     },
     "type": "hazard"
