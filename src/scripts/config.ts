@@ -23,7 +23,7 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
-import { WeaponPropertyRuneType } from "@item/weapon/data";
+import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageCategory, DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
@@ -346,6 +346,8 @@ const traitsDescriptions = {
     android: "PF2E.TraitDescriptionAndroid",
     artifact: "PF2E.TraitDescriptionArtifact",
     attached: "PF2E.TraitDescriptionAttached",
+    "attached-to-shield": "PF2E.TraitDescriptionAttached",
+    "attached-to-crossbow-or-firearm": "PF2E.TraitDescriptionAttached",
     backstabber: "PF2E.TraitDescriptionBackstabber",
     backswing: "PF2E.TraitDescriptionBackswing",
     bomb: "PF2E.TraitDescriptionBomb",
@@ -448,6 +450,7 @@ const traitsDescriptions = {
     "versatile-b": "PF2E.TraitDescriptionVersatile",
     "versatile-p": "PF2E.TraitDescriptionVersatile",
     "versatile-positive": "PF2E.TraitDescriptionVersatile",
+    "versatile-fire": "PF2E.TraitDescriptionVersatile",
     "versatile-s": "PF2E.TraitDescriptionVersatile",
     "volley-20": "PF2E.TraitDescriptionVolley",
     "volley-30": "PF2E.TraitDescriptionVolley",
@@ -955,6 +958,8 @@ const weaponTraits = {
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
     attached: "PF2E.TraitAttached",
+    "attached-to-shield": "PF2E.TraitAttachedToShield",
+    "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
     backstabber: "PF2E.TraitBackstabber",
     backswing: "PF2E.TraitBackswing",
@@ -1053,6 +1058,7 @@ const weaponTraits = {
     "versatile-s": "PF2E.TraitVersatileS",
     "versatile-p": "PF2E.TraitVersatileP",
     "versatile-positive": "PF2E.TraitVersatilePositive",
+    "versatile-fire": "PF2E.TraitVersatileFire",
     "versatile-b": "PF2E.TraitVersatileB",
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
@@ -1092,62 +1098,10 @@ const actionTraits = {
     ...npcAttackTraits,
 };
 
-const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
-    kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
-    returning: "PF2E.WeaponPropertyRuneReturning",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
-    disrupting: "PF2E.WeaponPropertyRuneDisrupting",
-    pacifying: "PF2E.WeaponPropertyRunePacifying",
-    fearsome: "PF2E.WeaponPropertyRuneFearsome",
-    shifting: "PF2E.WeaponPropertyRuneShifting",
-    conducting: "PF2E.WeaponPropertyRuneConducting",
-    wounding: "PF2E.WeaponPropertyRuneWounding",
-    bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
-    corrosive: "PF2E.WeaponPropertyRuneCorrosive",
-    cunning: "PF2E.WeaponPropertyRuneCunning",
-    flaming: "PF2E.WeaponPropertyRuneFlaming",
-    frost: "PF2E.WeaponPropertyRuneFrost",
-    shock: "PF2E.WeaponPropertyRuneShock",
-    thundering: "PF2E.WeaponPropertyRuneThundering",
-    grievous: "PF2E.WeaponPropertyRuneGrievous",
-    serrating: "PF2E.WeaponPropertyRuneSerrating",
-    anarchic: "PF2E.WeaponPropertyRuneAnarchic",
-    axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
-    holy: "PF2E.WeaponPropertyRuneHoly",
-    unholy: "PF2E.WeaponPropertyRuneUnholy",
-    greaterFearsome: "PF2E.WeaponPropertyRuneGreaterFearsome",
-    dancing: "PF2E.WeaponPropertyRuneDancing",
-    spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
-    greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
-    keen: "PF2E.WeaponPropertyRuneKeen",
-    greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
-    greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
-    greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
-    greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
-    greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
-    greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    speed: "PF2E.WeaponPropertyRuneSpeed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
-    bane: "PF2E.WeaponPropertyRuneBane",
-    brilliant: "PF2E.WeaponPropertyRuneBrilliant",
-    extending: "PF2E.WeaponPropertyRuneExtending",
-    greaterBrilliant: "PF2E.WeaponPropertyRuneGreaterBrilliant",
-    greaterExtending: "PF2E.WeaponPropertyRuneGreaterExtending",
-    greaterImpactful: "PF2E.WeaponPropertyRuneGreaterImpactful",
-    impactful: "PF2E.WeaponPropertyRuneImpactful",
-    energizing: "PF2E.WeaponPropertyRuneEnergizing",
-    bloodthirsty: "PF2E.WeaponPropertyRuneBloodthirsty",
-    crushing: "PF2E.WeaponPropertyRuneCrushing",
-    greaterCrushing: "PF2E.WeaponPropertyRuneGreaterCrushing",
-    anchoring: "PF2E.WeaponPropertyRuneAnchoring",
-    greaterAnchoring: "PF2E.WeaponPropertyRuneGreaterAnchoring",
-    hauling: "PF2E.WeaponPropertyRuneHauling",
-    greaterHauling: "PF2E.WeaponPropertyRuneGreaterHauling",
-    hopeful: "PF2E.WeaponPropertyRuneHopeful",
-    fanged: "PF2E.WeaponPropertyRuneFanged",
-    greaterFanged: "PF2E.WeaponPropertyRuneGreaterFanged",
-    majorFanged: "PF2E.WeaponPropertyRuneMajorFanged",
+const weaponPropertyRunes: Record<string, string> = {
+    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {}),
 };
 
 // Creature and Equipment Sizes
@@ -2015,7 +1969,6 @@ export const PF2ECONFIG = {
         ekujae: "PF2E.LanguageEkujae",
         erutaki: "PF2E.LanguageErutaki",
         garundi: "PF2E.LanguageGarundi",
-        giant: "PF2E.LanguageGiant",
         girtablilu: "PF2E.LanguageGirtablilu",
         gnoll: "PF2E.LanguageGnoll",
         goloma: "PF2E.LanguageGoloma",
@@ -2078,25 +2031,6 @@ export const PF2ECONFIG = {
         druidic: "PF2E.LanguageDruidic",
     },
 
-    spellScalingModes: {
-        1: "PF2E.SpellScalingModeLevel1",
-        2: "PF2E.SpellScalingModeLevel2",
-        3: "PF2E.SpellScalingModeLevel3",
-        4: "PF2E.SpellScalingModeLevel4",
-    },
-
-    spellHeightenedLevels: {
-        levelsecond: "PF2E.SpellScalingModeLevelsecond",
-        levelthird: "PF2E.SpellScalingModeLevelthird",
-        levelfourth: "PF2E.SpellScalingModeLevelfourth",
-        levelfifth: "PF2E.SpellScalingModeLevelfifth",
-        levelsixth: "PF2E.SpellScalingModeLevelsixth",
-        levelseventh: "PF2E.SpellScalingModeLevelseventh",
-        leveleighth: "PF2E.SpellScalingModeLeveleighth",
-        levelninth: "PF2E.SpellScalingModeLevelninth",
-        leveltenth: "PF2E.SpellScalingModeLeveltenth",
-    },
-
     attackEffects: {
         grab: "PF2E.AttackEffectGrab",
         "improved-grab": "PF2E.AttackEffectImprovedGrab",
@@ -2115,6 +2049,12 @@ export const PF2ECONFIG = {
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },
         CE: { yearOffset: 0 },
+    },
+
+    runes: {
+        weapon: {
+            property: { ...WEAPON_PROPERTY_RUNES },
+        },
     },
 
     monsterAbilities: () => {

@@ -26,7 +26,9 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        this.updateDocumentTags(actorSource.data.traits?.traits.value);
+        if (actorSource.type === "familiar") return;
+
+        this.updateDocumentTags(actorSource.data.traits.traits.value);
         if (actorSource.type === "character" || actorSource.type === "npc") {
             this.updateDocumentTags(actorSource.data.traits?.languages.value);
         }

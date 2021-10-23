@@ -10,6 +10,7 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import {
+    AbilityString,
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
@@ -45,11 +46,17 @@ export interface NPCSystemData extends CreatureSystemData {
         /** The alignment this creature has. */
         alignment: { value: Alignment };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
-        level: { value: number };
+        level: { base?: number; value: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
         /** The type of this creature (such as 'undead') */
         creatureType: string;
+        /** A very brief description */
+        blurb: string;
+        /** The in depth descripton and any other public notes */
+        publicNotes: string;
+        /** The private GM notes */
+        privateNotes: string;
     };
 
     /** Any special attributes for this NPC, such as AC or health. */
@@ -73,6 +80,8 @@ interface RawNPCStrike extends StrikeData {
     sourceId?: string;
     /** A list of all damage roll parts */
     damageBreakdown?: string[];
+    /** Additional effects from a successful strike, like "Grab" */
+    additionalEffects: { tag: string; label: string }[];
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */
@@ -85,6 +94,7 @@ export interface NPCArmorClass extends ArmorClassData {
 
 /** Save data with an additional "base" value */
 export interface NPCSaveData extends SaveData {
+    ability: AbilityString;
     base?: number;
     saveDetail: string;
 }

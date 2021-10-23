@@ -27,7 +27,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Attempting to Make an Impression on a Dragon",
+                "property": "flags.pf2e.rollOptions.all.target:dragon"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:make-an-impression"
+                    ],
+                    "any": [
+                        "target:dragon"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },

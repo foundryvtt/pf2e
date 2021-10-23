@@ -22,6 +22,7 @@ import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { Attitude, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
+import { LocalizePF2e } from "@system/localize";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -128,6 +129,7 @@ export class NPCPF2e extends CreaturePF2e {
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { details } = this.data.data;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -140,11 +142,11 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(data.details.level.value, "elite"),
+                    this.getHpAdjustment(details.level.value, "elite"),
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value += 1;
+            details.level = { base: details.level.value, value: details.level.value + 1 };
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED));
@@ -156,11 +158,13 @@ export class NPCPF2e extends CreaturePF2e {
             statisticsModifiers.hp.push(
                 new ModifierPF2e(
                     "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(data.details.level.value, "weak") * -1,
+                    this.getHpAdjustment(details.level.value, "weak") * -1,
                     MODIFIER_TYPE.UNTYPED
                 )
             );
-            this.data.data.details.level.value -= 1;
+            details.level = { base: details.level.value, value: details.level.value - 1 };
+        } else {
+            details.level.base = details.level.value;
         }
 
         // Compute 10+mod ability scores from ability modifiers
@@ -560,12 +564,12 @@ export class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
-                const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+                const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
                 action.traits = [
                     { name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false },
                 ].concat(
                     traits.map((trait) => {
-                        const key = weaponTraits[trait] ?? trait;
+                        const key = attackTraits[trait] ?? trait;
                         const option: StrikeTrait = {
                             name: trait,
                             label: game.i18n.localize(key),
@@ -574,6 +578,14 @@ export class NPCPF2e extends CreaturePF2e {
                         return option;
                     })
                 );
+                const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
+                action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
+                    const label =
+                        attackEffects[tag] ??
+                        this.itemTypes.action.find((action) => sluggify(action.name) === tag)?.name ??
+                        tag;
+                    return { tag, label };
+                });
                 if (
                     action.attackRollType === "PF2E.NPCAttackRanged" &&
                     !action.traits.some((trait) => trait.name === "range")
@@ -802,11 +814,23 @@ export class NPCPF2e extends CreaturePF2e {
                         .join(", ");
                     attack.roll = (args: RollParameters) => {
                         const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
-                        const options = args.options ?? [];
+                        const ctx = this.createAttackRollContext(args.event!, [
+                            "all",
+                            "attack-roll",
+                            "spell-attack-roll",
+                        ]);
+                        const options = (args.options ?? []).concat(ctx.options);
                         ensureProficiencyOption(options, rank);
                         CheckPF2e.roll(
                             new CheckModifier(label, attack, args.modifiers ?? []),
-                            { actor: this, item: args.item, type: "spell-attack-roll", options, dc: args.dc, notes },
+                            {
+                                actor: this,
+                                item: args.item,
+                                type: "spell-attack-roll",
+                                options,
+                                dc: args.dc ?? ctx.dc,
+                                notes,
+                            },
                             args.event,
                             args.callback
                         );
@@ -917,7 +941,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
         const formatItemName = (item: ItemPF2e): string => {
             if (item instanceof ConsumablePF2e) {
-                return `${item.name} - ${game.i18n.localize("ITEM.TypeConsumable")} (${item.data.data.quantity.value})`;
+                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.data.data.quantity.value}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };

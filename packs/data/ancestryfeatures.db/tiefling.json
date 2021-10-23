@@ -23,7 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "add": [
+                    "tiefling"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "self:low-light-vision:from-ancestry"
+                    ]
+                },
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
@@ -33,7 +53,6 @@
                 "value": "uncommon"
             },
             "value": [
-                "tiefling",
                 "versatile heritage"
             ]
         }

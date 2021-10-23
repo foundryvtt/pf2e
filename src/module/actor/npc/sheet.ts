@@ -2,7 +2,7 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { DicePF2e } from "@scripts/dice";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
-import { ActorPF2e, NPCPF2e } from "@actor/index";
+import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
@@ -14,12 +14,11 @@ import {
     EffectData,
     EquipmentData,
     ItemDataPF2e,
-    MeleeData,
     SpellcastingEntryData,
     TreasureData,
     WeaponData,
 } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
 import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
@@ -35,7 +34,7 @@ interface NPCSheetLabeledValue extends LabeledString {
 
 interface ActionsDetails {
     label: string;
-    actions: ItemDataPF2e[];
+    actions: SheetItemData<RawObject<ActionData>>[];
 }
 
 interface ActionActions {
@@ -69,6 +68,7 @@ interface NPCSystemSheetData extends NPCSystemData {
         shieldBroken?: boolean;
     };
     details: NPCSystemData["details"] & {
+        level: NPCSystemData["details"]["level"] & WithAdjustments;
         alignment: {
             localizedName?: string;
         };
@@ -112,6 +112,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     actorAttitude?: string;
     traits?: Record<string, string>;
     immunities?: Record<string, string>;
+    hasImmunities?: boolean;
     languages?: Record<string, string>;
     isWeak?: boolean;
     isElite?: boolean;
@@ -124,7 +125,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     configLootableNpc?: boolean;
 }
 
-type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
+type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
     glyph: string;
     imageUrl: string;
     traits: {
@@ -133,7 +134,7 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     }[];
     chatData?: unknown;
     data: {
-        bonus: {
+        bonus?: {
             value: number;
             total?: number;
         };
@@ -173,6 +174,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     override get template(): string {
         if (this.isLootSheet) {
             return "systems/pf2e/templates/actors/npc/loot-sheet.html";
+        } else if (this.actor.limited) {
+            return "systems/pf2e/templates/actors/limited/npc-sheet.html";
         }
         return "systems/pf2e/templates/actors/npc/sheet.html";
     }
@@ -196,7 +199,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /**
      * Prepares items in the actor for easier access during sheet rendering.
-     * @param actorData Data from the actor associated to this sheet.
+     * @param sheetData Data from the actor associated to this sheet.
      */
     protected prepareItems(sheetData: NPCSheetData) {
         this.prepareAbilities(sheetData.data.abilities);
@@ -219,6 +222,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     private prepareIWR(sheetData: NPCSheetData) {
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        sheetData.hasImmunities = Object.keys(sheetData.immunities).length !== 0;
         const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
         for (const weakness of sheetData.data.traits.dv) {
             weakness.label = weaknessTypes[weakness.type];
@@ -298,6 +302,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
+        const { level } = sheetData.data.details;
+        level.adjustedHigher = level.value > Number(level.base);
+        level.adjustedLower = level.value < Number(level.base);
         const { ac, hp, perception, hardness } = sheetData.data.attributes;
         ac.adjustedHigher = ac.value > Number(ac.base);
         ac.adjustedLower = ac.value < Number(ac.base);
@@ -419,34 +426,34 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private prepareSize(actorData: NPCSystemSheetData) {
-        const size = actorData.traits.size.value;
+    private prepareSize(sheetSystemData: NPCSystemSheetData) {
+        const size = sheetSystemData.traits.size.value;
         const localizationKey = this.getSizeLocalizedKey(size);
         const localizedName = game.i18n.localize(localizationKey);
 
-        actorData.traits.size.localizedName = localizedName;
+        sheetSystemData.traits.size.localizedName = localizedName;
     }
 
-    private prepareAlignment(actorData: NPCSystemSheetData) {
-        const alignmentCode = actorData.details.alignment.value;
+    private prepareAlignment(sheetSystemData: NPCSystemSheetData) {
+        const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
-        actorData.details.alignment.localizedName = localizedName;
+        sheetSystemData.details.alignment.localizedName = localizedName;
     }
 
-    protected prepareSenses(actorData: NPCSystemSheetData) {
+    protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
-        for (const sense of actorData.traits.senses) {
+        for (const sense of sheetSystemData.traits.senses) {
             sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
         }
     }
 
-    private prepareSkills(actorData: NPCSystemSheetData) {
+    private prepareSkills(sheetSystemData: NPCSystemSheetData) {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(actorData.skills);
+        const sortedSkillsIds = Object.keys(sheetSystemData.skills);
 
-        const skills = actorData.skills;
+        const skills = sheetSystemData.skills;
         for (const skillId of sortedSkillsIds) {
             const skill = skills[skillId];
             skill.label =
@@ -471,7 +478,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             sortedSkills[skillId] = skills[skillId];
         }
 
-        actorData.sortedSkills = sortedSkills;
+        sheetSystemData.sortedSkills = sortedSkills;
     }
 
     private prepareSpeeds(sheetData: NPCSystemSheetData) {
@@ -504,9 +511,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /**
      * Prepares the actions list to be accessible from the sheet.
-     * @param actorData Data of the actor to be shown in the sheet.
+     * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(actorData: NPCSheetData) {
+    private prepareActions(sheetData: NPCSheetData) {
         const actions: ActionActions = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -514,65 +521,49 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             action: { label: game.i18n.localize("PF2E.ActionTypeAction"), actions: [] },
         };
 
-        actorData.items
-            .filter((item): item is SheetItemData<ActionData> => item.type === "action")
-            .forEach((item) => {
-                // Format action traits
+        for (const item of this.actor.itemTypes.action) {
+            const itemData = item.toObject(false);
+            const chatData = item.getChatData();
+            const traits = chatData.traits;
+
+            // Create trait with the type of action
+            const systemData = itemData.data;
+            const hasType = systemData.actionType && systemData.actionType.value;
+
+            if (hasType) {
                 const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
                 const configAttackTraits = CONFIG.PF2E.npcAttackTraits;
 
-                const traits = item.data.traits.value.map((traitString) => {
-                    const label = objectHasKey(configAttackTraits, traitString)
-                        ? configAttackTraits[traitString]
-                        : traitString.charAt(0).toUpperCase() + traitString.slice(1);
+                const actionTrait = systemData.actionType.value;
+                const label = objectHasKey(configAttackTraits, actionTrait)
+                    ? configAttackTraits[actionTrait]
+                    : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
+                const description = objectHasKey(configTraitDescriptions, actionTrait)
+                    ? configTraitDescriptions[actionTrait]
+                    : "";
 
-                    const description = objectHasKey(configTraitDescriptions, traitString)
-                        ? configTraitDescriptions[traitString]
-                        : "";
+                const trait = {
+                    label,
+                    description,
+                    value: "",
+                };
 
-                    const trait = {
-                        label,
-                        description,
-                    };
+                traits.splice(0, 0, trait);
+            }
 
-                    return trait;
+            const actionType = item.actionCost?.type || "passive";
+            if (objectHasKey(actions, actionType)) {
+                actions[actionType].actions.push({
+                    ...itemData,
+                    glyph: getActionGlyph(item.actionCost),
+                    imageUrl: getActionIcon(item.actionCost),
+                    chatData,
+                    traits,
                 });
+            }
+        }
 
-                // Create trait with the type of action
-                const systemData = item.data;
-                const hasType = systemData.actionType && systemData.actionType.value;
-
-                if (hasType) {
-                    const actionTrait = systemData.actionType.value;
-                    const label = objectHasKey(configAttackTraits, actionTrait)
-                        ? configAttackTraits[actionTrait]
-                        : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
-                    const description = objectHasKey(configTraitDescriptions, actionTrait)
-                        ? configTraitDescriptions[actionTrait]
-                        : "";
-
-                    const trait = {
-                        label,
-                        description,
-                    };
-
-                    traits.splice(0, 0, trait);
-                }
-
-                // Don't know the purpose of this, coppied from previous code
-                (item as SheetItemData).traits = traits.filter((p) => !!p);
-
-                // Select appropiate image for the action, based on type of action
-                const actionType = systemData.actionType.value || "action"; // Default to action if not set
-
-                this.assignActionGraphics(item as ActionData & SheetItemData);
-
-                if (objectHasKey(actions, actionType)) {
-                    actions[actionType].actions.push(item);
-                }
-            });
-
-        actorData.actions = actions;
+        sheetData.actions = actions;
     }
 
     private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
@@ -861,18 +852,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         systemData.slots[slot].value = systemData.slots[slot].max;
 
         await item.update({ "data.slots": systemData.slots });
-    }
-
-    // Helper functions
-
-    private assignActionGraphics(item: (ActionData & SheetItemData) | (MeleeData & SheetItemData)): void {
-        const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
-            (item as ActionData).data.actionType?.value || "action",
-            (item as ActionData).data?.actions?.value || 1
-        );
-
-        item.glyph = actionGlyph;
-        item.imageUrl = imageUrl;
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

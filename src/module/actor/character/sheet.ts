@@ -197,11 +197,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             classfeature: { label: "PF2E.FeaturesClassHeader", feats: [], bonusFeats: [] },
             ancestry: { label: "PF2E.FeatAncestryHeader", feats: [], bonusFeats: [] },
             class: { label: "PF2E.FeatClassHeader", feats: [], bonusFeats: [] },
+            dualclass: { label: "PF2E.FeatDualClassHeader", feats: [], bonusFeats: [] },
             archetype: { label: "PF2E.FeatArchetypeHeader", feats: [], bonusFeats: [] },
             skill: { label: "PF2E.FeatSkillHeader", feats: [], bonusFeats: [] },
             general: { label: "PF2E.FeatGeneralHeader", feats: [], bonusFeats: [] },
             bonus: { label: "PF2E.FeatBonusHeader", feats: [], bonusFeats: [] },
         };
+        if (game.settings.get("pf2e", "dualClassVariant")) {
+            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1 });
+            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
+                featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level });
+            }
+        } else {
+            //Use delete so it is in the right place on the sheet
+            delete featSlots.dualclass;
+        }
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
                 featSlots.archetype.feats.push({ id: `archetype-${level}`, level });
@@ -965,7 +975,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype") {
+        if (featSlotType === "archetype" || featSlotType == "dualclass") {
             // Archetype feat slots are class feat slots
             featSlotType = "class";
         }
