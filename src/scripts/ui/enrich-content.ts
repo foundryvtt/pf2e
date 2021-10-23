@@ -61,7 +61,7 @@ export const EnrichContent = {
                                 chatLabel = v.name;
                             }
                         }
-                    } else chatLabel = "Roll";
+                    } else chatLabel = game.i18n.localize("PF2E.DamageRollDefaultLabel");
                 }
 
                 //if no button label is entered directly use the roll's roll parts to create a default label
