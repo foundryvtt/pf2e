@@ -15,206 +15,119 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "start": 4,
-                            "value": "18 + @details.level.value"
-                        },
-                        {
-                            "start": 6,
-                            "value": "21 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {}
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 20
+                    },
+                    "strikes": {
+                        "stinger": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": " Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 5
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "start": 6,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 6,
-                            "value": 21
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "dex",
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 5
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 8
-                        },
-                        {
-                            "start": 6,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Aerial Form",
-                "selector": "acrobatics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 6,
-                            "value": 23
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "med"
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 6,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 20
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": 40
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "fly-speed",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 6,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d8"
-                    }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Wasp Stinger",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "key": "Note",
-                "selector": "damage",
-                "text": "<p class='compact-text'><strong>Add 1d6 persistent poison (Heightened 6th, Add 2d6 persistent poison)</p>"
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Aerial Form",
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "speeds": {
+                                    "fly": 50
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
                         {
                             "start": 6,
                             "value": {
-                                "diceNumber": 1
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "acr": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "speeds": {
+                                    "fly": 55
+                                },
+                                "strikes": {
+                                    "stinger": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 4
+                                        },
+                                        "modifier": 21,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
                             }
                         }
                     ],
@@ -222,9 +135,19 @@
                 }
             },
             {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class=\"compact-text\"><strong>Aerial Form (Wasp)</strong>: plus [[/r 1d6 #persistent poison]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent poison Damage}<br><strong>Heightened(6th) Double persistent damage dice</strong></p>"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
+                "path": "flags.pf2e.disableABP",
                 "priority": 10,
                 "value": true
             }
