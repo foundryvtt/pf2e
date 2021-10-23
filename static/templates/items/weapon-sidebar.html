@@ -75,5 +75,11 @@
         {{#each traits as |trait|}}
             <li class="tag tag_transparent">{{localize trait.label}}</li>
         {{/each}}
+        {{#if otherTags}}
+            <hr />
+            {{#each otherTags as |tag|}}
+                <li class="tag tag_transparent">{{localize tag.label}}</li>
+            {{/each}}
+        {{/if}}
     </ol>
 </div>

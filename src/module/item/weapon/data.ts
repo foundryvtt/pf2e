@@ -13,7 +13,7 @@ import { OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 
-export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemData>;
+export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource>;
 
 export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
@@ -21,12 +21,15 @@ export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
 
 export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
     type: WeaponSource["type"];
-    data: WeaponSource["data"];
+    data: WeaponSystemData;
     readonly _source: WeaponSource;
 }
 
 export type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
-type WeaponTraits = PhysicalItemTraits<WeaponTrait>;
+interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
+    otherTags?: OtherWeaponTag[];
+}
+type WeaponTraits = Required<WeaponSourceTraits>;
 
 export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
 export type WeaponGroup = keyof ConfigPF2e["PF2E"]["weaponGroups"];
@@ -68,8 +71,8 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-interface WeaponSystemData extends MagicItemSystemData {
-    traits: WeaponTraits;
+interface WeaponSystemSource extends MagicItemSystemData {
+    traits: WeaponSourceTraits;
     weaponType: {
         value: WeaponCategory;
     };
@@ -117,11 +120,6 @@ interface WeaponSystemData extends MagicItemSystemData {
     preciousMaterial: {
         value: WeaponMaterialType | null;
     };
-    runes: {
-        potency: number;
-        striking: ZeroToThree;
-        property: WeaponPropertyRuneType[];
-    };
 
     // Refers to custom damage, *not* property runes
     property1: {
@@ -137,4 +135,25 @@ interface WeaponSystemData extends MagicItemSystemData {
     selectedAmmoId?: string;
 }
 
+export interface WeaponSystemData extends WeaponSystemSource {
+    traits: WeaponTraits;
+    runes: {
+        potency: number;
+        striking: ZeroToThree;
+        property: WeaponPropertyRuneType[];
+    };
+}
+
+export type OtherWeaponTag = "crossbow" | "ghost-touch";
+
 export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
+
+export const CROSSBOW_WEAPONS = new Set([
+    "alchemical-crossbow",
+    "crossbow",
+    "hand-crossbow",
+    "heavy-crossbow",
+    "repeating-crossbow",
+    "repeating-hand-crossbow",
+    "repeating-heavy-crossbow",
+] as const);
