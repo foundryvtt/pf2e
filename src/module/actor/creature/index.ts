@@ -16,6 +16,7 @@ import {
     CreatureSpeeds,
     LabeledSpeed,
     MovementType,
+    SenseData,
     VisionLevel,
     VisionLevels,
 } from "./data";
@@ -27,6 +28,7 @@ import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
 import { SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { CreatureSensePF2e } from "./sense";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -299,6 +301,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
         const flag = `rollOptions.${domain}.${optionName}`;
         return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
+    }
+
+    /** Prepare derived creature senses from Rules Element synthetics */
+    prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
+        const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
+
+        for (const { sense, predicate, force } of synthetics.senses) {
+            if (predicate && !predicate.test(this.getRollOptions(["all", "sense"]))) continue;
+            const existing = preparedSenses.find((oldSense) => oldSense.type === sense.type);
+            if (!existing) {
+                preparedSenses.push(sense);
+            } else if (force) {
+                preparedSenses.findSplice((oldSense) => oldSense === existing, sense);
+            } else {
+                if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
+                if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
+            }
+        }
+
+        return preparedSenses;
     }
 
     prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
