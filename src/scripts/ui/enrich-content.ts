@@ -87,11 +87,11 @@ export const EnrichContent = {
                         );
 
                         //get localized damage categories, types and subtypes
-                        let damageCategories = new Array();
-                        let damageSubtypes = new Array();
-                        let damageTypes = new Array();
-                        let healingTypes = new Array();
-                        let customTypes = new Array();
+                        const damageCategories: String[] = [];
+                        const damageSubtypes: String[] = [];
+                        const damageTypes: String[] = [];
+                        const healingTypes: String[] = [];
+                        const customTypes: String[] = [];
 
                         rollComponent[1].split(",").forEach((element) => {
                             if (Object.keys(CONFIG.PF2E.damageCategories).includes(element))
@@ -176,11 +176,14 @@ export const EnrichContent = {
             } else params.set("traits", "");
         }
 
-        //add damaging-effect if param damaging = true and not already included
-        if (params.get("damaging") === "true") {
-            const traits = params.get("traits") ?? "";
-            if (traits.search("damaging-effect") === -1)
-                params.set("traits", traits.concat(",damaging-effect").replace(/^,/, ""));
+        //add extraTraits (added to e.g. default traits from rollData)
+        if (params.has("extraTraits")) {
+            let traits = params.get("traits") ?? "";
+            const extraTraits = params.get("extraTraits")?.split(",") ?? [];
+            extraTraits.forEach((element) => {
+                if (traits.search(element) === -1) traits = traits.concat(`,${element}`);
+            });
+            params.set("traits", traits.replace(/^,/, ""));
         }
 
         //if no button label is entered directly create default label
