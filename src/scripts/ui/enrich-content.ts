@@ -66,56 +66,73 @@ export const EnrichContent = {
 
                 //if no button label is entered directly use the roll's roll parts to create a default label
                 if (!(typeof buttonLabel === "string")) {
-                    const rollParts = rolls.split("+");
+                    buttonLabel = "";
+                    const rollParts = rolls.match(/{[^}]+}\[[^\]]+\]/g) ?? [];
 
                     //loop through the different roll parts
                     for (const rollPart of rollParts) {
-                        let dType = "";
-                        let translated = true;
-                        let persistent = false;
-
                         const rollComponent = rollPart.replace(/\{/g, "").replace(/\]/g, "").split("}[");
 
                         //get localized damage die
                         const rgx = new RegExp(`(${Object.keys(CONFIG.PF2E.damageDie).join("|")})`, "g");
 
-                        rollComponent[0] = rollComponent[0].replace(rgx, (match: string) => {
-                            return game.i18n.localize(
-                                CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]
-                            );
-                        });
-
-                        //check for persistent damge
-                        if (rollComponent[1].search("persistent") > -1) {
-                            persistent = true;
-                            dType = rollComponent[1].replace("persistent", "").replace(",", "");
-                        } else dType = rollComponent[1];
-
-                        //get localized damage or healing type
-                        if (Object.keys(CONFIG.PF2E.damageTypes).includes(dType))
-                            dType = game.i18n.localize(
-                                CONFIG.PF2E.damageTypes[dType as keyof typeof CONFIG.PF2E.damageTypes]
-                            );
-                        else if (Object.keys(CONFIG.PF2E.healingTypes).includes(dType))
-                            dType = game.i18n.localize(
-                                CONFIG.PF2E.healingTypes[dType as keyof typeof CONFIG.PF2E.healingTypes]
-                            );
-                        else translated = false;
-
-                        if (translated) {
-                            rollComponent[1] = dType;
-                            if (persistent)
-                                rollComponent[1] = rollComponent[1].concat(
-                                    ` (${game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"])})`
+                        buttonLabel = buttonLabel.concat(
+                            " + ",
+                            rollComponent[0].replace(rgx, (match: string) => {
+                                return game.i18n.localize(
+                                    CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]
                                 );
-                        }
+                            }),
+                            " "
+                        );
 
-                        if (!(typeof buttonLabel === "string")) buttonLabel = `${rollComponent[0]} ${rollComponent[1]}`;
-                        else buttonLabel = buttonLabel.concat(` + ${rollComponent[0]} ${rollComponent[1]}`);
+                        //get localized damage categories, types and subtypes
+                        let damageCategories = new Array();
+                        let damageSubtypes = new Array();
+                        let damageTypes = new Array();
+                        let healingTypes = new Array();
+                        let customTypes = new Array();
+
+                        rollComponent[1].split(",").forEach((element) => {
+                            if (Object.keys(CONFIG.PF2E.damageCategories).includes(element))
+                                damageCategories.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageCategories[
+                                            element as keyof typeof CONFIG.PF2E.damageCategories
+                                        ]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.damageSubtypes).includes(element))
+                                damageSubtypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageSubtypes[element as keyof typeof CONFIG.PF2E.damageSubtypes]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.damageTypes).includes(element))
+                                damageTypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageTypes[element as keyof typeof CONFIG.PF2E.damageTypes]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.healingTypes).includes(element))
+                                healingTypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.healingTypes[element as keyof typeof CONFIG.PF2E.healingTypes]
+                                    )
+                                );
+                            else customTypes.push(element);
+                        });
+                        buttonLabel = buttonLabel.concat(damageTypes.concat(healingTypes, customTypes).join(", "));
+
+                        if (damageCategories.concat(damageSubtypes).join(", ").length)
+                            buttonLabel = buttonLabel.concat(
+                                " (",
+                                damageCategories.concat(damageSubtypes).join(", "),
+                                ")"
+                            );
                     }
                 }
-
-                match = `[[${rollType} ${rolls} #${chatLabel}]]{${buttonLabel}}`;
+                match = `[[${rollType} ${rolls} #${chatLabel}]]{${buttonLabel.replace(/^ \+ /g, "")}}`;
 
                 return match;
             }
