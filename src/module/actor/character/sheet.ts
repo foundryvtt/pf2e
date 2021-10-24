@@ -250,7 +250,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
-            actorSize: this.actor.data.data.traits.size.value,
+            actorSize: this.actor.size,
         });
 
         let investedCount = 0; // Tracking invested items
