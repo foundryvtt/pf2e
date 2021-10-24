@@ -137,6 +137,21 @@ export const Init = {
                         block: "p",
                         classes: "message",
                     },
+                    {
+                        title: "GM Text Block",
+                        block: "div",
+                        wrapper: true,
+                        attributes: {
+                            "data-visibility":"gm",
+                        }
+                    },
+                    {
+                        title: "GM Text Inline",
+                        inline: "span",
+                        attributes: {
+                            "data-visibility":"gm",
+                        }
+                    },
                 ],
             });
 
