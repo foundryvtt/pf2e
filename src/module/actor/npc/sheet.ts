@@ -847,7 +847,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
 
         const systemData = item.data.toObject().data;
-        if (systemData.slots == null) return;
+        if (!systemData.slots) return;
         const slot = `slot${itemLevel}` as const;
         systemData.slots[slot].value = systemData.slots[slot].max;
 
