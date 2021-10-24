@@ -142,15 +142,15 @@ export const Init = {
                         block: "div",
                         wrapper: true,
                         attributes: {
-                            "data-visibility":"gm",
-                        }
+                            "data-visibility": "gm",
+                        },
                     },
                     {
                         title: "GM Text Inline",
                         inline: "span",
                         attributes: {
-                            "data-visibility":"gm",
-                        }
+                            "data-visibility": "gm",
+                        },
                     },
                 ],
             });
