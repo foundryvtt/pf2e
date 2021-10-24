@@ -904,6 +904,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (container) {
                 itemData.data.containerId.value = containerId;
             }
+            if (actor.size == "tiny") {
+                itemData.data.size.value = "tiny";
+            }
         }
         return this._onDropItemCreate(itemData);
     }
