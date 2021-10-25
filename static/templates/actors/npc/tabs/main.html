@@ -65,11 +65,23 @@
                         <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
                     {{/with}}
                 </div>
-                {{# if options.editable }}
-                    <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize 'PF2E.SpecialSensesLabel'}}" />
-                {{else}}
-                    <span>{{data.traits.senses.value}}</span>
-                {{/if}}
+                <div class="npc npc_senses">
+                    <ol class="tags">
+                        <!--{{data.traits.senses.value}}-->
+                        {{#each data.traits.senses as |sense k|}}
+                        <li class="tag tag_alt {{k}}">
+                            {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
+                        </li>
+                        {{/each}}
+                        {{#if @root.owner}}
+                            <li class="tag tag_secondary edit-btn">
+                                <a class="crb-trait-selector" data-trait-selector="senses">
+                                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                                </a>
+                            </li>
+                        {{/if}}
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
