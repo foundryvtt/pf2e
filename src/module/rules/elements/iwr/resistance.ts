@@ -9,22 +9,18 @@ class ResistanceRuleElement extends IWRRuleElement {
         return this.actor.data.data.traits.dr;
     }
 
-    validate(value: unknown): boolean {
-        return (
-            this.data.type in this.dictionary &&
-            typeof value == "number" &&
-            value > 0 &&
-            (!this.data.except || typeof this.data.except === "string")
-        );
-    }
-
-    getIWR(value: number): LabeledResistance {
+    getIWR(value: number): LabeledResistance | null {
         const resistances = this.property;
-        const current = resistances.find((resistance) => (resistance.type = this.data.type));
-        if (current)
-            this.data.override
-                ? resistances.splice(resistances.indexOf(current), 1)
-                : (current.value = Math.max(current.value, value));
+        const current = resistances.find((resistance) => resistance.type === this.data.type);
+        if (current) {
+            if (this.data.override) {
+                resistances.splice(resistances.indexOf(current), 1);
+            } else {
+                current.value = Math.max(current.value, value);
+                return null;
+            }
+        }
+
         return {
             label: this.dictionary[this.data.type],
             type: this.data.type,

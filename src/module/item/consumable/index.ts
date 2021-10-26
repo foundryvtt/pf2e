@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
-import { PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { TrickMagicItemCastData } from "@item/data";
 import { ErrorPF2e, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -14,6 +14,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     get consumableType(): ConsumableType {
         return this.data.data.consumableType.value;
+    }
+
+    get isAmmunition(): boolean {
+        return this.consumableType === "ammo";
     }
 
     get charges() {
@@ -85,8 +89,20 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    isAmmoFor(weapon: ItemPF2e): boolean {
+        if (!(weapon instanceof WeaponPF2e)) {
+            console.warn("Cannot load a consumable into a non-weapon");
+            return false;
+        }
+
+        const { max } = this.charges;
+        return weapon.traits.has("repeating") ? max > 1 : max <= 1;
+    }
+
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
+        const { current, max } = this.charges;
+
         if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
             if (canCastConsumable(this.actor, this.data)) {
                 this.castEmbeddedSpell();
@@ -102,8 +118,15 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
                 });
             }
         } else {
+            const exhausted = max > 1 && current === 1;
+            const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
+            const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
+                name: this.name,
+                current: current - 1,
+            });
+
+            // If using this consumable creates a roll, we need to show it
             const cv = this.data.data.consume.value;
-            const content = `Uses ${this.name}`;
             if (cv) {
                 new Roll(cv).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -119,23 +142,22 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
 
         const quantity = this.quantity;
-        const charges = this.data.data.charges;
 
         // Optionally destroy the item
-        if (this.autoDestroy && charges.value <= 1) {
+        if (this.autoDestroy && current <= 1) {
             if (quantity <= 1) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
                     "data.quantity.value": Math.max(quantity - 1, 0),
-                    "data.charges.value": charges.max,
+                    "data.charges.value": max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(charges.value - 1, 0),
+                "data.charges.value": Math.max(current - 1, 0),
             });
         }
     }

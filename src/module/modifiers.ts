@@ -96,7 +96,15 @@ export class ModifierPF2e implements RawModifier {
      * @param source The source which this modifier originates from, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(name: string, modifier: number, type: string, enabled = true, source?: string, notes?: string) {
+    constructor(
+        name: string,
+        modifier: number,
+        type: string,
+        enabled = true,
+        ignored = false,
+        source?: string,
+        notes?: string
+    ) {
         const isValidModifierType = (type: string): type is ModifierType =>
             Object.values(MODIFIER_TYPE).some((modifierType) => type === modifierType);
 
@@ -104,7 +112,7 @@ export class ModifierPF2e implements RawModifier {
         this.modifier = modifier;
         this.type = isValidModifierType(type) ? type : "untyped";
         this.enabled = enabled;
-        this.ignored = false;
+        this.ignored = ignored;
         this.custom = false;
         this.source = source;
         this.notes = notes;
@@ -118,7 +126,8 @@ export class ModifierPF2e implements RawModifier {
             data.name,
             data.modifier ?? 0,
             data.type ?? "untyped",
-            data.enabled ?? true,
+            data.enabled,
+            data.ignored,
             data.source,
             data.notes
         );
@@ -138,7 +147,8 @@ export class ModifierPF2e implements RawModifier {
             this.name,
             this.modifier,
             this.type,
-            this.enabled ?? true,
+            this.enabled,
+            this.ignored,
             this.source,
             this.notes
         );

@@ -2,23 +2,22 @@ import { ActionsPF2e, SkillActionOptions } from "../actions";
 
 export function maneuverInFlight(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "acrobatics");
-    ActionsPF2e.simpleRollActionCheck(
-        options.actors,
-        property,
-        options.glyph ?? "A",
-        "PF2E.Actions.ManeuverInFlight.Title",
+    ActionsPF2e.simpleRollActionCheck({
+        actors: options.actors,
+        statName: property,
+        actionGlyph: options.glyph ?? "A",
+        title: "PF2E.Actions.ManeuverInFlight.Title",
         subtitle,
-        options.modifiers,
-        ["all", checkType, stat, "action:maneuver-in-flight"],
-        ["action:maneuver-in-flight"],
-        ["move"],
+        modifiers: options.modifiers,
+        rollOptions: ["all", checkType, stat, "action:maneuver-in-flight"],
+        extraOptions: ["action:maneuver-in-flight"],
+        traits: ["move"],
         checkType,
-        options.event,
-        undefined,
-        (selector: string) => [
+        event: options.event,
+        extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.ManeuverInFlight", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.ManeuverInFlight", "failure"),
             ActionsPF2e.note(selector, "PF2E.Actions.ManeuverInFlight", "criticalFailure"),
-        ]
-    );
+        ],
+    });
 }

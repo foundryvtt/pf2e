@@ -13,6 +13,7 @@ import { fontAwesomeIcon } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
+import ChatMessageData = foundry.data.ChatMessageData;
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -95,7 +96,11 @@ export class CheckPF2e {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         event?: JQuery.Event,
-        callback?: (roll: Rolled<Roll>) => void
+        callback?: (
+            roll: Rolled<Roll>,
+            outcome: typeof DegreeOfSuccessText[number] | undefined,
+            message: ChatMessage | ChatMessageData
+        ) => Promise<void> | void
     ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
         if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -184,10 +189,8 @@ export class CheckPF2e {
             })
             .join("");
 
-        const optionStyle =
-            "white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);";
         const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
+            .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
@@ -299,7 +302,7 @@ export class CheckPF2e {
         );
 
         if (callback) {
-            callback(roll);
+            await callback(roll, ctx.outcome, message);
         }
 
         return message;
@@ -404,9 +407,9 @@ export class CheckPF2e {
 
         const die = roll.dice[0];
 
-        if (die.total == 20) {
+        if (die.total === 20) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "success");
-        } else if (die.total == 1) {
+        } else if (die.total === 1) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "failure");
         }
 

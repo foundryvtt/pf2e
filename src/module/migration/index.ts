@@ -21,7 +21,7 @@ import { Migration617FixUserFlags } from "./migrations/617-fix-user-flags";
 import { Migration618MigrateItemImagePaths } from "./migrations/618-migrate-item-img-paths";
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from "./migrations/619-remove-wand-and-scroll-tradition";
 import { Migration620RenameToWebp } from "./migrations/620-rename-to-webp";
-import { Migration621RemoveConfigSpellSchools } from "./migrations/621-remove-config-spellSchools";
+import { Migration621RemoveConfigSpellSchools } from "./migrations/621-remove-config-spell-schools";
 import { Migration622RemoveOldTokenEffectIcons } from "./migrations/622-remove-old-token-effect-icons";
 import { Migration623NumifyPotencyRunes } from "./migrations/623-numify-potency-runes";
 import { Migration624RemoveTokenEffectIconFlags } from "./migrations/624-removed-token-effect-icon-flags";
@@ -74,6 +74,18 @@ import { Migration670NoCustomTrait } from "./migrations/670-no-custom-trait";
 import { Migration670AncestryVision } from "./migrations/670-ancestry-vision";
 import { Migration671NoPCItemsOnNonPCs } from "./migrations/671-no-pc-items-on-non-pcs";
 import { Migration672RemoveNPCBaseProperties } from "./migrations/672-remove-npc-base-properties";
+import { Migration673RemoveBulwarkREs } from "./migrations/673-remove-bulwark-res";
+import { Migration674StableHomebrewTagIDs } from "./migrations/674-stable-homebrew-tag-ids";
+import { Migration675FlatModifierAEsToREs } from "./migrations/675-flat-modifier-aes-to-res";
+import { Migration676ReplaceItemsWithRELikeAEs } from "./migrations/676-replace-items-with-re-like-aes";
+import { Migration677RuleValueDataRefs } from "./migrations/677-rule-value-data-refs";
+import { Migration678SeparateNPCAttackTraits } from "./migrations/678-separate-npc-attack-traits";
+import { Migration679TowerShieldSpeedPenalty } from "./migrations/679-tower-shield-speed-penalty";
+import { Migration680SetWeaponHands } from "./migrations/680-set-weapon-hands";
+import { Migration681GiantLanguageToJotun } from "./migrations/681-giant-language-to-jotun";
+import { Migration682BiographyFields } from "./migrations/682-biography-fields";
+import { Migration683FlavorTextToPublicNotes } from "./migrations/683-flavortext-to-public-notes";
+import { Migration684RationsToConsumable } from "./migrations/684-rations-to-consumable";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -152,6 +164,18 @@ export class Migrations {
         Migration670AncestryVision,
         Migration671NoPCItemsOnNonPCs,
         Migration672RemoveNPCBaseProperties,
+        Migration673RemoveBulwarkREs,
+        Migration674StableHomebrewTagIDs,
+        Migration675FlatModifierAEsToREs,
+        Migration676ReplaceItemsWithRELikeAEs,
+        Migration677RuleValueDataRefs,
+        Migration678SeparateNPCAttackTraits,
+        Migration679TowerShieldSpeedPenalty,
+        Migration680SetWeaponHands,
+        Migration681GiantLanguageToJotun,
+        Migration682BiographyFields,
+        Migration683FlavorTextToPublicNotes,
+        Migration684RationsToConsumable,
     ];
 
     static get latestVersion(): number {

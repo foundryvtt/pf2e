@@ -1,23 +1,26 @@
 import {
     AbilityString,
     ActorSystemData,
+    ActorSystemSource,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseTraitsData,
     HitPointsData,
-    RawSkillData,
+    AbilityBasedStatistic,
     Rollable,
+    StrikeData,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
-import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
+import { CreatureSensePF2e } from "./sense";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
-    TSystemData extends CreatureSystemData = CreatureSystemData
-> = BaseActorSourcePF2e<TCreatureType, TSystemData>;
+    TSystemSource extends CreatureSystemSource = CreatureSystemSource
+> = BaseActorSourcePF2e<TCreatureType, TSystemSource>;
 
 export class BaseCreatureData<
     TActor extends CreaturePF2e = CreaturePF2e,
@@ -26,11 +29,24 @@ export class BaseCreatureData<
 
 export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "flags" | "items" | "token"> {
     readonly type: CreatureType;
-    data: BaseCreatureSource["data"];
+    data: CreatureSystemData;
     readonly _source: BaseCreatureSource;
 }
 
-export interface CreatureSystemData extends ActorSystemData {
+export interface CreatureSystemSource extends ActorSystemSource {
+    details: Record<string, unknown>;
+
+    /** Traits, languages, and other information. */
+    traits?: CreatureTraitsData;
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers?: Record<string, RawModifier[]>;
+
+    /** Saving throw data */
+    saves?: Record<SaveType, { value?: number; mod?: number }>;
+}
+
+export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
     details: {
         alignment: { value: Alignment };
         level: { value: number };
@@ -47,7 +63,9 @@ export interface CreatureSystemData extends ActorSystemData {
     damageDice: Record<string, DamageDicePF2e[]>;
 
     /** Saving throw data */
-    saves: Record<SaveType, StatisticModifier & Rollable>;
+    saves: CreatureSaves;
+
+    actions?: StrikeData[];
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -77,7 +95,7 @@ export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"];
 
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: SenseData[];
+    senses: CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
@@ -85,10 +103,12 @@ export interface CreatureTraitsData extends BaseTraitsData {
     traits: ValuesList;
 }
 
-export type SkillData = StatisticModifier & RawSkillData & Rollable;
+export type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
 
 /** The full save data for a character; including its modifiers and other details */
 export type SaveData = SkillData & { saveDetail?: string };
+
+type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 export interface CreatureAttributes {

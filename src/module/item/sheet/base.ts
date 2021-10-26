@@ -109,7 +109,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 attackEffectOptions[key] = consumable.name;
             });
             data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
-            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
+            data.traits = this.prepareOptions(CONFIG.PF2E.npcAttackTraits, data.data.traits, { selectedOnly: true });
         } else if (itemData.type === "condition") {
             // Condition types
 

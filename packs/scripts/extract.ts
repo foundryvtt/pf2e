@@ -133,6 +133,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
+                    docSource.name = docSource.name.trim();
 
                     (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: docSource.token.disposition,
@@ -144,6 +145,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                 }
                 if (isItemSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
+                    docSource.name = docSource.name.trim();
+
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
                         const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
@@ -271,7 +274,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             .replace(/&nbsp;/g, " ")
             .replace(/ {2,}/g, " ")
             .replace(/<p> ?<\/p>/g, "")
-            .replace(/<\/p> ?<p>/g, "</p><p>")
+            .replace(/<\/p> ?<p>/g, "</p>\n<p>")
             .replace(/<p>[ \r\n]+/g, "<p>")
             .replace(/[ \r\n]+<\/p>/g, "</p>")
             .replace(/<(?:b|strong)>\s*/g, "<strong>")
@@ -489,19 +492,19 @@ function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSour
         } else if (!aActionCategory && bActionCategory) {
             return 1;
         } else {
-            if (aActionCategory == bActionCategory) {
+            if (aActionCategory === bActionCategory) {
                 return 0;
             }
 
-            if (aActionCategory == "interaction") {
+            if (aActionCategory === "interaction") {
                 return -1;
             }
 
-            if (bActionCategory == "interaction") {
+            if (bActionCategory === "interaction") {
                 return 1;
             }
 
-            if (aActionCategory == "defensive") {
+            if (aActionCategory === "defensive") {
                 return -1;
             }
 
@@ -522,7 +525,7 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
             return 1;
         } else if (aLevel && bLevel) {
             const levelDiff = bLevel.value - aLevel.value;
-            if (levelDiff != 0) {
+            if (levelDiff !== 0) {
                 return levelDiff;
             }
         }
@@ -631,7 +634,7 @@ async function extractPacks() {
     populateIdNameMap();
 
     const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
-        .filter((filename) => filename !== "Spells (SRD) - LICENSE")
+        .filter((filename) => filename !== ".gitkeep")
         .map((filename) => path.resolve(packsPath, filename));
 
     return (
@@ -640,10 +643,10 @@ async function extractPacks() {
                 const dbFilename = path.basename(filePath);
 
                 if (!dbFilename.endsWith(".db")) {
-                    throw PackError(`Pack file is not a DB file: '${dbFilename}'`);
+                    throw PackError(`Pack file is not a DB file: "${dbFilename}"`);
                 }
                 if (!fs.existsSync(filePath)) {
-                    throw PackError(`File not found: '${dbFilename}'`);
+                    throw PackError(`File not found: "${dbFilename}"`);
                 }
 
                 const outDirPath = path.resolve(dataPath, dbFilename);

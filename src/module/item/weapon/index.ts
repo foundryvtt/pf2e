@@ -1,7 +1,7 @@
 import { PhysicalItemPF2e } from "../physical";
-import { RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
+import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
-import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from "./data";
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponPropertyRuneType, WeaponTrait } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
 import { ErrorPF2e, sluggify } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
@@ -13,6 +13,7 @@ import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
+import { ConsumablePF2e } from "@item";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -54,6 +55,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return !this.isRanged || !["axe", "club", "hammer", "knife", "spear"].includes(this.group ?? "");
     }
 
+    get ammo(): ConsumablePF2e | null {
+        const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
+        return ammo instanceof ConsumablePF2e ? ammo : null;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.weaponType.value ||= "simple";
@@ -65,6 +71,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.data.propertyRune4.value ||= null;
 
         this.processMaterialAndRunes();
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        const systemData = this.data.data;
+        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+        this.data.data.runes = {
+            potency: potencyRune.value ?? 0,
+            striking: getStrikingDice({ strikingRune }),
+            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                (rune): rune is WeaponPropertyRuneType => !!rune
+            ),
+        };
     }
 
     processMaterialAndRunes(): void {
@@ -125,10 +145,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune1.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune2.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune3.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune4.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune1.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 

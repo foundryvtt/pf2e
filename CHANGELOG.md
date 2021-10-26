@@ -1,5 +1,278 @@
 # Patch Notes:
 
+## Version 2.17.0
+### Bug Fixes
+* (stwlam) Fix displaying and editing monster level for weak and elite monsters
+* (stwlam) Fix display of traits on melee-item sheet
+* (stwlam) Fix armor dexterity cap when armor check penalty is zero. Closes #1806
+* (In3luki) Fix rerolls using disabled modifiers (again)
+* (Tikael) Prevent fatal aim trait from being interpreted as fatal. Closes #1795
+* (Chup) Fix hazard sheet rarity
+* (fryguy) Fix immunities not being grayed out on the NPC sheet if they are empty
+* (nikolaj-a) Fix armor check penalty for skill checks done as initiative
+
+### New Features
+* (Abaddon) Add support for `@Template` syntax in most texts
+* (Tikael) Add partial support for the dual class variant rule, by opening up feat slots
+* (stwlam) Add support for predicated Sense rule elements
+* (SkepticRobot) Expand the biography section with missing fields from official character sheet. Closes #1083
+* (SkepticRobot) Add a limited NPC sheet, as well as an option to specific a small blurb for the NPC. Closes #1125 and #1716
+
+### Content Changes
+* (SpartanCPA) Remove monsters from Little Trouble in Big Absalom compendium that are unchanged from the Bestiaries
+* (SpartanCPA) Give template monsters from Agents of Edgewatch generic names
+* (SpartanCPA) Capitalize Gigavolt feat name. Closes #1792
+* (SpartanCPA) Fix formatting of witch description
+* (SpartanCPA) Remove unnecessary roll options from rule elements
+* (SpartanCPA) Use `@Localize` for descriptions of common abilities, plus a few other things like at-will spells
+* (SpartanCPA) Brush up of Bestiary 1 barghests
+* (SpartanCPA) Italicize spell links in class, equipment, and spell descriptions, as well as monsters from Bestiary 1 through 3
+* (SpartanCPA) Correct the horizontal line in _control weather_ ritual description
+* (SpartanCPA) Fix Blade Ally: Disrupting Rune to target only undead enemies. Closes #1420
+* (SpartanCPA) Remove bad formatting made by copy paste from Paizo PDFs
+* (SpartanCPA) Add ghost creature abilities from Abomination Vaults book 3
+* (SpartanCPA) Add new graveknight abilities from Strength of Thousands book 4
+* (SpartanCPA) Add creature abilities for visitant from Extinction Curse book 2
+* (rectulo) Fix typo in grim sandglass, greater grim sandglass, and greater blade of four energies descriptions
+* (rectulo) Fix formatting for underworld dragon breath, clockwork cloak, staff of nature's cunning, and _zero gravity_ descriptions
+* (rectulo) Fix damage roll format for _concordant choir_ spell
+* (rectulo) Remove trained proficiency in arcana from Summoner
+* (Bolt) Fix skill selection for backgrounds with multiple options
+* (Tikael) Brush up of Age of Ashes book 4 NPCs
+* (Tikael) Add poppet and automaton heritages
+* (Tikael) Add missing ancestry features from Guns & Gears
+* (Tikael) Add the firearm bonus to singular expertise
+* (Tikael) Add automation for twitchy feat
+* (Tikael) Add versatile fire and fix versatile positive weapon traits
+* (InfamousSky) Add icons to Gunslinger features
+* (InfamousSky) Add icons to Inventor class features
+* (cepvep) Brush up _collective transposition_ and _triple time_ spells
+* (cepvep) Add automation for remaining orc ancestry feats
+* (cepvep) Add immunity/weakness/resistance rule elements on effects for spells starting with A through E
+* (TMun) Correct _pillar of water_ to primal instead of occult spell. Closes #1791
+* (TMun) Remove roll options to fix panache and vivacious speed. Closes #1787
+* (TMun) Remove roll options from Barbarian to fix fast movement feat
+* (TMun) Correct typo of Ghostly Portal Paint. Closes #1783
+* (TMun) Correct spelling of _nature's reprisal_ spell and links. Closes #1793
+* (TMun) Add NPCs from Strength of Thousands book 3 and 4
+* (stwlam) Remove any use of the "Giant" language and replace with "Jotun"
+* (stwlam) Convert rations to a consumable with seven uses
+* (stwlam) Add icons for the poppet and automaton ancestries
+* (stwlam) Add icons to some weapons from Guns and Gears
+* (stwlam) Clean up reference implementation of darkvision conditional on ancestral low-light vision
+* (xdy) Fix table styling for a lot of compendium entries
+* (n1xx1) Remove cantrips and level suffix from NPC spell entries
+* (Abaddon) Brush up of Bestiary 1 arboreals and aeons
+* (Abaddon) Update all caligni and add call to blood effect
+* (VestOfHolding) Add automation to sylph and tiefling
+* (VestOfHolding) Update Weapon Tricks feature. Closes #1797
+* (VestOfHolding) Add inventor weapon expertise automation. Closes #1788
+* (VestOfHolding) Add an effect for Dread Marshal Stance. Closes #1704
+* (Drental) Add hazard and NPC from Pathfinder Society season 3 bounty 14
+* (nikolaj-a) Set result of treat wounds check to be visible for all users
+* (TofuSlicer) Fix reflective ripple damage type
+* (SkepticRobot) Add resistance rules to ancestries and heritages
+* (ArthurTrumpet) Change _animal form_ spell effects to use BattleForm rule elements
+* (ArthurTrumpet) Change _aerial form_ spell effects to use Battleform rule elements
+* (redeux) Add formation training hobgoblin ancestry feat effect
+
+### Core System Improvements
+* (stwlam) Add setting to disable token autoscaling
+* (stwlam) Swap out absolute path to UPW logo for relative path
+* (stwlam) Accommodate very long alternate-token filenames in the token sheet
+* (stwlam) Expand weapon-hands coverage to new weapons
+* (stwlam) Add an extra note for boons in Pathfinder Society play in support of the United Paizo Workers
+* (stwlam) Fill out damage dice of brilliant and greater brilliant runes
+* (stwlam) Allow FlatModifier rule elements on familiars
+* (Supe) NPC actions are now enriched with roll data, including the item's name
+* (Supe) Construct localized Spell Scaling Interval label using formatting instead of lookup
+* (Drental) Add fields to the sheet to edit the source information of NPCs
+* (Friz) Fix to NPC spell-attack-roll to show target, degree of succes, and DC. Closes #1732
+* (Chup) Remove hover effect of character sheet ability score label
+* (Chup) Slight adjustment of proficiency colors to improve differentiation
+* (In3luki) Add "Use" button to NPC attack effects from consumables
+* (nikolaj-a) Hide empty ammunition option groups in actions tab
+* (nikolaj-a) Re-align icon on the triple damage button
+* (nikolaj-a) Add weapon group as an option to strike attack and damage rolls
+* (nikolaj-a) Consolidate weapon property rune information, and allow expansion by modules
+
+
+## Version 2.16.4
+
+### Announcement: United Paizo Workers
+Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc – publisher of the Pathfinder and Starfinder roleplaying games – are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America’s CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.
+
+[https://unitedpaizoworkers.org](https://unitedpaizoworkers.org/)
+
+
+## Version 2.16.3
+### Bug Fixes
+* (Supe) Fix error when opening token configuration dialog
+* (Supe) Fix display of traits in action sheet
+* (Chup) Fix styling of item and hazard traits if more than two lines are displayed
+* (stwlam) Fix rendering of homebrew traits on actor sheets
+
+### Content Changes
+* (n1xx1) Remove duplicate `concussive` trait description
+
+
+## Version 2.16.2
+### Bug Fixes
+* (Chup) Fix to CSS for PC inventory sheet so floating shield icon shows up. Closes #1782
+
+### New Features
+* (stwlam) Impose an equipped shield's speed penalty, if any
+* (Supe) Weapons can be equipped and unequipped from the strike list on PCs
+
+### Content Changes
+* (TMun, Tikael, stwlam, VestOfHolding, SpartanCPA, fryguy) Content from newly released books:
+    * Guns & Gears: Archetypes, classes, class features, feats, equipment
+    * Lost Omens: Grand Bazaar: Ancestry, archetypes, equipment, and vehicles
+    * Strength of Thousands book 3 and 4: NPCs
+    * Night of the Gray Death: Equipment, NPCs, and spells
+* (TMun, VestOfHolding, Tikael, stwlam) Adds runes and missing traits for Guns & Gears and Lost Omens: Grand Bazaar
+* (SpartanCPA) Add healing type to Healer's Gloves roll buttons
+* (SpartanCPA) Make NPC Rage a `RollOption` element
+* (SpartanCPA) Move Goblin Scuttle and Wind Up to Creature Family Ability Glossary
+* (SpartanCPA) Brush up of viper swarm
+* (SpartanCPA) Add a variant icon for Immunity to Guidance
+* (SpartanCPA) `@Localize` Attack of Opportunity
+* (rectulo) Fix formatting of _power word kill_ and _lose the path_ spell descriptions
+* (rectulo) Fix typo in _spray of stars_ spell description
+* (rectulo) Add missing sentence to greater retrieval prism description
+* (InfamousSky) Fix area, change to attack type, and add inline damage to _black tentacles_ spell. Closes #1778
+* (InfamousSky) Add icons to Secrets of Magic Elementalist focus spells
+* (InfamousSky) Add icons to summoner class features
+* (Zaquariah) Add _pocket library_ spell effect
+* (Zaquariah) Ensure existing battleform effects don't benefit from Automatic Bonus Progression
+* (stwlam) Add base gun weapon types
+* (stwlam) Set hands/usage types for weapons
+* (xdy) Add source to equipment, remaining Strength of Thousands hazards, Malevolence NPCs
+* (TMun) Add a note regarding conflux spells to all magus focus spells. Closes #1738
+* (cepvep) Add automation for orc ancestry feats levels 1 through 5
+* (Shakespar) Add a pair of fulu icons
+
+### Core System Improvements
+* (SpartanCPA) Update Bestiary Ability Glossary with `@Localize`
+* (Tikael) Allow line templates to be made wider than 5 ft
+* (stwlam) Separate out NPC attack traits from weapon traits
+* (stwlam) Refrain from including NPC attack effects as damage traits
+* (stwlam) Save item UUID instead of source ID to a formula to allow for derivative-item crafting
+* (stwlam) Enforce minimum batch sizes for crafting
+* (Supe) Ammo consumption message can be localized, new messages for partial consumption and exhausted
+* (Supe) Improve support for ranged weapons with the `repeating` trait
+
+
+## Version 2.15.2
+### Bug Fixes
+* (stwlam) Fix rule element stat references with erroneous `data` prefix
+* (stwlam) Fix AC bonus on runed explorer's clothing
+* (stwlam) Merge JSON actor/item import data with latest system model
+* (stwlam) Replace items containing AE-based flat modifiers with latest versions (tough, toughness, and mountain's stoutness)
+* (stwlam) Fix setting of defaults for BattleForm rule elements
+* (stwlam) Ensure newly created owned physical items are unequipped
+* (stwlam) Ensure already-deleted items aren't re-deleted during a migration
+* (Supe) Delay ammo consumption until _after_ the attack roll is made, not before
+
+
+## Version 2.15.1
+### Bug Fixes
+* (stwlam) Fix item transfers between actors
+* (stwlam) Separate Risky Surgery slashing damage from Treat Wounds healing roll
+
+
+## Version 2.15.0
+### Bug Fixes
+* (r2roberts) All NPC skills and perception should send their DCs to the roll method. Closes #1749
+* (stwlam) Prevent dumping of kit contents from altering source items. Closes #1675
+* (stwlam) Fix bug in Rest for the Night macro causing focus pool size to increase
+* (stwlam) Make the "add" button in the check dialog not cause a reload of the Foundry client
+* (stwlam) Fix application of multiple immunity/weakness/resistance rule elements
+* (stwlam) Ensure world clock's year, month, and day of month are all pulled from the same source year. Closes #1772
+* (stwlam) Fix bug causing items to occasionally drop off from unlinked tokens
+* (Chup) Fix action icons inside journal entries
+
+### New Features
+* (stwlam) Automatically remove class features when a PC's level is reduced
+* (stwlam) Add support for predication against compound statements
+* (Eddie) New crafting tab
+
+### Content Changes
+* (SpartanCPA) Fix ability description of Catfolk Pouncer
+* (SpartanCPA) Consolidate all NPCs to one Rage effect
+* (SpartanCPA) Add "Time" weapon trait
+* (SpartanCPA) Add "Seugathi" creature trait
+* (SpartanCPA) Second pass of NPC Gallery: Courtiers, Criminals, Devotees
+* (SpartanCPA) Brush up of some NPCs from Lost Omens: Character Guide
+* (SpartanCPA) Fix shears damage dice
+* (Tikael) Add all magic schools as options for immunities
+* (Tikael) Brush up of Age of Ashes book 4 (part 5)
+* (Tikael) Fix Dueling Parry and Dance to not give NaN AC stat
+* (Tikael) Add area to _phantasmal calamity_ spell
+* (Tikael) Prepare Scarlet Triad Mage's spells
+* (Tikael) Add _mind blank_ spell effect
+* (Tikael) Add base Arcane Cascade effect
+* (InfamousSky) Add icons to Magus focus spells
+* (InfamousSky) Changed _force fang_ from spell attack type to utility. Closes #1739
+* (InfamousSky) Brush up for first few Abomination Vaults book 3 actors
+* (Zaquariah) Add _zealous conviction_ spell effect
+* (rectulo) Add missing sentence to lesser thunderbird tuft
+* (rectulo) Fix typo in _gale blast_ spell description
+* (rectulo) Remove extraneous letter from Urgathoa - Major Curse description
+* (rectulo) Fix formatting of _mystic carriage_, _inevitable disaster_, and _battlefield persistence_ spell descriptions
+* (rectulo) Fix typo in _petal storm_ spell range
+* (rectulo) Add missing heightening text for _chromatic armor_ spell description
+* (xdy) Fix some format errors in content sources
+* (VestOfHolding) Add automation to Undine features and feats
+* (VestOfHolding) Add missing spell areas for _control water_ and _spirit song_ spells
+* (VestOfHolding) Add traits from Guns & Gears and Grand Bazaar
+* (stwlam) Remove patron theme and witch lessons as witch class-feature items
+* (stwlam) Add rule element to Unbreakable-er Goblin feat. Closes #1765
+* (stwlam) Add "Kobold" to consumable traits
+* (Supe) Fix _pet cache_ spell, and add persistent damage to _phantom pain_ spell
+* (TMun) Add 15 and 30 foot cone to _dazzling flash_ spell. Closes #1766
+* (TMun) Add fifth doctrine placeholder class feature to cleric. Closes #1764
+* (TMun) Corrects _blessing of defiance_ (fortitude) spell effect rule element. Closes #1761
+* (TMun) Split arcane spellcasting into two versions and update magus and wizard for new class feature. Closes #1746
+* (TMun) Switch repeating hand crossbow from Str to Dex based. Closes #1768
+* (Abaddon) Brush up Bestiary 1 alghollthu, ankhravs, cave worms, and elephants
+* (telekenunes) Replace familiar ability flat modifier rule elements with ActiveEffect-Like rule elements
+* (telekenunes) Add Sense rules for Gloomseer and Darkseer human ancestry feats
+
+### Core System Improvements
+* (Chup) Keep expanded strike summaries open after toggling a weapon trait
+* (stwlam) Always show rule element source data from rules tab on item sheets
+* (stwlam) Maintain a sort order for attack and defense proficiencies on the PC sheet
+* (stwlam) Accommodate localization of non-English spellcasting entry names
+* (stwlam) Update data preparation to have familiar abilities be updated by AE-likes
+* (stwlam) Disable the scale range input when linkToActorSize is enabled. Closes #1758
+* (stwlam) Remove stored "base" properties from NPC statistics. Closes #1751
+* (stwlam) Wrap "NPCs are lootable" toggle in a GM check
+* (stwlam) Log changes made to actor statistics via AE-like rule elements, ancestries, and classes
+* (stwlam) Fully implement noisy penalty and armored stealth rule. Closes #1750
+* (stwlam) Remove bulwark rule elements in favor of handling in data preparation, add rule element to Mighty Bulwalk
+* (stwlam) Make homebrew tag IDs stable instead of randomly generated to make them more portable across worlds
+* (stwlam) Default rules-based vision to enabled for new worlds
+* (stwlam) Require a domain for the RollOption rule element
+* (stwlam) Provide numeric weapon and armor rune data for use by rule elements
+* (stwlam) Add a `fromUUIDs` utility function to get multiple documents with a single server request
+* (Supe) Move effects tab to before biography so actions and inventory are now adjacent
+* (Supe) The compendium browser can now filter by consumable type
+* (Supe) Add slight fading to non-ready strikes, for example from unequipped weapons
+* (Abaddon) Add support for `@Localize` syntax in enriched text
+* (Abaddon) Add NPC glossary abilities to localization files for easier reuse
+* (Tikael) Allow inline templates to pass traits
+* (Tikael) Allows inline skill checks to use a roller's level based DC
+* (Tikael) Add roll option for raised shield and automate glamorous buckler without an effect
+* (Chup) Fix styling of Fortune/Misfortune in strike chat cards
+* (Chup) Fix TinyMCE editor fonts and system specific stylings
+* (nikolaj-a) Add rule element for adding a known crafting formula
+* (nikolaj-a) Add chat message flags to suppress damage formatting
+* (nikolaj-a) Add outcome as optional callback parameter for checks
+* (nikolaj-a) Make PC sheet slightly wider to make better room for two column skills
+* (nikolaj-a) Add craft action macro
+
+
 ## Version 2.14.4
 ### Bug Fixes
 * (stwlam) Fix experimental damage card formatting given a roll formula of all constants

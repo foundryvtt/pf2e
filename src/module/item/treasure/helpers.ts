@@ -1,7 +1,7 @@
-import type { ActorPF2e } from "@actor/index";
+import type { ActorPF2e } from "@actor";
 import { groupBy } from "@util";
 import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from "@item/data";
-import type { PhysicalItemPF2e } from "@item/index";
+import type { PhysicalItemPF2e } from "@item";
 import { isPhysicalData } from "@item/data/helpers";
 
 export const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
@@ -18,12 +18,13 @@ export function coinValueInCopper(coins: Coins) {
 }
 
 /** Convert a `Coins` object into a price string */
-export function coinsToString(coins: Coins): string {
+export function coinsToString({ cp = 0, sp = 0, gp = 0, pp = 0 }: Partial<Coins>): string {
+    const coins: Coins = { cp, sp, gp, pp };
     if (DENOMINATIONS.every((denomination) => coins[denomination] === 0)) {
         return "0 gp";
     }
 
-    const denomination = DENOMINATIONS.reduce((highest, denomination) => {
+    const denomination = [...DENOMINATIONS].reverse().reduce((highest, denomination) => {
         return coins[denomination] > 0 ? denomination : highest;
     });
 
@@ -89,6 +90,7 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
 /**
  * Converts the price of an item to the Coin structure
  * @param itemData
+ * @param quantity
  */
 export function extractPriceFromItem(
     itemData: { data: { price: { value: string }; quantity: { value: number } } },
@@ -102,6 +104,28 @@ export function extractPriceFromItem(
         return toCoins(denomination, (Number(value) || 0) * quantity);
     } else {
         return toCoins("gp", 0);
+    }
+}
+
+export function multiplyCoinValue(coins: Coins, factor: number): Coins {
+    if (factor % 1 === 0) {
+        return {
+            pp: coins.pp * factor,
+            gp: coins.gp * factor,
+            sp: coins.sp * factor,
+            cp: coins.cp * factor,
+        };
+    } else {
+        const pp = coins.pp * factor;
+        const gp = coins.gp * factor + (pp % 1) * 10;
+        const sp = coins.sp * factor + (gp % 1) * 10;
+        const cp = coins.cp * factor + (sp % 1) * 10;
+        return {
+            pp: Math.floor(pp),
+            gp: Math.floor(gp),
+            sp: Math.floor(sp),
+            cp: Math.floor(cp),
+        };
     }
 }
 

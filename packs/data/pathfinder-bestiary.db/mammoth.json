@@ -50,18 +50,20 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "45 feet"
+                "value": "45"
             }
         },
         "details": {
             "alignment": {
                 "value": "N"
             },
+            "blurb": "",
             "creatureType": "Animal",
-            "flavorText": "<p>Found mostly in colder climates, mammoths are accustomed to dealing with desperate and dangerous predators, trampling and crushing their enemies while using their larger tusks to greater effect. Humanoids dwelling in harsh, frost-bound lands rely on the mammoth's strength to help them survive.</p>",
             "level": {
                 "value": 10
             },
+            "privateNotes": "",
+            "publicNotes": "<p>Found mostly in colder climates, mammoths are accustomed to dealing with desperate and dangerous predators, trampling and crushing their enemies while using their larger tusks to greater effect. Humanoids dwelling in harsh, frost-bound lands rely on the mammoth's strength to help them survive.</p>\n<hr />\n<p>Immediately recognizable by their long, prehensile trunks and impressive tusks, elephants have different characteristics depending on where they are found. Elephants are used as beasts of burden in many regions, but they are extremely clever and must be handled with great care.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -122,6 +124,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -168,6 +171,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grabbing-trunk"
                     ]
@@ -211,6 +215,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -249,6 +254,102 @@
             "name": "Foot",
             "sort": 300000,
             "type": "melee"
+        },
+        {
+            "_id": "pR9Yyd3sYM5iPspf",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "J73AKz9wgVvUQWFo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "n4Cc3VF0F86FO0sG",
@@ -291,7 +392,67 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cold Adaptation",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "PtwaILORaUXLPA4E",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "cold"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs Cold",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -333,9 +494,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Dual Tusks",
-            "sort": 500000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -351,7 +512,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A Medium or smaller creature hit by the mammoth's trunk is &lt;@Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If the mammoth moves, it can bring the @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} creature along with it.</p>"
+                    "value": "<p>A Medium or smaller creature hit by the mammoth's trunk is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If the mammoth moves, it can bring the Grabbed creature along with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -379,7 +540,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grabbing Trunk",
-            "sort": 600000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -395,7 +556,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Large or smaller, foot, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
+                    "value": "<p>Large or smaller, foot, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -427,7 +588,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -462,7 +623,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -497,7 +658,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

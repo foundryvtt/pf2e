@@ -40,10 +40,10 @@
         <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.NPCWeaponAttackEffect" data-config-types="attackEffects" data-property="data.attackEffects"><i class="fas fa-edit"></i></a>
     </label>
 
-    <ul class="traits-list pf-value pf-large">
+    <ul class="traits-list tags">
         {{#each attackEffects as |attackEffect|}}
             {{#if attackEffect.selected}}
-                <li class="tag-legacy" data-attack-effect="{{attackEffect.value}}">{{localize attackEffect.label}}</li>
+                <li class="tag tag_alt" data-attack-effect="{{attackEffect.value}}">{{localize attackEffect.label}}</li>
             {{/if}}
         {{/each}}
     </ul>
@@ -52,13 +52,11 @@
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="npcAttackTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
-    <ul class="traits-list pf-value pf-large">
+    <ul class="traits-list tags">
         {{#each traits as |trait|}}
-            {{#if trait.selected}}
-                <li class="tag-legacy" data-trait="{{trait.value}}">{{localize trait.label}}</li>
-            {{/if}}
+            <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
         {{/each}}
     </ul>
 </div>

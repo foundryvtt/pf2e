@@ -89,7 +89,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
             }
 
-            // hit points
+            // Hit Points
             {
                 const modifiers = [
                     new ModifierPF2e("PF2E.MasterLevelHP", this.level * 5, MODIFIER_TYPE.UNTYPED),
@@ -122,7 +122,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.attributes.hp = stat;
             }
 
-            // armor class
+            // Armor Class
             {
                 const source = master.data.data.attributes.ac.modifiers.filter(
                     (modifier) => !["status", "circumstance"].includes(modifier.type)
@@ -149,7 +149,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.attributes.ac = stat;
             }
 
-            // Saving throws
+            // Saving Throws
             for (const saveName of SAVE_TYPES) {
                 const save = master.data.data.saves[saveName];
                 const source = save.modifiers.filter(
@@ -181,6 +181,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                             args.callback
                         );
                     },
+                    value: 0,
                 });
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
@@ -189,6 +190,9 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .join(", ");
                 data.saves[saveName] = stat;
             }
+
+            // Senses
+            this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
 
             // Attack
             {

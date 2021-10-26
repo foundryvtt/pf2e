@@ -9,9 +9,9 @@ import {
 } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
 import type { LocalizePF2e } from "@module/system/localize";
-import { OneToFour } from "@module/data";
+import { OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
-import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
+import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 
 export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemData>;
 
@@ -42,7 +42,7 @@ export interface WeaponDamage {
 
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
-export type WeaponPropertyRuneType = typeof WEAPON_PROPERTY_RUNE_TYPES[number];
+export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
 export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
@@ -116,6 +116,11 @@ interface WeaponSystemData extends MagicItemSystemData {
     propertyRune4: WeaponPropertyRuneSlot;
     preciousMaterial: {
         value: WeaponMaterialType | null;
+    };
+    runes: {
+        potency: number;
+        striking: ZeroToThree;
+        property: WeaponPropertyRuneType[];
     };
 
     // Refers to custom damage, *not* property runes

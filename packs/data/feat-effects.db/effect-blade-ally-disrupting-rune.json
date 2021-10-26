@@ -2,7 +2,7 @@
     "_id": "eippbzuocVM6ftcj",
     "data": {
         "description": {
-            "value": "<p>A disrupting weapon pulses with positive energy, dealing an extra [[/r 1d6 #positive]]{1d6 positive damage} to undead. On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn.</p>"
+            "value": "<p>A disrupting weapon pulses with positive energy, dealing an extra [[/r {1d6}[positive]]]{1d6 positive damage} to undead. On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,6 +20,14 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ]
+                },
                 "selector": "{item|data.target}-damage",
                 "text": "<strong>Disrupting</strong>: On a critical hit, the undead is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
             },
@@ -28,11 +36,16 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ]
+                },
                 "selector": "{item|data.target}-damage"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

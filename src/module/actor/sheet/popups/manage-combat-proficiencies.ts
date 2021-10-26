@@ -22,7 +22,7 @@ async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void
                 label: LocalizePF2e.translations.PF2E.AddShortLabel,
                 callback: async ($dialog) => {
                     const selection = $dialog.find('select[name="proficiency"]').val();
-                    if (typeof selection === "string" && selection != "") {
+                    if (typeof selection === "string" && selection) {
                         const proficiencyKey =
                             selection in weaponGroups
                                 ? (`weapon-group-${selection}` as WeaponGroupProficiencyKey)

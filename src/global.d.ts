@@ -41,6 +41,7 @@ import { FolderPF2e } from "@module/folder";
 import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
+import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
 
 declare global {
     interface Game {
@@ -48,6 +49,7 @@ declare global {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
             licenseViewer: LicenseViewer;
+            upwViewer: UnitedPaizoWorkers;
             worldClock: WorldClock;
             effectPanel: EffectsPanel;
             effectTracker: EffectTracker;
@@ -107,11 +109,14 @@ declare global {
 
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
+        get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm " | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm " | "owner" | "all";
+
+        get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
         get(module: "pf2e", setting: "worldClock.dateTheme"): "AR" | "IC" | "AD" | "CE";
         get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
@@ -135,6 +140,7 @@ declare global {
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
+        get(module: "pf2e", setting: "seenUnionAnnouncement"): boolean;
     }
 
     interface WorldSettingsStorage {

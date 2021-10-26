@@ -37,6 +37,10 @@ export class FakeCollection<V> {
         return Array.from(this.#map.values()).find(predicate);
     }
 
+    some(predicate: (value: V) => boolean): boolean {
+        return Array.from(this.#map.values()).some(predicate);
+    }
+
     filter(predicate: (value: V) => boolean): V[] {
         return Array.from(this.#map.values()).filter(predicate);
     }

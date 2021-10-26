@@ -51,8 +51,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "25 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "25"
                     }
                 ],
                 "value": "25 feet"
@@ -62,11 +63,13 @@
             "alignment": {
                 "value": "CE"
             },
+            "blurb": "",
             "creatureType": "Undead",
-            "flavorText": "<p>Vampire counts rule their demesnes through a mix of fear and cruelty.</p>",
             "level": {
                 "value": 6
             },
+            "privateNotes": "",
+            "publicNotes": "<p>Vampire counts rule their demesnes through a mix of fear and cruelty.</p>\n<hr />\n<p>Vampires are undead creatures that feed on the blood of the living.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -91,7 +94,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -100,25 +103,23 @@
             },
             "dr": [
                 {
-                    "exceptions": "magical silver",
-                    "label": "Physical",
+                    "exceptions": "except magical silver",
                     "type": "physical",
-                    "value": "7"
+                    "value": 7
                 }
             ],
             "dv": [
                 {
-                    "label": "Vampire Weaknesses",
-                    "type": "vampire weaknesses"
+                    "type": "vampire-weaknesses",
+                    "value": 0
                 }
             ],
             "languages": {
-                "custom": "plus one regional language",
+                "custom": "One Regional Language",
                 "selected": [],
                 "value": [
                     "common",
-                    "necril",
-                    "custom"
+                    "necril"
                 ]
             },
             "rarity": {
@@ -144,9 +145,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "n74CSiGSkxljBxQx",
+            "_id": "Td78ZItQvX6IaIYS",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "rapier",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": null
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -159,13 +172,25 @@
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
                     "value": ""
+                },
+                "description": {
+                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -199,27 +224,71 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -227,31 +296,51 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 rapier",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+            "name": "Rapier",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "6sJAME25JFphjmN3",
+            "_id": "jEG8GHno84Sbk6mo",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "armorType": {
+                    "value": "light"
+                },
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -260,19 +349,25 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": 4
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
+                },
+                "group": {
+                    "value": "leather"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -294,33 +389,58 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 10
                 },
                 "traits": {
                     "custom": "",
@@ -330,18 +450,22 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
             "sort": 200000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
             "_id": "bgkXxmVMntPQOmND",
@@ -391,7 +515,56 @@
             "type": "melee"
         },
         {
-            "_id": "drFfBowFOjTRZSkO",
+            "_id": "ziSz2omKZDCD4A0e",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "biya5r6cbmpnb9ww4s11": {
+                        "damage": "1d8+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 400000,
+            "type": "melee"
+        },
+        {
+            "_id": "tWbHQ0vvt0pazg8b",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -403,15 +576,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The vampire's presence brings forth creatures of the night to do the master's bidding. These typically include rat swarms, bat swarms, and wolves, but can include other creatures. The vampire can give telepathic orders to these creatures as long as they are within 100 feet, but they can't communicate back.</p>"
+                    "value": "<p>The vampire's presence brings forth creatures of the night to do the master's bidding. These typically include @Compendium[pf2e.pathfinder-bestiary.Rat Swarm]{Rat Swarms}, @Compendium[pf2e.pathfinder-bestiary.Vampire Bat Swarm]{Bat Swarms}, and @Compendium[pf2e.pathfinder-bestiary.Wolf]{Wolves}, but can include other creatures.</p>\n<p>The vampire can give telepathic orders to these creatures as long as they are within 100 feet, but they can't communicate back.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-true-children-of-the-night",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -432,14 +605,269 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.noOXyIXmwYN2rRd1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Children of the Night",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "GR5QwhxCcoEQj0lC",
+            "_id": "UlKjjV6z1vsPPMQD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "h3y1i4tyd5aM7X2A",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "fast-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fast Healing 7",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "qPkPFAZpcYQTtHr0",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "3krbFbrGHnrSaj3m",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>All vampires possess the following weaknesses.</p>\n<ul>\n<li><strong>Compulsions</strong> Vampires are creatures of strange and unknowable compulsions. A typical vampire can't voluntarily cross running water unless it is transported while it hides within its coffin, nor can it enter a private dwelling unless invited in by someone with the authority to do so. At your discretion, vampires might have different compulsions-a pirate vampire might not be able to set foot on solid ground without being invited, for example. The vampire can still be forced to do these things and might be able to overcome its compulsion just as it does its revulsion.</li>\n<li><strong>Revulsion</strong> A vampire can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the vampire involuntarily comes within 10 feet of an object of its revulsion, it gains the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition, running from the object of its revulsion until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a vampire can attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"25\" data-pf2-label=\"Overcome Revulsion DC\" data-pf2-show-dc=\"gm\">Will</span> save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/br 1d6 #rounds]]{1d6 rounds} (or 1 hour on a critical success).</li>\n<li><strong>Stake</strong> A wooden stake driven through a vampire's heart drops the vampire to 0 HP and prevents it from healing above 0 HP, even in its coffin. Staking a vampire requires three actions and works only if the vampire is unconscious. If the stake is removed, the vampire can heal above 0 HP again, and if it's in its coffin the 1-hour rest period begins once the stake is removed. If the vampire's head is severed and anointed with <em>@Compendium[pf2e.equipment-srd.Holy Water]{Holy Water}</em> while the stake is in place, the vampire is destroyed.</li>\n<li><strong>Sunlight</strong> If exposed to direct sunlight, a vampire immediately becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. The slowed value increases by 1 each time the vampire ends its turn in sunlight. If the vampire loses all its actions in this way, it is destroyed. Due to their supernatural aversion to light, vampires don't cast shadows or show a reflection in mirrors.</li>\n</ul>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "vampire-basic-vampire-weaknesses",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.5DuBTf37u88IrphJ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vampire Weaknesses",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "PTWWWtp3pbGRXFOp",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} begins to function normally.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "vampire-basic-coffin-restoration",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "necromancy",
+                        "negative"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FXHjmH1oce7Z3tZb"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coffin Restoration",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "7jk0Te7a47HHBCBe",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -451,15 +879,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The vampire is reduced to 0 HP. <strong>Effect</strong> The vampire uses Turn to Mist. It can take move actions to move toward its coffin even though it's at 0 HP. While at 0 HP in this form, the vampire is unaffected by further damage. It automatically returns to its corporeal form, unconscious, if it reaches its coffin or after 2 hours, whichever comes first.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The vampire is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The vampire uses Turn to Mist. It can take move actions to move toward its coffin even though it's at 0 HP. While at 0 HP in this form, the vampire is unaffected by further damage.</p>\n<p>It automatically returns to its corporeal form, unconscious, if it reaches its coffin or after 2 hours, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-true-mist-escape",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -476,102 +904,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.sAyR4uJbsWukZFZf"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Mist Escape",
-            "sort": 500000,
+            "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "DCilycA067txxmOl",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls unconscious. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coffin Restoration",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "kCLqnRCuH2yKWyLF",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>All vampires possess the following weaknesses.</p>\n<p><strong>Compulsions</strong> Vampires are creatures of strange and unknowable compulsions. A typical vampire can't voluntarily cross running water unless it is transported while it hides within its coffin, nor can it enter a private dwelling unless invited in by someone with the authority to do so. At your discretion, vampires might have different compulsions-a pirate vampire might not be able to set foot on solid ground without being invited, for example. The vampire can still be forced to do these things and might be able to overcome its compulsion just as it does its revulsion (see below).</p>\n<p><strong>Revulsion</strong> A vampire can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a non-evil deity. To brandish garlic or a religious symbol, a creature must Interact to do so for 1 round (similar to Raising a Shield). If the vampire involuntarily comes within 10 feet of an object of its revulsion, it gains the fleeing condition, running from the object of its revulsion until it ends an action beyond 10 feet. After 1 round of being exposed to the subject of its revulsion, a vampire can attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"25\" data-pf2-label=\"Vampiric Weaknesses DC\" data-pf2-show-dc=\"gm\">Will</span> save as a single action, which has the concentrate trait. On a success, it overcomes its revulsions for [[/br 1d6 #rounds]]{1d6 rounds} (or 1 hour on a critical success).</p>\n<p><strong>Stake</strong> A wooden stake driven through a vampire's heart drops the vampire to 0 HP and prevents it from healing above 0 HP, even in its coffin. Staking a vampire requires three actions and works only if the vampire is unconscious. If the stake is removed, the vampire can heal above 0 HP again, and if it's in its coffin the 1-hour rest period begins once the stake is removed. If the vampire's head is severed and anointed with holy water while the stake is in place, the vampire is destroyed.</p>\n<p><strong>Sunlight</strong> If exposed to direct sunlight, a vampire immediately becomes slowed 1. The slowed value increases by 1 each time the vampire ends its turn in sunlight. If the vampire loses all its actions in this way, it is destroyed. Due to their supernatural aversion to light, vampires don't cast shadows or show a reflection in mirrors.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vampiric Weaknesses",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "bYDh0IgTNhe8B6iw",
+            "_id": "qvtoCJbta9RZhQyP",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -583,13 +927,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The vampire transforms into one of its animal forms or back into its normal form. Most vampires can turn into a bat, but some can turn into a different creature, such as a rat or a wolf. Use the options in the aerial form and animal form spells as guidelines. <strong>Giant Bat</strong> The vampire changes into a giant bat. It gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs +15, Damage 1d8+9 piercing.</p>\n<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -598,12 +942,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "transmutation",
-                        "polymorph"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -613,14 +952,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Change Shape",
-            "sort": 800000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "53oK8Z5IvDhq1Q9o",
+            "_id": "PV3IDenFiI72CW5L",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -632,15 +975,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a creature dies after being reduced to 0 HP by Drink Blood, the vampire can turn this victim into a vampire by donating some of its own blood to the victim and burying the victim in earth for 3 nights. If the new vampire is lower level than its creator, it is under the creator's control. If a vampire controls too many spawn at once (as determined by the GM), strong-willed spawn can free themselves by succeeding at a Will saving throw against the vampire's Will DC.</p>"
+                    "value": "<p>If a creature dies after being reduced to 0 HP by Drink Blood, the vampire can turn this victim into a vampire by donating some of its own blood to the victim and burying the victim in earth for 3 nights.</p>\n<p>If the new vampire is lower level than its creator, it is under the creator's control. If a vampire controls too many spawn at once (as determined by the GM), strong-willed spawn can free themselves by succeeding at a <span data-pf2-check=\"will\" data-pf2-dc=\"\" data-pf2-label=\"Escape Thralldom DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw against the vampire's Will DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-true-create-spawn",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -661,62 +1004,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Create Spawn",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "oMlhBRlsYd52F6pe",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The vampire can cast dominate at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait. The save is DC 22, and a creature that succeeds is temporarily immune to that vampire's Dominate for 24 hours. Fully destroying the vampire ends the domination, but merely reducing the vampire to 0 HP is insufficient to break the spell.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "enchantment",
-                        "incapacitation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.wqptDG0IW6ExnISC"
                 }
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Dominate",
-            "sort": 1000000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Create Spawn",
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "nUOPCJFmcFPDPljI",
+            "_id": "LfUr0UR1ij7ksywN",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -728,15 +1027,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> A grabbed, paralyzed, restrained, unconscious, or willing creature is within the vampire's reach. <strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an Athletics check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions. The victim is drained 2 and the vampire regains 10 HP, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>"
+                    "value": "<p><strong>Requirement</strong> A @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Restrained]{Restrained}, @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within the vampire's reach.</p>\n<p><strong>Effect</strong> The vampire sinks its fangs into that creature to drink its blood. This requires an Athletics check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim is @Compendium[pf2e.conditionitems.Drained]{Drained 2} and the vampire regains 10 HP, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drain value by 1. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a <span data-pf2-check=\"medicine\" data-pf2-dc=\"20\" data-pf2-label=\"Blood Transfusion DC\" data-pf2-show-dc=\"gm\">Medicine</span> check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-true-drink-blood",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -756,14 +1055,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.XHut4MN0JBgm7WaN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drink Blood",
-            "sort": 1100000,
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "yNE4JcXOFBFlzotm",
+            "_id": "L6NxueEdWhKJPTzs",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -775,15 +1078,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The vampire turns into a cloud of vapor, as the gaseous form spell, or back to its normal form. The vampire loses fast healing while in gaseous form. The vampire can remain in this form indefinitely.</p>"
+                    "value": "<p>The vampire turns into a cloud of vapor, as the <em>@Compendium[pf2e.spells-srd.Gaseous Form]{Gaseous Form}</em> spell, or back to its normal form. The vampire loses @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} while in gaseous form.</p>\n<p>The vampire can remain in this form indefinitely.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-true-turn-to-mist",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -804,10 +1107,121 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Nnl5wg6smOzieTop"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Turn to Mist",
-            "sort": 1200000,
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "fotztrNKLw3i80lr",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"divine,enchantment,incapacitation,mental\" data-pf2-label=\"Dominate DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<hr />\n<p>The vampire can cast <em>@Compendium[pf2e.spells-srd.Dominate]{Dominate}</em> at will as a divine innate spell. Casting it requires staring into the target's eyes, giving the spell the visual trait. The save DC uses the DC of the vampire's level, and a creature that succeeds is temporarily immune to that vampire's Dominate for 24 hours.</p>\n<p>Fully destroying the vampire ends the domination, but merely reducing the vampire to 0 HP is insufficient to break the spell.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "vampire-true-dominate",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "enchantment",
+                        "incapacitation",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.AjTkksppymqzCivT"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dominate",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "dIn4hnKpk8qq0mFs",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The vampire transforms into a bat.</p>\n<p>Use the options in the <em>@Compendium[pf2e.spells-srd.Aerial Form]{Aerial Form}</em> and <em>@Compendium[pf2e.spells-srd.Animal Form]{Animal Form}</em> spells as guidelines.</p>\n<ul>\n<li><strong>Bat</strong> The vampire changes into a @Compendium[pf2e.pathfinder-bestiary.Giant Bat]{Giant Bat}. It gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike.</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "vampire-true-change-shape",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ZMTnwyXjyfy7Ryi6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -842,7 +1256,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -877,7 +1291,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -912,7 +1326,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1500000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -947,7 +1361,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1600000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -982,7 +1396,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1017,7 +1431,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1800000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1052,7 +1466,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],

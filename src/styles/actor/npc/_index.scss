@@ -37,36 +37,30 @@ $adjusted-lower: #cc3311;
             font-family: var(--sans-serif-condensed);
             font-size: 1.75rem;
             font-weight: 700;
-            justify-content: space-between;
             width: 100%;
-            align-items: baseline;
+            flex-wrap: nowrap;
+
+            input {
+                font-weight: inherit;
+                height: 32px;
+            }
 
             .name-value {
                 font-variant: small-caps;
-                margin-left: 8px;
-                margin-right: 8px;
-                height: 32px;
-                font-weight: 700;
+                margin-left: 6px;
+                margin-right: 18px;
             }
 
-            .level-container {
-                margin-left: 4px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                .level-label {
-                    flex: 1 0 auto;
-                    text-align: right;
-                    margin-right: 0.1em;
-                    text-transform: uppercase;
-                }
+            .level-label {
+                flex: 0;
+                text-align: right;
+                margin-right: 0.1em;
+                text-transform: uppercase;
+            }
 
-                input {
-                    flex: 0 0 40px;
-                    font-weight: 700;
-                    text-align: center;
-                    height: 32px;
-                }
+            input.level {
+                flex: 0 0 40px;
+                text-align: center;
             }
         }
 
@@ -98,6 +92,10 @@ $adjusted-lower: #cc3311;
             }
         }
     }
+
+    hr {
+        margin: 10px 6px 10px 0;
+      }
 
     .side-bar {
         flex: 160px 0 0;
@@ -328,9 +326,8 @@ $adjusted-lower: #cc3311;
     .sheet-body {
         flex: auto;
         .tab {
-            &:not(.notes) {
-                overflow: hidden scroll;
-            }
+            overflow: hidden scroll;
+            
 
             .identification-skills {
                 ul {
@@ -640,7 +637,7 @@ $adjusted-lower: #cc3311;
     .section-container {
         display: flex;
         flex-direction: column;
-        padding: 4px 6px 0 6px;
+        padding: 4px 6px 0;
 
         .section-header {
             display: flex;
@@ -917,19 +914,71 @@ $adjusted-lower: #cc3311;
         overflow-y: hidden;
     }
 
-    .notes-text {
-        color: #333;
-        width: 100%;
-        height: 100%;
-        overflow-y: hidden;
-        > .editor {
-            padding: 0 8px;
-            > a.editor-edit {
-                right: 8px;
+    .notes {
+        padding-right: 15px;
+
+        &.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details-label {
+            padding: 4px;
+            font-family: var(--sans-serif);
+            font-size: 10px;
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--primary);
+        
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+
+        .notes-section {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notes-text {
+            margin-left: 8px;
+            padding: 4px;
+            color: #333;
+            flex-grow: 1;
+    
+            .editor {
+    
+                .editor-edit {
+                    background: var(--primary);
+                    color: white;
+                }
+    
+                .editor-content {
+                    min-height: 50px;
+                }
+            }
+        }
+
+        .source {
+            flex-shrink: 0;
+
+            .section-body {
+                border-width: 2px;
+            }
+
+            label {
+                margin-right: 4px;
+                flex: 0;
+                font-weight: 700;
+            }
+
+            .source-input {
+                flex: 2;
             }
         }
     }
-
+    
     &.dead {
         .profile {
             background-size: cover;

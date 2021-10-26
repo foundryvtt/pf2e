@@ -46,31 +46,6 @@
     </div>
     <!-- Token Image -->
     <div class="tab" data-tab="image">
-        <fieldset class="size">
-            <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
-            <div class="form-group">
-                <label>{{localize "PF2E.Token.Size.LinkToActorSize.Label"}}</label>
-                <div class="form-fields">
-                    <input type="checkbox" name="flags.pf2e.linkToActorSize" data-dtype="Boolean" {{checked object.flags.pf2e.linkToActorSize}} />
-                </div>
-                <p class="hint">{{localize "PF2E.Token.Size.LinkToActorSize.Hint"}}</p>
-            </div>
-            <div class="form-group">
-                <label>{{localize "PF2E.Token.Size.Dimensions"}} <span class="units">({{localize "GridUnits"}})</span></label>
-                <div class="form-fields">
-                    <label class="dimension">{{localize "Width"}}</label>
-                    <input type="number" min="0.5" step="0.5" name="width" placeholder="units" value="{{object.width}}" {{disabled object.flags.pf2e.linkToActorSize}} />
-                    <label class="dimension">{{localize "Height"}}</label>
-                    <input type="number" min="0.5" step="0.5" name="height" placeholder="units" value="{{object.height}}"  {{disabled object.flags.pf2e.linkToActorSize}} />
-                </div>
-            </div>
-            <div class="form-group scale">
-                <label>{{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span></label>
-                <div class="form-fields">
-                    {{rangePicker name="scale" value=object.scale min="0.2" max="3.0" step="0.1"}}
-                </div>
-            </div>
-        </fieldset>
         <fieldset class="appearance">
             <legend>{{localize "PF2E.Token.Appearance"}}</legend>
             <div class="form-group">
@@ -114,6 +89,31 @@
                 <label>{{localize "TOKEN.Opacity"}}</label>
                 <div class="form-fields">
                     {{ rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05" }}
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="size">
+            <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
+            <div class="form-group">
+                <label>{{localize "PF2E.Token.Size.LinkToActorSize.Label"}}</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="flags.pf2e.linkToActorSize" data-dtype="Boolean" {{checked object.flags.pf2e.linkToActorSize}} />
+                </div>
+                <p class="hint">{{localize "PF2E.Token.Size.LinkToActorSize.Hint"}}</p>
+            </div>
+            <div class="form-group">
+                <label>{{localize "PF2E.Token.Size.Dimensions"}} <span class="units">({{localize "GridUnits"}})</span></label>
+                <div class="form-fields">
+                    <label class="dimension">{{localize "Width"}}</label>
+                    <input type="number" min="0.5" step="0.5" name="width" placeholder="units" value="{{object.width}}" {{disabled object.flags.pf2e.linkToActorSize}} />
+                    <label class="dimension">{{localize "Height"}}</label>
+                    <input type="number" min="0.5" step="0.5" name="height" placeholder="units" value="{{object.height}}"  {{disabled object.flags.pf2e.linkToActorSize}} />
+                </div>
+            </div>
+            <div class="form-group scale">
+                <label>{{localize "Scale"}} <span class="units">({{localize "Ratio"}})</span></label>
+                <div class="form-fields">
+                    {{rangePicker name="scale" value=object.scale min="0.2" max="3.0" step="0.1"}}
                 </div>
             </div>
         </fieldset>

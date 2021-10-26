@@ -15,179 +15,141 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "18 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "climb": 20,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.claw",
+                            "traits": [
+                                "agile",
+                                "melee",
+                                "reach-10"
+                            ]
                         },
-                        {
-                            "start": 6,
-                            "value": "21 + @details.level.value"
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "traits": [
+                                "melee",
+                                "reach-10"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Aberrant Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 13
-                        },
-                        {
-                            "start": 6,
-                            "value": 26
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 6,
-                            "value": 22
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 8
-                        },
-                        {
-                            "start": 6,
-                            "value": 13
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 6,
-                            "value": 23
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 6,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 40
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d12"
-                    }
+                    },
+                    "traits": [
+                        "aberration"
+                    ]
                 },
-                "key": "Strike",
-                "label": "Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "agile",
+                                            "melee",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "melee",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 13
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 22,
+                                        "traits": [
+                                            "melee",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "leg": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 22,
+                                        "traits": [
+                                            "agile",
+                                            "melee",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 26
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             },
             {
-                "key": "BaseSpeed",
-                "selector": "climb-speed",
-                "value": 20
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "key": "Strike",
-                "label": "Claws",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "agile",
-                    "reach-10"
-                ]
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
+                "key": "Note",
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>Squeeze</strong>: Your multiple joints allow you to fit through tight spaces as if you were a Medium creature..</p>"
             }
         ],
         "source": {

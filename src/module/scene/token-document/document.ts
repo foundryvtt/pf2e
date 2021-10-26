@@ -110,7 +110,11 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             this.data.height = height;
         } else {
             this.data.width = this.data.height = size;
-            this.data.scale = this.actor.size === "sm" ? 0.8 : 1;
+            this.data.scale = game.settings.get("pf2e", "tokens.autoscale")
+                ? this.actor.size === "sm"
+                    ? 0.8
+                    : 1
+                : this.data.scale;
         }
     }
 

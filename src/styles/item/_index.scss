@@ -116,6 +116,15 @@
                 /** Active Effects */
                 @import 'active-effects';
             }
+
+            .editor {
+                --space-s: 0.25em;
+                --space-m: 0.5em;
+                --space-l: 1em;
+                --space-xl: 1.5em;
+                --radius: 3px;
+                @include tinymce-system-specific;
+            }
         }
     }
 
@@ -163,18 +172,8 @@
         }
     }
 
-    .pf-value {
-        background: white;
-        border: 1px solid var(--tertiary-background);
-        text-align: center;
-        &.traits-list {
-            list-style-type: none;
-            padding: 3px;
-        }
-    }
-
-    .pf-large {
-        height: 40px;
+    .tags {
+        padding-left: 0;
     }
 
     .details-container {

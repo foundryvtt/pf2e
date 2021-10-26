@@ -15,239 +15,149 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 3,
-                            "value": "18 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {},
+                        "lowLightVision": {}
+                    },
+                    "speeds": {
+                        "climb": 25,
+                        "land": 25
+                    },
+                    "strikes": {
+                        "fangs": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "web": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "entangle",
+                                "dice": 0,
+                                "die": "d0"
+                            },
+                            "group": "unarmed",
+                            "img": "systems/pf2e/icons/spells/web.webp",
+                            "traits": [
+                                "range-increment-20",
+                                "unarmed"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Insect Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 10
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 15
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 13
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 18
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 2
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 6
-                        },
-                        {
-                            "start": 5,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 13
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 1,
-                            "value": "med"
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 5,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 25
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "climb",
-                "value": 25
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d6"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Spider Fangs",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "key": "Note",
-                "predicate": {
-                    "all": [
-                        "melee"
+                    },
+                    "traits": [
+                        "animal"
                     ]
                 },
-                "selector": "damage",
-                "text": "<p class='compact-text'><strong>Add [[/r 1d4 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} (2d4 at spell level 5)</p>"
-            },
-            {
-                "category": "ranged",
-                "damage": {
-                    "base": {
-                        "damageType": "slashing",
-                        "dice": 1,
-                        "die": "d1"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Spider Web",
-                "range": "range-20",
-                "traits": [
-                    "range-20"
-                ]
-            },
-            {
-                "key": "Note",
-                "predicate": {
-                    "all": [
-                        "range-20"
-                    ]
-                },
-                "selector": "damage",
-                "text": "<p class='compact-text'><strong>This attack deals no damage. It entangles the target for 1 round.</p>"
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Insect Form",
-                "predicate": {
-                    "all": [
-                        "melee"
-                    ]
-                },
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 13
+                                    }
+                                },
+                                "strikes": {
+                                    "fangs": {
+                                        "damage": {
+                                            "modifier": 2
+                                        },
+                                        "modifier": 13
+                                    },
+                                    "web": {
+                                        "damage": {
+                                            "modifier": 0
+                                        },
+                                        "modifier": 13
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "fangs": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "web": {
+                                        "damage": {
+                                            "modifier": 0
+                                        },
+                                        "modifier": 16
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
                         {
                             "start": 5,
                             "value": {
-                                "diceNumber": 1
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "fangs": {
+                                        "damage": {
+                                            "dice": 2,
+                                            "modifier": 2
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "web": {
+                                        "damage": {
+                                            "dice": 0,
+                                            "modifier": 0
+                                        },
+                                        "modifier": 18
+                                    }
+                                },
+                                "tempHP": 20
                             }
                         }
                     ],
@@ -255,10 +165,29 @@
                 }
             },
             {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
+                "selector": "fangs-damage",
+                "text": "<p class=\"compact-text\"><strong>Insect Form (Spider)</strong>: plus [[/r 1d4 #persistent poison]]{1d4} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent poison Damage}<br><strong>Heightened(5th)</strong> Double persistent damage dice</strong></p>"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
+                "selector": "pf2e.battleform.attack.web-attack",
+                "text": "<p class=\"compact-text\"><strong>Insect Form (Spider)</strong>: A successful Web attack entangles the target for 1 round, but deals no damage</p>"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
+                "path": "flags.pf2e.disableABP",
                 "value": true
             }
         ],

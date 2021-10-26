@@ -80,10 +80,6 @@ export class SpellPF2e extends ItemPF2e {
         };
     }
 
-    get damage() {
-        return Object.values(this.data.data.damage.value ?? {});
-    }
-
     /** Returns true if this spell has unlimited uses, false otherwise. */
     get unlimited() {
         // In the future handle at will and constant
@@ -116,7 +112,7 @@ export class SpellPF2e extends ItemPF2e {
         castLevel = this.computeCastLevel(castLevel);
         const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
         const formulas = [];
-        for (const [idx, damage] of this.damage.entries()) {
+        for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
             // Persistent / Splash are currently not supported for regular modes
             const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
             if (!experimentalDamageFormat && isPersistentOrSplash) {
@@ -131,7 +127,6 @@ export class SpellPF2e extends ItemPF2e {
             if (formulas.length === 0) {
                 if (this.data.data.duration.value === "" && this.actor) {
                     if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
-                        console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                         parts.push(String(castLevel));
                     }
                 }
@@ -147,7 +142,7 @@ export class SpellPF2e extends ItemPF2e {
             // Interval Spell scaling. Ensure it heightens first
             const scaling = this.data.data.scaling;
             if (scaling?.interval) {
-                const scalingFormula = scaling.damage[idx];
+                const scalingFormula = scaling.damage[id];
                 if (scalingFormula && scalingFormula !== "0" && scaling.interval) {
                     const partCount = Math.floor((castLevel - this.level) / scaling.interval);
                     if (partCount > 0) {
@@ -378,7 +373,7 @@ export class SpellPF2e extends ItemPF2e {
             if (isHeal) {
                 return `${this.name} - ${game.i18n.localize("PF2E.SpellTypeHeal")}`;
             } else {
-                const damageType = this.damage
+                const damageType = Object.values(this.data.data.damage.value ?? {})
                     .filter((damage) => damage.type.subtype !== "persistent" && damage.type.subtype !== "splash")
                     .map((damage) => damage.type.value)
                     .filter((type): type is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, type))

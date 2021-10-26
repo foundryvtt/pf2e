@@ -2,7 +2,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign } from "@util";
 import { PhysicalItemPF2e } from "../physical";
-import { getArmorBonus } from "../runes";
+import { getArmorBonus, getResiliencyBonus } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
 
 export class ArmorPF2e extends PhysicalItemPF2e {
@@ -52,14 +52,14 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get acBonus(): number {
-        const potencyRune = this.data.data.potencyRune.value;
+        const potencyRune = this.isArmor && this.isInvested ? this.data.data.runes.potency : 0;
         const baseArmor = Number(this.data.data.armor.value) || 0;
         return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
 
-    get hitPoints(): { current: number; max: number } {
+    get hitPoints(): { value: number; max: number } {
         return {
-            current: this.data.data.hp.value,
+            value: this.data.data.hp.value,
             max: this.data.data.maxHp.value,
         };
     }
@@ -73,7 +73,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isBroken(): boolean {
-        return this.hitPoints.current <= this.brokenThreshold;
+        return this.hitPoints.value <= this.brokenThreshold;
     }
 
     override prepareBaseData(): void {
@@ -87,6 +87,36 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.includes(trait));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        const systemData = this.data.data;
+        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+        this.data.data.runes = {
+            potency: potencyRune.value ?? 0,
+            resilient: getResiliencyBonus({ resiliencyRune }),
+            property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
+                (rune): rune is string => !!rune
+            ),
+        };
+    }
+
+    override prepareActorData(this: Embedded<ArmorPF2e>): void {
+        if (this.isArmor && this.isEquipped) {
+            const traits = this.traits;
+            for (const [trait, domain] of [
+                ["bulwark", "reflex"],
+                ["flexible", "skill-check"],
+                ["noisy", "skill-check"],
+            ] as const) {
+                if (traits.has(trait)) {
+                    const checkOptions = (this.actor.rollOptions[domain] ??= {});
+                    checkOptions[`self:armor:trait:${trait}`] = true;
+                }
+            }
+        }
     }
 
     override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
