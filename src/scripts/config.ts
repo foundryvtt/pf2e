@@ -837,6 +837,7 @@ const consumableTraits = {
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
     fear: "PF2E.TraitFear",
+    fey: "PF2E.TraitFey",
     fortune: "PF2E.TraitFortune",
     fulu: "PF2E.TraitFulu",
     gadget: "PF2E.TraitGadget",
