@@ -31,11 +31,13 @@ const wandCompendiumIds: Record<number, string | undefined> = {
 };
 
 function getIdForSpellConsumable(type: "scroll" | "wand", heightenedLevel: number): string | null {
-    return type == "scroll" ? scrollCompendiumIds[heightenedLevel] ?? null : wandCompendiumIds[heightenedLevel] ?? null;
+    return type === "scroll"
+        ? scrollCompendiumIds[heightenedLevel] ?? null
+        : wandCompendiumIds[heightenedLevel] ?? null;
 }
 
 function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, heightenedLevel: number): string {
-    if (type == "scroll") {
+    if (type === "scroll") {
         return game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
     } else {
         return game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
