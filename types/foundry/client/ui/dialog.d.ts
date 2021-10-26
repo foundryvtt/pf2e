@@ -14,7 +14,7 @@ interface DialogButton {
     callback?: (html: JQuery) => void;
 }
 
-interface ConfirmDialogParameters<Y extends unknown = true, N extends unknown = false> {
+interface ConfirmDialogParameters<Y = true, N = false> {
     title: string;
     content: string;
     yes?: () => Y;
@@ -95,7 +95,7 @@ declare class Dialog extends Application {
      *  defaultYes: false
      * });
      */
-    static confirm<Y extends unknown = true, N extends unknown = false>({
+    static confirm<Y = true, N = false>({
         title,
         content,
         yes,
