@@ -37,41 +37,31 @@ $adjusted-lower: #cc3311;
             font-family: var(--sans-serif-condensed);
             font-size: 1.75rem;
             font-weight: 700;
-            justify-content: space-between;
             width: 100%;
-            align-items: baseline;
+            flex-wrap: nowrap;
+
+            input {
+                font-weight: inherit;
+                height: 32px;
+            }
 
             .name-value {
                 font-variant: small-caps;
-                margin-left: 8px;
-                margin-right: 8px;
-                height: 32px;
-                font-weight: 700;
+                margin-left: 6px;
+                margin-right: 18px;
             }
 
-            .level-container {
-                margin-left: 4px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                .level-label {
-                    flex: 1 0 auto;
-                    text-align: right;
-                    margin-right: 0.1em;
-                    text-transform: uppercase;
-                }
-
-                input {
-                    flex: 0 0 40px;
-                    font-weight: 700;
-                    text-align: center;
-                    height: 32px;
-                }
+            .level-label {
+                flex: 0;
+                text-align: right;
+                margin-right: 0.1em;
+                text-transform: uppercase;
             }
-        }
 
-        .description {
-            margin: 8px;
+            input.level {
+                flex: 0 0 40px;
+                text-align: center;
+            }
         }
 
         .traits-list-container {
@@ -354,10 +344,6 @@ $adjusted-lower: #cc3311;
                 }
             }
         }
-    }
-
-    .public-notes {
-        margin-left: 8px;
     }
 
     input.adjustable, span.adjustable {
@@ -651,7 +637,7 @@ $adjusted-lower: #cc3311;
     .section-container {
         display: flex;
         flex-direction: column;
-        padding: 4px 6px 0 6px;
+        padding: 4px 6px 0;
 
         .section-header {
             display: flex;
@@ -929,10 +915,14 @@ $adjusted-lower: #cc3311;
     }
 
     .notes {
-        padding-right: 20px !important;
+        padding-right: 15px;
+
+        &.active {
+            display: flex;
+            flex-direction: column;
+        }
 
         .details-label {
-            margin-left: 8px;
             padding: 4px;
             font-family: var(--sans-serif);
             font-size: 10px;
@@ -945,15 +935,19 @@ $adjusted-lower: #cc3311;
             white-space: nowrap;
         }
 
+        .notes-section {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
         .notes-text {
             margin-left: 8px;
             padding: 4px;
             color: #333;
+            flex-grow: 1;
     
             .editor {
-                min-height: 200px;
-                height: 100%;
-                width: 100%;
     
                 .editor-edit {
                     background: var(--primary);
@@ -961,11 +955,26 @@ $adjusted-lower: #cc3311;
                 }
     
                 .editor-content {
-                    min-height: 200px;
-                    height: 100%;
-                    width: 100%;
-                    overflow-y: inherit;
+                    min-height: 50px;
                 }
+            }
+        }
+
+        .source {
+            flex-shrink: 0;
+
+            .section-body {
+                border-width: 2px;
+            }
+
+            label {
+                margin-right: 4px;
+                flex: 0;
+                font-weight: 700;
+            }
+
+            .source-input {
+                flex: 2;
             }
         }
     }

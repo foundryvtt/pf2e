@@ -21,7 +21,7 @@ import { Migration617FixUserFlags } from "./migrations/617-fix-user-flags";
 import { Migration618MigrateItemImagePaths } from "./migrations/618-migrate-item-img-paths";
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from "./migrations/619-remove-wand-and-scroll-tradition";
 import { Migration620RenameToWebp } from "./migrations/620-rename-to-webp";
-import { Migration621RemoveConfigSpellSchools } from "./migrations/621-remove-config-spellSchools";
+import { Migration621RemoveConfigSpellSchools } from "./migrations/621-remove-config-spell-schools";
 import { Migration622RemoveOldTokenEffectIcons } from "./migrations/622-remove-old-token-effect-icons";
 import { Migration623NumifyPotencyRunes } from "./migrations/623-numify-potency-runes";
 import { Migration624RemoveTokenEffectIconFlags } from "./migrations/624-removed-token-effect-icon-flags";

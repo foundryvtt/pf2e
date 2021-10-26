@@ -250,6 +250,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
+            actorSize: this.actor.size,
         });
 
         let investedCount = 0; // Tracking invested items
@@ -753,19 +754,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemLevel = target.data().level;
             const actor = this.actor;
             const item = actor.items.get(itemId);
+            if (item?.data.type !== "spellcastingEntry") return;
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== "spellcastingEntry") {
-                return;
-            }
-
-            const data = duplicate(item.data);
-
-            if (data.data.slots == null) {
-                return;
-            }
+            const data = item.data.toObject();
+            if (!data.data.slots) return;
             const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
@@ -975,7 +967,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype" || featSlotType == "dualclass") {
+        if (featSlotType === "archetype" || featSlotType === "dualclass") {
             // Archetype feat slots are class feat slots
             featSlotType = "class";
         }

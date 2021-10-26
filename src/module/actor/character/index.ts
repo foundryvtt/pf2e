@@ -197,10 +197,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 },
             ],
         };
-
-        // Keep in place until the source of sense-data corruption is found
-        const traits = this.data.data.traits;
-        traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
     }
 
     protected override async _preUpdate(
@@ -499,21 +495,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Senses
-        const { senses } = this.data.data.traits;
-        for (const { sense, predicate, force } of synthetics.senses) {
-            if (predicate && !predicate.test(this.getRollOptions(["all", "sense"]))) continue;
-            const existing = senses.find((oldSense) => oldSense.type === sense.type);
-            if (!existing) {
-                senses.push(sense);
-                continue;
-            }
-            if (force) {
-                senses.findSplice((oldSense) => oldSense === existing, sense);
-                continue;
-            }
-            if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
-            if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
-        }
+        this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
 
         // Class DC
         {
