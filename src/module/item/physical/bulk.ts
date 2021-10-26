@@ -385,7 +385,7 @@ function calculateItemBulk({
     actorSize: Size;
 }): BulkAndOverflow {
     //ignore containers that aren't items
-    if (item.id == "") {
+    if (item.id === "") {
         return [new Bulk(), {}];
     }
     const stackName = item.stackGroup;
