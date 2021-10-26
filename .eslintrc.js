@@ -12,7 +12,6 @@ module.exports = {
     },
     ignorePatterns: ["dist/"],
     rules: {
-        "deprecation/deprecation": "error",
         eqeqeq: ["error", "always"],
         "import/no-default-export": "error",
         "prettier/prettier": "error",
@@ -43,7 +42,7 @@ module.exports = {
         },
         "import/parsers": { "@typescript-eslint/parser": [".ts"] },
     },
-    plugins: ["jest", "prettier", "deprecation", "@typescript-eslint", "import"],
+    plugins: ["jest", "prettier", "@typescript-eslint", "import"],
     overrides: [
         {
             files: "tests/**/*",
