@@ -92,6 +92,7 @@ describe("should calculate bulk", () => {
     test("11 light items are 1 bulk and 1 light bulk", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 bulk: new Bulk({ light: 11 }),
             }),
         ];
@@ -106,6 +107,7 @@ describe("should calculate bulk", () => {
     test("item quantity multiplies bulk", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 bulk: new Bulk({ light: 1 }),
                 quantity: 11,
             }),
@@ -121,6 +123,7 @@ describe("should calculate bulk", () => {
     test("light armor that is worn counts as 1 bulk", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 isEquipped: true,
                 equippedBulk: new Bulk({ normal: 1 }),
             }),
@@ -136,6 +139,7 @@ describe("should calculate bulk", () => {
     test("armor that is worn counts as 1 more bulk", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 isEquipped: false,
                 unequippedBulk: new Bulk({ normal: 2 }),
                 equippedBulk: new Bulk({ normal: 1 }),
@@ -152,6 +156,7 @@ describe("should calculate bulk", () => {
     test("backpacks are light bulk when not worn", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 isEquipped: false,
                 unequippedBulk: new Bulk({ light: 1 }),
                 equippedBulk: new Bulk(),
@@ -168,6 +173,7 @@ describe("should calculate bulk", () => {
     test("backpacks are negligible bulk when worn", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 isEquipped: true,
                 unequippedBulk: new Bulk({ light: 1 }),
                 equippedBulk: new Bulk(),
@@ -184,12 +190,15 @@ describe("should calculate bulk", () => {
     test("arrows that shoot bags of holding", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 stackGroup: "arrows",
                 holdsItems: [
                     // bag of holding
                     new BulkItem({
+                        id: "1",
                         holdsItems: [
                             new BulkItem({
+                                id: "1",
                                 bulk: new Bulk({ normal: 15 }),
                             }),
                         ],
@@ -200,6 +209,7 @@ describe("should calculate bulk", () => {
                 ],
             }),
             new BulkItem({
+                id: "1",
                 stackGroup: "arrows",
                 quantity: 9,
             }),
@@ -216,15 +226,19 @@ describe("should calculate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
+                id: "1",
                 holdsItems: [
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                     }),
                     new BulkItem({
+                        id: "1",
                         stackGroup: "arrows",
                         quantity: 10,
                     }),
                     new BulkItem({
+                        id: "1",
                         quantity: 9,
                         bulk: new Bulk({ light: 1 }),
                     }),
@@ -234,6 +248,7 @@ describe("should calculate bulk", () => {
                 bulk: new Bulk({ normal: 1 }),
             }),
             new BulkItem({
+                id: "1",
                 stackGroup: "arrows",
                 quantity: 9,
             }),
@@ -251,8 +266,10 @@ describe("should calculate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
+                id: "1",
                 holdsItems: [
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                     }),
                 ],
@@ -273,14 +290,17 @@ describe("should calculate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
+                id: "1",
                 holdsItems: [
                     // bag of holding
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                         extraDimensionalContainer: true,
                         holdsItems: [
                             // bag of holding
                             new BulkItem({
+                                id: "1",
                                 bulk: new Bulk({ normal: 10 }),
                             }),
                         ],
@@ -304,14 +324,17 @@ describe("should calculate bulk", () => {
         const items = [
             // bag of holding
             new BulkItem({
+                id: "1",
                 bulk: new Bulk({ normal: 1 }),
                 extraDimensionalContainer: true,
                 holdsItems: [
                     // bag of holding
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                         holdsItems: [
                             new BulkItem({
+                                id: "1",
                                 bulk: new Bulk({ normal: 25 }),
                             }),
                         ],
@@ -334,14 +357,17 @@ describe("should calculate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
+                id: "1",
                 bulk: new Bulk({ normal: 1 }),
                 holdsItems: [
                     // backpack containing 999 coins
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                         holdsItems: [
                             // partial stack gets passed up
                             new BulkItem({
+                                id: "1",
                                 stackGroup: "coins",
                                 quantity: 997,
                             }),
@@ -350,6 +376,7 @@ describe("should calculate bulk", () => {
                     }),
                     // this container now holds 999 coins
                     new BulkItem({
+                        id: "1",
                         quantity: 2,
                         stackGroup: "coins",
                     }),
@@ -359,9 +386,11 @@ describe("should calculate bulk", () => {
             }),
             // pouch
             new BulkItem({
+                id: "1",
                 holdsItems: [
                     // the last coin from this container should add to 1 bulk
                     new BulkItem({
+                        id: "1",
                         quantity: 1,
                         stackGroup: "coins",
                     }),
@@ -380,19 +409,23 @@ describe("should calculate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
+                id: "1",
                 bulk: new Bulk({ normal: 1 }),
                 holdsItems: [
                     // backpack containing 999 coins
                     new BulkItem({
+                        id: "1",
                         bulk: new Bulk({ normal: 1 }),
                         holdsItems: [
                             // partial stack gets passed up
                             new BulkItem({
+                                id: "1",
                                 stackGroup: "coins",
                                 quantity: 997,
                             }),
                             // full stack gets absorbed
                             new BulkItem({
+                                id: "1",
                                 stackGroup: "arrows",
                                 quantity: 10,
                             }),
@@ -401,6 +434,7 @@ describe("should calculate bulk", () => {
                         negateBulk: new Bulk({ normal: 2 }),
                     }),
                     new BulkItem({
+                        id: "1",
                         quantity: 2,
                         stackGroup: "coins",
                     }),
@@ -410,8 +444,10 @@ describe("should calculate bulk", () => {
             }),
             // pouch
             new BulkItem({
+                id: "1",
                 holdsItems: [
                     new BulkItem({
+                        id: "1",
                         quantity: 1,
                         stackGroup: "coins",
                     }),
@@ -712,6 +748,7 @@ describe("should calculate bulk", () => {
     test("should respect configs to ignore coin bulk", () => {
         const items = [
             new BulkItem({
+                id: "1",
                 stackGroup: "coins",
                 quantity: 100000,
             }),
