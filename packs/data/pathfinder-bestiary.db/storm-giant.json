@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "30 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "30"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "details": {
@@ -68,7 +69,7 @@
                 "value": 13
             },
             "privateNotes": "",
-            "publicNotes": "<p>Storm giants are looming but benevolent stewards of sea and sky, often serving as the natural guardians of tropical islands, coastlines, or rocky archipelagos. Storm giants tend to rapidly shift in mood and behavior, one moment engaging in peaceful negotiation, the next unleashing unbridled ferocity against their foes. In this way, they embody both the fury of a raging tempest and the calm of a hurricane's eye. This can make them valuable allies who race to the aid of those in need, but their allies remain must be alert and mindful of their mood, as the giants can be quick to anger or aggressive when caution is most appropriate.</p>\n<p>Most storm giants have complexions akin to the crystal blue of the ocean or the warm violet of a sky touched by the setting sun. Their hair tends to be dark purple, blue, or black, and their eyes often have a silvery sheen. A typical storm giant stands 21 feet tall, weighs 12,000 pounds, and lives to be about 600 years old.</p>",
+            "publicNotes": "<p>Storm giants are looming but benevolent stewards of sea and sky, often serving as the natural guardians of tropical islands, coastlines, or rocky archipelagos. Storm giants tend to rapidly shift in mood and behavior, one moment engaging in peaceful negotiation, the next unleashing unbridled ferocity against their foes. In this way, they embody both the fury of a raging tempest and the calm of a hurricane's eye. This can make them valuable allies who race to the aid of those in need, but their allies remain must be alert and mindful of their mood, as the giants can be quick to anger or aggressive when caution is most appropriate.</p>\n<p>Most storm giants have complexions akin to the crystal blue of the ocean or the warm violet of a sky touched by the setting sun. Their hair tends to be dark purple, blue, or black, and their eyes often have a silvery sheen. A typical storm giant stands 21 feet tall, weighs 12,000 pounds, and lives to be about 600 years old.</p>\n<hr />\n<p>Giants are massive humanoid creatures who live in remote regions throughout the world. They are divided into a number of subtypes.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -137,10 +138,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ozqDFA0pq8Cwvqhx",
+            "_id": "W1uyRdJuvABJ7epP",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -148,12 +149,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -161,10 +159,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -236,10 +234,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "33",
-                    "item": 0,
+                    "dc": 33,
                     "mod": 0,
-                    "value": 23
+                    "value": 25
                 },
                 "tradition": {
                     "value": "arcane"
@@ -260,14 +257,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "OldCm6zpCzQOoqFa",
+            "_id": "YcUUgmJYsro7CJNU",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -287,8 +287,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "electricity"
                             },
                             "value": "8d12"
@@ -296,7 +298,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -304,11 +306,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
@@ -316,20 +321,35 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chain-lightning",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=33"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -360,21 +380,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TDNlDWbYb58Y55Da"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "KHuLoeHF9xPbLnvp",
+            "_id": "5F18ecgC5xA3kaK5",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -394,8 +421,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "electricity"
                             },
                             "value": "8d12"
@@ -403,7 +432,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -411,11 +440,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
@@ -423,20 +455,35 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chain-lightning",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=33"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -467,21 +514,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TDNlDWbYb58Y55Da"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "SOk9VVdeMaW8ibm4",
+            "_id": "vnNlXf9FlBeTWIDI",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -501,8 +555,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "electricity"
                             },
                             "value": "8d12"
@@ -510,7 +566,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -518,11 +574,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
@@ -530,20 +589,35 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chain-lightning",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=33"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -574,21 +648,25 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TDNlDWbYb58Y55Da"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chain-lightning.webp",
             "name": "Chain Lightning",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "mYuN5wL6YmXLDbeQ",
+            "_id": "ZnTTiuOGrLAY6c9F",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": "2-mile-radius circle centered on you"
@@ -597,7 +675,7 @@
                     "value": null
                 },
                 "category": {
-                    "value": "ritual"
+                    "value": "spell"
                 },
                 "components": {
                     "focus": false,
@@ -612,7 +690,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season:</p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw</li>\n</ul>\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).</p>\n<p><strong>Success</strong> You change the weather as desired.</p>\n<p><strong>Failure</strong> You fail to change the weather as desired.</p>\n<p><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
+                    "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season.</p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).</p>\n<p><strong>Success</strong> You change the weather as desired.</p>\n<p><strong>Failure</strong> You fail to change the weather as desired.</p>\n<p><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
                 },
                 "duration": {
                     "value": "4d12 hours"
@@ -624,7 +702,7 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
@@ -633,7 +711,7 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Nature "
+                    "value": "Nature (master)"
                 },
                 "range": {
                     "value": ""
@@ -652,9 +730,9 @@
                 "secondarycheck": {
                     "value": "Survival"
                 },
-                "slug": null,
+                "slug": "control-weather",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Secrets of Magic"
                 },
                 "spellType": {
                     "value": "utility"
@@ -681,21 +759,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XkDCzMIyc0YOjw05"
+                }
+            },
             "img": "systems/pf2e/icons/spells/control-weather.webp",
-            "name": "Control Weather",
+            "name": "Control Weather (At Will)",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "DcwDWbAAxGeyFj7P",
+            "_id": "ZjPs2BJXU8fI4dyP",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -716,7 +801,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -724,16 +809,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -747,9 +838,15 @@
                 "school": {
                     "value": "abjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -779,21 +876,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
-            "name": "Freedom of Movement",
+            "name": "Freedom of Movement (Constant)",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "RBkYMWzcbngS0c8g",
+            "_id": "VwVV639b1fqL180o",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -822,16 +926,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 3
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "ozqDFA0pq8Cwvqhx"
+                    "value": "W1uyRdJuvABJ7epP"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -845,9 +955,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=170"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -856,7 +972,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 unatteded object or willing creature"
+                    "value": "1 unattended object or willing creature"
                 },
                 "time": {
                     "value": "2"
@@ -876,14 +992,195 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
             "img": "systems/pf2e/icons/spells/levitate.webp",
-            "name": "Levitate",
+            "name": "Levitate (At Will)",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "RJWn0xN0ZZDzNLi2",
+            "_id": "jwzA0HSTix25cCzk",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "greatsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "huge"
+                },
+                "slug": "greatsword",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.webp",
+            "name": "Greatsword",
+            "sort": 800000,
+            "type": "weapon"
+        },
+        {
+            "_id": "6fjCT3m2EESdN8jy",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -902,7 +1199,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -972,19 +1269,32 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "sack with 5 rocks",
-            "sort": 800000,
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
+            "name": "Sack for Holding Rocks",
+            "sort": 900000,
             "type": "equipment"
         },
         {
-            "_id": "ryvFyMoy8BmbV2Xk",
+            "_id": "5E3LlWq9tofQ39za",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
@@ -992,8 +1302,20 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
                 "collapsed": {
                     "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
                 },
                 "containerId": {
                     "value": ""
@@ -1001,8 +1323,12 @@
                 "description": {
                     "value": ""
                 },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1026,9 +1352,6 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 0
                 },
@@ -1048,7 +1371,12 @@
                     "value": "0 gp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 5
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "size": {
@@ -1058,8 +1386,17 @@
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -1071,16 +1408,23 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 striking greatsword",
-            "sort": 900000,
-            "type": "equipment"
+            "img": "systems/pf2e/icons/spells/shape-stone.webp",
+            "name": "Rock",
+            "sort": 1000000,
+            "type": "consumable"
         },
         {
             "_id": "AIacQlgZQnMm7C6j",
@@ -1089,6 +1433,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1131,7 +1476,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greatsword",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "melee"
         },
         {
@@ -1141,6 +1486,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1182,7 +1528,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -1192,7 +1538,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "rock"
+                    ]
                 },
                 "bonus": {
                     "value": 37
@@ -1229,29 +1578,29 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rock",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
-            "_id": "2dpymeF9qOfP5EVS",
+            "_id": "ksFT2wzECyEtNKFL",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "at-will-spells",
                 "source": {
                     "value": ""
                 },
@@ -1270,10 +1619,158 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "B9VILNOR0aKT4LQ0",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "86ZM2qT4ANthqpil",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "0Xocyn67jFjoV2Ff",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "catch-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uG0Z8PsyZtsYuvGR"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Catch Rock",
-            "sort": 1300000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1289,12 +1786,40 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The storm giant raises one hand to the sky, channeling a bolt of lightning into the blade held in the other. The giant makes a greatsword Strike with a -2 circumstance penalty against each creature within its reach. It makes only one attack roll and compares the result against each creature's AC. This Strike deals an additional [[/r {3d12}[electricity]]]{3d12 electricity damage} and counts as two attacks for the giant's multiple attack penalty.</p>"
+                    "value": "<p>The storm giant raises one hand to the sky, channeling a bolt of lightning into the blade held in the other. The giant makes a greatsword Strike with a -2 circumstance penalty against each creature within its reach.</p>\n<p>It makes only one attack roll and compares the result against each creature's AC. This Strike deals an additional [[/r {3d12}[electricity]]]{3d12 electricity damage} and counts as two attacks for the giant's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.lightningBlade"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "lightningBlade"
+                            ]
+                        },
+                        "selector": "greatsword-attack",
+                        "type": "circumstance",
+                        "value": -2
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 3,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "lightningBlade"
+                            ]
+                        },
+                        "selector": "greatsword-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1319,53 +1844,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Lightning Blade",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "89gJNvKIWJnbuoKO",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Throw Rock",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1407,9 +1888,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wide Swing",
-            "sort": 1600000,
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "aoLTJq3XbJ29K6yY",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1444,7 +1973,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1479,7 +2008,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1514,7 +2043,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1549,7 +2078,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1584,7 +2113,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],
