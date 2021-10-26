@@ -105,7 +105,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
 
     /** Disable this active effect for a single data-preparation cycle  */
     temporarilyDisable(this: Embedded<ActiveEffectPF2e>, actor: ActorPF2e): void {
-        if (this.parent?.parent != actor) return;
+        if (this.parent?.parent !== actor) return;
 
         const stringyChanges = JSON.stringify(this.data._source.changes);
         const transferredEffect = actor.effects.find(

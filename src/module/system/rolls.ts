@@ -407,9 +407,9 @@ export class CheckPF2e {
 
         const die = roll.dice[0];
 
-        if (die.total == 20) {
+        if (die.total === 20) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "success");
-        } else if (die.total == 1) {
+        } else if (die.total === 1) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "failure");
         }
 
