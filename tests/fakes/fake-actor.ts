@@ -98,7 +98,7 @@ export class FakeActor {
 
     async updateEmbeddedDocuments(type: string, data: any[]): Promise<void> {
         for (const changes of data) {
-            if (type == "Item") {
+            if (type === "Item") {
                 const source = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === changes._id);
                 mergeObject(source, changes);
             }
@@ -107,7 +107,7 @@ export class FakeActor {
     }
 
     async createEmbeddedDocuments(type: string, data: any[], _context: DocumentModificationContext): Promise<void> {
-        if (type == "Item") {
+        if (type === "Item") {
             for (const source of data) {
                 source._id = `item${this._itemGuid}`;
                 this._itemGuid += 1;
@@ -118,7 +118,7 @@ export class FakeActor {
     }
 
     async deleteEmbeddedDocuments(type: string, data: string[]): Promise<void> {
-        if (type == "Item") {
+        if (type === "Item") {
             this._data.items = this._data.items.filter((source: { _id: string }) => !data.includes(source._id));
         }
         this.prepareData();
