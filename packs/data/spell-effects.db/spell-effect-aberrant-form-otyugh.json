@@ -15,160 +15,137 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "18 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 20
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "traits": [
+                                "melee",
+                                "reach-10"
+                            ]
                         },
-                        {
-                            "start": 6,
-                            "value": "21 + @details.level.value"
+                        "tentacle": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.tentacle",
+                            "traits": [
+                                "agile",
+                                "melee",
+                                "reach-10"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Aberrant Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 13
-                        },
-                        {
-                            "start": 6,
-                            "value": 26
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 18
-                        },
-                        {
-                            "start": 6,
-                            "value": 22
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 8
-                        },
-                        {
-                            "start": 6,
-                            "value": 13
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Aberrant Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 20
-                        },
-                        {
-                            "start": 6,
-                            "value": 23
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 6,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 20
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 3,
-                        "die": "d6"
-                    }
+                    },
+                    "traits": [
+                        "aberration"
+                    ]
                 },
-                "key": "Strike",
-                "label": "Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 2,
-                        "die": "d6"
-                    }
-                },
-                "key": "Strike",
-                "label": "Tentacle",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "agile",
-                    "reach-10"
-                ]
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "melee",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "tentacle": {
+                                        "damage": {
+                                            "modifier": 8
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "agile",
+                                            "melee",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 13
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 22,
+                                        "traits": [
+                                            "melee",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "tentacle": {
+                                        "damage": {
+                                            "modifier": 13
+                                        },
+                                        "modifier": 22,
+                                        "traits": [
+                                            "agile",
+                                            "melee",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 26
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             },
             {
                 "key": "FlatModifier",
-                "label": "Otyugh Form",
                 "predicate": {
                     "all": [
                         "disease"
@@ -177,13 +154,6 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
             }
         ],
         "source": {

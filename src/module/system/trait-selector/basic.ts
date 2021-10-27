@@ -95,7 +95,7 @@ export class TagSelectorBasic extends TagSelectorBase {
     }
 
     protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const { flat } = event.target ? $(event.target)?.data() : { flat: false };
+        const { flat } = event.target ? $(event.target).data() : { flat: false };
         const value = this.getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             await this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });

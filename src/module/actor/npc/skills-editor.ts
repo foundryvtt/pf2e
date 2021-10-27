@@ -156,7 +156,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             const skillData = SKILL_EXPANDED[skillDataId];
 
-            if (skillData.shortform == skillId) {
+            if (skillData.shortform === skillId) {
                 return skillDataId;
             }
         }

@@ -149,6 +149,7 @@ export class DamageRollModifiersDialog extends Application {
             }
             content += "</div>";
         }
+        rollData.total = Math.max(rollData.total, 1);
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
         // Combine the rolls into a single roll of a dice pool

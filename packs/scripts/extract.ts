@@ -492,19 +492,19 @@ function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSour
         } else if (!aActionCategory && bActionCategory) {
             return 1;
         } else {
-            if (aActionCategory == bActionCategory) {
+            if (aActionCategory === bActionCategory) {
                 return 0;
             }
 
-            if (aActionCategory == "interaction") {
+            if (aActionCategory === "interaction") {
                 return -1;
             }
 
-            if (bActionCategory == "interaction") {
+            if (bActionCategory === "interaction") {
                 return 1;
             }
 
-            if (aActionCategory == "defensive") {
+            if (aActionCategory === "defensive") {
                 return -1;
             }
 
@@ -525,7 +525,7 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
             return 1;
         } else if (aLevel && bLevel) {
             const levelDiff = bLevel.value - aLevel.value;
-            if (levelDiff != 0) {
+            if (levelDiff !== 0) {
                 return levelDiff;
             }
         }

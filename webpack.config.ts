@@ -10,7 +10,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import SimpleProgressWebpackPlugin from "simple-progress-webpack-plugin";
 
-const buildMode = process.argv[3] == "production" ? "production" : "development";
+const buildMode = process.argv[3] === "production" ? "production" : "development";
 const isProductionBuild = buildMode === "production";
 
 const outDir = (() => {

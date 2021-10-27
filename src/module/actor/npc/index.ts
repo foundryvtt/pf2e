@@ -581,9 +581,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
                 action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
                     const label =
-                        attackEffects[tag] ??
-                        this.itemTypes.action.find((action) => sluggify(action.name) === tag)?.name ??
-                        tag;
+                        attackEffects[tag] ?? this.items.find((item) => sluggify(item.name) === tag)?.name ?? tag;
                     return { tag, label };
                 });
                 if (
