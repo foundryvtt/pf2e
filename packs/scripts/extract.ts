@@ -628,7 +628,7 @@ async function extractPacks() {
     }
 
     console.log("Cleaning up old temp data...");
-    await fs.promises.rmdir(tempDataPath, { recursive: true });
+    await fs.promises.rm(tempDataPath, { recursive: true, force: true });
     await fs.promises.mkdir(tempDataPath);
 
     populateIdNameMap();
@@ -657,7 +657,7 @@ async function extractPacks() {
                 const entityCount = await extractPack(filePath, dbFilename);
 
                 // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
-                fs.rmdirSync(outDirPath, { recursive: true });
+                fs.rmSync(outDirPath, { recursive: true, force: true });
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
                 console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
@@ -669,7 +669,7 @@ async function extractPacks() {
 
 extractPacks()
     .then((grandTotal) => {
-        fs.rmdirSync(tempDataPath, { recursive: true });
+        fs.rmSync(tempDataPath, { recursive: true, force: true });
         console.log(`Extraction complete (${grandTotal} total entities).`);
     })
     .catch((error) => {
