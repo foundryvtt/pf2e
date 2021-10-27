@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -51,11 +52,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "30 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "30"
                     }
                 ],
-                "value": "5 feet"
+                "value": "5"
             }
         },
         "details": {
@@ -68,7 +70,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Usually found in freshwater rivers and lakes, an electric eel is not particularly aggressive, but its ability to stun predators and prey alike can be dangerous to larger creatures searching for their next meals.</p>",
+            "publicNotes": "<p>Usually found in freshwater rivers and lakes, an electric eel is not particularly aggressive, but its ability to stun predators and prey alike can be dangerous to larger creatures searching for their next meals.</p>\n<hr />\n<p>Although these long, narrow fish share similarities in appearance, eels are a diverse group of creatures.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -96,9 +98,9 @@
             },
             "dr": [
                 {
-                    "label": "Electricity",
+                    "exceptions": "",
                     "type": "electricity",
-                    "value": "7"
+                    "value": 7
                 }
             ],
             "dv": [],
@@ -136,6 +138,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -180,6 +183,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "stunning-shock"
                     ]
@@ -226,6 +230,54 @@
             "type": "melee"
         },
         {
+            "_id": "wDyI0HWtmrF7nCK9",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "KQARbveR4b7ZZ6yz",
             "data": {
                 "actionCategory": {
@@ -238,7 +290,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature critically hit by the electric eel's tail must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Stunning Shock DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
+                    "value": "<p>A creature critically hit by the electric eel's tail must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Stunning Shock DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -266,9 +318,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stunning Shock",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -303,7 +355,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -338,7 +390,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
