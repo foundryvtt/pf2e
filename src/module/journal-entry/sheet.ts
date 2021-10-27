@@ -1,5 +1,6 @@
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import "../../styles/tinymce.scss";
+import type * as TinyMCE from "tinymce";
 
 export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
     static get theme(): "pf2eTheme" | "foundry" {
@@ -20,11 +21,11 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
         InlineRollsLinks.listen($html);
     }
 
-    override activateEditor(name: string, options: TextEditorCreateOptions, initialContent = ""): void {
+    override activateEditor(name: string, options: Partial<TinyMCE.EditorSettings> = {}, initialContent = ""): void {
         const editor = this.editors[name];
         if (!editor) throw new Error(`${name} is not a registered editor name!`);
         options = foundry.utils.mergeObject(editor.options, options);
-        options.height = options.target.offsetHeight;
+        options.height = options.target?.offsetHeight;
         TextEditor.create(options, initialContent || editor.initial).then((mce) => {
             if (JournalSheetPF2e.theme === "pf2eTheme") {
                 mce.getBody().classList.add("pf2e");

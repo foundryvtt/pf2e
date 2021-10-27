@@ -1,4 +1,4 @@
-export {};
+import type * as TinyMCE from "tinymce";
 
 declare global {
     /** A collection of helper functions and utility methods related to the rich text editor */
@@ -9,7 +9,7 @@ declare global {
          * @param content   Initial HTML or text content to populate the editor with
          * @return          The editor instance.
          */
-        static create(options: TextEditorCreateOptions, content: string): Promise<import("tinymce").Editor>;
+        static create(options: Partial<TinyMCE.EditorSettings>, content: string): Promise<import("tinymce").Editor>;
 
         /**
          * Enrich HTML content by replacing or augmenting components of it
@@ -121,11 +121,5 @@ declare global {
         links?: boolean;
         rolls?: boolean;
         rollData?: object;
-    }
-
-    interface TextEditorCreateOptions {
-        target: HTMLElement;
-        height: number;
-        save_onsavecallback: Function;
     }
 }

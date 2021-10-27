@@ -1804,10 +1804,12 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
+        PT1M: "PF2E.Duration.PT1M",
         PT10M: "PF2E.Duration.PT10M",
         PT1H: "PF2E.Duration.PT1H",
         PT24H: "PF2E.Duration.PT24H",
         day: "PF2E.Duration.day",
+        P1W: "PF2E.Duration.P1W",
     },
 
     // Proficiency Multipliers
