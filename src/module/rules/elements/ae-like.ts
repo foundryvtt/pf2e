@@ -10,6 +10,7 @@ class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
     constructor(data: AELikeConstructionData, item: Embedded<ItemPF2e>) {
+        data = deepClone(data);
         data.priority ??=
             typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
                 ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
@@ -35,7 +36,10 @@ class AELikeRuleElement extends RuleElementPF2e {
         const valueIsValid = ["number", "string", "boolean", "object"].includes(typeof this.value);
         if (!valueIsValid) this.warn("value");
 
-        if (!(pathIsValid && valueIsValid)) this.ignored = true;
+        if (!(pathIsValid && valueIsValid)) {
+            this.ignored = true;
+            return;
+        }
     }
 
     get path(): string {
@@ -66,6 +70,17 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     private applyAELike(): void {
+        // Test predicate if present. AE-Like predicates are severely limited: at their default phase, they can only be
+        // tested against roll options set by `ItemPF2e#prepareActorData` and higher-priority AE-Likes.
+        const { predicate } = this.data;
+        if (predicate && !predicate.test(this.actor.getRollOptions(["all"]))) {
+            return;
+        }
+
+        this.data.path = this.resolveInjectedProperties(this.data.path);
+        // Do not proceed if injected-property resolution failed
+        if (/\bundefined\b/.test(this.path)) return;
+
         const change: unknown = this.resolveValue(this.data.value);
         const current: unknown = getProperty(this.actor.data, this.path);
 

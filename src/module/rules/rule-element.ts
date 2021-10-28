@@ -167,14 +167,23 @@ abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties(source: string | undefined): string {
+    resolveInjectedProperties(source = ""): string {
+        if (!source.includes("{")) return source;
+
         const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
             actor: this.actor,
             item: this.item,
             rule: this,
         };
-        return (source ?? "").replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-            return getProperty(objects[key]?.data ?? this.item.data, prop);
+        return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+            const value = getProperty(objects[key]?.data ?? this.item.data, prop);
+            if (value === undefined) {
+                const { item } = this;
+                console.warn(
+                    `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
+                );
+            }
+            return value;
         });
     }
 

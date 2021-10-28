@@ -54,7 +54,7 @@ export class ClassPF2e extends ABCItemPF2e {
         }
 
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`class:${slug}`] = true;
+        this.actor.rollOptions.all[`self:class:${slug}`] = true;
     }
 
     /** In addition to automatically granted features, retrieve feats with a class trait of this class */
