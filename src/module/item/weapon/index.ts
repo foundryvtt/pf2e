@@ -112,6 +112,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
         const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+
         // Set tags from runes
         systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
 
