@@ -494,6 +494,7 @@ const traitsDescriptions = {
     reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
     "reload-1": "PF2E.TraitDescriptionReload",
+    "reload-1-min": "PF2E.TraitDescriptionReload",
     "reload-2": "PF2E.TraitDescriptionReload",
     revelation: "PF2E.TraitDescriptionRevelation",
     "scatter-5": "PF2E.TraitDescriptionScatter",
