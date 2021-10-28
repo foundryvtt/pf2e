@@ -1066,6 +1066,11 @@ const weaponTraits = {
     "volley-50": "PF2E.TraitVolley50",
 };
 
+const otherWeaponTags = {
+    crossbow: "PF2E.Weapon.Base.crossbow",
+    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
+};
+
 const rangeTraits = RANGE_TRAITS.reduce(
     (descriptions, trait) =>
         mergeObject(descriptions, { [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
@@ -1443,6 +1448,7 @@ export const PF2ECONFIG = {
     ancestryItemTraits,
 
     weaponTraits,
+    otherWeaponTags,
 
     armorTraits: {
         ...magicSchools,
