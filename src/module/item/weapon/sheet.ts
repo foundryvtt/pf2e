@@ -108,6 +108,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
+            otherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags, {
+                selectedOnly: true,
+            }),
+            baseOtherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, baseData.data.traits.otherTags ?? [], {
+                selectedOnly: true,
+            }),
             adjustedLevelHint,
             adjustedPriceHint,
             baseLevel: baseData.data.level.value,
@@ -132,18 +138,23 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $("i.fa-info-circle.small[title]").tooltipster({
-            animation: "fade",
+        $html.find("i.fa-info-circle.small[title]").tooltipster({
             maxWidth: 275,
             position: "right",
             theme: "crb-hover",
             contentAsHTML: true,
         });
-        $("i.fa-info-circle.large[title]").tooltipster({
-            animation: "fade",
+        $html.find("i.fa-info-circle.large[title]").tooltipster({
             maxWidth: 400,
             theme: "crb-hover",
             contentAsHTML: true,
+        });
+
+        const $otherTagsHint = $html.find("i.other-tags-hint");
+        $otherTagsHint.tooltipster({
+            maxWidth: 350,
+            theme: "crb-hover",
+            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
         });
     }
 

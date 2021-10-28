@@ -6,7 +6,7 @@ import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
-import type { StrikingRuneType, WeaponTrait } from "./weapon/data";
+import type { OtherWeaponTag, StrikingRuneType, WeaponTrait } from "./weapon/data";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     let slots = 0;
@@ -124,6 +124,7 @@ export interface WeaponPropertyRuneData {
     rarity: Rarity;
     slug: string;
     traits: WeaponTrait[];
+    otherTags?: OtherWeaponTag[];
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
@@ -404,6 +405,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
         rarity: "common",
         slug: "ghostTouch",
         traits: ["magical", "transmutation"],
+        otherTags: ["ghost-touch"],
     },
     greaterAnchoring: {
         damage: {
@@ -936,6 +938,7 @@ export interface RuneValuationData {
     price: number;
     rarity: Rarity;
     traits: WeaponTrait[];
+    otherTags?: OtherWeaponTag[];
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
