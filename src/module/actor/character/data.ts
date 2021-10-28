@@ -68,9 +68,6 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** The three save types. */
     saves: CharacterSaves;
 
-    /** Tracks proficiencies for magic skills */
-    magic: MagicTraditionProficiencies;
-
     /** Tracks proficiencies for martial (weapon and armor) skills. */
     martial: CombatProficiencies;
 
@@ -145,6 +142,13 @@ export interface CharacterSystemData extends CreatureSystemData {
     };
 
     attributes: CharacterAttributes;
+
+    /** A catch-all for character proficiencies */
+    proficiencies: {
+        traditions: MagicTraditionProficiencies;
+        /** Aliased path components for use by rule element during property injection */
+        aliases?: Record<string, string | undefined>;
+    };
 
     /** Player skills, used for various skill checks. */
     skills: { [K in SkillAbbreviation]: CharacterSkillData };
