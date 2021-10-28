@@ -93,11 +93,29 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }
         }
 
+        const groups = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.weaponGroups)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
+
+        const damageTypes = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.damageTypes)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
+
         const weaponPropertyRunes = Object.fromEntries(
             Object.entries(CONFIG.PF2E.runes.weapon.property)
                 .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
                 .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
+
+        const meleeUsage = sheetData.data.meleeUsage ?? {
+            group: "knife",
+            damage: { type: "piercing", die: "d4" },
+            traits: [],
+        };
 
         return {
             ...sheetData,
@@ -120,19 +138,25 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             baseRarity: baseData.data.traits.rarity.value,
             basePrice: baseData.data.price.value,
             categories: CONFIG.PF2E.weaponCategories,
-            groups: CONFIG.PF2E.weaponGroups,
+            groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
             itemBonuses: CONFIG.PF2E.itemBonuses,
             damageDie: CONFIG.PF2E.damageDie,
             damageDice: CONFIG.PF2E.damageDice,
             conditionTypes: CONFIG.PF2E.conditionTypes,
-            weaponDamage: CONFIG.PF2E.damageTypes,
+            damageTypes,
             weaponRange: CONFIG.PF2E.weaponRange,
             weaponReload: CONFIG.PF2E.weaponReload,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             bulkTypes: CONFIG.PF2E.bulkTypes,
             sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
+            isComboWeapon: this.item.group === "firearm" && this.item.traits.has("combination"),
+            meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
+            meleeUsage,
+            meleeUsageTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? [], {
+                selectedOnly: true,
+            }),
         };
     }
 
@@ -198,6 +222,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
             delete formData["preciousMaterial"];
         }
+
+        // Ensure melee usage is filled out or otherwise absent
+        if (formData["data.meleeUsage.group"]) {
+            formData["data.meleeUsage.traits"] = weapon.data.data.meleeUsage?.traits ?? [];
+        } else {
+            formData["data.-=meleeUsage"] = null;
+        }
+
         super._updateObject(event, formData);
     }
 }
