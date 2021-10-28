@@ -552,15 +552,24 @@ class ItemPF2e extends Item<ActorPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported items are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (options.parent) return;
-        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+
+        if (this.actor) {
+            // Run pre-create operations on rule elements
+            const rules = RuleElements.fromOwnedItem(this as Embedded<this>);
+            for await (const rule of rules) {
+                const source = this.data._source.data.rules[rules.indexOf(rule)];
+                await rule.preCreate?.(source);
+            }
+        } else {
+            // Ensure imported items are current on their schema version
+            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
     }
 
     /** Call onDelete rule-element hooks, refresh effects panel */

@@ -68,6 +68,25 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return ammo instanceof ConsumablePF2e ? ammo : null;
     }
 
+    /** Generate a list of strings for use in predication */
+    override getContextStrings(prefix = "weapon"): string[] {
+        return super.getContextStrings(prefix).concat(
+            Object.entries({
+                [`category:${this.category}`]: true,
+                [`group:${this.group}`]: !!this.group,
+                [`base:${this.baseType}`]: !!this.baseType,
+                [`${this.ability}-based`]: true,
+                [`melee`]: this.isMelee,
+                [`ranged`]: this.isRanged,
+            })
+                .filter(([_key, isTrue]) => isTrue)
+                .map(([key]) => {
+                    const separatedPrefix = prefix ? `${prefix}:` : "";
+                    return `${separatedPrefix}${key}`;
+                })
+        );
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.weaponType.value ||= "simple";

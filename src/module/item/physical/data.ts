@@ -126,9 +126,6 @@ export interface ItemActivation {
 
 export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     traits: PhysicalItemTraits;
-    level: {
-        value: number;
-    };
     quantity: {
         value: number;
     };
