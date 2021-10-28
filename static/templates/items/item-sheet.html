@@ -6,6 +6,9 @@
         <h1>
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" />
         </h1>
+        {{#if itemType}}
+            <span class="level">{{localize "PF2E.ItemLevel" type=itemType level=item.data.level.value}}</span>
+        {{/if}}
     </header>
 
     <!-- ITEM SHEET CONTENT -->

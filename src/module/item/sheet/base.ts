@@ -177,6 +177,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const isEditable = this.isEditable;
         return {
+            itemType: null,
             hasSidebar: false,
             hasDetails: true,
             cssClass: isEditable ? "editable" : "locked",
