@@ -104,6 +104,26 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
     }
 
+    /** Generate a list of strings for use in predication */
+    getContextStrings(prefix = ""): string[] {
+        return [...this.traits]
+            .map((trait) => `trait:${trait}`)
+            .concat(
+                Object.entries({
+                    equipped: this.isEquipped,
+                    magical: this.isMagical,
+                    uninvested: this.isInvested === false,
+                    [`material:${this.material?.type}`]: !!this.material,
+                })
+                    .filter(([_key, isTrue]) => isTrue)
+                    .map(([key]) => key)
+            )
+            .map((string) => {
+                const separatedPrefix = prefix ? `${prefix}:` : "";
+                return `${separatedPrefix}${string}`;
+            });
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
