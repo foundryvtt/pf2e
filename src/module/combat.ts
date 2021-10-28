@@ -1,3 +1,4 @@
+import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e } from "./combatant";
 
 export class CombatPF2e extends Combat<CombatantPF2e> {
@@ -14,12 +15,20 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         const createData = data.filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
             if (!token) return false;
-            if (!token.actor) {
+
+            const { actor } = token;
+            if (!actor) {
                 ui.notifications.warn(`${token.name} has no associated actor.`);
                 return false;
             }
-            if (token.actor.type === "loot") {
-                ui.notifications.info(`Excluding loot token ${token.name}.`);
+            if (actor.type === "loot" || actor.traits.has("minion")) {
+                const translation = LocalizePF2e.translations.PF2E.Encounter.ExcludingFromInitiative;
+                const type = game.i18n.localize(
+                    actor.traits.has("minion")
+                        ? CONFIG.PF2E.creatureTraits.minion
+                        : CONFIG.PF2E.actorTypes[actor.data.type]
+                );
+                ui.notifications.info(game.i18n.format(translation, { type, actor: actor.name }));
                 return false;
             }
             return true;
