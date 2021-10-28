@@ -38,6 +38,14 @@ export const stackDefinitions: StackDefinitions = {
         size: 10,
         lightBulk: 1,
     },
+    rounds5: {
+        size: 5,
+        lightBulk: 1,
+    },
+    rounds10: {
+        size: 10,
+        lightBulk: 1,
+    },
     rations: {
         size: 7,
         lightBulk: 1,

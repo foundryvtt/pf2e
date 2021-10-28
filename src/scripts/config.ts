@@ -1315,11 +1315,12 @@ export const PF2ECONFIG = {
 
     stackGroups: {
         arrows: "PF2E.StackGroupArrows",
-        firearmAmmo: "PF2E.StackGroupFirearmAmmo",
         bolts: "PF2E.StackGroupBolts",
         slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
+        rounds5: "PF2E.StackGroupRounds5",
+        rounds10: "PF2E.StackGroupRounds10",
         rations: "PF2E.StackGroupRations",
         coins: "PF2E.StackGroupCoins",
         gems: "PF2E.StackGroupGems",
