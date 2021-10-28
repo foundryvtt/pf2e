@@ -676,10 +676,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
+        const $strikesSection = html.find(".tab.actions .strikes-list");
+
         // Set damage-formula tooltips on damage buttons
-        const $strikes = html
-            .find("section.sheet-content .tab.actions .strikes-list")
-            .find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
+        const $strikes = $strikesSection.find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
         for (const strike of $strikes) {
             const $strike = $(strike);
             const method = $strike.hasClass("critical-strike") ? "critical" : "damage";
@@ -694,6 +694,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+
+        $strikesSection.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
+            if (span.dataset.description) {
+                $(span).tooltipster({
+                    content: game.i18n.localize(span.dataset.description),
+                    animation: "fade",
+                    maxWidth: 400,
+                    theme: "crb-hover",
+                });
+            }
+        });
 
         html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
         html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));

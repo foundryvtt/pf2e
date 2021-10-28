@@ -13,6 +13,7 @@ import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
     AlignmentComponent,
+    AttackRollContext,
     CreatureSpeeds,
     LabeledSpeed,
     MovementType,
@@ -488,10 +489,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.buildStatistic(this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
+    protected createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]): AttackRollContext {
         const ctx = this.createStrikeRollContext(rollNames);
-        let dc: CheckDC | undefined;
-        let distance: number | undefined;
+        let dc: CheckDC | null = null;
+        let distance: number | null = null;
         if (ctx.target?.actor instanceof CreaturePF2e) {
             dc = {
                 label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
@@ -512,7 +513,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
         return {
             event,
-            options: Array.from(new Set(ctx.options)), // de-duplication
+            options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
             dc,
             distance,
@@ -523,7 +524,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const ctx = this.createStrikeRollContext(["all", "damage-roll"]);
         return {
             event,
-            options: Array.from(new Set(ctx.options)), // de-duplication
+            options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
         };
     }
