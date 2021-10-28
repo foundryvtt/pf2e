@@ -29,6 +29,25 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
     override activateListeners($html: JQuery<HTMLElement>) {
         super.activateListeners($html);
 
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
+            $input.val(baseValue).attr({ name: propertyPath, type: "number" });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
+            const preparedValue = Number(getProperty(this.item.data, propertyPath)) || 0;
+            const newValue = Number($input.val()) || 0;
+            if (newValue === baseValue) {
+                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+            }
+        });
+
         $html.find("[data-action='usage-add']").on("click", (event) => {
             event.preventDefault();
             const id = randomID(16);
