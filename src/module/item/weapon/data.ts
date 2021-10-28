@@ -148,6 +148,7 @@ export type OtherWeaponTag = "crossbow" | "ghost-touch";
 
 export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
 
+// Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 export const CROSSBOW_WEAPONS = new Set([
     "alchemical-crossbow",
     "crossbow",
