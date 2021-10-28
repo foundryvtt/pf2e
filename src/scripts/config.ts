@@ -1314,8 +1314,9 @@ export const PF2ECONFIG = {
     resistanceTypes,
 
     stackGroups: {
-        bolts: "PF2E.StackGroupBolts",
         arrows: "PF2E.StackGroupArrows",
+        firearmAmmo: "PF2E.StackGroupFirearmAmmo",
+        bolts: "PF2E.StackGroupBolts",
         slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
