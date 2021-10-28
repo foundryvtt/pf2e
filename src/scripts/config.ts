@@ -33,6 +33,7 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
+import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -959,6 +960,30 @@ const featTraits = {
     reckless: "PF2E.TraitReckless",
 };
 
+const meleeWeaponGroups: Record<MeleeWeaponGroup, string> = {
+    axe: "PF2E.WeaponGroupAxe",
+    brawling: "PF2E.WeaponGroupBrawling",
+    club: "PF2E.WeaponGroupClub",
+    flail: "PF2E.WeaponGroupFlail",
+    hammer: "PF2E.WeaponGroupHammer",
+    knife: "PF2E.WeaponGroupKnife",
+    pick: "PF2E.WeaponGroupPick",
+    polearm: "PF2E.WeaponGroupPolearm",
+    shield: "PF2E.WeaponGroupShield",
+    spear: "PF2E.WeaponGroupSpear",
+    sword: "PF2E.WeaponGroupSword",
+};
+
+const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
+    bomb: "PF2E.WeaponGroupBomb",
+    bow: "PF2E.WeaponGroupBow",
+    dart: "PF2E.WeaponGroupDart",
+    firearm: "PF2E.WeaponGroupFirearm",
+    sling: "PF2E.WeaponGroupSling",
+};
+
+const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
+
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
@@ -1360,24 +1385,9 @@ export const PF2ECONFIG = {
     weaponCategories,
     weaponTypes: weaponCategories,
 
-    weaponGroups: {
-        axe: "PF2E.WeaponGroupAxe",
-        bomb: "PF2E.WeaponGroupBomb",
-        brawling: "PF2E.WeaponGroupBrawling",
-        bow: "PF2E.WeaponGroupBow",
-        club: "PF2E.WeaponGroupClub",
-        dart: "PF2E.WeaponGroupDart",
-        firearm: "PF2E.WeaponGroupFirearm",
-        flail: "PF2E.WeaponGroupFlail",
-        hammer: "PF2E.WeaponGroupHammer",
-        knife: "PF2E.WeaponGroupKnife",
-        pick: "PF2E.WeaponGroupPick",
-        polearm: "PF2E.WeaponGroupPolearm",
-        shield: "PF2E.WeaponGroupShield",
-        sling: "PF2E.WeaponGroupSling",
-        spear: "PF2E.WeaponGroupSpear",
-        sword: "PF2E.WeaponGroupSword",
-    },
+    weaponGroups,
+    meleeWeaponGroups,
+    rangedWeaponGroups,
 
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
@@ -1616,7 +1626,6 @@ export const PF2ECONFIG = {
 
     weaponRange: {
         melee: "PF2E.WeaponRangeMelee",
-        reach: "PF2E.WeaponRangeReach",
         10: "PF2E.WeaponRange10",
         20: "PF2E.WeaponRange20",
         30: "PF2E.WeaponRange30",
@@ -1632,7 +1641,7 @@ export const PF2ECONFIG = {
         150: "PF2E.WeaponRange150",
         180: "PF2E.WeaponRange180",
         240: "PF2E.WeaponRange240",
-    }, // TODO: Compute range!
+    },
 
     weaponMAP: {
         1: "-1/-2",

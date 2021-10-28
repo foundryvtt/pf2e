@@ -32,7 +32,9 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 type WeaponTraits = Required<WeaponSourceTraits>;
 
 export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
-export type WeaponGroup = keyof ConfigPF2e["PF2E"]["weaponGroups"];
+export type WeaponGroup = typeof WEAPON_GROUPS[number];
+export type MeleeWeaponGroup = typeof MELEE_WEAPON_GROUPS[number];
+export type RangedWeaponGroup = typeof RANGED_WEAPON_GROUPS[number];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {
@@ -105,7 +107,9 @@ interface WeaponSystemSource extends MagicItemSystemData {
     MAP: {
         value: string;
     };
-    // Whether the weapon is a "specific magic weapon"
+    /** A combination weapon's melee usage */
+    meleeUsage?: ComboWeaponMeleeUsage;
+    /** Whether the weapon is a "specific magic weapon" */
     specific?: SpecificWeaponData;
     potencyRune: {
         value: OneToFour | null;
@@ -144,9 +148,33 @@ export interface WeaponSystemData extends WeaponSystemSource {
     };
 }
 
+interface ComboWeaponMeleeUsage {
+    damage: { type: DamageType; die: string };
+    group: MeleeWeaponGroup;
+    traits: WeaponTrait[];
+}
+
 export type OtherWeaponTag = "crossbow" | "ghost-touch";
 
 export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
+
+export const MELEE_WEAPON_GROUPS = [
+    "axe",
+    "brawling",
+    "club",
+    "flail",
+    "hammer",
+    "knife",
+    "pick",
+    "polearm",
+    "shield",
+    "spear",
+    "sword",
+] as const;
+
+export const RANGED_WEAPON_GROUPS = ["bomb", "bow", "dart", "firearm", "sling"] as const;
+
+export const WEAPON_GROUPS = [...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const;
 
 // Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
 export const CROSSBOW_WEAPONS = new Set([
