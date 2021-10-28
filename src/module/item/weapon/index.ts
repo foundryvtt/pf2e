@@ -1,7 +1,15 @@
 import { PhysicalItemPF2e } from "../physical";
 import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
-import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponPropertyRuneType, WeaponTrait } from "./data";
+import {
+    BaseWeaponType,
+    CROSSBOW_WEAPONS,
+    WeaponCategory,
+    WeaponData,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponTrait,
+} from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
 import { ErrorPF2e, sluggify } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
@@ -69,6 +77,13 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.data.propertyRune2.value ||= null;
         this.data.data.propertyRune3.value ||= null;
         this.data.data.propertyRune4.value ||= null;
+        this.data.data.traits.otherTags = [];
+
+        // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
+        const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
+        if (crossbowWeapons.has(this.baseType ?? "")) {
+            this.data.data.traits.otherTags.push("crossbow");
+        }
 
         this.processMaterialAndRunes();
     }
@@ -97,6 +112,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
         const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+
+        // Set tags from runes
+        systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
 
         // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
         const materialData = this.getMaterialData();
