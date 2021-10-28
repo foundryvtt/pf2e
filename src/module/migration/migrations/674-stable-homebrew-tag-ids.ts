@@ -35,7 +35,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        this.updateDocumentTags(itemSource.data.traits.value);
+        this.updateDocumentTags(itemSource.data.traits?.value);
     }
 
     override async migrate(): Promise<void> {

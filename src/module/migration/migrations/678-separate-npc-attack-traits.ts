@@ -22,6 +22,7 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
         }
 
         // While we're at it ...
+        if (!itemSource.data.traits) return;
         const itemTraits: string[] = itemSource.data.traits.value;
         for (const trait of itemTraits) {
             if (tupleHasValue(RARITIES, trait)) {
