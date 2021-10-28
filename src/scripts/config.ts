@@ -32,8 +32,18 @@ import { MagicSchool } from "@item/spell/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
+import { ActorType } from "@actor/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+
+const actorTypes: Record<ActorType, string> = {
+    character: "ACTOR.TypeCharacter",
+    familiar: "ACTOR.TypeFamiliar",
+    hazard: "ACTOR.TypeHazard",
+    loot: "ACTOR.TypeLoot",
+    npc: "ACTOR.TypeNpc",
+    vehicle: "ACTOR.TypeVehicle",
+};
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -1837,10 +1847,11 @@ export const PF2ECONFIG = {
         3: "PF2E.HeroPointLevel3",
     },
 
-    // Creature Sizes
     actorSizes: {
         ...sizeTypes,
     },
+
+    actorTypes,
 
     speedTypes: {
         swim: "PF2E.SpeedTypesSwim",
