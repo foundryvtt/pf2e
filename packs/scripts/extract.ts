@@ -175,18 +175,6 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                     }
                 }
-                if (docSource.type === "action" && docSource.name === "Frightful Presence") {
-                    docSource.img = "systems/pf2e/icons/actions/Passive.webp";
-                    docSource.data.description.value = docSource.data.description.value.replace(
-                        /DC (\d+).*/gs,
-                        '<span data-pf2-check="will" data-pf2-dc="$1" data-pf2-traits="aura,emotion,fear,mental" data-pf2-label="Frightful Presence DC" data-pf2-show-dc="gm">basic Reflex</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>'
-                    );
-                    docSource.data.slug = "frightful-presence";
-                    docSource.data.actionCategory.value = "defensive";
-                    docSource.flags = {
-                        core: { sourceId: "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu" },
-                    };
-                }
             }
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
             delete docSource[key as DocumentKey];
