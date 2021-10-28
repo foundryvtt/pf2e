@@ -423,6 +423,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
+        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
+        const traitObjects = traits.map((trait) => ({
+            name: trait,
+            label: spellTraits[trait],
+        }));
         CheckPF2e.roll(
             check,
             {
@@ -430,7 +435,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 type: "counteract-check",
                 options: finalOptions,
                 title: game.i18n.localize("PF2E.Counteract"),
-                traits,
+                traits: traitObjects,
             },
             event
         );
@@ -552,15 +557,24 @@ class ItemPF2e extends Item<ActorPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported items are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (options.parent) return;
-        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+
+        if (this.actor) {
+            // Run pre-create operations on rule elements
+            const rules = RuleElements.fromOwnedItem(this as Embedded<this>);
+            for await (const rule of rules) {
+                const source = this.data._source.data.rules[rules.indexOf(rule)];
+                await rule.preCreate?.(source);
+            }
+        } else {
+            // Ensure imported items are current on their schema version
+            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
     }
 
     /** Call onDelete rule-element hooks, refresh effects panel */

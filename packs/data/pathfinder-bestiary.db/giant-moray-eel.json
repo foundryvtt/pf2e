@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "40 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "40"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "details": {
@@ -68,7 +69,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Giant moray eels dwell in warm, tropical waters and build lairs in narrow, twisting caves made of coral. Their size, speed, and powerful bite make them dangerous to divers and fishermen. Giant moray eels have rubbery hides that secrete a layer of mucus, making them difficult to harm with some weapons.</p>",
+            "publicNotes": "<p>Giant moray eels dwell in warm, tropical waters and build lairs in narrow, twisting caves made of coral. Their size, speed, and powerful bite make them dangerous to divers and fishermen. Giant moray eels have rubbery hides that secrete a layer of mucus, making them difficult to harm with some weapons.</p>\n<hr />\n<p>Although these long, narrow fish share similarities in appearance, eels are a diverse group of creatures.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -96,14 +97,14 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Piercing",
+                    "exceptions": "",
                     "type": "piercing",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -141,6 +142,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -183,6 +185,102 @@
             "type": "melee"
         },
         {
+            "_id": "mZDSdkhKHanRDmIg",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "kmUfrNR3jYGHG5co",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "Pgjjt3dWPTpOGD8c",
             "data": {
                 "actionCategory": {
@@ -195,7 +293,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A target creature passes within 20 feet of the giant moray eel's hiding place and has not detected the giant moray eel. <strong>Effect</strong> The giant moray eel lunges out of its hiding place, Swims directly toward the triggering creature, and makes a jaws Strike against it. The target creature is flat-footed to this attack.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A target creature passes within 20 feet of the giant moray eel's hiding place and has not detected the giant moray eel.</p>\n<p><strong>Effect</strong> The giant moray eel lunges out of its hiding place, Swims directly toward the triggering creature, and makes a jaws Strike against it. The target creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to this attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -223,51 +321,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ambush",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "eytTSpIy2cxJCqV1",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Grab",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -283,7 +337,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The giant moray eel has a creature grabbed in its jaws. <strong>Effect</strong> The giant moray eel uses its second set of jaws to pull the prey into its gullet. The eel deals [[/r 1d6+4 #piercing]]{1d6+4 piercing damage} to the grabbed creature and gains a +2 circumstance bonus to its Swallow Whole attempts and to the DC for the creature to Escape. This effect ends if the target Escapes or the giant moray eel Swallows it Whole.</p>"
+                    "value": "<p><strong>Requirements</strong> The giant moray eel has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in its jaws.</p>\n<p><strong>Effect</strong> The giant moray eel uses its second set of jaws to pull the prey into its gullet. The eel deals [[/r {1d6+4}[piercing]]]{1d6+4 piercing damage} to the grabbed creature and gains a +2 circumstance bonus to its Swallow Whole attempts and to the DC for the creature to Escape. This effect ends if the target Escapes or the giant moray eel Swallows it Whole.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -309,13 +363,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Pharyngeal Jaws",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "9dZ8nRPYX9N3QaR9",
+            "_id": "G9f4Fx5llYjESmPt",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -327,13 +381,61 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Small, [[/r 1d6+6 #bludgeoning]]{1d6+6 bludgeoning damage}, Rupture 12</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "7pkevpR7Am9eNCD5",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Small, [[/r {1d6+6}[bludgeoning] #Swallow Whole]]{1d6+6 bludgeoning}, Rupture 12</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -354,10 +456,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -392,7 +498,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -427,7 +533,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -462,7 +568,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

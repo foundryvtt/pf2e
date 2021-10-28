@@ -1,4 +1,4 @@
-import { Editor as MCEEditor } from "tinymce";
+import type * as TinyMCE from "tinymce";
 
 declare global {
     /**
@@ -113,7 +113,7 @@ declare global {
          * @param options        TinyMCE initialization options passed to TextEditor.create
          * @param initialContent Initial text content for the editor area.
          */
-        activateEditor(name: string, options: TextEditorCreateOptions, initialContent?: string): void;
+        activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void;
 
         /**
          * Handle saving the content of a specific editor by name
@@ -196,8 +196,8 @@ declare global {
         changed: boolean;
         hasButton: boolean;
         initial: string;
-        mce: MCEEditor | null;
-        options: TextEditorCreateOptions;
+        mce: TinyMCE.Editor | null;
+        options: Partial<TinyMCE.EditorSettings>;
         target: string;
     }
 }

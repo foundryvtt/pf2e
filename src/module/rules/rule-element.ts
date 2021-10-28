@@ -167,14 +167,23 @@ abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties(source: string | undefined): string {
+    resolveInjectedProperties(source = ""): string {
+        if (!source.includes("{")) return source;
+
         const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
             actor: this.actor,
             item: this.item,
             rule: this,
         };
-        return (source ?? "").replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-            return getProperty(objects[key]?.data ?? this.item.data, prop);
+        return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+            const value = getProperty(objects[key]?.data ?? this.item.data, prop);
+            if (value === undefined) {
+                const { item } = this;
+                console.warn(
+                    `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
+                );
+            }
+            return value;
         });
     }
 
@@ -270,6 +279,15 @@ abstract class RuleElementPF2e {
 }
 
 interface RuleElementPF2e {
+    /**
+     * Run before this rules element's parent item is created. The rule element is temporarilly constructed from its
+     * source data, which is also passed to the method. A rule element can alter itself before its parent item is
+     * stored on an actor; it can also alter the item source itself in the same manner.
+     * @param source This rule element's own source data. Any changes made to it will be included as part of item
+     *               creation.
+     */
+    preCreate?(source: RuleElementSource): Promise<void>;
+
     /**
      * Run after an item holding this rule is added to an actor. If you modify or add the rule after the item
      * is already present on the actor, nothing will happen. Rules that add toggles won't work here since

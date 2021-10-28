@@ -1,5 +1,5 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
@@ -13,7 +13,8 @@ import { fontAwesomeIcon } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
-import ChatMessageData = foundry.data.ChatMessageData;
+import { StrikeTrait } from "@actor/data/base";
+import { ChatMessageDataPF2e } from "@module/chat-message/data";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -27,7 +28,7 @@ export interface RollParameters {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
-    dc?: CheckDC;
+    dc?: CheckDC | null;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */
@@ -64,9 +65,9 @@ export interface CheckModifiersContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: string;
     /** Any traits for the check. */
-    traits?: string[];
+    traits?: StrikeTrait[];
     /** Optional DC data for the check */
-    dc?: CheckDC;
+    dc?: CheckDC | null;
     /** Should the roll be immediately created as a chat message? */
     createMessage?: boolean;
     /** Skip the roll dialog regardless of user setting  */
@@ -99,9 +100,9 @@ export class CheckPF2e {
         callback?: (
             roll: Rolled<Roll>,
             outcome: typeof DegreeOfSuccessText[number] | undefined,
-            message: ChatMessage | ChatMessageData
+            message: ChatMessagePF2e | ChatMessageDataPF2e
         ) => Promise<void> | void
-    ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
+    ): Promise<ChatMessagePF2e | ChatMessageDataPF2e | undefined> {
         if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
@@ -272,12 +273,17 @@ export class CheckPF2e {
             .join("<br />");
 
         if (ctx.traits) {
-            const traits = ctx.traits.map((trait) => `<span class="tag">${trait}</span>`).join("");
-            flavor += `<div class="tags">${traits}</div><hr>`;
+            const traits: string = ctx.traits
+                .map((trait: StrikeTrait) => {
+                    const label = game.i18n.localize(trait.label);
+                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${label}</span>`;
+                })
+                .join("");
+            flavor += `<div class="tags">\n${traits}\n</div><hr />`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
-        const message = await roll.toMessage(
+        const message = (await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker(speaker),
                 flavor,
@@ -299,7 +305,7 @@ export class CheckPF2e {
                 rollMode: ctx.rollMode ?? "roll",
                 create: ctx.createMessage === undefined ? true : ctx.createMessage,
             }
-        );
+        )) as ChatMessagePF2e;
 
         if (callback) {
             await callback(roll, ctx.outcome, message);
@@ -407,9 +413,9 @@ export class CheckPF2e {
 
         const die = roll.dice[0];
 
-        if (die.total == 20) {
+        if (die.total === 20) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "success");
-        } else if (die.total == 1) {
+        } else if (die.total === 1) {
             rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "failure");
         }
 

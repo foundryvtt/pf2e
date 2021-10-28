@@ -104,6 +104,26 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
     }
 
+    /** Generate a list of strings for use in predication */
+    getContextStrings(prefix = ""): string[] {
+        return [...this.traits]
+            .map((trait) => `trait:${trait}`)
+            .concat(
+                Object.entries({
+                    equipped: this.isEquipped,
+                    magical: this.isMagical,
+                    uninvested: this.isInvested === false,
+                    [`material:${this.material?.type}`]: !!this.material,
+                })
+                    .filter(([_key, isTrue]) => isTrue)
+                    .map(([key]) => key)
+            )
+            .map((string) => {
+                const separatedPrefix = prefix ? `${prefix}:` : "";
+                return `${separatedPrefix}${string}`;
+            });
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -159,7 +179,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** Can the provided item stack with this item? */
     isStackableWith(item: PhysicalItemPF2e): boolean {
-        if (this.type !== item.type || this.name != item.name || this.isIdentified != item.isIdentified) return false;
+        if (this.type !== item.type || this.name !== item.name || this.isIdentified !== item.isIdentified) return false;
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
         thisData.quantity.value = otherData.quantity.value;
@@ -203,7 +223,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     override getChatData(): Record<string, unknown> {
         return {
-            rarity: CONFIG.PF2E.rarityTraits[this.rarity],
+            rarity: {
+                name: this.rarity,
+                label: CONFIG.PF2E.rarityTraits[this.rarity],
+                description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+            },
             description: { value: this.description },
         };
     }

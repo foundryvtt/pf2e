@@ -15,187 +15,114 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 3,
-                            "value": "18 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {}
+                    },
+                    "speeds": {
+                        "climb": 30,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "mandibles": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Insect Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 10
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 15
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesLowLightVision",
-                "selector": "lowLightVision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 13
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 18
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 2
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 6
-                        },
-                        {
-                            "start": 5,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Insect Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": 13
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": 16
-                        },
-                        {
-                            "start": 5,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 1,
-                            "value": "med"
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "lg"
-                        },
-                        {
-                            "start": 5,
-                            "value": "huge"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 30
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "climb",
-                "value": 30
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 2,
-                        "die": "d6"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Ant Mandibles",
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Insect Form",
-                "predicate": {
-                    "not": [
-                        "agile"
+                    },
+                    "traits": [
+                        "animal"
                     ]
                 },
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "med",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 13
+                                    }
+                                },
+                                "strikes": {
+                                    "mandibles": {
+                                        "damage": {
+                                            "modifier": 2
+                                        },
+                                        "modifier": 13
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "mandibles": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
                         {
                             "start": 5,
                             "value": {
-                                "diceNumber": 2
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "mandibles": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 2
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
                             }
                         }
                     ],
@@ -205,8 +132,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
+                "path": "flags.pf2e.disableABP",
                 "value": true
             }
         ],

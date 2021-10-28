@@ -252,12 +252,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Prepare form options on the item sheet */
     protected prepareOptions(
         options: Record<string, string>,
-        selections: SheetSelections,
+        selections: SheetSelections | (string[] & { custom?: never }),
         { selectedOnly = false }: { selectedOnly?: boolean } = { selectedOnly: false }
     ): SheetOptions {
         const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
-            const key = typeof selections.value[0] === "number" ? Number(stringKey) : stringKey;
-            const isSelected = selections.value.includes(key);
+            const selectionList = Array.isArray(selections) ? selections : selections.value;
+            const key = typeof selectionList[0] === "number" ? Number(stringKey) : stringKey;
+            const isSelected = selectionList.includes(key);
             if (isSelected || !selectedOnly) {
                 compiledOptions[key] = {
                     label,

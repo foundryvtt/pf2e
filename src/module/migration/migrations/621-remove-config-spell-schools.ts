@@ -29,7 +29,7 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
     }
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
-        if (itemData.type == "spell") {
+        if (itemData.type === "spell") {
             const school: { value: string } = itemData.data.school ?? { value: "evocation" };
             school.value = this.reassignSchool(school.value);
         } else if (itemData.type === "consumable" && itemData.data.spell?.data) {

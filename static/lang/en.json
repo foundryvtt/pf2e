@@ -1,12 +1,13 @@
 {
     "ACTOR": {
+        "TypeAnimalCompanion": "Animal Companion",
         "TypeCharacter": "Player Character",
+        "TypeEidolon": "Eidolon",
         "TypeFamiliar": "Familiar",
         "TypeHazard": "Hazard",
         "TypeLoot": "Loot",
         "TypeNpc": "Non-Player Character",
-        "TypeVehicle": "Vehicle",
-        "TypeAnimalcompanion": "Animal Companion"
+        "TypeVehicle": "Vehicle"
     },
     "ITEM": {
         "TypeAction": "Action",
@@ -981,10 +982,15 @@
         "DetailsHeading": "Details",
         "DragDropFeats": "Drag & Drop feats to add",
         "Duration": {
+            "PT1M": "minute",
             "PT10M": "10 minutes",
             "PT1H": "hour",
             "PT24H": "24 hours",
-            "day": "day"
+            "day": "day",
+            "P1W": "week"
+        },
+        "Encounter": {
+            "ExcludingFromInitiative": "Excluding {type} {actor} from initiative."
         },
         "EditHazardLabel": "Edit Hazard?",
         "EditItemTitle": "Edit Item",
@@ -1216,6 +1222,10 @@
                     "MaterialOption": "{type} ({grade})",
                     "Title": "Material Composition and Runes",
                     "Hint": "Precious material and runes allow for in-depth customization of a weapon. Besides improving its ability to harm enemies, they also affect the weapon's level, rarity, price, and name. To suppress a weapon's renaming, give it any custom name or mark it as a <i>specific magic weapon</i>."
+                },
+                "OtherTags": {
+                    "Label": "Other Tags",
+                    "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
                 },
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
@@ -1671,6 +1681,7 @@
             "BattleForm": "Battle Form",
             "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
+            "EffectTarget": "Effect Target",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
             "FlatModifier": "Flat Modifier",
@@ -1682,16 +1693,15 @@
             "Sense": "Sense",
             "Strike": "Strike",
             "Striking": "Striking",
-            "EffectTarget": "Effect Target",
+            "RecoveryCheckDC": "Recovery Check DC",
+            "Resistance": "Resistance",
+            "RollOption": "Roll Option",
             "TempHP": "Temporary Hit Points",
             "TempHPShortLabel": "Temp",
             "ToggleProperty": "Toggle Property",
             "TokenEffectIcon": "Token Effect Icon",
             "TokenImage": "Token Image",
             "TokenSize": "Token Size",
-            "RecoveryCheckDC": "Recovery Check DC",
-            "Resistance": "Resistance",
-            "RollOption": "Roll Option",
             "Weakness": "Weakness",
             "WeaponPotency": "Weapon Potency",
             "NewRuleElement": "New Rule Element",
@@ -2129,7 +2139,7 @@
         "SkillFeatLevels": "Skill Feat Levels",
         "SkillIncreaseLevels": "Skill Increase Levels",
         "Source": {
-            "AuthorLabel":"Author:",
+            "AuthorLabel":"Author",
             "AuthorPlaceholder": "Author",
             "Label": "Source",
             "SourcePlaceholder": "Book"
@@ -2239,7 +2249,9 @@
         "SpellcastingTypeLabel": "Spellcasting Type",
         "SpellsActionHeader": "Action",
         "SpellsSchoolHeader": "School",
-        "StackGroupArrows": "Arrows",
+        "StackGroupArrows": "Arrows",        
+        "StackGroupRounds5": "Rounds (5)",
+        "StackGroupRounds10": "Rounds (10)",
         "StackGroupBlowgunDarts": "Blowgun Darts",
         "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
@@ -3201,7 +3213,14 @@
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
             "shiftModifyDamageLabel": "Modifier:",
             "shiftModifyDamageTitle": "Modify the rolled damage/healing",
-            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal."
+            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal.",
+            "RuleElements": {
+                "EffectTarget": {
+                    "NoSelectionMade": "No selection was made: {effect} is inactive.",
+                    "NoValidOptions": "{actor} has no valid targets for {effect}.",
+                    "Prompt": "Choose the target of this effect."
+                }
+            }
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
@@ -3227,6 +3246,7 @@
                 "air-repeater": "Air Repeater",
                 "arquebus": "Arquebus",
                 "arrows": "Arrows",
+                "asp-coil": "Asp Coil",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",
                 "battle-lute": "Battle Lute",
@@ -3244,6 +3264,7 @@
                 "butchering-axe": "Butchering Axe",
                 "butterfly-sword": "Butterfly Sword",
                 "buugeng": "Buugeng",
+                "chakram": "Chakram",
                 "clan-dagger": "Clan Dagger",
                 "clan-pistol": "Clan Pistol",
                 "claw": "Claw",
@@ -3275,7 +3296,7 @@
                 "fighting-fan": "Fighting Fan",
                 "fighting-stick": "Fighting Stick",
                 "filchers-fork": "Filcher's Fork",
-                "fire-lance": "Fire lance",
+                "fire-lance": "Fire Lance",
                 "fire-poi": "Fire Poi",
                 "fist": "Fist",
                 "flail": "Flail",
@@ -3303,6 +3324,7 @@
                 "hand-crossbow": "Hand Crossbow",
                 "hatchet": "Hatchet",
                 "heavy-crossbow": "Heavy Crossbow",
+                "hongali-hornbow": "Hongali Hornbow",
                 "horsechopper": "Horsechopper",
                 "javelin": "Javelin",
                 "jaws": "Jaws",
@@ -3344,6 +3366,7 @@
                 "orc-necksplitter": "Orc Necksplitter",
                 "pepperbox": "Pepperbox",
                 "pick": "Pick",
+                "piranha-kiss": "Piranha Kiss",
                 "poi": "Poi",
                 "polytool": "Polytool",
                 "ranseur": "Ranseur",
@@ -3369,12 +3392,14 @@
                 "shortsword": "Shortsword",
                 "shuriken": "Shuriken",
                 "sickle": "Sickle",
+                "sickle-saber": "Sickle-saber",
                 "slide-pistol": "Slide Pistol",
                 "sling-bullets": "Sling Bullets",
                 "sling": "Sling",
                 "spear": "Spear",
                 "spiked-chain": "Spiked Chain",
                 "spiked-gauntlet": "Spiked Gauntlet",
+                "spiral-rapier": "Spiral Rapier",
                 "staff": "Staff",
                 "starknife": "Starknife",
                 "stiletto-pen": "Stiletto Pen",
@@ -3386,6 +3411,9 @@
                 "tengu-gale-blade": "Tengu Gale Blade",
                 "throwing-knife": "Throwing Knife",
                 "thunder-sling": "Thunder Sling",
+                "thundermace": "Thundermace",
+                "tonfa": "Tonfa",
+                "tri-bladed-katar": "Tri-bladed Katar",
                 "tricky-pick": "Tricky Pick",
                 "trident": "Trident",
                 "urumi": "Urumi",

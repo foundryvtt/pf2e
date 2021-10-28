@@ -492,19 +492,19 @@ function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSour
         } else if (!aActionCategory && bActionCategory) {
             return 1;
         } else {
-            if (aActionCategory == bActionCategory) {
+            if (aActionCategory === bActionCategory) {
                 return 0;
             }
 
-            if (aActionCategory == "interaction") {
+            if (aActionCategory === "interaction") {
                 return -1;
             }
 
-            if (bActionCategory == "interaction") {
+            if (bActionCategory === "interaction") {
                 return 1;
             }
 
-            if (aActionCategory == "defensive") {
+            if (aActionCategory === "defensive") {
                 return -1;
             }
 
@@ -525,7 +525,7 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
             return 1;
         } else if (aLevel && bLevel) {
             const levelDiff = bLevel.value - aLevel.value;
-            if (levelDiff != 0) {
+            if (levelDiff !== 0) {
                 return levelDiff;
             }
         }
@@ -628,7 +628,7 @@ async function extractPacks() {
     }
 
     console.log("Cleaning up old temp data...");
-    await fs.promises.rmdir(tempDataPath, { recursive: true });
+    await fs.promises.rm(tempDataPath, { recursive: true, force: true });
     await fs.promises.mkdir(tempDataPath);
 
     populateIdNameMap();
@@ -657,7 +657,7 @@ async function extractPacks() {
                 const entityCount = await extractPack(filePath, dbFilename);
 
                 // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
-                fs.rmdirSync(outDirPath, { recursive: true });
+                fs.rmSync(outDirPath, { recursive: true, force: true });
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
                 console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
@@ -669,7 +669,7 @@ async function extractPacks() {
 
 extractPacks()
     .then((grandTotal) => {
-        fs.rmdirSync(tempDataPath, { recursive: true });
+        fs.rmSync(tempDataPath, { recursive: true, force: true });
         console.log(`Extraction complete (${grandTotal} total entities).`);
     })
     .catch((error) => {

@@ -32,8 +32,18 @@ import { MagicSchool } from "@item/spell/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
+import { ActorType } from "@actor/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+
+const actorTypes: Record<ActorType, string> = {
+    character: "ACTOR.TypeCharacter",
+    familiar: "ACTOR.TypeFamiliar",
+    hazard: "ACTOR.TypeHazard",
+    loot: "ACTOR.TypeLoot",
+    npc: "ACTOR.TypeNpc",
+    vehicle: "ACTOR.TypeVehicle",
+};
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -494,6 +504,7 @@ const traitsDescriptions = {
     reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
     "reload-1": "PF2E.TraitDescriptionReload",
+    "reload-1-min": "PF2E.TraitDescriptionReload",
     "reload-2": "PF2E.TraitDescriptionReload",
     revelation: "PF2E.TraitDescriptionRevelation",
     "scatter-5": "PF2E.TraitDescriptionScatter",
@@ -837,6 +848,7 @@ const consumableTraits = {
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
     fear: "PF2E.TraitFear",
+    fey: "PF2E.TraitFey",
     fortune: "PF2E.TraitFortune",
     fulu: "PF2E.TraitFulu",
     gadget: "PF2E.TraitGadget",
@@ -1063,6 +1075,11 @@ const weaponTraits = {
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+};
+
+const otherWeaponTags = {
+    crossbow: "PF2E.Weapon.Base.crossbow",
+    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -1313,11 +1330,13 @@ export const PF2ECONFIG = {
     resistanceTypes,
 
     stackGroups: {
-        bolts: "PF2E.StackGroupBolts",
         arrows: "PF2E.StackGroupArrows",
+        bolts: "PF2E.StackGroupBolts",
         slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
+        rounds5: "PF2E.StackGroupRounds5",
+        rounds10: "PF2E.StackGroupRounds10",
         rations: "PF2E.StackGroupRations",
         coins: "PF2E.StackGroupCoins",
         gems: "PF2E.StackGroupGems",
@@ -1440,6 +1459,7 @@ export const PF2ECONFIG = {
     ancestryItemTraits,
 
     weaponTraits,
+    otherWeaponTags,
 
     armorTraits: {
         ...magicSchools,
@@ -1803,10 +1823,12 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
+        PT1M: "PF2E.Duration.PT1M",
         PT10M: "PF2E.Duration.PT10M",
         PT1H: "PF2E.Duration.PT1H",
         PT24H: "PF2E.Duration.PT24H",
         day: "PF2E.Duration.day",
+        P1W: "PF2E.Duration.P1W",
     },
 
     // Proficiency Multipliers
@@ -1825,10 +1847,11 @@ export const PF2ECONFIG = {
         3: "PF2E.HeroPointLevel3",
     },
 
-    // Creature Sizes
     actorSizes: {
         ...sizeTypes,
     },
+
+    actorTypes,
 
     speedTypes: {
         swim: "PF2E.SpeedTypesSwim",

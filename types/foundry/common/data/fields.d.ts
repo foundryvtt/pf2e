@@ -250,7 +250,7 @@ declare global {
                     required: TOptions["required"] extends true ? true : false;
                     nullable: TOptions["nullable"] extends false ? false : true;
                     default: TOptions["default"] extends abstract.Document ? TOptions["default"] : null;
-                    clean: <T extends any>(d: T) => T extends TOptions["type"] ? T : null;
+                    clean: <T>(d: T) => T extends TOptions["type"] ? T : null;
                     validate: typeof _validateId;
                     validationError: '`{name} {field} "{value}" is not a valid ${options.type.documentName} id`';
                 }

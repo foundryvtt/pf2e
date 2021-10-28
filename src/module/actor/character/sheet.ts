@@ -250,6 +250,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
+            actorSize: this.actor.size,
         });
 
         let investedCount = 0; // Tracking invested items
@@ -675,10 +676,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
+        const $strikesSection = html.find(".tab.actions .strikes-list");
+
         // Set damage-formula tooltips on damage buttons
-        const $strikes = html
-            .find("section.sheet-content .tab.actions .strikes-list")
-            .find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
+        const $strikes = $strikesSection.find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
         for (const strike of $strikes) {
             const $strike = $(strike);
             const method = $strike.hasClass("critical-strike") ? "critical" : "damage";
@@ -693,6 +694,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 });
             }
         }
+
+        $strikesSection.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
+            if (span.dataset.description) {
+                $(span).tooltipster({
+                    content: game.i18n.localize(span.dataset.description),
+                    animation: "fade",
+                    maxWidth: 400,
+                    theme: "crb-hover",
+                });
+            }
+        });
 
         html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
         html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
@@ -753,19 +765,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemLevel = target.data().level;
             const actor = this.actor;
             const item = actor.items.get(itemId);
+            if (item?.data.type !== "spellcastingEntry") return;
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== "spellcastingEntry") {
-                return;
-            }
-
-            const data = duplicate(item.data);
-
-            if (data.data.slots == null) {
-                return;
-            }
+            const data = item.data.toObject();
+            if (!data.data.slots) return;
             const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
             data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
@@ -975,7 +978,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype" || featSlotType == "dualclass") {
+        if (featSlotType === "archetype" || featSlotType === "dualclass") {
             // Archetype feat slots are class feat slots
             featSlotType = "class";
         }
