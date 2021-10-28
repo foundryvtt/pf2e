@@ -61,10 +61,17 @@ export class DamageRollModifiersDialog extends Application {
         const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
-            const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+            const strikeTraits: Record<string, string | undefined> = {
+                ...CONFIG.PF2E.weaponTraits,
+                attack: "PF2E.TraitAttack",
+            };
+            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
             const traits = damage.traits
-                .map((trait) => game.i18n.localize(weaponTraits[trait]) ?? trait)
-                .map((trait) => `<span class="tag">${trait}</span>`)
+                .map((trait) => {
+                    const label = game.i18n.localize(strikeTraits[trait] ?? "");
+                    const description = traitDescriptions[trait] ?? "";
+                    return `<span class="tag" data-trait="${trait}" data-description="${description}">${label}</span>`;
+                })
                 .join("");
             flavor += `<div class="tags">${traits}</div><hr>`;
         }

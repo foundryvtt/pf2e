@@ -448,7 +448,7 @@ export class NPCPF2e extends CreaturePF2e {
                         MODIFIER_TYPE.ABILITY
                     ),
                 ];
-                const notes = [] as RollNotePF2e[];
+                const notes: RollNotePF2e[] = [];
                 const rollOptions = [skill, `${ability}-based`, "skill-check", "all"];
                 rollOptions.forEach((key) => {
                     (statisticsModifiers[key] || [])
@@ -485,7 +485,7 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                 };
 
-                const variants = (itemData.data as any).variants;
+                const variants = itemData.data.variants;
                 if (variants && Object.keys(variants).length) {
                     stat.variants = [];
                     for (const [, variant] of Object.entries(variants)) {
@@ -564,20 +564,23 @@ export class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
-                const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
-                action.traits = [
-                    { name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false },
-                ].concat(
-                    traits.map((trait) => {
-                        const key = attackTraits[trait] ?? trait;
-                        const option: StrikeTrait = {
+                const attackTrait: StrikeTrait = {
+                    name: "attack",
+                    label: CONFIG.PF2E.featTraits.attack,
+                    description: CONFIG.PF2E.traitsDescriptions.attack,
+                    toggle: false,
+                };
+                action.traits = [attackTrait].concat(
+                    traits.map(
+                        (trait): StrikeTrait => ({
                             name: trait,
-                            label: game.i18n.localize(key),
+                            label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
+                            description: CONFIG.PF2E.traitsDescriptions[trait],
                             toggle: false,
-                        };
-                        return option;
-                    })
+                        })
+                    )
                 );
+
                 const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
                 action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
                     const label =
@@ -628,6 +631,7 @@ export class NPCPF2e extends CreaturePF2e {
                             options,
                             notes: rollNotes,
                             dc: args.dc ?? ctx.dc,
+                            traits: action.traits,
                         },
                         args.event
                     );
@@ -653,6 +657,7 @@ export class NPCPF2e extends CreaturePF2e {
                                     options,
                                     notes: rollNotes,
                                     dc: args.dc ?? ctx.dc,
+                                    traits: action.traits,
                                 },
                                 args.event
                             );
@@ -677,6 +682,7 @@ export class NPCPF2e extends CreaturePF2e {
                                     options,
                                     notes: rollNotes,
                                     dc: args.dc ?? ctx.dc,
+                                    traits: action.traits,
                                 },
                                 args.event
                             );
@@ -701,6 +707,7 @@ export class NPCPF2e extends CreaturePF2e {
                                     options,
                                     notes: rollNotes,
                                     dc: args.dc ?? ctx.dc,
+                                    traits: action.traits,
                                 },
                                 args.event
                             );

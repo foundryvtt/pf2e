@@ -223,7 +223,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     override getChatData(): Record<string, unknown> {
         return {
-            rarity: CONFIG.PF2E.rarityTraits[this.rarity],
+            rarity: {
+                name: this.rarity,
+                label: CONFIG.PF2E.rarityTraits[this.rarity],
+                description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+            },
             description: { value: this.description },
         };
     }
