@@ -68,15 +68,6 @@ export type DamagePool = Record<
     }
 >;
 
-/** Return true if the given damage type is non-null and not physical; false otherwise. */
-function isNonPhysicalDamage(damageType?: string): boolean {
-    return (
-        damageType !== undefined &&
-        damageType !== "" &&
-        DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
-    );
-}
-
 export function ensureWeaponCategory(options: string[], weaponCategory: "simple" | "martial" | "advanced" | "unarmed") {
     if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith("weapon:category:"))) {
         options.push(`weapon:category:${weaponCategory}`);
@@ -327,35 +318,6 @@ export class WeaponDamagePF2e {
             } as const;
             baseDamageType =
                 dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
-        }
-
-        // custom damage
-        const normalDice = weapon.data?.property1?.dice ?? 0;
-        if (normalDice > 0) {
-            const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
-            diceModifiers.push(
-                new DiceModifierPF2e({
-                    name: "PF2E.WeaponCustomDamageLabel",
-                    diceNumber: normalDice,
-                    dieSize: weapon.data?.property1?.die as DamageDieSize,
-                    damageType: damageType,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                })
-            );
-        }
-        const critDice = weapon.data?.property1?.critDice ?? 0;
-        if (critDice > 0) {
-            const damageType = weapon.data?.property1?.critDamageType ?? baseDamageType;
-            diceModifiers.push(
-                new DiceModifierPF2e({
-                    name: "PF2E.WeaponCustomDamageLabel",
-                    diceNumber: critDice,
-                    dieSize: weapon.data?.property1?.critDie as DamageDieSize,
-                    damageType: damageType,
-                    critical: true,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                })
-            );
         }
 
         // potency

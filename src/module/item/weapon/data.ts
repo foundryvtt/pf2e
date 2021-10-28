@@ -73,7 +73,7 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-interface WeaponSystemSource extends MagicItemSystemData {
+export interface WeaponSystemSource extends MagicItemSystemData {
     traits: WeaponSourceTraits;
     weaponType: {
         value: WeaponCategory;
@@ -125,17 +125,6 @@ interface WeaponSystemSource extends MagicItemSystemData {
         value: WeaponMaterialType | null;
     };
 
-    // Refers to custom damage, *not* property runes
-    property1: {
-        value: string;
-        dice: number;
-        die: string;
-        damageType: string;
-        critDice: number;
-        critDie: string;
-        critDamage: string;
-        critDamageType: string;
-    };
     selectedAmmoId?: string;
 }
 

@@ -24,6 +24,7 @@ import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set
 import { Migration681GiantLanguageToJotun } from "@module/migration/migrations/681-giant-language-to-jotun";
 import { Migration682BiographyFields } from "@module/migration/migrations/682-biography-fields";
 import { Migration683FlavorTextToPublicNotes } from "@module/migration/migrations/683-flavortext-to-public-notes";
+import { Migration685RemoveProperty1 } from "@module/migration/migrations/685-remove-property1";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -44,6 +45,7 @@ const migrations: MigrationBase[] = [
     new Migration681GiantLanguageToJotun(),
     new Migration682BiographyFields(),
     new Migration683FlavorTextToPublicNotes(),
+    new Migration685RemoveProperty1(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

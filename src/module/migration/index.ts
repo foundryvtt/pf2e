@@ -86,6 +86,7 @@ import { Migration681GiantLanguageToJotun } from "./migrations/681-giant-languag
 import { Migration682BiographyFields } from "./migrations/682-biography-fields";
 import { Migration683FlavorTextToPublicNotes } from "./migrations/683-flavortext-to-public-notes";
 import { Migration684RationsToConsumable } from "./migrations/684-rations-to-consumable";
+import { Migration685RemoveProperty1 } from "./migrations/685-remove-property1";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -176,6 +177,7 @@ export class Migrations {
         Migration682BiographyFields,
         Migration683FlavorTextToPublicNotes,
         Migration684RationsToConsumable,
+        Migration685RemoveProperty1,
     ];
 
     static get latestVersion(): number {
