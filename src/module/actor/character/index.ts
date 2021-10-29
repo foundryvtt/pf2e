@@ -58,7 +58,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
-import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
