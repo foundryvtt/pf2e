@@ -20,6 +20,7 @@ import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
 import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";
+import { DeitySheetPF2e } from "@item/deity/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -119,6 +120,7 @@ export function registerSheets() {
         ["background", BackgroundSheetPF2e],
         ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
+        ["deity", DeitySheetPF2e],
         ["feat", FeatSheetPF2e],
         ["effect", EffectSheetPF2e],
         ["spell", SpellSheetPF2e],

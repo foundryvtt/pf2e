@@ -26,7 +26,7 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
                 id: this.id,
             },
             dataset: {
-                alignment: CONFIG.PF2E.alignment,
+                alignment: CONFIG.PF2E.alignments,
                 rarity: CONFIG.PF2E.rarityTraits,
                 size: CONFIG.PF2E.actorSizes,
                 traits: {

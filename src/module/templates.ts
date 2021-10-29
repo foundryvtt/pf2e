@@ -77,6 +77,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/consumable-sidebar.html",
         "systems/pf2e/templates/items/condition-details.html",
         "systems/pf2e/templates/items/condition-sidebar.html",
+        "systems/pf2e/templates/items/deity-details.html",
+        "systems/pf2e/templates/items/deity-sidebar.html",
         "systems/pf2e/templates/items/effect-sidebar.html",
         "systems/pf2e/templates/items/equipment-details.html",
         "systems/pf2e/templates/items/equipment-sidebar.html",

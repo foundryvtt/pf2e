@@ -297,18 +297,18 @@
 </div>
 
 {{~#*inline "abcItem"~}}
-    <li class="abc-item" data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
-        <img class="-item-image" src="{{item.img}}">
-        <div class="abc-item-name">
+    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+        <img src="{{item.img}}">
+        <div class="name">
             {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
         </div>
-        <div class="abc-item-level">{{item.level}}</div>
+        <div class="level">{{item.level}}</div>
         <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
         <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype="String">
         <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype="String">
-        <a class="abc-item-remove" data-action='remove'><i class="fa fa-times"></i></a>
+        <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
-        {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
+            {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
         {{~/if}}
     </li>
 {{~/inline~}}
