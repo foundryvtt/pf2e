@@ -24,6 +24,7 @@ export interface PrerequisiteTagData {
 }
 
 interface FeatSystemData extends ItemSystemData, ItemLevelData {
+    traits: FeatTraits;
     featType: {
         value: FeatType;
     };

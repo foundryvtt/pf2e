@@ -22,7 +22,6 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { ItemTrait } from "./data/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -64,10 +63,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
         return Number(this.data.data.schema?.version) || null;
-    }
-
-    get traits(): Set<ItemTrait> {
-        return new Set(this.data.data.traits.value);
     }
 
     get description(): string {
@@ -193,11 +188,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
-        const traits: string[] = [...this.traits].sort();
-        const customTraits = this.data.data.traits.custom
-            .trim()
-            .split(/\s*[,;|]\s*/)
-            .filter((trait) => trait);
+        const traits: string[] = deepClone(this.data.data.traits?.value ?? []).sort();
+        const customTraits =
+            this.data.data.traits?.custom
+                .trim()
+                .split(/\s*[,;|]\s*/)
+                .filter((trait) => trait) ?? [];
         traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
@@ -468,7 +464,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                         uuid: this.uuid,
                         name: this.name,
                         slug: this.slug,
-                        traits: [...this.traits],
+                        traits: deepClone(this.data.data.traits?.value ?? []),
                     },
                 },
             },
@@ -607,7 +603,7 @@ interface ItemPF2e {
 
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<this> | null;
+    _sheet: ItemSheetPF2e<ItemPF2e> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 

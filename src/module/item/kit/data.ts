@@ -1,5 +1,6 @@
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { PhysicalItemTraits } from "@item/physical/data";
 import type { KitPF2e } from ".";
 
 export type KitSource = BaseNonPhysicalItemSource<"kit", KitSystemData>;
@@ -25,5 +26,6 @@ export interface KitEntryData {
 }
 
 export interface KitSystemData extends ItemSystemData {
+    traits: PhysicalItemTraits;
     items: Record<string, KitEntryData>;
 }

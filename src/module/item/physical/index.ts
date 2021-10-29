@@ -21,6 +21,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.traits.rarity.value;
     }
 
+    get traits(): Set<PhysicalItemTrait> {
+        return new Set(this.data.data.traits.value);
+    }
+
     get quantity(): number {
         return this.data.data.quantity.value ?? 1;
     }
@@ -285,6 +289,4 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
 export interface PhysicalItemPF2e {
     readonly data: PhysicalItemData;
-
-    get traits(): Set<PhysicalItemTrait>;
 }

@@ -496,7 +496,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (canvas.tokens.controlled.length > 0) {
             const save = $(ev.currentTarget).attr("data-save") as SaveType;
             const dc = Number($(ev.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits.value;
+            const itemTraits = item.data.data.traits?.value;
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
