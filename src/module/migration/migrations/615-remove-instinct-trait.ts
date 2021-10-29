@@ -6,7 +6,8 @@ export class Migration615RemoveInstinctTrait extends MigrationBase {
     static override version = 0.615;
 
     override async updateItem(itemData: ItemSourcePF2e) {
-        const traits: { value: string[] } = itemData.data.traits;
+        const traits: { value: string[] } | undefined = itemData.data.traits;
+        if (!traits) return;
         if (typeof traits.value === "string") {
             // Catch trait.value properties that missed migration 597
             traits.value = [];

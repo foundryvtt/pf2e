@@ -18,6 +18,10 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
+    get traits(): Set<SpellTrait> {
+        return new Set(this.data.data.traits.value);
+    }
+
     get school(): MagicSchool {
         return this.data.data.school.value;
     }
@@ -403,6 +407,4 @@ export class SpellPF2e extends ItemPF2e {
 
 export interface SpellPF2e {
     readonly data: SpellData;
-
-    get traits(): Set<SpellTrait>;
 }

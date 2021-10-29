@@ -1,5 +1,5 @@
 import { ItemPF2e } from "../index";
-import { FeatData, FeatType } from "./data";
+import { FeatData, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 
@@ -17,6 +17,10 @@ export class FeatPF2e extends ItemPF2e {
 
     get level(): number {
         return this.data.data.level.value;
+    }
+
+    get traits(): Set<FeatTrait> {
+        return new Set(this.data.data.traits.value);
     }
 
     get actionCost() {
