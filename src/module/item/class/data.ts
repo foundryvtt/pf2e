@@ -51,7 +51,7 @@ interface ClassSystemData extends ABCSystemData {
     abilityBoostLevels: { value: number[] };
 }
 
-// Classes don't have traits, both feats, spells, and other items can have traits corresponding with a class
+// Classes don't have traits, but both feats, spells, and other items can have traits corresponding with a class
 export const CLASS_TRAITS = [
     "alchemist",
     "barbarian",
