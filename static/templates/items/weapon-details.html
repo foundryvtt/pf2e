@@ -66,27 +66,27 @@
                 {{/select}}
             </select>
         </div>
-        {{#if (not hideStrikingMenu)}}
-            <div class="form-group">
-                <label>{{localize "PF2E.StrikingRuneLabel"}}</label>
-                <select name="data.strikingRune.value" data-dtype="String">
-                    {{#select data.strikingRune.value}}
-                        <option value=""></option>
-                        {{#each weaponStrikingRunes as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        {{/if}}
+        <div class="form-group">
+            <label>{{localize "PF2E.StrikingRuneLabel"}}</label>
+            <select name="data.strikingRune.value" data-dtype="String">
+                {{#select data.strikingRune.value}}
+                    <option value=""></option>
+                    {{#each weaponStrikingRunes as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
         {{#each propertyRuneSlots as |slot|}}
             <div class="form-group">
                 <label>{{slot.label}}</label>
-                <select name="{{slot.name}}" data-dtype="String">
+                {{#if @root.data.specific.value}}
+                    <input type="hidden" name="{{slot.name}}" value="{{slot.value}}" data-dtype="String" />
+                {{/if}}
+                <select{{#if (not @root.data.specific.value)}} name="{{slot.name}}"{{/if}} data-dtype="String" {{disabled @root.data.specific.value}}>
                     {{#select slot.value}}
                         <option value=""></option>
                         {{#each @root.weaponPropertyRunes as |label type|}}
-                            <!-- {{label}} -->
                             <option value="{{type}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
@@ -98,7 +98,7 @@
                 {{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Label"}}
                 <i class="fas fa-info-circle large" title="{{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Hint"}}"></i>
             </label>
-            <input type="checkbox" name="data.specific.value" data-dtype="Boolean" {{checked data.specific.value}} />
+            <input type="checkbox" name="data.specific.value" {{checked data.specific.value}} />
         </div>
     </ol>
 {{/unless}}
@@ -159,7 +159,7 @@
     </h3>
     <li class="form-group">
         <label>{{localize "PF2E.ItemDescription"}}</label>
-        <input type="text" name="data.property1.value" value="{{data.property1.value}}" data-dtype="String"/>
+        <input type="text" name="data.property1.value" value="{{data.property1.value}}" />
     </li>
 
     <li class="form-group">

@@ -122,7 +122,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             preciousMaterials,
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
-            hideStrikingMenu: this.item.isSpecific && sheetData.data.strikingRune.value === null,
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
@@ -209,6 +208,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             const isSpecific = formData["data.specific.value"];
             if (isSpecific !== weapon.isSpecific) {
                 if (isSpecific === true) {
+                    formData["data.specific.price"] = formData["data.price.value"];
                     formData["data.specific.material"] = weapon.material;
                     formData["data.specific.runes"] = {
                         potency: formData["data.potencyRune.value"],

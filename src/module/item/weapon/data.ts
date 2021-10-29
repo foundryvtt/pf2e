@@ -62,6 +62,7 @@ type SpecificWeaponData =
       }
     | {
           value: true;
+          price: string;
           material: {
               type: WeaponMaterialType;
               grade: PreciousMaterialGrade;
