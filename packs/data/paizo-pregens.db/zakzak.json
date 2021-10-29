@@ -34,7 +34,7 @@
             "hp": {
                 "details": "",
                 "temp": 0,
-                "value": 36
+                "value": 39
             },
             "initiative": {
                 "ability": "perception"
@@ -68,6 +68,7 @@
         "crafting": {
             "formulas": []
         },
+        "customModifiers": {},
         "details": {
             "age": {
                 "value": ""
@@ -1379,7 +1380,7 @@
             "type": "feat"
         },
         {
-            "_id": "CDFRejkj0RTNsAoC",
+            "_id": "Pk4MmakM84hoZJTX",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1391,7 +1392,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>You react more quickly than others can. You gain a +2 circumstance bonus to initiative rolls.</p>"
+                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
                 },
                 "featType": {
                     "value": "general"
@@ -1406,12 +1407,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "selector": "initiative",
-                        "type": "circumstance",
-                        "value": 2
+                        "selector": "hp",
+                        "value": "@details.level.value"
+                    },
+                    {
+                        "key": "RecoveryCheckDC"
                     }
                 ],
-                "slug": "incredible-initiative",
+                "slug": "toughness",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -1428,16 +1431,16 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.2kwXTUjYYhoAGySr"
+                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Incredible Initiative",
+            "name": "Toughness",
             "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "fgT8BMvZn8GYBm7h",
+            "_id": "YHJpMGCbcvlG3fhV",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1445,7 +1448,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": "flingflenser",
+                "baseItem": "spoon-gun",
                 "bonus": {
                     "value": 0
                 },
@@ -1465,13 +1468,13 @@
                     "value": null
                 },
                 "damage": {
-                    "damageType": "slashing",
+                    "damageType": "piercing",
                     "dice": 1,
                     "die": "d6",
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A flingflenser is a goblin-designed weapon ending in an ovoid tube with a hatch and handle on the narrow end. A cluster of circular blades held together and attached to a black powder packet with a thin leather strap serves as ammunition and is loaded through the hatch before being fired with a flintlock or other external ignition mechanism. The flingflenser's sturdy design also places it among the more reliable goblin weapons.</p>"
+                    "value": "<p>No one's entirely certain who developed the spoon gun, but all authorities agree that it was probably a goblin. Essentially a terrible idea in firearm form, the spoon gun is a spring-powered @Compendium[pf2e.equipment-srd.Hand Cannon]{Hand Cannon} with a modified grip that uses miscellaneous knives, forks, chopsticks, and spoons as ammunition. Users typically upend the entire contents of their cutlery drawer into the gun, aim it in the general direction of the foe, and hope it hits something.</p>\n<p>This hand cannon is a martial weapon, instead of a simple weapon. It has the scatter (5 feet) trait and uses cutlery or similar-sized objects as ammunition instead of bullets (enough cheap cutlery to fire ten shots costs 1 sp).</p>"
                 },
                 "equipped": {
                     "value": true
@@ -1526,7 +1529,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "6 gp"
+                    "value": "10 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -1564,13 +1567,13 @@
                     "value": "1"
                 },
                 "rules": [],
-                "selectedAmmoId": "JNM8BKXBo23DW4M9",
+                "selectedAmmoId": "QmrfVO0goSokny8E",
                 "size": {
                     "value": "med"
                 },
-                "slug": "flingflenser",
+                "slug": "spoon-gun",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Guns and Gears"
                 },
                 "specific": {
                     "value": false
@@ -1590,17 +1593,17 @@
                         "value": "uncommon"
                     },
                     "value": [
-                        "backstabber",
-                        "fatal-d10",
+                        "cobbled",
                         "goblin",
+                        "modular",
                         "scatter-5"
                     ]
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
-                    "value": "advanced"
+                    "value": "martial"
                 },
                 "weight": {
                     "value": "1"
@@ -1609,11 +1612,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.EPhsyiO4jYl0jWoC"
+                    "sourceId": "Compendium.pf2e.equipment-srd.4LJEpZ2HkCu9BvHI"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
-            "name": "Flingflenser",
+            "name": "Spoon Gun",
             "sort": 0,
             "type": "weapon"
         },
@@ -2601,7 +2604,7 @@
             "type": "treasure"
         },
         {
-            "_id": "JNM8BKXBo23DW4M9",
+            "_id": "QmrfVO0goSokny8E",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2703,7 +2706,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": "firearm-ammunition-5-rounds",
+                "slug": "firearm-ammunition-10-rounds",
                 "source": {
                     "value": "Pathfinder Guns & Gears"
                 },
@@ -2712,7 +2715,7 @@
                     "heightenedLevel": null
                 },
                 "stackGroup": {
-                    "value": "rounds5"
+                    "value": "rounds10"
                 },
                 "target": {
                     "type": "",
@@ -2722,7 +2725,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "uncommon"
+                        "value": "common"
                     },
                     "value": []
                 },
@@ -2743,11 +2746,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.LDK0knyyX5XA1jx6"
+                    "sourceId": "Compendium.pf2e.equipment-srd.KmyKRH6ECA28nBcH"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/consumable.svg",
-            "name": "Firearm Ammunition (Flingflenser)",
+            "name": "Firearm Ammunition (Spoon Gun)",
             "sort": 0,
             "type": "consumable"
         },
