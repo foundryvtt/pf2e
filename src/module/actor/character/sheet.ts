@@ -13,7 +13,7 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
