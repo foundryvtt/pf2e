@@ -201,7 +201,7 @@ export const SENSE_TYPES = [
     "lifesense",
     "wavesense",
     "seeInvisibility",
-    "truesight"
+    "truesight",
 ] as const;
 
 export const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;

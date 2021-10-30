@@ -395,7 +395,6 @@ export class NPCPF2e extends CreaturePF2e {
                 if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
                 if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
             }
-
         }
 
         // default all skills to untrained
