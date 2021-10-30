@@ -12,7 +12,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { LorePF2e } from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -21,6 +21,23 @@ import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
 import { craftItem } from "@module/crafting/helpers";
+import { ActorSheetDataPF2e } from "../sheet/data-types";
+
+/** Additional fields added in sheet data preparation */
+interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
+    abilities: any;
+    ancestry: AncestryPF2e;
+    background: BackgroundPF2e;
+    class: ClassPF2e;
+    magicTraditions: Record<MagicTradition, string>;
+    preparationType: any;
+    showUnpreparedSpells: boolean;
+    showPFSTab: boolean;
+    hasStamina: boolean;
+    crafting: any;
+    abpEnabled: boolean;
+    spellcastingEntries: any;
+}
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -55,7 +72,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         await super._updateObject(event, formData);
     }
 
-    override async getData(options?: ActorSheetOptions) {
+    override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData = await super.getData(options);
 
         // ABC
@@ -165,7 +182,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Organize and classify Items for Character sheets
      */
-    protected prepareItems(sheetData: any) {
+    protected prepareItems(sheetData: CharacterSheetData) {
         const actorData: any = sheetData.actor;
         // Inventory
         const inventory: Record<
@@ -528,7 +545,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    protected prepareSpellcasting(sheetData: any) {
+    protected prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
         const { abilities } = this.actor.data.data;
 
@@ -579,7 +596,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    protected prepareSenses(sheetData: any) {
+    protected prepareSenses(sheetData: CharacterSheetData) {
         const configSenses = CONFIG.PF2E.senses;
         const configAcuity = CONFIG.PF2E.senseAcuity;
         for (const sense of sheetData.data.traits.senses) {
