@@ -22,21 +22,27 @@ import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
 import { craftItem } from "@module/crafting/helpers";
 import { ActorSheetDataPF2e } from "../sheet/data-types";
+import { Abilities } from "@actor/creature/data";
+
+interface CraftingData {
+    noCost: boolean;
+    knownFormulas: Record<number, CraftingFormula[]>;
+}
 
 /** Additional fields added in sheet data preparation */
 interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
-    abilities: any;
+    abilities: Abilities;
     ancestry: AncestryPF2e;
     background: BackgroundPF2e;
     class: ClassPF2e;
     magicTraditions: Record<MagicTradition, string>;
-    preparationType: any;
+    preparationType: Object;
     showUnpreparedSpells: boolean;
     showPFSTab: boolean;
     hasStamina: boolean;
-    crafting: any;
+    crafting: CraftingData;
     abpEnabled: boolean;
-    spellcastingEntries: any;
+    spellcastingEntries: Object[];
 }
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
