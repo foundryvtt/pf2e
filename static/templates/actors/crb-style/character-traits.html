@@ -143,7 +143,7 @@
         <ol class="tags">
             {{#each data.traits.senses as |sense k|}}
             <li class="tag tag_alt {{k}}">
-                {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
+                {{localize sense.label}} {{#if (ne sense.acuity "precise")}} ({{sense.acuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
             </li>
             {{/each}}
             {{#if @root.owner}}

@@ -20,6 +20,7 @@ import {
 } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
+import { SENSE_TYPES } from "@actor/data/values";
 
 export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
 
@@ -109,9 +110,10 @@ export interface NPCHitPoints extends CreatureHitPoints {
     base?: number;
 }
 
-/** Perception data with an additional "base" value */
+/** Perception data with an additional "base" and details value */
 export interface NPCPerception extends PerceptionData {
     base?: number;
+    details?: string;
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
@@ -154,3 +156,5 @@ export interface NPCAttributes extends CreatureAttributes {
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;
 }
+
+export type SenseType = typeof SENSE_TYPES[number];

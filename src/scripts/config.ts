@@ -32,6 +32,7 @@ import { MagicSchool } from "@item/spell/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
+import { SenseAcuity } from "@actor/creature/data";
 import { ActorType } from "@actor/data";
 import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 
@@ -44,6 +45,13 @@ const actorTypes: Record<ActorType, string> = {
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+//Sense acuity
+const senseAcuity: Record<SenseAcuity, string> = {
+    precise: "PF2E.SenseAcuityPrecise",
+    imprecise: "PF2E.SenseAcuityImprecise",
+    vague: "PF2E.SenseAcuityVague"
 };
 
 // Ancestry and heritage traits
@@ -1889,6 +1897,8 @@ export const PF2ECONFIG = {
         lifesense: "PF2E.SensesLifesense",
         wavesense: "PF2E.SensesWavesense",
     },
+
+    senseAcuity,
 
     bulkTypes: {
         L: "PF2E.BulkTypeLight",

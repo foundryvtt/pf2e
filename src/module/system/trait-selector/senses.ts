@@ -37,6 +37,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
             };
         });
         data.choices = choices;
+        data.senseAcuity = CONFIG.PF2E.senseAcuity;
 
         return data;
     }
@@ -69,9 +70,9 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1]))) {
+                if (!Number.isNaN(Number(v[2]))) {
                     const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[1] });
+                    choices.push({ type: k, label, value: v[2], acuity: v[1] });
                 }
             }
         }

@@ -10,7 +10,7 @@ import { CreatureSensePF2e } from "@actor/creature/sense";
  * @category RuleElement
  */
 export class SenseRuleElement extends RuleElementPF2e {
-    protected static override validActorTypes: ActorType[] = ["character", "familiar"];
+    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>) {
         data.force ??= false;
