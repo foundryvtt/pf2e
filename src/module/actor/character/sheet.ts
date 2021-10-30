@@ -11,7 +11,7 @@ import { goesToEleven, ZeroToThree } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e, groupBy } from "@util";
+import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency } from "./data";
@@ -123,6 +123,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        this.prepareSenses(sheetData);
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         sheetData.crafting = {
@@ -575,6 +576,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     ...entry.getSpellData(),
                 });
             }
+        }
+    }
+
+    protected prepareSenses(sheetData: any) {
+        const configSenses = CONFIG.PF2E.senses;
+        const configAcuity = CONFIG.PF2E.senseAcuity;
+        for (const sense of sheetData.data.traits.senses) {
+            sense.localizedName = objectHasKey(configSenses, sense.type)
+                ? configSenses[sense.type as keyof typeof configSenses]
+                : sense.type;
+            sense.localizedAcuity = objectHasKey(configAcuity, sense.acuity)
+                ? configAcuity[sense.acuity as keyof typeof configAcuity]
+                : sense.acuity;
         }
     }
 

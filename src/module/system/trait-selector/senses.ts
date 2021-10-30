@@ -32,6 +32,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
                 acuity: sense?.acuity ?? "",
                 disabled: sense?.source ? "disabled" : "",
                 label,
+                specialSense: sense?.specialSense ?? false,
                 selected: sense !== undefined,
                 value: sense?.value ?? "",
             };
@@ -72,7 +73,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
             if (v.length > 1 && v[0]) {
                 if (!Number.isNaN(Number(v[2]))) {
                     const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[2], acuity: v[1] });
+                    choices.push({ type: k, label, value: v[2], acuity: v[1], specialSense: v[3] });
                 }
             }
         }

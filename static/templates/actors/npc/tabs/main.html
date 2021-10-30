@@ -36,6 +36,39 @@
             </div>
         </div>
     </div>
+    <!-- SENSES -->
+    <div class="senses section-container">
+        <div class="section-header" data-attribute="senses" for="data.traits.senses">
+            <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
+            {{# if options.editable}}
+            <div class="senses-controls controls">
+                <a class="trait-edit edit" data-trait-selector="senses"><i class="fas fa-edit"></i></a>
+            </div>
+            {{/if}}
+        </div>
+        <div class="section-body">
+            <div class="perception labelled-field flexrow" data-attribute="perception">
+                <label class="attribute-label rollable label"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
+                {{#with data.attributes.perception as |perception|}}
+                    <input type="text" class="modifier mod adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" value="{{numberFormat perception.value decimals=0 sign=true}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
+                    <input type="text" class="details" name="data.attributes.perception.details" value="{{perception.details}}" placeholder="{{localize "PF2E.NPC.PerceptionExtraInfoLabelPlaceholder"}}" />
+                {{/with}}
+            </div>
+
+            <div class="tags">
+                {{#each data.traits.senses as |sense k|}}
+                    {{#if (ne sense.specialSense true)}}
+                        <div class="tag tag_transparent {{sense.type}}">{{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
+                    {{/if}}
+                {{/each}}
+                {{#each data.traits.senses as |sense k|}}
+                {{#if sense.specialSense}}
+                    <div class="tag tag_transparent tag_shaded {{sense.type}}">{{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
     <div class="top-sections">
         <!-- ABILITY SCORES -->
         <div class="ability-scores section-container">
@@ -53,44 +86,21 @@
                 </div>
             </div>
         </div>
-        <!-- SENSES -->
-        <div class="senses section-container">
-            <div class="section-header" data-attribute="senses" for="data.traits.senses">
-                <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
+        <!-- LANGUAGES -->
+        <div class="languages section-container">
+            <div class="section-header" data-attribute="languages" for="data.traits.languages">
+                <h4>{{localize "PF2E.Languages"}}</h4>
                 {{# if options.editable}}
-                <div class="senses-controls controls">
-                    <a class="trait-edit edit" data-trait-selector="senses"><i class="fas fa-edit"></i></a>
-                </div>
-            {{/if}}
+                    <div class="languages-controls controls">
+                        <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
+                    </div>
+                {{/if}}
             </div>
             <div class="section-body">
-                <div class="perception labelled-field" data-attribute="perception">
-                    <label class="attribute-label rollable"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
-                    {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
-                        <input type="text" value="{{perception.details}}" class="perception-details" data-property="data.attributes.perception.details" placeholder="details" />
-                    {{/with}}
-                </div>
-                {{#each data.traits.senses as |sense k|}}
-                    <div class="tag-legacy sense">{{localize sense.label}} {{#if (ne sense.acuity "precise")}} ({{sense.acuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
+                {{#each languages as |language|}}
+                    <div class="tag-legacy language">{{localize language}}</div>
                 {{/each}}
             </div>
-        </div>
-    </div>
-    <!-- LANGUAGES -->
-    <div class="languages section-container">
-        <div class="section-header" data-attribute="languages" for="data.traits.languages">
-            <h4>{{localize "PF2E.Languages"}}</h4>
-            {{# if options.editable}}
-                <div class="languages-controls controls">
-                    <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
-                </div>
-            {{/if}}
-        </div>
-        <div class="section-body">
-            {{#each languages as |language|}}
-                <div class="tag-legacy language">{{localize language}}</div>
-            {{/each}}
         </div>
     </div>
     <!-- SKILLS -->

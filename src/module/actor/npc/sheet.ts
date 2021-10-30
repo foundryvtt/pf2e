@@ -32,6 +32,10 @@ interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
 }
 
+interface NPCSense extends NPCSheetLabeledValue {
+    localizedAcuity?: string;
+}
+
 interface ActionsDetails {
     label: string;
     actions: SheetItemData<RawObject<ActionData>>[];
@@ -76,7 +80,7 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments>;
     traits: CreatureTraitsData & {
-        senses: NPCSheetLabeledValue[];
+        senses: NPCSense[];
         size: {
             localizedName?: string;
         };
@@ -205,6 +209,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
+        this.prepareSenses(sheetData.data);
         this.prepareSkills(sheetData.data);
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
@@ -443,8 +448,10 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
+        const configAcuity = CONFIG.PF2E.senseAcuity;
         for (const sense of sheetSystemData.traits.senses) {
             sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
+            sense.localizedAcuity = objectHasKey(configAcuity, sense.acuity) ? configAcuity[sense.acuity] : sense.acuity;
         }
     }
 

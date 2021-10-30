@@ -75,6 +75,7 @@ export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 export type SenseAcuity = "precise" | "imprecise" | "vague";
 export interface SenseData extends LabeledString {
     acuity?: SenseAcuity;
+    specialSense?: boolean;
     source?: string;
 }
 

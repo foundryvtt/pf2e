@@ -110,10 +110,9 @@ export interface NPCHitPoints extends CreatureHitPoints {
     base?: number;
 }
 
-/** Perception data with an additional "base" and details value */
+/** Perception data with an additional "base" value */
 export interface NPCPerception extends PerceptionData {
     base?: number;
-    details?: string;
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */

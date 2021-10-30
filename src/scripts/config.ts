@@ -49,9 +49,9 @@ const actorTypes: Record<ActorType, string> = {
 
 //Sense acuity
 const senseAcuity: Record<SenseAcuity, string> = {
-    precise: "PF2E.SenseAcuityPrecise",
-    imprecise: "PF2E.SenseAcuityImprecise",
-    vague: "PF2E.SenseAcuityVague"
+    precise: "PF2E.SensesAcuityPrecise",
+    imprecise: "PF2E.SensesAcuityImprecise",
+    vague: "PF2E.SensesAcuityVague"
 };
 
 // Ancestry and heritage traits
@@ -1896,6 +1896,8 @@ export const PF2ECONFIG = {
         tremorsense: "PF2E.SensesTremorsense",
         lifesense: "PF2E.SensesLifesense",
         wavesense: "PF2E.SensesWavesense",
+        seeInvisibility: "PF2E.SensesSeeInvisibility",
+        truesight: "PF2E.SensesTruesight"
     },
 
     senseAcuity,
