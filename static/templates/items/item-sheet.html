@@ -6,6 +6,19 @@
         <h1>
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" />
         </h1>
+        {{#if itemType}}
+            <span class="level">
+                {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                <span>{{itemType}}</span>
+                <input
+                    type="number"
+                    {{#if adjustedLevelHint}}class="adjusted"{{/if}}
+                    data-property="data.level.value"
+                    value={{data.level.value}}
+                    data-dtype="Number"
+                />
+            </span>
+        {{/if}}
     </header>
 
     <!-- ITEM SHEET CONTENT -->
