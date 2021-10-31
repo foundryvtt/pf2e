@@ -32,7 +32,7 @@
                             {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                                 <li class="item expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
                                     <div class="item-name rollable">
-                                        <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
+                                        <div class="item-image variant-strike" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
                                             <i class="fas fa-dice-d20"></i>
                                         </div>
                                         <div class="actions-title">
@@ -52,38 +52,16 @@
                                                     </div>
                                                 {{/if}}
                                             </div>
-                                            <div class="button-group tags">
-                                                {{#each action.variants as |variant vi|}}
-                                                    <button type="button" class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
-                                                {{/each}}
-                                                <button type="button" class="tag damage-strike">{{localize "PF2E.DamageLabel"}}</button>
-                                                <button type="button" class="tag critical-strike">{{localize "PF2E.CriticalDamageLabel"}}</button>
-                                                {{#if action.ammunition}}
-                                                    <select name="ammo-used" {{#if action.ammunition.selected}}data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                                                        <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                                                        {{#if action.ammunition.compatible}}
-                                                            <optgroup label="{{localize "PF2E.ConsumableCompatibleLabel"}}">
-                                                                {{#each action.ammunition.compatible as |item|}}
-                                                                    <option value="{{item._id}}" data-compatible="true" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
-                                                                        {{ item.name }} ({{ item.data.quantity.value }})
-                                                                    </option>
-                                                                {{/each}}
-                                                            </optgroup>
-                                                        {{/if}}
-                                                        {{#if action.ammunition.incompatible}}
-                                                            <optgroup label="{{localize "PF2E.ConsumableIncompatibleLabel"}}">
-                                                                {{#each action.ammunition.incompatible as |item|}}
-                                                                    <option value="{{item._id}}" data-compatible="false" {{#if (eq action.ammunition.selected.id item._id)}}selected{{/if}}>
-                                                                        {{ item.name }} ({{ item.data.quantity.value }})
-                                                                    </option>
-                                                                {{/each}}
-                                                            </optgroup>
-                                                        {{/if}}
-                                                    </select>
-                                                {{/if}}
-                                            </div>
+                                            <!-- ATTACK/DAMAGE -->
+                                            {{#> attackDamage action}}action.{{/attackDamage}}
                                         </div>
                                     </div>
+                                    {{#if action.meleeUsage}}
+                                        <div class="melee-usage" data-action="melee-usage">
+                                            <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
+                                            {{#> attackDamage action.meleeUsage}}action.meleeUsage.{{/attackDamage}}
+                                        </div>
+                                    {{/if}}
                                     <div class="item-summary">
                                         <div class="item-description">
                                             <p>{{{localize action.description}}}</p>
@@ -139,7 +117,6 @@
                         {{/each}}
                     </ol>
                 </div>
-
                 <div id="exploration" class="actions-panel">
                     <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
@@ -173,7 +150,6 @@
                         {{/each}}
                     </ol>
                 </div>
-
                 <div id="downtime" class="actions-panel">
                     <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
@@ -207,10 +183,29 @@
                         {{/each}}
                     </ol>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
+
+{{#*inline "attackDamage"}}
+    <div class="button-group tags">
+        {{#each variants as |variant vi|}}
+            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
+        {{/each}}
+        <button type="button" class="tag" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
+        <button type="button" class="tag" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+        {{#if ammunition}}
+            <select name="ammo-used" {{#if ammunition.selected}}data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
+                {{#select ammunition.selected.id}}
+                    <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
+                    {{#each ammunition.compatible as |ammo|}}
+                        <option value="{{ammo._id}}" data-compatible="true">{{ammo.name}} ({{ ammo.data.quantity.value }})</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        {{/if}}
+    </div>
+{{/inline}}
+
 <!-- ********** ACTIONS ************ -->

@@ -1,7 +1,7 @@
 import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
-import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
@@ -10,6 +10,8 @@ import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { Rollable } from "@actor/data/base";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
+import { CharacterStrike } from "@actor/character/data";
+import { NPCStrike } from "@actor/npc/data";
 
 /**
  * Base class for NPC and character sheets
@@ -165,29 +167,20 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // strikes
-        html.find(".strikes-list [data-action-index]").on("click", ".action-name h4", (event) => {
-            $(event.currentTarget).parents(".expandable").toggleClass("expanded");
-        });
+        const $strikesList = html.find("ol.strikes-list");
 
-        // the click listener registered on all buttons breaks the event delegation here...
-        html.find('.strikes-list .damage-strike, [data-action="npcDamage"]').on("click", (event) => {
+        $strikesList.find('button[data-action="strike-damage"]').on("click", (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            const actionIndex = $(event.currentTarget).closest("[data-action-index]").attr("data-action-index");
-            this.actor.data.data.actions?.[Number(actionIndex)]?.damage?.({ event });
+            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
         });
 
-        // the click listener registered on all buttons breaks the event delegation here...
-        // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
-        html.find('.strikes-list .critical-strike, [data-action="npcCritical"]').on("click", (event) => {
-            if (!["character", "npc"].includes(this.actor.data.type))
+        $strikesList.find('button[data-action="strike-critical"]').on("click", (event) => {
+            if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw Error("This sheet only works for characters and NPCs");
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            const actionIndex = $(event.currentTarget).parents("[data-action-index]").attr("data-action-index");
-            this.actor.data.data.actions?.[Number(actionIndex)]?.critical?.({ event });
+            }
+            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
         html.find(".spell-attack").on("click", (event) => {
@@ -231,33 +224,31 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // Action Rolling (strikes)
-        html.find("[data-action-index].item .item-image.action-strike").on("click", (event) => {
+        $strikesList.find(".item[data-action-index] .item-image.action-strike").on("click", (event) => {
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
             this.actor.data.data.actions?.[Number(actionIndex)]?.roll?.({ event });
         });
 
-        html.find('[data-variant-index].variant-strike, [data-action="npcAttack"]').on("click", (event) => {
+        $strikesList.find('button[data-action="strike-attack"]').on("click", (event) => {
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
-            event.stopImmediatePropagation();
-            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            if (!strike) return;
             const variantIndex = $(event.currentTarget).attr("data-variant-index");
-            const action = this.actor.data.data.actions?.[Number(actionIndex)];
-            if (!action) return;
 
             const ammo = (() => {
-                if (!action.selectedAmmoId) return null;
-                const ammo = this.actor.items.get(action.selectedAmmoId ?? "");
+                const fromMeleeWeapon = strike.weapon instanceof WeaponPF2e && strike.weapon.isMelee;
+                if (!strike.selectedAmmoId || fromMeleeWeapon) return null;
+                const ammo = this.actor.items.get(strike.selectedAmmoId ?? "");
                 return ammo instanceof ConsumablePF2e ? ammo : null;
             })();
-
             if (ammo && ammo.quantity < 1) {
                 ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
                 return;
             }
 
-            action.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
+            strike.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.
@@ -278,6 +269,16 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         html.find(".toggle-signature-spell").on("click", (event) => {
             this.onToggleSignatureSpell(event);
         });
+    }
+
+    protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
+        const $target = $(target);
+        const actionIndex = $target.closest("[data-action-index]").attr("data-action-index");
+        const rootAction = this.actor.data.data.actions?.[Number(actionIndex)];
+        if (!rootAction) return null;
+
+        const isMeleeUsage = $target.closest('div[data-action="melee-usage"]').length === 1;
+        return isMeleeUsage && rootAction?.meleeUsage ? rootAction.meleeUsage : rootAction;
     }
 
     private onToggleSignatureSpell(event: JQuery.ClickEvent): void {

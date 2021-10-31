@@ -214,10 +214,12 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 }
 
 /** The full data for a character action (used primarily for strikes.) */
-export interface CharacterStrike extends StatisticModifier, StrikeData {
-    slug: string | null;
-    adjustments?: DegreeOfSuccessAdjustment[];
-}
+export type CharacterStrike = StatisticModifier &
+    StrikeData & {
+        slug: string | null;
+        adjustments?: DegreeOfSuccessAdjustment[];
+        meleeUsage: CharacterStrike | null;
+    };
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
