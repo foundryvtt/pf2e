@@ -1,34 +1,44 @@
 import { RuleElementPF2e } from "../rule-element";
-import { CharacterData, FamiliarData, NPCData } from "@actor/data";
+import { ActorType } from "@actor/data";
+import { CreaturePF2e } from "@actor";
+import { tupleHasValue } from "@util";
+import { MOVEMENT_TYPES } from "@actor/data/values";
 
 /**
  * @category RuleElement
  */
-export class PF2BaseSpeedRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
+class BaseSpeedRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
+
+    override onBeforePrepareData() {
         const value = this.resolveValue(this.data.value);
-        if (this.data.selector && value) {
-            const selector: string = this.data.selector.endsWith("-speed")
-                ? this.data.selector.substring(-6)
-                : this.data.selector;
-            const existing = (actorData as any).data.attributes.speed.otherSpeeds.find((speed: { type: string }) => {
-                return speed.type === selector;
-            });
-            if (existing) {
-                if (existing.value < value) {
-                    existing.value = value;
-                }
-            } else {
-                (actorData as any).data.attributes.speed.otherSpeeds.push({
-                    label: selector.charAt(0).toUpperCase() + selector.slice(1),
-                    type: selector,
-                    value,
-                });
-            }
+        const speedType = this.data.selector?.trim().replace(/-speed$/, "") ?? "land";
+        if (!(tupleHasValue(MOVEMENT_TYPES, speedType) && typeof value === "number" && value > 0)) {
+            console.warn("PF2E | Base speed requires a positive value field");
+            return;
+        }
+
+        const speeds = this.actor.data.data.attributes.speed;
+        const otherSpeeds: { value: string | number; type: string }[] = speeds.otherSpeeds;
+        const existingOther = otherSpeeds.find((speed) => speed.type === speedType);
+        if (speedType === "land") {
+            const landSpeed: { value: string | number } = speeds;
+            landSpeed.value = Math.max(Number(speeds.value), value);
+        } else if (existingOther) {
+            existingOther.value = Math.max(Number(existingOther.value), value);
         } else {
-            console.warn(
-                "PF2E | Base speed requires at least a selector field, a label field or item name, and a non-zero value field"
-            );
+            const newSpeed = {
+                label: game.i18n.localize(`PF2E.SpeedTypes${speedType.titleCase()}`),
+                type: speedType,
+                value,
+            };
+            otherSpeeds.push(newSpeed);
         }
     }
 }
+
+interface BaseSpeedRuleElement extends RuleElementPF2e {
+    get actor(): CreaturePF2e;
+}
+
+export { BaseSpeedRuleElement };
