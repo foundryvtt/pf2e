@@ -12,8 +12,11 @@ import type { LocalizePF2e } from "@module/system/localize";
 import { OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { ItemFlagsPF2e } from "@item/data/base";
 
-export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource>;
+export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
+    flags: DeepPartial<WeaponFlags>;
+}
 
 export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
@@ -22,8 +25,15 @@ export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
 export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
     type: WeaponSource["type"];
     data: WeaponSystemData;
+    flags: WeaponFlags;
     readonly _source: WeaponSource;
 }
+
+type WeaponFlags = ItemFlagsPF2e & {
+    pf2e: {
+        comboMeleeUsage: boolean;
+    };
+};
 
 export type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
 interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
@@ -74,7 +84,7 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-interface WeaponSystemSource extends MagicItemSystemData {
+export interface WeaponSystemSource extends MagicItemSystemData {
     traits: WeaponSourceTraits;
     weaponType: {
         value: WeaponCategory;

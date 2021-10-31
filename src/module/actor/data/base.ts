@@ -9,6 +9,7 @@ import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
 import { AutoChangeEntry } from "@module/rules/elements/ae-like";
+import { WeaponPF2e } from "@item";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
@@ -224,7 +225,9 @@ export interface StrikeData {
     };
 
     /** The item that generated this strike */
-    origin?: ItemPF2e;
+    origin?: Embedded<ItemPF2e> | null;
+    /** The weapon (possibly ephemeral) behind this strike */
+    weapon?: Embedded<WeaponPF2e>;
 }
 
 export interface RollToggle {
