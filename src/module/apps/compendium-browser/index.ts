@@ -401,7 +401,7 @@ export class CompendiumBrowser extends Application {
         return {
             bestiaryActors: sortedIndexByName(bestiaryActors),
             actorSize: CONFIG.PF2E.actorSizes,
-            alignment: CONFIG.PF2E.alignments,
+            alignments: CONFIG.PF2E.alignments,
             traits: sortedObject(CONFIG.PF2E.monsterTraits),
             languages: sortedObject(CONFIG.PF2E.languages),
             source: [...sources].sort(),

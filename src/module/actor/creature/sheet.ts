@@ -98,7 +98,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.skills = CONFIG.PF2E.skills;
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.alignment = CONFIG.PF2E.alignments;
+        sheetData.alignments = CONFIG.PF2E.alignments;
         sheetData.rarity = CONFIG.PF2E.rarityTraits;
         sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;

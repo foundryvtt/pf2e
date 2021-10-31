@@ -14,7 +14,6 @@ import { ClassSheetPF2e } from "@item/class/sheet";
 import { SpellSheetPF2e } from "@item/spell/sheet";
 import { LocalizePF2e } from "@system/localize";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { ActorSheetPF2eDataEntryNPC } from "@actor/npc/data-entry-sheet";
 import { FeatSheetPF2e } from "@item/feat/sheet";
 import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
@@ -26,7 +25,6 @@ export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
     const sheetLabelOld = translations.SheetLabelOld;
-    const sheetLabelDataEntry = translations.SheetLabelDataEntry;
 
     // ACTORS
     Actors.unregisterSheet("core", ActorSheet);
@@ -56,14 +54,6 @@ export function registerSheets() {
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
         makeDefault: true,
     });
-
-    if (BUILD_MODE === "development") {
-        Actors.registerSheet("pf2e", ActorSheetPF2eDataEntryNPC, {
-            types: ["npc"],
-            label: game.i18n.format(sheetLabelDataEntry, { type: localizeType("npc") }),
-            makeDefault: false,
-        });
-    }
 
     // Register Hazard Sheet
     Actors.registerSheet("pf2e", HazardSheetPF2e, {
