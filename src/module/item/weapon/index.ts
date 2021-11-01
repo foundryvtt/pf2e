@@ -8,6 +8,7 @@ import {
     WeaponData,
     WeaponGroup,
     WeaponPropertyRuneType,
+    WeaponSource,
     WeaponTrait,
 } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
@@ -56,11 +57,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get isRanged(): boolean {
         const range = this.data.data.range.value.trim();
-        return !!range && Number.isInteger(Number(range));
+        return !!range && Number.isInteger(Number(range)) && this.ability === "dex";
     }
 
     get isMelee(): boolean {
-        return !this.isRanged || !["axe", "club", "hammer", "knife", "spear"].includes(this.group ?? "");
+        return !this.isRanged;
     }
 
     get ammo(): ConsumablePF2e | null {
@@ -103,6 +104,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         if (crossbowWeapons.has(this.baseType ?? "")) {
             this.data.data.traits.otherTags.push("crossbow");
         }
+        // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
+        this.data.flags.pf2e.comboMeleeUsage ??= false;
 
         this.processMaterialAndRunes();
     }
@@ -275,8 +278,32 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
+    toMeleeUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
+    toMeleeUsage(this: WeaponPF2e): WeaponPF2e | null;
+    toMeleeUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+        const { meleeUsage } = this.data.data;
+        if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
+
+        const overlay: DeepPartial<WeaponSource> = {
+            data: {
+                ability: { value: "str" },
+                damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
+                group: { value: meleeUsage.group },
+                range: { value: "melee" },
+                traits: { value: meleeUsage.traits.concat("combination") },
+            },
+            flags: {
+                pf2e: {
+                    comboMeleeUsage: true,
+                },
+            },
+        };
+        return this.clone(overlay) as Embedded<WeaponPF2e>;
+    }
+
     /** Generate a melee item from this weapon for use by NPCs */
-    toMelee(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
+    toNPCAttack(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
         if (!(this.actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const damageRoll = ((): MeleeDamageRoll => {

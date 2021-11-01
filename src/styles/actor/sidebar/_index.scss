@@ -7,10 +7,9 @@ aside {
     text-transform: uppercase;
     background: url('../assets/sheet/red_sidebar.webp') no-repeat top center;
     background-size: 247px;
-    height: 770px;
+    height: 100%;
     width: 247px;
-    position: fixed;
-    overflow: hidden;
+
     .logo {
         margin-top: 5px;
         border: none;
@@ -19,9 +18,8 @@ aside {
     }
     .sidebar {
         margin: -17px 23px 0 30px;
-        overflow: auto;
         overflow-x: hidden;
-        height: 650px;
+        height: calc(100% - 6em);
         @include scrollbar;
 
         &::-webkit-scrollbar-track {

@@ -433,7 +433,7 @@ export class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const generatedMelee = strikes.map((weapon) => weapon.toMelee());
+        const generatedMelee = strikes.map((weapon) => weapon.toNPCAttack());
         const items = this.items.contents.concat(generatedMelee);
         for (const item of items) {
             const itemData = item.data;
@@ -555,11 +555,16 @@ export class NPCPF2e extends CreaturePF2e {
 
                 // action image
                 const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
-                const action = new StatisticModifier(itemData.name, modifiers) as NPCStrike;
-                action.glyph = actionGlyph;
+                const action = mergeObject(new StatisticModifier(itemData.name, modifiers), {
+                    type: "strike" as const,
+                    glyph: actionGlyph,
+                }) as NPCStrike;
+                Object.defineProperty(action, "origin", {
+                    get: () => this.items.get(item.id),
+                });
+
                 action.imageUrl = imageUrl;
                 action.sourceId = itemData._id;
-                action.type = "strike";
                 action.description = itemData.data.description.value || "";
                 action.attackRollType =
                     itemData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee";

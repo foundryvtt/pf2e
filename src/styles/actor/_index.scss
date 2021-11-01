@@ -8,25 +8,24 @@ $header-height: 89px;   /* Adjust height of the header */
 .crb-style {
     display: grid;
     grid:
-        'sidebar header' 75px
-        'sidebar nav' minmax(min-content, max-content)
-        'sidebar content' 1fr
+        "sidebar header" 75px
+        "sidebar nav" minmax(min-content, max-content)
+        "sidebar content" 1fr
         / 247px 1fr;
 
     font-family: var(--body-serif);
 
-    background: url('../assets/sheet/header.webp'), url('../assets/sheet/background.webp');
+    background: url("../assets/sheet/header.webp"), url("../assets/sheet/background.webp");
     background-repeat: repeat-x, no-repeat;
     background-size: auto $header-height, cover;
     background-attachment: local;
+    height: 100%;
 
-    /* prettier-ignore */
-    @import 'sidebar',
-            'header';
+    @import "sidebar", "header";
 
     $window-p-right: 20px;
 
-    @import 'character', 'npc';
+    @import "character", "npc";
 
     .char-header {
         grid-area: header;

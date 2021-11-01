@@ -730,34 +730,42 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
-        const $strikesSection = html.find(".tab.actions .strikes-list");
+        const $strikesList = html.find(".tab.actions .strikes-list");
 
         // Set damage-formula tooltips on damage buttons
-        const $strikes = $strikesSection.find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
-        for (const strike of $strikes) {
-            const $strike = $(strike);
-            const method = $strike.hasClass("critical-strike") ? "critical" : "damage";
-            const actionIndex = $strike.closest("[data-action-index]").attr("data-action-index");
-            const formula = this.actor.data.data.actions[Number(actionIndex)][method]?.({ getFormula: true });
+        const damageButtonSelectors = [
+            'button[data-action="strike-damage"]',
+            'button[data-action="strike-critical"]',
+        ].join(", ");
+        const $damageButtons = $strikesList.find<HTMLButtonElement>(damageButtonSelectors);
+        for (const damageButton of $damageButtons) {
+            const $button = $(damageButton);
+            const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
+            const strike = this.getStrikeFromDOM($button[0]);
+            const formula = strike?.[method]?.({ getFormula: true });
             if (formula) {
-                $strike.attr({ title: formula });
-                $strike.tooltipster({
-                    animation: "fade",
-                    theme: "crb-hover",
+                $button.attr({ title: formula });
+                $button.tooltipster({
                     position: "bottom",
+                    theme: "crb-hover",
                 });
             }
         }
 
-        $strikesSection.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
+        $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
             if (span.dataset.description) {
                 $(span).tooltipster({
                     content: game.i18n.localize(span.dataset.description),
-                    animation: "fade",
                     maxWidth: 400,
                     theme: "crb-hover",
                 });
             }
+        });
+
+        $strikesList.find(".melee-icon").tooltipster({
+            content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
+            position: "left",
+            theme: "crb-hover",
         });
 
         html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
