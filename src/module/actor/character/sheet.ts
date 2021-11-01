@@ -679,10 +679,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const $strikesList = html.find(".tab.actions .strikes-list");
 
         // Set damage-formula tooltips on damage buttons
-        const $damageButtons = $strikesList.find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
+        const damageButtonSelectors = [
+            'button[data-action="strike-damage"]',
+            'button[data-action="strike-critical"]',
+        ].join(", ");
+        const $damageButtons = $strikesList.find<HTMLButtonElement>(damageButtonSelectors);
         for (const damageButton of $damageButtons) {
             const $button = $(damageButton);
-            const method = $button.hasClass("critical-strike") ? "critical" : "damage";
+            const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
             const strike = this.getStrikeFromDOM($button[0]);
             const formula = strike?.[method]?.({ getFormula: true });
             if (formula) {
