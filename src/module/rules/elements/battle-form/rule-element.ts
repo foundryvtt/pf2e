@@ -47,7 +47,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "gust",
         "horn",
         "jaws",
-        "leaf",
         "lighting-lash",
         "mandibles",
         "piercing-hymn",
