@@ -456,11 +456,10 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const skills = sheetSystemData.skills;
         for (const skillId of sortedSkillsIds) {
             const skill = skills[skillId];
-            if (Object.keys(CONFIG.PF2E.skillList).includes(skill.expanded))
-                skill.label = game.i18n.localize(
-                    CONFIG.PF2E.skillList[skill.expanded as keyof typeof CONFIG.PF2E.skillList]
-                );
-            else skill.label = skill.name;
+            skill.label =
+                skill.expanded in CONFIG.PF2E.skillList
+                    ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded as keyof typeof CONFIG.PF2E.skillList])
+                    : skill.name;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
