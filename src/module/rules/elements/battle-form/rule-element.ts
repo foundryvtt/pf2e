@@ -34,6 +34,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     static defaultIcons: Record<string, ImagePath | undefined> = [
         "antler",
         "beak",
+        "body",
         "bone-shard",
         "branch",
         "claw",
