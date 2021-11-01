@@ -68,8 +68,10 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: strin
             switch (listKey) {
                 // Creature traits can be on many item
                 case "creatureTraits": {
-                    const traits = itemData.data.traits;
-                    traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    if (itemData.data.traits) {
+                        const traits = itemData.data.traits;
+                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    }
                     break;
                 }
                 case "featTraits": {

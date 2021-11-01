@@ -15,144 +15,104 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": "20 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 20,
+                        "swim": 90
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
                         },
-                        {
-                            "start": 9,
-                            "value": "22 + @details.level.value"
+                        "tail": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 20
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-25"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Monstrosity Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 20
-                        },
-                        {
-                            "start": 9,
-                            "value": 25
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 28
-                        },
-                        {
-                            "start": 9,
-                            "value": 31
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 30
-                        },
-                        {
-                            "start": 9,
-                            "value": 33
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": "huge"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 20
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "swim",
-                "value": 90
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d12"
-                    }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Sea Serpent Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-15"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Sea Serpent Tail",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-25"
-                ]
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Monstrosity Form",
-                "selector": "damage",
                 "value": {
                     "brackets": [
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "20 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 30
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "modifier": 28
+                                    },
+                                    "tail": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
                         {
                             "start": 9,
                             "value": {
-                                "diceNumber": 1
+                                "armorClass": {
+                                    "modifier": "22 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31
+                                    }
+                                },
+                                "tempHP": 25
                             }
                         }
                     ],
@@ -160,17 +120,9 @@
                 }
             },
             {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "damage",
-                "value": 20
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
+                "path": "flags.pf2e.disableABP",
                 "value": true
             }
         ],

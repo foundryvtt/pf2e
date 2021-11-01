@@ -22,7 +22,6 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { ItemTrait } from "./data/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -64,10 +63,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
         return Number(this.data.data.schema?.version) || null;
-    }
-
-    get traits(): Set<ItemTrait> {
-        return new Set(this.data.data.traits.value);
     }
 
     get description(): string {
@@ -193,11 +188,12 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
-        const traits: string[] = [...this.traits].sort();
-        const customTraits = this.data.data.traits.custom
-            .trim()
-            .split(/\s*[,;|]\s*/)
-            .filter((trait) => trait);
+        const traits: string[] = deepClone(this.data.data.traits?.value ?? []).sort();
+        const customTraits =
+            this.data.data.traits?.custom
+                .trim()
+                .split(/\s*[,;|]\s*/)
+                .filter((trait) => trait) ?? [];
         traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
@@ -423,6 +419,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
+        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
+        const traitObjects = traits.map((trait) => ({
+            name: trait,
+            label: spellTraits[trait],
+        }));
         CheckPF2e.roll(
             check,
             {
@@ -430,7 +431,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 type: "counteract-check",
                 options: finalOptions,
                 title: game.i18n.localize("PF2E.Counteract"),
-                traits,
+                traits: traitObjects,
             },
             event
         );
@@ -463,7 +464,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                         uuid: this.uuid,
                         name: this.name,
                         slug: this.slug,
-                        traits: [...this.traits],
+                        traits: deepClone(this.data.data.traits?.value ?? []),
                     },
                 },
             },
@@ -552,15 +553,24 @@ class ItemPF2e extends Item<ActorPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported items are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (options.parent) return;
-        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+
+        if (this.actor) {
+            // Run pre-create operations on rule elements
+            const rules = RuleElements.fromOwnedItem(this as Embedded<this>);
+            for await (const rule of rules) {
+                const source = this.data._source.data.rules[rules.indexOf(rule)];
+                await rule.preCreate?.(source);
+            }
+        } else {
+            // Ensure imported items are current on their schema version
+            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
     }
 
     /** Call onDelete rule-element hooks, refresh effects panel */
@@ -593,7 +603,7 @@ interface ItemPF2e {
 
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<this> | null;
+    _sheet: ItemSheetPF2e<ItemPF2e> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 

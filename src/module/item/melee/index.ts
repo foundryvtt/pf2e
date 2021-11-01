@@ -1,9 +1,13 @@
 import { ItemPF2e } from "@item/base";
-import { MeleeData } from "./data";
+import { MeleeData, NPCAttackTrait } from "./data";
 
 export class MeleePF2e extends ItemPF2e {
     static override get schema(): typeof MeleeData {
         return MeleeData;
+    }
+
+    get traits(): Set<NPCAttackTrait> {
+        return new Set(this.data.data.traits.value);
     }
 
     override getChatData(this: Embedded<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {

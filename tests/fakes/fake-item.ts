@@ -29,7 +29,7 @@ export class FakeItem {
     }
 
     get traits(): Set<string> {
-        return new Set(this.data.data!.traits.value);
+        return new Set(this.data.data.traits?.value ?? []);
     }
 
     get isMagical(): boolean {

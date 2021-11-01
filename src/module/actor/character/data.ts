@@ -30,6 +30,7 @@ import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
+import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -67,9 +68,6 @@ export interface CharacterSystemData extends CreatureSystemData {
 
     /** The three save types. */
     saves: CharacterSaves;
-
-    /** Tracks proficiencies for magic skills */
-    magic: MagicTraditionProficiencies;
 
     /** Tracks proficiencies for martial (weapon and armor) skills. */
     martial: CombatProficiencies;
@@ -146,6 +144,13 @@ export interface CharacterSystemData extends CreatureSystemData {
 
     attributes: CharacterAttributes;
 
+    /** A catch-all for character proficiencies */
+    proficiencies: {
+        traditions: MagicTraditionProficiencies;
+        /** Aliased path components for use by rule element during property injection */
+        aliases?: Record<string, string | undefined>;
+    };
+
     /** Player skills, used for various skill checks. */
     skills: { [K in SkillAbbreviation]: CharacterSkillData };
 
@@ -209,9 +214,12 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 }
 
 /** The full data for a character action (used primarily for strikes.) */
-export interface CharacterStrike extends StatisticModifier, StrikeData {
-    slug: string | null;
-}
+export type CharacterStrike = StatisticModifier &
+    StrikeData & {
+        slug: string | null;
+        adjustments?: DegreeOfSuccessAdjustment[];
+        meleeUsage: CharacterStrike | null;
+    };
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";

@@ -1,6 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data/base";
 import { ABCSystemData } from "@item/abc/data";
+import { ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { BackgroundPF2e } from ".";
 
@@ -17,6 +18,7 @@ export interface BackgroundData extends Omit<BackgroundSource, "effects" | "flag
 }
 
 interface BackgroundSystemData extends ABCSystemData {
+    traits: ItemTraits;
     boosts: { [key: string]: { value: AbilityString[] } };
     trainedLore: string;
     trainedSkills: {

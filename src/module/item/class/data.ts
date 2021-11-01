@@ -1,5 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { ABCSystemData } from "@item/abc/data";
+import { ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ZeroToFour } from "@module/data";
 import type { ClassPF2e } from ".";
@@ -17,6 +18,7 @@ export interface ClassData extends Omit<ClassSource, "effects" | "flags"> {
 }
 
 interface ClassSystemData extends ABCSystemData {
+    traits: ItemTraits;
     keyAbility: { value: AbilityString[] };
     hp: number;
     perception: ZeroToFour;
@@ -51,7 +53,7 @@ interface ClassSystemData extends ABCSystemData {
     abilityBoostLevels: { value: number[] };
 }
 
-// Classes don't have traits, both feats, spells, and other items can have traits corresponding with a class
+// Classes don't have traits, but both feats, spells, and other items can have traits corresponding with a class
 export const CLASS_TRAITS = [
     "alchemist",
     "barbarian",

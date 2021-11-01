@@ -34,6 +34,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "consumableTraits",
     "weaponDescriptions",
     "weaponTraits",
+    "otherWeaponTags",
     "traitsDescriptions",
     "weaponHands",
     "equipmentTraits",

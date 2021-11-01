@@ -68,11 +68,11 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
 
         // Add custom trait field
-        if (!itemData.data.traits.custom) {
+        if (itemData.data.traits && !itemData.data.traits.custom) {
             itemData.data.traits.custom = "";
         }
         // Add rarity trait field
-        if (!itemData.data.traits.rarity) {
+        if (itemData.data.traits && !itemData.data.traits.rarity) {
             itemData.data.traits.rarity = { value: "common" };
         }
 

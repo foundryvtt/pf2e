@@ -13,7 +13,7 @@ import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
@@ -676,24 +676,39 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
+        const $strikesList = html.find(".tab.actions .strikes-list");
+
         // Set damage-formula tooltips on damage buttons
-        const $strikes = html
-            .find("section.sheet-content .tab.actions .strikes-list")
-            .find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
-        for (const strike of $strikes) {
-            const $strike = $(strike);
-            const method = $strike.hasClass("critical-strike") ? "critical" : "damage";
-            const actionIndex = $strike.closest("[data-action-index]").attr("data-action-index");
-            const formula = this.actor.data.data.actions[Number(actionIndex)][method]?.({ getFormula: true });
+        const $damageButtons = $strikesList.find<HTMLButtonElement>("button.damage-strike, button.critical-strike");
+        for (const damageButton of $damageButtons) {
+            const $button = $(damageButton);
+            const method = $button.hasClass("critical-strike") ? "critical" : "damage";
+            const strike = this.getStrikeFromDOM($button[0]);
+            const formula = strike?.[method]?.({ getFormula: true });
             if (formula) {
-                $strike.attr({ title: formula });
-                $strike.tooltipster({
-                    animation: "fade",
-                    theme: "crb-hover",
+                $button.attr({ title: formula });
+                $button.tooltipster({
                     position: "bottom",
+                    theme: "crb-hover",
                 });
             }
         }
+
+        $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
+            if (span.dataset.description) {
+                $(span).tooltipster({
+                    content: game.i18n.localize(span.dataset.description),
+                    maxWidth: 400,
+                    theme: "crb-hover",
+                });
+            }
+        });
+
+        $strikesList.find(".melee-icon").tooltipster({
+            content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
+            position: "left",
+            theme: "crb-hover",
+        });
 
         html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
         html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));

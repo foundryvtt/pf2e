@@ -35,6 +35,7 @@ export interface AESheetData {
 }
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    itemType: string | null;
     hasSidebar: boolean;
     hasDetails: boolean;
     sidebarTemplate?: () => string;
@@ -102,7 +103,6 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    levelLabel: string;
     magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];

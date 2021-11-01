@@ -16,6 +16,8 @@ import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/da
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 import { CreatureSensePF2e } from "./sense";
+import { TokenPF2e } from "@module/canvas";
+import { CheckDC } from "@system/check-degree-of-success";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -151,3 +153,11 @@ export enum VisionLevels {
 }
 
 export type VisionLevel = ZeroToThree;
+
+export interface AttackRollContext {
+    event: JQuery.TriggeredEvent;
+    options: string[];
+    targets: Set<TokenPF2e>;
+    dc: CheckDC | null;
+    distance: number | null;
+}
