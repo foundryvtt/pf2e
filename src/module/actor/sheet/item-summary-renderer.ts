@@ -12,8 +12,17 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4").on("click", (event) => {
-            const $li = $(event.currentTarget).closest("li");
+            const $target = $(event.currentTarget);
+            const $li = $target.closest("li");
             this.toggleItemSummary($li);
+
+            // For PC-sheet strikes
+            const $summary = $target.closest("li.expandable").find(".item-summary");
+            if ($summary.css("display") === "none") {
+                $summary.slideDown();
+            } else {
+                $summary.slideUp();
+            }
         });
     }
 

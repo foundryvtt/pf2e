@@ -275,8 +275,12 @@ export class CheckPF2e {
         if (ctx.traits) {
             const traits: string = ctx.traits
                 .map((trait: StrikeTrait) => {
-                    const label = game.i18n.localize(trait.label);
-                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${label}</span>`;
+                    trait.label = game.i18n.localize(trait.label);
+                    return trait;
+                })
+                .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
+                .map((trait: StrikeTrait) => {
+                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${trait.label}</span>`;
                 })
                 .join("");
             flavor += `<div class="tags">\n${traits}\n</div><hr />`;

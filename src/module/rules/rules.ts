@@ -10,7 +10,7 @@ import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-c
 import { PF2DamageDiceRuleElement } from "./elements/damage-dice";
 import { PF2TogglePropertyRuleElement } from "./elements/toggle-property";
 import { PF2TokenImageRuleElement } from "./elements/token-image";
-import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
+import { BaseSpeedRuleElement } from "./elements/base-speed";
 import { SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { StrikeRuleElement } from "./elements/strike";
@@ -49,7 +49,7 @@ export class RuleElements {
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
         BattleForm: BattleFormRuleElement,
-        BaseSpeed: PF2BaseSpeedRuleElement,
+        BaseSpeed: BaseSpeedRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         Immunity: ImmunityRuleElement,
         RollOption: RollOptionRuleElement,
