@@ -450,7 +450,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const configSenses = CONFIG.PF2E.senses;
         const configAcuity = CONFIG.PF2E.senseAcuity;
         for (const sense of sheetSystemData.traits.senses) {
-            sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
+            if (sense.type === "custom")
+                sense.localizedName = sense.label;
+            else
+                sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
+
             sense.localizedAcuity = objectHasKey(configAcuity, sense.acuity)
                 ? configAcuity[sense.acuity]
                 : sense.acuity;

@@ -1,10 +1,11 @@
-import { SenseData } from "@actor/creature/data";
+import { SenseAcuity, SenseData } from "@actor/creature/data";
 import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
 export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";
+    protected customSenses: SenseData[] = [];
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -26,10 +27,13 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
 
         const choices: Record<string, Record<string, unknown>> = {};
         const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
+        const basicSenses = senses.filter((sense) => sense.type != "custom");
+
+        //Enrich list of choices with actor sense data
         Object.entries(this.choices).forEach(([type, label]) => {
-            const sense = senses.find((sense) => sense.type === type);
+            const sense = basicSenses.find((sense) => sense.type === type);
             choices[type] = {
-                acuity: sense?.acuity ?? "",
+                acuity: sense?.acuity ?? "precise",
                 disabled: sense?.source ? "disabled" : "",
                 label,
                 specialSense: sense?.specialSense ?? false,
@@ -37,8 +41,12 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
                 value: sense?.value ?? "",
             };
         });
+
         data.choices = choices;
         data.senseAcuity = CONFIG.PF2E.senseAcuity;
+        if (this.customSenses.length  === 0)
+            this.customSenses = senses.filter((sense) => sense.type === "custom");
+        data.customSenses = this.customSenses;
 
         return data;
     }
@@ -48,6 +56,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
 
         $html
             .find<HTMLInputElement>("input[id^=input_value]")
+
             .on("focusin", (event) => {
                 const input = $(event.currentTarget);
                 input.prev().prev().prop("checked", true);
@@ -58,6 +67,22 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
                     input.prev().prev().prop("checked", false);
                 }
             });
+
+            //Add custom senses
+            $html.find
+        $html.find(".add-custom-sense").on("click", (_event) => {
+            const customSense: SenseData = {
+                type: "custom",
+                acuity:  $html.find("select[name=custom-sense-acuity]").find(":selected").val() as SenseAcuity,
+                specialSense:  $html.find("input[name=custom-sense-special]").is(":checked"),
+                source: undefined,
+                value: $html.find("input[name=custom-sense-value]").val() as string,
+                label: $html.find("input[name=custom-sense-label]").val() as string
+            };
+            this.customSenses.push(customSense);
+
+            this.render();
+        });
     }
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -70,12 +95,19 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     protected getUpdateData(formData: Record<string, unknown>) {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[2]))) {
-                    const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[2], acuity: v[1], specialSense: v[3] });
+            if(Array.isArray(v)) {
+                if (v.length > 1 && v[0]) {
+                    if (!Number.isNaN(Number(v[2]))) {
+                        const label = this.choices[k];
+                        choices.push({ type: k, label, value: v[2], acuity: v[1], specialSense: v[3] });
+                    }
                 }
             }
+        }
+        console.warn(this.customSenses);
+        for (const k in this.customSenses) {
+            const cs = this.customSenses[k];
+            choices.push({ type: cs.type, label: cs.label, value: cs.value, acuity: cs.acuity, specialSense: cs.specialSense });
         }
         return choices;
     }
