@@ -15,156 +15,148 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": "20 + @details.level.value"
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "burrow": 30,
+                        "land": 40,
+                        "swim": 20
+                    },
+                    "strikes": {
+                        "body": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 20
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
                         },
-                        {
-                            "start": 9,
-                            "value": "22 + @details.level.value"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Monstrosity Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 20
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
                         },
-                        {
-                            "start": 9,
-                            "value": 25
+                        "stinger": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 15
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-10",
+                                "agile"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 28
-                        },
-                        {
-                            "start": 9,
-                            "value": 31
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 30
-                        },
-                        {
-                            "start": 9,
-                            "value": 33
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": "huge"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 40
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "burrow",
-                "value": 40
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "swim",
-                "value": 20
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d12"
-                    }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Purple Worm Jaws",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Purple Worm Stinger",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "agile",
-                    "reach-10"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Purple Worm Body",
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "20 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 30
+                                    }
+                                },
+                                "strikes": {
+                                    "body": {
+                                        "modifier": 28
+                                    },
+                                    "jaws": {
+                                        "modifier": 28
+                                    },
+                                    "stinger": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "22 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 33
+                                    }
+                                },
+                                "strikes": {
+                                    "body": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "stinger": {
+                                        "damage": {
+                                            "dice": 3
+                                        },
+                                        "modifier": 31,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10",
+                                            "agile"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 25
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             },
             {
                 "key": "Note",
@@ -174,56 +166,12 @@
                     ]
                 },
                 "selector": "damage",
-                "text": "<p class='compact-text'>Add [[/r 2d6 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
-            },
-            {
-                "critical": false,
-                "key": "DamageDice",
-                "label": "Monstrosity Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Monstrosity Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 8,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Monstrosity form (non-agile)",
-                "predicate": {
-                    "not": [
-                        "agile"
-                    ]
-                },
-                "selector": "damage",
-                "value": 5
+                "text": "<p class='compact-text'> Add [[/r 2d6 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.<br> <strong>Heightened (9th)</strong> Add [[/r 3d6 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
+                "path": "flags.pf2e.disableABP",
                 "value": true
             }
         ],

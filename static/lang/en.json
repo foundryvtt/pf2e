@@ -1,12 +1,13 @@
 {
     "ACTOR": {
+        "TypeAnimalCompanion": "Animal Companion",
         "TypeCharacter": "Player Character",
+        "TypeEidolon": "Eidolon",
         "TypeFamiliar": "Familiar",
         "TypeHazard": "Hazard",
         "TypeLoot": "Loot",
         "TypeNpc": "Non-Player Character",
-        "TypeVehicle": "Vehicle",
-        "TypeAnimalcompanion": "Animal Companion"
+        "TypeVehicle": "Vehicle"
     },
     "ITEM": {
         "TypeAction": "Action",
@@ -644,6 +645,7 @@
                 "Antler": "Antler",
                 "Beak": "Beak",
                 "Beard": "Beard",
+                "Body": "Body",
                 "BoneShard": "Bone Shard",
                 "Boot": "Boot",
                 "CubeFace": "Cube Face",
@@ -988,6 +990,9 @@
             "day": "day",
             "P1W": "week"
         },
+        "Encounter": {
+            "ExcludingFromInitiative": "Excluding {type} {actor} from initiative."
+        },
         "EditHazardLabel": "Edit Hazard?",
         "EditItemTitle": "Edit Item",
         "EditLabel": "Edit?",
@@ -1219,6 +1224,18 @@
                     "Title": "Material Composition and Runes",
                     "Hint": "Precious material and runes allow for in-depth customization of a weapon. Besides improving its ability to harm enemies, they also affect the weapon's level, rarity, price, and name. To suppress a weapon's renaming, give it any custom name or mark it as a <i>specific magic weapon</i>."
                 },
+                "MeleeUsage": {
+                    "Label": "Melee Usage",
+                    "Hint": "A combination weapon has a firearm form or usage and a melee weapon form or usage. Switching between the melee weapon usage and the firearm usage requires an Interact action. However, if your last action was a successful melee Strike against a foe using a combination weapon, you can make a firearm Strike with the combination weapon against that foe without fully switching to the firearm usage, firing the firearm just as you hit with the melee attack. In this case, the combination weapon returns to its melee usage after the firearm Strike.",
+                    "StrikeLabel": {
+                        "Ranged": "Ranged Strike: {weapon}",
+                        "Melee": "Melee Strike: {weapon}"
+                    }
+                },
+                "OtherTags": {
+                    "Label": "Other Tags",
+                    "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
+                },
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
@@ -1241,6 +1258,7 @@
         "ItemBonusShortLabel": "Item",
         "ItemDescription": "Description",
         "ItemDetails": "Details",
+        "ItemLevel": "{type} {level}",
         "ItemMystified": "Mystified",
         "ItemMystification": "Mystification",
         "ItemNamePlaceholder": "Name",
@@ -1673,6 +1691,7 @@
             "BattleForm": "Battle Form",
             "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
+            "EffectTarget": "Effect Target",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
             "FlatModifier": "Flat Modifier",
@@ -1684,16 +1703,15 @@
             "Sense": "Sense",
             "Strike": "Strike",
             "Striking": "Striking",
-            "EffectTarget": "Effect Target",
+            "RecoveryCheckDC": "Recovery Check DC",
+            "Resistance": "Resistance",
+            "RollOption": "Roll Option",
             "TempHP": "Temporary Hit Points",
             "TempHPShortLabel": "Temp",
             "ToggleProperty": "Toggle Property",
             "TokenEffectIcon": "Token Effect Icon",
             "TokenImage": "Token Image",
             "TokenSize": "Token Size",
-            "RecoveryCheckDC": "Recovery Check DC",
-            "Resistance": "Resistance",
-            "RollOption": "Roll Option",
             "Weakness": "Weakness",
             "WeaponPotency": "Weapon Potency",
             "NewRuleElement": "New Rule Element",
@@ -2192,7 +2210,6 @@
         "SpellCollectionRemove": "Remove from Spell Collection",
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
-        "SpellLevel": "{category} {level}",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -2242,6 +2259,8 @@
         "SpellsActionHeader": "Action",
         "SpellsSchoolHeader": "School",
         "StackGroupArrows": "Arrows",
+        "StackGroupRounds5": "Rounds (5)",
+        "StackGroupRounds10": "Rounds (10)",
         "StackGroupBlowgunDarts": "Blowgun Darts",
         "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
@@ -3203,7 +3222,14 @@
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
             "shiftModifyDamageLabel": "Modifier:",
             "shiftModifyDamageTitle": "Modify the rolled damage/healing",
-            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal."
+            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal.",
+            "RuleElements": {
+                "EffectTarget": {
+                    "NoSelectionMade": "No selection was made: {effect} is inactive.",
+                    "NoValidOptions": "{actor} has no valid targets for {effect}.",
+                    "Prompt": "Choose the target of this effect."
+                }
+            }
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
@@ -3229,10 +3255,13 @@
                 "air-repeater": "Air Repeater",
                 "arquebus": "Arquebus",
                 "arrows": "Arrows",
+                "axe-musket": "Axe Musket",
                 "asp-coil": "Asp Coil",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",
                 "battle-lute": "Battle Lute",
+                "big-boom-gun": "Big Boom Gun",
+                "black-powder-knuckle-dusters": "Black Powder Knuckle Dusters",
                 "bladed-diabolo": "Bladed Diabolo",
                 "bladed-hoop": "Bladed Hoop",
                 "bladed-scarf": "Bladed Scarf",
@@ -3247,6 +3276,7 @@
                 "butchering-axe": "Butchering Axe",
                 "butterfly-sword": "Butterfly Sword",
                 "buugeng": "Buugeng",
+                "cane-pistol": "Cane Pistol",
                 "chakram": "Chakram",
                 "clan-dagger": "Clan Dagger",
                 "clan-pistol": "Clan Pistol",
@@ -3259,6 +3289,7 @@
                 "composite-shortbow": "Composite Shortbow",
                 "crossbow": "Crossbow",
                 "dagger": "Dagger",
+                "dagger-pistol": "Dagger Pistol",
                 "daikyu": "Daikyu",
                 "dart": "Dart",
                 "dogslicer": "Dogslicer",
@@ -3271,6 +3302,7 @@
                 "dwarven-war-axe": "Dwarven War Axe",
                 "elven-branched-spear": "Elven Branched Spear",
                 "elven-curve-blade": "Elven Curve Blade",
+                "explosive-dogslicer": "Explosive Dogslicer",
                 "exquisite-sword-cane-sheath": "Exquisite Sword Cane Sheath",
                 "exquisite-sword-cane": "Exquisite Sword Cane",
                 "falchion": "Falchion",
@@ -3294,6 +3326,7 @@
                 "gauntlet": "Gauntlet",
                 "gill-hook": "Gill Hook",
                 "glaive": "Glaive",
+                "gnome-amalgam-musket": "Gnome Amalgam Musket",
                 "gnome-flickmace": "Gnome Flickmace",
                 "gnome-hooked-hammer": "Gnome Hooked Hammer",
                 "greataxe": "Greataxe",
@@ -3301,8 +3334,10 @@
                 "greatpick": "Greatpick",
                 "greatsword": "Greatsword",
                 "guisarme": "Guisarme",
+                "gun-sword": "Gun Sword",
                 "halberd": "Halberd",
                 "halfling-sling-staff": "Halfling Sling Staff",
+                "hammer-gun": "Hammer Gun",
                 "hand-adze": "Hand Adze",
                 "hand-crossbow": "Hand Crossbow",
                 "hatchet": "Hatchet",
@@ -3332,6 +3367,7 @@
                 "longspear": "Longspear",
                 "longsword": "Longsword",
                 "mace": "Mace",
+                "mace-multipistol": "Mace Multipistol",
                 "machete": "Machete",
                 "main-gauche": "Main-gauche",
                 "mambele": "Mambele",
@@ -3348,12 +3384,14 @@
                 "orc-knuckle-dagger": "Orc Knuckle Dagger",
                 "orc-necksplitter": "Orc Necksplitter",
                 "pepperbox": "Pepperbox",
+                "piercing-wind": "Piercing Wind",
                 "pick": "Pick",
                 "piranha-kiss": "Piranha Kiss",
                 "poi": "Poi",
                 "polytool": "Polytool",
                 "ranseur": "Ranseur",
                 "rapier": "Rapier",
+                "rapier-pistol": "Rapier Pistol",
                 "repeating-crossbow": "Repeating Crossbow",
                 "repeating-hand-crossbow": "Repeating Hand Crossbow",
                 "repeating-heavy-crossbow": "Repeating Heavy Crossbow",
@@ -3383,6 +3421,7 @@
                 "spiked-chain": "Spiked Chain",
                 "spiked-gauntlet": "Spiked Gauntlet",
                 "spiral-rapier": "Spiral Rapier",
+                "spoon-gun": "Spoon Gun",
                 "staff": "Staff",
                 "starknife": "Starknife",
                 "stiletto-pen": "Stiletto Pen",
@@ -3392,6 +3431,7 @@
                 "tekko-kagi": "Tekko-kagi",
                 "temple-sword": "Temple Sword",
                 "tengu-gale-blade": "Tengu Gale Blade",
+                "three-peaked-tree": "Three Peaked Tree",
                 "throwing-knife": "Throwing Knife",
                 "thunder-sling": "Thunder Sling",
                 "thundermace": "Thundermace",

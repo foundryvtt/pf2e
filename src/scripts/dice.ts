@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import { ItemPF2e, SpellPF2e } from "@item";
 import { ActorPF2e } from "../module/actor/base";
 
 /**
@@ -261,11 +261,12 @@ export class DicePF2e {
 
             const roll = new Roll(rollParts.join("+"), data);
             const flav = flavor instanceof Function ? flavor(rollParts, data) : title;
+            const traits = item instanceof SpellPF2e ? this.getTraitMarkup(item) : "";
             const origin = item ? { uuid: item.uuid, type: item.type } : null;
             roll.toMessage(
                 {
                     speaker,
-                    flavor: flav,
+                    flavor: `${flav}\n${traits}`,
                     flags: { pf2e: { origin } },
                 },
                 {
@@ -373,5 +374,32 @@ export class DicePF2e {
         // Update the formula
         this._formula = this.terms?.join(" ");
         return this;
+    }
+
+    private static getTraitMarkup(spell: SpellPF2e): string {
+        const allSpellTraits = {
+            ...CONFIG.PF2E.magicSchools,
+            ...CONFIG.PF2E.magicTraditions,
+            ...CONFIG.PF2E.spellTraits,
+        };
+        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
+        const traits = [...spell.traits]
+            .map((trait) => ({
+                value: trait,
+                label: game.i18n.localize(allSpellTraits[trait]),
+                description: traitDescriptions[trait] ?? "",
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .map((trait) =>
+                $("<span>")
+                    .addClass("tag")
+                    .attr({ "data-trait": trait.value, "data-description": trait.description })
+                    .text(trait.label)
+            )
+            .reduce(
+                ($traits, $trait) => $traits.append($trait),
+                $("<div>").addClass("item-properties").addClass("tags")
+            );
+        return traits.prop("outerHTML");
     }
 }

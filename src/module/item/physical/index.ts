@@ -21,6 +21,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.traits.rarity.value;
     }
 
+    get traits(): Set<PhysicalItemTrait> {
+        return new Set(this.data.data.traits.value);
+    }
+
     get quantity(): number {
         return this.data.data.quantity.value ?? 1;
     }
@@ -102,6 +106,26 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 ...action,
             };
         });
+    }
+
+    /** Generate a list of strings for use in predication */
+    getContextStrings(prefix = ""): string[] {
+        return [...this.traits]
+            .map((trait) => `trait:${trait}`)
+            .concat(
+                Object.entries({
+                    equipped: this.isEquipped,
+                    magical: this.isMagical,
+                    uninvested: this.isInvested === false,
+                    [`material:${this.material?.type}`]: !!this.material,
+                })
+                    .filter(([_key, isTrue]) => isTrue)
+                    .map(([key]) => key)
+            )
+            .map((string) => {
+                const separatedPrefix = prefix ? `${prefix}:` : "";
+                return `${separatedPrefix}${string}`;
+            });
     }
 
     override prepareBaseData(): void {
@@ -203,7 +227,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     override getChatData(): Record<string, unknown> {
         return {
-            rarity: CONFIG.PF2E.rarityTraits[this.rarity],
+            rarity: {
+                name: this.rarity,
+                label: CONFIG.PF2E.rarityTraits[this.rarity],
+                description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+            },
             description: { value: this.description },
         };
     }
@@ -261,6 +289,4 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
 export interface PhysicalItemPF2e {
     readonly data: PhysicalItemData;
-
-    get traits(): Set<PhysicalItemTrait>;
 }

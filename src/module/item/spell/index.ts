@@ -18,6 +18,10 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
+    get traits(): Set<SpellTrait> {
+        return new Set(this.data.data.traits.value);
+    }
+
     get school(): MagicSchool {
         return this.data.data.school.value;
     }
@@ -246,10 +250,10 @@ export class SpellPF2e extends ItemPF2e {
         const baseLevel = this.level;
         const heightened = level - baseLevel;
         const levelLabel = (() => {
-            const category = this.isCantrip
+            const type = this.isCantrip
                 ? localize("PF2E.TraitCantrip")
                 : localize(CONFIG.PF2E.spellCategories[this.data.data.category.value]);
-            return game.i18n.format("PF2E.SpellLevel", { category, level });
+            return game.i18n.format("PF2E.ItemLevel", { type, level });
         })();
 
         // Combine properties
@@ -403,6 +407,4 @@ export class SpellPF2e extends ItemPF2e {
 
 export interface SpellPF2e {
     readonly data: SpellData;
-
-    get traits(): Set<SpellTrait>;
 }

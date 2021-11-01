@@ -1,4 +1,55 @@
-# Patch Notes:
+# Changelog
+
+## Version 2.18.0
+### New Features
+* (stwlam) Add basic support for defining and using combination weapons
+* (stwlam) Track tradition proficiencies on new PCs throughout leveling
+* (stwlam) Update the EffectTarget rule element to be a prompt with a definable set of choices
+
+### Bug Fixes
+* (SpartanCPA) Correct bulk calculation for 5 round increments
+* (stwlam) Fix functionality of land speeds created by the BaseSpeed rule element
+* (stwlam) Fix inability to change fundamental runes of specific magic weapons
+
+### Content Updates
+* (Abaddon) Bestiary 1: Brush up Bunyip, Eels and Apes
+* (ArthurTrumpet) Update Monstrosity Form effects with BattleForm rule element
+* (Drental) Add a bonus toggle to the Ten Paces class feature
+* (Drental) Fix save label and add aura/inline save to frightful presence
+* (fryguy) Rename Agents of Edgewatch NPCs to match style guide
+* (kageru) Fix typo in precious munitions name
+* (Neginea) Add journal entry for artillerist archetype
+* (Neginea) Fix spelling of "Cannon Corner Shot" feat name
+* (rectulo) Correct prerequisites of Expert Magus Spellcasting
+* (rectulo) Fix formatting in Aberrant Form spell, Trapsmith Dedication prerequisties, and Duskwalker heritage
+* (rectulo) Remove uneeded HTML entities in Wyrwood Sneak description
+* (rectulo) Correct typos and formatting in Rainfall Orc ancestry feature
+* (redeux) Add Actors for PFS 3-04 and B15. Audit of Iron Command reaction
+* (redeux) Correct Biloko Veteran's longspear attack as printed in LO: Mwangi Expanse and PFS 3-03
+* (SpartanCPA) Add the two remaining "Cobbled" guns
+* (SpartanCPA) Add Combination Weapons from Guns and Gears
+* (SpartanCPA) Ensure there are no empty labels in save buttons
+* (SpartanCPA) Add ammo to the One Shot Pregens
+* (SpartanCPA) Remove Herexen from One-Shot Bestiary
+* (stwlam) Add rounds for every firearm
+* (stwlam) Fill in icons for several Guns & Gears items
+* (Tikael) Correct typo in Gunslinger description
+* (TMun) Audit creatures used in PFS Bounties 13 and 14
+* (TMun) Add copyright notices for PFS 3-04 to 3-08 and Bounties 15 to 17, as well as missed free adventures
+* (VestOfHolding) Add items from The Grand Bazaar's Merrygleam shop
+* (xdy) Normalize languages on NPCs
+
+### Core System Improvements
+* (SpartanCPA) Sum bulk from multiple firearm ammunition stacks
+* (SpartanCPA) Update Zakzak for One-Shot 3 errata
+* (stwlam) Check well-formedness of "roll-option" property on FlatModifier rule elements
+* (stwlam) Exclude minions from initiative rolling
+* (stwlam) Add a system of "other tags" to weapons
+* (stwlam) Remove overflowing behavior of sidebar on PC sheet
+* (stwlam) Skip removing class feats when removing a class from a PC
+* (stwlam) Add tooltips to item, spell, and strike traits appearing in chat cards
+* (Supe) Show "Item X" label in the item sheet for physical items, feats, and spells
+
 
 ## Version 2.17.1
 ### Bug Fixes

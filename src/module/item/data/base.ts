@@ -66,7 +66,7 @@ export interface ItemSystemData {
     source: {
         value: string;
     };
-    traits: ItemTraits;
+    traits?: ItemTraits;
     options?: {
         value: string[];
     };

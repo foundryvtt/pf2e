@@ -32,8 +32,19 @@ import { MagicSchool } from "@item/spell/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
+import { ActorType } from "@actor/data";
+import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+
+const actorTypes: Record<ActorType, string> = {
+    character: "ACTOR.TypeCharacter",
+    familiar: "ACTOR.TypeFamiliar",
+    hazard: "ACTOR.TypeHazard",
+    loot: "ACTOR.TypeLoot",
+    npc: "ACTOR.TypeNpc",
+    vehicle: "ACTOR.TypeVehicle",
+};
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -494,6 +505,7 @@ const traitsDescriptions = {
     reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
     "reload-1": "PF2E.TraitDescriptionReload",
+    "reload-1-min": "PF2E.TraitDescriptionReload",
     "reload-2": "PF2E.TraitDescriptionReload",
     revelation: "PF2E.TraitDescriptionRevelation",
     "scatter-5": "PF2E.TraitDescriptionScatter",
@@ -948,6 +960,30 @@ const featTraits = {
     reckless: "PF2E.TraitReckless",
 };
 
+const meleeWeaponGroups: Record<MeleeWeaponGroup, string> = {
+    axe: "PF2E.WeaponGroupAxe",
+    brawling: "PF2E.WeaponGroupBrawling",
+    club: "PF2E.WeaponGroupClub",
+    flail: "PF2E.WeaponGroupFlail",
+    hammer: "PF2E.WeaponGroupHammer",
+    knife: "PF2E.WeaponGroupKnife",
+    pick: "PF2E.WeaponGroupPick",
+    polearm: "PF2E.WeaponGroupPolearm",
+    shield: "PF2E.WeaponGroupShield",
+    spear: "PF2E.WeaponGroupSpear",
+    sword: "PF2E.WeaponGroupSword",
+};
+
+const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
+    bomb: "PF2E.WeaponGroupBomb",
+    bow: "PF2E.WeaponGroupBow",
+    dart: "PF2E.WeaponGroupDart",
+    firearm: "PF2E.WeaponGroupFirearm",
+    sling: "PF2E.WeaponGroupSling",
+};
+
+const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
+
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
@@ -970,6 +1006,7 @@ const weaponTraits = {
     "capacity-5": "PF2E.TraitCapacity5",
     climbing: "PF2E.TraitClimbing",
     clockwork: "PF2E.TraitClockwork",
+    cobbled: "PF2E.TraitCobbled",
     combination: "PF2E.TraitCombination",
     concealable: "PF2E.TraitConcealable",
     concentrate: "PF2E.TraitConcentrate",
@@ -1064,6 +1101,11 @@ const weaponTraits = {
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+};
+
+const otherWeaponTags = {
+    crossbow: "PF2E.Weapon.Base.crossbow",
+    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -1314,11 +1356,13 @@ export const PF2ECONFIG = {
     resistanceTypes,
 
     stackGroups: {
-        bolts: "PF2E.StackGroupBolts",
         arrows: "PF2E.StackGroupArrows",
+        bolts: "PF2E.StackGroupBolts",
         slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
+        rounds5: "PF2E.StackGroupRounds5",
+        rounds10: "PF2E.StackGroupRounds10",
         rations: "PF2E.StackGroupRations",
         coins: "PF2E.StackGroupCoins",
         gems: "PF2E.StackGroupGems",
@@ -1342,24 +1386,9 @@ export const PF2ECONFIG = {
     weaponCategories,
     weaponTypes: weaponCategories,
 
-    weaponGroups: {
-        axe: "PF2E.WeaponGroupAxe",
-        bomb: "PF2E.WeaponGroupBomb",
-        brawling: "PF2E.WeaponGroupBrawling",
-        bow: "PF2E.WeaponGroupBow",
-        club: "PF2E.WeaponGroupClub",
-        dart: "PF2E.WeaponGroupDart",
-        firearm: "PF2E.WeaponGroupFirearm",
-        flail: "PF2E.WeaponGroupFlail",
-        hammer: "PF2E.WeaponGroupHammer",
-        knife: "PF2E.WeaponGroupKnife",
-        pick: "PF2E.WeaponGroupPick",
-        polearm: "PF2E.WeaponGroupPolearm",
-        shield: "PF2E.WeaponGroupShield",
-        sling: "PF2E.WeaponGroupSling",
-        spear: "PF2E.WeaponGroupSpear",
-        sword: "PF2E.WeaponGroupSword",
-    },
+    weaponGroups,
+    meleeWeaponGroups,
+    rangedWeaponGroups,
 
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
@@ -1441,6 +1470,7 @@ export const PF2ECONFIG = {
     ancestryItemTraits,
 
     weaponTraits,
+    otherWeaponTags,
 
     armorTraits: {
         ...magicSchools,
@@ -1477,7 +1507,6 @@ export const PF2ECONFIG = {
         aura: "PF2E.TraitAura",
         chaotic: "PF2E.TraitChaotic",
         clockwork: "PF2E.TraitClockwork",
-        cobbled: "PF2E.TraitCobbled",
         companion: "PF2E.TraitCompanion",
         cold: "PF2E.TraitCold",
         contract: "PF2E.TraitContract",
@@ -1597,7 +1626,6 @@ export const PF2ECONFIG = {
 
     weaponRange: {
         melee: "PF2E.WeaponRangeMelee",
-        reach: "PF2E.WeaponRangeReach",
         10: "PF2E.WeaponRange10",
         20: "PF2E.WeaponRange20",
         30: "PF2E.WeaponRange30",
@@ -1613,7 +1641,7 @@ export const PF2ECONFIG = {
         150: "PF2E.WeaponRange150",
         180: "PF2E.WeaponRange180",
         240: "PF2E.WeaponRange240",
-    }, // TODO: Compute range!
+    },
 
     weaponMAP: {
         1: "-1/-2",
@@ -1828,10 +1856,11 @@ export const PF2ECONFIG = {
         3: "PF2E.HeroPointLevel3",
     },
 
-    // Creature Sizes
     actorSizes: {
         ...sizeTypes,
     },
+
+    actorTypes,
 
     speedTypes: {
         swim: "PF2E.SpeedTypesSwim",

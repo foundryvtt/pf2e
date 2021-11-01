@@ -93,57 +93,91 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }
         }
 
+        const groups = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.weaponGroups)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
+
+        const damageTypes = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.damageTypes)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
+
         const weaponPropertyRunes = Object.fromEntries(
             Object.entries(CONFIG.PF2E.runes.weapon.property)
                 .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
                 .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
+        const meleeUsage = sheetData.data.meleeUsage ?? {
+            group: "knife",
+            damage: { type: "piercing", die: "d4" },
+            traits: [],
+        };
+
         return {
             ...sheetData,
             preciousMaterials,
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
-            hideStrikingMenu: this.item.isSpecific && sheetData.data.strikingRune.value === null,
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
+            otherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags, {
+                selectedOnly: true,
+            }),
+            baseOtherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, baseData.data.traits.otherTags ?? [], {
+                selectedOnly: true,
+            }),
             adjustedLevelHint,
             adjustedPriceHint,
             baseLevel: baseData.data.level.value,
             baseRarity: baseData.data.traits.rarity.value,
             basePrice: baseData.data.price.value,
             categories: CONFIG.PF2E.weaponCategories,
-            groups: CONFIG.PF2E.weaponGroups,
+            groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
             itemBonuses: CONFIG.PF2E.itemBonuses,
             damageDie: CONFIG.PF2E.damageDie,
             damageDice: CONFIG.PF2E.damageDice,
             conditionTypes: CONFIG.PF2E.conditionTypes,
-            weaponDamage: CONFIG.PF2E.damageTypes,
+            damageTypes,
             weaponRange: CONFIG.PF2E.weaponRange,
             weaponReload: CONFIG.PF2E.weaponReload,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             bulkTypes: CONFIG.PF2E.bulkTypes,
             sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
+            isComboWeapon: this.item.group === "firearm" && this.item.traits.has("combination"),
+            meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
+            meleeUsage,
+            meleeUsageTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? [], {
+                selectedOnly: true,
+            }),
         };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $("i.fa-info-circle.small[title]").tooltipster({
-            animation: "fade",
+        $html.find("i.fa-info-circle.small[title]").tooltipster({
             maxWidth: 275,
             position: "right",
             theme: "crb-hover",
             contentAsHTML: true,
         });
-        $("i.fa-info-circle.large[title]").tooltipster({
-            animation: "fade",
+        $html.find("i.fa-info-circle.large[title]").tooltipster({
             maxWidth: 400,
             theme: "crb-hover",
             contentAsHTML: true,
+        });
+
+        const $otherTagsHint = $html.find("i.other-tags-hint");
+        $otherTagsHint.tooltipster({
+            maxWidth: 350,
+            theme: "crb-hover",
+            content: game.i18n.localize($otherTagsHint.attr("title") ?? ""),
         });
     }
 
@@ -174,6 +208,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             const isSpecific = formData["data.specific.value"];
             if (isSpecific !== weapon.isSpecific) {
                 if (isSpecific === true) {
+                    formData["data.specific.price"] = formData["data.price.value"];
                     formData["data.specific.material"] = weapon.material;
                     formData["data.specific.runes"] = {
                         potency: formData["data.potencyRune.value"],
@@ -187,6 +222,14 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
             delete formData["preciousMaterial"];
         }
+
+        // Ensure melee usage is filled out or otherwise absent
+        if (formData["data.meleeUsage.group"]) {
+            formData["data.meleeUsage.traits"] = weapon.data.data.meleeUsage?.traits ?? [];
+        } else {
+            formData["data.-=meleeUsage"] = null;
+        }
+
         super._updateObject(event, formData);
     }
 }

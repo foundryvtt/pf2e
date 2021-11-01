@@ -1,7 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/data/values";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
-import { FeatPF2e } from "@item/feat";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
@@ -54,15 +53,7 @@ export class ClassPF2e extends ABCItemPF2e {
         }
 
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`class:${slug}`] = true;
-    }
-
-    /** In addition to automatically granted features, retrieve feats with a class trait of this class */
-    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
-        if (!this.actor) return [];
-        const features = super.getLinkedFeatures();
-        const feats = this.actor.itemTypes.feat.filter((feat) => this.slug && feat.traits.has(this.slug));
-        return [...new Set([...features, ...feats])];
+        this.actor.rollOptions.all[`self:class:${slug}`] = true;
     }
 }
 
