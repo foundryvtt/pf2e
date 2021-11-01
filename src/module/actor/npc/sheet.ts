@@ -27,6 +27,7 @@ import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
 import { SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -449,16 +450,22 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
         const configAcuity = CONFIG.PF2E.senseAcuity;
-        for (const sense of sheetSystemData.traits.senses) {
-            if (sense.type === "custom")
-                sense.localizedName = sense.label;
-            else
-                sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
 
-            sense.localizedAcuity = objectHasKey(configAcuity, sense.acuity)
-                ? configAcuity[sense.acuity]
-                : sense.acuity;
+        for (const sense of sheetSystemData.traits.senses) {
+            if (sense.type === "custom") sense.localizedName = sense.label;
+            else
+                sense.localizedName = game.i18n.localize(
+                    objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type
+                );
+
+            sense.localizedAcuity = game.i18n.localize(
+                objectHasKey(configAcuity, sense.acuity) ? configAcuity[sense.acuity] : sense.acuity
+            );
         }
+
+        sheetSystemData.traits.senses.sort((a: CreatureSensePF2e & NPCSense, b: CreatureSensePF2e & NPCSense) =>
+            a.localizedName && b.localizedName && a.localizedName > b.localizedName ? 1 : -1
+        );
     }
 
     private prepareSkills(sheetSystemData: NPCSystemSheetData) {

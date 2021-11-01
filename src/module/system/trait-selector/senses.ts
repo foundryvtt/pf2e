@@ -6,6 +6,7 @@ import { SelectableTagField } from "./index";
 export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";
     protected customSenses: SenseData[] = [];
+    protected customSensesInitialized: boolean = false;
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -44,8 +45,10 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
 
         data.choices = choices;
         data.senseAcuity = CONFIG.PF2E.senseAcuity;
-        if (this.customSenses.length  === 0)
+        if (!this.customSensesInitialized) {
+            this.customSensesInitialized = true;
             this.customSenses = senses.filter((sense) => sense.type === "custom");
+        }
         data.customSenses = this.customSenses;
 
         return data;
@@ -68,18 +71,25 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
                 }
             });
 
-            //Add custom senses
-            $html.find
+        //Add custom senses
         $html.find(".add-custom-sense").on("click", (_event) => {
             const customSense: SenseData = {
                 type: "custom",
-                acuity:  $html.find("select[name=custom-sense-acuity]").find(":selected").val() as SenseAcuity,
-                specialSense:  $html.find("input[name=custom-sense-special]").is(":checked"),
+                acuity: $html.find("select[name=custom-sense-acuity]").find(":selected").val() as SenseAcuity,
+                specialSense: $html.find("input[name=custom-sense-special]").is(":checked"),
                 source: undefined,
                 value: $html.find("input[name=custom-sense-value]").val() as string,
-                label: $html.find("input[name=custom-sense-label]").val() as string
+                label: $html.find("input[name=custom-sense-label]").val() as string,
             };
             this.customSenses.push(customSense);
+
+            this.render();
+        });
+
+        //Delete custom sense
+        $html.find("i[name^=delete_sense_]").on("click", (_event) => {
+            if (_event.currentTarget.dataset.sense)
+                this.customSenses.splice(parseInt(_event.currentTarget.dataset.sense), 1);
 
             this.render();
         });
@@ -95,7 +105,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     protected getUpdateData(formData: Record<string, unknown>) {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if(Array.isArray(v)) {
+            if (Array.isArray(v)) {
                 if (v.length > 1 && v[0]) {
                     if (!Number.isNaN(Number(v[2]))) {
                         const label = this.choices[k];
@@ -104,10 +114,14 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
                 }
             }
         }
-        console.warn(this.customSenses);
-        for (const k in this.customSenses) {
-            const cs = this.customSenses[k];
-            choices.push({ type: cs.type, label: cs.label, value: cs.value, acuity: cs.acuity, specialSense: cs.specialSense });
+        for (const cs of this.customSenses) {
+            choices.push({
+                type: cs.type,
+                label: cs.label,
+                value: cs.value,
+                acuity: cs.acuity,
+                specialSense: cs.specialSense,
+            });
         }
         return choices;
     }

@@ -144,14 +144,14 @@
             {{#each data.traits.senses as |sense k|}}
                 {{#if (ne sense.specialSense true)}}
                 <li class="tag tag_alt {{k}}">
-                    {{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
+                    {{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
                 </li>
                 {{/if}}
             {{/each}}
             {{#each data.traits.senses as |sense k|}}
                 {{#if sense.specialSense}}
                 <li class="tag tag_shaded_dark {{k}}">
-                    {{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
+                    {{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
                 </li>
                 {{/if}}
             {{/each}}

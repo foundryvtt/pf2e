@@ -58,12 +58,12 @@
             <div class="tags">
                 {{#each data.traits.senses as |sense k|}}
                     {{#if (ne sense.specialSense true)}}
-                        <div class="tag tag_transparent {{sense.type}}">{{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
+                        <div class="tag tag_transparent {{sense.type}}">{{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
                     {{/if}}
                 {{/each}}
                 {{#each data.traits.senses as |sense k|}}
                 {{#if sense.specialSense}}
-                    <div class="tag tag_transparent tag_shaded {{sense.type}}">{{localize sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{localize sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
+                    <div class="tag tag_transparent tag_shaded {{sense.type}}">{{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}</div>
                 {{/if}}
                 {{/each}}
             </div>

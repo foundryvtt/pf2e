@@ -23,10 +23,16 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { craftItem } from "@module/crafting/helpers";
 import { ActorSheetDataPF2e } from "../sheet/data-types";
 import { Abilities } from "@actor/creature/data";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 interface CraftingData {
     noCost: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
+}
+
+interface CharacterSense extends CreatureSensePF2e {
+    localizedName?: string;
+    localizedAcuity?: string;
 }
 
 /** Additional fields added in sheet data preparation */
@@ -605,14 +611,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareSenses(sheetData: CharacterSheetData) {
         const configSenses = CONFIG.PF2E.senses;
         const configAcuity = CONFIG.PF2E.senseAcuity;
+
         for (const sense of sheetData.data.traits.senses) {
-            sense.localizedName = objectHasKey(configSenses, sense.type)
-                ? configSenses[sense.type as keyof typeof configSenses]
-                : sense.type;
-            sense.localizedAcuity = objectHasKey(configAcuity, sense.acuity)
-                ? configAcuity[sense.acuity as keyof typeof configAcuity]
-                : sense.acuity;
+            if (sense.type === "custom") sense.localizedName = sense.label;
+            else
+                sense.localizedName = game.i18n.localize(
+                    objectHasKey(configSenses, sense.type)
+                        ? configSenses[sense.type as keyof typeof configSenses]
+                        : sense.type
+                );
+            sense.localizedAcuity = game.i18n.localize(
+                objectHasKey(configAcuity, sense.acuity)
+                    ? configAcuity[sense.acuity as keyof typeof configAcuity]
+                    : sense.acuity
+            );
         }
+
+        sheetData.data.traits.senses.sort((a: CharacterSense, b: CharacterSense) =>
+            a.localizedName && b.localizedName && a.localizedName > b.localizedName ? 1 : -1
+        );
     }
 
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {

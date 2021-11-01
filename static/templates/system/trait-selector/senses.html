@@ -26,17 +26,17 @@
             <tr>
                 <td class="list">
                     <div class="flexrow">
-                        <i class="fas fa-trash delete_sense_{{key}}"></i>
-                        <input type="text" id="input_label_custom_{{key}}" name="{{key}}" value="{{customSense.label}}" placeholder="0" {{customSense.disabled}}></input>
+                        <i class="fas fa-trash" name="delete_sense_{{key}}" data-sense="{{key}}"></i>
+                        <input type="text" id="input_label_custom_{{key}}" name="{{key}}" value="{{customSense.label}}" placeholder="0" disabled></input>
                     </div>  
                 </td>
-                <td><select name="{{key}}" id="select_acuity_{{key}}" {{customSense.disabled}}>
+                <td><select name="{{key}}" id="select_acuity_{{key}}" disabled>
                     {{#each ../senseAcuity as |acuity k|}}
                     <option value={{k}}  {{#if (eq k customSense.acuity)}} selected {{/if}}>{{localize acuity}}</option>
                     {{/each}}
                 </select></td>
-                <td><input type="number" id="input_value_{{key}}" name="{{key}}" value="{{customSense.value}}" placeholder="0" data-dtype="Number" {{customSense.disabled}}/></td>
-                <td><input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked customSense.specialSense}} {{customSense.disabled}}></td>
+                <td><input type="number" id="input_value_{{key}}" name="{{key}}" value="{{customSense.value}}" placeholder="0" data-dtype="Number" disabled/></td>
+                <td><input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked customSense.specialSense}} disabled></td>
             </tr>
             {{/each}}
             <tr>
