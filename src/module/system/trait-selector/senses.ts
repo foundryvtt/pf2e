@@ -6,7 +6,7 @@ import { SelectableTagField } from "./index";
 export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";
     protected customSenses: SenseData[] = [];
-    protected customSensesInitialized: boolean = false;
+    protected customSensesInitialized = false;
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -28,7 +28,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
 
         const choices: Record<string, Record<string, unknown>> = {};
         const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
-        const basicSenses = senses.filter((sense) => sense.type != "custom");
+        const basicSenses = senses.filter((sense) => sense.type !== "custom");
 
         //Enrich list of choices with actor sense data
         Object.entries(this.choices).forEach(([type, label]) => {
