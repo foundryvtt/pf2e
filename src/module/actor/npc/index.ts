@@ -357,6 +357,7 @@ export class NPCPF2e extends CreaturePF2e {
                 overwrite: false,
             });
             stat.base = base;
+            stat.details = data.attributes.perception.details;
             stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
@@ -375,6 +376,9 @@ export class NPCPF2e extends CreaturePF2e {
 
             data.attributes.perception = stat;
         }
+
+        // Senses
+        this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
 
         // default all skills to untrained
         data.skills = {};

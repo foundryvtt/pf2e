@@ -142,9 +142,18 @@
         </span>
         <ol class="tags">
             {{#each data.traits.senses as |sense k|}}
-            <li class="tag tag_alt {{k}}">
-                {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
-            </li>
+                {{#if (ne sense.specialSense true)}}
+                <li class="tag tag_alt {{k}}">
+                    {{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
+                </li>
+                {{/if}}
+            {{/each}}
+            {{#each data.traits.senses as |sense k|}}
+                {{#if sense.specialSense}}
+                <li class="tag tag_shaded_dark {{k}}">
+                    {{sense.localizedName}} {{#if (ne sense.acuity "precise")}} ({{sense.localizedAcuity}}) {{/if}} {{#if sense.value}} {{sense.value}} {{/if}}
+                </li>
+                {{/if}}
             {{/each}}
             {{#if @root.owner}}
                 <li class="tag tag_secondary edit-btn">

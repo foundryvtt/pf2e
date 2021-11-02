@@ -5,6 +5,8 @@ export class CreatureSensePF2e implements SenseData {
     type: string;
     /** One of "precise", "imprecise", or "vague" */
     acuity: SenseAcuity;
+    /** Indicates special senses, e.g. granted by a spell */
+    specialSense: boolean;
     /** The range of the sense, if any */
     value: string;
     /** The localized label of the sense */
@@ -19,6 +21,7 @@ export class CreatureSensePF2e implements SenseData {
     constructor(data: Omit<SenseData, "value"> & { value?: string }) {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
+        this.specialSense = data.specialSense ?? false;
         this.value = data.value ?? "";
         this.label = data.label;
         this.source = data.source || undefined;

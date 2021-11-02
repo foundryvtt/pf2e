@@ -27,9 +27,14 @@ import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
 import { SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
+}
+
+interface NPCSense extends NPCSheetLabeledValue {
+    localizedAcuity?: string;
 }
 
 interface ActionsDetails {
@@ -76,7 +81,7 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments>;
     traits: CreatureTraitsData & {
-        senses: NPCSheetLabeledValue[];
+        senses: NPCSense[];
         size: {
             localizedName?: string;
         };
@@ -205,6 +210,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
+        this.prepareSenses(sheetData.data);
         this.prepareSkills(sheetData.data);
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
@@ -443,9 +449,23 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
         const configSenses = CONFIG.PF2E.senses;
+        const configAcuity = CONFIG.PF2E.senseAcuity;
+
         for (const sense of sheetSystemData.traits.senses) {
-            sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
+            if (sense.type === "custom") sense.localizedName = sense.label;
+            else
+                sense.localizedName = game.i18n.localize(
+                    objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type
+                );
+
+            sense.localizedAcuity = game.i18n.localize(
+                objectHasKey(configAcuity, sense.acuity) ? configAcuity[sense.acuity] : sense.acuity
+            );
         }
+
+        sheetSystemData.traits.senses.sort((a: CreatureSensePF2e & NPCSense, b: CreatureSensePF2e & NPCSense) =>
+            a.localizedName && b.localizedName && a.localizedName > b.localizedName ? 1 : -1
+        );
     }
 
     private prepareSkills(sheetSystemData: NPCSystemSheetData) {
