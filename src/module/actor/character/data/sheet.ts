@@ -57,13 +57,9 @@ interface CraftingData {
 
 /** Additional fields added in sheet data preparation */
 export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
-    abilities: Record<string, string>;
     abpEnabled: boolean;
     //actor:
-    actorSizes: Record<string, string>;
-    alignment: Record<string, string>;
     ancestry: Embedded<AncestryPF2e> | null;
-    attitude: Record<string, string>;
     background: Embedded<BackgroundPF2e> | null;
     class: Embedded<ClassPF2e> | null;
     crafting: CraftingData;
@@ -72,11 +68,8 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     //items:
     magicTraditions: Record<MagicTradition, string>;
     options: CharacterSheetOptions;
-    pfsFactions: Record<string, string>;
-    preparationType: Record<string, string>;
-    rarity: Record<string, string>;
+    preparationType: Object;
     showPFSTab: boolean;
     showUnpreparedSpells: boolean;
-    skills: Record<string, string>;
     spellcastingEntries: Object[];
 }
