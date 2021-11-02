@@ -9,15 +9,15 @@ import { FlattenedCondition } from "@system/conditions";
 import { CharacterAttributes, CharacterSystemData } from ".";
 
 interface CharacterSenses extends CreatureSensePF2e {
-    localizedName: string;
-    localizedAcuity: string;
+    localizedName?: string;
+    localizedAcuity?: string;
 }
 
 interface CharacterSheetOptions extends ActorSheetOptions {
     showUnpreparedSpells: boolean;
 }
 
-export interface CharacterSystemSheetData extends CharacterSystemData {
+interface CharacterSystemSheetData extends CharacterSystemData {
     attributes: CharacterAttributes & {
         doomed: {
             icon: string;
@@ -67,8 +67,9 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     background: Embedded<BackgroundPF2e> | null;
     class: Embedded<ClassPF2e> | null;
     crafting: CraftingData;
-    //data: CharacterSystemSheetData;
+    data: CharacterSystemSheetData;
     hasStamina: boolean;
+    //items:
     magicTraditions: Record<MagicTradition, string>;
     options: CharacterSheetOptions;
     pfsFactions: Record<string, string>;

@@ -14,7 +14,7 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency } from "./data";
+import { CharacterProficiency, CombatProficiencies } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
@@ -156,7 +156,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     [key]: proficiency,
                 }),
                 {}
-            );
+            ) as CombatProficiencies;
 
         // Return data for rendering
         return sheetData;
