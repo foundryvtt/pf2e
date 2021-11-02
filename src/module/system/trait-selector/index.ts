@@ -67,7 +67,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "actionsNumber",
     "actionCategories",
     "proficiencyLevels",
-    "heroPointLevels",
     "actorSizes",
     "bulkTypes",
     "conditionTypes",

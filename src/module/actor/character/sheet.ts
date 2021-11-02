@@ -16,7 +16,7 @@ import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition, PreparationType } from "@item/spellcasting-entry/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
-import { goesToEleven, ZeroToThree } from "@module/data";
+import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -75,9 +75,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.class = this.actor.class;
 
         // Update hero points label
-        sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
-        sheetData.data.attributes.heroPoints.hover =
-            CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank as ZeroToThree];
+        sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
+        sheetData.data.resources.heroPoints.hover = game.i18n.format(
+            this.actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
+            this.actor.heroPoints
+        );
 
         // Update class dc label
         sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
@@ -1298,7 +1300,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Get the font-awesome icon used to display a certain level of doomed
      */
-    private getDoomedIcon(level: number) {
+    private getDoomedIcon(level: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-skull"></i>';
@@ -1312,17 +1314,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[i] = iconHtml;
         }
 
-        return icons[level];
+        return icons[level] ?? icons[0];
     }
 
     /** Get the font-awesome icon used to display hero points */
-    private getHeroPointsIcon(level: ZeroToThree) {
-        const icons = {
-            0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            1: '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            2: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
-            3: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
-        };
-        return icons[level];
+    private getHeroPointsIcon(level: number): string {
+        const icons = [
+            '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
+        ];
+        return icons[level] ?? icons[0];
     }
 }

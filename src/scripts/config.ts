@@ -1862,13 +1862,6 @@ export const PF2ECONFIG = {
         "PF2E.ProficiencyLevel4", // legendary
     ] as const,
 
-    heroPointLevels: {
-        0: "PF2E.HeroPointLevel0",
-        1: "PF2E.HeroPointLevel1",
-        2: "PF2E.HeroPointLevel2",
-        3: "PF2E.HeroPointLevel3",
-    },
-
     actorSizes: sizeTypes,
 
     actorTypes,

@@ -87,6 +87,7 @@ import { Migration682BiographyFields } from "./migrations/682-biography-fields";
 import { Migration683FlavorTextToPublicNotes } from "./migrations/683-flavortext-to-public-notes";
 import { Migration684RationsToConsumable } from "./migrations/684-rations-to-consumable";
 import { Migration685FixMeleeUsageTraits } from "./migrations/685-fix-melee-usage-traits";
+import { Migration686HeroPointsToResources } from "./migrations/686-hero-points-to-resources";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -178,6 +179,7 @@ export class Migrations {
         Migration683FlavorTextToPublicNotes,
         Migration684RationsToConsumable,
         Migration685FixMeleeUsageTraits,
+        Migration686HeroPointsToResources,
     ];
 
     static get latestVersion(): number {

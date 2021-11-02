@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/rolls";
 
@@ -37,9 +37,9 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const canReroll = !message.getFlag("pf2e", "context")?.isReroll === true;
             return (
                 canReroll &&
-                actor?.data.type === "character" &&
+                actor instanceof CharacterPF2e &&
                 actor.isOwner &&
-                actor.data.data.attributes.heroPoints?.rank >= 1 &&
+                actor.heroPoints.value >= 1 &&
                 (message.isAuthor || game.user.isGM)
             );
         };

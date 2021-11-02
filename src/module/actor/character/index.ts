@@ -98,6 +98,10 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.data.data.details.keyability.value || "str";
     }
 
+    get heroPoints(): { value: number; max: number } {
+        return deepClone(this.data.data.resources.heroPoints);
+    }
+
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
@@ -200,6 +204,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 max: 0,
             },
         };
+        resources.heroPoints.max = 3;
 
         // Size
         this.data.data.traits.size = { value: "med" };

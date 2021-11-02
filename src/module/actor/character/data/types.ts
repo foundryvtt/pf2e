@@ -24,7 +24,7 @@ import {
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { ZeroToFour, ZeroToThree } from "@module/data";
+import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -263,7 +263,11 @@ interface PathfinderSocietyData {
 export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
 interface CharacterResources {
+    /** The current number of focus points and pool size */
     focus: { value: number; max: number };
+    /** The current and maximum number of hero points */
+    heroPoints: { value: number; max: number };
+    /** The current and maximum number of invested items */
     investiture: { value: number; max: number };
     crafting: {
         infusedReagents: { value: number; max: number };
@@ -310,8 +314,6 @@ export interface CharacterAttributes extends CreatureAttributes {
     wounded: { value: number; max: number };
     /** The current doomed level (and maximum) for this character. */
     doomed: { value: number; max: number };
-    /** The current number of hero points (and maximum) for this character. */
-    heroPoints: { rank: ZeroToThree; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };

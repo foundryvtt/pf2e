@@ -1,5 +1,5 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
@@ -329,8 +329,8 @@ export class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor?.data.type === "character") {
-                const heroPointCount = actor.data.data.attributes.heroPoints.rank;
+            if (actor instanceof CharacterPF2e) {
+                const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
                         "data.attributes.heroPoints.rank": Math.clamped(heroPointCount - 1, 0, 3),
