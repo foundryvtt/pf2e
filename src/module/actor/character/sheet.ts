@@ -14,13 +14,14 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy } from "@util";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency } from "./data";
+import { CharacterProficiency, CombatProficiencies } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
 import { craftItem } from "@module/crafting/helpers";
+import { CharacterSheetData } from "./data/sheet";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -56,7 +57,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     override async getData(options?: ActorSheetOptions) {
-        const sheetData = await super.getData(options);
+        const sheetData: CharacterSheetData = await super.getData(options);
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -155,7 +156,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     [key]: proficiency,
                 }),
                 {}
-            );
+            ) as CombatProficiencies;
 
         // Return data for rendering
         return sheetData;
@@ -164,7 +165,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Organize and classify Items for Character sheets
      */
-    protected prepareItems(sheetData: any) {
+    protected prepareItems(sheetData: CharacterSheetData) {
         const actorData: any = sheetData.actor;
         // Inventory
         const inventory: Record<
@@ -527,7 +528,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    protected prepareSpellcasting(sheetData: any) {
+    protected prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
         const { abilities } = this.actor.data.data;
 
