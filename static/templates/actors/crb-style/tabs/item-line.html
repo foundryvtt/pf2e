@@ -3,7 +3,7 @@
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>
             {{item.name}}
-            {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="This item is temporary and will expire after a duration or during daily preparations. It has no value and cannot be sold."></i>{{/if}}
+            {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize 'PF2E.TemporaryItemToolTip'}}"></i>{{/if}}
             {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{data.identification.identified.name}})</span>{{/if}}
             {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
             {{#if item.isTwoHanded}}
