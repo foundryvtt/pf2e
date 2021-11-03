@@ -139,13 +139,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.crafting = {
             noCost: this.actor.data.flags.pf2e.freeCrafting,
             knownFormulas: formulasByLevel,
+            entries: await this.prepareCraftingEntries(),
         };
         this.knownFormulas = new Map(
             Object.values(formulasByLevel)
                 .flat()
                 .map((formula): [string, CraftingFormula] => [formula.uuid, formula])
         );
-        sheetData.craftingEntries = await this.prepareCraftingEntries();
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -596,22 +596,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     protected async prepareCraftingEntries() {
-        interface CraftingEntries {
-            other: CraftingEntry[];
-            alchemical: {
-                entries: CraftingEntry[];
-                totalReagentCost: number;
-                infusedReagents: {
-                    value: number;
-                    max: number;
-                };
-            };
-        }
         const actorCraftingEntries = await this.actor.getCraftingEntries();
-        const craftingEntries: CraftingEntries = {
-            other: [],
+        const craftingEntries = {
+            other: <CraftingEntry[]>[],
             alchemical: {
-                entries: [],
+                entries: <CraftingEntry[]>[],
                 totalReagentCost: 0,
                 infusedReagents: this.actor.data.data.resources.crafting.infusedReagents,
             },

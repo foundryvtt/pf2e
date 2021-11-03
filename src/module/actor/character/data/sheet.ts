@@ -4,6 +4,7 @@ import { CreatureSensePF2e } from "@actor/creature/sense";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
+import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { CraftingFormula } from "@module/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
 import { CharacterAttributes, CharacterSystemData } from ".";
@@ -50,9 +51,22 @@ interface CharacterSystemSheetData extends CharacterSystemData {
     };
 }
 
+interface CraftingEntries {
+    other: CraftingEntry[];
+    alchemical: {
+        entries: CraftingEntry[];
+        totalReagentCost: number;
+        infusedReagents: {
+            value: number;
+            max: number;
+        };
+    };
+}
+
 interface CraftingData {
     noCost: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
+    entries: CraftingEntries;
 }
 
 /** Additional fields added in sheet data preparation */
