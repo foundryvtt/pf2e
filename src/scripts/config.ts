@@ -34,6 +34,7 @@ import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
 import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import { SenseAcuity } from "@actor/creature/data";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -44,6 +45,13 @@ const actorTypes: Record<ActorType, string> = {
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+// Sense acuity
+const senseAcuity: Record<SenseAcuity, string> = {
+    imprecise: "PF2E.Sense.Acuity.Imprecise",
+    precise: "PF2E.Sense.Acuity.Precise",
+    vague: "PF2E.Sense.Acuity.Vague",
 };
 
 // Ancestry and heritage traits
@@ -1889,6 +1897,8 @@ export const PF2ECONFIG = {
         lifesense: "PF2E.SensesLifesense",
         wavesense: "PF2E.SensesWavesense",
     },
+
+    senseAcuity,
 
     bulkTypes: {
         L: "PF2E.BulkTypeLight",
