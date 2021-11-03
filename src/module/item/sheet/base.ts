@@ -52,14 +52,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
+                "action",
+                "armor",
                 "book",
                 "consumable",
+                "deity",
                 "equipment",
                 "feat",
                 "spell",
                 "weapon",
-                "armor",
-                "action",
                 "melee",
                 "backpack",
                 "condition",
@@ -254,7 +255,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected prepareOptions(
         options: Record<string, string>,
         selections: SheetSelections | (string[] & { custom?: never }),
-        { selectedOnly = false }: { selectedOnly?: boolean } = { selectedOnly: false }
+        { selectedOnly = false } = {}
     ): SheetOptions {
         const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
             const selectionList = Array.isArray(selections) ? selections : selections.value;
