@@ -32,16 +32,16 @@
                     {{else if section.uses}}
                         {{#if section.uses.value includeZero=true}}
                             <span class="spell-slots-input">
-                                <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{section.level}}.value" value="{{section.uses.value}}" placeholder="0" data-dtype="Number"/>
+                                <input type="number" data-item-id="{{entry.id}}" data-item-property="data.slots.slot{{section.level}}.value" value="{{section.uses.value}}" placeholder="0" />
                             </span>
                             <span class="flex0"> / </span>
                         {{/if}}
                         <span class="spell-max-input">
-                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{section.level}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
+                            <input type="number" data-item-id="{{entry.id}}" data-item-property="data.slots.slot{{section.level}}.max" value="{{section.uses.max}}" placeholder="0" />
                         </span>
                         {{#if section.uses.value includeZero=true}}
                         {{#if @root.owner}}
-                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{section.level}}"><i class="fas fa-redo"></i></a>
+                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}" data-level="{{section.level}}"><i class="fas fa-redo"></i></a>
                         {{/if}}
                         {{/if}}
                     {{/if}}
