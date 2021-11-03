@@ -1,5 +1,31 @@
 # Changelog
 
+
+## Version 2.18.1
+### Bug Fixes
+* (Abaddon) Fix localization of NPC skills
+* (stwlam) Fix editing NPC skills from a compendium
+* (stwlam) Fix localization of homebrew attack proficiencies on PC sheet
+* (stwlam) Fix bug preventing item level from being editable on feat and spell sheets
+* (stwlam) Fix damage and critical button tooltips on PC sheet
+
+### Content Updates
+* (ArthurTrumpet) Update Plant Form spell effects to use BattleForm rule element
+* (Drental🤖) add ability score automation to all apex items
+* (InfamousSky) Add missing trigger reaction to Sand Whirlwind Hazard
+* (InfamousSky) Add area to Tangling Creepers spell
+* (InfamousSky) Add link to Wronged Monk's Wrath spell in corresponding feat
+* (InfamousSky) Fix will saves and attack traits in Arms of Balance
+* (Neginea) Add journal entries for Beast Gunner and Bullet Dancer archetypes
+* (rectulo) Fix a typo in Inventor class
+* (rectulo) Fix formatting of the Poppet ancestry description
+* (SpartanCPA) Italicize several hundred links to spells in item descriptions
+* (Supe) Add negative damage and area size to Eclipse Burst
+
+### Core System Improvements
+* (Abaddon) Improve type definitions of PC sheet
+
+
 ## Version 2.18.0
 ### New Features
 * (stwlam) Add basic support for defining and using combination weapons
