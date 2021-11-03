@@ -8,6 +8,7 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     ContainerPF2e,
+    DeityPF2e,
     EffectPF2e,
     EquipmentPF2e,
     FeatPF2e,
@@ -33,8 +34,9 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import { SenseAcuity } from "@actor/creature/data";
+import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import enJSON from "../../static/lang/en.json";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -347,6 +349,14 @@ const weaponCategories = {
     advanced: "PF2E.WeaponTypeAdvanced",
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
+
+const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseWeaponType, string>
+);
 
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
@@ -1398,6 +1408,8 @@ export const PF2ECONFIG = {
     meleeWeaponGroups,
     rangedWeaponGroups,
 
+    baseWeaponTypes,
+
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
         knife: "PF2E.WeaponDescriptionKnife",
@@ -1732,7 +1744,7 @@ export const PF2ECONFIG = {
         120: "PF2E.AreaSize120",
     },
 
-    alignment: {
+    alignments: {
         LG: "PF2E.AlignmentLG",
         NG: "PF2E.AlignmentNG",
         CG: "PF2E.AlignmentCG",
@@ -2464,6 +2476,7 @@ export const PF2ECONFIG = {
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,
+            deity: DeityPF2e,
             kit: KitPF2e,
             melee: MeleePF2e,
             consumable: ConsumablePF2e,
