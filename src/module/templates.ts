@@ -93,7 +93,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/melee-details.html",
         "systems/pf2e/templates/items/weapon-details.html",
         "systems/pf2e/templates/items/weapon-sidebar.html",
-        "systems/pf2e/templates/items/usage-panel.html",
+        "systems/pf2e/templates/items/activation-panel.html",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",

@@ -39,7 +39,7 @@
                 {{/if}}
                 {{#developMode}}
                     {{#if item.isPhysical}}
-                        <a class="list-row" data-tab="usage">{{localize "PF2E.Usage"}}</a>
+                        <a class="list-row" data-tab="activations">{{localize "PF2E.ItemActivate.Label"}}</a>
                     {{/if}}
                 {{/developMode}}
                 {{#if (and item.isPhysical user.isGM)}}
@@ -67,8 +67,8 @@
 
             {{#developMode}}
                 {{#if item.isPhysical}}
-                    <div class="tab item-usage" data-tab="usage">
-                        {{> systems/pf2e/templates/items/usage-panel.html}}
+                    <div class="tab item-activations" data-tab="activations">
+                        {{> systems/pf2e/templates/items/activation-panel.html}}
                     </div>
                 {{/if}}
             {{/developMode}}
