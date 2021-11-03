@@ -66,6 +66,12 @@ export type ItemDataPF2e =
 export type PhysicalItemSource = PhysicalItemData["_source"];
 export type ItemSourcePF2e = ItemDataPF2e["_source"];
 
+export interface ItemSummaryData {
+    [key: string]: unknown;
+    traits?: TraitChatData[];
+    properties?: (string | number | null)[];
+}
+
 export interface TraitChatData {
     value: string;
     label: string;
