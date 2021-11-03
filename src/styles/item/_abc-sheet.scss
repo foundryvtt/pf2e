@@ -1,8 +1,8 @@
-.abc-list {
-    ul.abc-items {
+.abc-list, .item-ref-list {
+    ul.abc-items, ul.item-refs {
         padding: 0;
 
-        li.abc-item {
+        > li {
             display: grid;
             grid-template-columns: 26px auto 20px 10px;
             align-items: center;
@@ -11,7 +11,8 @@
                 background-color: rgba(120, 100, 82, 0.1);
             }
 
-            .abc-item-name {
+            .name {
+                display: block;
                 margin-left: 0.25em;
                 line-height: 1em;
                 height: 1em;
@@ -22,7 +23,7 @@
                 }
             }
 
-            .abc-item-level {
+            .level {
                 line-height: 1em;
                 height: 1em;
                 font-weight: bold;
@@ -38,6 +39,10 @@
             }
         }
     }
+}
+
+.item-ref-list {
+    align-items: start;
 }
 
 .form-group {

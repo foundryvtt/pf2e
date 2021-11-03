@@ -7,6 +7,7 @@ export type NonPhysicalItemType =
     | "background"
     | "class"
     | "condition"
+    | "deity"
     | "effect"
     | "feat"
     | "kit"
