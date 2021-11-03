@@ -25,7 +25,7 @@ import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { ZeroToFour, ZeroToThree } from "@module/data";
-import type { CharacterPF2e } from ".";
+import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
