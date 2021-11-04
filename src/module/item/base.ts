@@ -525,7 +525,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             (itemType: string) =>
                 !(
                     ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
-                    (itemType === "book" && BUILD_MODE === "production")
+                    (["book", "deity"].includes(itemType) && BUILD_MODE === "production")
                 )
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
