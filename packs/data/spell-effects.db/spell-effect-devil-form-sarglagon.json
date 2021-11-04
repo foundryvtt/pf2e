@@ -21,6 +21,17 @@
                     "armorClass": {
                         "modifier": "22 + @details.level.value"
                     },
+                    "resistances": [
+                        {
+                            "except": "Silver",
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
                     "senses": {
                         "darkvision": {}
                     },
@@ -72,6 +83,12 @@
                     "traits": [
                         "devil",
                         "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
                     ]
                 }
             },
@@ -105,22 +122,6 @@
                 "path": "flags.pf2e.disableABP",
                 "priority": 10,
                 "value": true
-            },
-            {
-                "except": "Silver",
-                "key": "Resistance",
-                "type": "physical",
-                "value": 5
-            },
-            {
-                "key": "Weakness",
-                "type": "good",
-                "value": 5
-            },
-            {
-                "key": "Resistance",
-                "type": "fire",
-                "value": 10
             }
         ],
         "source": {
