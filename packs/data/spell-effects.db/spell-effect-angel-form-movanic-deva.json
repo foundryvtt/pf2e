@@ -18,6 +18,12 @@
                 "hasHands": true,
                 "key": "BattleForm",
                 "overrides": {
+                    "resistances": [
+                        {
+                            "type": "negative",
+                            "value": 10
+                        }
+                    ],
                     "senses": {
                         "darkvision": {}
                     },
@@ -46,6 +52,12 @@
                     "traits": [
                         "angel",
                         "celestial"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "evil",
+                            "value": "10+ 5*floor((@item.level.value -7)/2)"
+                        }
                     ]
                 },
                 "value": {
@@ -140,30 +152,6 @@
                 "path": "flags.pf2e.disableABP",
                 "priority": 10,
                 "value": true
-            },
-            {
-                "key": "Weakness",
-                "type": "evil",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 7,
-                            "value": 10
-                        },
-                        {
-                            "end": 10,
-                            "start": 9,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Resistance",
-                "type": "negative",
-                "value": 10
             }
         ],
         "source": {
