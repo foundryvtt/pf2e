@@ -5,6 +5,8 @@ import { SelectableTagField } from "./index";
 export interface TagSelectorOptions extends FormApplicationOptions {
     /* Show the custom input field (defaults to true) */
     allowCustom?: boolean;
+    /** Is the target data property a flat array rather than a values object? */
+    flat?: boolean;
     /* Custom choices to add to the list of choices */
     customChoices?: Record<string, string>;
 }
@@ -13,10 +15,12 @@ export abstract class TagSelectorBase<
     TDocument extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
 > extends FormApplication<TDocument> {
     choices: Record<string, string>;
+    flat: boolean;
     objectProperty = "";
 
     constructor(object: TDocument, options: Partial<TagSelectorOptions> = {}) {
         super(object, options);
+        this.flat = options.flat ?? false;
         this.choices = this.getChoices();
     }
 

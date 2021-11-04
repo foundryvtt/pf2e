@@ -282,13 +282,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return sheetOptions;
     }
 
-    protected onTraitSelector(event: JQuery.TriggeredEvent): void {
+    protected onTagSelector(event: JQuery.TriggeredEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr("data-trait-selector") ?? "";
         if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
+        const propertyIsFlat = !!$anchor.attr("data-flat");
         const objectProperty = $anchor.attr("data-property") ?? "";
         const title = $anchor.attr("data-title");
         const configTypes = ($anchor.attr("data-config-types") ?? "")
@@ -299,6 +300,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             objectProperty,
             configTypes,
             title,
+            flat: propertyIsFlat,
         };
 
         const noCustom = $anchor.attr("data-no-custom") === "true";
@@ -375,7 +377,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        html.find(".trait-selector").on("click", (ev) => this.onTraitSelector(ev));
+        html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
 
         // Add Damage Roll
         html.find(".add-damage").on("click", (ev) => {
