@@ -10,6 +10,24 @@
         padding: 0;
         overflow-y: auto;
         scrollbar-width: thin;
+
+        td.list {
+            text-align: left;
+
+            input[type="checkbox"],
+            label {
+                float: left;
+                line-height: 1.6em;
+                height: 1.6em;
+                margin: 0px 2px;
+                padding: 0px;
+                font-size: inherit;
+            }
+
+            input[type="checkbox"] {
+                clear: left;
+            }
+        }
     }
 
     .trait-header {
@@ -54,7 +72,7 @@
         }
     }
 
-    input:not([type=checkbox]) {
+    input:not([type="checkbox"]) {
         flex: 1.8;
     }
 }
