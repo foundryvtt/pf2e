@@ -1992,7 +1992,7 @@ export const PF2ECONFIG = {
         adlet: "PF2E.LanguageAdlet",
         aklo: "PF2E.LanguageAklo",
         akitonian: "PF2E.LanguageAkitonian",
-        algollthu: "PF2E.LanguageAlghollthu",
+        alghollthu: "PF2E.LanguageAlghollthu",
         amurrun: "PF2E.LanguageAmurrun",
         anadi: "PF2E.LanguageAnadi",
         anugobu: "PF2E.LanguageAnugobu",
