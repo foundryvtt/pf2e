@@ -892,7 +892,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const item = this.actor.items.get(itemId);
         if (!item) throw ErrorPF2e("Item not found");
 
-        const propertyKey = $button.attr("data-property") ?? "";
+        const propertyKey = $button.attr("data-item-property") ?? "";
         const change = event.type === "click" ? 1 : -1;
 
         // Retrieve and validate the updated value
