@@ -159,7 +159,7 @@ export interface WeaponSystemData extends WeaponSystemSource {
     };
 }
 
-interface ComboWeaponMeleeUsage {
+export interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: string };
     group: MeleeWeaponGroup;
     traits: WeaponTrait[];

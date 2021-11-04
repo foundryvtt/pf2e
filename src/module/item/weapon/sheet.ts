@@ -223,10 +223,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             delete formData["preciousMaterial"];
         }
 
-        // Ensure melee usage is filled out or otherwise absent
-        if (formData["data.meleeUsage.group"]) {
-            formData["data.meleeUsage.traits"] = weapon.data.data.meleeUsage?.traits ?? [];
-        } else {
+        // Ensure melee usage is absent if not a combination weapon
+        if (weapon.data.data.meleeUsage && !this.item.traits.has("combination")) {
             formData["data.-=meleeUsage"] = null;
         }
 
