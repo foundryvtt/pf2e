@@ -112,6 +112,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     actorAttitude?: string;
     traits?: Record<string, string>;
     immunities?: Record<string, string>;
+    hasImmunities?: boolean;
     languages?: Record<string, string>;
     isWeak?: boolean;
     isElite?: boolean;
@@ -221,6 +222,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     private prepareIWR(sheetData: NPCSheetData) {
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        sheetData.hasImmunities = Object.keys(sheetData.immunities).length !== 0;
         const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
         for (const weakness of sheetData.data.traits.dv) {
             weakness.label = weaknessTypes[weakness.type];
@@ -454,8 +456,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const skills = sheetSystemData.skills;
         for (const skillId of sortedSkillsIds) {
             const skill = skills[skillId];
-            skill.label =
-                skillId in CONFIG.PF2E.skillList ? game.i18n.localize("PF2E.Skill" + skills[skillId].name) : skill.name;
+            skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
+                ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
+                : skill.name;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
@@ -549,7 +552,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 traits.splice(0, 0, trait);
             }
 
-            const actionType = item.actionCost?.type || "action";
+            const actionType = item.actionCost?.type || "passive";
             if (objectHasKey(actions, actionType)) {
                 actions[actionType].actions.push({
                     ...itemData,
@@ -845,7 +848,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
 
         const systemData = item.data.toObject().data;
-        if (systemData.slots == null) return;
+        if (!systemData.slots) return;
         const slot = `slot${itemLevel}` as const;
         systemData.slots[slot].value = systemData.slots[slot].max;
 

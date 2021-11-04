@@ -38,6 +38,14 @@ export const stackDefinitions: StackDefinitions = {
         size: 10,
         lightBulk: 1,
     },
+    rounds5: {
+        size: 5,
+        lightBulk: 1,
+    },
+    rounds10: {
+        size: 10,
+        lightBulk: 1,
+    },
     rations: {
         size: 7,
         lightBulk: 1,
@@ -384,6 +392,10 @@ function calculateItemBulk({
     bulkConfig: BulkConfig;
     actorSize: Size;
 }): BulkAndOverflow {
+    //ignore containers that aren't items
+    if (item.id === "") {
+        return [new Bulk(), {}];
+    }
     const stackName = item.stackGroup;
     if (isBlank(stackName)) {
         const bulk = calculateNonStackBulk(item);

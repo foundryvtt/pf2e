@@ -9,7 +9,7 @@ export async function remigrate(schemaVersions: number | { from: number; to?: nu
         return;
     }
     const translations = LocalizePF2e.translations.PF2E.Migrations;
-    if (game.user.role != CONST.USER_ROLES.GAMEMASTER) {
+    if (game.user.role !== CONST.USER_ROLES.GAMEMASTER) {
         ui.notifications.error(game.i18n.localize(translations.OnlyGMCanUse));
         return;
     }

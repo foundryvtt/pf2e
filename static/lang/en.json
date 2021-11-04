@@ -1,12 +1,13 @@
 {
     "ACTOR": {
+        "TypeAnimalCompanion": "Animal Companion",
         "TypeCharacter": "Player Character",
+        "TypeEidolon": "Eidolon",
         "TypeFamiliar": "Familiar",
         "TypeHazard": "Hazard",
         "TypeLoot": "Loot",
         "TypeNpc": "Non-Player Character",
-        "TypeVehicle": "Vehicle",
-        "TypeAnimalcompanion": "Animal Companion"
+        "TypeVehicle": "Vehicle"
     },
     "ITEM": {
         "TypeAction": "Action",
@@ -18,6 +19,7 @@
         "TypeClass": "Class",
         "TypeCondition": "Condition",
         "TypeConsumable": "Consumable",
+        "TypeDeity": "Deity",
         "TypeEffect": "Effect",
         "TypeEquipment": "Equipment",
         "TypeFeat": "Feat",
@@ -644,8 +646,10 @@
                 "Antler": "Antler",
                 "Beak": "Beak",
                 "Beard": "Beard",
+                "Body": "Body",
                 "BoneShard": "Bone Shard",
                 "Boot": "Boot",
+                "Branch": "Branch",
                 "CubeFace": "Cube Face",
                 "Fangs": "Fangs",
                 "FireMote": "Fire Mote",
@@ -655,6 +659,7 @@
                 "Hoof": "Hoof",
                 "Horn": "Horn",
                 "HolyMace": "Holy Mace",
+                "Leaf": "Leaf",
                 "LightingLash": "Lightning Lash",
                 "Mandibles": "Mandibles",
                 "Moonbeam": "Moonbeam",
@@ -670,6 +675,7 @@
                 "Tentacle": "Tentacle",
                 "TentacleArm": "Tentacle Arm",
                 "Tongue": "Tongue",
+                "Vine": "Vine",
                 "Wave": "Wave",
                 "WaterSpout": "Water Spout",
                 "Wing": "Wing"
@@ -981,10 +987,15 @@
         "DetailsHeading": "Details",
         "DragDropFeats": "Drag & Drop feats to add",
         "Duration": {
+            "PT1M": "minute",
             "PT10M": "10 minutes",
             "PT1H": "hour",
             "PT24H": "24 hours",
-            "day": "day"
+            "day": "day",
+            "P1W": "week"
+        },
+        "Encounter": {
+            "ExcludingFromInitiative": "Excluding {type} {actor} from initiative."
         },
         "EditHazardLabel": "Edit Hazard?",
         "EditItemTitle": "Edit Item",
@@ -1091,6 +1102,9 @@
             "NamePrefix": "Formula of {name}",
             "NameUnknown": "Unknown Formula"
         },
+        "Frequency": {
+            "per": "per"
+        },
         "GenderPronoun": "Gender/Pronouns",
         "GenderPronounTitle": "Your gender/pronouns",
         "GeneralFeatLevels": "General Feat Levels",
@@ -1164,6 +1178,22 @@
                     "hellknight-plate": "Hellknight Plate"
                 }
             },
+            "Deity": {
+                "Alignment": "Alignment",
+                "FollowerAlignments": "Follower Alignments",
+                "DivineAbility": "Divine Ability",
+                "DivineSkill": "Divine Skill",
+                "Edicts": "Edicts",
+                "Anathema": "Anathema",
+                "AreasOfConcern": "Areas of Concern",
+                "DivineFont": {
+                    "Label": "Divine Font",
+                    "Harm": "Harm",
+                    "Heal": "Heal"
+                },
+                "FavoredWeapon": "Favored Weapon",
+                "ClericSpells": "Cleric Spells"
+            },
             "Effect": {
                 "Sustained": "Sustained",
                 "Expiry": {
@@ -1217,6 +1247,18 @@
                     "Title": "Material Composition and Runes",
                     "Hint": "Precious material and runes allow for in-depth customization of a weapon. Besides improving its ability to harm enemies, they also affect the weapon's level, rarity, price, and name. To suppress a weapon's renaming, give it any custom name or mark it as a <i>specific magic weapon</i>."
                 },
+                "MeleeUsage": {
+                    "Label": "Melee Usage",
+                    "Hint": "A combination weapon has a firearm form or usage and a melee weapon form or usage. Switching between the melee weapon usage and the firearm usage requires an Interact action. However, if your last action was a successful melee Strike against a foe using a combination weapon, you can make a firearm Strike with the combination weapon against that foe without fully switching to the firearm usage, firing the firearm just as you hit with the melee attack. In this case, the combination weapon returns to its melee usage after the firearm Strike.",
+                    "StrikeLabel": {
+                        "Ranged": "Ranged Strike: {weapon}",
+                        "Melee": "Melee Strike: {weapon}"
+                    }
+                },
+                "OtherTags": {
+                    "Label": "Other Tags",
+                    "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
+                },
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
@@ -1225,6 +1267,7 @@
         },
         "ItemActivate": {
             "Label": "Activate",
+            "Add": "Add Activation",
             "Command": "command",
             "Envision": "envision",
             "Interact": "Interact",
@@ -1239,6 +1282,7 @@
         "ItemBonusShortLabel": "Item",
         "ItemDescription": "Description",
         "ItemDetails": "Details",
+        "ItemLevel": "{type} {level}",
         "ItemMystified": "Mystified",
         "ItemMystification": "Mystification",
         "ItemNamePlaceholder": "Name",
@@ -1671,6 +1715,7 @@
             "BattleForm": "Battle Form",
             "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
+            "EffectTarget": "Effect Target",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
             "FlatModifier": "Flat Modifier",
@@ -1682,16 +1727,15 @@
             "Sense": "Sense",
             "Strike": "Strike",
             "Striking": "Striking",
-            "EffectTarget": "Effect Target",
+            "RecoveryCheckDC": "Recovery Check DC",
+            "Resistance": "Resistance",
+            "RollOption": "Roll Option",
             "TempHP": "Temporary Hit Points",
             "TempHPShortLabel": "Temp",
             "ToggleProperty": "Toggle Property",
             "TokenEffectIcon": "Token Effect Icon",
             "TokenImage": "Token Image",
             "TokenSize": "Token Size",
-            "RecoveryCheckDC": "Recovery Check DC",
-            "Resistance": "Resistance",
-            "RollOption": "Roll Option",
             "Weakness": "Weakness",
             "WeaponPotency": "Weapon Potency",
             "NewRuleElement": "New Rule Element",
@@ -2059,6 +2103,14 @@
         "SensesTitle": "Your character's senses",
         "SensesTremorsense": "Tremorsense",
         "SensesWavesense": "Wavesense",
+        "Sense": {
+            "Acuity": {
+                "Label": "Acuity",
+                "Precise": "Precise",
+                "Imprecise": "Imprecise",
+                "Vague": "Vague"
+            }
+        },
         "SettingsColorBlue": "Bluegray",
         "SettingsColorLabel": "UI Theme",
         "SettingsColorNotes": "UI themes are most visible on the sidebar and chat cards.",
@@ -2129,7 +2181,7 @@
         "SkillFeatLevels": "Skill Feat Levels",
         "SkillIncreaseLevels": "Skill Increase Levels",
         "Source": {
-            "AuthorLabel":"Author:",
+            "AuthorLabel":"Author",
             "AuthorPlaceholder": "Author",
             "Label": "Source",
             "SourcePlaceholder": "Book"
@@ -2190,7 +2242,6 @@
         "SpellCollectionRemove": "Remove from Spell Collection",
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
-        "SpellLevel": "{category} {level}",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -2240,6 +2291,8 @@
         "SpellsActionHeader": "Action",
         "SpellsSchoolHeader": "School",
         "StackGroupArrows": "Arrows",
+        "StackGroupRounds5": "Rounds (5)",
+        "StackGroupRounds10": "Rounds (10)",
         "StackGroupBlowgunDarts": "Blowgun Darts",
         "StackGroupBolts": "Bolts",
         "StackGroupCoins": "Coins",
@@ -2362,7 +2415,6 @@
         "TraitAlchemical": "Alchemical",
         "TraitAlchemist": "Alchemist",
         "TraitAll": "All",
-        "TraitAmmunition": "Ammunition",
         "TraitAmphibious": "Amphibious",
         "TraitAnadi": "Anadi",
         "TraitAndroid": "Android",
@@ -2379,7 +2431,6 @@
         "TraitArtifact": "Artifact",
         "TraitAstral": "Astral",
         "TraitAsura": "Asura",
-        "TraitAttached": "Attached",
         "TraitAttachedToShield": "Attached to Shield",
         "TraitAttachedToCrossbowOrFirearm": "Attached to Crossbow or Firearm",
         "TraitAttack": "Attack",
@@ -2466,9 +2517,10 @@
         "TraitDescriptionAasimar": "A creature with this trait is a member of the aasimar ancestry.",
         "TraitDescriptionAbjuration": "Effects and magic items with this trait are associated with the abjuration school of magic, typically involving protection or wards.",
         "TraitDescriptionAcid": "Effects with this trait deal acid damage. Creatures with this trait have a magical connection to acid.",
-        "TraitDescriptionAdditive1": "Feats with the additive trait allow you to spend actions to add special substances to bombs or elixirs. You can add only one additive to a single alchemical item, and attempting to add another spoils the item. You can typically use actions with the additive trait only when you're creating an infused alchemical item, and some can be used only with the Quick Alchemy action. The additive trait is always followed by a level, such as additive 2. An additive adds its level to the level of the alchemical item you're modifying; the result is the new level of the mixture. The mixture's item level must be no higher than your advanced alchemy level",
-        "TraitDescriptionAdditive2": "Feats with the additive trait allow you to spend actions to add special substances to bombs or elixirs. You can add only one additive to a single alchemical item, and attempting to add another spoils the item. You can typically use actions with the additive trait only when you're creating an infused alchemical item, and some can be used only with the Quick Alchemy action. The additive trait is always followed by a level, such as additive 2. An additive adds its level to the level of the alchemical item you're modifying; the result is the new level of the mixture. The mixture's item level must be no higher than your advanced alchemy level",
-        "TraitDescriptionAdditive3": "Feats with the additive trait allow you to spend actions to add special substances to bombs or elixirs. You can add only one additive to a single alchemical item, and attempting to add another spoils the item. You can typically use actions with the additive trait only when you're creating an infused alchemical item, and some can be used only with the Quick Alchemy action. The additive trait is always followed by a level, such as additive 2. An additive adds its level to the level of the alchemical item you're modifying; the result is the new level of the mixture. The mixture's item level must be no higher than your advanced alchemy level",
+        "TraitDescriptionAdditive": "Feats with the additive trait allow you to spend actions to add special substances to bombs or elixirs. You can add only one additive to a single alchemical item, and attempting to add another spoils the item. You can typically use actions with the additive trait only when you're creating an infused alchemical item, and some can be used only with the Quick Alchemy action. The additive trait is always followed by a level, such as additive 2. An additive adds its level to the level of the alchemical item you're modifying; the result is the new level of the mixture. The mixture's item level must be no higher than your advanced alchemy level",
+        "TraitDescriptionAeon": "These monitors are the self-styled defenders of reality. Traditional aeons have dualistic natures and forms, and they hold a dichotomy of interests, though axiomites and inevitables do not. Aeons other than axiomites and inevitables communicate via a strange telepathic hodgepodge of sensory sending called envisioning.",
+        "TraitDescriptionAesir": "Aesir are often-bellicose monitors of the chaotic planes, honing their skill in battle and preparing for a final confrontation at the end of the multiverse.",
+        "TraitDescriptionAgathion": "This family of animal-featured celestials is native to the plane of Nirvana. Most agathions are neutral good, have darkvision, and have a weakness to evil damage.",
         "TraitDescriptionAgile": "The multiple attack penalty you take with this weapon on the second attack on your turn is -4 instead of -5, and -8 instead of -10 on the third and subsequent attacks in the turn.",
         "TraitDescriptionAir": "Effects with the air trait either manipulate or conjure air. Those that manipulate air have no effect in a vacuum or an area without air. Creatures with this trait consist primarily of air or have a magical connection to that element.",
         "TraitDescriptionAlchemical": "Alchemical items are powered by reactions of alchemical reagents. Alchemical items aren't magical and don't radiate a magical aura.",
@@ -2576,6 +2628,7 @@
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
         "TraitDescriptionGood": "Good effects often manipulate energy from good-aligned Outer Planes and are antithetical to evil divine servants or divine servants of evil deities. A creature with this trait is good in alignment. An ability with this trait can be selected or used only by good creatures.",
         "TraitDescriptionGrapple": "You can use this weapon to Grapple with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Grapple using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
+        "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
         "TraitDescriptionGrippli": "Gripplis are a family of frog-like humanoids",
         "TraitDescriptionGunslinger": "This indicates abilities from the gunslinger class.",
         "TraitDescriptionHalfElf": "A creature with this trait is part human and part elf. An ability with this trait can be used or selected only by half-elves.",
@@ -3080,6 +3133,7 @@
         "TraitVanara": "Vanara",
         "TraitVelstrac": "Velstrac",
         "TraitVersatileB": "Versatile B",
+        "TraitVersatileFire": "Versatile Fire",
         "TraitVersatileHeritage": "Versatile Heritage",
         "TraitVersatileP": "Versatile P",
         "TraitVersatilePositive": "Versatile Positive",
@@ -3200,7 +3254,14 @@
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
             "shiftModifyDamageLabel": "Modifier:",
             "shiftModifyDamageTitle": "Modify the rolled damage/healing",
-            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal."
+            "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal.",
+            "RuleElements": {
+                "EffectTarget": {
+                    "NoSelectionMade": "No selection was made: {effect} is inactive.",
+                    "NoValidOptions": "{actor} has no valid targets for {effect}.",
+                    "Prompt": "Choose the target of this effect."
+                }
+            }
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
@@ -3226,9 +3287,13 @@
                 "air-repeater": "Air Repeater",
                 "arquebus": "Arquebus",
                 "arrows": "Arrows",
+                "axe-musket": "Axe Musket",
+                "asp-coil": "Asp Coil",
                 "bastard-sword": "Bastard Sword",
                 "battle-axe": "Battle Axe",
                 "battle-lute": "Battle Lute",
+                "big-boom-gun": "Big Boom Gun",
+                "black-powder-knuckle-dusters": "Black Powder Knuckle Dusters",
                 "bladed-diabolo": "Bladed Diabolo",
                 "bladed-hoop": "Bladed Hoop",
                 "bladed-scarf": "Bladed Scarf",
@@ -3243,6 +3308,8 @@
                 "butchering-axe": "Butchering Axe",
                 "butterfly-sword": "Butterfly Sword",
                 "buugeng": "Buugeng",
+                "cane-pistol": "Cane Pistol",
+                "chakram": "Chakram",
                 "clan-dagger": "Clan Dagger",
                 "clan-pistol": "Clan Pistol",
                 "claw": "Claw",
@@ -3254,6 +3321,7 @@
                 "composite-shortbow": "Composite Shortbow",
                 "crossbow": "Crossbow",
                 "dagger": "Dagger",
+                "dagger-pistol": "Dagger Pistol",
                 "daikyu": "Daikyu",
                 "dart": "Dart",
                 "dogslicer": "Dogslicer",
@@ -3266,6 +3334,7 @@
                 "dwarven-war-axe": "Dwarven War Axe",
                 "elven-branched-spear": "Elven Branched Spear",
                 "elven-curve-blade": "Elven Curve Blade",
+                "explosive-dogslicer": "Explosive Dogslicer",
                 "exquisite-sword-cane-sheath": "Exquisite Sword Cane Sheath",
                 "exquisite-sword-cane": "Exquisite Sword Cane",
                 "falchion": "Falchion",
@@ -3274,7 +3343,7 @@
                 "fighting-fan": "Fighting Fan",
                 "fighting-stick": "Fighting Stick",
                 "filchers-fork": "Filcher's Fork",
-                "fire-lance": "Fire lance",
+                "fire-lance": "Fire Lance",
                 "fire-poi": "Fire Poi",
                 "fist": "Fist",
                 "flail": "Flail",
@@ -3289,6 +3358,7 @@
                 "gauntlet": "Gauntlet",
                 "gill-hook": "Gill Hook",
                 "glaive": "Glaive",
+                "gnome-amalgam-musket": "Gnome Amalgam Musket",
                 "gnome-flickmace": "Gnome Flickmace",
                 "gnome-hooked-hammer": "Gnome Hooked Hammer",
                 "greataxe": "Greataxe",
@@ -3296,12 +3366,15 @@
                 "greatpick": "Greatpick",
                 "greatsword": "Greatsword",
                 "guisarme": "Guisarme",
+                "gun-sword": "Gun Sword",
                 "halberd": "Halberd",
                 "halfling-sling-staff": "Halfling Sling Staff",
+                "hammer-gun": "Hammer Gun",
                 "hand-adze": "Hand Adze",
                 "hand-crossbow": "Hand Crossbow",
                 "hatchet": "Hatchet",
                 "heavy-crossbow": "Heavy Crossbow",
+                "hongali-hornbow": "Hongali Hornbow",
                 "horsechopper": "Horsechopper",
                 "javelin": "Javelin",
                 "jaws": "Jaws",
@@ -3326,6 +3399,7 @@
                 "longspear": "Longspear",
                 "longsword": "Longsword",
                 "mace": "Mace",
+                "mace-multipistol": "Mace Multipistol",
                 "machete": "Machete",
                 "main-gauche": "Main-gauche",
                 "mambele": "Mambele",
@@ -3342,11 +3416,14 @@
                 "orc-knuckle-dagger": "Orc Knuckle Dagger",
                 "orc-necksplitter": "Orc Necksplitter",
                 "pepperbox": "Pepperbox",
+                "piercing-wind": "Piercing Wind",
                 "pick": "Pick",
+                "piranha-kiss": "Piranha Kiss",
                 "poi": "Poi",
                 "polytool": "Polytool",
                 "ranseur": "Ranseur",
                 "rapier": "Rapier",
+                "rapier-pistol": "Rapier Pistol",
                 "repeating-crossbow": "Repeating Crossbow",
                 "repeating-hand-crossbow": "Repeating Hand Crossbow",
                 "repeating-heavy-crossbow": "Repeating Heavy Crossbow",
@@ -3368,12 +3445,15 @@
                 "shortsword": "Shortsword",
                 "shuriken": "Shuriken",
                 "sickle": "Sickle",
+                "sickle-saber": "Sickle-saber",
                 "slide-pistol": "Slide Pistol",
                 "sling-bullets": "Sling Bullets",
                 "sling": "Sling",
                 "spear": "Spear",
                 "spiked-chain": "Spiked Chain",
                 "spiked-gauntlet": "Spiked Gauntlet",
+                "spiral-rapier": "Spiral Rapier",
+                "spoon-gun": "Spoon Gun",
                 "staff": "Staff",
                 "starknife": "Starknife",
                 "stiletto-pen": "Stiletto Pen",
@@ -3383,8 +3463,12 @@
                 "tekko-kagi": "Tekko-kagi",
                 "temple-sword": "Temple Sword",
                 "tengu-gale-blade": "Tengu Gale Blade",
+                "three-peaked-tree": "Three Peaked Tree",
                 "throwing-knife": "Throwing Knife",
                 "thunder-sling": "Thunder Sling",
+                "thundermace": "Thundermace",
+                "tonfa": "Tonfa",
+                "tri-bladed-katar": "Tri-bladed Katar",
                 "tricky-pick": "Tricky Pick",
                 "trident": "Trident",
                 "urumi": "Urumi",
@@ -3454,6 +3538,281 @@
         "WeaponPotencyRune4": "Weapon Potency (+4)",
         "WeaponPropertyCriticalDamageLabel": "Critical Damage",
         "WeaponPropertyCriticalEffectLabel": "Critical Effect",
+        "WeaponPropertyRune": {
+            "anarchic": {
+                "Name": "Anarchic Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Anarchic Rune</b> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
+                }
+            },
+            "ancestralEchoing": {
+                "Name": "Ancestral Echoing Rune"
+            },
+            "anchoring": {
+                "Name": "Anchoring Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Anchoring Rune</b> If you critically hit a target with an anchoring weapon, the weapon casts <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Anchoring Rune\" data-pf2-dc=\"27\">Will</span>, counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
+                }
+            },
+            "axiomatic": {
+                "Name": "Axiomatic Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Axiomatic Rune</b> When you critically succeed at an attack roll with this weapon against a chaotic creature, instead of rolling, count each weapon damage die as average damage rounded up (3 for d4, 4 for d6, 5 for d8, 6 for d10, 7 for d12)."
+                }
+            },
+            "bane": {
+                "Name": "Bane Rune"
+            },
+            "bloodbane": {
+                "Name": "Bloodbane Rune"
+            },
+            "bloodthirsty": {
+                "Name": "Bloodthirsty Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Bloodthirsty Rune</b> When you critically hit a target that's taking persistent bleed damage, your target becomes @Compendium[pf2e.conditionitems.Drained]{drained 1}."
+                }
+            },
+            "brilliant": {
+                "Name": "Brilliant Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Brilliant Rune</b> On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Brilliant Rune\" data-pf2-dc=\"29\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round."
+                }
+            },
+            "conducting": {
+                "Name": "Conducting Rune"
+            },
+            "corrosive": {
+                "Name": "Corrosive Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Corrosive Rune</b> On a critical hit, the target's armor (if any) takes [[/r {3d6}[acid] # Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                }
+            },
+            "crushing": {
+                "Name": "Crushing Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Crushing Rune</b> When you critically hit a target with this weapon, your target becomes @Compendium[pf2e.conditionitems.Clumsy]{clumsy 1} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                }
+            },
+            "cunning": {
+                "Name": "Cunning Rune"
+            },
+            "dancing": {
+                "Name": "Dancing Rune"
+            },
+            "disrupting": {
+                "Name": "Disrupting Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Disrupting Rune</b> On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                }
+            },
+            "energizing": {
+                "Name": "Energizing Rune"
+            },
+            "extending": {
+                "Name": "Extending Rune"
+            },
+            "fanged": {
+                "Name": "Fanged Rune"
+            },
+            "fearsome": {
+                "Name": "Fearsome Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Fearsome Rune</b> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 1}."
+                }
+            },
+            "flaming": {
+                "Name": "Flaming Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Flaming Rune</b> When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire} # Flaming Rune]]{1d10 persistent fire} damage."
+                }
+            },
+            "frost": {
+                "Name": "Frost Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Frost Rune</b> On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"24\">Fortitude</span> save."
+                }
+            },
+            "ghostTouch": {
+                "Name": "Ghost Touch Rune",
+                "Note": "<b>Ghost Touch Rune</b> The weapon can harm creatures without physical form. A ghost touch weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to ghost touch weapons. Incorporeal creatures can touch, hold, and wield ghost touch weapons (unlike most physical objects)."
+            },
+            "greaterAnchoring": {
+                "Name": "Greater Anchoring Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Anchoring Rune</b> When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Greater Anchoring Rune\" data-pf2-dc=\"38\">Will</span>, counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
+                    "success": "<b>Greater Anchoring Rune</b> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28})."
+                }
+            },
+            "greaterBloodbane": {
+                "Name": "Greater Bloodbane Rune"
+            },
+            "greaterBrilliant": {
+                "Name": "Greater Brilliant Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Brilliant Rune</b> Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Brilliant Rune\" data-pf2-dc=\"41\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round.",
+                    "success": "<b>Greater Brilliant Rune</b> Damage dealt by this weapon ignores the target's fire, good, or positive resistance."
+                }
+            },
+            "greaterCorrosive": {
+                "Name": "Greater Corrosive Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Corrosive Rune</b> The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r {6d6}[acid] # Corrosive Rune]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "success": "<b>Greater Corrosive Rune</b> The acid damage dealt by this weapon ignores the target's acid resistance."
+                }
+            },
+            "greaterCrushing": {
+                "Name": "Greater Crushing Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Crushing Rune</b> Your critical hits leave the target @Compendium[pf2e.conditionitems.Clumsy]{clumsy 2} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn."
+                }
+            },
+            "greaterDisrupting": {
+                "Name": "Greater Disrupting Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Disrupting Rune</b> On a critical hit the undead creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Greater Disrupting Rune\" data-pf2-dc=\"34\">Fortitude</span> save with the following effects. This is an incapacitation effect.<br /><br /><b>Critical Success</b> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn.<br /><b>Success</b> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn.<br /><b>Failure</b> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 3} until the end of your next turn.<br /><b>Critical Failure</b> It's destroyed."
+                }
+            },
+            "greaterExtending": {
+                "Name": "Greater Extending Rune"
+            },
+            "greaterFanged": {
+                "Name": "Greater Fanged Rune"
+            },
+            "greaterFearsome": {
+                "Name": "Greater Fearsome Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Fearsome Rune</b> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 2}."
+                }
+            },
+            "greaterFlaming": {
+                "Name": "Greater Flaming Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Flaming Rune</b> Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r {2d10}[persistent,fire} # Greater Flaming Rune]]{2d10 persistent fire} damage.",
+                    "success": "<b>Greater Flaming Rune</b> Fire damage dealt by this weapon ignores the target's fire resistance."
+                }
+            },
+            "greaterFrost": {
+                "Name": "Greater Frost Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Frost Rune</b> Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"34\">Fortitude</span> save.",
+                    "success": "<b>Greater Frost Rune</b> Cold damage dealt by this weapon ignores the target's cold resistance."
+                }
+            },
+            "greaterHauling": {
+                "Name": "Greater Hauling Rune"
+            },
+            "greaterImpactful": {
+                "Name": "Greater Impactful Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Impactful Rune</b> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Impactful Rune\" data-pf2-dc=\"37\">Fortitude</span> save or be pushed 10 feet away from you."
+                }
+            },
+            "greaterShock": {
+                "Name": "Greater Shock Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Shock Rune</b> Electricity damage dealt by this weapon ignores the targets electricity resistance (and the other creatures' on a critical hit). On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target.",
+                    "success": "<b>Greater Shock Rune</b> Electricity damage dealt by this weapon ignores the target's electricity resistance."
+                }
+            },
+            "greaterThundering": {
+                "Name": "Greater Thundering Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Greater Thundering Rune</b> Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Thundering Rune\" data-pf2-dc=\"34\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} permanently.",
+                    "success": "<b>Greater Thundering Rune</b> Sonic damage dealt by this weapon ignores the target's sonic resistance."
+                }
+            },
+            "grievous": {
+                "Name": "Grievous Rune",
+                "Note": {
+                    "Axe": "<b>Grievous Rune</b> You can damage a third creature, with the same restrictions.",
+                    "Bow": "<b>Grievous Rune</b> The Athletics check to pull the missile free is DC 20.",
+                    "Brawling": "<b>Grievous Rune</b> The target takes a –4 circumstance penalty to its save.",
+                    "Club": "<b>Grievous Rune</b> You can knock the target up to 15 feet away.",
+                    "Dart": "<b>Grievous Rune</b> The base persistent bleed damage increases to 2d6.",
+                    "Flail": "<b>Grievous Rune</b> You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
+                    "Hammer": "<b>Grievous Rune</b> You can also knock the target 5 feet away from you.",
+                    "Knife": "<b>Grievous Rune</b> The target takes a –5-foot status penalty to its Speed while it has the persistent bleed damage.",
+                    "Pick": "<b>Grievous Rune</b> The extra damage from the critical specialization effect increases to 4 per weapon damage die.",
+                    "Polearm": "<b>Grievous Rune</b> You can move the target up to 10 feet.",
+                    "Shield": "<b>Grievous Rune</b> You can knock the target up to 10 feet away.",
+                    "Sling": "<b>Grievous Rune</b> The target also takes a –10-foot status penalty to its Speed for 1 round if it fails the save.",
+                    "Spear": "<b>Grievous Rune</b> The clumsy condition lasts for 2 rounds.",
+                    "Sword": "<b>Grievous Rune</b> The target is flat-footed until the end of your next turn."
+                }
+            },
+            "hauling": {
+                "Name": "Hauling Rune"
+            },
+            "holy": {
+                "Name": "Holy Rune"
+            },
+            "hopeful": {
+                "Name": "Hopeful Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Hopeful Rune</b> On a critical hit with this weapon, you inspire your comrades, pushing them to fight harder and stand for your shared convictions. Allies within 30 feet that share at least one alignment component with you gain a +1 status bonus to attack rolls until the end of your next turn."
+                }
+            },
+            "impactful": {
+                "Name": "Impactful Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Impactful Rune</b> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Impactful Rune\" data-pf2-dc=\"27\">Fortitude</span> save or be pushed 5 feet away from you."
+                }
+            },
+            "keen": {
+                "Name": "Keen Rune",
+                "Note": "<b>Keen Rune</b> Attacks with this weapon are a critical hit on a 19 on the die as long as that result is a success. This property has no effect on a 19 if the result would be a failure."
+            },
+            "kinWarding": {
+                "Name": "Kin-Warding Rune"
+            },
+            "majorFanged": {
+                "Name": "Major Fanged Rune"
+            },
+            "pacifying": {
+                "Name": "Pacifying Rune"
+            },
+            "returning": {
+                "Name": "Returning Rune",
+                "Note": "<b>Returning Rune</b> When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
+            },
+            "serrating": {
+                "Name": "Serrating Rune"
+            },
+            "shifting": {
+                "Name": "Shifting Rune"
+            },
+            "shock": {
+                "Name": "Shock Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Shock Rune</b> On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
+                }
+            },
+            "speed": {
+                "Name": "Speed Rune"
+            },
+            "spellStoring": {
+                "Name": "Spell-Storing Rune"
+            },
+            "thundering": {
+                "Name": "Thundering Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Thundering Rune</b> On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Thundering Rune\" data-pf2-dc=\"24\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} for 1 minute (or 1 hour on a critical failure)."
+                }
+            },
+            "unholy": {
+                "Name": "Unholy Rune"
+            },
+            "vorpal": {
+                "Name": "Vorpal Rune"
+            },
+            "wounding": {
+                "Name": "Wounding Rune",
+                "Note": {
+                    "criticalSuccess": "<b>Wounding Rune</b> When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d12}[persistent,bleed] # Wounding Rune]]{1d12 persistent bleed} damage.",
+                    "success": "<b>Wounding Rune</b> When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed] # Wounding Rune]]{1d6 persistent bleed} damage."
+                }
+            }
+        },
         "WeaponPropertyRuneAnarchic": "Anarchic",
         "WeaponPropertyRuneAnchoring": "Anchoring",
         "WeaponPropertyRuneAncestralEchoing": "Ancestral Echoing",
@@ -3818,7 +4177,7 @@
         },
         "UnitedPaizoWorkers": {
             "Title": "Announcement: United Paizo Workers",
-            "ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc – publisher of the Pathfinder and Starfinder roleplaying games – are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America’s CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
+            "ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc – publisher of the Pathfinder and Starfinder roleplaying games – are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America's CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
             "PFSNote": "Note for Pathfinder Society players: In support of UPW, merchandise purchased from the union store will count in the Online PFS region for the <span class=\"hover\" title=\"When you use a Hero Point to reroll a check, add a +1 cirumstance bonus to the reroll\">Promotional Vestments</a> boon."
         },
         "identification": {

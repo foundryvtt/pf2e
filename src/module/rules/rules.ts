@@ -10,7 +10,7 @@ import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-c
 import { PF2DamageDiceRuleElement } from "./elements/damage-dice";
 import { PF2TogglePropertyRuleElement } from "./elements/toggle-property";
 import { PF2TokenImageRuleElement } from "./elements/token-image";
-import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
+import { BaseSpeedRuleElement } from "./elements/base-speed";
 import { SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { StrikeRuleElement } from "./elements/strike";
@@ -18,7 +18,6 @@ import { RollNoteRuleElement } from "./elements/roll-note";
 import { WeaponPotencyRuleElement } from "./elements/weapon-potency";
 import { PF2StrikingRuleElement } from "./elements/striking";
 import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
-import { PF2EffectTargetRuleElement } from "./elements/effect-target";
 import { ActorTraitsRuleElement } from "@module/rules/elements/actor-traits";
 import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
 import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
@@ -31,6 +30,7 @@ import { WeaknessRuleElement } from "./elements/iwr/weakness";
 import { ResistanceRuleElement } from "./elements/iwr/resistance";
 import { RollOptionRuleElement } from "./elements/roll-option";
 import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting-formula";
+import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
 
 /**
  * @category RuleElement
@@ -49,7 +49,7 @@ export class RuleElements {
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
         BattleForm: BattleFormRuleElement,
-        BaseSpeed: PF2BaseSpeedRuleElement,
+        BaseSpeed: BaseSpeedRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         Immunity: ImmunityRuleElement,
         RollOption: RollOptionRuleElement,
@@ -58,7 +58,7 @@ export class RuleElements {
         Striking: PF2StrikingRuleElement,
         Note: RollNoteRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
-        EffectTarget: PF2EffectTargetRuleElement,
+        EffectTarget: EffectTargetRuleElement,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
         Resistance: ResistanceRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,

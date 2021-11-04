@@ -1,5 +1,5 @@
 {
-    "_id": "iYiA6CMR1N2E2Ny2",
+    "_id": "ksNUlyRHFUSK9xmz",
     "data": {
         "baseItem": null,
         "brokenThreshold": {
@@ -12,10 +12,10 @@
             "value": false
         },
         "containerId": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "value": "<p>Made of waxed cotton or cork, earplugs give you a +1 item bonus to saves against effects with the auditory trait. The earplugs make it difficult to hear, however, imposing a -2 item penalty on Perception checks involving sound.</p>\n<p>Inserting or removing the earplugs requires an Interact action.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Earplugs]{Effect: Earplugs}</p>"
+            "value": "<p>These small pieces of cloth and stuffing have been crafted to dramatically muffle sound and easily slide into and out of the ear canals of humanoid creatures. You can insert or remove earplugs from your ears or a willing creature's ears with a single Interact action using one hand. They take a -2 circumstance penalty to all auditory Perception checks but also gain a +2 circumstance bonus to saving throws against auditory effects.</p>"
         },
         "equipped": {
             "value": false
@@ -43,7 +43,7 @@
             }
         },
         "invested": {
-            "value": false
+            "value": null
         },
         "level": {
             "value": 0
@@ -55,23 +55,46 @@
             "value": "0"
         },
         "preciousMaterial": {
-            "value": ""
+            "value": null
         },
         "preciousMaterialGrade": {
-            "value": ""
+            "value": null
         },
         "price": {
-            "value": "1 cp"
+            "value": "1 sp"
         },
         "quantity": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "auditory"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "auditory"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
         "size": {
             "value": "med"
         },
         "source": {
-            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
+            "value": "Pathfinder Guns & Gears"
         },
         "stackGroup": {
             "value": ""
@@ -84,7 +107,7 @@
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         },
         "weight": {
             "value": "-"
@@ -92,7 +115,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/earplugs.webp",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
     "name": "Earplugs",
     "type": "equipment"
 }

@@ -8,12 +8,15 @@ import {
     PreciousMaterialType,
 } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
-import type { LocalizePF2e } from "@module/system/localize";
+import type { LocalizePF2e } from "@system/localize";
 import { OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
-import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
+import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { ItemFlagsPF2e } from "@item/data/base";
 
-export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemData>;
+export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
+    flags: DeepPartial<WeaponFlags>;
+}
 
 export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
@@ -21,15 +24,27 @@ export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
 
 export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
     type: WeaponSource["type"];
-    data: WeaponSource["data"];
+    data: WeaponSystemData;
+    flags: WeaponFlags;
     readonly _source: WeaponSource;
 }
 
+type WeaponFlags = ItemFlagsPF2e & {
+    pf2e: {
+        comboMeleeUsage: boolean;
+    };
+};
+
 export type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
-type WeaponTraits = PhysicalItemTraits<WeaponTrait>;
+interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
+    otherTags?: OtherWeaponTag[];
+}
+type WeaponTraits = Required<WeaponSourceTraits>;
 
 export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
-export type WeaponGroup = keyof ConfigPF2e["PF2E"]["weaponGroups"];
+export type WeaponGroup = typeof WEAPON_GROUPS[number];
+export type MeleeWeaponGroup = typeof MELEE_WEAPON_GROUPS[number];
+export type RangedWeaponGroup = typeof RANGED_WEAPON_GROUPS[number];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {
@@ -42,7 +57,7 @@ export interface WeaponDamage {
 
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
-export type WeaponPropertyRuneType = typeof WEAPON_PROPERTY_RUNE_TYPES[number];
+export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
 export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
@@ -57,6 +72,7 @@ type SpecificWeaponData =
       }
     | {
           value: true;
+          price: string;
           material: {
               type: WeaponMaterialType;
               grade: PreciousMaterialGrade;
@@ -68,8 +84,8 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-interface WeaponSystemData extends MagicItemSystemData {
-    traits: WeaponTraits;
+export interface WeaponSystemSource extends MagicItemSystemData {
+    traits: WeaponSourceTraits;
     weaponType: {
         value: WeaponCategory;
     };
@@ -102,7 +118,9 @@ interface WeaponSystemData extends MagicItemSystemData {
     MAP: {
         value: string;
     };
-    // Whether the weapon is a "specific magic weapon"
+    /** A combination weapon's melee usage */
+    meleeUsage?: ComboWeaponMeleeUsage;
+    /** Whether the weapon is a "specific magic weapon" */
     specific?: SpecificWeaponData;
     potencyRune: {
         value: OneToFour | null;
@@ -116,11 +134,6 @@ interface WeaponSystemData extends MagicItemSystemData {
     propertyRune4: WeaponPropertyRuneSlot;
     preciousMaterial: {
         value: WeaponMaterialType | null;
-    };
-    runes: {
-        potency: number;
-        striking: ZeroToThree;
-        property: WeaponPropertyRuneType[];
     };
 
     // Refers to custom damage, *not* property runes
@@ -137,4 +150,50 @@ interface WeaponSystemData extends MagicItemSystemData {
     selectedAmmoId?: string;
 }
 
+export interface WeaponSystemData extends WeaponSystemSource {
+    traits: WeaponTraits;
+    runes: {
+        potency: number;
+        striking: ZeroToThree;
+        property: WeaponPropertyRuneType[];
+    };
+}
+
+interface ComboWeaponMeleeUsage {
+    damage: { type: DamageType; die: string };
+    group: MeleeWeaponGroup;
+    traits: WeaponTrait[];
+}
+
+export type OtherWeaponTag = "crossbow" | "ghost-touch";
+
 export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
+
+export const MELEE_WEAPON_GROUPS = [
+    "axe",
+    "brawling",
+    "club",
+    "flail",
+    "hammer",
+    "knife",
+    "pick",
+    "polearm",
+    "shield",
+    "spear",
+    "sword",
+] as const;
+
+export const RANGED_WEAPON_GROUPS = ["bomb", "bow", "dart", "firearm", "sling"] as const;
+
+export const WEAPON_GROUPS = [...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const;
+
+// Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
+export const CROSSBOW_WEAPONS = new Set([
+    "alchemical-crossbow",
+    "crossbow",
+    "hand-crossbow",
+    "heavy-crossbow",
+    "repeating-crossbow",
+    "repeating-hand-crossbow",
+    "repeating-heavy-crossbow",
+] as const);

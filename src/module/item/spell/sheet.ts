@@ -15,19 +15,16 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
-        const levelLabel = (() => {
-            const category =
-                this.item.isCantrip && this.item.isFocusSpell
-                    ? game.i18n.localize("PF2E.SpellCategoryFocusCantrip")
-                    : this.item.isCantrip
-                    ? game.i18n.localize("PF2E.TraitCantrip")
-                    : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
-            return game.i18n.format("PF2E.SpellLevel", { category, level: this.item.level });
-        })();
+        const itemType =
+            this.item.isCantrip && this.item.isFocusSpell
+                ? game.i18n.localize("PF2E.SpellCategoryFocusCantrip")
+                : this.item.isCantrip
+                ? game.i18n.localize("PF2E.TraitCantrip")
+                : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
 
         return {
             ...data,
-            levelLabel,
+            itemType,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
@@ -66,19 +63,22 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         html.find("[data-action='damage-create']").on("click", (event) => {
             event.preventDefault();
-            const damage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
+            const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({
-                "data.damage.value": { ...this.item.damage.concat(damage) },
+                [`data.damage.value.${randomID()}`]: emptyDamage,
             });
         });
 
         html.find("[data-action='damage-delete']").on("click", (event) => {
             event.preventDefault();
-            const idx = Number($(event.target).closest("[data-action='damage-delete']").attr("data-idx"));
-            const data = this.item.toObject();
-            delete data.data.damage.value[idx];
-            data.data.damage.value = { ...Object.values(data.data.damage.value) };
-            this.item.update(data, { recursive: false, diff: false });
+            const id = $(event.target).closest("[data-action='damage-delete']").attr("data-id");
+            if (id) {
+                const values = { [`data.damage.value.-=${id}`]: null };
+                if (this.item.data.data.scaling) {
+                    values[`data.scaling.damage.-=${id}`] = null;
+                }
+                this.item.update(values);
+            }
         });
 
         html.find("[data-action='scaling-create']").on("click", (event) => {

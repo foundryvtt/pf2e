@@ -76,6 +76,22 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.hitPoints.value <= this.brokenThreshold;
     }
 
+    /** Generate a list of strings for use in predication */
+    override getContextStrings(prefix = "armor"): string[] {
+        return super.getContextStrings(prefix).concat(
+            Object.entries({
+                [`category:${this.category}`]: true,
+                [`group:${this.group}`]: !!this.group,
+                [`base:${this.baseType}`]: !!this.baseType,
+            })
+                .filter(([_key, isTrue]) => isTrue)
+                .map(([key]) => {
+                    const separatedPrefix = prefix ? `${prefix}:` : "";
+                    return `${separatedPrefix}${key}`;
+                })
+        );
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 

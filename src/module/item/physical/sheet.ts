@@ -14,6 +14,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         return {
             ...sheetData,
+            itemType: game.i18n.localize("PF2E.ItemTitle"),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
@@ -21,6 +22,9 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 action,
                 id: action.id,
                 base: `data.activations.${action.id}`,
+                traits: this.prepareOptions(CONFIG.PF2E.actionTraits, action.traits ?? { value: [] }, {
+                    selectedOnly: true,
+                }),
             })),
         };
     }
@@ -28,7 +32,26 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
     override activateListeners($html: JQuery<HTMLElement>) {
         super.activateListeners($html);
 
-        $html.find("[data-action='usage-add']").on("click", (event) => {
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
+            $input.val(baseValue).attr({ name: propertyPath, type: "number" });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
+            const preparedValue = Number(getProperty(this.item.data, propertyPath)) || 0;
+            const newValue = Number($input.val()) || 0;
+            if (newValue === baseValue) {
+                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+            }
+        });
+
+        $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
             const id = randomID(16);
             const action: ItemActivation = {
@@ -37,13 +60,14 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 components: { command: false, envision: false, interact: false, cast: false },
                 description: { value: "" },
                 frequency: { value: 0, max: 0, duration: null },
+                traits: { value: [], custom: "" },
             };
             this.item.update({ [`data.activations.${id}`]: action });
         });
 
-        $html.find("[data-action='usage-delete']").on("click", (event) => {
+        $html.find("[data-action=activation-delete]").on("click", (event) => {
             event.preventDefault();
-            const id = $(event.target).closest("[data-action='usage-delete']").attr("data-action-id") ?? "";
+            const id = $(event.target).closest("[data-action=activation-delete]").attr("data-action-id") ?? "";
             const isLast = Object.values(this.item.data.data.activations ?? []).length === 1;
             if (isLast && id in (this.item.data.data.activations ?? {})) {
                 this.item.update({ "data.-=activations": null });

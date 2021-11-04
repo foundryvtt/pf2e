@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "40 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "40"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "details": {
@@ -142,9 +143,21 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "not": [
+                                "crocodileLegs",
+                                "snakeTail"
+                            ]
+                        },
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -186,9 +199,20 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Reach 10 feet with Shift Form - Snake Tail</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "snakeTail"
+                            ]
+                        },
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -258,25 +282,25 @@
             "type": "action"
         },
         {
-            "_id": "4WwWjUOGDnJncjWj",
+            "_id": "sRHkNxD3UkLsrrJp",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>As Attack of Opportunity, but both the bunyip and the triggering creature must be in water.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -295,10 +319,110 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "s4VdQZkBvye1Qm6o",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 100 feet",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "zbg9eaOONakDkuma",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<div data-visibility=\"gm\">\n<p>As Attack of Opportunity, but both the bunyip and the triggering creature must be in water.</p>\n<hr />\n</div>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Aquatic Opportunity",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -314,12 +438,44 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The bunyip is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy. <strong>Trigger</strong> The bunyip deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The bunyip flies into a frenzy that lasts 1 minute. While frenzied, the bunyip gains a [[/r +4 # status bonus to damage]] status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The bunyip is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy.</p>\n<p><strong>Trigger</strong> The bunyip deals bleed damage to a living creature.</p>\n</div>\n<p><strong>Effect</strong> The bunyip flies into a frenzy that lasts 1 minute. While frenzied, the bunyip gains a +4 status bonus to damage rolls with its jaws, gains 8 temporary HP that go away at the end of the frenzy, and takes a -2 penalty to AC.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Blood Frenzy]{Effect: Blood Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "bloodFrenzy"
+                            ]
+                        },
+                        "selector": "jaws-damage",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "bloodFrenzy"
+                            ]
+                        },
+                        "roll-options": [
+                            "ac",
+                            "all"
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.custom.modifiers.frenzyMod",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -340,9 +496,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Blood Frenzy",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -358,7 +514,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within 100 feet must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"auditory,concentrate,emotion,enchantment,fear,mental,primal\" data-pf2-label=\"Roar DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (frightened 3 on a critical failure, frightened 1 on a success, or unaffected on a critical success). No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
+                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within @Template[type:emanation|distance:100]{100 feet} must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"auditory,concentrate,emotion,enchantment,fear,mental,primal\" data-pf2-label=\"Roar DC\" data-pf2-show-dc=\"gm\">Will</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure,@Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a success, or unaffected on a critical success)</span>.</p>\n<p data-visibility=\"gm\">No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -392,9 +548,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Roar",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -410,12 +566,23 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A bunyip can alter its form slightly to gain an advantage and make it harder to recognize. When it does, its teeth shrink and its Jaws Strike doesn't deal the [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. It can choose to gain either a long snake tail, granting its tail Strike reach 10 feet and Grab, or squat crocodile legs, increasing its land Speed to 20 feet. If it uses Shift Form again, the bunyip can return to normal or switch between a long tail or crocodile legs.</p>"
+                    "value": "<p>A bunyip can alter its form slightly to gain an advantage and make it harder to recognize. When it does, its teeth shrink and its Jaws Strike doesn't deal the [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. It can choose to gain either a long snake tail, granting its tail Strike reach 10 feet and Grab, or squat crocodile legs, increasing its land Speed to 20 feet. If it uses Shift Form again, the bunyip can return to normal or switch between a long tail or crocodile legs.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Shift Form - Snake Tail",
+                        "property": "flags.pf2e.rollOptions.attack-roll.snakeTail"
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Shift Form - Crocodile Legs",
+                        "property": "flags.pf2e.rollOptions.attack-roll.crocodileLegs"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -439,13 +606,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shift Form",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "kRSvlKKKXWDrwZMQ",
+            "_id": "IMpBIf5BEP977DCn",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -457,13 +624,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -482,10 +649,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -520,7 +691,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -555,7 +726,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -590,7 +761,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

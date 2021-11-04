@@ -52,14 +52,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
+                "action",
+                "armor",
                 "book",
                 "consumable",
+                "deity",
                 "equipment",
                 "feat",
                 "spell",
                 "weapon",
-                "armor",
-                "action",
                 "melee",
                 "backpack",
                 "condition",
@@ -109,7 +110,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 attackEffectOptions[key] = consumable.name;
             });
             data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
-            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
+            data.traits = this.prepareOptions(CONFIG.PF2E.npcAttackTraits, data.data.traits, { selectedOnly: true });
         } else if (itemData.type === "condition") {
             // Condition types
 
@@ -177,6 +178,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const isEditable = this.isEditable;
         return {
+            itemType: null,
             hasSidebar: false,
             hasDetails: true,
             cssClass: isEditable ? "editable" : "locked",
@@ -252,12 +254,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Prepare form options on the item sheet */
     protected prepareOptions(
         options: Record<string, string>,
-        selections: SheetSelections,
-        { selectedOnly = false }: { selectedOnly?: boolean } = { selectedOnly: false }
+        selections: SheetSelections | (string[] & { custom?: never }),
+        { selectedOnly = false } = {}
     ): SheetOptions {
         const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
-            const key = typeof selections.value[0] === "number" ? Number(stringKey) : stringKey;
-            const isSelected = selections.value.includes(key);
+            const selectionList = Array.isArray(selections) ? selections : selections.value;
+            const key = typeof selectionList[0] === "number" ? Number(stringKey) : stringKey;
+            const isSelected = selectionList.includes(key);
             if (isSelected || !selectedOnly) {
                 compiledOptions[key] = {
                     label,

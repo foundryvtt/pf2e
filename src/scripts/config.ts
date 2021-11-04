@@ -8,6 +8,7 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     ContainerPF2e,
+    DeityPF2e,
     EffectPF2e,
     EquipmentPF2e,
     FeatPF2e,
@@ -23,7 +24,7 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
-import { WeaponPropertyRuneType } from "@item/weapon/data";
+import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageCategory, DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
@@ -32,8 +33,28 @@ import { MagicSchool } from "@item/spell/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
+import { ActorType } from "@actor/data";
+import { SenseAcuity } from "@actor/creature/data";
+import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import enJSON from "../../static/lang/en.json";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+
+const actorTypes: Record<ActorType, string> = {
+    character: "ACTOR.TypeCharacter",
+    familiar: "ACTOR.TypeFamiliar",
+    hazard: "ACTOR.TypeHazard",
+    loot: "ACTOR.TypeLoot",
+    npc: "ACTOR.TypeNpc",
+    vehicle: "ACTOR.TypeVehicle",
+};
+
+// Sense acuity
+const senseAcuity: Record<SenseAcuity, string> = {
+    imprecise: "PF2E.Sense.Acuity.Imprecise",
+    precise: "PF2E.Sense.Acuity.Precise",
+    vague: "PF2E.Sense.Acuity.Vague",
+};
 
 // Ancestry and heritage traits
 const ancestryTraits = {
@@ -329,6 +350,14 @@ const weaponCategories = {
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
 
+const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseWeaponType, string>
+);
+
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
     {} as Record<typeof RANGE_TRAITS[number], string>
@@ -342,6 +371,9 @@ const traitsDescriptions = {
     aberration: "PF2E.TraitDescriptionAberration",
     agile: "PF2E.TraitDescriptionAgile",
     aasimar: "PF2E.TraitDescriptionAasimar",
+    aeon: "PF2E.TraitDescriptionAeon",
+    aesir: "PF2E.TraitDescriptionAesir",
+    agathion: "PF2E.TraitDescriptionAgathion",
     anadi: "PF2E.TraitDescriptionAnadi",
     android: "PF2E.TraitDescriptionAndroid",
     artifact: "PF2E.TraitDescriptionArtifact",
@@ -397,6 +429,7 @@ const traitsDescriptions = {
     goloma: "PF2E.TraitDescriptionGoloma",
     grapple: "PF2E.TraitDescriptionGrapple",
     grippli: "PF2E.TraitDescriptionGrippli",
+    grimoire: "PF2E.TraitDescriptionGrimoire",
     halfling: "PF2E.TraitDescriptionHalfling",
     hampering: "PF2E.TraitDescriptionHampering",
     hobgoblin: "PF2E.TraitDescriptionHobgoblin",
@@ -450,6 +483,7 @@ const traitsDescriptions = {
     "versatile-b": "PF2E.TraitDescriptionVersatile",
     "versatile-p": "PF2E.TraitDescriptionVersatile",
     "versatile-positive": "PF2E.TraitDescriptionVersatile",
+    "versatile-fire": "PF2E.TraitDescriptionVersatile",
     "versatile-s": "PF2E.TraitDescriptionVersatile",
     "volley-20": "PF2E.TraitDescriptionVolley",
     "volley-30": "PF2E.TraitDescriptionVolley",
@@ -493,6 +527,7 @@ const traitsDescriptions = {
     reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
     "reload-1": "PF2E.TraitDescriptionReload",
+    "reload-1-min": "PF2E.TraitDescriptionReload",
     "reload-2": "PF2E.TraitDescriptionReload",
     revelation: "PF2E.TraitDescriptionRevelation",
     "scatter-5": "PF2E.TraitDescriptionScatter",
@@ -516,9 +551,9 @@ const traitsDescriptions = {
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
     human: "PF2E.TraitDescriptionHuman",
     manipulate: "PF2E.TraitDescriptionManipulate",
-    additive1: "PF2E.TraitDescriptionAdditive1",
-    additive2: "PF2E.TraitDescriptionAdditive2",
-    additive3: "PF2E.TraitDescriptionAdditive3",
+    additive1: "PF2E.TraitDescriptionAdditive",
+    additive2: "PF2E.TraitDescriptionAdditive",
+    additive3: "PF2E.TraitDescriptionAdditive",
     alchemical: "PF2E.TraitDescriptionAlchemical",
     aphorite: "PF2E.TraitDescriptionAphorite",
     archetype: "PF2E.TraitDescriptionArchetype",
@@ -821,12 +856,12 @@ const spellTraits = {
 };
 
 const consumableTraits = {
-    ...damageTypes,
+    ...damageTraits,
+    ...elementalTraits,
     ...magicSchools,
     ...magicTraditions,
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
-    ammunition: "PF2E.TraitAmmunition",
     auditory: "PF2E.TraitAuditory",
     catalyst: "PF2E.TraitCatalyst",
     clockwork: "PF2E.TraitClockwork",
@@ -836,6 +871,7 @@ const consumableTraits = {
     elixir: "PF2E.TraitElixir",
     emotion: "PF2E.TraitEmotion",
     fear: "PF2E.TraitFear",
+    fey: "PF2E.TraitFey",
     fortune: "PF2E.TraitFortune",
     fulu: "PF2E.TraitFulu",
     gadget: "PF2E.TraitGadget",
@@ -946,6 +982,30 @@ const featTraits = {
     reckless: "PF2E.TraitReckless",
 };
 
+const meleeWeaponGroups: Record<MeleeWeaponGroup, string> = {
+    axe: "PF2E.WeaponGroupAxe",
+    brawling: "PF2E.WeaponGroupBrawling",
+    club: "PF2E.WeaponGroupClub",
+    flail: "PF2E.WeaponGroupFlail",
+    hammer: "PF2E.WeaponGroupHammer",
+    knife: "PF2E.WeaponGroupKnife",
+    pick: "PF2E.WeaponGroupPick",
+    polearm: "PF2E.WeaponGroupPolearm",
+    shield: "PF2E.WeaponGroupShield",
+    spear: "PF2E.WeaponGroupSpear",
+    sword: "PF2E.WeaponGroupSword",
+};
+
+const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
+    bomb: "PF2E.WeaponGroupBomb",
+    bow: "PF2E.WeaponGroupBow",
+    dart: "PF2E.WeaponGroupDart",
+    firearm: "PF2E.WeaponGroupFirearm",
+    sling: "PF2E.WeaponGroupSling",
+};
+
+const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
+
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
@@ -956,7 +1016,6 @@ const weaponTraits = {
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
-    attached: "PF2E.TraitAttached",
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
@@ -968,6 +1027,7 @@ const weaponTraits = {
     "capacity-5": "PF2E.TraitCapacity5",
     climbing: "PF2E.TraitClimbing",
     clockwork: "PF2E.TraitClockwork",
+    cobbled: "PF2E.TraitCobbled",
     combination: "PF2E.TraitCombination",
     concealable: "PF2E.TraitConcealable",
     concentrate: "PF2E.TraitConcentrate",
@@ -1057,10 +1117,16 @@ const weaponTraits = {
     "versatile-s": "PF2E.TraitVersatileS",
     "versatile-p": "PF2E.TraitVersatileP",
     "versatile-positive": "PF2E.TraitVersatilePositive",
+    "versatile-fire": "PF2E.TraitVersatileFire",
     "versatile-b": "PF2E.TraitVersatileB",
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+};
+
+const otherWeaponTags = {
+    crossbow: "PF2E.Weapon.Base.crossbow",
+    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -1096,62 +1162,10 @@ const actionTraits = {
     ...npcAttackTraits,
 };
 
-const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
-    kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
-    returning: "PF2E.WeaponPropertyRuneReturning",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
-    disrupting: "PF2E.WeaponPropertyRuneDisrupting",
-    pacifying: "PF2E.WeaponPropertyRunePacifying",
-    fearsome: "PF2E.WeaponPropertyRuneFearsome",
-    shifting: "PF2E.WeaponPropertyRuneShifting",
-    conducting: "PF2E.WeaponPropertyRuneConducting",
-    wounding: "PF2E.WeaponPropertyRuneWounding",
-    bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
-    corrosive: "PF2E.WeaponPropertyRuneCorrosive",
-    cunning: "PF2E.WeaponPropertyRuneCunning",
-    flaming: "PF2E.WeaponPropertyRuneFlaming",
-    frost: "PF2E.WeaponPropertyRuneFrost",
-    shock: "PF2E.WeaponPropertyRuneShock",
-    thundering: "PF2E.WeaponPropertyRuneThundering",
-    grievous: "PF2E.WeaponPropertyRuneGrievous",
-    serrating: "PF2E.WeaponPropertyRuneSerrating",
-    anarchic: "PF2E.WeaponPropertyRuneAnarchic",
-    axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
-    holy: "PF2E.WeaponPropertyRuneHoly",
-    unholy: "PF2E.WeaponPropertyRuneUnholy",
-    greaterFearsome: "PF2E.WeaponPropertyRuneGreaterFearsome",
-    dancing: "PF2E.WeaponPropertyRuneDancing",
-    spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
-    greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
-    keen: "PF2E.WeaponPropertyRuneKeen",
-    greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
-    greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
-    greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
-    greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
-    greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
-    greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    speed: "PF2E.WeaponPropertyRuneSpeed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
-    bane: "PF2E.WeaponPropertyRuneBane",
-    brilliant: "PF2E.WeaponPropertyRuneBrilliant",
-    extending: "PF2E.WeaponPropertyRuneExtending",
-    greaterBrilliant: "PF2E.WeaponPropertyRuneGreaterBrilliant",
-    greaterExtending: "PF2E.WeaponPropertyRuneGreaterExtending",
-    greaterImpactful: "PF2E.WeaponPropertyRuneGreaterImpactful",
-    impactful: "PF2E.WeaponPropertyRuneImpactful",
-    energizing: "PF2E.WeaponPropertyRuneEnergizing",
-    bloodthirsty: "PF2E.WeaponPropertyRuneBloodthirsty",
-    crushing: "PF2E.WeaponPropertyRuneCrushing",
-    greaterCrushing: "PF2E.WeaponPropertyRuneGreaterCrushing",
-    anchoring: "PF2E.WeaponPropertyRuneAnchoring",
-    greaterAnchoring: "PF2E.WeaponPropertyRuneGreaterAnchoring",
-    hauling: "PF2E.WeaponPropertyRuneHauling",
-    greaterHauling: "PF2E.WeaponPropertyRuneGreaterHauling",
-    hopeful: "PF2E.WeaponPropertyRuneHopeful",
-    fanged: "PF2E.WeaponPropertyRuneFanged",
-    greaterFanged: "PF2E.WeaponPropertyRuneGreaterFanged",
-    majorFanged: "PF2E.WeaponPropertyRuneMajorFanged",
+const weaponPropertyRunes: Record<string, string> = {
+    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {}),
 };
 
 // Creature and Equipment Sizes
@@ -1363,11 +1377,13 @@ export const PF2ECONFIG = {
     resistanceTypes,
 
     stackGroups: {
-        bolts: "PF2E.StackGroupBolts",
         arrows: "PF2E.StackGroupArrows",
+        bolts: "PF2E.StackGroupBolts",
         slingBullets: "PF2E.StackGroupSlingBullets",
         blowgunDarts: "PF2E.StackGroupBlowgunDarts",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
+        rounds5: "PF2E.StackGroupRounds5",
+        rounds10: "PF2E.StackGroupRounds10",
         rations: "PF2E.StackGroupRations",
         coins: "PF2E.StackGroupCoins",
         gems: "PF2E.StackGroupGems",
@@ -1391,24 +1407,11 @@ export const PF2ECONFIG = {
     weaponCategories,
     weaponTypes: weaponCategories,
 
-    weaponGroups: {
-        axe: "PF2E.WeaponGroupAxe",
-        bomb: "PF2E.WeaponGroupBomb",
-        brawling: "PF2E.WeaponGroupBrawling",
-        bow: "PF2E.WeaponGroupBow",
-        club: "PF2E.WeaponGroupClub",
-        dart: "PF2E.WeaponGroupDart",
-        firearm: "PF2E.WeaponGroupFirearm",
-        flail: "PF2E.WeaponGroupFlail",
-        hammer: "PF2E.WeaponGroupHammer",
-        knife: "PF2E.WeaponGroupKnife",
-        pick: "PF2E.WeaponGroupPick",
-        polearm: "PF2E.WeaponGroupPolearm",
-        shield: "PF2E.WeaponGroupShield",
-        sling: "PF2E.WeaponGroupSling",
-        spear: "PF2E.WeaponGroupSpear",
-        sword: "PF2E.WeaponGroupSword",
-    },
+    weaponGroups,
+    meleeWeaponGroups,
+    rangedWeaponGroups,
+
+    baseWeaponTypes,
 
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
@@ -1490,6 +1493,7 @@ export const PF2ECONFIG = {
     ancestryItemTraits,
 
     weaponTraits,
+    otherWeaponTags,
 
     armorTraits: {
         ...magicSchools,
@@ -1512,63 +1516,50 @@ export const PF2ECONFIG = {
     },
 
     equipmentTraits: {
+        ...alignmentTraits,
         ...ancestryTraits,
+        ...elementalTraits,
+        ...energyDamageTypes,
         ...magicSchools,
         ...magicTraditions,
-        ...sizeTypes,
-        acid: "PF2E.TraitAcid",
         adjustment: "PF2E.TraitAdjustment",
-        air: "PF2E.TraitAir",
         alchemical: "PF2E.TraitAlchemical",
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         auditory: "PF2E.TraitAuditory",
         aura: "PF2E.TraitAura",
-        chaotic: "PF2E.TraitChaotic",
         clockwork: "PF2E.TraitClockwork",
-        cobbled: "PF2E.TraitCobbled",
         companion: "PF2E.TraitCompanion",
-        cold: "PF2E.TraitCold",
         contract: "PF2E.TraitContract",
         cursed: "PF2E.TraitCursed",
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
-        earth: "PF2E.TraitEarth",
         eidolon: "PF2E.TraitEidolon",
-        electricity: "PF2E.TraitElectricity",
         emotion: "PF2E.TraitEmotion",
-        evil: "PF2E.TraitEvil",
         extradimensional: "PF2E.TraitExtradimensional",
         fear: "PF2E.TraitFear",
-        fire: "PF2E.TraitFire",
         focused: "PF2E.TraitFocused",
-        force: "PF2E.TraitForce",
         fortune: "PF2E.TraitFortune",
         fulu: "PF2E.TraitFulu",
         gadget: "PF2E.TraitGadget",
-        good: "PF2E.TraitGood",
         grimoire: "PF2E.TraitGrimoire",
         healing: "PF2E.TraitHealing",
         infused: "PF2E.TraitInfused",
         intelligent: "PF2E.TraitIntelligent",
         invested: "PF2E.TraitInvested",
-        lawful: "PF2E.TraitLawful",
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
         mental: "PF2E.TraitMental",
         misfortune: "PF2E.TraitMisfortune",
         mounted: "PF2E.TraitMounted",
-        negative: "PF2E.TraitNegative",
         nonlethal: "PF2E.TraitNonlethal",
         plant: "PF2E.TraitPlant",
         poison: "PF2E.TraitPoison",
         portable: "PF2E.TraitPortable",
-        positive: "PF2E.TraitPositive",
         precious: "PF2E.TraitPrecious",
         revelation: "PF2E.TraitRevelation",
         saggorak: "PF2E.TraitSaggorak",
         scrying: "PF2E.TraitScrying",
-        sonic: "PF2E.TraitSonic",
         spellheart: "PF2E.TraitSpellheart",
         staff: "PF2E.TraitStaff",
         steam: "PF2E.TraitSteam",
@@ -1577,7 +1568,6 @@ export const PF2ECONFIG = {
         teleportation: "PF2E.TraitTeleportation",
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
-        water: "PF2E.TraitWater",
         worn: "PF2E.TraitWorn",
     },
 
@@ -1646,7 +1636,6 @@ export const PF2ECONFIG = {
 
     weaponRange: {
         melee: "PF2E.WeaponRangeMelee",
-        reach: "PF2E.WeaponRangeReach",
         10: "PF2E.WeaponRange10",
         20: "PF2E.WeaponRange20",
         30: "PF2E.WeaponRange30",
@@ -1662,7 +1651,7 @@ export const PF2ECONFIG = {
         150: "PF2E.WeaponRange150",
         180: "PF2E.WeaponRange180",
         240: "PF2E.WeaponRange240",
-    }, // TODO: Compute range!
+    },
 
     weaponMAP: {
         1: "-1/-2",
@@ -1745,7 +1734,7 @@ export const PF2ECONFIG = {
         120: "PF2E.AreaSize120",
     },
 
-    alignment: {
+    alignments: {
         LG: "PF2E.AlignmentLG",
         NG: "PF2E.AlignmentNG",
         CG: "PF2E.AlignmentCG",
@@ -1853,10 +1842,12 @@ export const PF2ECONFIG = {
     },
 
     frequencies: {
+        PT1M: "PF2E.Duration.PT1M",
         PT10M: "PF2E.Duration.PT10M",
         PT1H: "PF2E.Duration.PT1H",
         PT24H: "PF2E.Duration.PT24H",
         day: "PF2E.Duration.day",
+        P1W: "PF2E.Duration.P1W",
     },
 
     // Proficiency Multipliers
@@ -1875,10 +1866,9 @@ export const PF2ECONFIG = {
         3: "PF2E.HeroPointLevel3",
     },
 
-    // Creature Sizes
-    actorSizes: {
-        ...sizeTypes,
-    },
+    actorSizes: sizeTypes,
+
+    actorTypes,
 
     speedTypes: {
         swim: "PF2E.SpeedTypesSwim",
@@ -1907,6 +1897,8 @@ export const PF2ECONFIG = {
         lifesense: "PF2E.SensesLifesense",
         wavesense: "PF2E.SensesWavesense",
     },
+
+    senseAcuity,
 
     bulkTypes: {
         L: "PF2E.BulkTypeLight",
@@ -2099,6 +2091,12 @@ export const PF2ECONFIG = {
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },
         CE: { yearOffset: 0 },
+    },
+
+    runes: {
+        weapon: {
+            property: { ...WEAPON_PROPERTY_RUNES },
+        },
     },
 
     monsterAbilities: () => {
@@ -2466,6 +2464,7 @@ export const PF2ECONFIG = {
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,
+            deity: DeityPF2e,
             kit: KitPF2e,
             melee: MeleePF2e,
             consumable: ConsumablePF2e,

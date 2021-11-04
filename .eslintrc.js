@@ -10,13 +10,13 @@ module.exports = {
         sourceType: "module",
         project: "./tsconfig.json",
     },
-    ignorePatterns: ["dist/", "types/foundry/client/pixi.d.ts"],
+    ignorePatterns: ["dist/"],
     rules: {
+        eqeqeq: ["error", "always"],
+        "import/no-default-export": "error",
         "prettier/prettier": "error",
         "no-console": "off",
         "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
-        "import/no-default-export": "error",
-        "deprecation/deprecation": "error",
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off",
@@ -42,7 +42,7 @@ module.exports = {
         },
         "import/parsers": { "@typescript-eslint/parser": [".ts"] },
     },
-    plugins: ["jest", "prettier", "deprecation", "@typescript-eslint", "import"],
+    plugins: ["jest", "prettier", "@typescript-eslint", "import"],
     overrides: [
         {
             files: "tests/**/*",

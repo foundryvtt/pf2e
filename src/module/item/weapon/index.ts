@@ -1,7 +1,16 @@
 import { PhysicalItemPF2e } from "../physical";
 import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
-import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponPropertyRuneType, WeaponTrait } from "./data";
+import {
+    BaseWeaponType,
+    CROSSBOW_WEAPONS,
+    WeaponCategory,
+    WeaponData,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponSource,
+    WeaponTrait,
+} from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
 import { ErrorPF2e, sluggify } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
@@ -48,16 +57,35 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get isRanged(): boolean {
         const range = this.data.data.range.value.trim();
-        return !!range && Number.isInteger(Number(range));
+        return !!range && Number.isInteger(Number(range)) && this.ability === "dex";
     }
 
     get isMelee(): boolean {
-        return !this.isRanged || !["axe", "club", "hammer", "knife", "spear"].includes(this.group ?? "");
+        return !this.isRanged;
     }
 
     get ammo(): ConsumablePF2e | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e ? ammo : null;
+    }
+
+    /** Generate a list of strings for use in predication */
+    override getContextStrings(prefix = "weapon"): string[] {
+        return super.getContextStrings(prefix).concat(
+            Object.entries({
+                [`category:${this.category}`]: true,
+                [`group:${this.group}`]: !!this.group,
+                [`base:${this.baseType}`]: !!this.baseType,
+                [`${this.ability}-based`]: true,
+                [`melee`]: this.isMelee,
+                [`ranged`]: this.isRanged,
+            })
+                .filter(([_key, isTrue]) => isTrue)
+                .map(([key]) => {
+                    const separatedPrefix = prefix ? `${prefix}:` : "";
+                    return `${separatedPrefix}${key}`;
+                })
+        );
     }
 
     override prepareBaseData(): void {
@@ -69,6 +97,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.data.propertyRune2.value ||= null;
         this.data.data.propertyRune3.value ||= null;
         this.data.data.propertyRune4.value ||= null;
+        this.data.data.traits.otherTags = [];
+
+        // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
+        const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
+        if (crossbowWeapons.has(this.baseType ?? "")) {
+            this.data.data.traits.otherTags.push("crossbow");
+        }
+        // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
+        this.data.flags.pf2e.comboMeleeUsage ??= false;
 
         this.processMaterialAndRunes();
     }
@@ -97,6 +134,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
         const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+
+        // Set tags from runes
+        systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
 
         // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
         const materialData = this.getMaterialData();
@@ -145,10 +185,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune1.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune2.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune3.value ?? ""],
-            WEAPON_VALUATION_DATA.property[systemData.propertyRune4.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune1.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
+            CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 
@@ -238,8 +278,32 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
+    /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
+    toMeleeUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
+    toMeleeUsage(this: WeaponPF2e): WeaponPF2e | null;
+    toMeleeUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+        const { meleeUsage } = this.data.data;
+        if (!meleeUsage || this.data.flags.pf2e.comboMeleeUsage) return null;
+
+        const overlay: DeepPartial<WeaponSource> = {
+            data: {
+                ability: { value: "str" },
+                damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
+                group: { value: meleeUsage.group },
+                range: { value: "melee" },
+                traits: { value: meleeUsage.traits.concat("combination") },
+            },
+            flags: {
+                pf2e: {
+                    comboMeleeUsage: true,
+                },
+            },
+        };
+        return this.clone(overlay) as Embedded<WeaponPF2e>;
+    }
+
     /** Generate a melee item from this weapon for use by NPCs */
-    toMelee(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
+    toNPCAttack(this: Embedded<WeaponPF2e>): Embedded<MeleePF2e> {
         if (!(this.actor instanceof NPCPF2e)) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const damageRoll = ((): MeleeDamageRoll => {

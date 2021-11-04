@@ -105,6 +105,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
     *  Pathfinder Adventure: Night of the Gray Death © 2021, Paizo Inc.; Author: Ron Lundeen.
+    *  Pathfinder Adventure: Shadows at Sundown © 2022, Paizo Inc.; Author: Unannounced.
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -171,7 +172,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Bounty #11: Forged Facade © 2021, Paizo Inc.; Author: Randal Meyer
     * Pathfinder Society Bounty #12: Somewhere Below © 2021, Paizo Inc.; Author: Kim Frandsen
     * Pathfinder Society Bounty #13: The Blackwood Abundance © 2021, Paizo Inc.; Author: Alex Speidel
-    * Pathfinder Society Bounty #14: The Balckwood Truce © 2021, Paizo Inc.; Author: Caryn DiMarco
+    * Pathfinder Society Bounty #14: The Blackwood Truce © 2021, Paizo Inc.; Author: Caryn DiMarco
+    * Pathfinder Society Bounty #15: Treasure Off the Coast © 2021, Paizo Inc.; Author: Brent Bowser
+    * Pathfinder Society Bounty #16: Boom Town Betrayal © 2021, Paizo Inc.; Author: Logan Harper
+    * Pathfinder Society Bounty #17: Sodden Stories © 2021, Paizo Inc.; Author: Michael Bramnik
 
     * Pathfinder Society Intro #1: The Second Confirmation © 2021, Paizo Inc.; Author: Thurston Hillman.
     * Pathfinder Society Intro #2: United In Purpose © 2021, Paizo Inc.; Author: Brian Duckwitz.
@@ -232,6 +236,11 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
 	* Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
 	* Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
+    * Pathfinder Society Scenario #3-04: The Devil-Wrought Disappearance © 2021, Paizo Inc.; Authors: Joseph Blomquist
+    * Pathfinder Society Scenario #3-05: Inheritor's Rite © 2021, Paizo Inc.; Authors: Elizabeth V Nold
+    * Pathfinder Society Scenario #3-06: Struck by Shadows © 2021, Paizo Inc.; Authors: Luis Loza
+    * Pathfinder Society Scenario #3-07: The Locked Lodge © 2021, Paizo Inc.; Authors: Kalervo Oikarinen
+    * Pathfinder Society Scenario #3-08: Foundation's Price © 2022, Paizo Inc.; Authors: Letterio Mammoliti
 	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
 	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
 
@@ -249,11 +258,18 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     * Pathfinder Lost Omens Grand Bazaar © 2021, Paizo Inc.; Authors: Tineke Bolleman, Logan Bonner, Jessica Catalan, Dominique Dickey, Dana Ebert, Steven Hammond, Sen H.H.S., Dustin Knight, Avi Kool, Aaron Lascano, Carlos Luna, Ron Lundeen, Sydney Meeker, Randal Meyer, Jacob Michaels, Matt Morris, Andrew Mullen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Erin Roberts, David N. Ross, Simone Sallé, Mark Seifter, Shay Snow, Ashton Sperry, Amber Stewart, Andrew Stoeckle, Isabelle Thorne, Jason Tondro, and Scott D. Young.
 
+*  Free Adventures
+    *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
+    *  Pathfinder Free RPG Day Adventure 2020: Little Trouble in Big Absalom © 2020, Paizo Inc.; Author: Eleanor Ferron
+    *  Pathfinder Free RPG Day Adventure 2021: Threshold of Knowledge © 2021, Paizo Inc.; Author: Ron Lundeen, Jabari Weathers
+
 *  One Shots
     *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
     *  Pathfinder One-Shot #1: Sundered Waves Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn
 	*  Pathfinder One-Shot #2: Dinner at Lionlodge © 2021, Paizo Inc.; Author: James Jacobs
     *  Pathfinder One-Shot #2: Dinner at Lionlodge Pregenerated Characters © 2021, Paizo Inc.; Author: James Jacobs
+    *  Pathfinder One-Shot #3: Head Shot the Rot © 2021, Paizo Inc.; Author: Michael Sayre
+    *  Pathfinder One-Shot #3: Head Shot the Rot Pregenerated Characters © 2021, Paizo Inc.; Author: Michael Sayre
 
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.

@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "15 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "15"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -68,7 +69,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Cave scorpions prefer to reside in underground lairs. Most have lost nearly all of their pigmentation, making them appear ghostly when they lurk at the edge of the light. While they prefer to eat large insects, cave scorpions can and will attack humanoids. Some Darklands societies have developed techniques to herd or lure scorpions into pest-infested tunnels and warrens at the edge of their settlements, where the scorpions thrive in a dual role of exterminators and guardians.</p>",
+            "publicNotes": "<p>Cave scorpions prefer to reside in underground lairs. Most have lost nearly all of their pigmentation, making them appear ghostly when they lurk at the edge of the light. While they prefer to eat large insects, cave scorpions can and will attack humanoids. Some Darklands societies have developed techniques to herd or lure scorpions into pest-infested tunnels and warrens at the edge of their settlements, where the scorpions thrive in a dual role of exterminators and guardians.</p>\n<hr />\n<p>Scorpions are frightening enough at their normal diminutive size, but when they grow to reach or surpass the size of a human, they become absolutely terrifying.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
@@ -284,7 +285,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -314,8 +315,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -332,7 +333,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"poison\" data-pf2-label=\"Cave Scorpion Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d4 #poison]]{1d4 poison damage} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d8 #poison]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"poison\" data-pf2-label=\"Cave Scorpion Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -360,7 +361,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cave Scorpion Venom",
             "sort": 500000,
             "type": "action"

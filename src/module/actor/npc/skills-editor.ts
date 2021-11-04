@@ -66,7 +66,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const skillId: string = skillSelector.val() as string;
         const skillName = this.findSkillName(skillId);
         const itemName = skillName.replace(/-/g, " ").titleCase();
-        await LorePF2e.createDocuments([{ name: itemName, type: "lore" }], { parent: this.npc });
+        await this.npc.createEmbeddedDocuments("Item", [{ name: itemName, type: "lore" }]);
 
         this.render();
     }
@@ -103,7 +103,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
                 },
             },
         };
-        await LorePF2e.createDocuments([data], { parent: this.npc });
+        await this.npc.createEmbeddedDocuments("Item", [data]);
 
         this.render();
     }
@@ -128,7 +128,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             if (!skillItem) return [];
             return { _id: skillItem.id, "data.mod.value": value };
         });
-        LorePF2e.updateDocuments(updates, { parent: this.npc });
+        await this.npc.updateEmbeddedDocuments("Item", updates);
     }
 
     private isLoreSkill(skillId: string): boolean {
@@ -156,7 +156,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             const skillData = SKILL_EXPANDED[skillDataId];
 
-            if (skillData.shortform == skillId) {
+            if (skillData.shortform === skillId) {
                 return skillDataId;
             }
         }

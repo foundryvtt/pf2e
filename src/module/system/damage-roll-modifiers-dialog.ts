@@ -61,10 +61,18 @@ export class DamageRollModifiersDialog extends Application {
         const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
-            const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
+            const strikeTraits: Record<string, string | undefined> = {
+                ...CONFIG.PF2E.weaponTraits,
+                attack: "PF2E.TraitAttack",
+            };
+            const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
             const traits = damage.traits
-                .map((trait) => game.i18n.localize(weaponTraits[trait]) ?? trait)
-                .map((trait) => `<span class="tag">${trait}</span>`)
+                .map((trait) => ({ value: trait, label: game.i18n.localize(strikeTraits[trait] ?? "") }))
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .map((trait) => {
+                    const description = traitDescriptions[trait.value] ?? "";
+                    return `<span class="tag" data-trait="${trait.value}" data-description="${description}">${trait.label}</span>`;
+                })
                 .join("");
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
@@ -149,6 +157,7 @@ export class DamageRollModifiersDialog extends Application {
             }
             content += "</div>";
         }
+        rollData.total = Math.max(rollData.total, 1);
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
         // Combine the rolls into a single roll of a dice pool

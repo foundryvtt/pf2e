@@ -23,7 +23,42 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.proficiencies.traditions.{actor|data.proficiencies.aliases.sorcerer}.rank",
+                "predicate": {
+                    "all": [
+                        "self:class:sorcerer"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 3
+                        },
+                        {
+                            "start": 19,
+                            "value": 4
+                        }
+                    ],
+                    "field": "actor|data.details.level.value"
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

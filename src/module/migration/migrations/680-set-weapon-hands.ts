@@ -12,6 +12,7 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "backpack-catapult",
         "composite-longbow",
         "composite-shortbow",
+        "hongali-hornbow",
         "longbow",
         "shortbow",
     ]);
@@ -26,6 +27,7 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "adze",
         "alchemical-crossbow",
         "arquebus",
+        "axe-musket",
         "bladed-diabolo",
         "bladed-scarf",
         "blunderbuss",
@@ -39,6 +41,7 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "dwarven-scattergun",
         "elven-branched-spear",
         "elven-curve-blade",
+        "explosive-dogslicer",
         "falchion",
         "fauchard",
         "fire-lance",
@@ -46,13 +49,16 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "flintlock-musket",
         "gill-hook",
         "glaive",
+        "gnome-amalgam-musket",
         "greataxe",
         "greatclub",
         "greatpick",
         "greatsword",
         "guisarme",
+        "gun-sword",
         "halberd",
         "halfling-sling-staff",
+        "hammer-gun",
         "harmona-gun",
         "heavy-crossbow",
         "horsechopper",
@@ -71,6 +77,7 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "shauth-lash",
         "spiked-chain",
         "taw-launcher",
+        "three-peaked-tree",
         "thundermace",
         "war-flail",
         "whip-claw",
@@ -92,11 +99,11 @@ export class Migration680SetWeaponHands extends MigrationBase {
                 usage.value = "held-in-one-hand";
             } else if (this.shieldAttachments.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-hand";
-                const attachedIndex = traits.value.findIndex((trait) => trait === "attached");
+                const attachedIndex = traits.value.findIndex((trait: string) => trait === "attached");
                 if (attachedIndex !== -1) traits.value.splice(attachedIndex, 1, "attached-to-shield");
             } else if (this.firearmAttachments.has(baseItem || slug || "")) {
                 usage.value = "held-in-one-hand";
-                const attachedIndex = traits.value.findIndex((trait) => trait === "attached");
+                const attachedIndex = traits.value.findIndex((trait: string) => trait === "attached");
                 if (attachedIndex !== -1) traits.value.splice(attachedIndex, 1, "attached-to-crossbow-or-firearm");
             } else if (this.wornGloves.has(baseItem || slug || "")) {
                 usage.value = "worn-gloves";

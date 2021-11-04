@@ -10,6 +10,7 @@ export { ClassPF2e } from "./class";
 export { ConditionPF2e } from "./condition";
 export { ConsumablePF2e } from "./consumable";
 export { ContainerPF2e } from "./container";
+export { DeityPF2e } from "./deity";
 export { EffectPF2e } from "./effect";
 export { EquipmentPF2e } from "./equipment";
 export { FeatPF2e } from "./feat";

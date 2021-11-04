@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,7 +63,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>The graceful and regal cloud giants have skin of milky white to powdery blue. Unlike most giants, cloud giants are quite morally diverse. A handful are neutral, but of the others, roughly half are good, while the other half are evil. Good cloud giants are often civic-minded builders of roads and settlements, and are interested in trading goods as well as cultural innovations. It's not uncommon for such giants to approach their neighbors with diplomacy and build strong relationships with other peaceful peoples. Conversely, evil cloud giants are often isolationist and xenophobic. Preferring hidden mountain valleys and settlements in the caves and among the crags of lonely peaks, they raid for what they want and treat other creatures like inconsequential insects. These opposing philosophies can generate a great deal of strife among neighboring cloud giant communities, and the raiders often threaten the trade deals of their peaceful cousins.</p>\n<p>Legends persist of floating cities ruled by magically gifted cloud giant queens and kings. While most cloud giants plainly state that such claims are pure fantasy, others are mysteriously tight-lipped or evasive about the matter.</p>",
+            "publicNotes": "<p>The graceful and regal cloud giants have skin of milky white to powdery blue. Unlike most giants, cloud giants are quite morally diverse. A handful are neutral, but of the others, roughly half are good, while the other half are evil. Good cloud giants are often civic-minded builders of roads and settlements, and are interested in trading goods as well as cultural innovations. It's not uncommon for such giants to approach their neighbors with diplomacy and build strong relationships with other peaceful peoples. Conversely, evil cloud giants are often isolationist and xenophobic. Preferring hidden mountain valleys and settlements in the caves and among the crags of lonely peaks, they raid for what they want and treat other creatures like inconsequential insects. These opposing philosophies can generate a great deal of strife among neighboring cloud giant communities, and the raiders often threaten the trade deals of their peaceful cousins.</p>\n<p>Legends persist of floating cities ruled by magically gifted cloud giant queens and kings. While most cloud giants plainly state that such claims are pure fantasy, others are mysteriously tight-lipped or evasive about the matter.</p>\n<hr />\n<p>Giants are massive humanoid creatures who live in remote regions throughout the world. They are divided into a number of subtypes.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -128,10 +128,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lxtsn5kar9cIXqNg",
+            "_id": "SC5giI24l8gEnx5E",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -139,12 +139,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -152,10 +149,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -227,10 +224,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "30",
-                    "item": 0,
+                    "dc": 30,
                     "mod": 0,
-                    "value": 20
+                    "value": 22
                 },
                 "tradition": {
                     "value": "primal"
@@ -251,7 +247,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "m7QijhX1DqDhGhUU",
+            "_id": "0I9PPZb4zWUwvRGb",
             "data": {
                 "ability": {
                     "value": ""
@@ -259,6 +255,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -279,7 +278,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as obscuring mist, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
+                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -287,16 +286,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "lxtsn5kar9cIXqNg"
+                    "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -310,9 +315,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "solid-fog",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=290"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -343,21 +354,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.piMJO6aYeDJbrhEo"
+                }
+            },
             "img": "systems/pf2e/icons/spells/solid-fog.webp",
             "name": "Solid Fog",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "AKIKuIYJQWSDxKSI",
+            "_id": "Gtqiu1gMAKSCHwT2",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -386,16 +404,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 3
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "lxtsn5kar9cIXqNg"
+                    "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -409,9 +433,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=170"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -420,7 +450,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 unatteded object or willing creature"
+                    "value": "1 unattended object or willing creature"
                 },
                 "time": {
                     "value": "2"
@@ -440,21 +470,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
             "img": "systems/pf2e/icons/spells/levitate.webp",
-            "name": "Levitate",
+            "name": "Levitate (At Will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "2bER0bdoXMUJeutx",
+            "_id": "1HAY92fkCJghVqP3",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -475,7 +512,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -483,16 +520,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "lxtsn5kar9cIXqNg"
+                    "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -506,9 +549,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -539,14 +588,196 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/obscuring-mist.webp",
-            "name": "Obscuring Mist",
+            "name": "Obscuring Mist (At Will)",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "n9bS5BKv9oTchtEL",
+            "_id": "r4LAxgcGmPA1smfD",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "ranseur",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d10",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This polearm is a long trident with a central prong that's longer than the other two.</p>"
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "polearm"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "huge"
+                },
+                "slug": "ranseur",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "disarm",
+                        "reach"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UfurZQK6H6SgOjqe"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/ranseur.webp",
+            "name": "Ranseur",
+            "sort": 500000,
+            "type": "weapon"
+        },
+        {
+            "_id": "dknkWfjE6V1wz9bK",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -565,7 +796,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -635,19 +866,32 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "sack with 5 rocks",
-            "sort": 500000,
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
+            "name": "Sack for Holding Rocks",
+            "sort": 600000,
             "type": "equipment"
         },
         {
-            "_id": "runkKVYtoQunbFjT",
+            "_id": "r5bsJhi6sEolEyLe",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
@@ -655,8 +899,20 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
                 "collapsed": {
                     "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
                 },
                 "containerId": {
                     "value": ""
@@ -664,8 +920,12 @@
                 "description": {
                     "value": ""
                 },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -689,9 +949,6 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 0
                 },
@@ -711,7 +968,12 @@
                     "value": "0 gp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 5
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "size": {
@@ -721,8 +983,17 @@
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -734,16 +1005,23 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 striking ranseur",
-            "sort": 600000,
-            "type": "equipment"
+            "img": "systems/pf2e/icons/spells/shape-stone.webp",
+            "name": "Rock",
+            "sort": 700000,
+            "type": "consumable"
         },
         {
             "_id": "AFuY9kW00fzj7WH5",
@@ -752,6 +1030,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -790,7 +1069,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ranseur",
-            "sort": 700000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -800,6 +1079,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -837,7 +1117,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 800000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -847,7 +1127,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "rock"
+                    ]
                 },
                 "bonus": {
                     "value": 24
@@ -884,29 +1167,29 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rock",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
-            "_id": "vRDcU9sbM7CgsHs9",
+            "_id": "GF7VbTGWzxeNZeOf",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -925,76 +1208,36 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "TYjavxELGsRgny3K",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can Release anything it's holding as part of this reaction. <strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
                 }
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Catch Rock",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
             "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "eBHLMSKGP3gx51Vv",
+            "_id": "a0noDtcOBbRDMiow",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "scent",
                 "source": {
                     "value": ""
                 },
@@ -1013,10 +1256,158 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Throw Rock",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "GJNrxWQdmK1EykYc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "c3nJwvrVvJlQrgWU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "8MSWR1BxkhlhSm54",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.CatchRock]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "catch-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uG0Z8PsyZtsYuvGR"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Catch Rock",
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1032,12 +1423,29 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cloud giant Strikes a creature with its ranseur, surrounded in a roar of rushing air. On a hit, the target takes an additional [[/r 4d8 #bludgeoning]]{4d8 bludgeoning damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute. Whether or not the Strike hits, each non-cloud giant within a 20-foot emanation, including the target of the Strike, is buffeted by roaring winds and must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"air,evocation,primal,damaging-effect\" data-pf2-label=\"Wind Strike DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8 #sonic]]{2d8 sonic damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8 #sonic]]{4d8 sonic damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>The cloud giant Strikes a creature with its ranseur, surrounded in a roar of rushing air. On a hit, the target takes an additional [[/r {4d8}[bludgeoning]]]{4d8 bludgeoning damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute. Whether or not the Strike hits, each non-cloud giant within a @Template[type:emanation|distance:20]{20-foot emanation}, including the target of the Strike, is buffeted by roaring winds and must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"30\" data-pf2-traits=\"air,evocation,primal,damaging-effect\" data-pf2-label=\"Wind Strike DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d8}[sonic]]]{2d8 sonic damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d8}[sonic]]]{4d8 sonic damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.windStrike"
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 4,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "windStrike"
+                            ]
+                        },
+                        "selector": "ranseur-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1062,9 +1470,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Wind Strike",
-            "sort": 1300000,
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "O6armi7YSCPK5JDa",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1099,7 +1555,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1134,7 +1590,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1500000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1169,7 +1625,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1600000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1204,7 +1660,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1239,7 +1695,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],

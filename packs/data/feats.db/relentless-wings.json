@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your wings are now a permanent part of your physiology. You gain the effects of Fiendish Wings at all times, rather than just once per day for 10 minutes.</p>"
+            "value": "<p>Your wings are now a permanent part of your physiology. You gain the effects of @Compendium[pf2e.feats-srd.Fiendish Wings]{Fiendish Wings} at all times, rather than just once per day for 10 minutes.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,6 +19,7 @@
         "level": {
             "value": 17
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,13 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@attributes.speed.value"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

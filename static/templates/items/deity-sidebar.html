@@ -1,0 +1,26 @@
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeDeity")}}</h4>
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Deity.Alignment"}}</label>
+        <select name="data.alignment.own">
+            {{#select data.alignment.own}}
+                {{#each alignments as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group longtext">
+        <label>{{localize "PF2E.Item.Deity.Edicts"}}</label>
+        {{editor content=data.edicts target="data.edicts" button=true owner=owner editable=editable}}
+    </div>
+    <div class="form-group longtext">
+        <label>{{localize "PF2E.Item.Deity.Anathema"}}</label>
+        {{editor content=data.anathema target="data.anathema" button=true owner=owner editable=editable}}
+    </div>
+
+    <div class="form-group longtext">
+        <label>{{localize "PF2E.Item.Deity.AreasOfConcern"}}</label>
+        {{editor content=data.areasOfConcern target="data.areasOfConcern" button=true owner=owner editable=editable}}
+    </div>
+</div>

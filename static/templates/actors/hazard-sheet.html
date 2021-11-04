@@ -132,7 +132,7 @@
         <div class="flexrow" style="flex: auto;">
             <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
                 {{#select data.traits.rarity.value}}
-                {{#each rarity as |label key|}}
+                {{#each actorRarities as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
                 {{/select}}

@@ -80,6 +80,10 @@ interface RawNPCStrike extends StrikeData {
     sourceId?: string;
     /** A list of all damage roll parts */
     damageBreakdown?: string[];
+    /** Additional effects from a successful strike, like "Grab" */
+    additionalEffects: { tag: string; label: string }[];
+    /** A melee usage of a firearm: not available on NPC strikes */
+    meleeUsage?: never;
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */

@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "45 feet"
+                "value": "45; air walk"
             }
         },
         "details": {
@@ -63,7 +63,7 @@
                 "value": 16
             },
             "privateNotes": "",
-            "publicNotes": "<p>Magically crafted and bred by ancient wizards, rune giants are anathema to and tyrants among their own kind, who were given power to command and magically control other giants. The rune giants themselves served even more powerful masters-potent wizards known as runelords-and in so doing commanded entire armies of giants on behalf of the runelords' empires. In the eons since these empires collapsed, rune giants have persisted as a people of their own, though to the outside world they're little more than fabled horrors whispered of late at night by superstitious giants. Rune giants usually dwell in the most remote and rugged of towering mountain ranges, but they can also be found in immense ruins atop lost islands, glacial valleys, or even more remote or magical regions.</p>\n<p>Rune giants' striking charcoal flesh is decorated by dozens of runes, which are potent manifestations of their eldritch powers. Rune giants are towering creatures, averaging at 40 feet in height and weighing 25,000 pounds.</p>",
+            "publicNotes": "<p>Magically crafted and bred by ancient wizards, rune giants are anathema to and tyrants among their own kind, who were given power to command and magically control other giants. The rune giants themselves served even more powerful masters-potent wizards known as runelords-and in so doing commanded entire armies of giants on behalf of the runelords' empires. In the eons since these empires collapsed, rune giants have persisted as a people of their own, though to the outside world they're little more than fabled horrors whispered of late at night by superstitious giants. Rune giants usually dwell in the most remote and rugged of towering mountain ranges, but they can also be found in immense ruins atop lost islands, glacial valleys, or even more remote or magical regions.</p>\n<p>Rune giants' striking charcoal flesh is decorated by dozens of runes, which are potent manifestations of their eldritch powers. Rune giants are towering creatures, averaging at 40 feet in height and weighing 25,000 pounds.</p>\n<hr />\n<p>Giants are massive humanoid creatures who live in remote regions throughout the world. They are divided into a number of subtypes.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -131,10 +131,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "3aRFgXnGV6Q0x2Gk",
+            "_id": "dvenwngmH8FFaPNZ",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -142,12 +142,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -155,10 +152,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -230,10 +227,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "35",
-                    "item": 0,
+                    "dc": 35,
                     "mod": 0,
-                    "value": 25
+                    "value": 27
                 },
                 "tradition": {
                     "value": "arcane"
@@ -254,7 +250,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "nIqk3relNuzZwsrg",
+            "_id": "Zn45kXPOSnKBMwJ8",
             "data": {
                 "ability": {
                     "value": ""
@@ -262,6 +258,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -282,24 +281,30 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @Compendium[pf2e.conditionitems.Controlled]{Controlled} condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
                 },
                 "duration": {
-                    "value": "1 hour"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
-                    "value": 8
+                    "value": 6
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -313,111 +318,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dominate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "emotion",
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/charm.webp",
-            "name": "Charm",
-            "sort": 200000,
-            "type": "spell"
-        },
-        {
-            "_id": "mRQOVo6vRMWvIiEX",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
-                },
-                "duration": {
-                    "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -440,24 +349,27 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "incapacitation",
-                        "linguistic",
                         "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion",
-            "sort": 300000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OsOhx3TGIZ7AhD0P"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dominate.webp",
+            "name": "Dominate",
+            "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "t1Tga9mAqBPk050Y",
+            "_id": "BLQfAeIWnIyJydbn",
             "data": {
                 "ability": {
                     "value": ""
@@ -465,6 +377,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -485,7 +400,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened</strong> The duration is unlimited."
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @Compendium[pf2e.conditionitems.Controlled]{Controlled} condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -493,16 +408,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -511,14 +432,20 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dominate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=87"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -541,7 +468,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "incapacitation",
@@ -550,14 +477,137 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OsOhx3TGIZ7AhD0P"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dominate.webp",
+            "name": "Dominate",
+            "sort": 300000,
+            "type": "spell"
+        },
+        {
+            "_id": "hPk2TzhTKw6GRZQW",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> You control the target. It gains the @Compendium[pf2e.conditionitems.Controlled]{Controlled} condition, but it can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
+                },
+                "duration": {
+                    "value": "until the next time you make your daily preparations"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 6
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "dvenwngmH8FFaPNZ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dominate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OsOhx3TGIZ7AhD0P"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "ZwQJMIeo5hti0EI6",
+            "_id": "9lOmSLJKqMDHJURU",
             "data": {
                 "ability": {
                     "value": ""
@@ -566,205 +616,8 @@
                     "areaType": "",
                     "value": null
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
+                "areasize": {
                     "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened</strong> The duration is unlimited."
-                },
-                "duration": {
-                    "value": "until the next time you make your daily preparations"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=87"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dominate.webp",
-            "name": "Dominate",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "uGv4CnRlutfXgJko",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened</strong> The duration is unlimited."
-                },
-                "duration": {
-                    "value": "until the next time you make your daily preparations"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=87"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "incapacitation",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dominate.webp",
-            "name": "Dominate",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "UGef7NlwlnHuy13g",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -791,18 +644,24 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 6
                 },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -816,9 +675,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -851,14 +716,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 700000,
+            "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "o1ar8mss7t0I1BtX",
+            "_id": "Bo0iHrI89wUjaaMr",
             "data": {
                 "ability": {
                     "value": ""
@@ -866,6 +735,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -894,16 +766,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 5
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -917,9 +795,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sending",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=272"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -951,21 +835,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.R9xqCBblkS5KE4y7"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sending.webp",
             "name": "Sending",
-            "sort": 800000,
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "RrNQmVuNlij3CJzz",
+            "_id": "bCgL1BzKQHBGHqPL",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -994,16 +885,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1017,9 +914,15 @@
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=6"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1050,14 +953,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/air-walk.webp",
-            "name": "Air Walk",
-            "sort": 900000,
+            "name": "Air Walk (Constant)",
+            "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "vqmZZUW2rCBJKs6e",
+            "_id": "TEbZ6NkNjsi7WbvZ",
             "data": {
                 "ability": {
                     "value": ""
@@ -1065,6 +972,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1085,24 +995,30 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
-                    "value": "1 hour"
+                    "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1116,9 +1032,255 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/suggestion.webp",
+            "name": "Suggestion",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "jTCynZS3NcEx1n1y",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "dvenwngmH8FFaPNZ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/suggestion.webp",
+            "name": "Suggestion (At Will)",
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "SceKBtcG4lUT4V25",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 hour"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "dvenwngmH8FFaPNZ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1152,21 +1314,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "5j4KvWl8Zk8BBPWL",
+            "_id": "xeRH37MTBNYg5VvM",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1187,24 +1356,30 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
-                    "value": "varies"
+                    "value": "1 hour"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 4
                 },
+                "level": {
+                    "value": 1
+                },
                 "location": {
-                    "value": "3aRFgXnGV6Q0x2Gk"
+                    "value": "dvenwngmH8FFaPNZ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1213,14 +1388,20 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1237,7 +1418,8 @@
                 "traditions": {
                     "value": [
                         "arcane",
-                        "occult"
+                        "occult",
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -1246,23 +1428,39 @@
                         "value": "common"
                     },
                     "value": [
+                        "emotion",
                         "incapacitation",
-                        "linguistic",
                         "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/charm.webp",
+            "name": "Charm (At Will)",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "mq2cuXuDZsfncJUf",
+            "_id": "8iJjfyT1q12S0WmO",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "longspear",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1275,13 +1473,25 @@
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This very long spear, sometimes called a pike, is purely for thrusting rather than throwing. Used by many soldiers and city watch for crowd control and defense against charging enemies, it must be wielded with two hands.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "spear"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1315,54 +1525,119 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "5 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "grg"
                 },
-                "slug": null,
+                "slug": "longspear",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "reach"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
+                },
+                "weaponType": {
+                    "value": "simple"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 splint mail",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.aXuJh4i8HqSu6NYV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longspear.webp",
+            "name": "Longspear",
             "sort": 1200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "mQFWz9IGJVCYVJBi",
+            "_id": "CAkNdqzE0WhD6leV",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "greatsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1375,13 +1650,25 @@
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1415,59 +1702,121 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 2
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "grg"
                 },
-                "slug": null,
+                "slug": "greatsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "greaterStriking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
+                },
+                "weaponType": {
+                    "value": "martial"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 striking longspear",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.webp",
+            "name": "Greatsword",
             "sort": 1300000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "VnLgAmmGxLMZJTfA",
+            "_id": "YQSLCIq7hpOxQjiS",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 5
+                },
+                "armorType": {
+                    "value": "heavy"
+                },
+                "baseItem": "splint-mail",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": -3
                 },
                 "collapsed": {
                     "value": false
@@ -1476,19 +1825,25 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                },
+                "dex": {
+                    "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "3"
+                },
+                "group": {
+                    "value": "composite"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -1507,36 +1862,61 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "13 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "resiliencyRune": {
+                    "value": ""
+                },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "grg"
                 },
-                "slug": null,
+                "slug": "splint-mail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": -10
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 16
                 },
                 "traits": {
                     "custom": "",
@@ -1546,18 +1926,22 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "4"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+2 greater striking greatsword",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.6AhDKX1dwRwFpQsU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/splint-mail.webp",
+            "name": "+1 Splint Mail",
             "sort": 1400000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
             "_id": "yfHpnY9G1GCp6VVb",
@@ -1566,6 +1950,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1614,6 +1999,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1661,6 +2047,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1708,6 +2095,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1749,25 +2137,25 @@
             "type": "melee"
         },
         {
-            "_id": "BHWp01aRlTXf51qB",
+            "_id": "V6eYuUdSaU2MbSi5",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The rune giant gains an additional reaction at the beginning of each of its turns that it can only use for an Attack of Opportunity.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "at-will-spells",
                 "source": {
                     "value": ""
                 },
@@ -1786,32 +2174,36 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
             "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "kCPMnrOPMH5QJk8U",
+            "_id": "TvxcP8kfqmDOK1GX",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can Release anything it's holding as part of this reaction. <strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -1830,10 +2222,110 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Catch Rock",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
             "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "fxy74wWSDj5riJSB",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "eDKxGQf3yPUpgqh0",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<div data-visibility=\"gm\">\n<p>The rune giant gains an additional reaction at the beginning of each of its turns that it can only use for an Attack of Opportunity.</p>\n<hr /></div>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -1877,7 +2369,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Command Giants",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -1893,7 +2385,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a rune giant casts its innate @Compendium[pf2e.spells-srd.Sending]{Sending} spell, it can also cast @Compendium[pf2e.spells-srd.Suggestion]{Suggestion} on the target.</p>"
+                    "value": "<p>When a rune giant casts its innate <em>@Compendium[pf2e.spells-srd.Sending]{Sending}</em> spell, it can also cast <em>@Compendium[pf2e.spells-srd.Suggestion]{Suggestion}</em> on the target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1923,9 +2415,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Demand",
-            "sort": 2200000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -1941,7 +2433,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The rune giant uses an arcane ability or casts an arcane spell. <strong>Effect</strong> The runes on the giant's body flash as they produce magical energy. Each creature within a 10-foot emanation must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,evocation,light\" data-pf2-label=\"Flashing Runes DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The rune giant uses an arcane ability or casts an arcane spell.</p>\n<p><strong>Effect</strong> The runes on the giant's body flash as they produce magical energy. Each creature within a @Template[type:emanation|distance:10]{10-foot emanation} must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,evocation,light\" data-pf2-label=\"Flashing Runes DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1971,9 +2463,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Flashing Runes",
-            "sort": 2300000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -1989,7 +2481,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The rune giant invokes one of the runes on its body, causing the rune to spray forth a 30-foot cone of sparks that deals [[/r 6d12 #electricity]]{6d12 electricity damage} to all creatures in the cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"arcane,electricity,evocation,damaging-effect\" data-pf2-label=\"Invoke Rune DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>A glowing copy of the invoked rune appears on a single weapon the giant holds, granting the weapon one effect listed below of the giant's choice. The giant can't use Invoke Rune again for [[/br 1d4 #rounds]]{1d4 rounds}. The effect on the weapon lasts for 1 minute. If the giant places a new rune on a weapon, any previously placed rune immediately vanishes, ending its effect.</p><ul><li><strong>Rune of Destruction</strong> The weapon gains the deadly trait with three weapon damage dice of the same die size as for the base weapon, and a creature hit with the weapon is drained 1 unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane\" data-pf2-label=\"Invoke Rune DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</li><li><strong>Rune of Flames</strong> The weapon deals an additional [[/r 3d6 #fire]]{3d6 fire damage} on all attacks.</li><li><strong>Rune of Smiting</strong> When the weapon hits, the giant can Push the target back 10 feet, or 20 feet on a critical hit.</li></ul>"
+                    "value": "<p>The rune giant invokes one of the runes on its body, causing the rune to spray forth a @Template[type:cone|distance:30|damaging:yes]{30-foot cone} of sparks that deals [[/r {6d12}[electricity]]]{6d12 electricity damage} to all creatures in the cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"arcane,electricity,evocation,damaging-effect\" data-pf2-label=\"Invoke Rune DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<div data-visibility=\"gm\">\n<p>A glowing copy of the invoked rune appears on a single weapon the giant holds, granting the weapon one effect listed below of the giant's choice.</p>\n<p>The giant can't use Invoke Rune again for [[/br 1d4 #rounds]]{1d4 rounds}. The effect on the weapon lasts for 1 minute. If the giant places a new rune on a weapon, any previously placed rune immediately vanishes, ending its effect.</p>\n<ul>\n<li><strong>Rune of Destruction</strong> The weapon gains the deadly trait with three weapon damage dice of the same die size as for the base weapon, and a creature hit with the weapon is @Compendium[pf2e.conditionitems.Drained]{Drained 1} unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane\" data-pf2-label=\"Rune of Destruction DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</li>\n<li><strong>Rune of Flames</strong> The weapon deals an additional [[/r {3d6}[fire]]]{3d6 fire damage} on all attacks.</li>\n<li><strong>Rune of Smiting</strong> When the weapon hits, the giant can Push the target back 10 feet, or 20 feet on a critical hit.</li>\n</ul>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Destruction (Greatsword)]{Effect: Rune of Destruction (Greatsword)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Destruction (Longspear)]{Effect: Rune of Destruction (Longspear)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Destruction (Rock)]{Effect: Rune of Destruction (Rock)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Flames (Greatsword)]{Effect: Rune of Flames (Greatsword)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Flames (Longspear)]{Effect: Rune of Flames (Longspear)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Flames (Rock)]{Effect: Rune of Flames (Rock)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Smiting (Greatsword)]{Effect: Rune of Smiting (Greatsword)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Smiting (Longspear)]{Effect: Rune of Smiting (Longspear)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Rune of Smiting (Rock)]{Effect: Rune of Smiting (Rock)}</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -2021,53 +2513,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Invoke Rune",
-            "sort": 2400000,
-            "type": "action"
-        },
-        {
-            "_id": "r8XoCY2a0TjqTkCV",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Throw Rock",
-            "sort": 2500000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2109,9 +2557,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wide Swing",
-            "sort": 2600000,
+            "sort": 2700000,
+            "type": "action"
+        },
+        {
+            "_id": "S5RuYzvwzPUK3wzT",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ThrowRock]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "throw-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 2800000,
             "type": "action"
         },
         {
@@ -2146,7 +2642,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2700000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2181,7 +2677,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2800000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2216,7 +2712,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2900000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2251,7 +2747,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3000000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -2286,7 +2782,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 3100000,
+            "sort": 3300000,
             "type": "lore"
         }
     ],

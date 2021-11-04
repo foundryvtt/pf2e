@@ -45,7 +45,9 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
     ]);
 
     override async updateItem(itemSource: ItemSourcePF2e) {
-        const traits: TraitsWithUsage<typeof itemSource["data"]["traits"]> = itemSource.data.traits;
+        if (!itemSource.data.traits) return;
+
+        const traits: TraitsWithUsage = itemSource.data.traits;
         // Delete old usage "traits":
         if (typeof traits.usage?.value === "string") {
             const traitUsage = traits.usage.value;
@@ -78,7 +80,7 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
     }
 }
 
-type TraitsWithUsage<T extends ItemTraits> = T & {
+interface TraitsWithUsage extends ItemTraits {
     usage?: { value?: unknown };
     "-=usage"?: null;
-};
+}

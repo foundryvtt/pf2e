@@ -12,7 +12,8 @@ import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
 import { ConsumableTrait } from "@item/consumable/data";
-import { Size } from "@module/data";
+import { Size, ValuesList } from "@module/data";
+import { ActionTrait } from "@item/action/data";
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
@@ -122,13 +123,11 @@ export interface ItemActivation {
         /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
         duration: null | keyof ConfigPF2e["PF2E"]["frequencies"];
     };
+    traits: ValuesList<ActionTrait>;
 }
 
 export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     traits: PhysicalItemTraits;
-    level: {
-        value: number;
-    };
     quantity: {
         value: number;
     };

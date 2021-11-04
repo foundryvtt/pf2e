@@ -960,13 +960,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet, DC 29. Animals take a -2 circumstance penalty to the Will save.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 Feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"29\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>Animals take a -2 circumstance penalty to the Will save.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "frightful-presence",
                 "source": {
                     "value": ""
                 },
@@ -990,8 +990,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
             "sort": 1000000,
             "type": "action"
@@ -1187,7 +1191,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The bugul noz lets out a hair-raising keen. Other creatures within 30 feet must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"31\" data-pf2-traits=\"illusion,vocal,damaging-effect\" data-pf2-label=\"Haunting Wail DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. The bugul noz can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r 2d10 #sonic]]{2d10 sonic damage}.</p>\n<p><strong>Failure</strong> The target takes [[/r 4d10 #sonic]]{4d10 sonic damage} and gains sonic weakness 10 for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target becomes fleeing for 1 round.</p>"
+                    "value": "<p>The bugul noz lets out a hair-raising keen. Other creatures within 30 feet must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"31\" data-pf2-traits=\"illusion,vocal,damaging-effect\" data-pf2-label=\"Haunting Wail DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. The bugul noz can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes [[/r {2d10}[sonic]]]{2d10 sonic damage}.</p>\n<p><strong>Failure</strong> The target takes [[/r {4d10}[sonic]]]{4d10 sonic damage} and gains sonic weakness 10 for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target becomes fleeing for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""

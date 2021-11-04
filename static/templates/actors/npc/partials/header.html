@@ -1,12 +1,10 @@
 <header class="npc-sheet-header">
     <div class="name flexrow bottom-separator">
         <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
-        <div class="level-container">
-            <label class="level-label">{{localize "PF2E.NPC.Creature"}}</label>
-            {{#with data.details.level as |level|}}
-                <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="data.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
-            {{/with}}
-        </div>
+        <label class="level-label">{{localize "PF2E.NPC.Creature"}}</label>
+        {{#with data.details.level as |level|}}
+            <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="data.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
+        {{/with}}
     </div>
     <div class="flexrow" style="justify-content: space-between; width: 100%;">
         <div class="flexrow" style="flex: auto;">
@@ -20,7 +18,7 @@
             </select>
             <select class="alignment-select traits-list-item alignment" name="data.details.alignment.value" data-dtype="String">
                 {{#select data.details.alignment.value}}
-                    {{#each alignment as |label key|}}
+                    {{#each alignments as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
@@ -55,12 +53,6 @@
         {{/if}}
     </div>
     <div class="flexrow">
-        <input
-            id="npc-blurb"
-            name="data.details.blurb"
-            type="text"
-            value="{{data.details.blurb}}"
-            data-dtype="String"
-        />
+        <input name="data.details.blurb" type="text" value="{{data.details.blurb}}" />
     </div>
 </header>

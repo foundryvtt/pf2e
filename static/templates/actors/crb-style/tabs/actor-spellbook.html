@@ -15,7 +15,7 @@
                 {{/if}}
 
                     <h3 class="item-name pf-heading pf-actions">
-                        <input type="text" data-item-id="{{entry.id}}" data-property="name" class="item-name-input" value="{{entry.name}}" data-dtype="String" />
+                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}" />
                     </h3>
                     {{#if @root.owner}}
                         <div class="item-controls">
@@ -58,7 +58,7 @@
                         </li>
                         <li class="spell-ability">
                             <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
-                            <span class="pf-value pf-rank adjust-item-stat" data-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
+                            <span class="pf-value pf-rank adjust-item-stat" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
                         </li>
                     </ol>
                 {{/unless}}

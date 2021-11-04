@@ -112,6 +112,15 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         InlineRollsLinks.listen($html);
         DegreeOfSuccessHighlights.listen(this, $html);
 
+        $html.find(".tag[data-trait]").each((_idx, span) => {
+            $(span).tooltipster({
+                content: game.i18n.localize(span.dataset.description ?? ""),
+                animation: "fade",
+                maxWidth: 400,
+                theme: "crb-hover",
+            });
+        });
+
         $html.on("mouseenter", () => this.onHoverIn());
         $html.on("mouseleave", () => this.onHoverOut());
         $html.find(".message-sender").on("click", this.onClick.bind(this));
