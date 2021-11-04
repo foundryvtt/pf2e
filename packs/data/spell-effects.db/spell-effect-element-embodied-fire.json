@@ -21,6 +21,11 @@
                     "armorClass": {
                         "modifier": "25 + @details.level.value"
                     },
+                    "immunities": [
+                        {
+                            "type": "fire"
+                        }
+                    ],
                     "senses": {
                         "darkvision": {}
                     },
@@ -70,6 +75,12 @@
                     "traits": [
                         "elemental",
                         "fire"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "cold",
+                            "value": 10
+                        }
                     ]
                 }
             },
@@ -77,19 +88,6 @@
                 "key": "Note",
                 "selector": "tendril-damage",
                 "text": "<p class='compact-text'><strong>Elemental Embodiment (fire)</strong>: plus [[/r 2d6 #persistent fire]]{2d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}</p>"
-            },
-            {
-                "key": "Weakness",
-                "type": "cold"
-            },
-            {
-                "key": "Weakness",
-                "type": "cold",
-                "value": 10
-            },
-            {
-                "key": "Immunity",
-                "type": "fire"
             }
         ],
         "source": {
