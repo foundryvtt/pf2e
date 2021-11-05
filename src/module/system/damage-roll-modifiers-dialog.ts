@@ -62,7 +62,7 @@ export class DamageRollModifiersDialog extends Application {
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
             const strikeTraits: Record<string, string | undefined> = {
-                ...CONFIG.PF2E.weaponTraits,
+                ...CONFIG.PF2E.npcAttackTraits,
                 attack: "PF2E.TraitAttack",
             };
             const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
