@@ -21,6 +21,9 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
         value: number;
         initiative: number | null;
     };
+    tokenIcon: {
+        show: boolean;
+    };
     target?: string;
 }
 
@@ -34,8 +37,5 @@ export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
     start: {
         value: number;
         initiative: number | null;
-    };
-    tokenIcon: {
-        show: boolean;
     };
 }
