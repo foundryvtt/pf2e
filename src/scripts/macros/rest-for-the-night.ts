@@ -131,9 +131,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         }
 
         // Remove temporary crafted items
-        const temporaryItems = actor.physicalItems.filter(
-            (item) => item.traits.has("infused") || item.data.flags.pf2e?.temporary === true
-        );
+        const temporaryItems = actor.physicalItems.filter((item) => item.data.isTemporary);
 
         if (temporaryItems.length) {
             temporaryItems.forEach(async (item) => await item.delete());

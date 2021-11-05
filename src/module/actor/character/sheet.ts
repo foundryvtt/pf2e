@@ -931,20 +931,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Remove infused/temp items
             for (const item of this.actor.physicalItems) {
-                if (item.traits.has("infused") || item.data.flags.pf2e?.temporary) await item.delete();
+                if (item.data.data.temporary?.value) await item.delete();
             }
 
             for (const entry of entries) {
                 for (const prepData of entry.preparedFormulas) {
                     const item: PhysicalItemSource = prepData.item.toObject();
                     item.data.quantity.value = prepData.quantity || 1;
+                    item.data.temporary = { value: true };
                     if (
                         entry.isAlchemical &&
                         (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
                     ) {
                         item.data.traits.value.push("infused");
                     }
-                    item.flags.pf2e = { temporary: true };
                     await this.actor.addToInventory(item);
                 }
             }
