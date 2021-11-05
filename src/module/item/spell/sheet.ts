@@ -13,6 +13,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(): Promise<SpellSheetData> {
         const data: ItemSheetDataPF2e<SpellPF2e> = await super.getData();
 
+        // Set the sheet data's item name to the source name in case it has been adjust
+        data.item.name = this.item.data._source.name;
+
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
         const itemType =
@@ -38,6 +41,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             spellScalingIntervals: [1, 2, 3, 4],
+            showAtWillToggle: !!(
+                this.actor?.type === "npc" &&
+                this.item.spellcasting?.isInnate &&
+                !this.item.isCantrip
+            ),
         };
     }
 
@@ -90,6 +98,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             event.preventDefault();
             this.item.update({ "data.-=scaling": null });
         });
+
+        html.find("i.fa-info-circle.small[title]").tooltipster({
+            maxWidth: 275,
+            position: "right",
+            theme: "crb-hover",
+            contentAsHTML: true,
+        });
     }
 
     private formatSpellComponents(data: SpellSystemData): string[] {
@@ -101,5 +116,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         if (data.components.verbal) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.V));
         if (data.materials.value) comps.push(data.materials.value);
         return comps;
+    }
+
+    /** Delete the `atWill` property when unset */
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        super._updateObject(event, formData);
+        if (!formData["data.atWill"] && this.item.data.data.atWill) {
+            delete formData["data.atWill"];
+            formData["data.-=atWill"] = null;
+        }
     }
 }

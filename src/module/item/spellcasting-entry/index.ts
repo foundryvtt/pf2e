@@ -5,6 +5,7 @@ import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
+import { LocalizePF2e } from "@system/localize";
 
 export interface SpellcastingSlotLevel {
     label: string;
@@ -131,7 +132,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const level = options.level ?? spell.heightenedLevel;
-        const valid = !consume || spell.isCantrip || (await this.consume(spell.name, level, options.slot));
+        const valid = !consume || spell.unlimited || (await this.consume(spell.name, level, options.slot));
         if (message && valid) {
             await spell.toMessage(undefined, { data: { spellLvl: level } });
         }
@@ -430,6 +431,19 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             levels: results,
             spellPrepList,
         };
+    }
+
+    /** Mark at-will spells */
+    override prepareSiblingData(this: Embedded<SpellcastingEntryPF2e>): void {
+        const thisIsInnateNPCEntry = this.actor.type === "npc" && this.isInnate;
+        for (const spell of this.spells) {
+            const systemData = spell.data.data;
+            systemData.atWill = thisIsInnateNPCEntry && !spell.isCantrip ? systemData.atWill ?? false : false;
+            if (systemData.atWill) {
+                const atWillLabel = LocalizePF2e.translations.PF2E.Item.Spells.AtWill.Label;
+                if (systemData.atWill) spell.data.name = `${spell.data.name} (${atWillLabel})`;
+            }
+        }
     }
 
     protected override async _preUpdate(

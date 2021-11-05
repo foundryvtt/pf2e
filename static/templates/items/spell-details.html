@@ -88,13 +88,22 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
-        <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="String"/>
+        <input type="text" name="data.materials.value" value="{{data.materials.value}}" />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellCostLabel"}}</label>
-        <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="String"/>
+        <input type="text" name="data.cost.value" value="{{data.cost.value}}" />
     </div>
+    {{#if showAtWillToggle}}
+        <div class="form-group">
+            <label>
+                {{localize "PF2E.Item.Spells.AtWill.Label"}}
+                <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Spells.AtWill.Hint"}}"></i>
+            </label>
+            <input type="checkbox" name="data.atWill" {{checked data.atWill}} />
+        </div>
+    {{/if}}
 </ol>
 
 {{#if item.isRitual}}
