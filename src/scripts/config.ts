@@ -1449,7 +1449,7 @@ export const PF2ECONFIG = {
         wornbelt: "PF2E.TraitWornBelt",
         wornbeltpouch: "PF2E.TraitWornBeltPouch",
         wornbracers: "PF2E.TraitWornBracers",
-        wornbracelet: "PF2E.TraitWornOnWrists",
+        wornbracelet: "PF2E.TraitWornBracelet",
         worncloak: "PF2E.TraitWornCloak",
         worncirclet: "PF2E.TraitWornCirclet",
         wornclothing: "PF2E.TraitWornClothing",
