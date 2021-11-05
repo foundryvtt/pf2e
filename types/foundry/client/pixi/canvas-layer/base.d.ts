@@ -28,7 +28,7 @@ declare abstract class CanvasLayer extends PIXI.Container {
     /**
      * The canonical name of the CanvasLayer
      */
-    readonly name: string;
+    get name(): string;
 
     /** Deconstruct data used in the current layer in preparation to re-draw the canvas */
     tearDown(): void;

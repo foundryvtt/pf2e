@@ -3,6 +3,10 @@ import { MeasuredTemplatePF2e } from "./";
 export class TemplateLayerPF2e<
     TMeasuredTemplate extends MeasuredTemplatePF2e = MeasuredTemplatePF2e
 > extends TemplateLayer<TMeasuredTemplate> {
+    override get name() {
+        return TemplateLayer.prototype.name;
+    }
+
     protected override _onMouseWheel(event: WheelEvent) {
         // Abort if there's no hovered template
         const template = this._hover;

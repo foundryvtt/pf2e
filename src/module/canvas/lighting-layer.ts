@@ -7,6 +7,10 @@ export class LightingLayerPF2e<
     /** A light-blending filter to apply to the coloration container */
     blendFilter!: BlurFilter;
 
+    override get name() {
+        return LightingLayer.prototype.name;
+    }
+
     /** Fix bug in 0.8 core method */
     override hasGlobalIllumination(): boolean {
         if (!canvas.scene) return false;
