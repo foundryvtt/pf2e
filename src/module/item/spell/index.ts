@@ -8,6 +8,7 @@ import { ModifierPF2e } from "@module/modifiers";
 import { ordinal, toNumber, objectHasKey } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
+import { UserPF2e } from "@module/user";
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
@@ -71,6 +72,10 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.isRitual;
     }
 
+    get atWill(): boolean {
+        return this.data.data.atWill;
+    }
+
     get components() {
         const components = this.data.data.components;
         const results: string[] = [];
@@ -86,8 +91,8 @@ export class SpellPF2e extends ItemPF2e {
 
     /** Returns true if this spell has unlimited uses, false otherwise. */
     get unlimited() {
-        // In the future handle at will and constant
-        return this.isCantrip;
+        // In the future handle constant
+        return this.isCantrip || this.atWill;
     }
 
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
@@ -181,7 +186,7 @@ export class SpellPF2e extends ItemPF2e {
         return formulas.join(" + ");
     }
 
-    override prepareBaseData() {
+    override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.isFocusSpell = this.data.data.category.value === "focus";
         this.data.isRitual = this.data.data.category.value === "ritual";
@@ -402,6 +407,18 @@ export class SpellPF2e extends ItemPF2e {
                 left: window.innerWidth - 710,
             },
         });
+    }
+
+    /** Ensure the `atWill` property only exists on spells owned by NPCs */
+    protected override async _preCreate(
+        data: PreDocumentId<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: UserPF2e
+    ): Promise<void> {
+        if (this.actor?.type !== "npc") {
+            this.data.update({ "data.-=atWill": null });
+        }
+        await super._preCreate(data, options, user);
     }
 }
 

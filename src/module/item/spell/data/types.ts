@@ -126,4 +126,5 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     autoHeightenLevel: {
         value: OneToTen | null;
     };
+    atWill: boolean;
 }
