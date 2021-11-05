@@ -10,7 +10,7 @@ import { ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e } from "@actor";
 import { RuleElementPF2e, RuleElements } from "../rules/rules";
-import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
+import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
 import { isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
@@ -179,7 +179,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         return data;
     }
 
-    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): Record<string, unknown> {
+    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): ItemSummaryData {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
