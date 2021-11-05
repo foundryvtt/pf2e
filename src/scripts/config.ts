@@ -1891,7 +1891,6 @@ export const PF2ECONFIG = {
         lowLightVision: "PF2E.SensesLowLightVision",
         motionsense: "PF2E.SensesMotionsense",
         scent: "PF2E.SensesScent",
-        Tremorsense: "PF2E.SensesTremorsense",
         echolocation: "PF2E.SensesEcholocation",
         tremorsense: "PF2E.SensesTremorsense",
         lifesense: "PF2E.SensesLifesense",
