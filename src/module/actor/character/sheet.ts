@@ -728,6 +728,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleInvested(itemId);
         });
 
+        html.find("i.fa-info-circle.small[title]").tooltipster({
+            maxWidth: 275,
+            position: "right",
+            theme: "crb-hover",
+            contentAsHTML: true,
+        });
+
         {
             // Add and remove combat proficiencies
             const $tab = html.find(".tab.skills");
