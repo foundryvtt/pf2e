@@ -176,9 +176,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             return true;
         }
 
-        const slots = this.data.data.slots[slotKey].value;
-        if (slots > 0) {
-            await this.update({ [`data.slots.${slotKey}.value`]: slots - 1 });
+        const slots = this.data.data.slots[slotKey];
+        if (slots.value > 0) {
+            await this.update({ [`data.slots.${slotKey}.value`]: slots.value - 1 });
+            return true;
+        } else if (this.actor?.type === "npc" && this.isInnate && slots.max === 0) {
             return true;
         } else {
             ui.notifications.warn(game.i18n.format("PF2E.SpellSlotNotEnoughError", { name, level: levelLabel }));
