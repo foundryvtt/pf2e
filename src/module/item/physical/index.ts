@@ -69,6 +69,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.isCursed;
     }
 
+    get isTemporary(): boolean {
+        return this.data.data.temporary?.value === true;
+    }
+
     get material() {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
@@ -151,6 +155,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // preparation
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
+        this.data.isTemporary = this.isTemporary;
+
+        if (this.isTemporary) {
+            systemData.price.value = "0 gp";
+        }
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId.value) {

@@ -17,6 +17,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         const abilities = actor.data.data.abilities;
         const attributes = actor.attributes;
         const focus = actor.data.data.resources.focus;
+        const reagents = actor.data.data.resources.crafting.infusedReagents;
 
         // Hit points
         const conModifier = abilities.con.mod;
@@ -65,6 +66,13 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         const rechargeFocus = focus?.max && focus.value < focus.max;
         if (focus && rechargeFocus) {
             focus.value = focus.max;
+        }
+
+        // Restore reagents
+        const restoreReagents = reagents?.max && reagents.value < reagents.max;
+        if (reagents && restoreReagents) {
+            reagents.value = reagents.max;
+            actor.update({ "data.resources.crafting.infusedReagents.value": reagents.value });
         }
 
         // Spellcasting entries
@@ -122,6 +130,13 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             actor.updateEmbeddedDocuments("Item", updateData);
         }
 
+        // Remove temporary crafted items
+        const temporaryItems = actor.physicalItems.filter((item) => item.data.isTemporary);
+
+        if (temporaryItems.length) {
+            temporaryItems.forEach(async (item) => await item.delete());
+        }
+
         // Construct messages
         const actorName = actor.getActiveTokens()[0]?.name ?? actor.name;
         const messages: (string | null)[] = [`${actorName} awakens well-rested.`];
@@ -138,6 +153,14 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         if (rechargeFocus) {
             messages.push("Focus points restored.");
+        }
+
+        if (restoreReagents) {
+            messages.push("Infused Reagents restored.");
+        }
+
+        if (temporaryItems.length) {
+            messages.push("Temporary items removed.");
         }
 
         // Attribute restoration

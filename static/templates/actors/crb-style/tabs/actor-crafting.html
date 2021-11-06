@@ -1,19 +1,27 @@
 <div class="tab crafting crafting-pane" data-group="primary" data-tab="crafting">
+    <div class="crafting-options item-list">
+        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <label>
+                <input type="checkbox" name="flags.pf2e.freeCrafting" {{checked actor.flags.pf2e.freeCrafting}}>
+                <span>{{localize "PF2E.CraftingTab.ToggleFreeCrafting"}}</span>
+            </label>
+        </div>
+        {{#each data.toggles.crafting as |toggle idx|}}
+        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <label>
+                <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+                <span>{{localize toggle.label}}</span>
+            </label>
+        </div>
+        {{/each}}
+    </div>
     <ol class="craftingEntry-list directory-list item-list">
+        {{> systems/pf2e/templates/actors/crafting-entry-list.html craftingEntries=crafting.entries}}
         <li class="known-formulas item-container" data-container-type="knownFormulas">
             <div class="action-header">
                 <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
                     {{localize "PF2E.FormulaKnownTitle"}}
                 </h3>
-
-                {{#if @root.owner}}
-                    <div class="item-controls">
-                        <label class="item-control toggle-free-crafting">
-                            <span>{{localize "PF2E.CraftingTab.ToggleFreeCrafting"}}</span>
-                            <input type="checkbox" name="flags.pf2e.freeCrafting" {{checked actor.flags.pf2e.freeCrafting}}>
-                        </label>
-                    </div>
-                {{/if}}
             </div>
             <ol class="directory-list item-list formula-list">
                 <!-- Add section for each formula level -->
@@ -69,7 +77,7 @@
                     {{#if @root.owner}}
                         <li class="inventory-header formula-header empty">
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            <a class="item-control inventory-browse" title="{{localize " PF2E.OpenInventoryBrowser"}}"
+                            <a class="item-control inventory-browse" title="{{localize 'PF2E.OpenInventoryBrowser'}}"
                                 data-type="equipment" data-location="{{entry._id}}">
                                 <i class="fas fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
                             </a>

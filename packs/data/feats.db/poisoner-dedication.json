@@ -26,7 +26,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CraftingEntry",
+                "selector": "poisoner",
+                "name": "Poisoner",
+                "isAlchemical": true,
+                "isDailyPrep": true,
+                "requiredTraits": [
+                    [
+                        "alchemical",
+                        "poison"
+                    ]
+                ],
+                "maxItemLevel": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.crafting.infusedReagents.max",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
