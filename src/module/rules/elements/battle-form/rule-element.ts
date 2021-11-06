@@ -177,7 +177,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private setRollOptions(): void {
         const { rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
-        rollOptions.all["battle-form"] = true;
+        rollOptions.all["self:battle-form"] = true;
         rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
         rollOptions.all["armor:ignore-speed-penalty"] = this.overrides.armorClass.ignoreSpeedPenalty;
         if (this.overrides.armorClass.ignoreSpeedPenalty) {
@@ -188,7 +188,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const key of SKILL_ABBREVIATIONS) {
             if (!(key in this.overrides.skills)) continue;
             const longForm = SKILL_DICTIONARY[key];
-            rollOptions.all[`battle-form:${longForm}`] = true;
+            rollOptions.all[`self:battle-form:${longForm}`] = true;
         }
     }
 
@@ -318,7 +318,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
         if (this.data.ownUnarmed) {
             synthetics.strikes = synthetics.strikes.filter((weapon) => weapon.category === "unarmed");
-            this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
+            this.actor.rollOptions.all["self:battle-form:own-attack-modifier"] = true;
         } else {
             synthetics.strikes.length = 0;
         }
@@ -346,7 +346,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 const sign = action.totalModifier < 0 ? "" : "+";
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
             } else {
-                this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
+                this.actor.rollOptions.all["self:battle-form:own-attack-modifier"] = true;
             }
         }
     }
@@ -372,7 +372,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const modifier of statistic.modifiers) {
             if (modifier.ignored) continue;
             if (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) {
-                modifier.predicate?.not?.push("battle-form");
+                modifier.predicate?.not?.push("self:battle-form");
                 modifier.ignored = true;
             }
         }
@@ -381,18 +381,19 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     override applyDamageExclusion(modifiers: RawModifier[]): void {
         if (this.data.ownUnarmed) return;
+        const rollOption = "self:battle-form";
         for (const modifier of modifiers) {
-            if (modifier.predicate?.not?.includes("battle-form")) continue;
+            if (modifier.predicate?.not?.includes(rollOption)) continue;
 
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
             const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
             const isBattleFormModifier = !!(
-                modifier.predicate?.any?.includes("battle-form") || modifier.predicate?.all?.includes("battle-form")
+                modifier.predicate?.any?.includes(rollOption) || modifier.predicate?.all?.includes(rollOption)
             );
 
             if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
-                modifier.predicate.not.push("battle-form");
+                modifier.predicate.not.push(rollOption);
             }
         }
     }
