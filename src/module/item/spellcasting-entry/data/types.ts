@@ -2,7 +2,7 @@ import { AbilityString } from "@actor/data/base";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
-import { OneToTen, ZeroToEleven } from "@module/data";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import { SpellcastingEntryPF2e } from "..";
 
@@ -75,7 +75,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: boolean;
     };
     proficiency: {
-        value: number;
+        value: ZeroToFour;
     };
     displayLevels: Record<number, boolean>;
     slots: Record<SlotKey, SpellSlotData>;
