@@ -262,12 +262,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             strike.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
         });
 
-        // We can't use form submission for these updates since duplicates force array updates.
-        // We'll have to move focus points to the top of the sheet to remove this
-        html.find(".focus-pool").on("change", (evt) =>
-            this.actor.update({ "data.resources.focus.max": $(evt.target).val() })
-        );
-
         html.find(".spell-list .focus-points").on("click contextmenu", (event) => {
             if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) return;
 
