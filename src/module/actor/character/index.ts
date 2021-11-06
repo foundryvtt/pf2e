@@ -62,6 +62,7 @@ import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
+import { CraftingEntry } from "@module/crafting/crafting-entry";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -106,6 +107,27 @@ export class CharacterPF2e extends CreaturePF2e {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
                 return new CraftingFormula(item, { dc, batchSize, deletable });
             });
+    }
+
+    async getCraftingEntries(): Promise<CraftingEntry[]> {
+        const craftingFormulas = await this.getCraftingFormulas();
+        const craftingEntriesData = this.data.data.crafting.entries;
+        const entries: CraftingEntry[] = [];
+
+        for (const key in craftingEntriesData) {
+            if (craftingEntriesData[key]) {
+                entries.push(new CraftingEntry(this, craftingFormulas, craftingEntriesData[key]));
+            }
+        }
+
+        return entries;
+    }
+
+    async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
+        const craftingFormulas = await this.getCraftingFormulas();
+        const craftingEntryData = this.data.data.crafting.entries[selector];
+        if (!craftingEntryData) return;
+        return new CraftingEntry(this, craftingFormulas, craftingEntryData);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -172,6 +194,12 @@ export class CharacterPF2e extends CreaturePF2e {
         resources.investiture = { value: 0, max: 10 };
         resources.focus ??= { value: 0, max: 0 };
         resources.focus.max = 0;
+        resources.crafting ??= {
+            infusedReagents: {
+                value: 0,
+                max: 0,
+            },
+        };
 
         // Size
         this.data.data.traits.size = { value: "med" };
