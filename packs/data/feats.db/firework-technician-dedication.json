@@ -27,7 +27,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CraftingEntry",
+                "selector": "fireworkTechnician",
+                "name": "Firework Technician",
+                "isAlchemical": true,
+                "isDailyPrep": true,
+                "requiredTraits": [
+                    [
+                        "alchemical"
+                    ]
+                ],
+                "maxItemLevel": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.crafting.infusedReagents.max",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },

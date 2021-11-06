@@ -31,6 +31,7 @@ import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
+import { CraftingEntryData } from "@module/crafting/crafting-entry";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -170,6 +171,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Crafting-related data, including known formulas */
     crafting: {
         formulas: CraftingFormulaData[];
+        entries: Record<string, CraftingEntryData>;
     };
 }
 
@@ -263,6 +265,9 @@ export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 interface CharacterResources {
     focus: { value: number; max: number };
     investiture: { value: number; max: number };
+    crafting: {
+        infusedReagents: { value: number; max: number };
+    };
 }
 
 interface CharacterPerception extends PerceptionData {

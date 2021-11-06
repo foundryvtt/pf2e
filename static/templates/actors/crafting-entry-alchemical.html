@@ -1,0 +1,93 @@
+<li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
+    <div class="action-header">
+        <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
+            {{localize 'PF2E.CraftingTab.Alchemical.AdvancedAlchemy'}}
+        </h3>
+    </div>
+    <ol class="directory-list item-list formula-list ">
+        <li class="inventory-header formula-level-header formula-header">
+            <div class="level-name reagent-cost">
+                <h3>{{localize 'PF2E.CraftingTab.Alchemical.TotalCost'}}</h3>
+                <div class="formula-number">
+                    {{alchemicalCraftingEntries.totalReagentCost}}
+                </div>
+            </div>
+
+            <div class="level-name reagent-resource">
+                <h3>{{localize 'PF2E.CraftingTab.Alchemical.InfusedReagents'}}</h3>
+                <input class="infused-reagents" type="number" data-selector="value" data-resource="infusedReagents" value="{{alchemicalCraftingEntries.infusedReagents.value}}" placeholder="0" data-dtype="Number"/>
+                <h3>/</h3>
+                <div class="formula-number">
+                    {{alchemicalCraftingEntries.infusedReagents.max}}
+                </div>
+            </div>
+        </li>
+        {{#each alchemicalCraftingEntries.entries as |entry eid|}}
+        <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-entry-selector="{{entry.selector}}">
+            <div class="action-header alchemical-title">
+                <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
+                    {{entry.name}}
+                </h3>
+            </div>
+
+            <ol class="directory-list item-list formula-list">
+                <li class="inventory-header formula-level-header formula-header">
+                    <div class="level-name reagent-cost">
+                        <h3>{{localize 'PF2E.CraftingTab.Alchemical.ReagentCost'}}</h3>
+                        <div class="formula-number">
+                            {{entry.reagentCost}}
+                        </div>
+                    </div>
+
+                    <div class="level-name aa-level">
+                        <h3>{{localize 'PF2E.CraftingTab.Alchemical.AdvancedAlchemyLevel'}}</h3>
+                        <div class="formula-number">
+                            {{entry.maxItemLevel}}
+                        </div>
+                    </div>
+                </li>
+
+                {{#each entry.formulas}}
+                <li class="item formula-item" data-item-id="{{this.uuid}}" data-item-type="formula" data-item-index={{@key}}>
+                    <div class="item-name rollable">
+                        <div class="item-image">
+                            <img class="item-icon" src="{{this.img}}" alt="{{this.name}}">
+                        </div>
+                        <h4>{{this.name}}</h4>
+                    </div>
+
+                    <div class="formula-dc"></div>
+                    <div class="formula-cost"></div>
+
+                    <div class="formula-quantity">
+                        <a class="formula-decrease-quantity">-</a>
+                        <input type="number" value="{{this.quantity}}" />
+                        <a class="formula-increase-quantity">+</a>
+                    </div>
+
+                    {{#if @root.owner}}
+                    <div class="item-controls">
+                        <a class="item-control toggle-signature-item" title="{{localize 'PF2E.CraftingTab.Alchemical.ToggleSignatureItem'}}">
+                            {{#if this.isSignatureItem}}
+                                <i class="fas fa-star"></i>
+                            {{else}}
+                                <i class="far fa-star"></i>
+                            {{/if}}
+                        </a>
+                        <a class="item-control formula-unprepare" title="{{localize 'PF2E.UnprepareItemTitle'}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                    {{/if}}
+                </li>
+                {{/each}}
+                {{#unless entry.formulas}}
+                {{#if @root.owner}}
+                <li class="inventory-header formula-header knownFormulas-empty">
+                    <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                </li>
+                {{/if}}
+                {{/unless}}
+            </ol>
+        </li>
+        {{/each}}
+    </ol>
+</li>

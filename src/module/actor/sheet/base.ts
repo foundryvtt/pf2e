@@ -643,6 +643,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const actionIndex = $li.attr("data-action-index");
             const toggleProperty = $li.attr("data-toggle-property");
             const toggleLabel = $li.attr("data-toggle-label");
+            const itemType = $li.attr("data-item-type");
+            const itemUuid = $li.attr("data-item-id");
 
             // ... an action?
             if (actionIndex) {
@@ -657,6 +659,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     type: "Toggle",
                     property: toggleProperty,
                     label: toggleLabel,
+                };
+            }
+
+            // ... a crafting formula?
+            if (itemType === "formula") {
+                return {
+                    type: "CraftingFormula",
+                    itemUuid: itemUuid,
                 };
             }
 

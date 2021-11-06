@@ -23,7 +23,31 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CraftingEntry",
+                "selector": "munitionsCrafter",
+                "name": "Munitions Crafter",
+                "isAlchemical": true,
+                "isDailyPrep": true,
+                "requiredTraits": [
+                    [
+                        "alchemical",
+                        "bomb"
+                    ],
+                    [
+                        "alchemical"
+                    ]
+                ],
+                "maxItemLevel": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.crafting.infusedReagents.max",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },

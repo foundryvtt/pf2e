@@ -32,6 +32,7 @@ export class BasePhysicalItemData<
     isMagical!: boolean;
     isInvested!: boolean | null;
     isCursed!: boolean;
+    isTemporary!: boolean;
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
@@ -191,4 +192,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: boolean | null;
     };
     activations?: Record<string, ItemActivation>;
+    temporary?: {
+        value: boolean;
+    };
 }
