@@ -897,10 +897,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const entry of itemTypes.spellcastingEntry) {
             const entryData = entry.data;
             const tradition = entry.tradition;
-            const { proficiencies } = this.data.data;
-            const rank = (entry.data.data.proficiency.value = MAGIC_TRADITIONS.includes(tradition)
-                ? Math.max(proficiencies.traditions[tradition].rank, entry.rank)
-                : 0);
+            const rank = (entry.data.data.proficiency.value = entry.rank);
             const ability = entry.ability;
             const baseModifiers = [
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
