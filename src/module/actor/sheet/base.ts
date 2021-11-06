@@ -53,7 +53,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
-            submitOnClose: false,
             scrollY: [
                 ".sheet-sidebar",
                 ".spellcastingEntry-list",
@@ -1235,39 +1234,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }[selectorType];
             new TagSelector(this.object, options).render(true);
         }
-    }
-
-    /** Prevent `ActorSheet#_getSubmitData` from preventing the submission of updates to overridden values */
-    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
-        const overrides = this.actor.overrides;
-        let submitData: Record<string, unknown>;
-        try {
-            this.actor.overrides = {};
-            submitData = super._getSubmitData(updateData);
-        } finally {
-            this.actor.overrides = overrides;
-        }
-
-        for (const propertyPath of Object.keys(submitData)) {
-            const update = submitData[propertyPath];
-            if (typeof update === "number") {
-                submitData[propertyPath] = this.getIntendedChange(propertyPath, update);
-            }
-        }
-
-        return submitData;
-    }
-
-    /**
-     * A user edits numeric values on actor sheets that are frequently modified by data preparation: we should be able
-     * to infer the intended change by adding the difference between their update and the prepared value to the
-     * underlying base value.
-     */
-    protected getIntendedChange(propertyPath: string, update: number): number {
-        const base = getProperty(this.actor.data._source, propertyPath);
-        const prepared = getProperty(this.actor.data, propertyPath);
-
-        return typeof base === "number" && typeof prepared === "number" ? base + (update - prepared) : update;
     }
 
     /** Hide the sheet-config button unless there is more than one sheet option. */
