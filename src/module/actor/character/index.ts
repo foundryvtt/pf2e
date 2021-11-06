@@ -1257,7 +1257,9 @@ export class CharacterPF2e extends CreaturePF2e {
         };
         action.traits = [attackTrait].concat(
             [...weaponTraits].map((trait) => {
-                const label = CONFIG.PF2E.weaponTraits[trait] ?? trait;
+                // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
+                // in use, which can include what are normally NPC-only traits
+                const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
                 const traitObject: StrikeTrait = {
                     name: trait,
                     label,
