@@ -22,7 +22,9 @@ function isValuesList(value: unknown): value is ValuesList {
 
 export class TagSelectorBasic extends TagSelectorBase {
     allowCustom: boolean;
+    /** Search string for filtering */
     searchString = "";
+
     private filterTimeout: number | null = null;
 
     constructor(object: ActorPF2e | ItemPF2e, options: BasicConstructorOptions) {
@@ -48,14 +50,14 @@ export class TagSelectorBasic extends TagSelectorBase {
     }
 
     override getData() {
-        const property = (() => {
+        const { chosen, custom, flat } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
             const property: unknown = getProperty(document.toObject(), this.objectProperty);
 
             if (isValuesList(property)) {
                 const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
                 const custom = this.allowCustom ? property.custom : null;
-                return { chosen, custom };
+                return { chosen, custom, flat: false };
             }
 
             if (Array.isArray(property)) {
@@ -63,10 +65,9 @@ export class TagSelectorBasic extends TagSelectorBase {
                 return { chosen, custom: null, flat: true };
             }
 
-            return { chosen: [], custom: null };
+            return { chosen: [], custom: null, flat: this.flat };
         })();
 
-        const { chosen, custom, flat } = property;
         const choices = Object.keys(this.choices).reduce((accumulated, type) => {
             accumulated[type] = {
                 label: this.choices[type],

@@ -77,6 +77,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/consumable-sidebar.html",
         "systems/pf2e/templates/items/condition-details.html",
         "systems/pf2e/templates/items/condition-sidebar.html",
+        "systems/pf2e/templates/items/deity-details.html",
+        "systems/pf2e/templates/items/deity-sidebar.html",
         "systems/pf2e/templates/items/effect-sidebar.html",
         "systems/pf2e/templates/items/equipment-details.html",
         "systems/pf2e/templates/items/equipment-sidebar.html",
@@ -93,7 +95,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/melee-details.html",
         "systems/pf2e/templates/items/weapon-details.html",
         "systems/pf2e/templates/items/weapon-sidebar.html",
-        "systems/pf2e/templates/items/usage-panel.html",
+        "systems/pf2e/templates/items/activation-panel.html",
 
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",

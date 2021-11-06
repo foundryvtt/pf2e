@@ -8,6 +8,7 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     ContainerPF2e,
+    DeityPF2e,
     EffectPF2e,
     EquipmentPF2e,
     FeatPF2e,
@@ -33,8 +34,9 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import { SenseAcuity } from "@actor/creature/data";
+import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
+import enJSON from "../../static/lang/en.json";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -348,6 +350,14 @@ const weaponCategories = {
     unarmed: "PF2E.WeaponTypeUnarmed",
 };
 
+const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
+    (map, slug) => ({
+        ...map,
+        [slug]: `PF2E.Weapon.Base.${slug}`,
+    }),
+    {} as Record<BaseWeaponType, string>
+);
+
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
     {} as Record<typeof RANGE_TRAITS[number], string>
@@ -361,6 +371,9 @@ const traitsDescriptions = {
     aberration: "PF2E.TraitDescriptionAberration",
     agile: "PF2E.TraitDescriptionAgile",
     aasimar: "PF2E.TraitDescriptionAasimar",
+    aeon: "PF2E.TraitDescriptionAeon",
+    aesir: "PF2E.TraitDescriptionAesir",
+    agathion: "PF2E.TraitDescriptionAgathion",
     anadi: "PF2E.TraitDescriptionAnadi",
     android: "PF2E.TraitDescriptionAndroid",
     artifact: "PF2E.TraitDescriptionArtifact",
@@ -416,6 +429,7 @@ const traitsDescriptions = {
     goloma: "PF2E.TraitDescriptionGoloma",
     grapple: "PF2E.TraitDescriptionGrapple",
     grippli: "PF2E.TraitDescriptionGrippli",
+    grimoire: "PF2E.TraitDescriptionGrimoire",
     halfling: "PF2E.TraitDescriptionHalfling",
     hampering: "PF2E.TraitDescriptionHampering",
     hobgoblin: "PF2E.TraitDescriptionHobgoblin",
@@ -528,6 +542,7 @@ const traitsDescriptions = {
     splash: "PF2E.TraitDescriptionSplash",
     "splash-10": "PF2E.TraitDescriptionSplash10",
     sprite: "PF2E.TraitDescriptionSprite",
+    structure: "PF2E.TraitDescriptionStructure",
     summoned: "PF2E.TraitDescriptionSummoned",
     tattoo: "PF2E.TraitDescriptionTattoo",
     teleportation: "PF2E.TraitDescriptionTeleportation",
@@ -537,9 +552,9 @@ const traitsDescriptions = {
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
     human: "PF2E.TraitDescriptionHuman",
     manipulate: "PF2E.TraitDescriptionManipulate",
-    additive1: "PF2E.TraitDescriptionAdditive1",
-    additive2: "PF2E.TraitDescriptionAdditive2",
-    additive3: "PF2E.TraitDescriptionAdditive3",
+    additive1: "PF2E.TraitDescriptionAdditive",
+    additive2: "PF2E.TraitDescriptionAdditive",
+    additive3: "PF2E.TraitDescriptionAdditive",
     alchemical: "PF2E.TraitDescriptionAlchemical",
     aphorite: "PF2E.TraitDescriptionAphorite",
     archetype: "PF2E.TraitDescriptionArchetype",
@@ -842,12 +857,12 @@ const spellTraits = {
 };
 
 const consumableTraits = {
-    ...damageTypes,
+    ...damageTraits,
+    ...elementalTraits,
     ...magicSchools,
     ...magicTraditions,
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
-    ammunition: "PF2E.TraitAmmunition",
     auditory: "PF2E.TraitAuditory",
     catalyst: "PF2E.TraitCatalyst",
     clockwork: "PF2E.TraitClockwork",
@@ -884,6 +899,7 @@ const consumableTraits = {
     sleep: "PF2E.TraitSleep",
     snare: "PF2E.TraitSnare",
     splash: "PF2E.TraitSplash",
+    structure: "PF2E.TraitStructure",
     talisman: "PF2E.TraitTalisman",
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
@@ -1002,7 +1018,6 @@ const weaponTraits = {
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
-    attached: "PF2E.TraitAttached",
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
@@ -1398,6 +1413,8 @@ export const PF2ECONFIG = {
     meleeWeaponGroups,
     rangedWeaponGroups,
 
+    baseWeaponTypes,
+
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
         knife: "PF2E.WeaponDescriptionKnife",
@@ -1421,6 +1438,7 @@ export const PF2ECONFIG = {
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
         "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
+        "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
         bonded: "PF2E.TraitBonded",
@@ -1434,7 +1452,7 @@ export const PF2ECONFIG = {
         wornbelt: "PF2E.TraitWornBelt",
         wornbeltpouch: "PF2E.TraitWornBeltPouch",
         wornbracers: "PF2E.TraitWornBracers",
-        wornbracelet: "PF2E.TraitWornOnWrists",
+        wornbracelet: "PF2E.TraitWornBracelet",
         worncloak: "PF2E.TraitWornCloak",
         worncirclet: "PF2E.TraitWornCirclet",
         wornclothing: "PF2E.TraitWornClothing",
@@ -1501,62 +1519,50 @@ export const PF2ECONFIG = {
     },
 
     equipmentTraits: {
+        ...alignmentTraits,
         ...ancestryTraits,
+        ...elementalTraits,
+        ...energyDamageTypes,
         ...magicSchools,
         ...magicTraditions,
-        ...sizeTypes,
-        acid: "PF2E.TraitAcid",
         adjustment: "PF2E.TraitAdjustment",
-        air: "PF2E.TraitAir",
         alchemical: "PF2E.TraitAlchemical",
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         auditory: "PF2E.TraitAuditory",
         aura: "PF2E.TraitAura",
-        chaotic: "PF2E.TraitChaotic",
         clockwork: "PF2E.TraitClockwork",
         companion: "PF2E.TraitCompanion",
-        cold: "PF2E.TraitCold",
         contract: "PF2E.TraitContract",
         cursed: "PF2E.TraitCursed",
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
-        earth: "PF2E.TraitEarth",
         eidolon: "PF2E.TraitEidolon",
-        electricity: "PF2E.TraitElectricity",
         emotion: "PF2E.TraitEmotion",
-        evil: "PF2E.TraitEvil",
         extradimensional: "PF2E.TraitExtradimensional",
         fear: "PF2E.TraitFear",
-        fire: "PF2E.TraitFire",
         focused: "PF2E.TraitFocused",
-        force: "PF2E.TraitForce",
         fortune: "PF2E.TraitFortune",
         fulu: "PF2E.TraitFulu",
         gadget: "PF2E.TraitGadget",
-        good: "PF2E.TraitGood",
         grimoire: "PF2E.TraitGrimoire",
         healing: "PF2E.TraitHealing",
         infused: "PF2E.TraitInfused",
         intelligent: "PF2E.TraitIntelligent",
         invested: "PF2E.TraitInvested",
-        lawful: "PF2E.TraitLawful",
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
         mental: "PF2E.TraitMental",
         misfortune: "PF2E.TraitMisfortune",
         mounted: "PF2E.TraitMounted",
-        negative: "PF2E.TraitNegative",
         nonlethal: "PF2E.TraitNonlethal",
         plant: "PF2E.TraitPlant",
         poison: "PF2E.TraitPoison",
         portable: "PF2E.TraitPortable",
-        positive: "PF2E.TraitPositive",
         precious: "PF2E.TraitPrecious",
         revelation: "PF2E.TraitRevelation",
         saggorak: "PF2E.TraitSaggorak",
         scrying: "PF2E.TraitScrying",
-        sonic: "PF2E.TraitSonic",
         spellheart: "PF2E.TraitSpellheart",
         staff: "PF2E.TraitStaff",
         steam: "PF2E.TraitSteam",
@@ -1565,7 +1571,6 @@ export const PF2ECONFIG = {
         teleportation: "PF2E.TraitTeleportation",
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
-        water: "PF2E.TraitWater",
         worn: "PF2E.TraitWorn",
     },
 
@@ -1732,7 +1737,7 @@ export const PF2ECONFIG = {
         120: "PF2E.AreaSize120",
     },
 
-    alignment: {
+    alignments: {
         LG: "PF2E.AlignmentLG",
         NG: "PF2E.AlignmentNG",
         CG: "PF2E.AlignmentCG",
@@ -1864,9 +1869,7 @@ export const PF2ECONFIG = {
         3: "PF2E.HeroPointLevel3",
     },
 
-    actorSizes: {
-        ...sizeTypes,
-    },
+    actorSizes: sizeTypes,
 
     actorTypes,
 
@@ -1891,7 +1894,6 @@ export const PF2ECONFIG = {
         lowLightVision: "PF2E.SensesLowLightVision",
         motionsense: "PF2E.SensesMotionsense",
         scent: "PF2E.SensesScent",
-        Tremorsense: "PF2E.SensesTremorsense",
         echolocation: "PF2E.SensesEcholocation",
         tremorsense: "PF2E.SensesTremorsense",
         lifesense: "PF2E.SensesLifesense",
@@ -1992,7 +1994,7 @@ export const PF2ECONFIG = {
         adlet: "PF2E.LanguageAdlet",
         aklo: "PF2E.LanguageAklo",
         akitonian: "PF2E.LanguageAkitonian",
-        algollthu: "PF2E.LanguageAlghollthu",
+        alghollthu: "PF2E.LanguageAlghollthu",
         amurrun: "PF2E.LanguageAmurrun",
         anadi: "PF2E.LanguageAnadi",
         anugobu: "PF2E.LanguageAnugobu",
@@ -2464,6 +2466,7 @@ export const PF2ECONFIG = {
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,
+            deity: DeityPF2e,
             kit: KitPF2e,
             melee: MeleePF2e,
             consumable: ConsumablePF2e,

@@ -21,6 +21,17 @@
                     "armorClass": {
                         "modifier": "22 + @details.level.value"
                     },
+                    "resistances": [
+                        {
+                            "except": "Silver",
+                            "type": "physical",
+                            "value": 5
+                        },
+                        {
+                            "type": "fire",
+                            "value": 10
+                        }
+                    ],
                     "senses": {
                         "darkvision": {}
                     },
@@ -91,6 +102,12 @@
                     "traits": [
                         "devil",
                         "fiend"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
                     ]
                 }
             },
@@ -115,29 +132,6 @@
                 },
                 "selector": "glaive-damage",
                 "text": "<p class=\"compact-text\"><strong>Devil Form (Barbazu)</strong>: [[/r 1d6 #persistent bleed]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}</p>"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.disableABP",
-                "priority": 10,
-                "value": true
-            },
-            {
-                "except": "Silver",
-                "key": "Resistance",
-                "type": "physical",
-                "value": 5
-            },
-            {
-                "key": "Weakness",
-                "type": "good",
-                "value": 5
-            },
-            {
-                "key": "Resistance",
-                "type": "fire",
-                "value": 10
             }
         ],
         "source": {

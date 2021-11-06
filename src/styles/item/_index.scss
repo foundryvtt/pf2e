@@ -1,7 +1,8 @@
 .pf2e.item.sheet form {
-    @import 'kit-sheet';
-    @import 'abc-sheet';
-    @import 'identify-item';
+    @import "abc-sheet";
+    @import "activations";
+    @import "identify-item";
+    @import "kit-sheet";
 
     display: flex;
     flex-direction: column;
@@ -196,6 +197,14 @@
         input[type="checkbox"]:last-child {
             margin-right: 0;
         }
+
+        .checkbox-pair {
+            display: flex;
+            align-items: center;
+            span {
+                font-weight: 400;
+            }
+        }
     }
 
     .tags {
@@ -318,44 +327,6 @@
         }
     }
 
-    .item-usage {
-        padding: 8px 8px 0;
-        overflow-y: auto;
-
-        header {
-            font-size: 1.05em;
-            margin-bottom: 0.25em;
-            line-height: 1.25em;
-        }
-
-        .activation-time {
-            flex: 1;
-            height: 20px;
-        }
-
-        .frequency {
-            flex: 1;
-            gap: 4px;
-            input[type="number"] {
-                border: none;
-                background: none;
-                text-align: right;
-                margin: 0 0 0 24px;
-            }
-            & > select:first-child {
-                margin-left: 24px;
-            }
-        }
-
-        .usage-action .editor {
-            min-height: 28px;
-        }
-
-        .tox {
-            min-height: 150px;
-        }
-    }
-
     .item-mystify {
         padding: 8px 8px 0;
         overflow-y: auto;
@@ -366,8 +337,13 @@
         }
     }
 
-    .spell-components label {
-        padding-right: 6px;
+    .spell-components {
+        input {
+            margin-left: 0;
+        }
+        label {
+            padding-right: 6px;
+        }
     }
 
     .damage-formulas {

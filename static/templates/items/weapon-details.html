@@ -11,14 +11,21 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
-    <select name="data.group.value" data-dtype="String">
-        {{#select data.group.value}}
-            <option value=""></option>
-            {{#each groups as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
+    {{#if isComboWeapon}}
+        <select disabled="disabled">
+            <option value="firearm">{{localize "PF2E.WeaponGroupFirearm"}}</option>
+        </select>
+        <input type="hidden" name="data.group.value" value="firearm" />
+    {{else}}
+        <select name="data.group.value">
+            {{#select data.group.value}}
+                <option value=""></option>
+                {{#each groups as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    {{/if}}
 </div>
 
 <div class="form-group">
@@ -345,7 +352,9 @@
         <div class="form-group-stacked">
             <label>
                 {{localize "PF2E.TraitsLabel"}}
-                <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.meleeUsage.traits"><i class="fas fa-edit"></i></a>
+                <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.meleeUsage.traits" data-no-custom="true" data-flat="true">
+                    <i class="fas fa-edit"></i>
+                </a>
             </label>
             <ul class="traits-list tags">
                 {{#each meleeUsageTraits as |trait|}}

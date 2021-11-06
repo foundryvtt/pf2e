@@ -8,6 +8,7 @@ import type { ClassData, ClassSource } from "@item/class/data";
 import type { ConditionData, ConditionSource } from "@item/condition/data";
 import type { ConsumableData, ConsumableSource } from "@item/consumable/data";
 import type { ContainerData, ContainerSource } from "@item/container/data";
+import { DeityData, DeitySource } from "@item/deity/data";
 import { FormulaData, MartialData } from "@item/deprecated";
 import type { EffectData, EffectSource } from "@item/effect/data";
 import type { EquipmentData, EquipmentSource } from "@item/equipment/data";
@@ -51,6 +52,7 @@ export type ItemDataPF2e =
     | BackgroundData
     | ClassData
     | ConditionData
+    | DeityData
     | EffectData
     | FeatData
     | KitData
@@ -64,6 +66,12 @@ export type ItemDataPF2e =
 export type PhysicalItemSource = PhysicalItemData["_source"];
 export type ItemSourcePF2e = ItemDataPF2e["_source"];
 
+export interface ItemSummaryData {
+    [key: string]: unknown;
+    traits?: TraitChatData[];
+    properties?: (string | number | null)[];
+}
+
 export interface TraitChatData {
     value: string;
     label: string;
@@ -73,45 +81,46 @@ export interface TraitChatData {
 }
 
 export type {
-    ArmorData,
-    ConsumableData,
-    ContainerData,
-    EquipmentData,
-    TreasureData,
-    WeaponData,
     ActionData,
     AncestryData,
+    ArmorData,
     BackgroundData,
     ClassData,
     ConditionData,
+    ConsumableData,
+    ContainerData,
+    DeityData,
     EffectData,
+    EquipmentData,
     FeatData,
     KitData,
     LoreData,
     MeleeData,
     SpellcastingEntryData,
     SpellData,
-    FormulaData,
+    TreasureData,
+    WeaponData,
 };
 
 export {
-    ArmorSource,
-    BookSource,
-    ConsumableSource,
-    ContainerSource,
-    EquipmentSource,
-    TreasureSource,
-    WeaponSource,
     ActionSource,
     AncestrySource,
+    ArmorSource,
     BackgroundSource,
+    BookSource,
     ClassSource,
     ConditionSource,
+    ConsumableSource,
+    ContainerSource,
+    DeitySource,
     EffectSource,
+    EquipmentSource,
     FeatSource,
     KitSource,
     LoreSource,
     MeleeSource,
     SpellcastingEntrySource,
     SpellSource,
+    TreasureSource,
+    WeaponSource,
 };

@@ -1,0 +1,71 @@
+<!-- Follower Alignments -->
+<div class="form-group form-group-trait">
+    <label class="pf-title">
+        {{localize "PF2E.Item.Deity.FollowerAlignments"}}
+        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.FollowerAlignments" data-config-types="alignments" data-property="data.alignment.follower" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="abc-traits-list">
+        {{#each followerAlignments as |alignment|}}
+            <span class="tag-legacy {{alignment.value}}">{{localize alignment.label}}</span>
+        {{/each}}
+    </ul>
+</div>
+<!-- Divine Ability -->
+<div class="form-group form-group-trait">
+    <label class="pf-title">
+        {{localize "PF2E.Item.Deity.DivineAbility"}}
+        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.DivineAbility" data-config-types="abilities" data-property="data.ability" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="abc-traits-list">
+        {{#each abilities as |ability|}}
+            <span class="tag-legacy {{ability.value}}">{{localize ability.label}}</span>
+        {{/each}}
+    </ul>
+</div>
+<!-- Divine Font -->
+<div class="form-group">
+    <label class="pf-title">{{localize "PF2E.Item.Deity.DivineFont.Label"}}</label>
+    <div class="checkbox-pair">
+        {{#each divineFonts as |font|}}
+            <span>{{localize font.label}}</span>
+            <input type="checkbox" name="data.font" value="{{font.value}}" data-dtype="String" {{checked font.selected}} />
+        {{/each}}
+    </div>
+</div>
+<!-- Divine Skill -->
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
+    <select name="data.skill">
+        {{#select data.skill}}
+            {{#each skills as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+<!-- Favored Weapon -->
+<div class="form-group form-group-trait">
+    <label class="pf-title">
+        {{localize "PF2E.Item.Deity.FavoredWeapon"}}
+        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.FavoredWeapon" data-config-types="baseWeaponTypes" data-property="data.weapon" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="abc-traits-list">
+        {{#each favoredWeapons as |weapon|}}
+            <span class="tag-legacy {{weapon.value}}">{{localize weapon.label}}</span>
+        {{/each}}
+    </ul>
+</div>
+<!-- Cleric Spells -->
+<div class="form-group cleric-spells item-ref-list">
+    <label class="pf-title">{{localize "PF2E.Item.Deity.ClericSpells"}}</label>
+    <ul class="item-refs">
+    {{#each spells as |spell|}}
+        <li data-uuid="{{spell.uuid}}">
+            <img class="icon" src="{{spell.img}}" />
+            <a class="name" data-action="view-spell">{{spell.name}}</a>
+            <div class="level">{{spell.level}}</div>
+            <a class="remove" data-action="remove-spell"><i class="fa fa-times"></i></a>
+        </li>
+    {{/each}}
+    </ul>
+</div>

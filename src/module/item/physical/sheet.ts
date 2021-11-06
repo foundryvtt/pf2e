@@ -22,6 +22,9 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 action,
                 id: action.id,
                 base: `data.activations.${action.id}`,
+                traits: this.prepareOptions(CONFIG.PF2E.actionTraits, action.traits ?? { value: [] }, {
+                    selectedOnly: true,
+                }),
             })),
         };
     }
@@ -48,7 +51,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             }
         });
 
-        $html.find("[data-action='usage-add']").on("click", (event) => {
+        $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
             const id = randomID(16);
             const action: ItemActivation = {
@@ -57,13 +60,14 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 components: { command: false, envision: false, interact: false, cast: false },
                 description: { value: "" },
                 frequency: { value: 0, max: 0, duration: null },
+                traits: { value: [], custom: "" },
             };
             this.item.update({ [`data.activations.${id}`]: action });
         });
 
-        $html.find("[data-action='usage-delete']").on("click", (event) => {
+        $html.find("[data-action=activation-delete]").on("click", (event) => {
             event.preventDefault();
-            const id = $(event.target).closest("[data-action='usage-delete']").attr("data-action-id") ?? "";
+            const id = $(event.target).closest("[data-action=activation-delete]").attr("data-action-id") ?? "";
             const isLast = Object.values(this.item.data.data.activations ?? []).length === 1;
             if (isLast && id in (this.item.data.data.activations ?? {})) {
                 this.item.update({ "data.-=activations": null });

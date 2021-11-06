@@ -14,7 +14,6 @@
         font-weight: bold;
         width: calc(100% - 6px);
         border-bottom: 1px solid #d3ccbc;
-        text-transform: capitalize;
         &::placeholder {
             filter: opacity(0.5);
             color: var(--body);
@@ -115,10 +114,6 @@
             line-height: 1.4;
         }
         .editor {
-            min-height: 200px;
-            height: 100%;
-            width: 100%;
-
             .editor-edit {
                 background: var(--primary);
                 color: white;
@@ -163,23 +158,18 @@
             }
 
             .editor-content {
-                min-height: 200px;
-                height: 100%;
-                width: 100%;
+                min-height: 75px;
                 overflow-y: inherit;
             }
         }
     }
 
     .biography-details {
-        display:block;
+        display:flex;
+        flex-direction: column;
 
-        .bio {
-            margin-bottom: 8px;
-
-            span {
-              width: 100%;
-            }
+        span {
+            width: 100%;
         }
     }
 
@@ -206,14 +196,11 @@
     }
 
     .biography-campaign-notes {
-        display:block;
+        display:flex;
+        flex-direction: column;
 
-        .bio {
-            margin-bottom: 8px;
-
-            span {
-              width: 100%;
-            }
+        span {
+          width: 100%;
         }
     }
 }
