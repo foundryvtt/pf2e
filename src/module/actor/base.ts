@@ -22,6 +22,7 @@ import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./size";
+import { ActorSpellcasting } from "./spellcasting";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -41,7 +42,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    spellcasting!: Collection<Embedded<SpellcastingEntryPF2e>>;
+    spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
@@ -50,7 +51,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
-            this.spellcasting ??= new Collection();
+            this.spellcasting ??= new ActorSpellcasting(this);
             this.rules ??= [];
             this.initialized = true;
         } else {
@@ -233,7 +234,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
             (item) => item instanceof SpellcastingEntryPF2e
         );
-        this.spellcasting = new Collection(spellcastingEntries.map((entry) => [entry.id, entry]));
+        this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
         // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
