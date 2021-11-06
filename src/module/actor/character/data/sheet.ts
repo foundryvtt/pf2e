@@ -1,6 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { CreatureTraitsData } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
+import { SpellcastingSheetData } from "@actor/npc/sheet";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -71,5 +72,5 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     preparationType: Object;
     showPFSTab: boolean;
     showUnpreparedSpells: boolean;
-    spellcastingEntries: Object[];
+    spellcastingEntries: SpellcastingSheetData[];
 }

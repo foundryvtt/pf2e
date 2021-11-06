@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "30 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "30"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -70,6 +71,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The grotesque brain collectors  originate from worlds far beyond the known solar system, and are part of a conglomeration of hostile aliens known collectively as the Dominion of the Black. Whether driven by their own schemes or directives from sinister overlords, brain collectors arrive in living starships to harvest the brains of intelligent creatures. These aberrations draw no nutrition from brains, instead storing them for analysis and as vessels for occult magical energies.</p>\n<p>A brain collector's form evokes that of a tailless scorpion, but the pulsing brain-filled blisters that glisten along its back make them impossible to mistake for merely oversized arachnids. Baleful eyes glare from the joints on their legs, and the unsettling, intrusive whisper-thoughts they telepathically broadcast into the minds of those they seek to feed on can be interpreted as threats or promises alike.</p>\n<p>Brain collectors have very little empathy for the denizens of any world they visit, despite the fact that certain cults venerate them, or the Dominion they hail from, as if they were gods. To brain collectors, terrestrial creatures are simply resources for their magical needs and occult powers. They have little interest in worshipping gods or being worshipped themselves, yet they do practice strange forms of religion of their own, in which they consider the primordial forces of deep space as worthy of faith and fear.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -102,12 +104,7 @@
                 ]
             },
             "dr": [],
-            "dv": [
-                {
-                    "label": "Brain Loss",
-                    "type": "brain loss"
-                }
-            ],
+            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],
@@ -145,7 +142,7 @@
             "_id": "BkzXWiothJMixAmF",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "int"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1998,6 +1995,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "brain-collector-venom"
                     ]
@@ -2044,6 +2042,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -2082,6 +2081,106 @@
             "name": "Claw",
             "sort": 2000000,
             "type": "melee"
+        },
+        {
+            "_id": "sl46JAg6bThumNAx",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "O24aku1Y3aN4Iozf",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2200000,
+            "type": "action"
         },
         {
             "_id": "9SCUupqh4itf7aTx",
@@ -2124,7 +2223,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brain Blisters",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2168,7 +2267,71 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brain Loss",
-            "sort": 2200000,
+            "sort": 2400000,
+            "type": "action"
+        },
+        {
+            "_id": "tFxtEcAZL3wsXOqN",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2212,9 +2375,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brain Collector Venom",
-            "sort": 2300000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2258,9 +2421,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Collect Brain",
-            "sort": 2400000,
+            "sort": 2700000,
             "type": "action"
         },
         {
@@ -2295,7 +2458,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2500000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2330,7 +2493,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2600000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2365,7 +2528,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2700000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2400,7 +2563,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore",
-            "sort": 2800000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2435,7 +2598,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2900000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -2470,7 +2633,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3000000,
+            "sort": 3300000,
             "type": "lore"
         }
     ],

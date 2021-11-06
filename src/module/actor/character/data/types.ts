@@ -50,6 +50,7 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         freeCrafting: boolean;
+        disableABP?: boolean;
     };
 };
 

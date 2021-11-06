@@ -33,6 +33,12 @@
                     "armorClass": {
                         "modifier": "21 + @details.level.value"
                     },
+                    "resistances": [
+                        {
+                            "type": "poison",
+                            "value": 10
+                        }
+                    ],
                     "senses": {
                         "darkvision": {}
                     },
@@ -79,7 +85,13 @@
                             ]
                         }
                     },
-                    "tempHP": 15
+                    "tempHP": 15,
+                    "weaknesses": [
+                        {
+                            "type": "good",
+                            "value": 5
+                        }
+                    ]
                 }
             },
             {
@@ -115,18 +127,6 @@
                 },
                 "selector": "claw-damage",
                 "text": "<p class=\"compact-text\"><strong>Daemon Form (Piscodaemon)</strong>: [[/r 1d6 #persistent bleed]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}, and you can spend an action after a hit to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the target</p>"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.disableABP",
-                "priority": 10,
-                "value": true
-            },
-            {
-                "key": "Weakness",
-                "type": "good",
-                "value": 5
             }
         ],
         "source": {

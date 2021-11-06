@@ -8,7 +8,7 @@ import {
     PreciousMaterialType,
 } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
-import type { LocalizePF2e } from "@module/system/localize";
+import type { LocalizePF2e } from "@system/localize";
 import { OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
@@ -159,7 +159,7 @@ export interface WeaponSystemData extends WeaponSystemSource {
     };
 }
 
-interface ComboWeaponMeleeUsage {
+export interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: string };
     group: MeleeWeaponGroup;
     traits: WeaponTrait[];

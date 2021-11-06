@@ -98,7 +98,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.skills = CONFIG.PF2E.skills;
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.alignment = CONFIG.PF2E.alignment;
+        sheetData.alignments = CONFIG.PF2E.alignments;
         sheetData.rarity = CONFIG.PF2E.rarityTraits;
         sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
@@ -124,9 +124,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         super.activateListeners(html);
 
         // General handler for embedded item updates
-        html.find("[data-property][data-item-id]").on("change", (event) => {
-            const { itemId, property, dtype } = event.target.dataset;
-            if (!itemId || !property) return;
+        const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
+        html.find(selectors).on("change", (event) => {
+            const $target = $(event.target);
+
+            const { itemId, itemProperty } = event.target.dataset;
+            if (!itemId || !itemProperty) return;
 
             const value = (() => {
                 const value = $(event.target).val();
@@ -134,7 +137,15 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     return value;
                 }
 
-                switch (dtype) {
+                const dataType =
+                    $target.attr("data-dtype") ??
+                    ($target.attr("type") === "checkbox"
+                        ? "Boolean"
+                        : ["number", "range"].includes($target.attr("type") ?? "")
+                        ? "Number"
+                        : "String");
+
+                switch (dataType) {
                     case "Boolean":
                         return typeof value === "boolean" ? value : value === "true";
                     case "Number":
@@ -146,7 +157,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 }
             })();
 
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [property]: value }]);
+            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
         });
 
         // Roll skill checks

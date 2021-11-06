@@ -61,6 +61,12 @@
                     "traits": [
                         "angel",
                         "celestial"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "evil",
+                            "value": "10+ 5*floor((@item.level.value -7)/2)"
+                        }
                     ]
                 },
                 "value": {
@@ -181,32 +187,6 @@
                 ],
                 "selector": "piercing-hymn-damage",
                 "text": "<p class='compact-text'><strong>Piercing Hymn</strong>@Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round on a critical hit</p>"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.disableABP",
-                "priority": 10,
-                "value": true
-            },
-            {
-                "key": "Weakness",
-                "type": "evil",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 7,
-                            "value": 10
-                        },
-                        {
-                            "end": 10,
-                            "start": 9,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
             }
         ],
         "source": {

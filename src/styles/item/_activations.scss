@@ -1,0 +1,50 @@
+.item-activations {
+    padding: 8px 8px 0;
+    overflow-y: auto;
+
+    .activation {
+        & + .activation, & + button {
+            margin-top: 0.5em;
+        }
+
+        .editor {
+            min-height: 28px;
+        }
+    }
+
+    header {
+        font-size: 1.05em;
+        margin-bottom: 0.25em;
+        line-height: 1.25em;
+    }
+
+    .activation-time {
+        flex: 1;
+        height: 20px;
+    }
+
+    .frequency {
+        flex: 1;
+        gap: 4px;
+        input[type="number"] {
+            border: none;
+            background: none;
+            text-align: right;
+            margin: 0 0 0 24px;
+        }
+        & > select:first-child {
+            margin-left: 24px;
+        }
+    }
+
+    .tags {
+        margin-top: 4px;
+        label {
+            margin-right: 3px;
+        }
+    }
+
+    .tox {
+        min-height: 150px;
+    }
+}
