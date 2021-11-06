@@ -1,6 +1,3 @@
-<li class="crafting-entry item-container item">
-    <button class="daily-crafting">Complete Daily Crafting</button>
-</li>
 {{#if craftingEntries.alchemical.entries}}
     {{> systems/pf2e/templates/actors/crafting-entry-alchemical.html alchemicalCraftingEntries=craftingEntries.alchemical}}
 {{/if}}
@@ -45,3 +42,8 @@
     </ol>
 </li>
 {{/each}}
+{{#if (add craftingEntries.other craftingEntries.alchemical.entries)}}
+    <li class="crafting-entry item-container item">
+        <button class="daily-crafting">Complete Daily Crafting</button>
+    </li>
+{{/if}}
