@@ -593,19 +593,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             if (item.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(item._id);
                 if (!entry) continue;
-
-                // There are still some bestiary entries where these values are strings.
-                item.data.spelldc.dc = Number(item.data.spelldc.dc);
-                item.data.spelldc.value = Number(item.data.spelldc.value);
-
-                if (this.isElite) {
-                    item.data.spelldc.dc += 2;
-                    item.data.spelldc.value += 2;
-                } else if (this.isWeak) {
-                    item.data.spelldc.dc -= 2;
-                    item.data.spelldc.value -= 2;
-                }
-
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
