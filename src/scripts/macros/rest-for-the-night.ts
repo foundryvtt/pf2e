@@ -16,7 +16,6 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
     for (const actor of characters) {
         const abilities = actor.data.data.abilities;
         const attributes = actor.attributes;
-        const focus = actor.data.data.resources.focus;
         const reagents = actor.data.data.resources.crafting.infusedReagents;
 
         // Hit points
@@ -62,12 +61,6 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         }));
         const wandRecharged = updateData.length > 0;
 
-        // Restore focus points
-        const rechargeFocus = focus?.max && focus.value < focus.max;
-        if (focus && rechargeFocus) {
-            focus.value = focus.max;
-        }
-
         // Restore reagents
         const restoreReagents = reagents?.max && reagents.value < reagents.max;
         if (reagents && restoreReagents) {
@@ -75,39 +68,18 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             actor.update({ "data.resources.crafting.infusedReagents.value": reagents.value });
         }
 
-        // Spellcasting entries
-        const restoredList: string[] = [];
-        const entriesUpdateData = actor.spellcasting.contents.flatMap((entry) => {
-            // Innate, Spontaneous, and Prepared spells
-            const slots = entry.data.data.slots;
-            let updated = false;
-            for (const slot of Object.values(slots)) {
-                if (entry.isSpontaneous || entry.isInnate) {
-                    if (slot.value < slot.max) {
-                        slot.value = slot.max;
-                        updated = true;
-                    }
-                } else {
-                    for (const preparedSpell of Object.values(slot.prepared)) {
-                        if (preparedSpell.expended) {
-                            preparedSpell.expended = false;
-                            updated = true;
-                        }
-                    }
-                }
-            }
+        // Construct messages
+        const actorName = actor.getActiveTokens()[0]?.name ?? actor.name;
+        const messages: (string | null)[] = [`${actorName} awakens well-rested.`];
 
-            if (updated) {
-                restoredList.push(entry.isFocusPool ? "Focus Pool" : `${entry.name} spell slots`);
-                return { _id: entry.id, "data.slots": slots };
-            }
-            return [];
-        });
-
-        updateData.push(...entriesUpdateData);
+        // Spellcasting entries and focus points
+        const spellcastingRecharge = actor.spellcasting.recharge();
+        updateData.push(...spellcastingRecharge.itemUpdates);
 
         // Stamina points
         const staminaEnabled = !!game.settings.get("pf2e", "staminaVariant");
+
+        const restoredList: string[] = [];
 
         if (staminaEnabled) {
             const stamina = attributes.sp;
@@ -123,8 +95,8 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         }
 
         // Updated actor with the sweet fruits of rest
-        if (hpRestored > 0 || restoredList.length > 0) {
-            actor.update({ "data.attributes": attributes, "data.resources.focus.value": focus.value });
+        if (hpRestored > 0 || restoredList.length > 0 || spellcastingRecharge.actorUpdates) {
+            actor.update({ "data.attributes": attributes, ...spellcastingRecharge.actorUpdates });
         }
         if (updateData.length > 0) {
             actor.updateEmbeddedDocuments("Item", updateData);
@@ -137,10 +109,6 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             temporaryItems.forEach(async (item) => await item.delete());
         }
 
-        // Construct messages
-        const actorName = actor.getActiveTokens()[0]?.name ?? actor.name;
-        const messages: (string | null)[] = [`${actorName} awakens well-rested.`];
-
         // Hit-point restoration
         if (hpRestored > 0) {
             messages.push(`${hpRestored} hit points restored.`);
@@ -151,8 +119,12 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             messages.push("Wands recharged.");
         }
 
-        if (rechargeFocus) {
+        if (spellcastingRecharge.actorUpdates) {
             messages.push("Focus points restored.");
+        }
+
+        if (spellcastingRecharge.itemUpdates.length) {
+            messages.push("All spell slots restored.");
         }
 
         if (restoreReagents) {
