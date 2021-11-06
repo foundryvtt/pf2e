@@ -571,7 +571,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 );
 
                 sheetData.spellcastingEntries.push({
-                    eid: sheetData.spellcastingEntries.length,
                     ...itemData,
                     ...entry.getSpellData(),
                 });

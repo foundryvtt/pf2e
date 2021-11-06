@@ -1,45 +1,18 @@
 import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
-import { MagicTradition, SlotKey, SpellcastingEntryData } from "./data";
+import {
+    ActiveSpell,
+    MagicTradition,
+    SlotKey,
+    SpellcastingEntryData,
+    SpellcastingEntryListData,
+    SpellcastingSlotLevel,
+    SpellPrepEntry,
+} from "./data";
 import { SpellPF2e } from "@item/spell";
 import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
-
-export interface SpellcastingSlotLevel {
-    label: string;
-    level: ZeroToTen;
-    isCantrip: boolean;
-
-    /**
-     * Number of uses and max slots or spells.
-     * If this is null, allowed usages are infinite.
-     * If value is undefined then it's not expendable, it's a count of total spells instead.
-     */
-    uses?: {
-        value?: number;
-        max: number;
-    };
-
-    displayPrepared?: boolean;
-    active: (ActiveSpell | null)[];
-}
-
-interface SpellPrepEntry {
-    spell: Embedded<SpellPF2e>;
-    chatData: Record<string, unknown>;
-    signature?: boolean;
-}
-
-interface ActiveSpell {
-    spell: Embedded<SpellPF2e>;
-    chatData: Record<string, unknown>;
-    expended?: boolean;
-    /** Is this spell marked as signature/collection */
-    signature?: boolean;
-    /** Is the spell not actually of this level? */
-    virtual?: boolean;
-}
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
     static override get schema(): typeof SpellcastingEntryData {
@@ -278,7 +251,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
+    getSpellData(this: Embedded<SpellcastingEntryPF2e>): SpellcastingEntryListData {
         if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
