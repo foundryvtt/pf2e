@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -65,6 +65,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #147: Tomorrow Must Burn"
             }
         },
@@ -868,7 +869,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Target is Within Range of At Least Two Allies",
+                        "property": "flags.pf2e.rollOptions.all.pack-attack"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "label": "Pack Attack",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
