@@ -1,5 +1,6 @@
-import { ConsumableData, ConsumableSource, SpellSource } from "@item/data";
+import { ConsumableData, ConsumableSource } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
+import { SpellPF2e } from "@item/spell";
 import { calculateDC, DCOptions } from "@module/dc";
 import { ErrorPF2e } from "@util";
 
@@ -42,12 +43,16 @@ function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, h
     }
 }
 
+export function isSpellConsumable(itemId: string): boolean {
+    return Object.values(scrollCompendiumIds).includes(itemId) || Object.values(wandCompendiumIds).includes(itemId);
+}
+
 export async function createConsumableFromSpell(
     type: "scroll" | "wand",
-    spellData: SpellSource,
+    spell: SpellPF2e,
     heightenedLevel?: number
 ): Promise<ConsumableSource> {
-    heightenedLevel = heightenedLevel ?? spellData.data.level.value;
+    heightenedLevel = heightenedLevel ?? spell.level;
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getDocument(itemId ?? "");
@@ -56,12 +61,13 @@ export async function createConsumableFromSpell(
     }
 
     const consumableData = consumable.toObject();
-    consumableData.data.traits.value.push(...spellData.data.traditions.value);
-    consumableData.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
+    spell.traditions.forEach((value) => consumableData.data.traits.value.push(value));
+    consumableData.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableData.data.description.value;
-    consumableData.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${description}`;
+    consumableData.data.description.value =
+        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
     consumableData.data.spell = {
-        data: duplicate(spellData),
+        data: duplicate(spell.toObject()),
         heightenedLevel: heightenedLevel,
     };
     return consumableData;

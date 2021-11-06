@@ -11,9 +11,10 @@ import {
 import { DegreeOfSuccess } from "@module/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
-import { PhysicalItemPF2e } from "@item";
+import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 
 interface Costs {
     reductionPerDay: Coins;
@@ -126,6 +127,44 @@ export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, ac
         }),
         speaker: { alias: actor.name },
     });
+}
+
+export async function craftSpellConsumable(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e) {
+    const consumableType = (item as ConsumablePF2e).consumableType;
+    if (!(consumableType === "scroll" || consumableType === "wand")) return;
+    const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
+    const validSpells = actor.itemTypes.spell
+        .filter((spell) => spell.level <= spellLevel && !spell.isCantrip && !spell.isFocusSpell && !spell.isRitual)
+        .reduce((result, spell) => {
+            result[spell.level] = [...(result[spell.level] || []), spell];
+            return result;
+        }, <Record<number, Embedded<SpellPF2e>[]>>{});
+    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {
+        spells: validSpells,
+    });
+    new Dialog({
+        title: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.Title"),
+        content,
+        buttons: {
+            cancel: {
+                icon: '<i class="fa fa-times"></i>',
+                label: game.i18n.localize("Cancel"),
+            },
+            craft: {
+                icon: '<i class="fa fa-hammer"></i>',
+                label: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
+                callback: async ($dialog) => {
+                    const spellId = String($dialog.find('select[name="spell"]').val());
+                    const spell = actor.items.get(spellId);
+                    if (!spell || !(spell instanceof SpellPF2e)) return;
+                    const item = await createConsumableFromSpell(consumableType, spell, spellLevel);
+                    craftItem(new ConsumablePF2e(item), itemQuantity, actor);
+                },
+            },
+        },
+        default: "craft",
+    }).render(true);
+    return;
 }
 
 export async function renderCraftingInline(

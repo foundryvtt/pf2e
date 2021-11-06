@@ -1,20 +1,20 @@
 import { ActorPF2e } from "@actor/index";
-import { SpellSource } from "@item/spell/data";
+import { SpellPF2e } from "@item";
 import { ErrorPF2e } from "@util";
 
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: ScrollWandCallback;
-    spellData?: SpellSource;
+    spell?: SpellPF2e;
 
     constructor(
         object: ActorPF2e,
         options: Partial<FormApplicationOptions>,
         callback: ScrollWandCallback,
-        spellData: SpellSource
+        spell: SpellPF2e
     ) {
         super(object, options);
 
-        this.spellData = spellData;
+        this.spell = spell;
         this.onSubmitCallback = callback;
     }
 
@@ -32,11 +32,11 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     override async getData(): Promise<FormApplicationData<ActorPF2e>> {
         const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = await super.getData();
 
-        if (!this.spellData) {
+        if (!this.spell) {
             throw ErrorPF2e("ScrollWandPopup | Could not read spelldata");
         }
 
-        const minimumLevel = this.spellData.data.level.value;
+        const minimumLevel = this.spell.level;
         const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
         sheetData.validLevels = levels;
         return sheetData;
@@ -45,10 +45,10 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     override async _updateObject(_event: Event, formData: { itemType: string; level: number }) {
         if (formData.itemType === "wand" && formData.level === 10) {
             ui.notifications.warn(game.i18n.localize("PF2E.ScrollWandPopup.10thLevelWand"));
-        } else if (this.onSubmitCallback && this.spellData) {
-            this.onSubmitCallback(formData.level, formData.itemType, this.spellData);
+        } else if (this.onSubmitCallback && this.spell) {
+            this.onSubmitCallback(formData.level, formData.itemType, this.spell);
         }
     }
 }
 
-type ScrollWandCallback = (level: number, itemType: string, spellData: SpellSource) => Promise<void>;
+type ScrollWandCallback = (level: number, itemType: string, spell: SpellPF2e) => Promise<void>;
