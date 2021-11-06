@@ -14,7 +14,6 @@ import {
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MagicTradition, PreparationType } from "@item/spellcasting-entry/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
 import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
@@ -543,46 +542,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
-        const { abilities } = this.actor.data.data;
-
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(itemData._id);
                 if (!entry) continue;
-
-                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
-                const spellRank = itemData.data.proficiency?.value || 0;
-                const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
-                const abilityMod = abilities[entry.ability].mod;
-                const spellAttack = abilityMod + spellProficiency;
-                if (itemData.data.spelldc.value !== spellAttack && this.actor.isOwner) {
-                    const updatedItem = {
-                        _id: itemData._id,
-                        data: {
-                            spelldc: {
-                                value: spellAttack,
-                                dc: spellAttack + 10,
-                                mod: abilityMod,
-                            },
-                        },
-                    };
-                    this.actor.updateEmbeddedDocuments("Item", [updatedItem]);
-                }
-                itemData.data.spelldc.mod = abilityMod;
-                itemData.data.spelldc.breakdown = `10 + ${entry.ability} modifier(${abilityMod}) + proficiency(${spellProficiency})`;
-                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
-
-                itemData.data.spelldc.icon = this.getProficiencyIcon(itemData.data.proficiency.value);
-                itemData.data.spelldc.hover = game.i18n.localize(
-                    CONFIG.PF2E.proficiencyLevels[itemData.data.proficiency.value]
-                );
-                itemData.data.tradition.title = game.i18n.localize(
-                    CONFIG.PF2E.magicTraditions[itemData.data.tradition.value as MagicTradition]
-                );
-                itemData.data.prepared.title = game.i18n.localize(
-                    CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType]
-                );
-
                 sheetData.spellcastingEntries.push({
                     ...itemData,
                     ...entry.getSpellData(),
