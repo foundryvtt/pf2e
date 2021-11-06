@@ -29,8 +29,9 @@ import { ImmunityRuleElement } from "./elements/iwr/immunity";
 import { WeaknessRuleElement } from "./elements/iwr/weakness";
 import { ResistanceRuleElement } from "./elements/iwr/resistance";
 import { RollOptionRuleElement } from "./elements/roll-option";
-import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting-formula";
 import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
+import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting/crafting-formula";
+import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
 
 /**
  * @category RuleElement
@@ -50,6 +51,7 @@ export class RuleElements {
         TokenImage: PF2TokenImageRuleElement,
         BattleForm: BattleFormRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
+        CraftingEntry: CraftingEntryRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         Immunity: ImmunityRuleElement,
         RollOption: RollOptionRuleElement,

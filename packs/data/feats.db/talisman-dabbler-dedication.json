@@ -22,7 +22,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CraftingEntry",
+                "selector": "talismanDabbler",
+                "name": "Talisman Dabbler",
+                "isDailyPrep": true,
+                "requiredTraits": [
+                    [
+                        "talisman"
+                    ]
+                ],
+                "maxSlots": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.crafting.entries.talismanDabbler.maxItemLevel",
+                "value": "floor(@details.level.value / 2)"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
