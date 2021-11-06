@@ -1,0 +1,17 @@
+<h3>{{localize "PF2E.UI.RuleElements.ChoiceSet.Prompt"}}</h3>
+<div class="choices">
+    {{#if (gt choices.length 5)}}
+        <select data-choice="">
+            <option value=""></option>
+            {{#each choices as |choice|}}
+                <option value="{{choice.value}}">{{choice.label}}</option>
+            {{/each}}
+        </select>
+
+        <button type="button" data-choice="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
+    {{else}}
+        {{#each choices as |choice|}}
+            <button type="button" data-choice="{{choice.value}}">{{choice.label}}</button>
+        {{/each}}
+    {{/if}}
+</div>

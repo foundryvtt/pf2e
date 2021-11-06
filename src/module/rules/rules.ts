@@ -32,6 +32,7 @@ import { RollOptionRuleElement } from "./elements/roll-option";
 import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
 import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting/crafting-formula";
 import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
+import { ChoiceSetRuleElement } from "./elements/choice-set/rule-element";
 
 /**
  * @category RuleElement
@@ -39,18 +40,19 @@ import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
 export class RuleElements {
     static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
         ActorTraits: ActorTraitsRuleElement,
-        FlatModifier: FlatModifierRuleElement,
-        MageArmor: PF2MageArmorRuleElement,
+        BaseSpeed: BaseSpeedRuleElement,
+        BattleForm: BattleFormRuleElement,
+        ChoiceSet: ChoiceSetRuleElement,
+        CreatureSize: CreatureSizeRuleElement,
+        DamageDice: PF2DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
         FixedProficiency: PF2FixedProficiencyRuleElement,
+        FlatModifier: FlatModifierRuleElement,
+        MageArmor: PF2MageArmorRuleElement,
         TempHP: TempHPRuleElement,
-        DamageDice: PF2DamageDiceRuleElement,
         ToggleProperty: PF2TogglePropertyRuleElement,
-        CreatureSize: CreatureSizeRuleElement,
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
-        BattleForm: BattleFormRuleElement,
-        BaseSpeed: BaseSpeedRuleElement,
         CraftingEntry: CraftingEntryRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         Immunity: ImmunityRuleElement,
