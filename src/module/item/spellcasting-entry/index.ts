@@ -2,6 +2,7 @@ import { CharacterPF2e, CreaturePF2e, NPCPF2e } from "@actor";
 import {
     ActiveSpell,
     MagicTradition,
+    MAGIC_TRADITIONS,
     SlotKey,
     SpellcastingEntryData,
     SpellcastingEntryListData,
@@ -9,7 +10,7 @@ import {
     SpellPrepEntry,
 } from "./data";
 import { SpellPF2e } from "@item/spell";
-import { goesToEleven, OneToTen, ZeroToTen } from "@module/data";
+import { goesToEleven, OneToTen, ZeroToFour, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
@@ -40,19 +41,26 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return this.data.data.ability.value || "int";
     }
 
+    /** This entry's magic tradition, defaulting to arcane if unset or invalid */
     get tradition(): MagicTradition {
-        return this.data.data.tradition.value || "arcane";
+        const tradition = this.data.data.tradition.value || "arcane";
+        return MAGIC_TRADITIONS.includes(tradition) ? tradition : "arcane";
     }
 
     /**
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank() {
+    get rank(): ZeroToFour {
         const actor = this.actor;
-        if (actor instanceof CharacterPF2e && this.isInnate) {
-            const allRanks = actor.spellcasting.map((entry) => entry.data.data.proficiency.value ?? 0);
-            return Math.max(1, ...allRanks);
+        if (actor instanceof CharacterPF2e) {
+            const traditions = actor.data.data.proficiencies.traditions;
+            if (this.isInnate) {
+                const allRanks = MAGIC_TRADITIONS.map((tradition) => traditions[tradition].rank);
+                return Math.max(1, this.data.data.proficiency.value ?? 0, ...allRanks) as ZeroToFour;
+            } else {
+                return Math.max(this.data.data.proficiency.value, traditions[this.tradition].rank) as ZeroToFour;
+            }
         }
 
         return this.data.data.proficiency.value ?? 0;
@@ -405,6 +413,17 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             levels: results,
             spellPrepList,
         };
+    }
+
+    override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
+        // Upgrade the actor proficiency using the internal ones
+        const actor = this.actor;
+        if (actor instanceof CharacterPF2e) {
+            const { traditions } = actor.data.data.proficiencies;
+            const tradition = this.tradition;
+            const rank = this.data.data.proficiency.value;
+            traditions[tradition].rank = Math.max(0, rank, traditions[tradition].rank) as ZeroToFour;
+        }
     }
 
     protected override async _preUpdate(
