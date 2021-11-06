@@ -1,4 +1,111 @@
-# Patch Notes:
+# Changelog
+
+## Version 2.18.2
+### Bug Fixes
+* (stwlam) Remove player-visibility of price and other properties from mystified items
+* (stwlam) Restore presence of traits inherited from a PC's ancestry
+* (stwlam) Fix generation of malformed data causing breakage of some combination weapons
+* (stwlam) Fix display of NPC/Battle Form attack traits
+
+### Content Updates
+* (Abaddon) Brush up monster A-C in Bestiary 1
+* (cepvep) Update immunities/weaknesses/resistances on battle form spells A-E
+* (Flash Granola) Updated Kyra iconics to add Scimitar proficiency
+* (rectulo) Fix description of the Rampart Shield
+* (rectulo) Correct the description of the static snare
+* (SpartanCPA) Add "Structure" trait and "Affixed to Headgear" worn option
+* (SpartanCPA) Add "Worn Bracelet" equipping option
+* (SpartanCPA) Add action cost to Steal Shadow
+* (SpartanCPA) Correct Alghollthu language on several NPCs
+* (SpartanCPA) Remove duplicate "Tremorsense" sense
+* (SpartanCPA) Fix Sources incorrectly pointing to Bestiaries
+* (SpartanCPA) Move monsters from Little Trouble in Big Absalom into the One Shot Bestiary
+* (SpartanCPA) Add the Magic Items from Strength of Thousands book 4
+* (stwlam) Remove token icons from PFS mentor boons
+* (Tikael) Remove extraneous properties from Oozemorph rule elements
+* (Tikael) Add Gears character backgrounds
+
+### Core System Improvements
+* (SkepticRobot) Reduce minimum height of PC-sheet biography fields and remove capitalize transform from personality field
+* (stwlam) Always allow casting from innate NPC entries with 0 max slots
+* (stwlam) Have the BattleForm rule element disable Automatic Bonus Progression
+
+
+## Version 2.18.1
+### Bug Fixes
+* (Abaddon) Fix localization of NPC skills
+* (stwlam) Fix editing NPC skills from a compendium
+* (stwlam) Fix localization of homebrew attack proficiencies on PC sheet
+* (stwlam) Fix bug preventing item level from being editable on feat and spell sheets
+* (stwlam) Fix damage and critical button tooltips on PC sheet
+
+### Content Updates
+* (ArthurTrumpet) Update Plant Form spell effects to use BattleForm rule element
+* (Drental🤖) add ability score automation to all apex items
+* (InfamousSky) Add missing trigger reaction to Sand Whirlwind Hazard
+* (InfamousSky) Add area to Tangling Creepers spell
+* (InfamousSky) Add link to Wronged Monk's Wrath spell in corresponding feat
+* (InfamousSky) Fix will saves and attack traits in Arms of Balance
+* (Neginea) Add journal entries for Beast Gunner and Bullet Dancer archetypes
+* (rectulo) Fix a typo in Inventor class
+* (rectulo) Fix formatting of the Poppet ancestry description
+* (SpartanCPA) Italicize several hundred links to spells in item descriptions
+* (Supe) Add negative damage and area size to Eclipse Burst
+
+### Core System Improvements
+* (Abaddon) Improve type definitions of PC sheet
+
+
+## Version 2.18.0
+### New Features
+* (stwlam) Add basic support for defining and using combination weapons
+* (stwlam) Track tradition proficiencies on new PCs throughout leveling
+* (stwlam) Update the EffectTarget rule element to be a prompt with a definable set of choices
+
+### Bug Fixes
+* (SpartanCPA) Correct bulk calculation for 5 round increments
+* (stwlam) Fix functionality of land speeds created by the BaseSpeed rule element
+* (stwlam) Fix inability to change fundamental runes of specific magic weapons
+
+### Content Updates
+* (Abaddon) Bestiary 1: Brush up Bunyip, Eels and Apes
+* (ArthurTrumpet) Update Monstrosity Form effects with BattleForm rule element
+* (Drental) Add a bonus toggle to the Ten Paces class feature
+* (Drental) Fix save label and add aura/inline save to frightful presence
+* (fryguy) Rename Agents of Edgewatch NPCs to match style guide
+* (kageru) Fix typo in precious munitions name
+* (Neginea) Add journal entry for artillerist archetype
+* (Neginea) Fix spelling of "Cannon Corner Shot" feat name
+* (rectulo) Correct prerequisites of Expert Magus Spellcasting
+* (rectulo) Fix formatting in Aberrant Form spell, Trapsmith Dedication prerequisties, and Duskwalker heritage
+* (rectulo) Remove uneeded HTML entities in Wyrwood Sneak description
+* (rectulo) Correct typos and formatting in Rainfall Orc ancestry feature
+* (redeux) Add Actors for PFS 3-04 and B15. Audit of Iron Command reaction
+* (redeux) Correct Biloko Veteran's longspear attack as printed in LO: Mwangi Expanse and PFS 3-03
+* (SpartanCPA) Add the two remaining "Cobbled" guns
+* (SpartanCPA) Add Combination Weapons from Guns and Gears
+* (SpartanCPA) Ensure there are no empty labels in save buttons
+* (SpartanCPA) Add ammo to the One Shot Pregens
+* (SpartanCPA) Remove Herexen from One-Shot Bestiary
+* (stwlam) Add rounds for every firearm
+* (stwlam) Fill in icons for several Guns & Gears items
+* (Tikael) Correct typo in Gunslinger description
+* (TMun) Audit creatures used in PFS Bounties 13 and 14
+* (TMun) Add copyright notices for PFS 3-04 to 3-08 and Bounties 15 to 17, as well as missed free adventures
+* (VestOfHolding) Add items from The Grand Bazaar's Merrygleam shop
+* (xdy) Normalize languages on NPCs
+
+### Core System Improvements
+* (SpartanCPA) Sum bulk from multiple firearm ammunition stacks
+* (SpartanCPA) Update Zakzak for One-Shot 3 errata
+* (stwlam) Check well-formedness of "roll-option" property on FlatModifier rule elements
+* (stwlam) Exclude minions from initiative rolling
+* (stwlam) Add a system of "other tags" to weapons
+* (stwlam) Remove overflowing behavior of sidebar on PC sheet
+* (stwlam) Skip removing class feats when removing a class from a PC
+* (stwlam) Add tooltips to item, spell, and strike traits appearing in chat cards
+* (Supe) Show "Item X" label in the item sheet for physical items, feats, and spells
+
 
 ## Version 2.17.1
 ### Bug Fixes

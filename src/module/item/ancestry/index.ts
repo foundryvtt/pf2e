@@ -11,6 +11,10 @@ export class AncestryPF2e extends ABCItemPF2e {
         return AncestryData;
     }
 
+    get traits(): Set<CreatureTrait> {
+        return new Set(this.data.data.traits.value);
+    }
+
     get hitPoints(): number {
         return this.data.data.hp;
     }
@@ -66,7 +70,7 @@ export class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add traits from ancestry and heritage
-        const ancestryTraits: Set<string> = this?.traits ?? new Set();
+        const ancestryTraits: Set<string> = this.traits;
         const heritageTraits: Set<string> = this.actor.heritage?.traits ?? new Set();
         const traits = Array.from(
             new Set(
@@ -81,6 +85,4 @@ export class AncestryPF2e extends ABCItemPF2e {
 
 export interface AncestryPF2e {
     readonly data: AncestryData;
-
-    get traits(): Set<CreatureTrait>;
 }

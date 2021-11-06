@@ -34,6 +34,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     static defaultIcons: Record<string, ImagePath | undefined> = [
         "antler",
         "beak",
+        "body",
         "bone-shard",
         "branch",
         "claw",
@@ -58,6 +59,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "tendril",
         "tentacle",
         "tongue",
+        "vine",
         "water-spout",
         "wave",
         "wing",
@@ -109,6 +111,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         overrides.immunities ??= [];
         overrides.weaknesses ??= [];
         overrides.resistances ??= [];
+
+        // Disable Automatic Bonus Progression
+        this.actor.data.flags.pf2e.disableABP = true;
     }
 
     /** Set temporary hit points */
@@ -125,6 +130,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     override onBeforePrepareData(_actorData: unknown, synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
+
         const { rollOptions } = this.actor;
         if (rollOptions.all["polymorph"]) {
             console.warn("PF2e System | You are already under the effect of a polymorph effect");

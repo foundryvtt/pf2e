@@ -45,12 +45,41 @@
             color: #353535;
             font-weight: bold;
             white-space: nowrap;
+            max-width: 6em;
         }
 
-        .form-group input {
-            text-align: right;
-            &.left-of-select {
-                margin-right: 1em;
+        .form-group {
+            margin: 3px 0;
+
+            input {
+                text-align: right;
+                &.left-of-select {
+                    margin-right: 1em;
+                }
+            }
+
+            select {
+                margin-right: 0.5em;
+            }
+
+            &.longtext {
+                height: fit-content;
+                align-items: start;
+                margin: 0 0 0.5em 0;
+
+                label {
+                    max-width: 6em;
+                    white-space: normal;
+                    line-height: unset;
+                }
+
+                .editor-content {
+                    min-height: 3em;
+                    > p {
+                        font-weight: 400;
+                        margin: 0;
+                    }
+                }
             }
         }
     }

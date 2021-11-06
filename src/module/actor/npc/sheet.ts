@@ -24,9 +24,9 @@ import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
 import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
-import { SpellcastingEntryPF2e } from "@item";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
+import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -148,11 +148,7 @@ type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF
     };
 };
 
-export interface SpellcastingSheetData
-    extends SpellcastingEntryData,
-        ReturnType<Embedded<SpellcastingEntryPF2e>["getSpellData"]> {
-    eid: number;
-}
+export type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
@@ -456,8 +452,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const skills = sheetSystemData.skills;
         for (const skillId of sortedSkillsIds) {
             const skill = skills[skillId];
-            skill.label =
-                skillId in CONFIG.PF2E.skillList ? game.i18n.localize("PF2E.Skill" + skills[skillId].name) : skill.name;
+            skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
+                ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
+                : skill.name;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
@@ -609,12 +606,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     item.data.spelldc.value -= 2;
                 }
 
-                sheetData.spellcastingEntries.push(
-                    mergeObject(item, {
-                        eid: sheetData.spellcastingEntries.length,
-                        ...entry.getSpellData(),
-                    })
-                );
+                sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
     }

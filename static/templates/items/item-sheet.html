@@ -4,19 +4,13 @@
     <header class="sheet-header">
         <img src="{{item.img}}" data-edit="img" />
         <h1>
-            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" />
+            <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
         </h1>
         {{#if itemType}}
             <span class="level">
                 {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                 <span>{{itemType}}</span>
-                <input
-                    type="number"
-                    {{#if adjustedLevelHint}}class="adjusted"{{/if}}
-                    data-property="data.level.value"
-                    value={{data.level.value}}
-                    data-dtype="Number"
-                />
+                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if item.isPhysical}}data-property="data.level.value"{{else}}name="data.level.value"{{/if}} value="{{data.level.value}}" />
             </span>
         {{/if}}
     </header>
@@ -45,7 +39,7 @@
                 {{/if}}
                 {{#developMode}}
                     {{#if item.isPhysical}}
-                        <a class="list-row" data-tab="usage">{{localize "PF2E.Usage"}}</a>
+                        <a class="list-row" data-tab="activations">{{localize "PF2E.ItemActivate.Label"}}</a>
                     {{/if}}
                 {{/developMode}}
                 {{#if (and item.isPhysical user.isGM)}}
@@ -73,8 +67,8 @@
 
             {{#developMode}}
                 {{#if item.isPhysical}}
-                    <div class="tab item-usage" data-tab="usage">
-                        {{> systems/pf2e/templates/items/usage-panel.html}}
+                    <div class="tab item-activations" data-tab="activations">
+                        {{> systems/pf2e/templates/items/activation-panel.html}}
                     </div>
                 {{/if}}
             {{/developMode}}

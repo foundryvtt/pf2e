@@ -25,7 +25,7 @@ import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { ZeroToFour, ZeroToThree } from "@module/data";
-import type { CharacterPF2e } from ".";
+import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { SENSE_TYPES } from "@actor/data/values";
@@ -50,6 +50,7 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         freeCrafting: boolean;
+        disableABP?: boolean;
     };
 };
 
@@ -214,10 +215,12 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 }
 
 /** The full data for a character action (used primarily for strikes.) */
-export interface CharacterStrike extends StatisticModifier, StrikeData {
-    slug: string | null;
-    adjustments?: DegreeOfSuccessAdjustment[];
-}
+export type CharacterStrike = StatisticModifier &
+    StrikeData & {
+        slug: string | null;
+        adjustments?: DegreeOfSuccessAdjustment[];
+        meleeUsage: CharacterStrike | null;
+    };
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";

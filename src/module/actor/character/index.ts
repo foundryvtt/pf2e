@@ -1208,6 +1208,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const flavor = this.getStrikeDescription(itemData);
         const strikeStat = new StatisticModifier(weapon.name, modifiers);
+        const meleeUsage = weapon.toMeleeUsage();
+
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
             item: weapon.id,
@@ -1222,13 +1224,15 @@ export class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
+            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories, synthetics }) : null,
         });
 
-        // Add origin property as a getter to prevent overflow
+        // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
         Object.defineProperty(action, "origin", {
-            get: () => {
-                return this.items.get(weapon.id);
-            },
+            get: () => this.items.get(weapon.id),
+        });
+        Object.defineProperty(action, "weapon", {
+            get: () => weapon,
         });
 
         // Sets the ammo list if its an ammo using weapon group
@@ -1253,7 +1257,9 @@ export class CharacterPF2e extends CreaturePF2e {
         };
         action.traits = [attackTrait].concat(
             [...weaponTraits].map((trait) => {
-                const label = CONFIG.PF2E.weaponTraits[trait] ?? trait;
+                // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
+                // in use, which can include what are normally NPC-only traits
+                const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
                 const traitObject: StrikeTrait = {
                     name: trait,
                     label,
@@ -1287,23 +1293,11 @@ export class CharacterPF2e extends CreaturePF2e {
             .join(", ");
 
         const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-
-        // Add the base attack roll (used for determining on-hit)
-        action.attack = (args: RollParameters) => {
-            const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
-            ctx.options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
-            const dc = args.dc ?? ctx.dc;
-            if (dc !== null && action.adjustments) {
-                dc.adjustments = action.adjustments;
-            }
-            CheckPF2e.roll(
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                { actor: this, type: "attack-roll", options: ctx.options, notes, dc, traits: action.traits },
-                args.event,
-                args.callback
-            );
-        };
-        action.roll = action.attack;
+        const flavorText = weapon.traits.has("combination")
+            ? weapon.isMelee
+                ? game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Melee", { weapon: weapon.name })
+                : game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Ranged", { weapon: weapon.name })
+            : `${strikeLabel}: ${action.name}`;
 
         const labels: [string, string, string] = [
             `${game.i18n.localize("PF2E.RuleElement.Strike")} ${action.totalModifier < 0 ? "" : "+"}${
@@ -1313,40 +1307,40 @@ export class CharacterPF2e extends CreaturePF2e {
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
-            () => new CheckModifier(`${strikeLabel}: ${action.name}`, action),
+            () => new CheckModifier(flavorText, action),
             () =>
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                new CheckModifier(flavorText, action, [
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
             () =>
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                new CheckModifier(flavorText, action, [
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
                 ]),
         ];
-        const variances: [string, () => CheckModifier][] = [0, 1, 2].map((index) => [
-            labels[index],
-            checkModifiers[index],
-        ]);
 
-        action.variants = variances.map(([label, constructModifier]) => ({
-            label,
-            roll: (args: RollParameters) => {
-                const context = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
-                const options = [
-                    ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
-                ];
-                const dc = args.dc ?? context.dc;
-                if (dc && action.adjustments) {
-                    dc.adjustments = action.adjustments;
-                }
-                CheckPF2e.roll(
-                    constructModifier(),
-                    { actor: this, item: weapon, type: "attack-roll", options, notes, dc, traits: action.traits },
-                    args.event,
-                    args.callback
-                );
-            },
-        }));
+        action.variants = [0, 1, 2]
+            .map((index): [string, () => CheckModifier] => [labels[index], checkModifiers[index]])
+            .map(([label, constructModifier]) => ({
+                label,
+                roll: (args: RollParameters) => {
+                    const context = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                    const options = [
+                        ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
+                    ];
+                    const dc = args.dc ?? context.dc;
+                    if (dc && action.adjustments) {
+                        dc.adjustments = action.adjustments;
+                    }
+                    CheckPF2e.roll(
+                        constructModifier(),
+                        { actor: this, item: weapon, type: "attack-roll", options, notes, dc, traits: action.traits },
+                        args.event,
+                        args.callback
+                    );
+                },
+            }));
+        action.attack = action.roll = action.variants[0].roll;
+
         for (const method of ["damage", "critical"] as const) {
             action[method] = (args: RollParameters): string | void => {
                 const ctx = this.createDamageRollContext(args.event!);

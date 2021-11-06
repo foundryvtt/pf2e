@@ -18,7 +18,7 @@
             </select>
             <select class="alignment-select traits-list-item alignment" name="data.details.alignment.value" data-dtype="String">
                 {{#select data.details.alignment.value}}
-                    {{#each alignment as |label key|}}
+                    {{#each alignments as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
@@ -53,12 +53,6 @@
         {{/if}}
     </div>
     <div class="flexrow">
-        <input
-            id="npc-blurb"
-            name="data.details.blurb"
-            type="text"
-            value="{{data.details.blurb}}"
-            data-dtype="String"
-        />
+        <input name="data.details.blurb" type="text" value="{{data.details.blurb}}" />
     </div>
 </header>

@@ -1,5 +1,6 @@
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 
@@ -12,8 +13,17 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4").on("click", (event) => {
-            const $li = $(event.currentTarget).closest("li");
+            const $target = $(event.currentTarget);
+            const $li = $target.closest("li");
             this.toggleItemSummary($li);
+
+            // For PC-sheet strikes
+            const $summary = $target.closest("li.expandable").find(".item-summary");
+            if ($summary.css("display") === "none") {
+                $summary.slideDown();
+            } else {
+                $summary.slideUp();
+            }
         });
     }
 
@@ -60,55 +70,64 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * Called when an item summary is expanded and needs to be filled out.
      * @todo Move this to templates
      */
-    renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: Record<string, unknown>) {
+    renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData) {
         const localize = game.i18n.localize.bind(game.i18n);
 
-        const props = $('<div class="item-properties tags"></div>');
-        if (item instanceof PhysicalItemPF2e) {
-            const mystifiedClass = item.isIdentified ? "" : " mystified";
-            const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
-            props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
-        }
+        const itemIsIdentifiedOrUserIsGM = item instanceof PhysicalItemPF2e && (item.isIdentified || game.user.isGM);
 
-        if (Array.isArray(chatData.properties)) {
-            const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? " mystified" : "";
+        const $rarityTag = itemIsIdentifiedOrUserIsGM
+            ? (() => {
+                  const mystifiedClass = item.isIdentified ? "" : " mystified";
+                  const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
+                  return $(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
+              })()
+            : null;
+
+        const $priceLabel =
+            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup.value !== "coins"
+                ? ((): JQuery => {
+                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
+                      return $(`<p>${priceLabel}</p>`);
+                  })()
+                : $();
+
+        const properties =
             chatData.properties
-                .filter((property): property is string => typeof property === "string")
-                .forEach((property) => {
-                    props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
-                });
-        }
+                ?.filter((property): property is string => typeof property === "string")
+                .flatMap((property) => {
+                    const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? " mystified" : "";
+                    return game.user.isGM || !mystifiedClass
+                        ? $(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`)
+                        : [];
+                }) ?? [];
 
         // append traits (only style the tags if they contain description data)
-        const traits = chatData["traits"];
-        if (Array.isArray(traits)) {
-            for (const trait of traits) {
-                if (trait.excluded) continue;
-                const label: string = game.i18n.localize(trait.label);
-                const mystifiedClass = trait.mystified ? "mystified" : [];
-                const classes = ["tag", mystifiedClass].flat().join(" ");
-                const $trait = $(`<span class="${classes}">${label}</span>`);
-                if (trait.description) {
-                    const description = game.i18n.localize(trait.description);
-                    $trait
-                        .attr({ title: description })
-                        .tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
-                }
-                props.append($trait);
-            }
-        }
+        const traitTags = Array.isArray(chatData.traits)
+            ? chatData.traits
+                  .filter((trait) => !trait.excluded)
+                  .map((trait) => {
+                      const label: string = game.i18n.localize(trait.label);
+                      const mystifiedClass = trait.mystified ? "mystified" : [];
+                      const classes = ["tag", mystifiedClass].flat().join(" ");
+                      const $trait = $(`<span class="${classes}">${label}</span>`);
+                      if (trait.description) {
+                          const description = game.i18n.localize(trait.description);
+                          $trait
+                              .attr({ title: description })
+                              .tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
+                      }
+                      return $trait;
+                  })
+            : [];
 
-        if (item instanceof PhysicalItemPF2e && item.data.data.stackGroup.value !== "coins") {
-            const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
-            $div.append($(`<p>${priceLabel}</p>`));
-        }
-
-        $div.append(props);
+        const allTags = [$rarityTag, ...traitTags, ...properties].filter((tag): tag is JQuery => !!tag);
+        const $properties = $('<div class="item-properties tags"></div>').append(...allTags);
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : TextEditor.enrichHTML(item.description);
-        $div.append(`<div class="item-description">${description}</div></div>`);
+
+        $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }
 
     /**
