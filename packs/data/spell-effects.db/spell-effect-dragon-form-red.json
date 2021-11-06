@@ -17,6 +17,7 @@
             {
                 "key": "BattleForm",
                 "overrides": {
+                    "hasHands": true,
                     "resistances": [
                         {
                             "type": "fire",
@@ -37,7 +38,6 @@
                     "strikes": {
                         "claw": {
                             "ability": "str",
-                            "baseType": "claw",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "slashing",
@@ -53,7 +53,6 @@
                         },
                         "jaws": {
                             "ability": "str",
-                            "baseType": "jaws",
                             "category": "unarmed",
                             "damage": {
                                 "damageType": "piercing",
@@ -89,7 +88,6 @@
                                 "die": "d8"
                             },
                             "group": "brawling",
-                            "label": "Wing",
                             "traits": [
                                 "unarmed",
                                 "reach-10"
@@ -156,9 +154,6 @@
                                         "modifier": 28
                                     }
                                 },
-                                "speeds": {
-                                    "fly": 120
-                                },
                                 "strikes": {
                                     "claw": {
                                         "damage": {
@@ -215,13 +210,31 @@
                 "diceNumber": 2,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "label": "Jaws",
                 "predicate": {
                     "all": [
                         "battle-form"
                     ]
                 },
                 "selector": "jaws-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
+                },
+                "selector": "fly-speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 8,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             }
         ],
         "source": {
