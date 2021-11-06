@@ -542,6 +542,7 @@ const traitsDescriptions = {
     splash: "PF2E.TraitDescriptionSplash",
     "splash-10": "PF2E.TraitDescriptionSplash10",
     sprite: "PF2E.TraitDescriptionSprite",
+    structure: "PF2E.TraitDescriptionStructure",
     summoned: "PF2E.TraitDescriptionSummoned",
     tattoo: "PF2E.TraitDescriptionTattoo",
     teleportation: "PF2E.TraitDescriptionTeleportation",
