@@ -2,9 +2,8 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
 import { ItemPF2e, PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { TrickMagicItemCastData } from "@item/data";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { canCastConsumable } from "./spell-consumables";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
@@ -104,7 +103,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         const { current, max } = this.charges;
 
         if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
-            if (canCastConsumable(this.actor, this.data)) {
+            if (this.actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
@@ -170,10 +169,9 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         if (!spell) return;
         const actor = this.actor;
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        const realEntries = actor.spellcasting
-            .map((entry) => entry.data)
-            .filter((i) => ["prepared", "spontaneous"].includes(i.data.prepared.value))
-            .filter((i) => tupleHasValue(spell.data.data.traditions.value, i.data.tradition.value));
+        const realEntries = actor.spellcasting.spellcastingFeatures
+            .filter((entry) => spell.traditions.has(entry.tradition))
+            .map((entry) => entry.data);
         const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
         if (spellcastingEntries.length > 0) {
             let maxBonus = 0;
