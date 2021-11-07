@@ -858,7 +858,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
     private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
-        const propertyKey = $select.attr("data-property") ?? "";
+        const propertyKey = $select.attr("data-item-property") ?? "";
         const selectedValue = Number($select.val());
 
         const itemId = $select.closest(".item").attr("data-item-id") ?? "";

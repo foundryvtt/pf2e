@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.18.3
+### Bug Fixes
+* (stwlam) Fix attack rolling from weapon icons on PC actions tab
+* (stwlam) Fix changing proficiency of lore skills on PC sheet
+
 ## Version 2.18.2
 ### Bug Fixes
 * (stwlam) Remove player-visibility of price and other properties from mystified items
