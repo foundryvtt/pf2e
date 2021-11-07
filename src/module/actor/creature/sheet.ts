@@ -254,15 +254,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             entry.cast(spell, { slot: slotId, level: spellLvl });
         });
 
-        // Action Rolling (strikes)
-        $strikesList.find(".item[data-action-index] .item-image.action-strike").on("click", (event) => {
-            if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
-
-            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            this.actor.data.data.actions?.[Number(actionIndex)]?.roll?.({ event });
-        });
-
-        $strikesList.find('button[data-action="strike-attack"]').on("click", (event) => {
+        const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
+        $strikesList.find(attackSelectors).on("click", (event) => {
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
