@@ -63,6 +63,7 @@ import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { ActorSizePF2e } from "@actor/size";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -207,7 +208,7 @@ export class CharacterPF2e extends CreaturePF2e {
         resources.heroPoints.max = 3;
 
         // Size
-        this.data.data.traits.size = { value: "med" };
+        this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;

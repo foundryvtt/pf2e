@@ -8,6 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
 import { LabeledSpeed } from "@actor/creature/data";
+import { ActorSizePF2e } from "@actor/size";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -34,7 +35,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.details.level = { value: 0 };
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
-            size: { value: "tiny" },
+            size: new ActorSizePF2e({ value: "tiny" }),
             traits: { value: ["minion"], custom: "" },
         };
 
