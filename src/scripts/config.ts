@@ -685,7 +685,6 @@ const traitsDescriptions = {
     steam: "PF2E.TraitDescriptionSteam",
     talisman: "PF2E.TraitDescriptionTalisman",
     wand: "PF2E.TraitDescriptionWand",
-    worn: "PF2E.TraitDescriptionWorn",
 };
 
 const creatureTraits = {
