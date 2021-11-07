@@ -893,6 +893,18 @@ export class NPCPF2e extends CreaturePF2e {
                         .join(", ");
                     itemData.data.dc = dc as Required<SpellDifficultyClass>;
                 }
+
+                // There are still some bestiary entries where these values are strings.
+                itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
+                itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
+
+                if (this.isElite) {
+                    itemData.data.spelldc.dc += 2;
+                    itemData.data.spelldc.value += 2;
+                } else if (this.isWeak) {
+                    itemData.data.spelldc.dc -= 2;
+                    itemData.data.spelldc.value -= 2;
+                }
             }
         }
 

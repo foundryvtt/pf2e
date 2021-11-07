@@ -123,6 +123,26 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
+            $input.val(baseValue).attr({ name: propertyPath, type: "number" }).css({ color: "black" });
+        });
+
+        html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
+            const preparedValue = Number(getProperty(this.actor.data, propertyPath)) || 0;
+            const newValue = Number($input.val()) || 0;
+            if (newValue === baseValue) {
+                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+            }
+        });
+
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
         html.find(selectors).on("change", (event) => {
@@ -234,15 +254,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             entry.cast(spell, { slot: slotId, level: spellLvl });
         });
 
-        // Action Rolling (strikes)
-        $strikesList.find(".item[data-action-index] .item-image.action-strike").on("click", (event) => {
-            if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
-
-            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            this.actor.data.data.actions?.[Number(actionIndex)]?.roll?.({ event });
-        });
-
-        $strikesList.find('button[data-action="strike-attack"]').on("click", (event) => {
+        const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
+        $strikesList.find(attackSelectors).on("click", (event) => {
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;

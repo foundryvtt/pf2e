@@ -1,5 +1,29 @@
 .crafting {
-    .known-formulas {
+    .crafting-options {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 1rem 1rem;
+        padding: 0.5rem 1rem;
+        @include frame-elegant;
+
+        .crafting-option {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            label {
+                * {
+                    vertical-align: middle;
+                }
+
+                input {
+                    @include p-reset;
+                }
+            }
+        }
+    }
+
+    .known-formulas, .crafting-entry {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -11,8 +35,15 @@
             margin-bottom: 0.5em;
         }
 
+        &.alchemical-entry {
+            margin-bottom: 0;
+            &:last-child {
+                margin-bottom: 0.5em;
+            }
+        }
+
         &:first-child .action-header {
-                margin-top: 0;
+            margin-top: 0;
         }
 
         .action-header {
@@ -57,6 +88,10 @@
                 color: white;
                 font-weight: 500;
             }
+
+            &.alchemical-title {
+                background: var(--secondary);
+            }
         }
 
         .formula-list {
@@ -67,7 +102,16 @@
             z-index: 1;
 
             .formula-item {
-                height: 2.05em;
+                &[data-expended-state='true'] {
+                    h4 {
+                        color: rgba($body-color, 0.5);
+                        text-decoration: line-through;
+                    }
+        
+                    .toggle-formula-expended {
+                        color: var(--primary);
+                    }
+                }
             }
 
             .formula-level-header, .formula-item {
@@ -123,10 +167,24 @@
                             @include p-reset;
                         }
                     }
+
+                    .formula-number, input {
+                        height: 14px;
+                        background: var(--alt);
+                        color: white;
+                        text-align: center;
+                        border-radius: 3px;
+                        border: 1px solid var(--sub);
+                        font-size: 11px;
+                        width: 22px;
+                        max-width: 22px;
+                        padding-top: 2px;
+                    }
                 }
 
                 .item-name {
                     cursor: pointer;
+                    min-height: 28px;
                 }
 
                 .level-name, .item-name {
@@ -176,6 +234,10 @@
                             color: var(--secondary);
                         }
                     }
+                    
+                    &.aa-level, &.reagent-resource {
+                        justify-content: flex-end;
+                    }
                 }
 
                 .item-controls {
@@ -189,7 +251,7 @@
                 }
 
                 .item-summary {
-                    width: 100%;
+                    flex-basis: 100%;
                     padding: 8px;
                     border-bottom: 1px solid var(--sub);
                     border-top: 1px solid lighten($sub-color, 30);
@@ -199,20 +261,7 @@
                         margin-top: 0;
                     }
                     .item-buttons button {
-                            @include p-reset;
-                            font-family: var(--serif);
-                            font-weight: 500;
-                            margin-top: 8px;
-                            background-color: var(--primary);
-                            color: white;
-                            border: none;
-                            box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-                            border-top: 1px solid lighten($primary-color, 50);
-                            border-bottom: 1px solid darken($primary-color, 40);
-                            cursor: pointer;
-                            &:hover {
-                                text-shadow: 0 0 2px white;
-                            }
+                        display: none;
                     }
                 }
 
@@ -256,7 +305,7 @@
         }
     }
 
-    button:not(.item-summary button),
+    button:not(.item-summary button, .daily-crafting),
     .empty .item-control {
         display: flex;
         justify-content: center;

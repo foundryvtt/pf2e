@@ -38,6 +38,8 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/crb-style/character-abilities.html",
 
         // Actor Sheet Partials (General)
+        "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
+        "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
 
@@ -57,7 +59,6 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/npc/partials/item.html",
 
         // Item Sheet Partials
-        "systems/pf2e/templates/items/ae-tab.html",
         "systems/pf2e/templates/items/rules-panel.html",
         "systems/pf2e/templates/items/action-details.html",
         "systems/pf2e/templates/items/action-sidebar.html",

@@ -1,13 +1,21 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
+import {
+    ClassData,
+    FeatData,
+    ItemDataPF2e,
+    ItemSourcePF2e,
+    LoreData,
+    PhysicalItemData,
+    PhysicalItemSource,
+    WeaponData,
+} from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MagicTradition, PreparationType } from "@item/spellcasting-entry/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
-import { goesToEleven, ZeroToThree } from "@module/data";
+import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -22,6 +30,7 @@ import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
 import { craftItem } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
+import { CraftingEntry } from "@module/crafting/crafting-entry";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -65,9 +74,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.class = this.actor.class;
 
         // Update hero points label
-        sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
-        sheetData.data.attributes.heroPoints.hover =
-            CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank as ZeroToThree];
+        sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
+        sheetData.data.resources.heroPoints.hover = game.i18n.format(
+            this.actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
+            this.actor.heroPoints
+        );
 
         // Update class dc label
         sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
@@ -129,6 +140,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.crafting = {
             noCost: this.actor.data.flags.pf2e.freeCrafting,
             knownFormulas: formulasByLevel,
+            entries: await this.prepareCraftingEntries(),
         };
         this.knownFormulas = new Map(
             Object.values(formulasByLevel)
@@ -530,46 +542,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
-        const { abilities } = this.actor.data.data;
-
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(itemData._id);
                 if (!entry) continue;
-
-                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
-                const spellRank = itemData.data.proficiency?.value || 0;
-                const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
-                const abilityMod = abilities[entry.ability].mod;
-                const spellAttack = abilityMod + spellProficiency;
-                if (itemData.data.spelldc.value !== spellAttack && this.actor.isOwner) {
-                    const updatedItem = {
-                        _id: itemData._id,
-                        data: {
-                            spelldc: {
-                                value: spellAttack,
-                                dc: spellAttack + 10,
-                                mod: abilityMod,
-                            },
-                        },
-                    };
-                    this.actor.updateEmbeddedDocuments("Item", [updatedItem]);
-                }
-                itemData.data.spelldc.mod = abilityMod;
-                itemData.data.spelldc.breakdown = `10 + ${entry.ability} modifier(${abilityMod}) + proficiency(${spellProficiency})`;
-                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
-
-                itemData.data.spelldc.icon = this.getProficiencyIcon(itemData.data.proficiency.value);
-                itemData.data.spelldc.hover = game.i18n.localize(
-                    CONFIG.PF2E.proficiencyLevels[itemData.data.proficiency.value]
-                );
-                itemData.data.tradition.title = game.i18n.localize(
-                    CONFIG.PF2E.magicTraditions[itemData.data.tradition.value as MagicTradition]
-                );
-                itemData.data.prepared.title = game.i18n.localize(
-                    CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType]
-                );
-
                 sheetData.spellcastingEntries.push({
                     ...itemData,
                     ...entry.getSpellData(),
@@ -581,6 +557,27 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected async prepareCraftingFormulas(): Promise<Record<number, CraftingFormula[]>> {
         const craftingFormulas = await this.actor.getCraftingFormulas();
         return Object.fromEntries(groupBy(craftingFormulas, (formula) => formula.level));
+    }
+
+    protected async prepareCraftingEntries() {
+        const actorCraftingEntries = await this.actor.getCraftingEntries();
+        const craftingEntries = {
+            other: <CraftingEntry[]>[],
+            alchemical: {
+                entries: <CraftingEntry[]>[],
+                totalReagentCost: 0,
+                infusedReagents: this.actor.data.data.resources.crafting.infusedReagents,
+            },
+        };
+        actorCraftingEntries.forEach((entry) => {
+            if (entry.isAlchemical) {
+                craftingEntries.alchemical.entries.push(entry);
+                craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
+            } else {
+                craftingEntries.other.push(entry);
+            }
+        });
+        return craftingEntries;
     }
 
     /* -------------------------------------------- */
@@ -727,6 +724,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleInvested(itemId);
         });
 
+        html.find("i.fa-info-circle.small[title]").tooltipster({
+            maxWidth: 275,
+            position: "right",
+            theme: "crb-hover",
+            contentAsHTML: true,
+        });
+
         {
             // Add and remove combat proficiencies
             const $tab = html.find(".tab.skills");
@@ -787,9 +791,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $formulas.find(".craft-item").on("click", async (event) => {
             const { itemUuid } = event.currentTarget.dataset;
-            const itemQuantity = Number(
-                $(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()
-            );
+            const itemQuantity =
+                Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
             const formula = this.knownFormulas.get(itemUuid ?? "");
             if (!formula) return;
 
@@ -812,6 +815,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const $target = $(event.currentTarget);
 
             const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+            if (entrySelector) {
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+                const index = $target.closest("li.formula-item").attr("data-item-index");
+                $target.text().trim() === "+"
+                    ? await craftingEntry.increaseFormulaQuantity(Number(index), itemUUID ?? "")
+                    : await craftingEntry.decreaseFormulaQuantity(Number(index), itemUUID ?? "");
+                return;
+            }
+
             const formula = this.knownFormulas.get(itemUUID ?? "");
             if (!formula) throw ErrorPF2e("Formula not found");
 
@@ -819,6 +833,85 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const step = $target.text().trim() === "+" ? batchSize : -batchSize;
             const value = Number($target.siblings("input").val()) || step;
             $target.siblings("input").val(Math.max(value + step, batchSize));
+        });
+
+        $formulas.find(".formula-unprepare").on("click", async (event) => {
+            const $target = $(event.currentTarget);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const index = $target.closest("li.formula-item").attr("data-item-index");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+
+            if (!itemUUID || !index || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+            await craftingEntry.unprepareFormula(Number(index), itemUUID);
+        });
+
+        $formulas.find(".toggle-formula-expended").on("click", async (event) => {
+            const $target = $(event.currentTarget);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const index = $target.closest("li.formula-item").attr("data-item-index");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+
+            if (!itemUUID || !index || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+            await craftingEntry.toggleFormulaExpended(Number(index), itemUUID);
+        });
+
+        $formulas.find(".toggle-signature-item").on("click", async (event) => {
+            const $target = $(event.currentTarget);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const index = $target.closest("li.formula-item").attr("data-item-index");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+
+            if (!itemUUID || !index || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+            await craftingEntry.toggleSignatureItem(Number(index), itemUUID);
+        });
+
+        $formulas.find(".infused-reagents").on("change", (event) => {
+            const change = Number($(event.target).val());
+            const infusedReagents = this.actor.data.data.resources.crafting.infusedReagents;
+            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
+            this.actor.update({ "data.resources.crafting.infusedReagents.value": value });
+        });
+
+        $formulas.find(".daily-crafting").on("click", async () => {
+            const entries = (await this.actor.getCraftingEntries()).filter((e) => e.isDailyPrep);
+            const alchemicalEntries = entries.filter((e) => e.isAlchemical);
+            const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
+            const reagentValue = (this.actor.data.data.resources.crafting.infusedReagents.value || 0) - reagentCost;
+            if (reagentValue < 0) {
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                return;
+            } else {
+                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+            }
+
+            // Remove infused/temp items
+            for (const item of this.actor.physicalItems) {
+                if (item.data.data.temporary?.value) await item.delete();
+            }
+
+            for (const entry of entries) {
+                for (const prepData of entry.preparedFormulas) {
+                    const item: PhysicalItemSource = prepData.item.toObject();
+                    item.data.quantity.value = prepData.quantity || 1;
+                    item.data.temporary = { value: true };
+                    if (
+                        entry.isAlchemical &&
+                        (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
+                    ) {
+                        item.data.traits.value.push("infused");
+                    }
+                    await this.actor.addToInventory(item);
+                }
+            }
         });
     }
 
@@ -849,7 +942,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const change = event.type === "click" ? 1 : -1;
         const max = propertyKey.includes("heroPoints") ? 3 : 4;
-        const update = this.getIntendedChange(propertyKey, currentValue + change);
+        const update = currentValue + change;
         const newValue = Math.clamped(update, 0, max);
 
         await this.actor.update({ [propertyKey]: newValue });
@@ -858,7 +951,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
     private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
-        const propertyKey = $select.attr("data-property") ?? "";
+        const propertyKey = $select.attr("data-item-property") ?? "";
         const selectedValue = Number($select.val());
 
         const itemId = $select.closest(".item").attr("data-item-id") ?? "";
@@ -1058,6 +1151,29 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onDropItem(event, data);
     }
 
+    protected override async _onDrop(event: ElementDragEvent) {
+        const dataString = event.dataTransfer?.getData("text/plain");
+        const dropData = JSON.parse(dataString ?? "");
+        if (dropData.type === "CraftingFormula") {
+            // Prepare formula if dropped on a crafting entry.
+            const $containerEl = $(event.target).closest(".item-container");
+            const dropContainerType = $containerEl.attr("data-container-type");
+            if (dropContainerType === "craftingEntry") {
+                const entrySelector = $containerEl.attr("data-entry-selector") ?? "";
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+
+                if (!craftingEntry) return;
+
+                const craftingFormulas = await this.actor.getCraftingFormulas();
+                const formula = craftingFormulas.find((f) => f.uuid === dropData.itemUuid);
+
+                if (formula) await craftingEntry.prepareFormula(formula);
+                return;
+            }
+        }
+        return super._onDrop(event);
+    }
+
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      * @param event
@@ -1147,7 +1263,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Get the font-awesome icon used to display a certain level of doomed
      */
-    private getDoomedIcon(level: number) {
+    private getDoomedIcon(level: number): string {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-skull"></i>';
@@ -1161,17 +1277,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             icons[i] = iconHtml;
         }
 
-        return icons[level];
+        return icons[level] ?? icons[0];
     }
 
     /** Get the font-awesome icon used to display hero points */
-    private getHeroPointsIcon(level: ZeroToThree) {
-        const icons = {
-            0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            1: '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-            2: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
-            3: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
-        };
-        return icons[level];
+    private getHeroPointsIcon(level: number): string {
+        const icons = [
+            '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
+            '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
+        ];
+        return icons[level] ?? icons[0];
     }
 }

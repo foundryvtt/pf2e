@@ -1,5 +1,35 @@
 # Changelog
 
+## Version 2.18.2
+### Bug Fixes
+* (stwlam) Remove player-visibility of price and other properties from mystified items
+* (stwlam) Restore presence of traits inherited from a PC's ancestry
+* (stwlam) Fix generation of malformed data causing breakage of some combination weapons
+* (stwlam) Fix display of NPC/Battle Form attack traits
+
+### Content Updates
+* (Abaddon) Brush up monster A-C in Bestiary 1
+* (cepvep) Update immunities/weaknesses/resistances on battle form spells A-E
+* (Flash Granola) Updated Kyra iconics to add Scimitar proficiency
+* (rectulo) Fix description of the Rampart Shield
+* (rectulo) Correct the description of the static snare
+* (SpartanCPA) Add "Structure" trait and "Affixed to Headgear" worn option
+* (SpartanCPA) Add "Worn Bracelet" equipping option
+* (SpartanCPA) Add action cost to Steal Shadow
+* (SpartanCPA) Correct Alghollthu language on several NPCs
+* (SpartanCPA) Remove duplicate "Tremorsense" sense
+* (SpartanCPA) Fix Sources incorrectly pointing to Bestiaries
+* (SpartanCPA) Move monsters from Little Trouble in Big Absalom into the One Shot Bestiary
+* (SpartanCPA) Add the Magic Items from Strength of Thousands book 4
+* (stwlam) Remove token icons from PFS mentor boons
+* (Tikael) Remove extraneous properties from Oozemorph rule elements
+* (Tikael) Add Gears character backgrounds
+
+### Core System Improvements
+* (SkepticRobot) Reduce minimum height of PC-sheet biography fields and remove capitalize transform from personality field
+* (stwlam) Always allow casting from innate NPC entries with 0 max slots
+* (stwlam) Have the BattleForm rule element disable Automatic Bonus Progression
+
 
 ## Version 2.18.1
 ### Bug Fixes
