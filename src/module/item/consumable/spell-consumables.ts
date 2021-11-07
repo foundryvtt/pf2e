@@ -1,9 +1,9 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor/index";
+import type { CharacterPF2e, NPCPF2e } from "@actor/index";
 import { ConsumableData, ConsumableSource, SpellSource, TrickMagicItemCastData } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
 import { calculateDC, DCOptions } from "@module/dc";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e } from "@util";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -67,17 +67,6 @@ export async function createConsumableFromSpell(
         heightenedLevel: heightenedLevel,
     };
     return consumableData;
-}
-
-export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boolean {
-    const spellData = item.data.spell?.data?.data;
-    return (
-        !!spellData &&
-        actor.spellcasting
-            .map((entry) => entry.data)
-            .filter((entryData) => ["prepared", "spontaneous"].includes(entryData.data.prepared.value))
-            .some((entryData) => tupleHasValue(spellData.traditions.value, entryData.data.tradition.value))
-    );
 }
 
 export interface TrickMagicItemDifficultyData {
