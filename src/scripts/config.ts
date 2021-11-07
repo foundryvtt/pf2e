@@ -834,6 +834,7 @@ const spellOtherTraits = {
     nonlethal: "PF2E.TraitNonlethal",
     olfactory: "PF2E.TraitOlfactory",
     plant: "PF2E.TraitPlant",
+    poison: "PF2e.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
     possession: "PF2E.TraitPossession",
     prediction: "PF2E.TraitPrediction",
