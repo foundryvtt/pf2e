@@ -47,6 +47,16 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.weaponType.value;
     }
 
+    get hands(): "0" | "1" | "1+" | "2" {
+        const usageToHands = {
+            "worn-gloves": "0",
+            "held-in-one-hand": "1",
+            "held-in-one-plus-hands": "1+",
+            "held-in-two-hands": "2",
+        } as const;
+        return usageToHands[this.data.data.usage.value] ?? "1";
+    }
+
     get ability(): AbilityString {
         return this.data.data.ability.value;
     }
@@ -76,9 +86,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
+                [`hands:${this.hands}`]: this.hands !== "0",
                 [`${this.ability}-based`]: true,
-                [`melee`]: this.isMelee,
-                [`ranged`]: this.isRanged,
+                melee: this.isMelee,
+                ranged: this.isRanged,
+                magical: this.isMagical,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
