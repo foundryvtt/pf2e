@@ -8,7 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
 import { LabeledSpeed } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/size";
+import { ActorSizePF2e } from "@actor/data/size";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
