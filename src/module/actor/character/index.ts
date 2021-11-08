@@ -54,6 +54,8 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
+import { BulkItem, toBulkItem, calculateBulk, formatBulk, weightToBulk } from "@item/physical/bulk";
+import { calculateEncumbrance } from "@item/physical/encumbrance";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -937,6 +939,76 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+
+        // Bulk
+        const bulkItems: BulkItem[] = this.physicalItems.map((item) => this.preparePhysicalItem(item, this.size));
+
+        // Inventory encumbrance
+        // FIXME: this is hard coded for now
+        const featSlugs = new Set(
+            this.items.filter((item) => item.data.type === "feat").map((item) => item.data.data.slug)
+        );
+
+        let bonusEncumbranceBulk = this.data.data.attributes.bonusEncumbranceBulk ?? 0;
+        let bonusLimitBulk = this.data.data.attributes.bonusLimitBulk ?? 0;
+        if (featSlugs.has("hefty-hauler")) {
+            bonusEncumbranceBulk += 2;
+            bonusLimitBulk += 2;
+        }
+        const equippedLiftingBelt = this.items.some(
+            (item) =>
+                item.data.type === "equipment" &&
+                item.data.data.slug === "lifting-belt" &&
+                (item.data.data.equipped.value ?? false) &&
+                (item.data.data.invested.value ?? false)
+        );
+        if (equippedLiftingBelt) {
+            bonusEncumbranceBulk += 1;
+            bonusLimitBulk += 1;
+        }
+        const bulkConfig = {
+            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
+        };
+        const [bulk] = calculateBulk({
+            items: bulkItems,
+            bulkConfig: bulkConfig,
+            actorSize: this.size,
+        });
+        this.data.data.attributes.encumbrance = calculateEncumbrance(
+            this.data.data.abilities.str.mod,
+            bonusEncumbranceBulk,
+            bonusLimitBulk,
+            bulk,
+            this.size
+        );
+    }
+
+    /** Prepare an item. Calculate its bulk and return it for encumbrance */
+    preparePhysicalItem(item: Embedded<PhysicalItemPF2e>, size: Size): BulkItem {
+        const bulkConfig = {
+            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
+        };
+        const bulkItem: BulkItem = toBulkItem(item.data);
+        if (item instanceof ContainerPF2e) {
+            bulkItem.holdsItems = item.contents.map((item) => toBulkItem(item.data));
+            [item.data.data.containedItemBulk] = calculateBulk({
+                items: bulkItem.holdsItems,
+                bulkConfig: bulkConfig,
+                actorSize: size,
+            });
+            const capacity = weightToBulk(item.data.data.bulkCapacity.value);
+            if (capacity) {
+                item.data.data.capacity.value = capacity.toLightBulk();
+            }
+        }
+
+        const [approximatedBulk] = calculateBulk({
+            items: bulkItem === undefined ? [] : [bulkItem],
+            bulkConfig: bulkConfig,
+            actorSize: size,
+        });
+        item.data.totalWeight = formatBulk(approximatedBulk);
+        return bulkItem;
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;

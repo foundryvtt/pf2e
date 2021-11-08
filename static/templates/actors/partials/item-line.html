@@ -41,7 +41,7 @@
     {{#if editable}}
         <div class="item-controls">
             {{#if item.isContainer}}
-                {{#if item.containerData.isCollapsed}}
+                {{#if item.data.collapsed.value}}
                     <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box"></i></a>
                 {{else}}
                     <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box-open"></i></a>
@@ -74,11 +74,11 @@
     {{/if}}
 </li>
 <div class="container-metadata" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
-    {{#unless item.containerData.isCollapsed}}
+    {{#unless item.data.collapsed.value}}
         {{#if item.isContainer}}
-            <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
-                <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>
-                <span class="container-capacity-label">{{localize 'PF2E.CapacityBarLabel'}}: {{item.containerData.formattedHeldItemBulk}} / {{item.containerData.formattedCapacity}}</span>
+            <div class="container-capacity {{#if item.isOverLoaded}}over-limit{{/if}}">
+                <span class="container-capacity-bar" style="width:{{item.fullPercentageMax100}}%"></span>
+                <span class="container-capacity-label">{{localize 'PF2E.CapacityBarLabel'}}: {{item.formattedHeldItemBulk}} / {{item.data.bulkCapacity.value}}</span>
             </div>
         {{/if}}
         <div class="container-held-items">
