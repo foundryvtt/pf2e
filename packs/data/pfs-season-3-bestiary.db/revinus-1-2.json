@@ -3,28 +3,22 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2,
-                "value": 10
+                "mod": 2
             },
             "con": {
-                "mod": 3,
-                "value": 10
+                "mod": 3
             },
             "dex": {
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "int": {
-                "mod": -1,
-                "value": 10
+                "mod": -1
             },
             "str": {
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "wis": {
-                "mod": 1,
-                "value": 10
+                "mod": 1
             }
         },
         "attributes": {
@@ -962,7 +956,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 800000,
@@ -986,7 +984,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Revinus can intimidate foes with a well-placed blow. When Revinus deals damage on a critical hit with his shortsword, he can attempt an Intimidation check to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} the target as a free action.</p>",
+                        "outcome": [
+                            "criticalSuccess"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
