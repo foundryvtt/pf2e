@@ -15,166 +15,193 @@
         },
         "rules": [
             {
-                "key": "FixedProficiency",
-                "label": "Dragon Form",
-                "selector": "ac",
-                "type": "polymorph",
-                "value": {
-                    "brackets": [
+                "key": "BattleForm",
+                "overrides": {
+                    "hasHands": true,
+                    "resistances": [
                         {
-                            "end": 7,
-                            "start": 6,
-                            "value": "18 + @details.level.value"
-                        },
-                        {
-                            "start": 8,
-                            "value": "21 + @details.level.value"
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "TempHP",
-                "label": "Dragon Form",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 6,
+                            "type": "electricity",
                             "value": 10
-                        },
-                        {
-                            "start": 8,
-                            "value": 15
                         }
                     ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "Sense",
-                "label": "PF2E.SensesDarkvision",
-                "selector": "darkvision"
-            },
-            {
-                "acuity": "imprecise",
-                "key": "Sense",
-                "label": "PF2E.SensesScent",
-                "range": 60,
-                "selector": "scent"
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "land-speed",
-                "value": 40
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "fly",
-                "value": 100
-            },
-            {
-                "key": "BaseSpeed",
-                "selector": "burrow",
-                "value": 20
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dragon Form",
-                "selector": "attack",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": 22
-                        },
-                        {
-                            "start": 8,
-                            "value": 28
+                    "senses": {
+                        "darkvision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 60
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "ability": "str",
-                "key": "FixedProficiency",
-                "label": "Dragon Form",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": 6
+                    },
+                    "speeds": {
+                        "burrow": 20,
+                        "fly": 100,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "claw": {
+                            "category": "unarmed",
+                            "baseType": "claw",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d10"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.claw",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
                         },
-                        {
-                            "start": 8,
-                            "value": 12
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "FixedProficiency",
-                "label": "Dragon Form",
-                "selector": "athletics",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": 23
+                        "horn": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
                         },
-                        {
-                            "start": 8,
-                            "value": 28
-                        }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "key": "CreatureSize",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 6,
-                            "value": "lg"
+                        "jaws": {
+                            "category": "unarmed",
+                            "baseType": "jaws",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d10"
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "traits": [
+                                "unarmed"
+                            ]
                         },
-                        {
-                            "start": 8,
-                            "value": "huge"
+                        "tail": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10"
+                            },
+                            "group": "brawling",
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
                         }
-                    ],
-                    "field": "item|data.level.value"
-                }
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d10"
-                    }
+                    },
+                    "traits": [
+                        "dragon"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Jaws",
-                "options": [
-                    "dragon-jaws",
-                    "dragon-form"
-                ],
-                "range": "melee",
-                "traits": [
-                    "melee"
-                ]
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 6,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @details.level.value"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 23
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "horn": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "modifier": 6
+                                        },
+                                        "modifier": 22
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "start": 8,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "21 + @details.level.value"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "ath": {
+                                        "modifier": 28
+                                    }
+                                },
+                                "strikes": {
+                                    "claw": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "agile",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "horn": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "jaws": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-10"
+                                        ]
+                                    },
+                                    "tail": {
+                                        "damage": {
+                                            "modifier": 12
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             },
             {
                 "critical": false,
@@ -182,88 +209,31 @@
                 "diceNumber": 1,
                 "dieSize": "d12",
                 "key": "DamageDice",
-                "label": "Dragon Jaws",
                 "predicate": {
                     "all": [
-                        "dragon-jaws"
+                        "battle-form"
                     ]
                 },
-                "selector": "damage"
+                "selector": "jaws-damage"
             },
             {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "slashing",
-                        "dice": 3,
-                        "die": "d10"
-                    }
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battle-form"
+                    ]
                 },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Claw",
-                "options": [
-                    "dragon-form"
-                ],
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "agile"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 3,
-                        "die": "d10"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Tail",
-                "options": [
-                    "dragon-form"
-                ],
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
-            },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 3,
-                        "die": "d8"
-                    }
-                },
-                "group": "brawling",
-                "key": "Strike",
-                "label": "Horns",
-                "options": [
-                    "dragon-form"
-                ],
-                "range": "melee",
-                "traits": [
-                    "melee",
-                    "reach-10"
-                ]
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.polymorph",
-                "priority": 10,
-                "value": true
-            },
-            {
-                "key": "Resistance",
-                "type": "electricity",
-                "value": 10
+                "selector": "fly-speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 8,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
             }
         ],
         "source": {
