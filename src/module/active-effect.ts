@@ -135,7 +135,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
             owner.items.some((ownedItem) => ownedItem.sourceId === item.sourceId);
 
         if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
-            toGrant.data.flags.pf2e = { grantedBy: this.data.origin };
+            toGrant.data.flags.pf2e.grantedBy = this.data.origin;
             await owner.createEmbeddedDocuments("Item", [toGrant.data]);
         }
     }
