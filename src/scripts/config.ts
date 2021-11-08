@@ -1591,7 +1591,6 @@ export const PF2ECONFIG = {
         teleportation: "PF2E.TraitTeleportation",
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
-        worn: "PF2E.TraitWorn",
     },
 
     actionTraits,
