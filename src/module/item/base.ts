@@ -151,7 +151,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Ensure the presence of the pf2e flag scope */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.flags.pf2e ??= {};
+        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {

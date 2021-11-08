@@ -106,11 +106,6 @@ export class ConditionManager {
             return false;
         }
 
-        if (!data.flags.pf2e) {
-            // Only create it not there.
-            data.flags.pf2e = {};
-        }
-
         data.flags.pf2e.condition = true;
 
         this._customConditions.set(name, data);
