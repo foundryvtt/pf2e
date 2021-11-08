@@ -288,6 +288,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
+    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
     polymorph: "PF2E.TraitPolymorph",
