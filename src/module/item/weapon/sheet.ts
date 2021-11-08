@@ -111,6 +111,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
+        const isComboWeapon = this.item.traits.has("combination");
+        if (isComboWeapon) sheetData.data.group.value = "firearm";
         const meleeUsage = sheetData.data.meleeUsage ?? {
             group: "knife",
             damage: { type: "piercing", die: "d4" },
@@ -150,7 +152,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             bulkTypes: CONFIG.PF2E.bulkTypes,
             sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
-            isComboWeapon: this.item.group === "firearm" && this.item.traits.has("combination"),
+            isComboWeapon,
             meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
             meleeUsage,
             meleeUsageTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? [], {

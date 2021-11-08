@@ -1,6 +1,6 @@
 import { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data";
-import { ActorSizePF2e } from "@actor/size";
+import { ActorSizePF2e } from "@actor/data/size";
 import { ItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { tupleHasValue } from "@util";
