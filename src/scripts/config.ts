@@ -208,6 +208,7 @@ const damageTraits = {
     mental: "PF2E.TraitMental",
     nonlethal: "PF2E.TraitNonlethal",
     plant: "PF2E.TraitPlant",
+    radiation: "PF2E.TraitRadiation",
 };
 
 const conditionTypes: Record<ConditionType, string> = {
