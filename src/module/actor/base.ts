@@ -13,7 +13,7 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, RollOptionFlags } from "./data/base";
+import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -21,6 +21,8 @@ import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
+import { ActorSizePF2e } from "./size";
+import { ActorSpellcasting } from "./spellcasting";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -40,7 +42,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    spellcasting!: Collection<Embedded<SpellcastingEntryPF2e>>;
+    spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
@@ -49,7 +51,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
-            this.spellcasting ??= new Collection();
+            this.spellcasting ??= new ActorSpellcasting(this);
             this.rules ??= [];
             this.initialized = true;
         } else {
@@ -214,6 +216,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.data.data.autoChanges = {};
         this.preparePrototypeToken();
 
+        const notTraits: BaseTraitsData | undefined = this.data.data.traits;
+        if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
+
         // Setup the basic structure of pf2e flags with roll options
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
     }
@@ -229,7 +234,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
             (item) => item instanceof SpellcastingEntryPF2e
         );
-        this.spellcasting = new Collection(spellcastingEntries.map((entry) => [entry.id, entry]));
+        this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
         // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
