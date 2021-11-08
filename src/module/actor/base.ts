@@ -21,7 +21,7 @@ import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
-import { ActorSizePF2e } from "./size";
+import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
