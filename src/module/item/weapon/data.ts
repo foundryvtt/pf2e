@@ -115,6 +115,9 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     ability: {
         value: AbilityString;
     };
+    usage: {
+        value: "worn-gloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
+    };
     MAP: {
         value: string;
     };
