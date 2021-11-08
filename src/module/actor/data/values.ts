@@ -73,6 +73,7 @@ export const IMMUNITY_TYPES = new Set([
     "healing",
     "inhaled",
     "nonlethal-attacks",
+    "nonmagical-attacks",
     "object-immunities",
     "olfactory",
     "polymorph",
