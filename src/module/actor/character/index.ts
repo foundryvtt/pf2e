@@ -63,7 +63,7 @@ import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
-import { ActorSizePF2e } from "@actor/size";
+import { ActorSizePF2e } from "@actor/data/size";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;

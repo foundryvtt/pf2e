@@ -10,7 +10,7 @@ import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
 import { AutoChangeEntry } from "@module/rules/elements/ae-like";
 import { WeaponPF2e } from "@item";
-import { ActorSizePF2e } from "@actor/size";
+import { ActorSizePF2e } from "@actor/data/size";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
