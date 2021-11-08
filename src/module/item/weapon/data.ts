@@ -9,7 +9,7 @@ import {
 } from "@item/physical/data";
 import { DamageType } from "@module/damage-calculation";
 import type { LocalizePF2e } from "@system/localize";
-import { OneToFour, ZeroToThree } from "@module/data";
+import { OneToThree, OneToFour, ZeroToThree } from "@module/data";
 import type { WeaponPF2e } from ".";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { ItemFlagsPF2e } from "@item/data/base";
@@ -123,7 +123,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     /** Whether the weapon is a "specific magic weapon" */
     specific?: SpecificWeaponData;
     potencyRune: {
-        value: OneToFour | null;
+        value: OneToThree | null;
     };
     strikingRune: {
         value: StrikingRuneType | null;

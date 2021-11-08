@@ -17,6 +17,7 @@ import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { FeatSheetPF2e } from "@item/feat/sheet";
 import { PHYSICAL_ITEM_TYPES } from "@item/data/values";
 import { WeaponSheetPF2e } from "@item/weapon/sheet";
+import { ArmorSheetPF2e } from "@item/armor/sheet";
 import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
@@ -96,7 +97,7 @@ export function registerSheets() {
     }
 
     for (const itemType of PHYSICAL_ITEM_TYPES) {
-        if (["book", "weapon"].includes(itemType)) continue;
+        if (["book", "weapon", "armor"].includes(itemType)) continue;
         Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
@@ -116,6 +117,7 @@ export function registerSheets() {
         ["spell", SpellSheetPF2e],
         ["kit", KitSheetPF2e],
         ["weapon", WeaponSheetPF2e],
+        ["armor", ArmorSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
         Items.registerSheet("pf2e", Sheet, {
