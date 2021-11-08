@@ -208,6 +208,7 @@ const damageTraits = {
     mental: "PF2E.TraitMental",
     nonlethal: "PF2E.TraitNonlethal",
     plant: "PF2E.TraitPlant",
+    radiation: "PF2E.TraitRadiation",
 };
 
 const conditionTypes: Record<ConditionType, string> = {
@@ -288,6 +289,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
+    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
     polymorph: "PF2E.TraitPolymorph",
@@ -1591,7 +1593,6 @@ export const PF2ECONFIG = {
         teleportation: "PF2E.TraitTeleportation",
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
-        worn: "PF2E.TraitWorn",
     },
 
     actionTraits,
