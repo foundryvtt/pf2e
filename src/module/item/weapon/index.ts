@@ -118,6 +118,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         }
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.data.flags.pf2e.comboMeleeUsage ??= false;
+        // Ensure presence of traits array on melee usage if not have been added yet
+        if (this.data.data.meleeUsage) this.data.data.meleeUsage.traits ??= [];
 
         this.processMaterialAndRunes();
     }
