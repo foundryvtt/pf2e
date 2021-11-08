@@ -2,20 +2,10 @@ import { ActionsPF2e, SkillActionOptions } from "../actions";
 import { MODIFIER_TYPE, ModifierPF2e } from "@module/modifiers";
 import { CreaturePF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base";
+import { ActorSizePF2e } from "@actor/data/size";
 
-const sizeMap = new Map<string, number>([
-    ["tiny", 1],
-    ["sm", 2],
-    ["med", 3],
-    ["lg", 4],
-    ["huge", 5],
-    ["grg", 6],
-]);
-
-function determineSizeBonus(actorSize: string, targetSize: string) {
-    const actorSizeNumber = sizeMap.get(actorSize) ?? 0;
-    const targetSizeNumber = sizeMap.get(targetSize) ?? 0;
-    const sizeDifference = actorSizeNumber - targetSizeNumber;
+function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e) {
+    const sizeDifference = actorSize.difference(targetSize);
 
     return Math.clamped(2 * sizeDifference, -4, 4);
 }
@@ -32,8 +22,8 @@ export function whirlingThrow(options: SkillActionOptions) {
     options.modifiers ||= [];
 
     if (target instanceof CreaturePF2e && actor instanceof CreaturePF2e) {
-        const actorSize = actor.data.data.traits.size.value;
-        const targetSize = target.data.data.traits.size.value;
+        const actorSize = actor.data.data.traits.size;
+        const targetSize = target.data.data.traits.size;
         const sizeModifier = new ModifierPF2e(
             "Size Modifier",
             determineSizeBonus(actorSize, targetSize),
