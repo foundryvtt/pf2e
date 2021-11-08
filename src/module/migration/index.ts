@@ -1,23 +1,5 @@
 import { MigrationBase } from "./base";
 import { MigrationRunner } from "./runner";
-import { Migration600Reach } from "./migrations/600-reach";
-import { Migration601SplitEffectCompendia } from "./migrations/601-migrate-effect-compendia";
-import { Migration602UpdateDiehardFeat } from "./migrations/602-update-diehard-feat";
-import { Migration603ResetQuickRollDefault } from "./migrations/603-reset-quick-roll-default";
-import { Migration604FixClassItem } from "./migrations/604-fix-class-items";
-import { Migration605CatchUpToTemplateJSON } from "./migrations/605-catch-up-to-template-json";
-import { Migration606SignatureSpells } from "./migrations/606-signature-spells";
-import { Migration607MeleeItemDamageRolls } from "./migrations/607-melee-item-damage-rolls";
-import { Migration608DeletePersistedKits } from "./migrations/608-delete-persisted-kits";
-import { Migration609LootActorTraits } from "./migrations/609-loot-actor-traits";
-import { Migration610SetHeritageFeatType } from "./migrations/610-set-heritage-feat-type";
-import { Migration611UpdateToughnessMountainsStoutness } from "./migrations/611-update-toughness-mountains-stoutness";
-import { Migration612NormalizeRarities } from "./migrations/612-normalize-rarities";
-import { Migration613RemoveAmmoCharges } from "./migrations/613-remove-ammo-charges";
-import { Migration614NumifyMeleeBonuses } from "./migrations/614-numify-melee-bonuses";
-import { Migration615RemoveInstinctTrait } from "./migrations/615-remove-instinct-trait";
-import { Migration616MigrateFeatPrerequisites } from "./migrations/616-migrate-feat-prerequisites";
-import { Migration617FixUserFlags } from "./migrations/617-fix-user-flags";
 import { Migration618MigrateItemImagePaths } from "./migrations/618-migrate-item-img-paths";
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from "./migrations/619-remove-wand-and-scroll-tradition";
 import { Migration620RenameToWebp } from "./migrations/620-rename-to-webp";
@@ -92,24 +74,6 @@ export { MigrationRunner } from "./runner";
 
 export class Migrations {
     private static list = [
-        Migration600Reach,
-        Migration601SplitEffectCompendia,
-        Migration602UpdateDiehardFeat,
-        Migration603ResetQuickRollDefault,
-        Migration604FixClassItem,
-        Migration605CatchUpToTemplateJSON,
-        Migration606SignatureSpells,
-        Migration607MeleeItemDamageRolls,
-        Migration608DeletePersistedKits,
-        Migration609LootActorTraits,
-        Migration610SetHeritageFeatType,
-        Migration611UpdateToughnessMountainsStoutness,
-        Migration612NormalizeRarities,
-        Migration613RemoveAmmoCharges,
-        Migration614NumifyMeleeBonuses,
-        Migration615RemoveInstinctTrait,
-        Migration616MigrateFeatPrerequisites,
-        Migration617FixUserFlags,
         Migration618MigrateItemImagePaths,
         Migration619TraditionLowercaseAndRemoveWandScroll,
         Migration620RenameToWebp,
