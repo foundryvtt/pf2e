@@ -22,6 +22,7 @@ import { longJump } from "./athletics/long-jump";
 import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import { trip } from "./athletics/trip";
+import { whirlingThrow } from "./athletics/whirling-throw";
 import { craft } from "@system/actions/crafting/craft";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
@@ -101,6 +102,7 @@ export class ActionsPF2e {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+        actions.whirlingThrow = whirlingThrow;
 
         // crafting
         actions.craft = craft;
