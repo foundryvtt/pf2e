@@ -59,6 +59,28 @@
                 "mode": "upgrade",
                 "path": "data.martial.weapon-base-composite-shortbow.rank",
                 "value": 1
+            },
+            {
+                "key": "LinkedProficiency",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:elf",
+                        "weapon:category:advanced"
+                    ]
+                },
+                "sameAs": "martial",
+                "slug": "advanced-elf-weapons"
+            },
+            {
+                "key": "LinkedProficiency",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:elf",
+                        "weapon:category:martial"
+                    ]
+                },
+                "sameAs": "simple",
+                "slug": "martial-elf-weapons"
             }
         ],
         "source": {
@@ -74,33 +96,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "l3VfbFg8hiibK0Jq",
-            "changes": [
-                {
-                    "key": "data.martial.martial.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"elf\", \"category\": \"advanced\" }"
-                },
-                {
-                    "key": "data.martial.simple.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"elf\", \"category\": \"martial\" }"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Elven Weapon Familiarity",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Elven Weapon Familiarity",

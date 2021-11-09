@@ -164,6 +164,18 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
+        // Delete embedded ActiveEffects on embedded Items
+        for await (const updated of updatedItems) {
+            const original = baseActor.items.find((item) => item._id === updated._id);
+            if (!original) continue;
+            const itemAEDiff = this.diffCollection(original.effects, updated.effects);
+            if (itemAEDiff.deleted.length > 0) {
+                // Doubly-embedded documents can't be updated or deleted directly, so send up the entire item
+                // as a full replacement update
+                await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false });
+            }
+        }
+
         updatedActor.items = actor.isToken ? updatedItems : itemDiff.updated;
         return updatedActor;
     }

@@ -151,16 +151,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         // Sort attack/defense proficiencies
-        const combatProficiencies: Record<string, CharacterProficiency> = sheetData.data.martial;
+        const combatProficiencies = sheetData.data.martial;
         const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
         const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
-            .sort(([keyA, a], [keyB, b]) =>
+            .filter((entries): entries is [string, CharacterProficiency] => !(entries[1] && "sameAs" in entries[1]))
+            .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
                     ? -1
                     : !isWeaponProficiency(keyA) && isWeaponProficiency(keyB)
                     ? 1
-                    : (a.label ?? "").localeCompare(b.label ?? "")
+                    : (valueA.label ?? "").localeCompare(valueB.label ?? "")
             )
             .reduce(
                 (proficiencies: Record<string, CharacterProficiency>, [key, proficiency]) => ({

@@ -22,7 +22,7 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
+import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
 import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
@@ -32,6 +32,7 @@ import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
+import { PredicatePF2e } from "@system/predication";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -188,12 +189,14 @@ export interface CharacterProficiency extends RawStatistic {
     label?: string;
     /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
     custom?: true;
-    /** A weapon familiarity from an ancestry feat */
-    familiarity?: {
-        name: string;
-        category: WeaponCategory;
-        trait: WeaponTrait;
-    };
+}
+
+/** A proficiency with a rank that depends on another proficiency */
+export interface LinkedProficiency extends Omit<CharacterProficiency, "custom"> {
+    /** A predicate to match against weapons */
+    predicate: PredicatePF2e;
+    /** The category to which this proficiency is linked */
+    sameAs: WeaponCategory;
 }
 
 export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
@@ -205,9 +208,12 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiency>;
 
+type LinkedProficiencies = Record<string, LinkedProficiency>;
+
 export type CombatProficiencies = CategoryProficiencies &
-    Partial<BaseWeaponProficiencies> &
-    Partial<WeaponGroupProfiencies>;
+    BaseWeaponProficiencies &
+    WeaponGroupProfiencies &
+    LinkedProficiencies;
 
 export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 

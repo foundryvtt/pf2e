@@ -26,6 +26,7 @@ import { Migration682BiographyFields } from "@module/migration/migrations/682-bi
 import { Migration683FlavorTextToPublicNotes } from "@module/migration/migrations/683-flavortext-to-public-notes";
 import { Migration685FixMeleeUsageTraits } from "@module/migration/migrations/685-fix-melee-usage-traits";
 import { Migration686HeroPointsToResources } from "@module/migration/migrations/686-hero-points-to-resources";
+import { Migration687FamiliarityAEsToREs } from "@module/migration/migrations/687-familiarity-aes-to-res";
 
 const migrations: MigrationBase[] = [
     new Migration665HandwrapsCorrections(),
@@ -48,6 +49,7 @@ const migrations: MigrationBase[] = [
     new Migration683FlavorTextToPublicNotes(),
     new Migration685FixMeleeUsageTraits(),
     new Migration686HeroPointsToResources(),
+    new Migration687FamiliarityAEsToREs(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

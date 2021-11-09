@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
+import { ActiveEffectPF2e } from "@module/active-effect";
 import { FakeCollection } from "./fake-collection";
 import { FakeItem } from "./fake-item";
 
@@ -9,6 +10,8 @@ export class FakeActor {
     _data: ActorSourcePF2e;
 
     items: FakeCollection<ItemPF2e> = new FakeCollection();
+
+    effects: FakeCollection<ActiveEffectPF2e> = new FakeCollection();
 
     _itemGuid = 1;
 

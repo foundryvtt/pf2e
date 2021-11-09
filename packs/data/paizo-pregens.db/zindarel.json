@@ -234,33 +234,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "ZMqYwl7EzPOQz1pM",
-            "changes": [
-                {
-                    "key": "data.martial.martial.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"elf\", \"category\": \"advanced\" }"
-                },
-                {
-                    "key": "data.martial.simple.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"elf\", \"category\": \"martial\" }"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Elven Weapon Familiarity",
-            "origin": "Actor.C6EAXKuSYATh4SN8.Item.HDKSJaTJDUS76n9C",
-            "tint": null,
-            "transfer": false
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
     "items": [
@@ -1276,6 +1250,28 @@
                         "mode": "upgrade",
                         "path": "data.martial.weapon-base-composite-shortbow.rank",
                         "value": 1
+                    },
+                    {
+                        "key": "LinkedProficiency",
+                        "predicate": {
+                            "all": [
+                                "weapon:trait:elf",
+                                "weapon:category:advanced"
+                            ]
+                        },
+                        "sameAs": "martial",
+                        "slug": "advanced-elf-weapons"
+                    },
+                    {
+                        "key": "LinkedProficiency",
+                        "predicate": {
+                            "all": [
+                                "weapon:trait:elf",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        "sameAs": "simple",
+                        "slug": "martial-elf-weapons"
                     }
                 ],
                 "slug": "elven-weapon-familiarity",
@@ -1292,32 +1288,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "l3VfbFg8hiibK0Jq",
-                    "changes": [
-                        {
-                            "key": "data.martial.martial.familiarity",
-                            "mode": 5,
-                            "value": "{ \"trait\": \"elf\", \"category\": \"advanced\" }"
-                        },
-                        {
-                            "key": "data.martial.simple.familiarity",
-                            "mode": 5,
-                            "value": "{ \"trait\": \"elf\", \"category\": \"martial\" }"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/feats/feats.webp",
-                    "label": "Elven Weapon Familiarity",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.4NKyZVkmWjDyyIYZ"
