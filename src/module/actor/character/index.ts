@@ -36,20 +36,10 @@ import {
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
 import { ErrorPF2e, sluggify } from "@util";
-import {
-    AncestryPF2e,
-    BackgroundPF2e,
-    ClassPF2e,
-    ConsumablePF2e,
-    FeatPF2e,
-    PhysicalItemPF2e,
-    SpellPF2e,
-    WeaponPF2e,
-} from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
-import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
@@ -941,111 +931,49 @@ export class CharacterPF2e extends CreaturePF2e {
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
-            const baseNotes: RollNotePF2e[] = [];
-            const baseRollOptions = [`${ability}-based`, "all"];
-            baseRollOptions.forEach((key) => {
-                (statisticsModifiers[key] || []).map((m) => m.clone()).forEach((m) => baseModifiers.push(m));
-                (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
-            });
 
-            {
-                // add custom modifiers and roll notes relevant to the attack modifier for the spellcasting entry
-                const modifiers = [...baseModifiers];
-                const notes = [...baseNotes];
-                const rollOptions = [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"];
-                const combinedRollOptions = [...rollOptions, ...baseRollOptions];
-                rollOptions.forEach((key) => {
-                    (statisticsModifiers[key] || [])
-                        .map((m) => m.clone())
-                        .forEach((m) => {
-                            m.ignored = !m.predicate.test(
-                                this.getRollOptions(m.defaultRollOptions ?? combinedRollOptions)
-                            );
-                            modifiers.push(m);
-                        });
-                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+            const baseRollOptions = [`${ability}-based`, "all", "spell-attack-dc"];
+            const baseNotes = baseRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
+            const extendedBaseModifiers = baseRollOptions
+                .flatMap((key) => statisticsModifiers[key] || [])
+                .map((modifier) => {
+                    const m = modifier.clone();
+                    m.ignored = !m.predicate.test(this.getRollOptions(baseRollOptions));
+                    return m;
                 });
 
-                const attack: StatisticModifier & Partial<SpellAttackRollModifier> = new StatisticModifier(
-                    entryData.name,
-                    modifiers
-                );
-                attack.notes = notes;
-                attack.value = attack.totalModifier;
-                attack.breakdown = attack.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
-                attack.roll = (args: RollParameters) => {
-                    if (!(args.item instanceof SpellPF2e)) throw ErrorPF2e("Unexpected error looking up spell to cast");
-
-                    const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
-                    const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll", "spell-attack-roll"]);
-                    const options = (args.options ?? []).concat(ctx.options);
-                    ensureProficiencyOption(options, rank);
-                    const allSpellTraits = {
-                        ...CONFIG.PF2E.magicSchools,
-                        ...CONFIG.PF2E.magicTraditions,
-                        ...CONFIG.PF2E.spellTraits,
-                    };
-                    const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-                    const traits = [...args.item.traits].map((trait) => ({
-                        name: trait,
-                        label: allSpellTraits[trait],
-                        toggle: false,
-                        description: traitDescriptions[trait] ?? "",
-                    }));
-                    CheckPF2e.roll(
-                        new CheckModifier(label, attack, args.modifiers ?? []),
-                        {
-                            actor: this,
-                            item: args.item,
-                            type: "spell-attack-roll",
-                            options,
-                            notes,
-                            dc: args.dc ?? ctx.dc,
-                            traits,
-                        },
-                        args.event,
-                        args.callback
-                    );
-                };
-                entryData.data.attack = attack as Required<SpellAttackRollModifier>;
-            }
-
-            {
-                // add custom modifiers and roll notes relevant to the DC for the spellcasting entry
-                const modifiers = [...baseModifiers];
-                const notes = [...baseNotes];
-                const rollOptions = [`${tradition}-spell-dc`, "spell-dc"];
-                const combinedRollOptions = [...rollOptions, ...baseRollOptions];
-                rollOptions.forEach((key) => {
-                    (statisticsModifiers[key] || [])
-                        .map((m) => m.clone())
-                        .forEach((m) => {
-                            m.ignored = !m.predicate.test(
-                                this.getRollOptions(m.defaultRollOptions ?? combinedRollOptions)
-                            );
-                            modifiers.push(m);
-                        });
-                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+            const attackRollOptions = [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"];
+            const attackNotes = attackRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
+            const attackModifiers = attackRollOptions
+                .flatMap((key) => statisticsModifiers[key] || [])
+                .map((modifier) => {
+                    const m = modifier.clone();
+                    m.ignored = !m.predicate.test(this.getRollOptions(attackRollOptions));
+                    return m;
                 });
 
-                const dc: StatisticModifier & Partial<SpellDifficultyClass> = new StatisticModifier(
-                    entryData.name,
-                    modifiers
-                );
-                dc.notes = notes;
-                dc.value = 10 + dc.totalModifier;
-                dc.breakdown = [game.i18n.localize("PF2E.SpellDCBase")]
-                    .concat(
-                        dc.modifiers
-                            .filter((m) => m.enabled)
-                            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    )
-                    .join(", ");
-                entryData.data.dc = dc as Required<SpellDifficultyClass>;
-            }
+            const saveRollOptions = [`${tradition}-spell-dc`, "spell-dc"];
+            const saveModifiers = saveRollOptions
+                .flatMap((key) => statisticsModifiers[key] || [])
+                .map((modifier) => {
+                    const m = modifier.clone();
+                    m.ignored = !m.predicate.test(this.getRollOptions(saveRollOptions));
+                    return m;
+                });
+
+            // assign statistic data to the spellcasting entry
+            entryData.data.statisticData = {
+                name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+                modifiers: [...baseModifiers, ...extendedBaseModifiers],
+                notes: [...baseNotes, ...attackNotes],
+                check: {
+                    type: "spell-attack-roll",
+                    modifiers: attackModifiers,
+                },
+                dc: {
+                    modifiers: saveModifiers,
+                },
+            };
         }
 
         // Resources

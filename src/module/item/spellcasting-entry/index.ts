@@ -14,6 +14,7 @@ import { goesToEleven, OneToTen, ZeroToFour, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
+import { Statistic } from "@system/statistic";
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
     static override get schema(): typeof SpellcastingEntryData {
@@ -94,6 +95,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         const highestSpell = Math.max(...this.spells.map((s) => s.heightenedLevel));
         const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
+    }
+
+    get statistic(): Statistic {
+        const actor = this.actor;
+        const data = this.data.data.statisticData;
+        if (!actor) throw ErrorPF2e("Cannot get statistic for spellcasting entry without actor");
+        if (!data) throw ErrorPF2e("Missing statistic data for spellcasting entry");
+        return new Statistic(actor, data);
     }
 
     override prepareData() {
@@ -398,9 +407,15 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             return { value: signatureSpells.size, max: totalSlots };
         })();
 
+        const statistic = this.statistic;
+
         return {
             id: this.id,
             name: this.name,
+            statistic: {
+                check: { ...statistic.check },
+                dc: { ...statistic.dc() },
+            },
             tradition: this.tradition,
             castingType: this.data.data.prepared.value,
             isPrepared: this.isPrepared,
