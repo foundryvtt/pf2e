@@ -24,7 +24,7 @@ export class CreatureSensePF2e implements SenseData {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
         this.value = data.value ?? "";
-        this.label = data.label ?? "";
+        this.label = data.label;
         this.source = data.source || undefined;
         this.showAcuity = data.showAcuity ?? true;
         this.temporary = data.temporary ?? false;
