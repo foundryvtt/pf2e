@@ -12,7 +12,7 @@ import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
-import { EffectsPanel } from "@system/effect-panel";
+import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
 import { WorldClock } from "@system/world-clock";

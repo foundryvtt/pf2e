@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base";
 import { EffectData } from "@item/data";
 import { ConditionPF2e, EffectPF2e } from "@item";
-import { ConditionReference, FlattenedCondition } from "./conditions";
+import { ConditionReference, FlattenedCondition } from "../system/conditions";
 
 interface EffectsPanelData {
     conditions: FlattenedCondition[];
@@ -23,7 +23,7 @@ export class EffectsPanel extends Application {
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             popOut: false,
-            template: "systems/pf2e/templates/system/effect-panel.html",
+            template: "systems/pf2e/templates/system/effects-panel.html",
         });
     }
 
@@ -66,16 +66,20 @@ export class EffectsPanel extends Application {
         return data;
     }
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        // handle right-click on condition and effect icons
-        $(html).on("contextmenu", '[data-item-id]:not([data-item-id=""])', async (event) => {
-            const actor = EffectsPanel.actor;
-            if (!actor) return;
-            const effect = actor.items.get(event.currentTarget.dataset.itemId ?? "");
+        const $icons = $html.find("div[data-item-id]");
+
+        // Remove an effect on right-click
+        $icons.on("contextmenu", async (event) => {
+            const $target = $(event.currentTarget);
+            if ($target.attr("data-locked")) return;
+
+            const actor = this.actor;
+            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
             if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
+                await actor?.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
             } else {
@@ -83,10 +87,6 @@ export class EffectsPanel extends Application {
                 this.refresh();
             }
         });
-    }
-
-    private static get actor(): ActorPF2e | undefined {
-        return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
     }
 
     private static getParentConditionsBreakdown(conditions: ConditionReference[]): string {
