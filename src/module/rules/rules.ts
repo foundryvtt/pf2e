@@ -33,41 +33,43 @@ import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
 import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting/crafting-formula";
 import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
 import { ChoiceSetRuleElement } from "./elements/choice-set/rule-element";
+import { LinkedProficiencyRuleElement } from "./elements/linked-proficiency";
 
 /**
  * @category RuleElement
  */
 export class RuleElements {
     static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
+        ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
+        AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
+        CraftingEntry: CraftingEntryRuleElement,
+        CraftingFormula: CraftingFormulaRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         DamageDice: PF2DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
+        EffectTarget: EffectTargetRuleElement,
         FixedProficiency: PF2FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
+        Immunity: ImmunityRuleElement,
+        LinkedProficiency: LinkedProficiencyRuleElement,
+        LoseHitPoints: LoseHitPointsRuleElement,
         MageArmor: PF2MageArmorRuleElement,
+        MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
+        Note: RollNoteRuleElement,
+        RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
+        Resistance: ResistanceRuleElement,
+        RollOption: RollOptionRuleElement,
         TempHP: TempHPRuleElement,
         ToggleProperty: PF2TogglePropertyRuleElement,
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
-        CraftingEntry: CraftingEntryRuleElement,
-        CraftingFormula: CraftingFormulaRuleElement,
-        Immunity: ImmunityRuleElement,
-        RollOption: RollOptionRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: PF2StrikingRuleElement,
-        Note: RollNoteRuleElement,
-        MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
-        EffectTarget: EffectTargetRuleElement,
-        RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
-        Resistance: ResistanceRuleElement,
-        AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
-        ActiveEffectLike: AELikeRuleElement,
-        LoseHitPoints: LoseHitPointsRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
     });

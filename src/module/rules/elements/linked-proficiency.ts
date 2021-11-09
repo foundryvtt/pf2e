@@ -1,5 +1,4 @@
 import { CharacterPF2e } from "@actor";
-import { CombatProficiencies, LinkedProficiencyKey } from "@actor/character/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { WeaponCategory } from "@item/weapon/data";
@@ -17,7 +16,7 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
 
     private dataIsValid(data: LinkedProficiencySource): boolean {
         return (
-            typeof data.selector === "string" &&
+            typeof data.slug === "string" &&
             !!data.predicate &&
             new PredicatePF2e(data.predicate).isValid &&
             typeof data.sameAs === "string" &&
@@ -28,7 +27,7 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(): void {
         if (this.ignored) return;
 
-        const attackProficiencies: DeepPartial<CombatProficiencies> = this.actor.data.data.martial;
+        const attackProficiencies = this.actor.data.data.martial;
         const proficiency = attackProficiencies[this.data.sameAs];
         if (!proficiency) {
             const { item } = this;
@@ -39,9 +38,12 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
             this.ignored = true;
             return;
         }
-        attackProficiencies[`linked-${this.data.selector}`] = {
+        attackProficiencies[this.data.slug] = {
             predicate: this.data.predicate,
             sameAs: this.data.sameAs,
+            rank: 0,
+            value: 0,
+            breakdown: ""
         };
     }
 }
@@ -54,7 +56,7 @@ interface LinkedProficiencyRuleElement extends RuleElementPF2e {
 
 interface LinkedProficiencyData extends RuleElementData {
     key: "LinkedProficiency";
-    selector: LinkedProficiencyKey;
+    slug: string;
     predicate: PredicatePF2e;
     sameAs: WeaponCategory;
 }

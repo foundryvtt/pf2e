@@ -27,6 +27,7 @@ import {
     CombatProficiencyKey,
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
+    LinkedProficiency,
 } from "./data";
 import { RollNotePF2e } from "@module/notes";
 import {
@@ -483,13 +484,23 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.saves[saveType] = stat;
         }
 
-        // Martial
-        for (const skl of Object.values(systemData.martial)) {
-            const proficiency = ProficiencyModifier.fromLevelAndRank(this.level, skl.rank || 0);
-            skl.value = proficiency.modifier;
-            skl.breakdown = `${game.i18n.localize(proficiency.name)} ${proficiency.modifier < 0 ? "" : "+"}${
-                proficiency.modifier
-            }`;
+        // Attack and defense proficiencies
+        const combatProficiencies = Object.values(systemData.martial);
+        for (const proficiency of combatProficiencies) {
+            if ("predicate" in proficiency) continue;
+            const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
+            proficiency.value = proficiencyBonus.modifier;
+            const label = game.i18n.localize(proficiencyBonus.name);
+            const sign = proficiencyBonus.modifier < 0 ? "" : "+";
+            proficiency.breakdown = `${label} ${sign}${proficiencyBonus.modifier}`;
+        }
+
+        const linkedProficiencies = combatProficiencies.filter((p): p is LinkedProficiency => "predicate" in p);
+        for (const proficiency of linkedProficiencies) {
+            const category = systemData.martial[proficiency.sameAs];
+            proficiency.rank = category.rank;
+            proficiency.value = category.value;
+            proficiency.breakdown = category.breakdown;
         }
 
         // Perception
@@ -1126,27 +1137,22 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
         }
 
-        // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
-        // trait also count as a weapon of different category
+        // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
+        // certain criteria also count as weapon of different category
         const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
-        const familiarityRank = (() => {
-            const familiarity = categories.find((category) => {
-                const maybeFamiliarity = systemData.martial[category]?.familiarity;
-                return (
-                    maybeFamiliarity &&
-                    maybeFamiliarity.category === weapon.category &&
-                    weaponTraits.has(maybeFamiliarity.trait)
-                );
-            });
-            return familiarity ? systemData.martial[familiarity]?.rank ?? 0 : 0;
-        })();
-
         const groupRank = this.proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+        const linkedRank = ((): number => {
+            const statements = weapon.getContextStrings();
+            const linkedProficiency = Object.values(systemData.martial)
+                .filter((p): p is LinkedProficiency => "sameAs" in p)
+                .find((proficiency) => proficiency.predicate.test(statements));
+            return linkedProficiency?.rank ?? 0;
+        })();
 
-        const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, linkedRank);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
         const selectors = [

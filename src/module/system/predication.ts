@@ -27,7 +27,7 @@ class PredicatePF2e implements RawPredicate {
     /** None of the statements in the array are true */
     not: PredicateStatement[];
     /** Is the predicate data structurally valid? */
-    private isValid: boolean;
+    isValid: boolean;
 
     /** Test if the given predicate passes for the given list of options. */
     static test(predicate: RawPredicate = {}, options: string[] = []): boolean {
