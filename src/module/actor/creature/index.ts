@@ -156,9 +156,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const attributes = this.data.data.attributes;
-        const hitPoints: { modifiers: Readonly<ModifierPF2e[]>; negativeHealing: boolean } = attributes.hp;
-        hitPoints.negativeHealing = false;
-        hitPoints.modifiers = [];
+        attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
         attributes.hardness ??= { value: 0 };
 
         // Bless raw custom modifiers as `ModifierPF2e`s
