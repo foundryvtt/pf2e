@@ -88,6 +88,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`${this.ability}-based`]: true,
+                [`material:${this.material?.type}`]: !!this.material?.type,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 magical: this.isMagical,
@@ -96,7 +97,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 .map(([key]) => {
                     const separatedPrefix = prefix ? `${prefix}:` : "";
                     return `${separatedPrefix}${key}`;
-                })
+                }),
+            ...this.data.data.traits.otherTags.map((tag) => `tag:${tag}`)
         );
     }
 
