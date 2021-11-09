@@ -47,6 +47,12 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             html.find(".loot-npcs")
                 .removeAttr("disabled")
                 .on("click", (event) => this.lootNPCs(event));
+            html.find("i.fa-info-circle.help[title]").tooltipster({
+                maxWidth: 275,
+                position: "right",
+                theme: "crb-hover",
+                contentAsHTML: true,
+            });
         }
     }
 
