@@ -1142,7 +1142,8 @@ export class CharacterPF2e extends CreaturePF2e {
         })();
 
         const groupRank = this.proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
-        const baseWeapon = weapon.baseType ?? weapon.slug;
+        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+        const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
         const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
@@ -1159,10 +1160,8 @@ export class CharacterPF2e extends CreaturePF2e {
             "all",
         ];
 
-        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-        const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        if (baseType && !selectors.includes(`${baseType}-attack`)) {
-            selectors.push(`${baseType}-attack`);
+        if (baseWeapon && !selectors.includes(`${baseWeapon}-attack`)) {
+            selectors.push(`${baseWeapon}-attack`);
         }
 
         if (weapon.group) {
