@@ -1,0 +1,96 @@
+.effect-panel {
+    position: fixed;
+    top: 5px;
+    right: 310px;
+
+    .effect-item {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        &:hover {
+            .effect-info {
+                display: block;
+            }
+        }
+
+        &.spell {
+            .effect-info {
+                padding: 0.25em;
+            }
+        }
+
+        .effect-info {
+            display: none;
+            height: 100%;
+            margin-right: 0.5em;
+            padding: 0.25em;
+            background-color: rgba(0, 0, 0, 0.75);
+
+            h1 {
+                font-size: 12px;
+                color: white;
+                text-align: right;
+                border: none;
+                @include p-reset;
+            }
+
+            .tags {
+                justify-content: flex-end;
+
+                .tag {
+                    margin-bottom: 0;
+                    & + .tag,
+                    &:first-child {
+                        margin-left: 3px;
+                        margin-right: -2px;
+                    }
+                }
+            }
+        }
+
+        .icon {
+            @include frame-silver;
+            align-items: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            box-shadow: 0 0 0 1px #c0c0c0, 0 0 0 2px #808080, inset 0 0 4px rgba(0, 0, 0, 0.5);
+            color: transparent;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin: 2px 0;
+            height: 36px;
+            width: 36px;
+
+            .expired {
+                position: absolute;
+                left: 0;
+                bottom: -1px;
+                width: 100%;
+                padding: 2px 1px;
+                @include micro;
+                color: white;
+                background-color: var(--primary);
+            }
+            .badge {
+                position: absolute;
+                display: inline-block;
+                bottom: -1px;
+                left: -1px;
+                padding: 2px 4px;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.75);
+            }
+        }
+    }
+
+    hr {
+        margin-right: 0;
+        width: 36px;
+    }
+}
+
+#sidebar.app.collapsed ~ .effect-panel {
+    right: 40px;
+}
