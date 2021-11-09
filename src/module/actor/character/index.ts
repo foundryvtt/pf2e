@@ -34,7 +34,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -1154,12 +1154,15 @@ export class CharacterPF2e extends CreaturePF2e {
             `${ability}-attack`,
             `${ability}-based`,
             `${weapon.id}-attack`,
-            `${weapon.name.slugify("-", true)}-attack`,
+            `${sluggify(weapon.name)}-attack`,
             "attack-roll",
             "all",
         ];
-        if (weapon.baseType && !selectors.includes(`${weapon.baseType}-attack`)) {
-            selectors.push(`${weapon.baseType}-attack`);
+
+        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+        const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
+        if (baseType && !selectors.includes(`${baseType}-attack`)) {
+            selectors.push(`${baseType}-attack`);
         }
 
         if (weapon.group) {

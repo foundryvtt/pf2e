@@ -16,6 +16,7 @@ import { DamageCategory, DamageDieSize } from "./damage";
 import { SIZES } from "@module/data";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
+import { sluggify } from "@util";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -540,9 +541,12 @@ export class WeaponDamagePF2e {
         // custom dice
         {
             const stats: string[] = [];
-            stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
-            if (weapon.data.baseItem && !stats.includes(`${weapon.data.baseItem}-damage`)) {
-                stats.push(`${weapon.data.baseItem}-damage`);
+            stats.push(`${sluggify(weapon.name)}-damage`);
+
+            const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+            const baseItem = equivalentWeapons[weapon.data.baseItem ?? ""] ?? weapon.data.baseItem;
+            if (baseItem && !stats.includes(`${baseItem}-damage`)) {
+                stats.push(`${baseItem}-damage`);
             }
             stats.concat([`${weapon._id}-damage`, "damage"]).forEach((key) => {
                 (damageDice[key] || [])
@@ -884,7 +888,14 @@ export class WeaponDamagePF2e {
             const proficiencies = ["untrained", "trained", "expert", "master", "legendary"];
             selectors.push(`${proficiencies[proficiencyRank]}-damage`);
         }
-        selectors.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
+
+        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+        const baseType = equivalentWeapons[weapon.data.baseItem ?? ""] ?? weapon.data.baseItem;
+        if (baseType && !selectors.includes(`${baseType}-damage`)) {
+            selectors.push(`${baseType}-damage`);
+        }
+        selectors.push(`${sluggify(weapon.name)}-damage`);
+
         return selectors.concat([`${weapon._id}-damage`, "mundane-damage", "damage"]);
     }
 }

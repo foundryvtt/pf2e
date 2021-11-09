@@ -360,6 +360,14 @@ const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
     {} as Record<BaseWeaponType, string>
 );
 
+/** Base weapon types that are considered equivalent for all rules purposes */
+const equivalentWeapons = {
+    "composite-longbow": "longbow",
+    "composite-shortbow": "shortbow",
+    "big-boom-gun": "hand-cannon",
+    "spoon-gun": "hand-cannon",
+} as const;
+
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
     {} as Record<typeof RANGE_TRAITS[number], string>
@@ -1436,6 +1444,7 @@ export const PF2ECONFIG = {
     rangedWeaponGroups,
 
     baseWeaponTypes,
+    equivalentWeapons,
 
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
