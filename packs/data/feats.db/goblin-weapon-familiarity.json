@@ -35,6 +35,28 @@
                 "mode": "upgrade",
                 "path": "data.martial.weapon-base-horsechopper.rank",
                 "value": 1
+            },
+            {
+                "key": "LinkedProficiency",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:goblin",
+                        "weapon:category:advanced"
+                    ]
+                },
+                "sameAs": "martial",
+                "slug": "advanced-goblin-weapons"
+            },
+            {
+                "key": "LinkedProficiency",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:goblin",
+                        "weapon:category:martial"
+                    ]
+                },
+                "sameAs": "simple",
+                "slug": "martial-goblin-weapons"
             }
         ],
         "source": {
@@ -50,33 +72,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "vYbjcHork2e0wTII",
-            "changes": [
-                {
-                    "key": "data.martial.martial.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"goblin\", \"category\": \"advanced\" }"
-                },
-                {
-                    "key": "data.martial.simple.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"goblin\", \"category\": \"martial\" }"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Goblin Weapon Familiarity",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Goblin Weapon Familiarity",
