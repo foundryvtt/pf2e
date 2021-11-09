@@ -328,10 +328,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const ancestryHP = systemData.attributes.ancestryhp;
             const classHP = systemData.attributes.classhp;
             const hitPoints = systemData.attributes.hp;
-            const modifiers = [
-                new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED),
-                ...hitPoints.modifiers,
-            ];
+            const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED)];
 
             if (game.settings.get("pf2e", "staminaVariant")) {
                 const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
@@ -383,11 +380,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(m);
                 });
 
-            // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
-            const hpData = deepClone(hitPoints);
-            delete (hpData as { modifiers?: readonly ModifierPF2e[] }).modifiers;
-
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
+            const stat = mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
 
             // PFS Level Bump - hit points
             if (systemData.pfs?.levelBump) {
