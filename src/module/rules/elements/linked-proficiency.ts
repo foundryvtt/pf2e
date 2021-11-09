@@ -11,7 +11,10 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
 
     constructor(data: LinkedProficiencySource, item: Embedded<ItemPF2e>) {
         super(data, item);
-        if (!this.dataIsValid(data)) this.ignored = true;
+        if (!this.dataIsValid(data)) {
+            console.warn(`LinkedProficiency rules element on item ${item.name} (${item.uuid}) failed to validate`);
+            this.ignored = true;
+        }
     }
 
     private dataIsValid(data: LinkedProficiencySource): boolean {
@@ -43,7 +46,7 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
             sameAs: this.data.sameAs,
             rank: 0,
             value: 0,
-            breakdown: ""
+            breakdown: "",
         };
     }
 }
@@ -56,8 +59,11 @@ interface LinkedProficiencyRuleElement extends RuleElementPF2e {
 
 interface LinkedProficiencyData extends RuleElementData {
     key: "LinkedProficiency";
+    /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
     slug: string;
+    /** The criteria for matching qualifying weapons and other attacks */
     predicate: PredicatePF2e;
+    /** The attack category to which this proficiency's rank is linked */
     sameAs: WeaponCategory;
 }
 

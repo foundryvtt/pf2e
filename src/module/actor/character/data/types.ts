@@ -191,6 +191,7 @@ export interface CharacterProficiency extends RawStatistic {
     custom?: true;
 }
 
+/** A proficiency with a rank that depends on another proficiency */
 export interface LinkedProficiency extends Omit<CharacterProficiency, "custom"> {
     /** A predicate to match against weapons */
     predicate: PredicatePF2e;
