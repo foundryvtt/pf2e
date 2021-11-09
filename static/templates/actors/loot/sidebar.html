@@ -19,7 +19,7 @@
             <h3 class="gm-settings">{{localize "PF2E.loot.GMSettings"}}</h3>
             <h4 class="sheet-type">
                 {{localize "PF2E.loot.SheetType"}}
-                <i class="fas fa-info-circle help" onclick="$('.sheet-type-info').toggle();"></i>
+                <i class="fas fa-info-circle help" title="<p><strong>{{localize 'PF2E.loot.LootLabel'}}</strong>: {{localize 'PF2E.loot.LootDescription'}}</p><p><strong>{{localize 'PF2E.loot.MerchantLabel'}}</strong>: {{localize 'PF2E.loot.MerchantDescription'}}</p>"></i>
                 <select name="data.lootSheetType">
                     {{#select data.lootSheetType}}
                         <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
@@ -27,14 +27,6 @@
                     {{/select}}
                 </select>
             </h4>
-            <div class="sheet-type-info">
-                <p>
-                    <strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}
-                </p>
-                <p>
-                    <strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}
-                </p>
-            </div>
             {{#if isLoot}}
                 <div class="hidden-when-empty">
                     <h4>
