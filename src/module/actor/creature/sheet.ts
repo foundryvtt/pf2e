@@ -106,19 +106,18 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         //Prepare senses
         for (const sense of sheetData.data.traits.senses as CreatureSensePF2e[]) {
-            sense.label = game.i18n.localize(
+            const lbl = game.i18n.localize(
                 objectHasKey(CONFIG.PF2E.senses, sense.type) ? CONFIG.PF2E.senses[sense.type] : sense.type
             );
             if (sense.showAcuity) {
-                sense.label = sense.label.concat(
-                    " (",
-                    game.i18n.localize(
-                        objectHasKey(CONFIG.PF2E.senseAcuity, sense.acuity)
-                            ? CONFIG.PF2E.senseAcuity[sense.acuity]
-                            : sense.acuity
-                    ),
-                    ")"
+                const acLbl = game.i18n.localize(
+                    objectHasKey(CONFIG.PF2E.senseAcuity, sense.acuity)
+                        ? CONFIG.PF2E.senseAcuity[sense.acuity]
+                        : sense.acuity
                 );
+                sense.label = game.i18n.format("PF2E.Sense.CombinedLabel", { sense: lbl, acuity: acLbl });
+            } else {
+                sense.label = lbl;
             }
         }
 
