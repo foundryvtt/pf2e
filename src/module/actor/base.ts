@@ -249,22 +249,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
-    /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
-    override applyActiveEffects() {
-        for (const effect of this.effects) {
-            const itemId = effect.data.origin?.match(/Item\.([0-9a-z]+)/i)?.[1] ?? "";
-            const item = this.items.get(itemId);
-
-            if (item instanceof PhysicalItemPF2e && (!item.isEquipped || item.isInvested === false)) {
-                for (const effect of item.effects) {
-                    effect.temporarilyDisable(this);
-                }
-            }
-        }
-
-        super.applyActiveEffects();
-    }
-
     /** Prevent character importers from creating martial items */
     override createEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
