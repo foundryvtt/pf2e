@@ -511,6 +511,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
+        if (featSlugs.has("hardy-traveler")) {
+            bonusEncumbranceBulk += 1;
+            bonusLimitBulk += 1;
+        }
         if (featSlugs.has("hefty-hauler")) {
             bonusEncumbranceBulk += 2;
             bonusLimitBulk += 2;
