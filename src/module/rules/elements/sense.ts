@@ -18,6 +18,7 @@ export class SenseRuleElement extends RuleElementPF2e {
         data.acuity ??= "precise";
         const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
         data.label ??= defaultLabels[data.selector ?? ""];
+        data.showAcuity ??= true;
 
         super(data, item);
     }
@@ -33,6 +34,7 @@ export class SenseRuleElement extends RuleElementPF2e {
                 acuity: this.data.acuity,
                 value: String(range),
                 source: this.item.name,
+                showAcuity: this.data.showAcuity,
             });
             synthetics.senses.push({
                 sense: newSense,
@@ -55,10 +57,12 @@ interface SenseRuleElementData extends RuleElementData {
     force: boolean;
     acuity: SenseAcuity;
     range: string | number;
+    showAcuity: boolean;
 }
 
 interface SenseRuleElementSource extends RuleElementSource {
     acuity?: string;
     range?: string | number | null;
     force?: boolean;
+    showAcuity?: boolean;
 }

@@ -7,21 +7,27 @@ export class CreatureSensePF2e implements SenseData {
     acuity: SenseAcuity;
     /** The range of the sense, if any */
     value: string;
-    /** The label of the sense */
+    /** The localized label of the sense */
     label: string;
     /** The source of the sense, if any */
     source?: string;
+    /** Display acuity?*/
+    showAcuity: boolean;
+    /** temporary Effect? */
+    temporary: boolean;
 
     get range(): number {
         return Number(this.value) || Infinity;
     }
 
-    constructor(data: Omit<SenseData, "value"> & { value?: string }) {
+    constructor(data: Omit<SenseData, "value"> & { value?: string; showAcuity?: boolean; temporary?: boolean }) {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
         this.value = data.value ?? "";
-        this.label = this.type === "custom" ? data.label : "";
+        this.label = data.label ?? "";
         this.source = data.source || undefined;
+        this.showAcuity = data.showAcuity ?? true;
+        this.temporary = data.temporary ?? false;
     }
 
     isMoreAcuteThan(sense: { acuity: SenseAcuity }): boolean {

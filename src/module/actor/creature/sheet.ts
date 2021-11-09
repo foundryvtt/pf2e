@@ -14,11 +14,6 @@ import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { CreatureSensePF2e } from "./sense";
 
-interface CreatureSenseSheet extends CreatureSensePF2e {
-    localizedName?: string;
-    localizedAcuity?: string;
-}
-
 /**
  * Base class for NPC and character sheets
  * @category Actor
@@ -110,24 +105,25 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
 
         //Prepare senses
-        for (const sense of sheetData.data.traits.senses as CreatureSenseSheet[]) {
-            if (sense.type === "custom") {
-                sense.localizedName = sense.label;
-            } else {
-                sense.localizedName = game.i18n.localize(
-                    objectHasKey(CONFIG.PF2E.senses, sense.type) ? CONFIG.PF2E.senses[sense.type] : sense.type
+        for (const sense of sheetData.data.traits.senses as CreatureSensePF2e[]) {
+            sense.label = game.i18n.localize(
+                objectHasKey(CONFIG.PF2E.senses, sense.type) ? CONFIG.PF2E.senses[sense.type] : sense.type
+            );
+            if (sense.showAcuity) {
+                sense.label = sense.label.concat(
+                    " (",
+                    game.i18n.localize(
+                        objectHasKey(CONFIG.PF2E.senseAcuity, sense.acuity)
+                            ? CONFIG.PF2E.senseAcuity[sense.acuity]
+                            : sense.acuity
+                    ),
+                    ")"
                 );
             }
-            sense.localizedAcuity = game.i18n.localize(
-                objectHasKey(CONFIG.PF2E.senseAcuity, sense.acuity)
-                    ? CONFIG.PF2E.senseAcuity[sense.acuity]
-                    : sense.acuity
-            );
         }
 
-        sheetData.data.traits.senses = sheetData.data.traits.senses.sort(
-            (a: CreatureSenseSheet, b: CreatureSenseSheet) =>
-                a.localizedName && b.localizedName && a.localizedName > b.localizedName ? 1 : -1
+        sheetData.data.traits.senses = sheetData.data.traits.senses.sort((a: CreatureSensePF2e, b: CreatureSensePF2e) =>
+            a.label && b.label && a.label > b.label ? 1 : -1
         ) as CreatureSensePF2e;
 
         return sheetData;

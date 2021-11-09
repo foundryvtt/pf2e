@@ -4,6 +4,7 @@
             <tr>
                 <th>{{localize "PF2E.Sense.Label"}}</th>
                 <th>{{localize "PF2E.Sense.Acuity.Label"}}</th>
+                <th>{{localize "PF2E.Sense.ShowAcuityLabel"}}</th>
                 <th>{{localize "PF2E.Sense.RangeLabel"}}</th>
             </tr>
             {{#each choices as |choice key|}}
@@ -12,11 +13,12 @@
                     <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.selected}} {{choice.disabled}}>
                     <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
                 </td>
-                <td><select name="{{key}}" id="select_acuity_{{key}}">
+                <td><select name="{{key}}" id="select_acuity_{{key}}" {{choice.disabled}}>
                     {{#each ../senseAcuity as |acuity k|}}
                     <option value={{k}} {{#if (eq k choice.acuity)}} selected {{/if}}>{{localize acuity}}</option>
                     {{/each}}
                 </select></td>
+                <td><input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.showAcuity}} {{choice.disabled}}></td>
                 <td><input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="0" data-dtype="Number" {{choice.disabled}}/></td>
             </tr>
             {{/each}}

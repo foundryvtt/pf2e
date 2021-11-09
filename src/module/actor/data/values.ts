@@ -193,13 +193,13 @@ export const SUPPORTED_ROLL_OPTIONS = [
 
 export const SENSE_TYPES = [
     "darkvision",
+    "echolocation",
     "greaterDarkvision",
+    "lifesense",
     "lowLightVision",
     "motionsense",
     "scent",
-    "echolocation",
     "tremorsense",
-    "lifesense",
     "wavesense",
 ] as const;
 
