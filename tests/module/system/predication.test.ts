@@ -38,9 +38,7 @@ describe("Predication with conjunction and negation return correct results", () 
     });
 
     test("conjunction and negation with the `all` quantifier", () => {
-        // Keep for when full recursion is turned on
-        // const predicate = new PredicatePF2e({ all: [{ and: ["foo", "bar", { not: "baz" }] }] });
-        const predicate = new PredicatePF2e({ all: [{ and: ["foo", "bar"] }], not: ["baz"] });
+        const predicate = new PredicatePF2e({ all: [{ and: ["foo", "bar", { not: "baz" }] }] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
         expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
@@ -52,7 +50,6 @@ describe("Predication with conjunction and negation return correct results", () 
         const predicate = new PredicatePF2e({ any: ["foo", { and: ["bar", "baz"] }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
-        expect(predicate.test(["bar", "baz"])).toEqual(true);
         expect(predicate.test(["foo", "bar", "baz"])).toEqual(true);
         expect(predicate.test(["bar"])).toEqual(false);
         expect(predicate.test(["baz"])).toEqual(false);
@@ -81,23 +78,19 @@ describe("Predication with disjunction and negation return correct results", () 
     });
 
     test("disjunction and negation with the `all` quantifier", () => {
-        // Keep for when full recursion is turned on
-        // const predicate = new PredicatePF2e({ all: [{ or: ["foo", "bar"] }], not: ["baz"] });
-        const predicate = new PredicatePF2e({ any: ["foo", "bar"], not: ["baz"] });
+        const predicate = new PredicatePF2e({ all: [{ or: ["foo", "bar", { not: "baz" }] }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["bar", "bar"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
-        expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
+        expect(predicate.test(["foo", "bar", "baz"])).toEqual(true);
         expect(predicate.test(["baz"])).toEqual(false);
         expect(predicate.test(["baz", "bat"])).toEqual(false);
-        expect(predicate.test([])).toEqual(false);
+        expect(predicate.test([])).toEqual(true);
     });
 
     test("disjunction with the `any` quantifier", () => {
-        // Keep for when full recursion is turned on
         // same as { any: ["foo", "bar", "baz"] };
-        // const predicate = new PredicatePF2e({ any: ["foo", { or: ["bar", "baz"] }] });
-        const predicate = new PredicatePF2e({ any: ["foo", "bar", "baz"] });
+        const predicate = new PredicatePF2e({ any: ["foo", { or: ["bar", "baz"] }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(true);
         expect(predicate.test(["foo", "bar", "baz"])).toEqual(true);
@@ -128,7 +121,7 @@ describe("Predication with joint denial return correct results", () => {
         expect(predicate.test(["bat"])).toEqual(true);
     });
 
-    test.skip("joint denial is equivalent to negated disjunction", () => {
+    test("joint denial is equivalent to negated disjunction", () => {
         const joinDenial = new PredicatePF2e({ all: [{ nor: ["foo", "bar"] }] });
         const negatedDisjunction = new PredicatePF2e({ all: [{ not: { or: ["foo", "bar"] } }] });
         expect(joinDenial.test(["foo"])).toEqual(negatedDisjunction.test(["foo"]));
@@ -150,7 +143,7 @@ describe("Predication with material conditional and negation return correct resu
         expect(predicate.test([])).toEqual(true);
     });
 
-    test.skip("material conditional and negation with the `all` quantifier", () => {
+    test("material conditional and negation with the `all` quantifier", () => {
         const predicate = new PredicatePF2e({ all: [{ if: "foo", then: { not: "bar" } }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test(["foo", "bar"])).toEqual(false);
@@ -159,7 +152,7 @@ describe("Predication with material conditional and negation return correct resu
         expect(predicate.test([])).toEqual(true);
     });
 
-    test.skip("material conditional and negation with the `any` quantifier", () => {
+    test("material conditional and negation with the `any` quantifier", () => {
         const predicate = new PredicatePF2e({
             any: [
                 { if: "foo", then: { not: "bar" } },
@@ -176,7 +169,7 @@ describe("Predication with material conditional and negation return correct resu
 
 describe("Tautological propositions pass all predicate tests", () => {
     test("p or not p", () => {
-        const predicate = new PredicatePF2e({ any: ["foo", { not: "foo" }] });
+        const predicate = new PredicatePF2e({ all: [{ or: ["foo", { not: "foo" }] }] });
         expect(predicate.test(["foo"])).toEqual(true);
         expect(predicate.test([])).toEqual(true);
         expect(predicate.test(["bar"])).toEqual(true);
@@ -204,7 +197,7 @@ describe("Contradictory propositions fail all predicate tests", () => {
         expect(predicate.test([])).toEqual(false);
     });
 
-    test.skip("p; if p then not p", () => {
+    test("p; if p then not p", () => {
         const predicate = new PredicatePF2e({ all: ["foo", { if: "foo", then: { not: "foo" } }] });
         expect(predicate.test(["foo"])).toEqual(false);
         expect(predicate.test([])).toEqual(false);
@@ -213,7 +206,7 @@ describe("Contradictory propositions fail all predicate tests", () => {
         expect(predicate.test([])).toEqual(false);
     });
 
-    test.skip("p; if p then q; if q then not p", () => {
+    test("p; if p then q; if q then not p", () => {
         const predicate = new PredicatePF2e({
             all: ["foo", { if: "foo", then: "bar" }, { if: "bar", then: { not: "foo" } }],
         });
