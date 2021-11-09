@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base";
 import { EffectData } from "@item/data";
 import { ConditionPF2e, EffectPF2e } from "@item";
-import { ConditionReference, FlattenedCondition } from "./conditions";
+import { ConditionReference, FlattenedCondition } from "../system/conditions";
 
 interface EffectsPanelData {
     conditions: FlattenedCondition[];
@@ -23,7 +23,7 @@ export class EffectsPanel extends Application {
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             popOut: false,
-            template: "systems/pf2e/templates/system/effect-panel.html",
+            template: "systems/pf2e/templates/system/effects-panel.html",
         });
     }
 
