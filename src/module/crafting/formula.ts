@@ -17,7 +17,12 @@ export class CraftingFormula implements CraftingFormulaData {
         public item: PhysicalItemPF2e,
         { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
     ) {
-        this.dc = dc ?? calculateDC(item.level, { rarity: item.rarity });
+        this.dc =
+            dc ??
+            calculateDC(item.level, {
+                rarity: item.rarity,
+                proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
+            });
 
         /** Use the passed batch size if provided or otherwise according to the following */
         this.batchSize = Math.max(batchSize ?? 1, this.minimumBatchSize);

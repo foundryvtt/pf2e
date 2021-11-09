@@ -34,7 +34,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -1142,7 +1142,8 @@ export class CharacterPF2e extends CreaturePF2e {
         })();
 
         const groupRank = this.proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
-        const baseWeapon = weapon.baseType ?? weapon.slug;
+        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+        const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
         const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
@@ -1154,12 +1155,13 @@ export class CharacterPF2e extends CreaturePF2e {
             `${ability}-attack`,
             `${ability}-based`,
             `${weapon.id}-attack`,
-            `${weapon.name.slugify("-", true)}-attack`,
+            `${sluggify(weapon.name)}-attack`,
             "attack-roll",
             "all",
         ];
-        if (weapon.baseType && !selectors.includes(`${weapon.baseType}-attack`)) {
-            selectors.push(`${weapon.baseType}-attack`);
+
+        if (baseWeapon && !selectors.includes(`${baseWeapon}-attack`)) {
+            selectors.push(`${baseWeapon}-attack`);
         }
 
         if (weapon.group) {
