@@ -256,6 +256,7 @@ describe("test migration runner", () => {
             actor.items.push({
                 name: "sample item",
                 type: "melee",
+                effects: [],
                 data: {
                     schema: {
                         version: null,
