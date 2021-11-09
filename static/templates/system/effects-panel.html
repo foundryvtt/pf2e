@@ -1,0 +1,42 @@
+<section class="effect-panel">
+    {{#each conditions as |condition|}}
+        <div class="effect-item">
+            <div class="effect-info">
+                <h1>{{condition.name}}</h1>
+                {{#if condition.breakdown}}
+                    <div class="tags">
+                        <div class="tag tag_secondary">{{condition.breakdown}}</div>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="icon" data-item-id="{{condition.id}}" data-locked="{{#if condition.locked}}true{{/if}}" style="background-image: url({{condition.img}});">
+                {{#if condition.locked}}
+                    <div class="badge"><i class="fas fa-link"></i></div>
+                {{/if}}
+                {{#if condition.value}}
+                    <div class="badge"><strong>{{condition.value}}</strong></div>
+                {{/if}}
+            </div>
+        </div>
+    {{/each}}
+    {{#if (and conditions.length effects.length)}}<hr />{{/if}}
+    {{#each effects}}
+        <div class="effect-item spell">
+            <div class="effect-info">
+                <h1>{{this.name}}</h1>
+                <div class="tags">
+                    {{#if (and this.data.duration.sustained (eq this.data.expired false))}}
+                        <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
+                    {{/if}}
+                    <div class="tag tag_secondary">{{this.data.remaining}}</div>
+                </div>
+            </div>
+            <div class="icon" data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
+                {{#if this.data.expired}}
+                    <span class="expired">expired</span>
+                {{/if}}
+                <i class="fas fa-comment-alt"></i>
+            </div>
+        </div>
+    {{/each}}
+</section>
