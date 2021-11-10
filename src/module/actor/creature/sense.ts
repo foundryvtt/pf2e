@@ -23,7 +23,7 @@ export class CreatureSensePF2e implements SenseData {
         this.acuity = data.acuity ?? "precise";
         this.showAcuity = data.showAcuity ?? true;
         this.value = data.value ?? "";
-        this.label = game.i18n.localize (CONFIG.PF2E.senses[this.type]);
+        this.label = game.i18n.localize(CONFIG.PF2E.senses[this.type]);
         this.source = data.source || undefined;
         this.temporary = data.temporary ?? false;
     }

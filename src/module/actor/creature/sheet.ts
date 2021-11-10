@@ -12,6 +12,7 @@ import { Rollable } from "@actor/data/base";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
+import { CreatureSensePF2e } from "./sense";
 
 /**
  * Base class for NPC and character sheets
@@ -102,6 +103,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.rarity = CONFIG.PF2E.rarityTraits;
         sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
+
+        //Sort senses
+        sheetData.data.traits.senses = sheetData.data.traits.senses.sort((a: CreatureSensePF2e, b: CreatureSensePF2e) =>
+            a.label && b.label && a.label > b.label ? 1 : -1
+        ) as CreatureSensePF2e;
 
         return sheetData;
     }
