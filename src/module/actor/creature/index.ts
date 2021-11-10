@@ -422,7 +422,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollRecovery() {
+    rollRecovery(event: JQuery.TriggeredEvent) {
         if (this.data.type !== "character") {
             throw Error("Recovery rolls are only applicable to characters");
         }
@@ -449,7 +449,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const modifier = new StatisticModifier(game.i18n.localize("PF2E.FlatCheck"), []);
 
-        CheckPF2e.roll(modifier, { actor: this, dc, notes });
+        CheckPF2e.roll(modifier, { actor: this, dc, notes }, event);
 
         // No automated update yet, not sure if Community wants that.
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
