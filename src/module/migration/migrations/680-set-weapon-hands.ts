@@ -15,6 +15,7 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "hongali-hornbow",
         "longbow",
         "shortbow",
+        "sun-sling",
     ]);
 
     private shieldAttachments = new Set(["shield-boss", "shield-spikes"]);
@@ -107,8 +108,6 @@ export class Migration680SetWeaponHands extends MigrationBase {
                 if (attachedIndex !== -1) traits.value.splice(attachedIndex, 1, "attached-to-crossbow-or-firearm");
             } else if (this.wornGloves.has(baseItem || slug || "")) {
                 usage.value = "worn-gloves";
-            } else {
-                usage.value = "held-in-one-hand";
             }
         }
     }
