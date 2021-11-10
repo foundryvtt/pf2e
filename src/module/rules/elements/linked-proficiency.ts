@@ -1,7 +1,9 @@
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
+import { ProficiencyRank } from "@item/data";
 import { WeaponCategory } from "@item/weapon/data";
+import { PROFICIENCY_RANKS } from "@module/data";
 import { PredicatePF2e } from "@system/predication";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSource, RuleElementData } from "../rules-data-definitions";
@@ -11,19 +13,21 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
 
     constructor(data: LinkedProficiencySource, item: Embedded<ItemPF2e>) {
         super(data, item);
-        if (!this.dataIsValid(data)) {
+        if (!this.dataIsValid(this.data)) {
             console.warn(`LinkedProficiency rules element on item ${item.name} (${item.uuid}) failed to validate`);
             this.ignored = true;
         }
     }
 
     private dataIsValid(data: LinkedProficiencySource): boolean {
+        const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
         return (
             typeof data.slug === "string" &&
             !!data.predicate &&
             new PredicatePF2e(data.predicate).isValid &&
             typeof data.sameAs === "string" &&
-            data.sameAs in CONFIG.PF2E.weaponCategories
+            data.sameAs in CONFIG.PF2E.weaponCategories &&
+            (!data.maxRank || (typeof data.maxRank === "string" && validRanks.includes(data.maxRank)))
         );
     }
 
@@ -44,6 +48,7 @@ class LinkedProficiencyRuleElement extends RuleElementPF2e {
         attackProficiencies[this.data.slug] = {
             predicate: this.data.predicate,
             sameAs: this.data.sameAs,
+            maxRank: this.data.maxRank,
             rank: 0,
             value: 0,
             breakdown: "",
@@ -65,10 +70,13 @@ interface LinkedProficiencyData extends RuleElementData {
     predicate: PredicatePF2e;
     /** The attack category to which this proficiency's rank is linked */
     sameAs: WeaponCategory;
+    /** The maximum rank this proficiency can reach, if any */
+    maxRank?: Exclude<ProficiencyRank, "untrained">;
 }
 
 export interface LinkedProficiencySource extends RuleElementSource {
     sameAs?: unknown;
+    maxRank?: unknown;
 }
 
 export { LinkedProficiencyRuleElement };

@@ -41,7 +41,7 @@ import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
-import { ZeroToFour } from "@module/data";
+import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
@@ -481,7 +481,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const linkedProficiencies = combatProficiencies.filter((p): p is LinkedProficiency => "predicate" in p);
         for (const proficiency of linkedProficiencies) {
             const category = systemData.martial[proficiency.sameAs];
-            proficiency.rank = category.rank;
+            proficiency.rank = ((): ZeroToFour => {
+                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                return Math.min(category.rank, maxRankIndex) as ZeroToFour;
+            })();
             proficiency.value = category.value;
             proficiency.breakdown = category.breakdown;
         }

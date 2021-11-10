@@ -33,6 +33,7 @@ import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
+import { ProficiencyRank } from "@item/data";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -197,6 +198,8 @@ export interface LinkedProficiency extends Omit<CharacterProficiency, "custom"> 
     predicate: PredicatePF2e;
     /** The category to which this proficiency is linked */
     sameAs: WeaponCategory;
+    /** The maximum rank this proficiency can reach */
+    maxRank?: Exclude<ProficiencyRank, "untrained">;
 }
 
 export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;

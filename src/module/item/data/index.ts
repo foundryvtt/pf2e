@@ -20,10 +20,11 @@ import type { SpellData, SpellSource } from "@item/spell/data";
 import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spellcasting-entry/data";
 import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
+import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemType } from "../physical/data";
 import { NonPhysicalItemType } from "./non-physical";
 
-export type ProficiencyRank = "untrained" | "trained" | "expert" | "master" | "legendary";
+export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
 
 export interface TrickMagicItemCastData {
     ability: AbilityString;
