@@ -89,6 +89,7 @@ import { Migration684RationsToConsumable } from "./migrations/684-rations-to-con
 import { Migration685FixMeleeUsageTraits } from "./migrations/685-fix-melee-usage-traits";
 import { Migration686HeroPointsToResources } from "./migrations/686-hero-points-to-resources";
 import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-aes-to-res";
+import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -182,6 +183,7 @@ export class Migrations {
         Migration685FixMeleeUsageTraits,
         Migration686HeroPointsToResources,
         Migration687FamiliarityAEsToREs,
+        Migration688ClampSpellLevel,
     ];
 
     static get latestVersion(): number {
