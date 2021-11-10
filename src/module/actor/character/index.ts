@@ -941,7 +941,6 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Bulk
-        //const bulkItems: BulkItem[] = this.physicalItems.map((item) => this.preparePhysicalItem(item, this.size));
         const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size).contents;
 
         // Inventory encumbrance
@@ -982,34 +981,6 @@ export class CharacterPF2e extends CreaturePF2e {
             bulk,
             this.size
         );
-    }
-
-    /** Prepare an item. Calculate its bulk and return it for encumbrance */
-    preparePhysicalItem(item: Embedded<PhysicalItemPF2e>, size: Size): BulkItem {
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-        const bulkItem: BulkItem = toBulkItem(item.data);
-        if (item instanceof ContainerPF2e) {
-            bulkItem.holdsItems = item.contents.map((item) => toBulkItem(item.data));
-            [item.data.data.containedItemBulk] = calculateBulk({
-                items: bulkItem.holdsItems,
-                bulkConfig: bulkConfig,
-                actorSize: size,
-            });
-            const capacity = weightToBulk(item.data.data.bulkCapacity.value);
-            if (capacity) {
-                item.data.data.capacity.value = capacity.toLightBulk();
-            }
-        }
-
-        const [approximatedBulk] = calculateBulk({
-            items: bulkItem === undefined ? [] : [bulkItem],
-            bulkConfig: bulkConfig,
-            actorSize: size,
-        });
-        item.data.totalWeight = formatBulk(approximatedBulk);
-        return bulkItem;
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;

@@ -6,10 +6,19 @@ import { Size } from "@module/data";
  * Extend Collection to implement bulk calculations
  */
 export class PhysicalItems extends Collection<Embedded<PhysicalItemPF2e>> {
+    /**
+     * Convert the collection to BulkItems.
+     * @returns An Array of BulkItems
+     */
     toBulkItems(): BulkItem[] {
         return this.map((item) => toBulkItem(item.data));
     }
 
+    /**
+     * Calculate the Bulk of items in the collection and set the relevant item properties.
+     * @param size
+     * @returns The collection as BulkItems
+     */
     prepareItems(size: Size): Collection<BulkItem> {
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
