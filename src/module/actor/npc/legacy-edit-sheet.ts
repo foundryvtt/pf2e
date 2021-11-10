@@ -194,24 +194,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 const entry = this.actor.spellcasting.get(i._id);
                 if (!entry) continue;
 
-                if ((i.data.prepared || {}).value === "prepared") i.data.prepared.preparedSpells = true;
-                else i.data.prepared.preparedSpells = false;
-                // Check if Ritual spellcasting tradtion and set Boolean
-                if ((i.data.tradition || {}).value === "ritual") i.data.tradition.ritual = true;
-                else i.data.tradition.ritual = false;
-
-                // There are still some bestiary entries where these values are strings.
-                i.data.spelldc.dc = Number(i.data.spelldc.dc);
-                i.data.spelldc.value = Number(i.data.spelldc.value);
-
-                if (this.actor.data.data.traits.traits.value.some((trait) => trait === "elite")) {
-                    i.data.spelldc.dc += 2;
-                    i.data.spelldc.value += 2;
-                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === "weak")) {
-                    i.data.spelldc.dc -= 2;
-                    i.data.spelldc.value -= 2;
-                }
-
                 // Update all spells to have the action icon
                 const data = entry.getSpellData();
                 for (const level of data.levels) {
@@ -222,8 +204,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     }
                 }
 
-                const eid = spellcastingEntries.length;
-                spellcastingEntries.push(mergeObject(i, { eid, ...data }));
+                spellcastingEntries.push(mergeObject(i, data));
             }
         }
 
