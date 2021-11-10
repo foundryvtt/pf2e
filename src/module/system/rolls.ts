@@ -288,10 +288,8 @@ export class CheckPF2e {
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
 
         if (ctx.options && ctx.options.indexOf("incapacitation") > -1) {
-            flavor += `<p class="compact-text" data-visibility="gm"><strong>${game.i18n.localize(
-                "PF2E.TraitIncapacitation"
-            )}:</strong> `;
-            flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitation")}</p>`;
+            flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
+            flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
         }
         console.log(flavor);
 
