@@ -30,14 +30,14 @@
                 {{#unless entry.isRitual}}
                     <ol class="skills-list spell-dc">
                         <li class="skill-grid">
-                            <div class="skill-data">
-                                <span class="skill-score spell-attack" title="{{entry.data.attack.breakdown}}">{{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
-                                <h4 class="skill-name spell-attack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.SpellAttackLabel"}}</h4>
+                            <div class="skill-data spell-attack" title="{{entry.statistic.check.breakdown}}">
+                                <span class="skill-score">{{numberFormat entry.statistic.check.value decimals=0 sign=true}}</span>
+                                <h4 class="skill-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
                             </div>
 
-                            <div class="skill-data">
-                                <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>
-                                <h4 class="skill-name spellcasting" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.SpellSaveLabel"}}</h4>
+                            <div class="skill-data" title="{{entry.statistic.dc.breakdown}}">
+                                <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
+                                <h4 class="skill-name spellcasting">{{localize "PF2E.SpellSaveLabel"}}</h4>
                             </div>
 
                             {{#if entry.isFocusPool}}

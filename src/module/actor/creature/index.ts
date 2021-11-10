@@ -8,7 +8,7 @@ import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
-import { DegreeOfSuccessAdjustment, CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -22,7 +22,7 @@ import {
     VisionLevels,
 } from "./data";
 import { LightLevels } from "@module/scene/data";
-import { Statistic, StatisticBuilder } from "@system/statistic";
+import { Statistic } from "@system/statistic";
 import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
@@ -92,7 +92,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     get perception(): Statistic {
         const stat = this.data.data.attributes.perception as StatisticModifier;
-        return this.buildStatistic(stat, "perception", "PF2E.PerceptionCheck", "perception-check");
+        return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
     get fortitude(): Statistic {
@@ -109,12 +109,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     get deception(): Statistic {
         const stat = this.data.data.skills.dec as StatisticModifier;
-        return this.buildStatistic(stat, "deception", "PF2E.ActionsCheck.deception", "skill-check");
+        return Statistic.from(this, stat, "deception", "PF2E.ActionsCheck.deception", "skill-check");
     }
 
     get stealth(): Statistic {
         const stat = this.data.data.skills.ste as StatisticModifier;
-        return this.buildStatistic(stat, "stealth", "PF2E.ActionsCheck.stealth", "skill-check");
+        return Statistic.from(this, stat, "stealth", "PF2E.ActionsCheck.stealth", "skill-check");
     }
 
     get wornArmor(): Embedded<ArmorPF2e> | null {
@@ -465,26 +465,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
     }
 
-    protected buildStatistic(
-        stat: { adjustments?: DegreeOfSuccessAdjustment[]; modifiers: readonly ModifierPF2e[]; notes?: RollNotePF2e[] },
-        name: string,
-        label: string,
-        type: string
-    ): Statistic {
-        return StatisticBuilder.from(this, {
-            name: name,
-            check: { adjustments: stat.adjustments, label, type },
-            dc: {},
-            modifiers: [...stat.modifiers],
-            notes: stat.notes,
-        });
-    }
-
     private buildSavingThrowStatistic(savingThrow: "fortitude" | "reflex" | "will"): Statistic {
         const label = game.i18n.format("PF2E.SavingThrowWithName", {
             saveName: game.i18n.localize(CONFIG.PF2E.saves[savingThrow]),
         });
-        return this.buildStatistic(this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
+        return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
     protected createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]): AttackRollContext {
