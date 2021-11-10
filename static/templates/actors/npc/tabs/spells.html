@@ -18,12 +18,12 @@
                             <h4>{{entry.name}}</h4>
                         </div>
                         <div class="spellDC inline-field">
-                            <label title="{{entry.data.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
-                            <input type="number" class="dc-input modifier" data-display-value="{{entry.data.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.data.dc.value}}" data-dtype="Number" placeholder="0"/>
+                            <label title="{{entry.statistic.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
+                            <input type="number" class="dc-input modifier" data-display-value="{{entry.statistic.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.statistic.dc.value}}" data-dtype="Number" placeholder="0"/>
                         </div>
                         <div class="spellAttack inline-field">
-                            <label class="rollable" title="{{entry.data.attack.breakdown}}">{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</label>
-                            <input type="number" class="attack-input modifier" data-display-value="{{entry.data.attack.value}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{ numberFormat entry.data.attack.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
+                            <label class="rollable" title="{{entry.statistic.check.breakdown}}">{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</label>
+                            <input type="number" class="attack-input modifier" data-display-value="{{entry.statistic.check.value}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{ numberFormat entry.statistic.check.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
                         </div>
                         <div class="ability-score inline-field">
                             <label title="{{entry.data.ability.label}}">{{localize "PF2E.AbilityTitle"}}</label>

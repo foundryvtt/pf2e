@@ -4,7 +4,7 @@ import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
-import { StatisticWithDC } from "@system/statistic";
+import { Statistic } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
@@ -74,7 +74,7 @@ interface SimpleRollActionCheckOptions {
     checkType: CheckType;
     event: JQuery.Event;
     difficultyClass?: CheckDC;
-    difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
+    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;

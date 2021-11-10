@@ -5,7 +5,7 @@ import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { OneToTen, OneToThree, TwoToThree } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
-import { ordinal, toNumber, objectHasKey } from "@util";
+import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 
@@ -203,22 +203,18 @@ export class SpellPF2e extends ItemPF2e {
         const systemData = this.data.data;
         const description = TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
 
-        const spellcastingData = this.data.data.trickMagicItemData ?? this.spellcasting?.data;
-        if (!spellcastingData) {
+        const trickData = this.data.data.trickMagicItemData;
+        const spellcasting = this.spellcasting;
+        if (!spellcasting && !trickData) {
             console.warn(
                 `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
             );
             return { ...systemData };
         }
 
-        const spellDC =
-            "dc" in spellcastingData.data
-                ? spellcastingData.data.dc?.value ?? spellcastingData.data.spelldc.dc
-                : spellcastingData.data.spelldc.dc;
-        const spellAttack =
-            "attack" in spellcastingData.data
-                ? spellcastingData.data.attack?.value ?? spellcastingData.data.spelldc.value
-                : spellcastingData.data.spelldc.value;
+        const statistic = spellcasting?.statistic;
+        const spellDC = trickData ? trickData.data.spelldc.dc : statistic?.dc({ options: [...this.traits] }).value;
+        const spellAttack = trickData ? trickData.data.spelldc.value : statistic?.check.value;
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -298,32 +294,14 @@ export class SpellPF2e extends ItemPF2e {
 
         // Prepare roll data
         const trickMagicItemData = itemData.data.trickMagicItemData;
-        const systemData = itemData.data;
         const rollData = deepClone(this.actor.data.data);
-        const spellcastingEntry = this.actor.spellcasting.get(systemData.location.value)?.data;
-        const useTrickData = !spellcastingEntry;
-
-        if (useTrickData && !trickMagicItemData)
-            throw new Error("Spell points to location that is not a spellcasting type");
+        const spellcastingEntry = this.spellcasting;
 
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
-            const options = this.actor
-                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
-                .concat(...this.traits);
-            const modifiers: ModifierPF2e[] = [];
-            if (multiAttackPenalty > 1) {
-                modifiers.push(
-                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
-                );
-            }
-            spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
-        } else {
-            const spellAttack = useTrickData
-                ? trickMagicItemData?.data.spelldc.value
-                : spellcastingEntry?.data.spelldc.value;
+        if (trickMagicItemData) {
+            const spellAttack = trickMagicItemData.data.spelldc.value;
             const parts = [Number(spellAttack) || 0];
             const title = `${this.name} - Spell Attack Roll`;
 
@@ -353,6 +331,19 @@ export class SpellPF2e extends ItemPF2e {
                     left: window.innerWidth - 710,
                 },
             });
+        } else if (spellcastingEntry) {
+            const options = this.actor
+                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
+                .concat(...this.traits);
+            const modifiers: ModifierPF2e[] = [];
+            if (multiAttackPenalty > 1) {
+                modifiers.push(
+                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
+                );
+            }
+            spellcastingEntry.statistic.check.roll({ event, item: this, options, modifiers });
+        } else {
+            throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
     }
 
