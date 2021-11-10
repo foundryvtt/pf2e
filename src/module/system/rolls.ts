@@ -286,6 +286,12 @@ export class CheckPF2e {
             flavor += `<div class="tags">\n${traits}\n</div><hr />`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
+
+        if (ctx.options && ctx.options.indexOf("incapacitation") > -1) {
+            flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
+            flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
+        }
+
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
         const message = (await roll.toMessage(
             {
