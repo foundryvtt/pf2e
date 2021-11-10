@@ -941,7 +941,8 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Bulk
-        const bulkItems: BulkItem[] = this.physicalItems.map((item) => this.preparePhysicalItem(item, this.size));
+        //const bulkItems: BulkItem[] = this.physicalItems.map((item) => this.preparePhysicalItem(item, this.size));
+        const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size).contents;
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
