@@ -765,6 +765,7 @@ const creatureTraits = {
     kovintus: "PF2E.TraitKovintus",
     light: "PF2E.TraitLight",
     locathah: "PF2E.TraitLocathah",
+    magical: "PF2E.TraitMagical",
     mental: "PF2E.TraitMental",
     merfolk: "PF2E.TraitMerfolk",
     mindless: "PF2E.TraitMindless",
