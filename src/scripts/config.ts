@@ -828,6 +828,10 @@ const creatureTraits = {
     zombie: "PF2E.TraitZombie",
 };
 
+const vehicleTraits = {
+    magical: "PF2E.TraitMagical",
+};
+
 const spellOtherTraits = {
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
@@ -1636,6 +1640,8 @@ export const PF2ECONFIG = {
         trap: "PF2E.TraitTrap",
         virulent: "PF2E.TraitVirulent",
     },
+
+    vehicleTraits,
 
     traitsDescriptions,
 
