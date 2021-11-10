@@ -6,15 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration665HandwrapsCorrections } from "@module/migration/migrations/665-handwraps-corrections";
-import { Migration666UsageAndStowingContainers } from "@module/migration/migrations/666-usage-and-stowing-containers";
-import { Migration667HPSubProperties } from "@module/migration/migrations/667-hp-subproperties";
-import { Migration668ArmorSpeedPenalty } from "@module/migration/migrations/668-armor-speed-penalty";
-import { Migration669NPCAttackEffects } from "@module/migration/migrations/669-npc-attack-effects";
-import { Migration670NoCustomTrait } from "@module/migration/migrations/670-no-custom-trait";
-import { Migration670AncestryVision } from "@module/migration/migrations/670-ancestry-vision";
-import { Migration671NoPCItemsOnNonPCs } from "@module/migration/migrations/671-no-pc-items-on-non-pcs";
-import { Migration672RemoveNPCBaseProperties } from "@module/migration/migrations/672-remove-npc-base-properties";
 import { Migration673RemoveBulwarkREs } from "@module/migration/migrations/673-remove-bulwark-res";
 import { Migration675FlatModifierAEsToREs } from "@module/migration/migrations/675-flat-modifier-aes-to-res";
 import { Migration677RuleValueDataRefs } from "@module/migration/migrations/677-rule-value-data-refs";
@@ -27,17 +18,9 @@ import { Migration683FlavorTextToPublicNotes } from "@module/migration/migration
 import { Migration685FixMeleeUsageTraits } from "@module/migration/migrations/685-fix-melee-usage-traits";
 import { Migration686HeroPointsToResources } from "@module/migration/migrations/686-hero-points-to-resources";
 import { Migration687FamiliarityAEsToREs } from "@module/migration/migrations/687-familiarity-aes-to-res";
+import { Migration688ClampSpellLevel } from "@module/migration/migrations/688-clamp-spell-level";
 
 const migrations: MigrationBase[] = [
-    new Migration665HandwrapsCorrections(),
-    new Migration666UsageAndStowingContainers(),
-    new Migration667HPSubProperties(),
-    new Migration668ArmorSpeedPenalty(),
-    new Migration669NPCAttackEffects(),
-    new Migration670NoCustomTrait(),
-    new Migration670AncestryVision(),
-    new Migration671NoPCItemsOnNonPCs(),
-    new Migration672RemoveNPCBaseProperties(),
     new Migration673RemoveBulwarkREs(),
     new Migration675FlatModifierAEsToREs(),
     new Migration677RuleValueDataRefs(),
@@ -50,6 +33,7 @@ const migrations: MigrationBase[] = [
     new Migration685FixMeleeUsageTraits(),
     new Migration686HeroPointsToResources(),
     new Migration687FamiliarityAEsToREs(),
+    new Migration688ClampSpellLevel(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

@@ -183,6 +183,9 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareBaseData() {
         super.prepareBaseData();
+        // In case bad level data somehow made it in
+        this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
+
         this.data.isFocusSpell = this.data.data.category.value === "focus";
         this.data.isRitual = this.data.data.category.value === "ritual";
         this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
