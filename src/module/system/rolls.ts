@@ -291,7 +291,6 @@ export class CheckPF2e {
             flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
             flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
         }
-        console.log(flavor);
 
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
         const message = (await roll.toMessage(
