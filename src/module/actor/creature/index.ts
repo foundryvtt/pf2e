@@ -17,7 +17,6 @@ import {
     CreatureSpeeds,
     LabeledSpeed,
     MovementType,
-    SenseData,
     VisionLevel,
     VisionLevels,
 } from "./data";
@@ -303,7 +302,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */
-    prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
+    prepareSenses(data: CreatureSensePF2e[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
         const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
 
         for (const { sense, predicate, force } of synthetics.senses) {

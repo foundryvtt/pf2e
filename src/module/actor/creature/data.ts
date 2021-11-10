@@ -12,7 +12,7 @@ import {
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
+import { LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 import { CreatureSensePF2e } from "./sense";
@@ -71,12 +71,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
-
-export type SenseAcuity = "precise" | "imprecise" | "vague";
-export interface SenseData extends LabeledString {
-    acuity?: SenseAcuity;
-    source?: string;
-}
 
 /** Data describing the value & modifier for a base ability score. */
 export interface AbilityData {

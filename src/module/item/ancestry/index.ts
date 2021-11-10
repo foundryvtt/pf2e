@@ -4,7 +4,7 @@ import { Size } from "@module/data";
 import { ABCItemPF2e } from "../abc";
 import { AncestryData } from "./data";
 import { sluggify } from "@util";
-import { CreatureSensePF2e } from "@actor/creature/sense";
+import { CreatureSensePF2e, SenseType } from "@actor/creature/sense";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -63,7 +63,7 @@ export class AncestryPF2e extends ABCItemPF2e {
         const { vision } = this.data.data;
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
             senses.push(
-                new CreatureSensePF2e({ type: vision, label: CONFIG.PF2E.senses[vision], value: "", source: this.name })
+                new CreatureSensePF2e({ type: vision as SenseType, acuity: "precise", showAcuity: false, value: "", source: this.name })
             );
             const senseRollOptions = (this.actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
