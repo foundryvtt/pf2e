@@ -87,6 +87,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "levels",
     "dcAdjustments",
     "npcAttackTraits",
+    "vehicleTraits",
 ] as const;
 
 export type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];
