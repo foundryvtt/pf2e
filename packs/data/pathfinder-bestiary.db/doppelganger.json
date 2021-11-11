@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -65,6 +65,7 @@
             "privateNotes": "",
             "publicNotes": "<p>In their natural forms, doppelgangers are humanoid creatures with flesh of indeterminate color and features that lack fine details, as if unfinished. As masters of mimicry, they use their abilities to impersonate others in devious ways, often infiltrating settlements and residing within them for years without being detected.</p>\n<p>Doppelgangers are incredibly secretive, with some nearing outright paranoia. They choose their targets carefully and go to great lengths not to reveal their intentions before their plans come to fruition. Doppelgangers usually infiltrate communities in order to gain some manner of wealth or power, and assume the guises of other  persons to allow the creatures they're impersonating to take the fall for any negative consequences that may result from their actions.</p>\n<p>Though most are not evil, doppelgangers are manipulative and self-serving. As they don't have their own society and aren't monolithic in their motivations, an individual doppelganger has its own unique interests and impulses, though many are over-indulgent. Some doppelgangers enjoy the thrill of subtlety, while others favor grander schemes, such as manipulating a nation's political infrastructure. Others seek to exploit merchant guilds to gain immense wealth, while others use their shape-changing ability to destroy relationships between close friends or families.</p>\n<p>Doppelgangers are careful and patient creatures. They are willing to slowly construct elaborate schemes that may require extended periods of time-even decades-to yield results.</p>\n<p>Doppelgangers often work alone, as they don't trust potential cohorts not to ruin their plans. There are rare times when doppelgangers might reveal secrets to high-ranking individuals to ensure a successful infiltration. When they do work with others, it's because they've taken the shape of a target group's leader, unbeknownst to the organization's members.</p>\n<p>Doppelgangers can grow in power by learning skills and abilities, and often make excellent rogues, spellcasters, or fighters. A doppelganger that has class abilities can often effectively infiltrate and plague an adventuring group as a powerful antagonist-but using a doppelganger like this in your game should be handled with care (see the Infiltrating a Party sidebar above for more information).</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -128,7 +129,7 @@
             "_id": "ozquWsM1aQvo90BH",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -149,7 +150,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -227,7 +228,7 @@
                     "dc": "21",
                     "item": 0,
                     "mod": 0,
-                    "value": 11
+                    "value": 13
                 },
                 "tradition": {
                     "value": "arcane"
@@ -255,7 +256,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -343,7 +344,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
-            "name": "Mind Reading",
+            "name": "Mind Reading (At Will)",
             "sort": 200000,
             "type": "spell"
         },
@@ -354,6 +355,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -392,6 +394,54 @@
             "name": "Claw",
             "sort": 300000,
             "type": "melee"
+        },
+        {
+            "_id": "qZeUnIbUkD11lmPY",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "0lvwb1cNAaOUc6Be",
@@ -436,11 +486,75 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "End the Charade",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "3ECY5NjMdLGJjPWW",
+            "_id": "xJzOzay7kT48FZeA",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "70g4had3Za20lHpS",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -458,7 +572,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -470,8 +584,8 @@
                     "value": [
                         "arcane",
                         "concentrate",
-                        "transmutation",
-                        "polymorph"
+                        "polymorph",
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -482,10 +596,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -520,7 +638,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -555,7 +673,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -590,7 +708,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -625,7 +743,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
