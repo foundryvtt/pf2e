@@ -1636,6 +1636,7 @@ export const PF2ECONFIG = {
         kaiju: "PF2E.TraitKaiju",
         magical: "PF2E.TraitMagical",
         mechanical: "PF2E.TraitMechanical",
+        steam: "PF2E.TraitSteam",
         summon: "PF2E.TraitSummon",
         trap: "PF2E.TraitTrap",
         virulent: "PF2E.TraitVirulent",
