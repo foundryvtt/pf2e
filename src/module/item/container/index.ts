@@ -45,6 +45,7 @@ export class ContainerPF2e extends PhysicalItemPF2e {
         return this.data.data.containedItemBulk ?? new Bulk();
     }
 
+    /** How full the container is capped at 100% */
     get fullPercentageMax100(): number {
         const containedItems = this.containedItemBulk.toLightBulk();
         const percentage = Math.floor((containedItems / this.data.data.capacity.value) * 100) || 0;
