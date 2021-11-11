@@ -3,43 +3,147 @@ export const EnrichContent = {
         const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
         const parameters = new Map();
 
-        const params = data.trim().split("|");
-        if (!Array.isArray(params)) return error;
+        const paramString = data.trim().split("|");
+        if (!Array.isArray(paramString)) return error;
 
-        for (const arr of params) {
-            const a = arr.trim().split(":");
-            if (!(a.length === 2)) return error;
+        for (const param of paramString) {
+            const paramComponents = param.trim().split(":");
+            if (!(paramComponents.length === 2)) return error;
 
-            parameters.set(a[0].trim(), a[1].trim());
+            parameters.set(paramComponents[0].trim(), paramComponents[1].trim());
         }
 
         return parameters;
     },
 
     enrichString: (data: string, options?: EnrichHTMLOptions): string => {
+        //enrich inline damage buttons with default chat labels and default button labels
+        data = EnrichContent.enrichInlineRolls(data, options);
+
+        //enrich @ inline commands: Localize, Template, Check, Recharge
         const entityTypes: String[] = ["Localize", "Template"];
         const rgx = new RegExp(`@(${entityTypes.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
-        if (!(typeof data === "string")) return data;
         let replaced = true;
         let replacedData;
         do {
-            replacedData = data.replace(rgx, (match: string, p1: string, p2: string, p3: string) => {
-                switch (p1) {
-                    case "Localize":
-                        return EnrichContent.createLocalize(p2, options);
-                    case "Template":
-                        return EnrichContent.createTemplate(p2, p3, options);
+            replacedData = data.replace(
+                rgx,
+                (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
+                    switch (inlineType) {
+                        case "Localize":
+                            return EnrichContent.createLocalize(paramString, options);
+                        case "Template":
+                            return EnrichContent.createTemplate(paramString, buttonLabel, options);
+                    }
+                    return match;
                 }
-                return match;
-            });
+            );
             if (replacedData === data) replaced = false;
             data = replacedData;
         } while (replaced);
         return data;
     },
+
+    //enrich inline damage buttons with default chat labels and default button labels
+    enrichInlineRolls(data: string, options?: EnrichHTMLOptions): string {
+        const rgx = new RegExp(
+            `\\[\\[(\\/r|\\/br) ((?:{[^}]+}\\[[^\\]]+\\][\\+]*)+)(?: #([^\\]]+))?\\]\\](?:{([^}]+)})?`,
+            "g"
+        );
+        data = data.replace(
+            rgx,
+            (match: string, rollType: string, rolls: string, chatLabel: string, buttonLabel: string) => {
+                //if no chat label is entered directly use the item name from rollOptions if available
+                if (!(typeof chatLabel === "string")) {
+                    if (options?.rollData) {
+                        for (const [k, v] of Object.entries(options.rollData)) {
+                            if (k === "item") {
+                                chatLabel = v.name;
+                            }
+                        }
+                    } else chatLabel = game.i18n.localize("PF2E.InlineButtons.DamageRollDefaultLabel");
+                }
+
+                //if no button label is entered directly use the roll's roll parts to create a default label
+                if (!(typeof buttonLabel === "string")) {
+                    buttonLabel = "";
+                    const rollParts = rolls.match(/{[^}]+}\[[^\]]+\]/g) ?? [];
+
+                    //loop through the different roll parts
+                    for (const rollPart of rollParts) {
+                        const rollComponent = rollPart.replace(/\{/g, "").replace(/\]/g, "").split("}[");
+
+                        //get localized damage die
+                        const rgx = new RegExp(`(${Object.keys(CONFIG.PF2E.damageDie).join("|")})`, "g");
+
+                        buttonLabel = buttonLabel.concat(
+                            " + ",
+                            rollComponent[0].replace(rgx, (match: string) => {
+                                return game.i18n.localize(
+                                    CONFIG.PF2E.damageDie[match as keyof typeof CONFIG.PF2E.damageDie]
+                                );
+                            }),
+                            " "
+                        );
+
+                        //get localized damage categories, types and subtypes
+                        const damageCategories: String[] = [];
+                        const damageSubtypes: String[] = [];
+                        const damageTypes: String[] = [];
+                        const healingTypes: String[] = [];
+                        const customTypes: String[] = [];
+
+                        rollComponent[1].split(",").forEach((element) => {
+                            if (Object.keys(CONFIG.PF2E.damageCategories).includes(element))
+                                damageCategories.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageCategories[
+                                            element as keyof typeof CONFIG.PF2E.damageCategories
+                                        ]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.damageSubtypes).includes(element))
+                                damageSubtypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageSubtypes[element as keyof typeof CONFIG.PF2E.damageSubtypes]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.damageTypes).includes(element))
+                                damageTypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.damageTypes[element as keyof typeof CONFIG.PF2E.damageTypes]
+                                    )
+                                );
+                            else if (Object.keys(CONFIG.PF2E.healingTypes).includes(element))
+                                healingTypes.push(
+                                    game.i18n.localize(
+                                        CONFIG.PF2E.healingTypes[element as keyof typeof CONFIG.PF2E.healingTypes]
+                                    )
+                                );
+                            else customTypes.push(element);
+                        });
+                        buttonLabel = buttonLabel.concat(damageTypes.concat(healingTypes, customTypes).join(", "));
+
+                        if (damageCategories.concat(damageSubtypes).join(", ").length)
+                            buttonLabel = buttonLabel.concat(
+                                " (",
+                                damageCategories.concat(damageSubtypes).join(", "),
+                                ")"
+                            );
+                    }
+                }
+                match = `[[${rollType} ${rolls} #${chatLabel}]]{${buttonLabel.replace(/^ \+ /g, "")}}`;
+
+                return match;
+            }
+        );
+        return data;
+    },
+
     createLocalize(data: string, options?: EnrichHTMLOptions): string {
         return EnrichContent.enrichString(game.i18n.localize(data), options);
     },
+
     createTemplate(data: string, label?: string, options?: EnrichHTMLOptions): string {
         //get parameters from data
         const params = EnrichContent.getParams(data);
@@ -64,21 +168,42 @@ export const EnrichContent = {
             if (options?.rollData) {
                 for (const [k, v] of Object.entries(options.rollData)) {
                     if (k === "item") {
-                        const t = v.traits.value.join(",");
-                        if (!(v.traits.custom === "")) t.append(`, ${v.traits.custom}`);
-                        params.set("traits", t);
+                        const traits = v.traits.value.join(",");
+                        if (!(v.traits.custom === "")) traits.append(`, ${v.traits.custom}`);
+                        params.set("traits", traits);
                     } else params.set("traits", "");
                 }
             } else params.set("traits", "");
         }
 
-        //add damaging-effect if param damaging = true and not already included
-        if (params.get("damaging") === "true") {
-            const traits = params.get("traits") ?? "";
-            if (traits.search("damaging-effect") === -1)
-                params.set("traits", traits.concat(",damaging-effect").replace(/^,/, ""));
+        //add extraTraits (added to e.g. default traits from rollData)
+        if (params.has("extraTraits")) {
+            let traits = params.get("traits") ?? "";
+            const extraTraits = params.get("extraTraits")?.split(",") ?? [];
+            extraTraits.forEach((element) => {
+                if (traits.search(element) === -1) traits = traits.concat(`,${element}`);
+            });
+            params.set("traits", traits.replace(/^,/, ""));
         }
 
+        //if no button label is entered directly create default label
+        let tSize = `${params.get("distance") ?? ""} ${game.i18n.localize("PF2E.Feet")}`;
+        let tType = params.get("type") ?? "";
+
+        if (!label) {
+            if (Object.keys(CONFIG.PF2E.areaSizes).includes(params.get("distance") ?? "0"))
+                tSize = game.i18n.localize(
+                    CONFIG.PF2E.areaSizes[
+                        parseInt(params.get("distance") ?? "0", 10) as keyof typeof CONFIG.PF2E.areaSizes
+                    ]
+                );
+            if (Object.keys(CONFIG.PF2E.areaTypes).includes(params.get("type") ?? ""))
+                tType = game.i18n.localize(
+                    CONFIG.PF2E.areaTypes[params.get("type") as keyof typeof CONFIG.PF2E.areaTypes]
+                );
+        }
+
+        //add the html elements used for the inline buttons
         const html = document.createElement("span");
         html.setAttribute("data-pf2-effect-area", params.get("type") ?? "");
         html.setAttribute("data-pf2-distance", params.get("distance") ?? "");
@@ -86,8 +211,8 @@ export const EnrichContent = {
         html.innerHTML =
             label ??
             game.i18n.format("PF2E.InlineButtons.TemplateLabel", {
-                type: params.get("type") ?? "",
-                unit: params.get("distance") ?? "",
+                type: tType,
+                size: tSize,
             });
         if (params.get("type") === "line") html.setAttribute("data-pf2-width", params.get("width") ?? "5");
         return html.outerHTML;
