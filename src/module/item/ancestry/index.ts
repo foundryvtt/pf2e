@@ -62,9 +62,7 @@ export class AncestryPF2e extends ABCItemPF2e {
         const { senses } = systemData.traits;
         const { vision } = this.data.data;
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
-            senses.push(
-                new CreatureSensePF2e({ type: vision, label: CONFIG.PF2E.senses[vision], value: "", source: this.name })
-            );
+            senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
             const senseRollOptions = (this.actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }
