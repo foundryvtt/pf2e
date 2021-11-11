@@ -12,6 +12,11 @@ import { Rollable } from "@actor/data/base";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
+import { CreatureSensePF2e } from "./sense";
+
+interface CreatureSenseSheetData extends CreatureSensePF2e {
+    localizedLabel?: string;
+}
 
 /**
  * Base class for NPC and character sheets
@@ -102,6 +107,28 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.rarity = CONFIG.PF2E.rarityTraits;
         sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
+
+        //Prepare senses
+        for (const sense of sheetData.data.traits.senses as CreatureSenseSheetData[]) {
+            const lbl = game.i18n.localize(
+                objectHasKey(CONFIG.PF2E.senses, sense.type) ? CONFIG.PF2E.senses[sense.type] : sense.type
+            );
+            if (sense.showAcuity) {
+                const acLbl = game.i18n.localize(
+                    objectHasKey(CONFIG.PF2E.senseAcuity, sense.acuity)
+                        ? CONFIG.PF2E.senseAcuity[sense.acuity]
+                        : sense.acuity
+                );
+                sense.localizedLabel = game.i18n.format("PF2E.Sense.CombinedLabel", { sense: lbl, acuity: acLbl });
+            } else {
+                sense.localizedLabel = lbl;
+            }
+        }
+
+        sheetData.data.traits.senses = sheetData.data.traits.senses.sort(
+            (a: CreatureSenseSheetData, b: CreatureSenseSheetData) =>
+                a.localizedLabel && b.localizedLabel && a.localizedLabel > b.localizedLabel ? 1 : -1
+        ) as CreatureSensePF2e;
 
         return sheetData;
     }
