@@ -342,6 +342,19 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
     const highestBonus: Record<string, ModifierPF2e> = {};
     const lowestPenalty: Record<string, ModifierPF2e> = {};
 
+    // There are no ability bonuses or penalties, so always take the highest ability modifier.
+    const abilityModifiers = modifiers.filter((m) => m.type === MODIFIER_TYPE.ABILITY);
+    const bestAbility = abilityModifiers.reduce((best: ModifierPF2e | null, modifier): ModifierPF2e | null => {
+        if (best === null) {
+            return modifier;
+        } else {
+            return modifier.modifier > best.modifier ? modifier : best;
+        }
+    }, null);
+    for (const modifier of abilityModifiers) {
+        modifier.ignored = modifier !== bestAbility;
+    }
+
     for (const modifier of modifiers) {
         // Always disable ignored modifiers and don't do anything further with them.
         if (modifier.ignored) {
