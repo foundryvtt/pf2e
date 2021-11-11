@@ -19,8 +19,7 @@ export class ActorTraitsRuleElement extends RuleElementPF2e {
     override onBeforePrepareData() {
         if (this.ignored) return;
 
-        const traits = this.actor.data.data.traits.traits.value;
-
+        const traits: string[] = this.actor.data.data.traits.traits.value;
         const newTraits = this.data.add.filter((trait) => !traits.includes(trait));
         traits.push(...newTraits);
 

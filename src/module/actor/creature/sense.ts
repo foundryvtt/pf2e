@@ -8,7 +8,7 @@ export class CreatureSensePF2e implements SenseData {
     /** The range of the sense, if any */
     value: string;
     /** The localized label of the sense */
-    label: string;
+    label?: string;
     /** The source of the sense, if any */
     source?: string;
     /** Is this a temporary ability? */

@@ -3,7 +3,7 @@ import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
-export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
+export class SenseSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";
 
     static override get defaultOptions() {
@@ -72,8 +72,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
                 if (!Number.isNaN(Number(v[2]))) {
-                    const label = this.choices[k];
-                    choices.push({ type: k, label, acuity: v[1], value: v[2] });
+                    choices.push({ type: k, acuity: v[1], value: v[2] });
                 }
             }
         }

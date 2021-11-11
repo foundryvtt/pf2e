@@ -8,18 +8,19 @@ export class Migration612NormalizeRarities extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e) {
         if (actorData.type === "familiar") return;
 
-        const traits = actorData.data.traits;
-        if (!(("rarity" in traits) as { rarity?: Rarity })) {
-            traits.rarity = { value: "common" };
+        const traitsAndOtherMiscellany = actorData.data.traits;
+        if (!(("rarity" in traitsAndOtherMiscellany) as { rarity?: Rarity })) {
+            traitsAndOtherMiscellany.rarity = { value: "common" };
         }
 
         // Remove rarities from standard traits list
         const rarities = ["common", "uncommon", "rare", "unique"] as const;
         for (const rarity of rarities) {
-            if (traits.traits.value.includes(rarity)) {
-                const index = traits.traits.value.indexOf(rarity);
-                traits.traits.value.splice(index, 1);
-                traits.rarity = { value: rarity };
+            const traits: { value: string[] } = traitsAndOtherMiscellany.traits;
+            if (traits.value.includes(rarity)) {
+                const index = traits.value.indexOf(rarity);
+                traits.value.splice(index, 1);
+                traitsAndOtherMiscellany.rarity = { value: rarity };
             }
         }
     }

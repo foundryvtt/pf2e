@@ -770,49 +770,50 @@ export class NPCPF2e extends CreaturePF2e {
             } else if (itemData.type === "spellcastingEntry") {
                 const tradition = itemData.data.tradition.value;
                 const ability = itemData.data.ability.value || "int";
-                const base = Number(itemData.data?.spelldc?.value ?? 0);
-                const baseModifiers = [
-                    new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e(
-                        CONFIG.PF2E.abilities[ability],
-                        data.abilities[ability].mod,
-                        MODIFIER_TYPE.ABILITY
-                    ),
-                ];
+                const abilityMod = data.abilities[ability].mod;
 
+                // There are still some bestiary entries where these values are strings
+                itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
+                itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
+
+                // Determine NPC modifiers. Since NPCs checks can differ from dcs, we need to fully recalculate the mod list separately
                 const baseRollOptions = [`${ability}-based`, "all", "spell-attack-dc"];
                 const baseNotes = baseRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
-                const extendedBaseModifiers = baseRollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((modifier) => {
-                        const m = modifier.clone();
-                        m.ignored = !m.predicate.test(this.getRollOptions(baseRollOptions));
-                        return m;
-                    });
+                const baseModifiers = [
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                    ...baseRollOptions.flatMap((key) => statisticsModifiers[key] || []),
+                ];
 
+                // Check Modifiers, calculate using the user configured value
+                const baseMod = Number(itemData.data?.spelldc?.value ?? 0);
                 const attackRollOptions = [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"];
                 const attackNotes = attackRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
-                const attackModifiers = attackRollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((modifier) => {
-                        const m = modifier.clone();
-                        m.ignored = !m.predicate.test(this.getRollOptions(attackRollOptions));
-                        return m;
-                    });
+                const attackModifiers = [
+                    new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
+                    ...baseModifiers,
+                    ...attackRollOptions.flatMap((key) => statisticsModifiers[key] || []),
+                ].map((modifier) => {
+                    const m = modifier.clone();
+                    m.ignored = !m.predicate.test(this.getRollOptions(attackRollOptions));
+                    return m;
+                });
 
+                // Save Modifiers, calculate using the user configured value - 10
+                const baseDC = Number(itemData.data?.spelldc?.dc ?? 0);
                 const saveRollOptions = [`${tradition}-spell-dc`, "spell-dc"];
-                const saveModifiers = saveRollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((modifier) => {
-                        const m = modifier.clone();
-                        m.ignored = !m.predicate.test(this.getRollOptions(saveRollOptions));
-                        return m;
-                    });
+                const saveModifiers = [
+                    new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
+                    ...baseModifiers,
+                    ...saveRollOptions.flatMap((key) => statisticsModifiers[key] || []),
+                ].map((modifier) => {
+                    const m = modifier.clone();
+                    m.ignored = !m.predicate.test(this.getRollOptions(saveRollOptions));
+                    return m;
+                });
 
-                // assign statistic data to the spellcasting entry
+                // Assign statistic data to the spellcasting entry
                 itemData.data.statisticData = {
                     name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
-                    modifiers: [...baseModifiers, ...extendedBaseModifiers],
                     notes: [...baseNotes, ...attackNotes],
                     check: {
                         type: "spell-attack-roll",
@@ -823,10 +824,7 @@ export class NPCPF2e extends CreaturePF2e {
                     },
                 };
 
-                // There are still some bestiary entries where these values are strings.
-                itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
-                itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
-
+                // The elite/weak modifier doesn't update the source data, so we do it again here
                 if (this.isElite) {
                     itemData.data.spelldc.dc += 2;
                     itemData.data.spelldc.value += 2;

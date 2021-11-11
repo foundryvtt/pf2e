@@ -18,6 +18,7 @@ import { SaveType } from "@actor/data";
 import { CreatureSensePF2e } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
+import { SenseType } from "@actor/character/data";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,

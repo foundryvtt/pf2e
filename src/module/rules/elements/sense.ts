@@ -57,6 +57,7 @@ interface SenseRuleElementData extends RuleElementData {
     showAcuity: boolean;
     temporary: boolean;
     range: string | number;
+    selector: SenseType;
 }
 
 interface SenseRuleElementSource extends RuleElementSource {
