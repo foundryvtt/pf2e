@@ -4,7 +4,7 @@ import { Size } from "@module/data";
 import { ABCItemPF2e } from "../abc";
 import { AncestryData } from "./data";
 import { sluggify } from "@util";
-import { CreatureSensePF2e, SenseType } from "@actor/creature/sense";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -64,7 +64,7 @@ export class AncestryPF2e extends ABCItemPF2e {
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
             senses.push(
                 new CreatureSensePF2e({
-                    type: vision as SenseType,
+                    type: vision,
                     acuity: "precise",
                     showAcuity: false,
                     value: "",
