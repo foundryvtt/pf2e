@@ -96,10 +96,12 @@ export class Statistic {
                 return check.totalModifier;
             },
             value: stat.totalModifier,
-            breakdown: modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", "),
+            get breakdown() {
+                return modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .join(", ");
+            },
         };
     }
 
@@ -117,13 +119,15 @@ export class Statistic {
         return {
             labelKey: data.dc!.labelKey ?? `PF2E.CreatureStatisticDC.${data.name}`,
             value: (data.dc!.base ?? 10) + new StatisticModifier(data.name, modifiers).totalModifier,
-            breakdown: [game.i18n.localize("PF2E.SpellDCBase")]
-                .concat(
-                    modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", "),
+            get breakdown() {
+                return [game.i18n.localize("PF2E.DCBase")]
+                    .concat(
+                        modifiers
+                            .filter((m) => m.enabled)
+                            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    )
+                    .join(", ");
+            },
         };
     }
 }
