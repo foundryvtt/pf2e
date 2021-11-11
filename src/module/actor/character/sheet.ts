@@ -279,7 +279,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (actorItem instanceof ContainerPF2e) {
                     itemData.contents = actorItem?.contents.map((item) => ItemMap.get(item.data._id));
                     itemData.isOverLoaded = actorItem.isOverLoaded;
-                    itemData.fullPercentageMax100 = actorItem.fullPercentageMax100;
+                    itemData.fullPercentageMax100 = Math.min(actorItem.fullPercentage, 100);
                     itemData.formattedHeldItemBulk = formatBulk(actorItem.containedItemBulk);
                 }
                 itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
