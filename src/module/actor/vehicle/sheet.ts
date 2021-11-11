@@ -5,6 +5,7 @@ import { calculateWealth } from "@item/treasure/helpers";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { PhysicalItemType } from "@item/physical/data";
+import { VehicleTrait } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions() {
@@ -38,6 +39,13 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         // Update save labels
         sheetData.data.saves.fortitude.label = CONFIG.PF2E.saves["fortitude"];
+        sheetData.data.traits.traits.selected = sheetData.data.traits.traits.value.reduce(
+            (traits: { [K in VehicleTrait]?: string }, trait: VehicleTrait) => ({
+                ...traits,
+                [trait]: CONFIG.PF2E.vehicleTraits[trait],
+            }),
+            {}
+        );
 
         this.prepareItems(sheetData);
 
