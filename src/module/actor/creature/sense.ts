@@ -18,7 +18,7 @@ export class CreatureSensePF2e implements SenseData {
         return Number(this.value) || Infinity;
     }
 
-    constructor(data: Omit<SenseData, "value"> & { type: SenseType; value?: string }) {
+    constructor(data: Omit<SenseData, "type"> & { type: SenseType }) {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
         this.showAcuity = data.showAcuity ?? true;
