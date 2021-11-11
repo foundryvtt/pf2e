@@ -50,9 +50,13 @@ export interface StatisticDifficultyClass {
     breakdown: string;
 }
 
-export class Statistic {
-    constructor(private actor: ActorPF2e, private data: StatisticData | StatisticDataWithCheck | StatisticDataWithDC) {}
+type CheckValue<T extends BaseStatisticData> = T extends StatisticDataWithCheck ? StatisticCheck : undefined;
 
+/** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
+export class Statistic<T extends BaseStatisticData = StatisticData> {
+    constructor(private actor: ActorPF2e, public readonly data: T) {}
+
+    /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
     static from(actor: ActorPF2e, stat: StatisticModifier, name: string, label: string, type: string) {
         return new Statistic(actor, {
             name: name,
@@ -63,24 +67,30 @@ export class Statistic {
         });
     }
 
-    get check(): StatisticCheck {
+    /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
+    get check(): CheckValue<T> {
         const data = this.data;
-        const modifiers = (data.modifiers ?? []).concat(data.check!.modifiers ?? []);
+        const check = data.check;
+        if (!check) {
+            return undefined as CheckValue<T>;
+        }
+
+        const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
         const stat = new StatisticModifier(data.name, modifiers);
-        const name = game.i18n.localize(data.check!.label ?? data.name);
+        const name = game.i18n.localize(check.label ?? data.name);
         return {
             modifiers: modifiers,
             roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => {
-                if (args?.dc && data.check!.adjustments && data.check!.adjustments.length) {
+                if (args?.dc && check.adjustments && check.adjustments.length) {
                     args.dc.adjustments ??= [];
-                    args.dc.adjustments.push(...data.check!.adjustments);
+                    args.dc.adjustments.push(...check.adjustments);
                 }
                 const context = {
                     actor: this.actor,
                     dc: args?.dc,
                     notes: data.notes,
                     options: args?.options,
-                    type: data.check!.type,
+                    type: check.type,
                 };
                 CheckPF2e.roll(new CheckModifier(name, stat, args?.modifiers), context, args?.event, args?.callback);
             },
@@ -102,14 +112,19 @@ export class Statistic {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
             },
-        };
+        } as CheckValue<T>;
     }
 
-    dc(options?: { options?: string[] }): StatisticDifficultyClass {
+    /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
+    dc(options?: { options?: string[] }): T extends StatisticDataWithDC ? StatisticDifficultyClass : undefined;
+
+    dc(options?: { options?: string[] }): StatisticDifficultyClass | undefined {
         const data = this.data;
-        const modifiers = (data.modifiers ?? [])
-            .concat(data.dc!.modifiers ?? [])
-            .map((modifier) => duplicate(modifier));
+        if (!data.dc) {
+            return undefined;
+        }
+
+        const modifiers = (data.modifiers ?? []).concat(data.dc.modifiers ?? []).map((modifier) => duplicate(modifier));
 
         // toggle modifiers based on the specified options
         modifiers.forEach((modifier) => {
@@ -117,8 +132,8 @@ export class Statistic {
         });
 
         return {
-            labelKey: data.dc!.labelKey ?? `PF2E.CreatureStatisticDC.${data.name}`,
-            value: (data.dc!.base ?? 10) + new StatisticModifier(data.name, modifiers).totalModifier,
+            labelKey: data.dc.labelKey ?? `PF2E.CreatureStatisticDC.${data.name}`,
+            value: (data.dc.base ?? 10) + new StatisticModifier(data.name, modifiers).totalModifier,
             get breakdown() {
                 return [game.i18n.localize("PF2E.DCBase")]
                     .concat(
