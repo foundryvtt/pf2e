@@ -1,11 +1,9 @@
 import { RuleElementPF2e } from "../rule-element";
-import { SenseAcuity } from "@actor/creature/data";
 import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType, CreatureData } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { CreatureSensePF2e } from "@actor/creature/sense";
-import { SenseType } from "@actor/character/data";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "@actor/creature/sense";
 
 /**
  * @category RuleElement

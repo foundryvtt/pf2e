@@ -15,10 +15,9 @@ import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@m
 import { LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
-import { CreatureSensePF2e } from "./sense";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
-import { SenseType } from "@actor/character/data";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -73,7 +72,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 
-export type SenseAcuity = "precise" | "imprecise" | "vague";
 export interface SenseData {
     type: SenseType;
     acuity?: SenseAcuity;

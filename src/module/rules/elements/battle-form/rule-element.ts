@@ -1,6 +1,7 @@
 import { CharacterPF2e } from "@actor";
+import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType, CharacterData } from "@actor/data";
-import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";

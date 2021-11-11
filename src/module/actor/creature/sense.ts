@@ -1,5 +1,4 @@
-import { SenseType } from "@actor/character/data";
-import { SenseAcuity, SenseData } from "./data";
+import { SenseData } from "./data";
 
 export class CreatureSensePF2e implements SenseData {
     /** low-light vision, darkvision, scent, etc. */
@@ -35,3 +34,26 @@ export class CreatureSensePF2e implements SenseData {
         return this.range > Number(sense.value);
     }
 }
+
+export type SenseAcuity = typeof SENSE_ACUITY[number];
+export type BasicSenseType = typeof BASIC_SENSE_TYPES[number];
+export type SenseType = typeof SENSE_TYPES[number];
+
+/** Define sense acuity */
+export const SENSE_ACUITY = ["precise", "imprecise", "vague"];
+
+/** Define the most common senses */
+export const BASIC_SENSE_TYPES = [
+    "darkvision",
+    "echolocation",
+    "greaterDarkvision",
+    "lifesense",
+    "lowLightVision",
+    "motionsense",
+    "scent",
+    "tremorsense",
+    "wavesense",
+] as const;
+
+/** Complete list of senses */
+export const SENSE_TYPES = [...BASIC_SENSE_TYPES] as const;
