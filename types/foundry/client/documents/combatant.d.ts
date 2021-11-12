@@ -14,7 +14,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
-        _token: NonNullable<NonNullable<this["actor"]>["parent"]>["object"] | null;
+        _token: NonNullable<NonNullable<this["actor"]>["parent"]> | null;
 
         /** A cached reference to the Actor which this Combatant represents, if any */
         _actor: Actor | null;
