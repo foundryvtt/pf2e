@@ -28,7 +28,6 @@ import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
@@ -377,5 +376,3 @@ export interface CharacterAttributes extends CreatureAttributes {
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
 }
-
-export type SenseType = typeof SENSE_TYPES[number];
