@@ -1118,9 +1118,9 @@ export class CharacterPF2e extends CreaturePF2e {
             const potency: WeaponPotencyPF2e[] = [];
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
             const { statisticsModifiers } = synthetics;
-            selectors.forEach((key) => {
-                (statisticsModifiers[key] ?? []).map((m) =>
-                    m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? selectors) })
+            for (const key of selectors) {
+                modifiers.push(
+                    ...(statisticsModifiers[key] ?? []).map((m) => m.clone({ test: this.getRollOptions(selectors) }))
                 );
                 (synthetics.weaponPotency[key] ?? [])
                     .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions))
@@ -1128,7 +1128,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (synthetics.multipleAttackPenalties[key] ?? [])
                     .filter((map) => PredicatePF2e.test(map.predicate, defaultOptions))
                     .forEach((map) => multipleAttackPenalties.push(map));
-            });
+            }
 
             // find best weapon potency
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
