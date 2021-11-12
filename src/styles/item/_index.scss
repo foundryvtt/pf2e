@@ -51,10 +51,6 @@
                 text-align: center;
                 font: inherit;
             }
-
-            input.adjusted:not(:focus) {
-                color: #009988;
-            }
         }
     }
 
@@ -296,15 +292,6 @@
         }
     }
 
-    .tool-details {
-        border-top: 1px solid var(--secondary-background);
-        padding-top: 10px;
-
-        .form-group-stacked {
-            margin-bottom: 8px;
-        }
-    }
-
     .feat-uses {
         select {
             flex: 2;
@@ -367,5 +354,12 @@
 
     button[data-action="damage-add"] {
         margin-top: 4px;
+    }
+
+    input {
+        &.adjusted:not(:focus) {
+            font-weight: 700;
+            color: #009988;
+        }
     }
 }
