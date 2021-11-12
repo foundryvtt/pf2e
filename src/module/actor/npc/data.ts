@@ -90,7 +90,7 @@ interface RawNPCStrike extends StrikeData {
 export type NPCStrike = StatisticModifier & RawNPCStrike;
 
 /** AC data with an additional "base" value */
-export interface NPCArmorClass extends ArmorClassData {
+export interface NPCArmorClass extends StatisticModifier, ArmorClassData {
     base?: number;
 }
 
