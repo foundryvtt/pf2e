@@ -1710,6 +1710,7 @@ export const PF2ECONFIG = {
         150: "PF2E.WeaponRange150",
         180: "PF2E.WeaponRange180",
         240: "PF2E.WeaponRange240",
+        300: "PF2E.WeaponRange300",
     },
 
     weaponMAP: {
