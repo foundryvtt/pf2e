@@ -23,6 +23,7 @@ import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
+import { PhysicalItems } from "./physical-items";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -39,7 +40,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     private initialized: true | undefined;
 
     /** A separate collection of owned physical items for convenient access */
-    physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
+    physicalItems!: PhysicalItems;
 
     /** A separate collection of owned spellcasting entries for convenience */
     spellcasting!: ActorSpellcasting;
@@ -50,7 +51,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
-            this.physicalItems ??= new Collection();
+            this.physicalItems ??= new PhysicalItems();
             this.spellcasting ??= new ActorSpellcasting(this);
             this.rules ??= [];
             this.initialized = true;
@@ -229,7 +230,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );
-        this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
+        this.physicalItems = new PhysicalItems(physicalItems.map((item) => [item.id, item]));
 
         const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
             (item) => item instanceof SpellcastingEntryPF2e
