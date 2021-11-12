@@ -160,7 +160,7 @@ export interface DexterityModifierCapData {
     source: string;
 }
 
-export interface ArmorClassData extends StatisticModifier {
+export interface ArmorClassData {
     /** The actual AC value */
     value: number;
     /** A textual breakdown of the modifiers that compose the value */
