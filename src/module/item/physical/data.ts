@@ -33,6 +33,7 @@ export class BasePhysicalItemData<
     isInvested!: boolean | null;
     isCursed!: boolean;
     isTemporary!: boolean;
+    totalWeight?: string;
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
