@@ -2,6 +2,7 @@ import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e } from "../util";
+import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     "proficiency:untrained",
@@ -142,7 +143,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(): ModifierPF2e {
+    clone(options: { test?: string[] } = {}): ModifierPF2e {
         const clone = new ModifierPF2e(
             this.name,
             this.modifier,
@@ -161,7 +162,16 @@ export class ModifierPF2e implements RawModifier {
         clone.traits = deepClone(this.traits);
         clone.defaultRollOptions = deepClone(this.defaultRollOptions);
 
+        if (options.test) {
+            clone.test(options.test);
+        }
+
         return clone;
+    }
+
+    /** Sets the ignored property after testing the predicate */
+    test(options: string[]) {
+        this.ignored = !this.predicate.test(options);
     }
 }
 
@@ -394,6 +404,8 @@ export class StatisticModifier {
     totalModifier!: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
+    /** Optional notes, which are often added to statistic modifiers */
+    notes?: RollNotePF2e[];
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
