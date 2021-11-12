@@ -1,4 +1,5 @@
 import { EquipmentTrait } from "@item/equipment/data";
+import { Bulk } from "@item/physical/bulk";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
@@ -29,6 +30,7 @@ export interface ContainerSystemData extends MagicItemSystemData {
         value: number;
         weightless: boolean;
     };
+    containedItemBulk?: Bulk;
     currency: {
         cp: number;
         sp: number;

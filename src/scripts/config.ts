@@ -34,9 +34,9 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { SenseAcuity } from "@actor/creature/data";
 import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import enJSON from "../../static/lang/en.json";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -47,6 +47,19 @@ const actorTypes: Record<ActorType, string> = {
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+// Senses
+const senses: Record<SenseType, string> = {
+    darkvision: "PF2E.SensesDarkvision",
+    echolocation: "PF2E.SensesEcholocation",
+    greaterDarkvision: "PF2E.SensesGreaterDarkvision",
+    lifesense: "PF2E.SensesLifesense",
+    lowLightVision: "PF2E.SensesLowLightVision",
+    motionsense: "PF2E.SensesMotionsense",
+    scent: "PF2E.SensesScent",
+    tremorsense: "PF2E.SensesTremorsense",
+    wavesense: "PF2E.SensesWavesense",
 };
 
 // Sense acuity
@@ -900,6 +913,7 @@ const consumableTraits = {
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
     auditory: "PF2E.TraitAuditory",
+    aura: "PF2E.TraitAura",
     catalyst: "PF2E.TraitCatalyst",
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
@@ -1539,9 +1553,11 @@ export const PF2ECONFIG = {
     armorTraits: {
         ...magicSchools,
         ...magicTraditions,
+        air: "PF2E.TraitAir",
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         bulwark: "PF2E.TraitBulwark",
+        clockwork: "PF2E.TraitClockwork",
         comfort: "PF2E.TraitComfort",
         cursed: "PF2E.TraitCursed",
         evil: "PF2E.TraitEvil",
@@ -1554,6 +1570,7 @@ export const PF2ECONFIG = {
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
         noisy: "PF2E.TraitNoisy",
+        water: "PF2E.TraitWater",
     },
 
     equipmentTraits: {
@@ -1694,6 +1711,7 @@ export const PF2ECONFIG = {
         150: "PF2E.WeaponRange150",
         180: "PF2E.WeaponRange180",
         240: "PF2E.WeaponRange240",
+        300: "PF2E.WeaponRange300",
     },
 
     weaponMAP: {
@@ -1921,17 +1939,7 @@ export const PF2ECONFIG = {
         prerequisite5: "PF2E.Prerequisite5",
     },
 
-    senses: {
-        darkvision: "PF2E.SensesDarkvision",
-        greaterDarkvision: "PF2E.SensesGreaterDarkvision",
-        lowLightVision: "PF2E.SensesLowLightVision",
-        motionsense: "PF2E.SensesMotionsense",
-        scent: "PF2E.SensesScent",
-        echolocation: "PF2E.SensesEcholocation",
-        tremorsense: "PF2E.SensesTremorsense",
-        lifesense: "PF2E.SensesLifesense",
-        wavesense: "PF2E.SensesWavesense",
-    },
+    senses,
 
     senseAcuity,
 

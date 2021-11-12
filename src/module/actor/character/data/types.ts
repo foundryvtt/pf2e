@@ -28,12 +28,12 @@ import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
+import { InventoryWeight } from "@item/physical/encumbrance";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -316,6 +316,8 @@ export interface CharacterAttributes extends CreatureAttributes {
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
     bonusEncumbranceBulk: number;
+    /** The encumbrance status of the character */
+    encumbrance: InventoryWeight;
 
     /** The current dying level (and maximum) for this character. */
     dying: { value: number; max: number };
@@ -377,5 +379,3 @@ export interface CharacterAttributes extends CreatureAttributes {
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
 }
-
-export type SenseType = typeof SENSE_TYPES[number];

@@ -1,5 +1,5 @@
-import { SenseType } from "@actor/character/data";
-import { CreatureTrait, MovementType, SenseAcuity, SkillAbbreviation } from "@actor/creature/data";
+import { CreatureTrait, MovementType, SkillAbbreviation } from "@actor/creature/data";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
 import { AbilityString } from "@actor/data";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { BaseWeaponType, WeaponCategory, WeaponDamage, WeaponGroup, WeaponTrait } from "@item/weapon/data";
