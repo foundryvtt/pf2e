@@ -24,7 +24,7 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { ARMOR_PROPERTY_RUNES, WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/data";
 import { DamageCategory, DamageType } from "@module/damage-calculation";
 import { ClassTrait } from "@item/class/data";
@@ -1214,6 +1214,12 @@ const actionTraits = {
     ...npcAttackTraits,
 };
 
+const armorPropertyRunes: Record<string, string> = {
+    ...Object.entries(ARMOR_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {}),
+};
+
 const weaponPropertyRunes: Record<string, string> = {
     ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
         return { ...accumulated, [slug]: rune.name };
@@ -1355,44 +1361,7 @@ export const PF2ECONFIG = {
         greaterResilient: "PF2E.ArmorGreaterResilientRune",
         majorResilient: "PF2E.ArmorMajorResilientRune",
     },
-    armorPropertyRunes: {
-        ready: "PF2E.ArmorPropertyRuneReady",
-        slick: "PF2E.ArmorPropertyRuneSlick",
-        shadow: "PF2E.ArmorPropertyRuneShadow",
-        glamered: "PF2E.ArmorPropertyRuneGlamered",
-        acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
-        coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
-        electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
-        fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
-        greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
-        invisibility: "PF2E.ArmorPropertyRuneInvisibility",
-        sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
-        greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
-        greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
-        greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
-        greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
-        greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
-        greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
-        greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
-        fortification: "PF2E.ArmorPropertyRuneFortification",
-        winged: "PF2E.ArmorPropertyRuneWinged",
-        rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
-        soaring: "PF2E.ArmorPropertyRuneSoaring",
-        antimagic: "PF2E.ArmorPropertyRuneAntimagic",
-        majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
-        ethereal: "PF2E.ArmorPropertyRuneEthereal",
-        majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
-        greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
-        greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
-        deathless: "PF2E.ArmorPropertyRuneDeathless",
-        dread: "PF2E.ArmorPropertyRuneDread",
-        bitter: "PF2E.ArmorPropertyRuneBitter",
-        stanching: "PF2E.ArmorPropertyRuneStanching",
-        greaterStanching: "PF2E.ArmorPropertyRuneGreaterStanching",
-        majorStanching: "PF2E.ArmorPropertyRuneMajorStanching",
-        trueStanching: "PF2E.ArmorPropertyRuneTrueStanching",
-        implacable: "PF2E.ArmorPropertyRuneImplacable",
-    },
+    armorPropertyRunes,
     accessoryPropertyRunes: {
         called: "PF2E.AccessoryPropertyRuneCalled",
         dragonsBreath: "PF2E.AccessoryPropertyRuneDragonsBreath",
@@ -1557,16 +1526,24 @@ export const PF2ECONFIG = {
         bulwark: "PF2E.TraitBulwark",
         comfort: "PF2E.TraitComfort",
         cursed: "PF2E.TraitCursed",
+        dwarf: "PF2E.TraitDwarf",
+        emotion: "PF2E.TraitEmotion",
         evil: "PF2E.TraitEvil",
         extradimensional: "PF2E.TraitExtradimensional",
+        fear: "PF2E.TraitFear",
         force: "PF2E.TraitForce",
         flexible: "PF2E.TraitFlexible",
         good: "PF2E.TraitGood",
+        healing: "PF2E.TraitHealing",
         intelligent: "PF2E.TraitIntelligent",
         invested: "PF2E.TraitInvested",
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
+        mental: "PF2E.TraitMental",
         noisy: "PF2E.TraitNoisy",
+        poison: "PF2E.TraitPoison",
+        saggorak: "PF2E.TraitSaggorak",
+        visual: "PF2E.TraitVisual",
     },
 
     equipmentTraits: {
@@ -2134,6 +2111,9 @@ export const PF2ECONFIG = {
     },
 
     runes: {
+        armor: {
+            property: { ...ARMOR_PROPERTY_RUNES },
+        },
         weapon: {
             property: { ...WEAPON_PROPERTY_RUNES },
         },

@@ -1,5 +1,5 @@
 import { PhysicalItemPF2e } from "../physical";
-import { getStrikingDice, RuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
+import { getStrikingDice, WeaponRuneValuationData, WEAPON_VALUATION_DATA } from "../runes";
 import { LocalizePF2e } from "@module/system/localize";
 import {
     BaseWeaponType,
@@ -196,7 +196,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.name = this.generateMagicName();
     }
 
-    getRunesData(): RuneValuationData[] {
+    getRunesData(): WeaponRuneValuationData[] {
         const systemData = this.data.data;
         return [
             WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
@@ -205,7 +205,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             CONFIG.PF2E.runes.weapon.property[systemData.propertyRune2.value ?? ""],
             CONFIG.PF2E.runes.weapon.property[systemData.propertyRune3.value ?? ""],
             CONFIG.PF2E.runes.weapon.property[systemData.propertyRune4.value ?? ""],
-        ].filter((datum): datum is RuneValuationData => !!datum);
+        ].filter((datum): datum is WeaponRuneValuationData => !!datum);
     }
 
     getMaterialData(): MaterialGradeData | null {
