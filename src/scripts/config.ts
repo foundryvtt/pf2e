@@ -34,9 +34,9 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { SenseAcuity } from "@actor/creature/data";
 import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import enJSON from "../../static/lang/en.json";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
 
 export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
 
@@ -47,6 +47,19 @@ const actorTypes: Record<ActorType, string> = {
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+// Senses
+const senses: Record<SenseType, string> = {
+    darkvision: "PF2E.SensesDarkvision",
+    echolocation: "PF2E.SensesEcholocation",
+    greaterDarkvision: "PF2E.SensesGreaterDarkvision",
+    lifesense: "PF2E.SensesLifesense",
+    lowLightVision: "PF2E.SensesLowLightVision",
+    motionsense: "PF2E.SensesMotionsense",
+    scent: "PF2E.SensesScent",
+    tremorsense: "PF2E.SensesTremorsense",
+    wavesense: "PF2E.SensesWavesense",
 };
 
 // Sense acuity
@@ -1920,17 +1933,7 @@ export const PF2ECONFIG = {
         prerequisite5: "PF2E.Prerequisite5",
     },
 
-    senses: {
-        darkvision: "PF2E.SensesDarkvision",
-        greaterDarkvision: "PF2E.SensesGreaterDarkvision",
-        lowLightVision: "PF2E.SensesLowLightVision",
-        motionsense: "PF2E.SensesMotionsense",
-        scent: "PF2E.SensesScent",
-        echolocation: "PF2E.SensesEcholocation",
-        tremorsense: "PF2E.SensesTremorsense",
-        lifesense: "PF2E.SensesLifesense",
-        wavesense: "PF2E.SensesWavesense",
-    },
+    senses,
 
     senseAcuity,
 
