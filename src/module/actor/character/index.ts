@@ -349,16 +349,14 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             modifiers.push(
-                ...(statisticsModifiers.hp || []).map((m) =>
-                    m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? ["hp", "all"]) })
-                )
+                ...(statisticsModifiers.hp || []).map((m) => m.clone({ test: this.getRollOptions(["hp", "all"]) }))
             );
 
             (statisticsModifiers["hp-per-level"] || [])
                 .map((m) => m.clone())
                 .forEach((m) => {
                     m.modifier *= this.level;
-                    m.test(this.getRollOptions(m.defaultRollOptions ?? ["hp-per-level", "all"]));
+                    m.test(this.getRollOptions(["hp-per-level", "all"]));
                     modifiers.push(m);
                 });
 
@@ -416,7 +414,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const rollOptions = [saveType, `${save.ability}-based`, "saving-throw", "all"];
             modifiers.push(...rollOptions.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()));
             for (const modifier of modifiers) {
-                modifier.test(this.getRollOptions(modifier.defaultRollOptions ?? rollOptions));
+                modifier.test(this.getRollOptions(rollOptions));
             }
 
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
@@ -482,7 +480,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) }))
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
             );
 
             const stat = mergeObject(new StatisticModifier("perception", modifiers), systemData.attributes.perception, {
@@ -526,7 +524,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
             ];
 
             const stat = mergeObject(new StatisticModifier("class", modifiers), systemData.attributes.classDC, {
@@ -581,7 +579,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) }))
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
             );
 
             const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
@@ -720,7 +718,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
                     ...rollOptions
                         .flatMap((key) => statisticsModifiers[key] || [])
-                        .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                        .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
                 ];
 
                 const loreSkill = systemData.skills[shortform];
