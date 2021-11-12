@@ -242,7 +242,7 @@ declare class Application<TOptions extends ApplicationOptions = ApplicationOptio
     /**
      * Customize how a new HTML Application is added and first appears in the DOC
      */
-    protected _injectHTML(html: JQuery, options: Record<string, unknown>): void;
+    protected _injectHTML(html: JQuery): void;
 
     /**
      * Specify the set of config buttons which should appear in the Application header.

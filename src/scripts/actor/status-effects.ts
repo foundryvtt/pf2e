@@ -88,7 +88,7 @@ export class StatusEffects {
                     !combatant.data.defeated
                 ) {
                     lastTokenId = token.id;
-                    this._createChatMessage(token, combatant.hidden);
+                    this._createChatMessage(token.object, combatant.hidden);
                 }
                 if (!combat?.started && lastTokenId !== "") lastTokenId = "";
             });
