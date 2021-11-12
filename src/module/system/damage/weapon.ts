@@ -259,7 +259,7 @@ export class WeaponDamagePF2e {
         }
         const actorData = actor.data;
 
-        // determine ability modifier
+        // Determine ability modifier
         let ability: AbilityString | null = null;
         {
             let modifier = 0;
@@ -304,7 +304,14 @@ export class WeaponDamagePF2e {
         }
         const selectors: string[] = WeaponDamagePF2e.getSelectors(weapon, ability, proficiencyRank);
 
-        // two-hand trait
+        // Kickback trait
+        if (traits.some((trait) => trait.name === "kickback")) {
+            // For NPCs, subtract from the base damage and add back as an untype bonus
+            if (actor instanceof NPCPF2e) weapon.data.damage.modifier -= 1;
+            numericModifiers.push(new ModifierPF2e(CONFIG.PF2E.weaponTraits.kickback, 1, MODIFIER_TYPE.UNTYPED));
+        }
+
+        // Two-Hand trait
         const twoHandTrait = traits.find(
             // utilizing the css class here is a dirty (and hopefully temporary!) hack
             (t) => t.name.toLowerCase().startsWith("two-hand-") && t.cssClass === "toggled-on"
@@ -313,7 +320,7 @@ export class WeaponDamagePF2e {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf("-") + 1) as DamageDieSize;
         }
 
-        // versatile trait
+        // Versatile trait
         const versatileTrait = traits.find(
             // utilizing the css class here is a dirty (and hopefully temporary!) hack
             (t) => t.name.toLowerCase().startsWith("versatile-") && t.cssClass === "toggled-on"
