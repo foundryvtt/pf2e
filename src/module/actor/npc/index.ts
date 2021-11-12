@@ -220,7 +220,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
             ];
 
             const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
@@ -287,7 +287,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
             ];
 
             const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, {
@@ -324,7 +324,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
             ];
 
             const stat = mergeObject(new StatisticModifier("perception", modifiers), data.attributes.perception, {
@@ -359,7 +359,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
                 ...rollOptions
                     .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) })),
+                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
             ];
             const notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
@@ -416,7 +416,7 @@ export class NPCPF2e extends CreaturePF2e {
                 modifiers.push(
                     ...rollOptions
                         .flatMap((key) => statisticsModifiers[key] || [])
-                        .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) }))
+                        .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
                 );
 
                 const stat = mergeObject(new StatisticModifier(itemData.name, modifiers), data.skills[shortform], {
@@ -495,7 +495,7 @@ export class NPCPF2e extends CreaturePF2e {
                     modifiers.push(
                         ...rollOptions
                             .flatMap((key) => statisticsModifiers[key] || [])
-                            .map((m) => m.clone({ test: this.getRollOptions(m.defaultRollOptions ?? rollOptions) }))
+                            .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
                     );
                     notes.push(...rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? [])));
                 }
