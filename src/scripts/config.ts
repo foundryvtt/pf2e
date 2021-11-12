@@ -1552,9 +1552,11 @@ export const PF2ECONFIG = {
     armorTraits: {
         ...magicSchools,
         ...magicTraditions,
+        air: "PF2E.TraitAir",
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         bulwark: "PF2E.TraitBulwark",
+        clockwork: "PF2E.TraitClockwork",
         comfort: "PF2E.TraitComfort",
         cursed: "PF2E.TraitCursed",
         evil: "PF2E.TraitEvil",
@@ -1567,6 +1569,7 @@ export const PF2ECONFIG = {
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
         noisy: "PF2E.TraitNoisy",
+        water: "PF2E.TraitWater",
     },
 
     equipmentTraits: {
