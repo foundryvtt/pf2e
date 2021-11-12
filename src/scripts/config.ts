@@ -913,6 +913,7 @@ const consumableTraits = {
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
     auditory: "PF2E.TraitAuditory",
+    aura: "PF2E.TraitAura",
     catalyst: "PF2E.TraitCatalyst",
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
