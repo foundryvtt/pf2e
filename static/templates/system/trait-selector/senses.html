@@ -12,7 +12,7 @@
                     <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.selected}} {{choice.disabled}}>
                     <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
                 </td>
-                <td><select name="{{key}}" id="select_acuity_{{key}}">
+                <td><select name="{{key}}" {{choice.disabled}}>
                     {{#each ../senseAcuity as |acuity k|}}
                     <option value={{k}} {{#if (eq k choice.acuity)}} selected {{/if}}>{{localize acuity}}</option>
                     {{/each}}
