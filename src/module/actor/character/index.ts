@@ -1099,6 +1099,18 @@ export class CharacterPF2e extends CreaturePF2e {
             }
         }
 
+        // Kickback trait
+        if (weapon.traits.has("kickback")) {
+            // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with 14 or
+            // more Strength ignore the penalty."
+            const penalty = new ModifierPF2e(CONFIG.PF2E.weaponTraits.kickback, -2, MODIFIER_TYPE.CIRCUMSTANCE);
+            const strengthLessThan14 = "self:ability:strength:less-than-14";
+            penalty.predicate = new PredicatePF2e({ all: [strengthLessThan14] });
+            const attackRollOptions = (this.rollOptions["attack-roll"] ??= {});
+            penalty.ignored = !(attackRollOptions[strengthLessThan14] = this.data.data.abilities.str.value < 14);
+            modifiers.push(penalty);
+        }
+
         // Conditions and Custom modifiers to attack rolls
         let weaponPotency: { label: string; bonus: number };
         const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
