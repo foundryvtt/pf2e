@@ -338,12 +338,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const systemData = this.data.data;
         const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
         const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
-            .map((key) => (synthetics.statisticsModifiers[key] || []).map((modifier) => modifier.clone()))
-            .flat()
-            .map((modifier) => {
-                modifier.ignored = !modifier.predicate.test(modifier.defaultRollOptions ?? rollOptions);
-                return modifier;
-            });
+            .flatMap((key) => synthetics.statisticsModifiers[key] || [])
+            .map((modifier) => modifier.clone({ test: rollOptions }));
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");

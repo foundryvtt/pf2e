@@ -63,8 +63,6 @@ export interface RawModifier {
     notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
-    /** The list of roll options to use during actor data preparation instead of the default roll options for the statistic */
-    defaultRollOptions?: string[];
 }
 
 /**
@@ -86,7 +84,6 @@ export class ModifierPF2e implements RawModifier {
     critical?: boolean;
     traits?: string[];
     notes?: string;
-    defaultRollOptions?: string[];
 
     /**
      * Create a new modifier.
@@ -160,7 +157,6 @@ export class ModifierPF2e implements RawModifier {
         clone.damageCategory = this.damageCategory;
         clone.critical = this.critical;
         clone.traits = deepClone(this.traits);
-        clone.defaultRollOptions = deepClone(this.defaultRollOptions);
 
         if (options.test) {
             clone.test(options.test);
