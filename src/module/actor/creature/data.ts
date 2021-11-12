@@ -73,14 +73,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 
-export type SenseAcuity = "precise" | "imprecise" | "vague";
-export interface SenseData {
-    type: SenseType;
-    acuity?: SenseAcuity;
-    value: string;
-    source?: string;
-}
-
 /** Data describing the value & modifier for a base ability score. */
 export interface AbilityData {
     /** The raw value of this ability score; computed from the mod for npcs automatically. */

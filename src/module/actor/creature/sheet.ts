@@ -2,7 +2,7 @@ import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e, WeaponPF2e } from "@item";
-import { CreaturePF2e } from "@actor";
+import { CreaturePF2e, NPCPF2e } from "@actor";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
@@ -12,6 +12,7 @@ import { Rollable } from "@actor/data/base";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
+import { CreatureSensePF2e } from "./sense";
 
 /**
  * Base class for NPC and character sheets
@@ -103,6 +104,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
 
+        //Sort senses
+        if (!(sheetData.document instanceof NPCPF2e)) {
+            sheetData.data.traits.senses = sheetData.data.traits.senses.sort(
+                (a: CreatureSensePF2e, b: CreatureSensePF2e) => (a.label && b.label && a.label > b.label ? 1 : -1)
+            ) as CreatureSensePF2e;
+        }
         return sheetData;
     }
 

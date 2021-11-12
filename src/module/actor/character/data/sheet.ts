@@ -1,4 +1,5 @@
 import { CharacterPF2e } from "@actor";
+import { CreatureTraitsData } from "@actor/creature/data";
 import { SpellcastingSheetData } from "@actor/npc/sheet";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
@@ -37,6 +38,11 @@ type CharacterSystemSheetData = CharacterSystemData & {
         heroPoints: {
             icon: string;
             hover: string;
+        };
+    };
+    traits: CreatureTraitsData & {
+        size: {
+            localizedName?: string;
         };
     };
 };
