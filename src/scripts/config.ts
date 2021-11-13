@@ -1492,6 +1492,8 @@ export const PF2ECONFIG = {
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
+        "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
+        "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
         bonded: "PF2E.TraitBonded",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
