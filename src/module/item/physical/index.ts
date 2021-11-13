@@ -100,10 +100,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get activations() {
         return Object.values(this.data.data.activations ?? {}).map((action) => {
             const components: string[] = [];
-            if (action.components.cast) components.push(game.i18n.localize("PF2E.ItemActivate.Cast"));
-            if (action.components.command) components.push(game.i18n.localize("PF2E.ItemActivate.Command"));
-            if (action.components.envision) components.push(game.i18n.localize("PF2E.ItemActivate.Envision"));
-            if (action.components.interact) components.push(game.i18n.localize("PF2E.ItemActivate.Interact"));
+            if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
+            if (action.components.command) components.push(game.i18n.localize("PF2E.Item.Activation.Command"));
+            if (action.components.envision) components.push(game.i18n.localize("PF2E.Item.Activation.Envision"));
+            if (action.components.interact) components.push(game.i18n.localize("PF2E.Item.Activation.Interact"));
 
             return {
                 componentsLabel: components.join(", "),
