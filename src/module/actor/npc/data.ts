@@ -5,19 +5,12 @@ import {
     BaseCreatureSource,
     CreatureAttributes,
     CreatureHitPoints,
+    CreatureInitiative,
     CreatureSystemData,
     SaveData,
     SkillData,
 } from "@actor/creature/data";
-import {
-    AbilityString,
-    ArmorClassData,
-    DexterityModifierCapData,
-    PerceptionData,
-    RawInitiativeData,
-    Rollable,
-    StrikeData,
-} from "@actor/data/base";
+import { AbilityString, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
 
@@ -124,8 +117,6 @@ export interface NPCSkillData extends SkillData {
     expanded: string;
 }
 
-type NPCInitiativeData = RawInitiativeData & StatisticModifier & Rollable;
-
 export interface NPCAttributes extends CreatureAttributes {
     ac: NPCArmorClass;
     hp: NPCHitPoints;
@@ -134,7 +125,7 @@ export interface NPCAttributes extends CreatureAttributes {
     /** Sources of the dexterity modifier cap to AC */
     dexCap: DexterityModifierCapData[];
 
-    initiative: NPCInitiativeData;
+    initiative: CreatureInitiative;
 
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
