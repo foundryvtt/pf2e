@@ -286,28 +286,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    _applyInitiativeRollToCombatTracker(roll: Roll) {
-        if (roll?.total) {
-            // check that there is a combat active in this scene
-            if (!game.combat) {
-                ui.notifications.error("No active encounters in the Combat Tracker.");
-                return;
-            }
-
-            const combatant = game.combat.turns.find((combatant) => combatant.actor?.id === this.id);
-            if (!combatant) {
-                ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-                return;
-            }
-            game.combat.setInitiative(combatant.id, roll.total);
-        } else {
-            console.log(
-                "PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ",
-                roll
-            );
-        }
-    }
-
     getStrikeDescription(weaponData: WeaponData) {
         const flavor = {
             description: "PF2E.Strike.Default.Description",

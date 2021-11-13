@@ -186,7 +186,7 @@ declare global {
             embeddedName: "Combatant",
             data: PreCreate<TCombatant["data"]["_source"]>[],
             context?: DocumentModificationContext
-        ): Promise<TCombatant[]>;
+        ): Promise<Embedded<TCombatant>[]>;
     }
 
     interface RollInitiativeOptions {

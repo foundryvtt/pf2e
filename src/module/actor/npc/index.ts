@@ -785,6 +785,9 @@ export class NPCPF2e extends CreaturePF2e {
             }
         }
 
+        // Initiative
+        this.prepareInitiative(statisticsModifiers, rollNotes);
+
         rules.forEach((rule) => {
             try {
                 rule.onAfterPrepareData(this.data, synthetics);
