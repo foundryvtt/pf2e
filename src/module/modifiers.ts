@@ -1,7 +1,7 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e } from "../util";
+import { ErrorPF2e, sluggify } from "../util";
 import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
@@ -91,7 +91,7 @@ export class ModifierPF2e implements RawModifier {
      * @param modifier The actual numeric benefit/penalty that this modifier provides.
      * @param type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
      * @param enabled If true, this modifier will be applied to the result; otherwise, it will not.
-     * @param source The source which this modifier originates from, if any.
+     * @param source The source from which this modifier originates, if any.
      * @param notes Any notes about this modifier.
      */
     constructor(
@@ -173,60 +173,21 @@ export class ModifierPF2e implements RawModifier {
 
 export type MinimalModifier = Pick<ModifierPF2e, "name" | "type" | "modifier">;
 
-// ability scores
-export const STRENGTH = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityStr", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const DEXTERITY = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityDex", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const CONSTITUTION = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityCon", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const INTELLIGENCE = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityInt", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const WISDOM = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityWis", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const CHARISMA = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityCha", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const AbilityModifier = Object.freeze({
+// Ability scores
+export const AbilityModifier = {
     /**
      * Create a modifier from a given ability type and score.
      * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
      * @param score The score of this ability.
      * @returns The modifier provided by the given ability score.
      */
-    fromAbilityScore: (ability: AbilityString, score: number) => {
-        switch (ability) {
-            case "str":
-                return STRENGTH.withScore(score);
-            case "dex":
-                return DEXTERITY.withScore(score);
-            case "con":
-                return CONSTITUTION.withScore(score);
-            case "int":
-                return INTELLIGENCE.withScore(score);
-            case "wis":
-                return WISDOM.withScore(score);
-            case "cha":
-                return CHARISMA.withScore(score);
-            default:
-                // Throwing an actual error can completely break the sheet. Instead, log
-                // and use 0 for the modifier
-                console.error(`invalid ability abbreviation: ${ability}`);
-                return new ModifierPF2e("PF2E.AbilityUnknown", 0, MODIFIER_TYPE.ABILITY);
-        }
-    },
-});
+    fromScore: (ability: AbilityString, score: number) =>
+        new ModifierPF2e(
+            `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+            Math.floor((score - 10) / 2),
+            MODIFIER_TYPE.ABILITY
+        ),
+};
 
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
