@@ -27,7 +27,87 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "megaton"
+                    ],
+                    "not": [
+                        "unstable-megaton"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "DamageDice",
+                "label": "Unstable Megaton Strike",
+                "predicate": {
+                    "all": [
+                        "unstable-megaton"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 4,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 6
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.megaton"
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Unstable Megaton Strike",
+                "property": "flags.pf2e.rollOptions.all.unstable-megaton"
+            }
+        ],
         "source": {
             "value": ""
         },
