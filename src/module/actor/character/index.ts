@@ -2,14 +2,12 @@ import { ItemPF2e } from "@item/base";
 import { getResiliencyBonus } from "@item/runes";
 import {
     AbilityModifier,
-    DEXTERITY,
     ensureProficiencyOption,
     CheckModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
-    WISDOM,
 } from "@module/modifiers";
 import { ensureWeaponCategory, ensureWeaponGroup, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
@@ -382,10 +380,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
             // Base modifiers from ability scores & level/proficiency rank.
-            const abilityModifier = AbilityModifier.fromAbilityScore(
-                save.ability,
-                systemData.abilities[save.ability].value
-            );
+            const abilityModifier = AbilityModifier.fromScore(save.ability, systemData.abilities[save.ability].value);
             const modifiers = [abilityModifier, ProficiencyModifier.fromLevelAndRank(this.level, save.rank)];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
@@ -471,7 +466,7 @@ export class CharacterPF2e extends CreaturePF2e {
         {
             const proficiencyRank = systemData.attributes.perception.rank || 0;
             const modifiers = [
-                WISDOM.withScore(systemData.abilities.wis.value),
+                AbilityModifier.fromScore("wis", systemData.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
             ];
 
@@ -516,7 +511,7 @@ export class CharacterPF2e extends CreaturePF2e {
         {
             const rollOptions = ["class", `${systemData.details.keyability.value}-based`, "all"];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(
+                AbilityModifier.fromScore(
                     systemData.details.keyability.value,
                     systemData.abilities[systemData.details.keyability.value].value
                 ),
@@ -569,7 +564,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
 
             // Dex modifier limited by the lowest dex cap, for example from armor
-            const dexterity = DEXTERITY.withScore(systemData.abilities.dex.value);
+            const dexterity = AbilityModifier.fromScore("dex", systemData.abilities.dex.value);
             dexterity.modifier = Math.min(dexterity.modifier, ...dexCapSources.map((cap) => cap.value));
             modifiers.unshift(dexterity);
 
@@ -624,7 +619,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const shortForm of SKILL_ABBREVIATIONS) {
             const skill = systemData.skills[shortForm];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(skill.ability, systemData.abilities[skill.ability].value),
+                AbilityModifier.fromScore(skill.ability, systemData.abilities[skill.ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             // workaround for the shortform skill names
@@ -713,7 +708,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const rollOptions = [shortform, `int-based`, "skill-check", "all"];
                 const modifiers = [
-                    AbilityModifier.fromAbilityScore("int", systemData.abilities.int.value),
+                    AbilityModifier.fromScore("int", systemData.abilities.int.value),
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
                     ...rollOptions
                         .flatMap((key) => statisticsModifiers[key] || [])
@@ -878,7 +873,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const rank = (entry.data.data.proficiency.value = entry.rank);
             const ability = entry.ability;
             const baseModifiers = [
-                AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
+                AbilityModifier.fromScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
 
@@ -1034,7 +1029,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ability = "dex";
                 score = systemData.abilities.dex.value;
             }
-            modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+            modifiers.push(AbilityModifier.fromScore(ability, score));
         }
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
