@@ -1,16 +1,9 @@
-import { ActorSizePF2e } from "@actor/data/size";
-
 //mini type definition for rollData within EnrichHTMLOptions
 interface RollOptions extends EnrichHTMLOptions {
     rollData?: RollData;
 }
 
 interface RollData {
-    actor?: {
-        traits: {
-            size: ActorSizePF2e;
-        };
-    };
     item?: {
         name: string;
         traits: {
