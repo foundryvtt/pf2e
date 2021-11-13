@@ -50,7 +50,6 @@ import { Migration646UpdateInlineLinks } from "./migrations/646-update-inline-li
 import { Migration647FixPCSenses } from "./migrations/647-fix-pc-senses";
 import { Migration648RemoveInvestedProperty } from "./migrations/648-remove-invested-property";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
-import { Migration650StringifyWeaponProperties } from "./migrations/650-stringify-weapon-properties";
 import { Migration651EphemeralFocusPool } from "./migrations/651-ephemeral-focus-pool";
 import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
 import { Migration653AEstoREs } from "./migrations/653-aes-to-res";
@@ -92,6 +91,7 @@ import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-ae
 import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
 import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
 import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
+import { Migration690WeaponRangeAbility } from "./migrations/690-weapon-range-ability";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -146,7 +146,6 @@ export class Migrations {
         Migration647FixPCSenses,
         Migration648RemoveInvestedProperty,
         Migration649FocusToActor,
-        Migration650StringifyWeaponProperties,
         Migration651EphemeralFocusPool,
         Migration652KillHalcyonTradition,
         Migration653AEstoREs,
@@ -188,6 +187,7 @@ export class Migrations {
         Migration688ClampSpellLevel,
         Migration689EncumberanceActiveEffects,
         Migration690InitiativeTiebreakItems,
+        Migration690WeaponRangeAbility,
     ];
 
     static get latestVersion(): number {

@@ -42,7 +42,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "equipmentTraits",
     "itemBonuses",
     "damageDie",
-    "weaponRange",
     "weaponMAP",
     "weaponReload",
     "armorTypes",

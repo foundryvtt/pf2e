@@ -1,6 +1,6 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
 import { getDegreeOfSuccess, DegreeOfSuccessText, CheckDC } from "./check-degree-of-success";
@@ -274,7 +274,7 @@ export class CheckPF2e {
 
         if (ctx.traits) {
             const traits: string = ctx.traits
-                .map((trait: StrikeTrait) => {
+                .map((trait) => {
                     trait.label = game.i18n.localize(trait.label);
                     return trait;
                 })
@@ -283,7 +283,17 @@ export class CheckPF2e {
                     return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${trait.label}</span>`;
                 })
                 .join("");
-            flavor += `<div class="tags">\n${traits}\n</div><hr />`;
+
+            const otherTags = ((): string[] => {
+                if (item instanceof WeaponPF2e && item.isRanged) {
+                    // Show the range increment for ranged weapons
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range: item.range ?? 10 });
+                    return [`<span class="tag tag_secondary">${label}</span>`];
+                } else {
+                    return [];
+                }
+            })().join("");
+            flavor += `<div class="tags">\n${traits}\n${otherTags}</div><hr />`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
 
