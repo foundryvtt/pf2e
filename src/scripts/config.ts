@@ -1498,6 +1498,7 @@ export const PF2ECONFIG = {
         "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
         "attached-to-crossbow-or-firearm-firing-mechanism": "PF2E.TraitAttachedToCrossbowOrFirearmFiringMechanism",
         "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
+        "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
         bonded: "PF2E.TraitBonded",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
