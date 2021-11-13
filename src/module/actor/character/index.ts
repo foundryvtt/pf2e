@@ -629,7 +629,8 @@ export class CharacterPF2e extends CreaturePF2e {
             if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
                 for (const selector of ["skill-check", "initiative"]) {
                     const rollOptions = (this.rollOptions[selector] ??= {});
-                    rollOptions["self:armor:strength-requirement-met"] = true;
+                    // Nullish assign to not overwrite setting by rule element
+                    rollOptions["self:armor:strength-requirement-met"] ??= true;
                 }
             }
 
