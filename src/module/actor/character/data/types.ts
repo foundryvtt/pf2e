@@ -9,6 +9,7 @@ import {
     SaveData,
     SkillAbbreviation,
     SkillData,
+    CreatureInitiative,
 } from "@actor/creature/data";
 import {
     AbilityString,
@@ -23,7 +24,7 @@ import {
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
-import { CheckModifier, StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@module/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
@@ -295,7 +296,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
-    initiative: CheckModifier;
+    initiative: CreatureInitiative;
 
     /** Dexterity modifier cap to AC. Undefined means no limit. */
     dexCap: DexterityModifierCapData[];

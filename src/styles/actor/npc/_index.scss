@@ -2,8 +2,6 @@ $faded-color: #7a7971;
 $color: #323232;
 $color-disabled: #b6b6b6;
 $value-color: #000000;
-$armor-color: #2A8FBD;
-$health-color: #A40802;
 $attack-button-color: #171f69;
 $damage-button-color: #5e0000;
 $primary-accent: #5e0000;
@@ -112,6 +110,26 @@ $adjusted-lower: #cc3311;
             .controls {
                 padding-right: 4px;
             }
+
+            &.initiative {
+                a.roll-init {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    font-weight: 700;
+                    margin-left: auto;
+                    margin-bottom: 2px;
+                    padding-right: 0.5em;
+
+                    i.fa-dice-d20 {
+                        font-size: 1rem;
+                        margin-right: 0.2em;
+                    }
+                }
+                select {
+                    background: none;
+                    text-transform: unset;
+                }
+            }
         }
 
         .side-bar-section-header {
@@ -152,10 +170,6 @@ $adjusted-lower: #cc3311;
         }
 
         .armor-section {
-            .armor-label {
-                color: $armor-color;
-            }
-
             .armor-value {
                 flex: 0;
                 text-align: right;
@@ -170,7 +184,6 @@ $adjusted-lower: #cc3311;
                 flex: auto;
                 flex-direction: row;
                 align-items: center;
-                color: $armor-color;
             }
 
             .shield-value {
@@ -261,7 +274,7 @@ $adjusted-lower: #cc3311;
                         padding-right: 3px;
                     }
                     &:last-child {
-                        font-weight: bold;
+                        font-weight: 700;
                         text-align: center;
                         margin-right: 4px;
                         &.lt10 {
@@ -327,7 +340,7 @@ $adjusted-lower: #cc3311;
         flex: auto;
         .tab {
             overflow: hidden scroll;
-            
+
 
             .identification-skills {
                 ul {
@@ -930,7 +943,7 @@ $adjusted-lower: #cc3311;
             line-height: 1;
             text-transform: uppercase;
             color: var(--primary);
-        
+
             margin-right: 2px;
             white-space: nowrap;
         }
@@ -946,14 +959,14 @@ $adjusted-lower: #cc3311;
             padding: 4px;
             color: #333;
             flex-grow: 1;
-    
+
             .editor {
                 height: 100%;
                 .editor-edit {
                     background: var(--primary);
                     color: white;
                 }
-    
+
                 .editor-content {
                     min-height: 75px;
                     height: 100%;
@@ -979,7 +992,7 @@ $adjusted-lower: #cc3311;
             }
         }
     }
-    
+
     &.dead {
         .profile {
             background-size: cover;
