@@ -29,7 +29,6 @@ import {
     MagicTraditionProficiencies,
     LinkedProficiency,
 } from "./data";
-import { RollNotePF2e } from "@module/notes";
 import {
     MultipleAttackPenaltyPF2e,
     RuleElementSynthetics,
@@ -42,8 +41,8 @@ import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
-import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
-import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation, SkillData } from "@actor/creature/data";
+import { AbilityString, StrikeTrait } from "@actor/data/base";
+import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
@@ -923,7 +922,8 @@ export class CharacterPF2e extends CreaturePF2e {
             resources.focus.max = 1;
         }
 
-        this.prepareInitiative(this.data, statisticsModifiers, rollNotes);
+        // Initiative
+        this.prepareInitiative(statisticsModifiers, rollNotes);
 
         rules.forEach((rule) => {
             try {
@@ -1322,61 +1322,6 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
-    }
-
-    private prepareInitiative(
-        actorData: CharacterData,
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
-        rollNotes: Record<string, RollNotePF2e[]>
-    ) {
-        const { data } = actorData;
-        const initSkill = data.attributes?.initiative?.ability || "perception";
-        const modifiers: ModifierPF2e[] = [];
-        const notes: RollNotePF2e[] = [];
-
-        ["initiative"].forEach((key) => {
-            const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;
-            (statisticsModifiers[key] || [])
-                .map((m) => m.clone())
-                .forEach((m) => {
-                    // checks if predicated rule is true with only skill name option
-                    if (m.predicate && PredicatePF2e.test(m.predicate, [skillFullName])) {
-                        // toggles these so the predicate rule will be included when totalmodifier is calculated
-                        m.enabled = true;
-                        m.ignored = false;
-                    }
-                    modifiers.push(m);
-                });
-            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-        });
-        const initStat: PerceptionData | SkillData =
-            initSkill === "perception" ? data.attributes.perception : data.skills[initSkill as SkillAbbreviation];
-        const skillName = game.i18n.localize(
-            initSkill === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[initSkill as SkillAbbreviation]
-        );
-
-        const stat = new CheckModifier("initiative", initStat, modifiers);
-        stat.ability = initSkill;
-        stat.label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
-        stat.roll = (args: RollParameters) => {
-            const skillFullName = SKILL_DICTIONARY[stat.ability as SkillAbbreviation] ?? "perception";
-            const options = args.options ?? [];
-            // push skill name to options if not already there
-            if (!options.includes(skillFullName)) {
-                options.push(skillFullName);
-            }
-            ensureProficiencyOption(options, initStat.rank ?? -1);
-            CheckPF2e.roll(
-                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: "initiative", options, notes, dc: args.dc },
-                args.event,
-                (roll) => {
-                    this._applyInitiativeRollToCombatTracker(roll);
-                }
-            );
-        };
-
-        data.attributes.initiative = stat;
     }
 
     /** Toggle the invested state of an owned magical item */

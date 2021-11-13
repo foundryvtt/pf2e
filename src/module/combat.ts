@@ -11,7 +11,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         embeddedName: "Combatant",
         data: PreCreate<foundry.data.CombatantSource>[],
         context: DocumentModificationContext = {}
-    ): Promise<CombatantPF2e[]> {
+    ): Promise<Embedded<CombatantPF2e>[]> {
         const createData = data.filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
             if (!token) return false;

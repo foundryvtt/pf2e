@@ -49,7 +49,7 @@
         </div>
     </div>
 {{/if}}
-<div class="side-bar-section health-section">
+<div class="health-section side-bar-section">
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
             <i class="fas fa-heart"></i>
@@ -70,9 +70,33 @@
         </div>
     </div>
     <div class="side-bar-section-content">
-        <input class="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
+        <input class="hp-details" type="text" name="data.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
     </div>
 </div>
+<!-- INITIATIVE -->
+<div class="initiative side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-fist-raised"></i>
+            <h4>{{localize "PF2E.InitiativeLabel"}}</h4>
+            <a class="roll-icon roll-init">
+                <i class="fas fa-dice-d20"></i>
+                <div>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</div>
+            </a>
+        </div>
+    </div>
+    <div class="side-bar-section-content">
+        <select name="data.attributes.initiative.ability">
+            {{#select data.attributes.initiative.ability}}
+                <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
+                {{#each data.sortedSkills as |skill key|}}
+                    <option value="{{key}}">{{skill.label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</div>
+<!-- WEAKNESSES -->
 <div class="weaknesses side-bar-section">
     <div class="side-bar-section-header{{#unless data.traits.dv}} disabled{{/unless}}">
         <div class="side-bar-label">

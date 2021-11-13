@@ -1,6 +1,12 @@
 import { ActorPF2e } from "@actor/base";
 import { CreatureData } from "@actor/data";
-import { ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import {
+    CheckModifier,
+    ensureProficiencyOption,
+    ModifierPF2e,
+    RawModifier,
+    StatisticModifier,
+} from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
@@ -9,7 +15,7 @@ import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e, RollParameters } from "@system/rolls";
 import {
     Alignment,
     AlignmentComponent,
@@ -28,8 +34,9 @@ import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY, SKILL_EXPANDED, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
+import { CombatantPF2e } from "@module/combatant";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -186,6 +193,80 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+    }
+
+    protected prepareInitiative(
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        rollNotes: Record<string, RollNotePF2e[] | undefined>
+    ): void {
+        if (!(this.data.type === "character" || this.data.type === "npc")) return;
+
+        const systemData = this.data.data;
+        const initSkill = systemData.attributes.initiative.ability || "perception";
+
+        const skillLongForms: Record<string, string | undefined> = SKILL_DICTIONARY;
+        const longForm = skillLongForms[initSkill] ?? initSkill;
+        const [ability, initStat] =
+            initSkill === "perception"
+                ? ["wis", systemData.attributes.perception]
+                : [SKILL_EXPANDED[longForm] ?? "int", systemData.skills[initSkill]];
+        const modifiers = [
+            initStat.modifiers.map((m) =>
+                m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
+            ),
+            statisticsModifiers["initiative"]?.map((m) =>
+                m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
+            ) ?? [],
+        ].flat();
+
+        const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
+        const skillName = game.i18n.localize(
+            initSkill === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[initSkill]
+        );
+        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
+
+        const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
+            ability: initSkill,
+            label,
+            roll: async (args: RollParameters): Promise<void> => {
+                const options = args.options ?? [];
+                // Push skill name to options if not already there
+                if (!options.includes(longForm)) options.push(longForm);
+                if (this.data.type === "character") ensureProficiencyOption(options, initStat.rank ?? -1);
+
+                // Ensure both a combat and combatant exist before rolling
+                if (!game.combat) {
+                    ui.notifications.error("The game is not currently in Encounter mode.");
+                    return;
+                }
+
+                // Get or create the combatant, creating only if the actor is synthetic
+                const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
+                    const existing = game.combat?.combatants.find((combatant) => combatant.actor === this);
+                    if (existing) {
+                        return existing;
+                    } else if (game.user.isGM && !this.hasPlayerOwner && game.combat && this.token) {
+                        await this.token.object.toggleCombat(game.combat);
+                        return game.combat.combatants.find((combatant) => combatant.token === this.token) ?? null;
+                    } else {
+                        ui.notifications.error(`${this.name} is not a participant in the current encounter.`);
+                        return null;
+                    }
+                })();
+                if (!combatant) return;
+
+                CheckPF2e.roll(
+                    new CheckModifier(label, systemData.attributes.initiative),
+                    { actor: this, type: "initiative", options, notes, dc: args.dc },
+                    args.event,
+                    (roll) => {
+                        game.combat?.setInitiative(combatant.id, roll.total);
+                    }
+                );
+            },
+        });
+
+        systemData.attributes.initiative = stat;
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */

@@ -9,9 +9,10 @@ import {
     AbilityBasedStatistic,
     Rollable,
     StrikeData,
+    InitiativeData,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
-import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledValue, ValuesList, ZeroToThree } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
@@ -141,6 +142,8 @@ export interface LabeledSpeed extends LabeledValue {
 export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
+
+export type CreatureInitiative = InitiativeData & CheckModifier;
 
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 
