@@ -1,0 +1,57 @@
+{
+    "_id": "LH0IDLLF4RsT3KvM",
+    "data": {
+        "description": {
+            "value": "<p>For the next strike, the ammunition fired from the affixed weapon to transforms into fire, dealing fire damage instead of its usual damage as well as [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} on a critical hit.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "fire"
+                },
+                "selector": "damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "damage",
+                "text": "<p class='compact text'><strong>Energized Cartridge</strong> The weapon deals [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} on a critical hit.</p>"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Energized Cartridge (Fire)",
+    "type": "effect"
+}
