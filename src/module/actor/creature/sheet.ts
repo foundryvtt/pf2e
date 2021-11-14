@@ -127,20 +127,17 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
-            $input.val(baseValue).attr({ name: propertyPath, type: "number" }).css({ color: "black" });
+            const baseValue = getProperty(this.actor.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
+            event.target.select();
         });
 
         html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
-            const preparedValue = Number(getProperty(this.actor.data, propertyPath)) || 0;
-            const newValue = Number($input.val()) || 0;
-            if (newValue === baseValue) {
-                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
-            }
+            const preparedValue = getProperty(this.actor.data, propertyPath);
+            $input.val(preparedValue);
         });
 
         // General handler for embedded item updates

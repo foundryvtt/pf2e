@@ -174,6 +174,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 {}
             ) as CombatProficiencies;
 
+        // show hints for some things being modified
+        const baseData = this.actor.toObject();
+        sheetData.adjustedBonusEncumbranceBulk =
+            this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
+        sheetData.adjustedBonusLimitBulk =
+            this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
+
         // Return data for rendering
         return sheetData;
     }
