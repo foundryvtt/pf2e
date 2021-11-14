@@ -934,28 +934,9 @@ export class CharacterPF2e extends CreaturePF2e {
         const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size).contents;
 
         // Inventory encumbrance
-        // FIXME: this is hard coded for now
-        const featSlugs = new Set(
-            this.items.filter((item) => item.data.type === "feat").map((item) => item.data.data.slug)
-        );
+        const bonusEncumbranceBulk = this.data.data.attributes.bonusEncumbranceBulk ?? 0;
+        const bonusLimitBulk = this.data.data.attributes.bonusLimitBulk ?? 0;
 
-        let bonusEncumbranceBulk = this.data.data.attributes.bonusEncumbranceBulk ?? 0;
-        let bonusLimitBulk = this.data.data.attributes.bonusLimitBulk ?? 0;
-        if (featSlugs.has("hefty-hauler")) {
-            bonusEncumbranceBulk += 2;
-            bonusLimitBulk += 2;
-        }
-        const equippedLiftingBelt = this.items.some(
-            (item) =>
-                item.data.type === "equipment" &&
-                item.data.data.slug === "lifting-belt" &&
-                (item.data.data.equipped.value ?? false) &&
-                (item.data.data.invested.value ?? false)
-        );
-        if (equippedLiftingBelt) {
-            bonusEncumbranceBulk += 1;
-            bonusLimitBulk += 1;
-        }
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
         };
