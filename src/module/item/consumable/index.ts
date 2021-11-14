@@ -42,7 +42,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             spellData.data.heightenedLevel = { value: heightenedLevel };
         }
 
-        return new SpellPF2e(spellData, { parent: this.actor }) as Embedded<SpellPF2e>;
+        return new SpellPF2e(spellData, { parent: this.actor, fromConsumable: true }) as Embedded<SpellPF2e>;
     }
 
     override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
@@ -193,46 +193,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
                 systemData.location.value = entry.id;
             }
 
-            const statistic = entry.statistic;
-
-            const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-            systemData.save.dc = isSave ? statistic.dc({ options: [...spell.traits] }).value : statistic.check.value;
-
-            const template = `systems/pf2e/templates/chat/spell-card.html`;
-            const token = actor.token;
-
-            // Basic chat message data
-            const templateData = {
-                actor: actor,
-                tokenId: token?.scene ? `${token.scene.id}.${token.id}` : null,
-                item: spell,
-                data: mergeObject(spell.getChatData(), { item: JSON.stringify(spell.toObject(false)) }),
-            };
-
-            const chatData: PreCreate<foundry.data.ChatMessageSource> = {
-                speaker: {
-                    actor: actor.id,
-                    token: actor.getActiveTokens()[0]?.id,
-                },
-                flags: {
-                    core: {
-                        canPopout: true,
-                    },
-                },
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            };
-
-            // Toggle default roll mode
-            const rollMode = game.settings.get("core", "rollMode");
-            if (["gmroll", "blindroll"].includes(rollMode))
-                chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
-            if (rollMode === "blindroll") chatData.blind = true;
-
-            // Render the template
-            chatData.content = await renderTemplate(template, templateData);
-
-            // Create the chat message
-            await ChatMessagePF2e.create(chatData, { renderSheet: false });
+            entry.cast(spell, { consume: false });
         }
     }
 }

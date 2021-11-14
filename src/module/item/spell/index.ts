@@ -1,5 +1,5 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e } from "@item/base";
+import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
@@ -8,11 +8,18 @@ import { ModifierPF2e } from "@module/modifiers";
 import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
+import { ItemSourcePF2e } from "@item/data";
+
+interface SpellConstructionContext extends ItemConstructionContextPF2e {
+    fromConsumable?: boolean;
+}
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
     }
+
+    readonly isFromConsumable: boolean;
 
     get level(): OneToTen {
         return this.data.data.level.value;
@@ -45,20 +52,6 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.heightenedLevel?.value ?? this.level;
     }
 
-    private computeCastLevel(castLevel?: number) {
-        const isAutoScaling = this.isCantrip || this.isFocusSpell;
-        if (isAutoScaling && this.actor) {
-            return (
-                this.data.data.autoHeightenLevel.value ||
-                this.spellcasting?.data.data.autoHeightenLevel.value ||
-                Math.ceil(this.actor.level / 2)
-            );
-        }
-
-        // Spells cannot go lower than base level
-        return Math.max(this.level, castLevel ?? this.heightenedLevel);
-    }
-
     get isCantrip(): boolean {
         return this.data.isCantrip;
     }
@@ -88,6 +81,25 @@ export class SpellPF2e extends ItemPF2e {
     get unlimited() {
         // In the future handle at will and constant
         return this.isCantrip;
+    }
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
+        super(data, context);
+        this.isFromConsumable = context.fromConsumable ?? false;
+    }
+
+    private computeCastLevel(castLevel?: number) {
+        const isAutoScaling = this.isCantrip || this.isFocusSpell;
+        if (isAutoScaling && this.actor) {
+            return (
+                this.data.data.autoHeightenLevel.value ||
+                this.spellcasting?.data.data.autoHeightenLevel.value ||
+                Math.ceil(this.actor.level / 2)
+            );
+        }
+
+        // Spells cannot go lower than base level
+        return Math.max(this.level, castLevel ?? this.heightenedLevel);
     }
 
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
@@ -269,6 +281,10 @@ export class SpellPF2e extends ItemPF2e {
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
+        // Embedded item string for consumable fetching.
+        // This needs to be refactored in the future so that injecting DOM strings isn't necessary
+        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
+
         return {
             ...systemData,
             description: { value: description },
@@ -285,6 +301,7 @@ export class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
+            item,
         };
     }
 

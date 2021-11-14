@@ -23,7 +23,7 @@ import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
         ready?: boolean;
     };

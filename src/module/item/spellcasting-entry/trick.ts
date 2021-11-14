@@ -1,5 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
+import { SpellPF2e } from "@item";
 import { AbilityModifier, ProficiencyModifier } from "@module/modifiers";
 import { Statistic } from "@system/statistic";
 
@@ -49,5 +50,10 @@ export class TrickMagicItemEntry {
             },
             dc: {},
         });
+    }
+
+    async cast(spell: SpellPF2e, options: { level?: number } = {}) {
+        const level = options.level ?? spell.heightenedLevel;
+        await spell.toMessage(undefined, { data: { spellLvl: level } });
     }
 }
