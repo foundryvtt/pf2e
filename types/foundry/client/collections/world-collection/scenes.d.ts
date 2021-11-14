@@ -10,11 +10,10 @@ declare global {
         /*  Properties                                  */
         /* -------------------------------------------- */
 
-        /** @override */
-        static documentName: "Scene";
+        static override documentName: "Scene";
 
         /** Return a reference to the Scene which is currently active */
-        get active(): TScene;
+        get active(): TScene | undefined;
 
         /**
          * Return the current Scene target.

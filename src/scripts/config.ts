@@ -38,7 +38,7 @@ import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from
 import enJSON from "../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
 
-export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
 const actorTypes: Record<ActorType, string> = {
     character: "ACTOR.TypeCharacter",
@@ -1236,7 +1236,7 @@ export const PF2ECONFIG = {
 
     statusEffects: {
         overruledByModule: false,
-        lastIconType: "default" as StatusEffectIconType,
+        lastIconType: "default" as StatusEffectIconTheme,
         effectsIconFolder: "systems/pf2e/icons/conditions/",
         effectsIconFileType: "webp",
         keepFoundryStatusEffects: true,

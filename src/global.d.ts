@@ -7,7 +7,7 @@ import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
 import type { HomebrewSettingsKey, HomebrewTag } from "@module/settings/homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { PF2ECONFIG, StatusEffectIconType } from "@scripts/config";
+import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
@@ -135,7 +135,7 @@ declare global {
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
         get(module: "pf2e", setting: "pfsSheetTab"): boolean;
-        get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconType;
+        get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
