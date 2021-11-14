@@ -75,6 +75,8 @@ export function listen() {
         game.pf2e.effectPanel = new EffectsPanel();
         game.pf2e.effectTracker = new EffectTracker();
 
+        game.pf2e.StatusEffects.setIconTheme();
+
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();
     });
