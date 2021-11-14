@@ -142,6 +142,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
         perception.ability = "wis";
         perception.rank ??= 0;
+        this.data.data.attributes.initiative.tiebreakPriority = 2;
 
         attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };

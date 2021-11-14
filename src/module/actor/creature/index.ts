@@ -228,6 +228,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
             ability: initSkill,
             label,
+            tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
             roll: async (args: RollParameters): Promise<void> => {
                 const options = args.options ?? [];
                 // Push skill name to options if not already there

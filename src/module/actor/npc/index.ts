@@ -93,6 +93,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
         systemData.attributes.perception.ability = "wis";
         systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
+        systemData.attributes.initiative.tiebreakPriority = 1;
     }
 
     override prepareDerivedData(): void {
