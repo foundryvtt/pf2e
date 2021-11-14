@@ -901,21 +901,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
+    /**
+     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
+     * Roll option in this case is a predication property used for filtering.
+     */
     getRollOptions(rollNames: string[]): string[] {
         const rollOptions = this.data.flags.pf2e.rollOptions;
-        return rollNames
-            .flatMap((rollName) =>
-                // convert flag object to array containing the names of all fields with a truthy value
-                Object.entries(rollOptions[rollName] ?? {}).reduce(
-                    (opts: string[], [key, value]) => opts.concat(value ? key : []),
-                    []
-                )
-            )
-            .reduce((unique: string[], option) => {
-                // ensure option entries are unique
-                return unique.includes(option) ? unique : unique.concat(option);
-            }, []);
+        const results = new Set<string>();
+        for (const name of rollNames) {
+            for (const [key, value] of Object.entries(rollOptions[name] ?? {})) {
+                if (value) results.add(key);
+            }
+        }
+
+        return [...results];
     }
 
     /* -------------------------------------------- */
