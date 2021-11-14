@@ -65,6 +65,8 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     //actor:
     ancestry: Embedded<AncestryPF2e> | null;
     background: Embedded<BackgroundPF2e> | null;
+    adjustedBonusEncumbranceBulk: boolean;
+    adjustedBonusLimitBulk: boolean;
     class: Embedded<ClassPF2e> | null;
     crafting: CraftingData;
     data: CharacterSystemSheetData;

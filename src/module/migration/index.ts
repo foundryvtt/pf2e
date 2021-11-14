@@ -90,6 +90,7 @@ import { Migration685FixMeleeUsageTraits } from "./migrations/685-fix-melee-usag
 import { Migration686HeroPointsToResources } from "./migrations/686-hero-points-to-resources";
 import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-aes-to-res";
 import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
+import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -184,6 +185,7 @@ export class Migrations {
         Migration686HeroPointsToResources,
         Migration687FamiliarityAEsToREs,
         Migration688ClampSpellLevel,
+        Migration689EncumberanceActiveEffects,
     ];
 
     static get latestVersion(): number {
