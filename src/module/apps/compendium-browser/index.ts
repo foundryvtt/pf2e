@@ -945,7 +945,7 @@ export class CompendiumBrowser extends Application {
 
         const $items = $list.children("li");
         if ($list.data("listeners-active")) {
-            $items.children(".name").children("a").off("click");
+            $items.children("a").off("click");
         }
 
         $items
