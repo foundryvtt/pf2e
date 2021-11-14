@@ -87,12 +87,8 @@ export interface WeaponPropertyRuneSlot {
 
 export interface WeaponSystemSource extends MagicItemSystemData {
     traits: WeaponSourceTraits;
-    weaponType: {
-        value: WeaponCategory;
-    };
-    group: {
-        value: WeaponGroup | null;
-    };
+    category: WeaponCategory;
+    group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
     hands: {
         value: boolean;

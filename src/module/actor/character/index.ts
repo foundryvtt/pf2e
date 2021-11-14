@@ -832,10 +832,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 data: {
                     slug: "unarmed",
                     baseItem: null,
-                    weaponType: { value: "unarmed" },
+                    category: "unarmed",
                     bonus: { value: 0 },
                     damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
-                    group: { value: "brawling" },
+                    group: "brawling",
                     range: null,
                     strikingRune: { value: null },
                     traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },

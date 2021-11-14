@@ -881,8 +881,8 @@ export class WeaponDamagePF2e {
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
         const selectors: string[] = [];
-        if (weapon.data.group?.value) {
-            selectors.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
+        if (weapon.data.group) {
+            selectors.push(`${weapon.data.group.toLowerCase()}-weapon-group-damage`);
         }
         if (ability) {
             selectors.push(`${ability}-damage`);

@@ -29,7 +29,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "damageCategories",
     "weaponDamage",
     "healingTypes",
-    "weaponTypes",
     "weaponCategories",
     "weaponGroups",
     "baseWeaponTypes",

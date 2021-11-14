@@ -1,6 +1,14 @@
 import { ActorType } from "@actor/data";
 import { WeaponPF2e } from "@item";
-import { WeaponCategory, WeaponDamage, WeaponGroup, WeaponSource, WeaponTrait, WEAPON_RANGES } from "@item/weapon/data";
+import {
+    BaseWeaponType,
+    WeaponCategory,
+    WeaponDamage,
+    WeaponGroup,
+    WeaponSource,
+    WeaponTrait,
+    WEAPON_RANGES,
+} from "@item/weapon/data";
 import { tupleHasValue } from "@util";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
@@ -23,8 +31,9 @@ export class StrikeRuleElement extends RuleElementPF2e {
             data: {
                 slug: this.data.slug ?? null,
                 description: { value: "" },
-                weaponType: { value: this.data.category || "unarmed" },
-                group: { value: this.data.group || "brawling" },
+                category: this.data.category || "unarmed",
+                group: this.data.group || "brawling",
+                baseItem: this.data.baseType ?? null,
                 damage: this.data.damage?.base,
                 range: this.data.range || null,
                 traits: { value: this.data.traits ?? [], rarity: { value: "common" }, custom: "" },
@@ -42,6 +51,7 @@ export interface StrikeRuleElement {
         img?: ImagePath;
         category?: WeaponCategory;
         group?: WeaponGroup;
+        baseType?: BaseWeaponType | null;
         damage?: { base?: WeaponDamage };
         range?: number | null;
         traits?: WeaponTrait[];

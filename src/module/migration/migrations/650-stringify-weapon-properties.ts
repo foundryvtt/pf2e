@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { WeaponRange, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponRange, WeaponSystemSource } from "@item/weapon/data";
 import { MigrationBase } from "../base";
 
 /** Ensure weapon categories and ranges have valid properties */
@@ -9,7 +9,9 @@ export class Migration650StringifyWeaponProperties extends MigrationBase {
         if (itemData.type !== "weapon") return;
 
         const systemData: MaybeOldData = itemData.data;
-        systemData.weaponType.value ||= "simple";
+        if (systemData.weaponType) {
+            systemData.weaponType.value ||= "simple";
+        }
         const range = (systemData.range ??= { value: "melee" });
         if (range instanceof Object && typeof range.value === "string") {
             range.value = range.value.trim() || "melee";
@@ -19,5 +21,6 @@ export class Migration650StringifyWeaponProperties extends MigrationBase {
 }
 
 type MaybeOldData = Omit<WeaponSystemSource, "range"> & {
+    weaponType?: { value: WeaponCategory };
     range: WeaponRange | null | { value: unknown };
 };

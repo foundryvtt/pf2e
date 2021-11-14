@@ -1459,8 +1459,6 @@ export const PF2ECONFIG = {
     },
 
     weaponCategories,
-    weaponTypes: weaponCategories,
-
     weaponGroups,
     meleeWeaponGroups,
     rangedWeaponGroups,

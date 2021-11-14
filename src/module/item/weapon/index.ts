@@ -37,15 +37,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get baseType(): BaseWeaponType | null {
-        return this.data.data.baseItem ?? null;
+        return this.data.data.baseItem;
     }
 
     get group(): WeaponGroup | null {
-        return this.data.data.group.value || null;
+        return this.data.data.group;
     }
 
     get category(): WeaponCategory {
-        return this.data.data.weaponType.value;
+        return this.data.data.category;
     }
 
     get hands(): "0" | "1" | "1+" | "2" {
@@ -103,7 +103,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.data.weaponType.value ||= "simple";
+
+        this.data.data.category ||= "simple";
+        this.data.data.group ||= null;
+        this.data.data.baseItem ||= null;
         this.data.data.potencyRune.value ||= null;
         this.data.data.strikingRune.value ||= null;
         this.data.data.propertyRune1.value ||= null;
@@ -119,7 +122,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
             if (traitSet.has("thrown")) this.data.data.reload.value = "-";
-            if (traitSet.has("combination")) this.data.data.group.value = "firearm";
+            if (traitSet.has("combination")) this.data.data.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
             const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
@@ -318,7 +321,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const overlay: DeepPartial<WeaponSource> = {
             data: {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
-                group: { value: meleeUsage.group },
+                group: meleeUsage.group,
                 range: null,
                 traits: { value: meleeUsage.traits.concat("combination") },
             },

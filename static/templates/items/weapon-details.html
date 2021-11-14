@@ -1,7 +1,7 @@
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeLabel"}}</label>
-    <select name="data.weaponType.value" data-dtype="String">
-        {{#select data.weaponType.value}}
+    <select name="data.category" data-dtype="String">
+        {{#select data.category}}
             {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
@@ -14,10 +14,10 @@
         <select disabled="disabled">
             <option value="firearm">{{localize "PF2E.WeaponGroupFirearm"}}</option>
         </select>
-        <input type="hidden" name="data.group.value" value="firearm" />
+        <input type="hidden" name="data.group" value="firearm" />
     {{else}}
-        <select name="data.group.value">
-            {{#select data.group.value}}
+        <select name="data.group">
+            {{#select data.group}}
                 <option value=""></option>
                 {{#each groups as |name type|}}
                     <option value="{{type}}">{{localize name}}</option>
