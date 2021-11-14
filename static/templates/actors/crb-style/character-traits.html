@@ -57,10 +57,11 @@
 </label>
 <input
     id="{{options.id}}-bonus-encumbrance-bulk"
-    type="text"
-    name="data.attributes.bonusEncumbranceBulk"
-    data-dtype="Number"
+    type="number"
+    {{#if adjustedBonusEncumbranceBulk}}class="adjusted"{{/if}}
+    data-property="data.attributes.bonusEncumbranceBulk"
     value="{{data.attributes.bonusEncumbranceBulk}}"
+    spellcheck="false"
     placeholder="0"
 />
 </div>
@@ -70,10 +71,11 @@
 </label>
 <input
     id="{{options.id}}-bonus-limit-bulk"
-    type="text"
-    name="data.attributes.bonusLimitBulk"
-    data-dtype="Number"
+    type="number"
+    {{#if adjustedBonusLimitBulk}}class="adjusted"{{/if}}
+    data-property="data.attributes.bonusLimitBulk"
     value="{{data.attributes.bonusLimitBulk}}"
+    spellcheck="false"
     placeholder="0"
 />
 </div>
