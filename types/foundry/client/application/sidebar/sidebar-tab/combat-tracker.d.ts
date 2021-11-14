@@ -89,7 +89,7 @@ declare class CombatTracker<
      * Handle click events on Combat control buttons
      * @param event The originating mousedown event
      */
-    protected _onCombatControl(event: MouseEvent): Promise<void>;
+    protected _onCombatControl(event: JQuery.TriggeredEvent<HTMLElement, HTMLElement, HTMLElement>): Promise<void>;
 
     /**
      * Handle a Combatant control toggle

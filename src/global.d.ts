@@ -42,6 +42,7 @@ import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
+import { CombatantPF2e } from "@module/combatant";
 
 declare global {
     interface Game {
@@ -158,6 +159,7 @@ type ConfiguredConfig = Config<
     ChatLogPF2e,
     ChatMessagePF2e,
     CombatPF2e,
+    CombatantPF2e,
     EncounterTrackerPF2e,
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,

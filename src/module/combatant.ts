@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor/base";
 import { CombatPF2e } from "./combat";
 
-export class CombatantPF2e extends Combatant {
+export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     /** In order for the Combat Tracker's "Skip Defeated" feature to function, a Combatant instance needs a `defeated`
      *  property or an ActiveEffect with a flag located at `core.statusId`, corresponding with
      *  the value of CONFIG.Combat.defeatedStatusId
@@ -47,7 +47,6 @@ export class CombatantPF2e extends Combatant {
     }
 }
 
-export interface CombatantPF2e {
+export interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     readonly parent: CombatPF2e | null;
-    _actor: ActorPF2e | null;
 }
