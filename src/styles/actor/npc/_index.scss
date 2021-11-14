@@ -81,7 +81,7 @@ $adjusted-lower: #cc3311;
 
             .traits-list-item:first-child {
                 margin-left: 0px;
-                margin-right: 4px
+                margin-right: 4px;
             }
 
             .traits-list-item:last-child {
@@ -93,7 +93,7 @@ $adjusted-lower: #cc3311;
 
     hr {
         margin: 10px 6px 10px 0;
-      }
+    }
 
     .side-bar {
         flex: 160px 0 0;
@@ -135,7 +135,7 @@ $adjusted-lower: #cc3311;
         .side-bar-section-header {
             display: flex;
             width: 100%;
-            font-size: 1.0rem;
+            font-size: 1rem;
             border-bottom: 1px solid;
             border-color: $faded-color;
             margin-top: 10px;
@@ -231,7 +231,7 @@ $adjusted-lower: #cc3311;
                 }
             }
 
-            &.broken  {
+            &.broken {
                 color: rgba(black, 0.4);
 
                 .shield-label {
@@ -278,13 +278,13 @@ $adjusted-lower: #cc3311;
                         text-align: center;
                         margin-right: 4px;
                         &.lt10 {
-                          width: 8px;
+                            width: 8px;
                         }
                         &.lt100 {
-                          width: 24px;
+                            width: 24px;
                         }
                         &.lt1000 {
-                          width: 36px;
+                            width: 36px;
                         }
                     }
                 }
@@ -341,7 +341,6 @@ $adjusted-lower: #cc3311;
         .tab {
             overflow: hidden scroll;
 
-
             .identification-skills {
                 ul {
                     display: inline;
@@ -359,7 +358,8 @@ $adjusted-lower: #cc3311;
         }
     }
 
-    input.adjustable, span.adjustable {
+    input.adjustable,
+    span.adjustable {
         display: inline;
         text-align: right;
 
@@ -590,7 +590,8 @@ $adjusted-lower: #cc3311;
             font-weight: bold;
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"],
+        input[type="number"] {
             flex: 0;
             font-weight: normal;
             margin: 1px 4px;
@@ -613,21 +614,6 @@ $adjusted-lower: #cc3311;
         .skills {
             flex: 3;
             align-self: stretch;
-        }
-
-        .senses {
-            flex: 2;
-
-            .perception {
-                width: 100%;
-                label {
-                    flex-basis: 5em;
-                }
-                input {
-                    flex: 0 0 24px;
-                    z-index: 1;
-                }
-            }
         }
 
         .ability-scores {
@@ -726,7 +712,35 @@ $adjusted-lower: #cc3311;
         }
 
         &.languages {
+            flex: 2;
+        }
+
+        &.senses {
             flex: 1;
+
+            .section-body {
+                gap: 5px;
+            }
+
+            .perception {
+                width: 100%;
+                padding: 2px;
+                flex-wrap: nowrap;
+                gap: 5px;
+
+                .label {
+                    flex: 0;
+                }
+
+                .mod {
+                    flex: 0 0 30px;
+                }
+
+                .details {
+                    flex: 1;
+                    text-align: left;
+                }
+            }
         }
     }
 
@@ -799,7 +813,8 @@ $adjusted-lower: #cc3311;
                 width: 100%;
                 padding-top: 3px;
 
-                .flexrow, .sub-section {
+                .flexrow,
+                .sub-section {
                     gap: 2px;
                 }
 
@@ -847,7 +862,8 @@ $adjusted-lower: #cc3311;
                     background-color: $attack-button-color;
                 }
 
-                .damage-button, .critical-button {
+                .damage-button,
+                .critical-button {
                     background-color: $damage-button-color;
                 }
 
@@ -869,7 +885,6 @@ $adjusted-lower: #cc3311;
         font-family: var(--sans-serif);
         font-weight: 500;
         text-transform: uppercase;
-
     }
 
     .alignment-select {
@@ -903,9 +918,7 @@ $adjusted-lower: #cc3311;
     }
 
     .adjustment-select {
-
         .adjustment {
-
             &.active {
                 background-color: $primary-accent !important;
                 color: $light-text;
