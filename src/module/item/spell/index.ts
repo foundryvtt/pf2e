@@ -95,8 +95,8 @@ export class SpellPF2e extends ItemPF2e {
         if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
             const { abilities } = this.actor.data.data;
-            if (!spellcasting?.data && this.data.data.trickMagicItemData) {
-                rollData["mod"] = abilities[this.data.data.trickMagicItemData.ability].mod;
+            if (!spellcasting?.data && this.data.data.trickMagicEntry) {
+                rollData["mod"] = abilities[this.data.data.trickMagicEntry.ability].mod;
             } else {
                 rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
             }
@@ -206,7 +206,7 @@ export class SpellPF2e extends ItemPF2e {
         const systemData = this.data.data;
         const description = TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
 
-        const trickData = this.data.data.trickMagicItemData;
+        const trickData = this.data.data.trickMagicEntry;
         const spellcasting = this.spellcasting;
         if (!spellcasting && !trickData) {
             console.warn(
@@ -215,9 +215,9 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const statistic = spellcasting?.statistic;
-        const spellDC = trickData ? trickData.data.spelldc.dc : statistic?.dc({ options: [...this.traits] }).value;
-        const spellAttack = trickData ? trickData.data.spelldc.value : statistic?.check.value;
+        const statistic = trickData?.statistic || spellcasting?.statistic;
+        const spellDC = statistic?.dc({ options: [...this.traits] }).value;
+        const spellAttack = statistic?.check.value;
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -296,45 +296,14 @@ export class SpellPF2e extends ItemPF2e {
         const itemData = this.data.toObject(false);
 
         // Prepare roll data
-        const trickMagicItemData = itemData.data.trickMagicItemData;
-        const rollData = deepClone(this.actor.data.data);
+        const trickMagicEntry = itemData.data.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
+        const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (trickMagicItemData) {
-            const spellAttack = trickMagicItemData.data.spelldc.value;
-            const parts = [Number(spellAttack) || 0];
-            const title = `${this.name} - Spell Attack Roll`;
-
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === "elite")) {
-                parts.push(2);
-            } else if (traits.some((trait) => trait === "weak")) {
-                parts.push(-2);
-            }
-
-            if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty as TwoToThree}` as const]);
-            }
-
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                item: this,
-                parts,
-                data: rollData,
-                rollType: "attack-roll",
-                title,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                dialogOptions: {
-                    width: 400,
-                    top: event.clientY - 80,
-                    left: window.innerWidth - 710,
-                },
-            });
-        } else if (spellcastingEntry) {
+        if (statistic) {
             const options = this.actor
                 .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
                 .concat(...this.traits);
@@ -344,7 +313,8 @@ export class SpellPF2e extends ItemPF2e {
                     new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
                 );
             }
-            spellcastingEntry.statistic.check.roll({ event, item: this, options, modifiers });
+
+            statistic.check.roll({ event, item: this, options, modifiers });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

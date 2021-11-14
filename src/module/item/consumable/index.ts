@@ -1,10 +1,10 @@
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
-import { ItemPF2e, PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { TrickMagicItemCastData } from "@item/data";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ErrorPF2e } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
     static override get schema(): typeof ConsumableData {
@@ -161,35 +161,42 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
     }
 
-    async castEmbeddedSpell(
-        this: Embedded<ConsumablePF2e>,
-        trickMagicItemData?: TrickMagicItemCastData
-    ): Promise<void> {
+    async castEmbeddedSpell(this: Embedded<ConsumablePF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
         const spell = this.embeddedSpell;
         if (!spell) return;
         const actor = this.actor;
+
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        const realEntries = actor.spellcasting.spellcastingFeatures
-            .filter((entry) => spell.traditions.has(entry.tradition))
-            .map((entry) => entry.data);
-        const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
-        if (spellcastingEntries.length > 0) {
+        const entry = (() => {
+            if (trickMagicItemData) return trickMagicItemData;
+
+            const spellcastingEntries = actor.spellcasting.spellcastingFeatures.filter((entry) =>
+                spell.traditions.has(entry.tradition)
+            );
+
             let maxBonus = 0;
             let bestEntry = 0;
             for (let i = 0; i < spellcastingEntries.length; i++) {
-                if (spellcastingEntries[i].data.spelldc.value > maxBonus) {
-                    maxBonus = spellcastingEntries[i].data.spelldc.value;
+                if (spellcastingEntries[i].data.data.spelldc.value > maxBonus) {
+                    maxBonus = spellcastingEntries[i].data.data.spelldc.value;
                     bestEntry = i;
                 }
             }
+
+            return spellcastingEntries[bestEntry];
+        })();
+
+        if (entry) {
             const systemData = spell.data.data;
-            systemData.trickMagicItemData = trickMagicItemData;
-            systemData.location.value = spellcastingEntries[bestEntry]._id;
+            systemData.trickMagicEntry = trickMagicItemData;
+            if (entry instanceof SpellcastingEntryPF2e) {
+                systemData.location.value = entry.id;
+            }
+
+            const statistic = entry.statistic;
 
             const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-            systemData.save.dc = isSave
-                ? spellcastingEntries[bestEntry].data.spelldc.dc
-                : spellcastingEntries[bestEntry].data.spelldc.value;
+            systemData.save.dc = isSave ? statistic.dc({ options: [...spell.traits] }).value : statistic.check.value;
 
             const template = `systems/pf2e/templates/chat/spell-card.html`;
             const token = actor.token;

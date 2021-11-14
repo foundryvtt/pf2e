@@ -1,6 +1,5 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { TrickMagicItemCastData } from "@item/data";
 import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -8,6 +7,7 @@ import { DamageType } from "@module/damage-calculation";
 import { ValuesList, OneToTen } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemData>;
 
@@ -121,7 +121,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
-    trickMagicItemData?: TrickMagicItemCastData;
+    trickMagicEntry?: TrickMagicItemEntry;
     isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;
