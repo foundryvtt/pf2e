@@ -1,0 +1,184 @@
+{
+    "_id": "N9bhBhJ6JawzVitu",
+    "data": {
+        "baseItem": null,
+        "brokenThreshold": {
+            "value": 0
+        },
+        "bulkCapacity": {
+            "value": ""
+        },
+        "collapsed": {
+            "value": false
+        },
+        "containerId": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>These modifications include a heavier stock and larger replacement barrel designed to increase the stopping power of firearms. <em>Large bore modifications</em> can only be applied to firearms with the kickback or scatter traits, and attaching <em>large bore modifications</em> takes 1 hour, though this time can overlap with the standard time required to maintain and clean your firearm to prevent misfires.</p>\n<p>When you attach <em>large bore modifications</em> to a kickback weapon, the circumstance bonus to damage granted by the kickback trait increases from 1 to 2 additional Damage and the Strength requirement to fire the weapon without penalty increases to 18.</p>\n<p>When you attach <em>large bore modifications</em> to a weapon with the scatter trait, the radius of the scatter effect increases by 5 feet, but the weapon imposes a -2 penalty on attack rolls if the wielder's Strength score is less than 14. If the weapon has both the kickback and scatter traits, apply both sets of modifications with the Strength requirement raised to 18 to avoid penalties when firing.</p>"
+        },
+        "equipped": {
+            "value": false
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": {
+            "value": 0
+        },
+        "hp": {
+            "value": 0
+        },
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
+        },
+        "invested": {
+            "value": null
+        },
+        "level": {
+            "value": 5
+        },
+        "maxHp": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": "120 gp"
+        },
+        "quantity": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "kickback"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "scatter"
+                    ],
+                    "not": [
+                        "kickback"
+                    ]
+                },
+                "selector": "attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 14,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "kickback"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 18,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "kickback",
+                        "scatter"
+                    ]
+                },
+                "selector": "attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "start": 18,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
+        "source": {
+            "value": "Pathfinder Guns & Gears"
+        },
+        "stackGroup": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "uncommon"
+            },
+            "value": []
+        },
+        "usage": {
+            "value": "attached-to-firearm"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Large Bore Modifications",
+    "type": "equipment"
+}
