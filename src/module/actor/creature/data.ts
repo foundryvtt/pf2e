@@ -147,6 +147,10 @@ export interface CreatureHitPoints extends HitPointsData {
 export type CreatureInitiative = InitiativeData &
     CheckModifier & {
         roll: (parameters: RollParameters) => Promise<void>;
+        /**
+         * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
+         * constitutes a higher priority.
+         */
         tiebreakPriority: ZeroToTwo;
     };
 

@@ -1,3 +1,4 @@
+import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e } from "./combatant";
 
@@ -6,7 +7,24 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return this.data.active;
     }
 
-    /** Exclude orphaned and loot-actor tokens from combat */
+    /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
+    protected override _sortCombatants(a: Embedded<CombatantPF2e>, b: Embedded<CombatantPF2e>): number {
+        const resolveTie = (): number => {
+            const [priorityA, priorityB] = [a, b].map((combatant): number =>
+                combatant?.actor instanceof CharacterPF2e ||
+                combatant?.actor instanceof NPCPF2e ||
+                combatant.actor instanceof HazardPF2e
+                    ? combatant.actor.data.data.attributes.initiative.tiebreakPriority
+                    : 3
+            );
+            return priorityA === priorityB ? a.id.localeCompare(b.id) : priorityA - priorityB;
+        };
+        return typeof a.initiative === "number" && typeof b.initiative === "number" && a.initiative === b.initiative
+            ? resolveTie()
+            : super._sortCombatants(a, b);
+    }
+
+    /** Exclude orphaned, loot-actor, and minion tokens from combat */
     override async createEmbeddedDocuments(
         embeddedName: "Combatant",
         data: PreCreate<foundry.data.CombatantSource>[],
@@ -36,6 +54,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return super.createEmbeddedDocuments(embeddedName, createData, context);
     }
 
+    /** Call hooks for modules on turn change */
     override async nextTurn(): Promise<this> {
         Hooks.call("pf2e.endTurn", this.combatant ?? null, this, game.user.id);
         await super.nextTurn();
@@ -43,7 +62,25 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return this;
     }
 
-    override _onDelete(options: DocumentModificationContext, userId: string): void {
+    /** Roll initiative for PCs and NPCs using their prepared roll methods */
+    override async rollInitiative(ids: string[], options: RollInitiativeOptions = {}): Promise<this> {
+        const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);
+        const fightyCombatants = combatants.filter(
+            (combatant): combatant is Embedded<CombatantPF2e<CharacterPF2e | NPCPF2e>> =>
+                combatant.actor instanceof CharacterPF2e || combatant.actor instanceof NPCPF2e
+        );
+        await Promise.all(
+            fightyCombatants.map((combatant) => combatant.actor.data.data.attributes.initiative.roll({}))
+        );
+        const remainingIds = ids.filter((id) => !fightyCombatants.some((c) => c.id === id));
+        return super.rollInitiative(remainingIds, options);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.started) {
             Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
         }
