@@ -9,6 +9,7 @@ declare global {
         TChatLog extends ChatLog,
         TChatMessage extends ChatMessage,
         TCombat extends Combat,
+        TCombatant extends Combatant<TActor | null>,
         TCombatTracker extends CombatTracker<TCombat>,
         TCompendiumDirectory extends CompendiumDirectory,
         TFogExploration extends FogExploration,
@@ -209,7 +210,7 @@ declare global {
             documentClass: new (
                 data: PreCreate<TCombat["turns"][number]["data"]["_source"]>,
                 context?: DocumentConstructionContext<TCombat["turns"][number]>
-            ) => TCombat["turns"][number];
+            ) => TCombatant;
             sheetClass: typeof CombatantConfig;
         };
 
