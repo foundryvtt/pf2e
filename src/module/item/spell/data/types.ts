@@ -7,7 +7,6 @@ import { DamageType } from "@module/damage-calculation";
 import { ValuesList, OneToTen } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemData>;
 
@@ -121,7 +120,6 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
-    trickMagicEntry?: TrickMagicItemEntry;
     isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;

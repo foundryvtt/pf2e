@@ -9,6 +9,7 @@ import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -20,6 +21,11 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     readonly isFromConsumable: boolean;
+
+    /**
+     * Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later.
+     */
+    trickMagicEntry?: TrickMagicItemEntry;
 
     get level(): OneToTen {
         return this.data.data.level.value;
@@ -107,8 +113,8 @@ export class SpellPF2e extends ItemPF2e {
         if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
             const { abilities } = this.actor.data.data;
-            if (!spellcasting?.data && this.data.data.trickMagicEntry) {
-                rollData["mod"] = abilities[this.data.data.trickMagicEntry.ability].mod;
+            if (!spellcasting?.data && this.trickMagicEntry) {
+                rollData["mod"] = abilities[this.trickMagicEntry.ability].mod;
             } else {
                 rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
             }
@@ -218,7 +224,7 @@ export class SpellPF2e extends ItemPF2e {
         const systemData = this.data.data;
         const description = TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
 
-        const trickData = this.data.data.trickMagicEntry;
+        const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
         if (!spellcasting && !trickData) {
             console.warn(
@@ -310,10 +316,8 @@ export class SpellPF2e extends ItemPF2e {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
-        const itemData = this.data.toObject(false);
-
         // Prepare roll data
-        const trickMagicEntry = itemData.data.trickMagicEntry;
+        const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 

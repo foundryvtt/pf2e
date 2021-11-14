@@ -188,7 +188,6 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
         if (entry) {
             const systemData = spell.data.data;
-            systemData.trickMagicEntry = trickMagicItemData;
             if (entry instanceof SpellcastingEntryPF2e) {
                 systemData.location.value = entry.id;
             }
