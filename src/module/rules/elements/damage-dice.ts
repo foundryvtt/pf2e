@@ -16,8 +16,9 @@ export class PF2DamageDiceRuleElement extends RuleElementPF2e {
             delete value.value;
         }
         const selector = this.resolveInjectedProperties(value.selector);
-        value.name = this.data.name ?? this.label;
+        value.name = (this.data.name ?? this.label).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
         value.label = this.label;
+
         if (selector && value.name && value) {
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
