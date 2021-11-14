@@ -372,8 +372,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private suppressModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
             if (modifier.ignored) continue;
-            if (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) {
-                modifier.predicate?.not?.push("battle-form");
+            if (
+                (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) ||
+                modifier.type === "ability"
+            ) {
+                modifier.predicate.not.push("battle-form");
                 modifier.ignored = true;
             }
         }
