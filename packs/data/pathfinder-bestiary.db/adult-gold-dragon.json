@@ -51,15 +51,17 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "180 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "180"
                     },
                     {
-                        "type": "Swim",
-                        "value": "50 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "50"
                     }
                 ],
-                "value": "50 feet"
+                "value": "50"
             }
         },
         "details": {
@@ -74,6 +76,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Gold dragons are the epitome of metallic dragonkind, unrivaled in their strength as well as their wisdom. They command the unwavering reverence of all other metallic dragons, who view gold dragons as their leaders and counselors. Golds rival the raw power of even red dragons, much to the chagrin of their chromatic cousins, and the two races are often regarded as bitter rivals. But despite their incredible power, gold dragons are fond of discourse and prefer to talk through solutions to problems rather than rely upon brute strength. Long-lived as they are, they necessarily take a wide view of all situations and never act without considering all possible options and outcomes. Because of this, gold dragons willingly converse with any creature that seeks them out, even evil chromatic dragons. Mortals might find this behavior strange, considering the longstanding war between chromatic and metallic dragons, but dragons know all too well that desperate situations sometimes call for drastic alliances. And although gold dragons might consider brief truces with their chromatic brethren in the case of world-ending threats, they also know when such alliances have run their course.</p>\n<p>When another metallic dragon faces a quandary or a foe beyond its own ability to overcome, its best option is often to seek the counsel of the eternally wise and gloriously righteous gold dragons. Locating these legendary beings is no easy task, however, for gold dragons are notoriously reclusive. Their intellect and wisdom is such that they prefer to ponder the great questions of life in seclusion, where they strive to formulate solutions to the world's most pressing problems. As a result, gold dragons are sometimes absent when metallic dragons gather together, or are missing from tribunals where their counsel would be beneficial. Impatient dragons sometimes begrudge gold dragons for this apparent unreliability, but such aspersions are usually a result of jealousy rather than any true criticism; in their hearts, other dragons know that few gold dragons purposefully exclude themselves from truly important matters.</p>\n<p>A gold dragon's incredible foresight and unparalleled enlightenment means they are unlikely to interfere in the business of individual mortals, though the rare person who captures the attention of a gold dragon is fortunate indeed, for there are few beings in the cosmos who can offer such prudent and considerate advice. Rulers and individuals in stations of high power have an easier time of garnering the aid of a gold dragon; entire wars have been avoided thanks to a gold dragon's last-minute intermediation.</p>\n<p>Gold dragons are often found in warm grasslands and savannas, lands where they can enjoy long, meditative flights without attracting the attention of potential enemies. They tend to sleep either out in the open in a barren, remote place, or within a heavily secreted or fortified lair, such as a forgotten sink hole or in the labyrinthine caverns of a terrestrial chasm. Gold dragons may enlist trusted servants and allies to guard their lairs, though many live truly solitary lives, preferring to protect their hoards with nonlethal traps and magical wards.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -110,9 +113,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {
@@ -152,7 +154,7 @@
             "_id": "O0Xbh8VzwHDi0S4Y",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -173,7 +175,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -251,7 +253,7 @@
                     "dc": "35",
                     "item": 0,
                     "mod": 0,
-                    "value": 25
+                    "value": 27
                 },
                 "tradition": {
                     "value": "arcane"
@@ -388,7 +390,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -476,7 +478,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/locate.webp",
-            "name": "Locate",
+            "name": "Locate (Gems Only)",
             "sort": 300000,
             "type": "spell"
         },
@@ -488,7 +490,7 @@
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -575,7 +577,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment",
+            "name": "Detect Alignment (Evil Only)",
             "sort": 400000,
             "type": "spell"
         },
@@ -586,6 +588,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -638,6 +641,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -686,6 +690,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -733,6 +738,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -773,6 +779,102 @@
             "name": "Horns",
             "sort": 800000,
             "type": "melee"
+        },
+        {
+            "_id": "gUqFH9kEouWhTaTk",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "qqGsZZCFNTIdlk8l",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 1000000,
+            "type": "action"
         },
         {
             "_id": "5Em7mvb9ul24rwbD",
@@ -824,51 +926,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "34UsL9NnczdQC6vU",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Jaws only.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -912,7 +970,119 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Golden Luck",
-            "sort": 1100000,
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "svdaEp5rN3vr0zjk",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Jaws only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "qwvZRNMyaVviFlN8",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -959,9 +1129,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1003,9 +1173,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1049,7 +1219,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1084,7 +1254,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1119,7 +1289,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1154,7 +1324,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1189,7 +1359,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1224,7 +1394,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1259,7 +1429,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1294,7 +1464,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],
