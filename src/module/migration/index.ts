@@ -92,6 +92,7 @@ import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-ae
 import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
 import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
 import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
+import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-weapon-range-ability-category-group";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -188,6 +189,7 @@ export class Migrations {
         Migration688ClampSpellLevel,
         Migration689EncumberanceActiveEffects,
         Migration690InitiativeTiebreakItems,
+        Migration691WeaponRangeAbilityCategoryGroup,
     ];
 
     static get latestVersion(): number {

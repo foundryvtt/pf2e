@@ -16,6 +16,7 @@ import { Migration687FamiliarityAEsToREs } from "@module/migration/migrations/68
 import { Migration688ClampSpellLevel } from "@module/migration/migrations/688-clamp-spell-level";
 import { Migration689EncumberanceActiveEffects } from "@module/migration/migrations/689-encumberance-aes";
 import { Migration690InitiativeTiebreakItems } from "@module/migration/migrations/690-tiebreak-items";
+import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -28,6 +29,7 @@ const migrations: MigrationBase[] = [
     new Migration688ClampSpellLevel(),
     new Migration689EncumberanceActiveEffects(),
     new Migration690InitiativeTiebreakItems(),
+    new Migration691WeaponRangeAbilityCategoryGroup(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
