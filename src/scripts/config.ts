@@ -1510,6 +1510,7 @@ export const PF2ECONFIG = {
         worn: "PF2E.TraitWorn",
         wornamulet: "PF2E.TraitWornAmulet",
         "worn-and-attached-to-two-weapons": "PF2E.TraitWornAndAttachedToTwoWeapons",
+        "worn-under-armor": "PF2E.TraitWornUnderArmor",
         wornanklets: "PF2E.TraitWornAnklets",
         wornarmbands: "PF2E.TraitWornArmbands",
         wornbackpack: "PF2E.TraitWornBackpack",
