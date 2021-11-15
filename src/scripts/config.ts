@@ -485,6 +485,7 @@ const traitsDescriptions = {
     spellshot: "PF2E.TraitNoDescription",
     sweep: "PF2E.TraitDescriptionSweep",
     tethered: "PF2E.TraitDescriptionTethered",
+    thrown: "PF2E.TraitDescriptionThrown",
     "thrown-10": "PF2E.TraitDescriptionThrown",
     "thrown-15": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
@@ -1151,6 +1152,7 @@ const weaponTraits = {
     sweep: "PF2E.TraitSweep",
     teleportation: "PF2E.TraitTeleportation",
     tethered: "PF2E.TraitTethered",
+    thrown: "PF2E.TraitThrown",
     "thrown-10": "PF2E.TraitThrown10",
     "thrown-15": "PF2E.TraitThrown15",
     "thrown-20": "PF2E.TraitThrown20",
@@ -1457,8 +1459,6 @@ export const PF2ECONFIG = {
     },
 
     weaponCategories,
-    weaponTypes: weaponCategories,
-
     weaponGroups,
     meleeWeaponGroups,
     rangedWeaponGroups,
@@ -1706,26 +1706,6 @@ export const PF2ECONFIG = {
         d8: "PF2E.DamageDieD8",
         d10: "PF2E.DamageDieD10",
         d12: "PF2E.DamageDieD12",
-    },
-
-    weaponRange: {
-        melee: "PF2E.WeaponRangeMelee",
-        10: "PF2E.WeaponRange10",
-        20: "PF2E.WeaponRange20",
-        30: "PF2E.WeaponRange30",
-        40: "PF2E.WeaponRange40",
-        50: "PF2E.WeaponRange50",
-        60: "PF2E.WeaponRange60",
-        70: "PF2E.WeaponRange70",
-        80: "PF2E.WeaponRange80",
-        90: "PF2E.WeaponRange90",
-        100: "PF2E.WeaponRange100",
-        120: "PF2E.WeaponRange120",
-        140: "PF2E.WeaponRange140",
-        150: "PF2E.WeaponRange150",
-        180: "PF2E.WeaponRange180",
-        240: "PF2E.WeaponRange240",
-        300: "PF2E.WeaponRange300",
     },
 
     weaponMAP: {

@@ -4,10 +4,12 @@ import { LocalizePF2e } from "@module/system/localize";
 import {
     BaseWeaponType,
     CROSSBOW_WEAPONS,
+    RANGED_WEAPON_GROUPS,
     WeaponCategory,
     WeaponData,
     WeaponGroup,
     WeaponPropertyRuneType,
+    WeaponRange,
     WeaponSource,
     WeaponTrait,
 } from "./data";
@@ -20,7 +22,6 @@ import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
-import { AbilityString } from "@actor/data";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { ConsumablePF2e } from "@item";
 
@@ -36,15 +37,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get baseType(): BaseWeaponType | null {
-        return this.data.data.baseItem ?? null;
+        return this.data.data.baseItem;
     }
 
     get group(): WeaponGroup | null {
-        return this.data.data.group.value || null;
+        return this.data.data.group;
     }
 
     get category(): WeaponCategory {
-        return this.data.data.weaponType.value;
+        return this.data.data.category;
     }
 
     get hands(): "0" | "1" | "1+" | "2" {
@@ -57,21 +58,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
-    get ability(): AbilityString {
-        return this.data.data.ability.value;
+    get range(): WeaponRange | null {
+        return this.data.data.range;
     }
 
     get isSpecific(): boolean {
         return this.data.data.specific?.value ?? false;
     }
 
-    get isRanged(): boolean {
-        const range = this.data.data.range.value.trim();
-        return !!range && Number.isInteger(Number(range)) && this.ability === "dex";
+    get isMelee(): boolean {
+        return this.range === null;
     }
 
-    get isMelee(): boolean {
-        return !this.isRanged;
+    get isRanged(): boolean {
+        return this.range !== null;
     }
 
     get ammo(): ConsumablePF2e | null {
@@ -87,7 +87,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
-                [`${this.ability}-based`]: true,
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 melee: this.isMelee,
                 ranged: this.isRanged,
@@ -104,7 +103,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.data.weaponType.value ||= "simple";
+
+        this.data.data.category ||= "simple";
+        this.data.data.group ||= null;
+        this.data.data.baseItem ||= null;
         this.data.data.potencyRune.value ||= null;
         this.data.data.strikingRune.value ||= null;
         this.data.data.propertyRune1.value ||= null;
@@ -113,11 +115,26 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.data.propertyRune4.value ||= null;
         this.data.data.traits.otherTags = [];
 
-        // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-        const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
-        if (crossbowWeapons.has(this.baseType ?? "")) {
-            this.data.data.traits.otherTags.push("crossbow");
+        // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
+        const traitSet = this.traits;
+        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const mandatoryRanged = rangedWeaponGroups.includes(this.group ?? "") || traitSet.has("thrown");
+        if (mandatoryRanged) {
+            this.data.data.range ??= 10;
+            if (traitSet.has("thrown")) this.data.data.reload.value = "-";
+            if (traitSet.has("combination")) this.data.data.group = "firearm";
+
+            // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
+            const crossbowWeapons: Set<string> = CROSSBOW_WEAPONS;
+            if (this.group === "bow" && crossbowWeapons.has(this.baseType ?? "")) {
+                this.data.data.traits.otherTags.push("crossbow");
+            }
         }
+
+        // Force a weapon to be melee if it has a thrown-N trait
+        const mandatoryMelee = this.data.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
+        if (mandatoryMelee) this.data.data.range = null;
+
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.data.flags.pf2e.comboMeleeUsage ??= false;
         // Ensure presence of traits array on melee usage if not have been added yet
@@ -303,10 +320,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const overlay: DeepPartial<WeaponSource> = {
             data: {
-                ability: { value: "str" },
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
-                group: { value: meleeUsage.group },
-                range: { value: "melee" },
+                group: meleeUsage.group,
+                range: null,
                 traits: { value: meleeUsage.traits.concat("combination") },
             },
             flags: {
@@ -324,11 +340,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const damageRoll = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
-            const modifier = ((): number => {
-                const weaponAbility = this.data.data.ability.value;
-                const abilityMod = this.actor.data.data.abilities[weaponAbility].mod;
-                return abilityMod;
-            })();
+            const ability = this.range ? "dex" : "str";
+            const modifier = this.actor.data.data.abilities[ability].mod;
             const actorLevel = this.actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
                 Math.abs(dice - Math.round(actorLevel / 4)) < Math.abs(closest - Math.round(actorLevel / 4))
