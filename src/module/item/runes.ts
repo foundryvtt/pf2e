@@ -6,7 +6,7 @@ import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponTrait } from "./weapon/data";
+import type { OtherWeaponTag, StrikingRuneType, WeaponSystemData, WeaponTrait } from "./weapon/data";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     let slots = 0;
@@ -37,8 +37,8 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
     return runes;
 }
 
-export function getAttackBonus(itemData: WeaponData["data"]): number {
-    if (itemData.group?.value === "bomb") {
+export function getAttackBonus(itemData: WeaponSystemData): number {
+    if (itemData.group === "bomb") {
         return toNumber(itemData?.bonus?.value) ?? 0;
     }
     return itemData.potencyRune.value ?? 0;

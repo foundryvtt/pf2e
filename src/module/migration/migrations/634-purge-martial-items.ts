@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { WeaponSource } from "@item/data";
 import { MartialSource } from "@item/deprecated";
+import { WeaponCategory, WeaponSystemSource } from "@item/weapon/data";
 import { MigrationBase } from "../base";
 
 export class Migration634PurgeMartialItems extends MigrationBase {
@@ -12,14 +13,22 @@ export class Migration634PurgeMartialItems extends MigrationBase {
         );
         const martialIds = martialItems.map((itemData) => itemData._id);
         const martialItemWeapons = actorData.items.filter(
-            (itemData): itemData is WeaponSource =>
-                itemData.type === "weapon" && martialIds.includes(itemData.data.weaponType.value ?? "simple")
+            (itemData): itemData is WeaponSource & { data: MaybeOldWeaponSource } => {
+                if (itemData.type !== "weapon") return false;
+                const systemData: MaybeOldWeaponSource = itemData.data;
+                return martialIds.includes(systemData.weaponType?.value ?? "");
+            }
         );
 
         for (const weaponData of martialItemWeapons) {
-            weaponData.data.weaponType.value = "simple";
+            weaponData.data.category = "simple";
         }
 
         actorData.items = actorData.items.filter((itemData) => itemData.type !== "martial");
     }
 }
+
+type MaybeOldWeaponSource = WeaponSystemSource & {
+    weaponType?: { value: WeaponCategory };
+    category: WeaponCategory;
+};
