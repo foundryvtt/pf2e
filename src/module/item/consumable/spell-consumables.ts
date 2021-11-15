@@ -1,6 +1,4 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import type { CharacterPF2e, NPCPF2e } from "@actor/index";
-import { ConsumableData, ConsumableSource, SpellSource, TrickMagicItemCastData } from "@item/data";
+import { ConsumableData, ConsumableSource, SpellSource } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
 import { calculateDC, DCOptions } from "@module/dc";
 import { ErrorPF2e } from "@util";
@@ -96,31 +94,4 @@ export function calculateTrickMagicItemCheckDC(
         .map((tradition) => [TraditionSkills[tradition], saveDC]);
 
     return Object.fromEntries(skills);
-}
-
-export function calculateTrickMagicItemCastData(
-    actor: CharacterPF2e | NPCPF2e,
-    skill: SkillAbbreviation
-): TrickMagicItemCastData {
-    const { abilities } = actor.data.data;
-    const highestMentalStat = (["int", "wis", "cha"] as const)
-        .map((ability) => {
-            return { stat: ability, mod: abilities[ability].mod };
-        })
-        .reduce((highest, next) => {
-            if (next.mod > highest.mod) {
-                return next;
-            } else {
-                return highest;
-            }
-        }).stat;
-    const spellDC =
-        actor.data.data.details.level.value +
-        Math.max(0, actor.data.data.skills[skill].rank - 2) * 2 +
-        abilities[highestMentalStat].mod;
-    return {
-        ability: highestMentalStat,
-        data: { spelldc: { value: spellDC, dc: spellDC + 10 } },
-        _id: "",
-    };
 }
