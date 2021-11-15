@@ -282,7 +282,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
 	*  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.
 	*  Pathfinder Bestiary 3 Bonus Monster © 2021, Paizo Inc.; Chris Sims; Illustrator: Leonardo Borazio.
-	*  Pathfinder Encounter: Phinelli’s Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
+	*  Pathfinder Encounter: Phinelli's Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
 	*  No-Prep Character: Lisavet © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
 	*  No-Prep Character: Urok © 2021, Paizo Inc.; Author: Luis Loza; Illustrator: Gin Skalauskas.
 	*  No-Prep Character: Chea © 2021, Paizo Inc.; Authors: Eleanor Ferron, Luis Loza; Illustrator: Rashad Pozdnyakov.
@@ -295,7 +295,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Redpitch Alchemy © 2020, Paizo Inc.; Author: Ron Lundeen.
 	*  Pathfinder Encounter: We Be Zombies! © 2020, Paizo Inc.; Author: Ron Lundeen.
 	*  No-Prep Character: Morlibint © 2020, Paizo Inc.; Author Unknown.
-	*  No-Prep Character: Pr’rall © 2020, Paizo Inc.; Author: Mark Moreland, Illustrator: Marius Bota.
+	*  No-Prep Character: Pr'rall © 2020, Paizo Inc.; Author: Mark Moreland, Illustrator: Marius Bota.
 	*  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
 	*  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
 	*  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
