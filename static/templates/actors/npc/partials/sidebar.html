@@ -165,7 +165,8 @@
         <input type="text" name="data.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
     </div>
 </div>
-<div class="speed side-bar-section">
+<!-- MOVEMENT -->
+<div class="speed-section side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
             <i class="fas fa-shoe-prints"></i>
@@ -177,9 +178,10 @@
             </div>
         {{/if}}
     </div>
-    <div class="speed-section side-bar-section-content">
-        <div class="land-speed">
-            <input type="text" name="data.attributes.speed.value" value="{{data.attributes.speed.value}}" placeholder="0"/>
+    <div class="side-bar-section-content">
+        <div class="land-speed flexrow">
+            <input type="text" class="land-speed-value" name="data.attributes.speed.value" value="{{data.attributes.speed.value}}" placeholder="0"/>
+            <input type="text" class="speed-details" name="data.attributes.speed.details" value="{{data.attributes.speed.details}}"  placeholder="{{localize "PF2E.NPC.SpeedExtraInfoLabelPlaceholder"}}" />
         </div>
         <div class="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
