@@ -862,7 +862,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
-        const weapons = [itemTypes.weapon, strikes].flat();
+        const weapons = [itemTypes.weapon, strikes].flat().filter((weapon) => weapon.quantity > 0);
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, synthetics, ammos })
         );
