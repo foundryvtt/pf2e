@@ -1,10 +1,10 @@
 import { LocalizePF2e } from "@module/system/localize";
 import { ConsumableData, ConsumableType } from "./data";
-import { ItemPF2e, PhysicalItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { TrickMagicItemCastData } from "@item/data";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ErrorPF2e } from "@util";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
     static override get schema(): typeof ConsumableData {
@@ -42,7 +42,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             spellData.data.heightenedLevel = { value: heightenedLevel };
         }
 
-        return new SpellPF2e(spellData, { parent: this.actor }) as Embedded<SpellPF2e>;
+        return new SpellPF2e(spellData, { parent: this.actor, fromConsumable: true }) as Embedded<SpellPF2e>;
     }
 
     override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
@@ -161,71 +161,38 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
     }
 
-    async castEmbeddedSpell(
-        this: Embedded<ConsumablePF2e>,
-        trickMagicItemData?: TrickMagicItemCastData
-    ): Promise<void> {
+    async castEmbeddedSpell(this: Embedded<ConsumablePF2e>, trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
         const spell = this.embeddedSpell;
         if (!spell) return;
         const actor = this.actor;
+
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        const realEntries = actor.spellcasting.spellcastingFeatures
-            .filter((entry) => spell.traditions.has(entry.tradition))
-            .map((entry) => entry.data);
-        const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
-        if (spellcastingEntries.length > 0) {
+        const entry = (() => {
+            if (trickMagicItemData) return trickMagicItemData;
+
+            const spellcastingEntries = actor.spellcasting.spellcastingFeatures.filter((entry) =>
+                spell.traditions.has(entry.tradition)
+            );
+
             let maxBonus = 0;
             let bestEntry = 0;
             for (let i = 0; i < spellcastingEntries.length; i++) {
-                if (spellcastingEntries[i].data.spelldc.value > maxBonus) {
-                    maxBonus = spellcastingEntries[i].data.spelldc.value;
+                if (spellcastingEntries[i].data.data.spelldc.value > maxBonus) {
+                    maxBonus = spellcastingEntries[i].data.data.spelldc.value;
                     bestEntry = i;
                 }
             }
+
+            return spellcastingEntries[bestEntry];
+        })();
+
+        if (entry) {
             const systemData = spell.data.data;
-            systemData.trickMagicItemData = trickMagicItemData;
-            systemData.location.value = spellcastingEntries[bestEntry]._id;
+            if (entry instanceof SpellcastingEntryPF2e) {
+                systemData.location.value = entry.id;
+            }
 
-            const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-            systemData.save.dc = isSave
-                ? spellcastingEntries[bestEntry].data.spelldc.dc
-                : spellcastingEntries[bestEntry].data.spelldc.value;
-
-            const template = `systems/pf2e/templates/chat/spell-card.html`;
-            const token = actor.token;
-
-            // Basic chat message data
-            const templateData = {
-                actor: actor,
-                tokenId: token?.scene ? `${token.scene.id}.${token.id}` : null,
-                item: spell,
-                data: mergeObject(spell.getChatData(), { item: JSON.stringify(spell.toObject(false)) }),
-            };
-
-            const chatData: PreCreate<foundry.data.ChatMessageSource> = {
-                speaker: {
-                    actor: actor.id,
-                    token: actor.getActiveTokens()[0]?.id,
-                },
-                flags: {
-                    core: {
-                        canPopout: true,
-                    },
-                },
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            };
-
-            // Toggle default roll mode
-            const rollMode = game.settings.get("core", "rollMode");
-            if (["gmroll", "blindroll"].includes(rollMode))
-                chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
-            if (rollMode === "blindroll") chatData.blind = true;
-
-            // Render the template
-            chatData.content = await renderTemplate(template, templateData);
-
-            // Create the chat message
-            await ChatMessagePF2e.create(chatData, { renderSheet: false });
+            entry.cast(spell, { consume: false });
         }
     }
 }
