@@ -1186,6 +1186,7 @@ const weaponTraits = {
     "reload-0": "PF2E.TraitReload0",
     "reload-1": "PF2E.TraitReload1",
     "reload-2": "PF2E.TraitReload2",
+    "reload-3": "PF2E.TraitReload3",
 };
 
 const otherWeaponTags = {
