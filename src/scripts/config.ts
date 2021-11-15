@@ -1059,6 +1059,12 @@ const rangedWeaponGroups: Record<RangedWeaponGroup, string> = {
 
 const weaponGroups: Record<WeaponGroup, string> = { ...meleeWeaponGroups, ...rangedWeaponGroups };
 
+const rangeTraits = RANGE_TRAITS.reduce(
+    (descriptions, trait) =>
+        mergeObject(descriptions, { [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
+    {} as Record<typeof RANGE_TRAITS[number], string>
+);
+
 const weaponTraits = {
     ...alignmentTraits,
     ...ancestryTraits,
@@ -1066,6 +1072,7 @@ const weaponTraits = {
     ...energyDamageTypes,
     ...magicSchools,
     ...magicTraditions,
+    ...rangeTraits,
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
@@ -1185,12 +1192,6 @@ const otherWeaponTags = {
     crossbow: "PF2E.Weapon.Base.crossbow",
     "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
-
-const rangeTraits = RANGE_TRAITS.reduce(
-    (descriptions, trait) =>
-        mergeObject(descriptions, { [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
-    {} as Record<typeof RANGE_TRAITS[number], string>
-);
 
 const npcAttackTraits = {
     ...weaponTraits,
