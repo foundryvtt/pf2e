@@ -91,6 +91,7 @@ import { Migration686HeroPointsToResources } from "./migrations/686-hero-points-
 import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-aes-to-res";
 import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
 import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
+import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -186,6 +187,7 @@ export class Migrations {
         Migration687FamiliarityAEsToREs,
         Migration688ClampSpellLevel,
         Migration689EncumberanceActiveEffects,
+        Migration690InitiativeTiebreakItems,
     ];
 
     static get latestVersion(): number {
