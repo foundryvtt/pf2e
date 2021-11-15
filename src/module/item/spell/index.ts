@@ -90,7 +90,7 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
-        super(data, context);
+        super(data, mergeObject(context, { pf2e: { ready: true } }));
         this.isFromConsumable = context.fromConsumable ?? false;
     }
 
