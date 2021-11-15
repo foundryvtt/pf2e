@@ -943,6 +943,7 @@ const consumableTraits = {
     olfactory: "PF2E.TraitOlfactory",
     oil: "PF2E.TraitOil",
     polymorph: "PF2E.TraitPolymorph",
+    poison: "PF2E.TraitPoison",
     potion: "PF2E.TraitPotion",
     precious: "PF2E.TraitPrecious",
     scroll: "PF2E.TraitScroll",
