@@ -1176,6 +1176,9 @@ const weaponTraits = {
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+    "reload-0": "PF2E.TraitReload0",
+    "reload-1": "PF2E.TraitReload1",
+    "reload-2": "PF2E.TraitReload2",
 };
 
 const otherWeaponTags = {

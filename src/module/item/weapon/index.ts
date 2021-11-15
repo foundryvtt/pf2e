@@ -155,6 +155,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
         };
+
+        if (this.isRanged) {
+            systemData.traits.value.push(`range-increment-${this.data.data.range}` as WeaponTrait);
+            if (this.data.data.reload.value === "-") return;
+
+            if (Number.isInteger(this.data.data.reload.value)) {
+                systemData.traits.value.push(`reload-${this.data.data.reload.value}` as WeaponTrait);
+            } else {
+                systemData.traits.value.push(`reload-0` as WeaponTrait);
+            }
+        }
     }
 
     processMaterialAndRunes(): void {
