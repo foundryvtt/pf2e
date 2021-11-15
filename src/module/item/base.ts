@@ -23,7 +23,7 @@ import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
         ready?: boolean;
     };
@@ -42,11 +42,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             super(data, context);
             this.rules = [];
             this.initialized = true;
-        } else {
-            if (data.type) {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
-            }
+        } else if (data.type) {
+            const ready = { pf2e: { ready: true } };
+            return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
         }
     }
 

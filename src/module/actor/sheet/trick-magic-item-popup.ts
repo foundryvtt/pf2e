@@ -1,15 +1,10 @@
-import {
-    calculateTrickMagicItemCastData,
-    calculateTrickMagicItemCheckDC,
-    TrickMagicItemDifficultyData,
-} from "@item/consumable/spell-consumables";
+import { calculateTrickMagicItemCheckDC, TrickMagicItemDifficultyData } from "@item/consumable/spell-consumables";
 import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
 import { SKILL_DICTIONARY } from "@actor/data/values";
-
-type TrickMagicItemSkill = TrickMagicItemPopup["SKILLS"][number];
+import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
@@ -20,9 +15,6 @@ export class TrickMagicItemPopup {
 
     /** The skill DC of the action's check */
     readonly checkDC: TrickMagicItemDifficultyData;
-
-    /** Trick Magic Item skills */
-    private readonly SKILLS = ["arc", "nat", "occ", "rel"] as const;
 
     private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
@@ -43,7 +35,7 @@ export class TrickMagicItemPopup {
     }
 
     private async initialize() {
-        const skills = this.SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
+        const skills = TRICK_MAGIC_SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
             value,
             label: game.i18n.localize(`PF2E.Skill${value.capitalize()}`),
         }));
@@ -73,7 +65,7 @@ export class TrickMagicItemPopup {
             dc: { value: this.checkDC[skill] ?? 0 },
         });
 
-        const result = calculateTrickMagicItemCastData(this.actor, skill);
-        this.item.castEmbeddedSpell(result);
+        const trick = new TrickMagicItemEntry(this.actor, skill);
+        this.item.castEmbeddedSpell(trick);
     }
 }
