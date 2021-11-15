@@ -14,6 +14,11 @@ export class HazardPF2e extends ActorPF2e {
     get isComplex(): boolean {
         return this.data.data.details.isComplex;
     }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.data.attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
+    }
 }
 
 export interface HazardPF2e {
