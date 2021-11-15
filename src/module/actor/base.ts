@@ -1,9 +1,9 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
-import { ConditionData, WeaponData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
@@ -286,23 +286,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    getStrikeDescription(weaponData: WeaponData) {
+    getStrikeDescription(weapon: WeaponPF2e) {
         const flavor = {
             description: "PF2E.Strike.Default.Description",
             criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
             success: "PF2E.Strike.Default.Success",
         };
-        const traits = weaponData.data.traits.value;
-        if (traits.includes("unarmed")) {
+        const traits = weapon.traits;
+        if (traits.has("unarmed")) {
             flavor.description = "PF2E.Strike.Unarmed.Description";
             flavor.success = "PF2E.Strike.Unarmed.Success";
-        } else if (traits.find((trait) => trait.startsWith("thrown"))) {
+        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
             flavor.description = "PF2E.Strike.Combined.Description";
             flavor.success = "PF2E.Strike.Combined.Success";
-        } else if (weaponData.data.range?.value === "melee") {
+        } else if (weapon.isMelee) {
             flavor.description = "PF2E.Strike.Melee.Description";
             flavor.success = "PF2E.Strike.Melee.Success";
-        } else if ((parseInt(weaponData.data.range?.value, 10) || 0) > 0) {
+        } else {
             flavor.description = "PF2E.Strike.Ranged.Description";
             flavor.success = "PF2E.Strike.Ranged.Success";
         }

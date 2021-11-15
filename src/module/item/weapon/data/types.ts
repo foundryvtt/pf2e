@@ -1,4 +1,3 @@
-import { AbilityString } from "@actor/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
@@ -10,9 +9,11 @@ import {
 import { DamageType } from "@module/damage-calculation";
 import type { LocalizePF2e } from "@system/localize";
 import { OneToFour, ZeroToThree } from "@module/data";
-import type { WeaponPF2e } from ".";
+import type { WeaponPF2e } from "..";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { ItemFlagsPF2e } from "@item/data/base";
+import { MELEE_WEAPON_GROUPS, RANGED_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_RANGES } from "./values";
+import { DamageDieSize } from "@system/damage/damage";
 
 export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
     flags: DeepPartial<WeaponFlags>;
@@ -50,7 +51,7 @@ export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.
 export interface WeaponDamage {
     value: string;
     dice: number;
-    die: string;
+    die: DamageDieSize;
     damageType: DamageType;
     modifier: number;
 }
@@ -86,12 +87,8 @@ export interface WeaponPropertyRuneSlot {
 
 export interface WeaponSystemSource extends MagicItemSystemData {
     traits: WeaponSourceTraits;
-    weaponType: {
-        value: WeaponCategory;
-    };
-    group: {
-        value: WeaponGroup | null;
-    };
+    category: WeaponCategory;
+    group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
     hands: {
         value: boolean;
@@ -106,14 +103,9 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     splashDamage?: {
         value: string;
     };
-    range: {
-        value: string;
-    };
+    range: WeaponRange | null;
     reload: {
         value: string;
-    };
-    ability: {
-        value: AbilityString;
     };
     usage: {
         value: "worn-gloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
@@ -153,6 +145,8 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     selectedAmmoId?: string;
 }
 
+export type WeaponRange = typeof WEAPON_RANGES[number];
+
 export interface WeaponSystemData extends WeaponSystemSource {
     traits: WeaponTraits;
     runes: {
@@ -163,40 +157,9 @@ export interface WeaponSystemData extends WeaponSystemSource {
 }
 
 export interface ComboWeaponMeleeUsage {
-    damage: { type: DamageType; die: string };
+    damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
     traits: WeaponTrait[];
 }
 
 export type OtherWeaponTag = "crossbow" | "ghost-touch";
-
-export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
-
-export const MELEE_WEAPON_GROUPS = [
-    "axe",
-    "brawling",
-    "club",
-    "flail",
-    "hammer",
-    "knife",
-    "pick",
-    "polearm",
-    "shield",
-    "spear",
-    "sword",
-] as const;
-
-export const RANGED_WEAPON_GROUPS = ["bomb", "bow", "dart", "firearm", "sling"] as const;
-
-export const WEAPON_GROUPS = [...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const;
-
-// Crossbow isn't a weapon group, so we need to assign it when one of these is a base weapon
-export const CROSSBOW_WEAPONS = new Set([
-    "alchemical-crossbow",
-    "crossbow",
-    "hand-crossbow",
-    "heavy-crossbow",
-    "repeating-crossbow",
-    "repeating-hand-crossbow",
-    "repeating-heavy-crossbow",
-] as const);

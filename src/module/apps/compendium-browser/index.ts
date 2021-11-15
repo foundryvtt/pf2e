@@ -476,7 +476,7 @@ export class CompendiumBrowser extends Application {
         const kitFields = ["img", "data.price.value", "data.traits"];
         const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
         const armorFields = [...baseFields, "data.armorType.value", "data.group.value"];
-        const weaponFields = [...baseFields, "data.weaponType.value", "data.group.value"];
+        const weaponFields = [...baseFields, "data.category", "data.group"];
         const consumableFields = [...baseFields, "data.consumableType.value"];
         const indexFields = [...new Set([...armorFields, ...weaponFields, ...consumableFields])];
         const sources: Set<string> = new Set();
@@ -519,7 +519,7 @@ export class CompendiumBrowser extends Application {
                         "price",
                         "source",
                         "armorType",
-                        "weaponType",
+                        "category",
                         "consumableType",
                         "group",
                     ];
@@ -549,7 +549,7 @@ export class CompendiumBrowser extends Application {
             },
             rarities: CONFIG.PF2E.rarityTraits,
             consumableTypes: CONFIG.PF2E.consumableTypes,
-            weaponTypes: CONFIG.PF2E.weaponTypes,
+            weaponCategories: CONFIG.PF2E.weaponCategories,
             weaponGroups: CONFIG.PF2E.weaponGroups,
             source: [...sources].sort(),
         };

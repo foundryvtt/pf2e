@@ -307,12 +307,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             img: strikeData.img,
-            ability: strikeData.ability,
             category: strikeData.category,
             group: strikeData.group,
+            baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: "melee",
+            range: null,
             traits: strikeData.traits,
         }));
 

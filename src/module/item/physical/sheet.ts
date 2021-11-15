@@ -79,6 +79,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             "data.baseItem",
             "data.preciousMaterial.value",
             "data.preciousMaterialGrade.value",
+            "data.group",
             "data.group.value",
         ];
         for (const path of propertyPaths) {

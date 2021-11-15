@@ -832,12 +832,11 @@ export class CharacterPF2e extends CreaturePF2e {
                 data: {
                     slug: "unarmed",
                     baseItem: null,
-                    ability: { value: "str" },
-                    weaponType: { value: "unarmed" },
+                    category: "unarmed",
                     bonus: { value: 0 },
                     damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
-                    group: { value: "brawling" },
-                    range: { value: "melee" },
+                    group: "brawling",
+                    range: null,
                     strikingRune: { value: null },
                     traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     equipped: {
@@ -1001,17 +1000,13 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = options.ammos ?? [];
 
         // Determine the base ability score for this attack.
-        let ability: AbilityString;
-        {
-            ability = weapon.ability || "str"; // default to Str
-            let score = systemData.abilities[ability]?.value ?? 0;
-            // naive check for finesse, which should later be changed to take conditions like
-            // enfeebled and clumsy into consideration
-            if (weaponTraits.has("finesse") && systemData.abilities.dex.mod > systemData.abilities[ability].mod) {
-                ability = "dex";
-                score = systemData.abilities.dex.value;
-            }
-            modifiers.push(AbilityModifier.fromScore(ability, score));
+        let ability: "str" | "dex" = weapon.isMelee ? "str" : "dex";
+        const score = systemData.abilities[ability].value;
+        modifiers.push(AbilityModifier.fromScore(ability, score));
+        if (weapon.isMelee && weaponTraits.has("finesse")) {
+            ability = "dex";
+            const dexScore = systemData.abilities.dex.value;
+            modifiers.push(AbilityModifier.fromScore("dex", dexScore));
         }
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
@@ -1051,13 +1046,10 @@ export class CharacterPF2e extends CreaturePF2e {
             selectors.push(`${weapon.group}-weapon-group-attack`);
         }
 
-        const melee =
-            ["melee", "reach", ""].includes(itemData.data.range?.value?.trim()) ||
-            [...weaponTraits].some((thrown) => thrown.startsWith("thrown"));
         const defaultOptions = this.getRollOptions(["all", "attack-roll"])
             .concat(...weaponTraits) // always add weapon traits as options
             .concat([...weaponTraits].map((trait) => `trait:${trait}`)) // new standard form
-            .concat(melee ? "melee" : "ranged")
+            .concat(weapon.isMelee ? "melee" : "ranged")
             .concat(`${ability}-attack`);
         ensureProficiencyOption(defaultOptions, proficiencyRank);
         ensureWeaponCategory(defaultOptions, weapon.category);
@@ -1132,7 +1124,7 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
-        const flavor = this.getStrikeDescription(itemData);
+        const flavor = this.getStrikeDescription(weapon);
         const strikeStat = new StatisticModifier(weapon.name, modifiers);
         const meleeUsage = weapon.toMeleeUsage();
 

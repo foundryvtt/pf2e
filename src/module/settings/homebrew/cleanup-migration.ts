@@ -97,15 +97,17 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: strin
                 }
                 case "weaponCategories": {
                     if (itemData.type === "weapon") {
-                        const category = itemData.data.weaponType;
-                        category.value = deletions.includes(category.value ?? "") ? "simple" : category.value;
+                        const systemData: { category: string } = itemData.data;
+                        systemData.category = deletions.includes(systemData.category ?? "")
+                            ? "simple"
+                            : systemData.category;
                     }
                     break;
                 }
                 case "weaponGroups": {
                     if (itemData.type === "weapon") {
-                        const group: { value: string | null } = itemData.data.group;
-                        group.value = deletions.includes(group.value ?? "") ? null : group.value;
+                        const systemData: { group: string | null } = itemData.data;
+                        systemData.group = deletions.includes(systemData.group ?? "") ? null : systemData.group;
                     }
                     break;
                 }
