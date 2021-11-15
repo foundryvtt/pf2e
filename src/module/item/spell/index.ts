@@ -1,5 +1,5 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e } from "@item/base";
+import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
@@ -8,11 +8,24 @@ import { ModifierPF2e } from "@module/modifiers";
 import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
+import { ItemSourcePF2e } from "@item/data";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+
+interface SpellConstructionContext extends ItemConstructionContextPF2e {
+    fromConsumable?: boolean;
+}
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
     }
+
+    readonly isFromConsumable: boolean;
+
+    /**
+     * Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later.
+     */
+    trickMagicEntry?: TrickMagicItemEntry;
 
     get level(): OneToTen {
         return this.data.data.level.value;
@@ -43,20 +56,6 @@ export class SpellPF2e extends ItemPF2e {
      */
     get heightenedLevel() {
         return this.data.data.heightenedLevel?.value ?? this.level;
-    }
-
-    private computeCastLevel(castLevel?: number) {
-        const isAutoScaling = this.isCantrip || this.isFocusSpell;
-        if (isAutoScaling && this.actor) {
-            return (
-                this.data.data.autoHeightenLevel.value ||
-                this.spellcasting?.data.data.autoHeightenLevel.value ||
-                Math.ceil(this.actor.level / 2)
-            );
-        }
-
-        // Spells cannot go lower than base level
-        return Math.max(this.level, castLevel ?? this.heightenedLevel);
     }
 
     get isCantrip(): boolean {
@@ -90,13 +89,32 @@ export class SpellPF2e extends ItemPF2e {
         return this.isCantrip;
     }
 
+    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
+        super(data, mergeObject(context, { pf2e: { ready: true } }));
+        this.isFromConsumable = context.fromConsumable ?? false;
+    }
+
+    private computeCastLevel(castLevel?: number) {
+        const isAutoScaling = this.isCantrip || this.isFocusSpell;
+        if (isAutoScaling && this.actor) {
+            return (
+                this.data.data.autoHeightenLevel.value ||
+                this.spellcasting?.data.data.autoHeightenLevel.value ||
+                Math.ceil(this.actor.level / 2)
+            );
+        }
+
+        // Spells cannot go lower than base level
+        return Math.max(this.level, castLevel ?? this.heightenedLevel);
+    }
+
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
         const rollData = super.getRollData();
         if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
             const { abilities } = this.actor.data.data;
-            if (!spellcasting?.data && this.data.data.trickMagicItemData) {
-                rollData["mod"] = abilities[this.data.data.trickMagicItemData.ability].mod;
+            if (!spellcasting?.data && this.trickMagicEntry) {
+                rollData["mod"] = abilities[this.trickMagicEntry.ability].mod;
             } else {
                 rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
             }
@@ -206,7 +224,7 @@ export class SpellPF2e extends ItemPF2e {
         const systemData = this.data.data;
         const description = TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
 
-        const trickData = this.data.data.trickMagicItemData;
+        const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
         if (!spellcasting && !trickData) {
             console.warn(
@@ -215,9 +233,9 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const statistic = spellcasting?.statistic;
-        const spellDC = trickData ? trickData.data.spelldc.dc : statistic?.dc({ options: [...this.traits] }).value;
-        const spellAttack = trickData ? trickData.data.spelldc.value : statistic?.check.value;
+        const statistic = trickData?.statistic || spellcasting?.statistic;
+        const spellDC = statistic?.dc({ options: [...this.traits] }).value;
+        const spellAttack = statistic?.check.value;
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -269,6 +287,10 @@ export class SpellPF2e extends ItemPF2e {
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
+        // Embedded item string for consumable fetching.
+        // This needs to be refactored in the future so that injecting DOM strings isn't necessary
+        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
+
         return {
             ...systemData,
             description: { value: description },
@@ -285,6 +307,7 @@ export class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
+            item,
         };
     }
 
@@ -293,48 +316,15 @@ export class SpellPF2e extends ItemPF2e {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
-        const itemData = this.data.toObject(false);
-
         // Prepare roll data
-        const trickMagicItemData = itemData.data.trickMagicItemData;
-        const rollData = deepClone(this.actor.data.data);
+        const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
+        const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (trickMagicItemData) {
-            const spellAttack = trickMagicItemData.data.spelldc.value;
-            const parts = [Number(spellAttack) || 0];
-            const title = `${this.name} - Spell Attack Roll`;
-
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === "elite")) {
-                parts.push(2);
-            } else if (traits.some((trait) => trait === "weak")) {
-                parts.push(-2);
-            }
-
-            if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty as TwoToThree}` as const]);
-            }
-
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                item: this,
-                parts,
-                data: rollData,
-                rollType: "attack-roll",
-                title,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                dialogOptions: {
-                    width: 400,
-                    top: event.clientY - 80,
-                    left: window.innerWidth - 710,
-                },
-            });
-        } else if (spellcastingEntry) {
+        if (statistic) {
             const options = this.actor
                 .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
                 .concat(...this.traits);
@@ -344,7 +334,8 @@ export class SpellPF2e extends ItemPF2e {
                     new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
                 );
             }
-            spellcastingEntry.statistic.check.roll({ event, item: this, options, modifiers });
+
+            statistic.check.roll({ event, item: this, options, modifiers });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
