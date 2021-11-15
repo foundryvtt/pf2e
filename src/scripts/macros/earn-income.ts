@@ -80,7 +80,7 @@ export interface PerDayEarnIncomeResult {
 export interface EarnIncomeOptions {
     // https://2e.aonprd.com/Feats.aspx?ID=778
     // When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure.
-    // If you’re an expert in Lore, you gain twice as much income from a failed check to Earn Income,
+    // If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income,
     // unless it was originally a critical failure.
     useLoreAsExperiencedProfessional: boolean;
 }
