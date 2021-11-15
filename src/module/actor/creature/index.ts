@@ -165,6 +165,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
         attributes.hardness ??= { value: 0 };
+        if ("initiative" in attributes) {
+            attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
+        }
 
         // Bless raw custom modifiers as `ModifierPF2e`s
         const customModifiers = (this.data.data.customModifiers ??= {});
@@ -228,6 +231,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
             ability: initSkill,
             label,
+            tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
             roll: async (args: RollParameters): Promise<void> => {
                 const options = args.options ?? [];
                 // Push skill name to options if not already there

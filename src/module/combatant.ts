@@ -38,11 +38,6 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
 
         const parts = ["1d20", bonus || 0];
 
-        // NPC's are always first in PF2e rules
-        if (!actor.hasPlayerOwner) {
-            parts.push(0.5);
-        }
-
         return parts.join("+");
     }
 }

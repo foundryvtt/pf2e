@@ -13,12 +13,13 @@ import {
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledValue, ValuesList, ZeroToThree } from "@module/data";
+import { LabeledValue, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
+import { RollParameters } from "@system/rolls";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -143,7 +144,15 @@ export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
-export type CreatureInitiative = InitiativeData & CheckModifier;
+export type CreatureInitiative = InitiativeData &
+    CheckModifier & {
+        roll: (parameters: RollParameters) => Promise<void>;
+        /**
+         * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
+         * constitutes a higher priority.
+         */
+        tiebreakPriority: ZeroToTwo;
+    };
 
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 

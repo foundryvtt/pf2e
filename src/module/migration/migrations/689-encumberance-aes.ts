@@ -3,7 +3,7 @@ import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
-/** Don't store the max value of the focus pool */
+/** Add AE-likes to set encumbrance "bonuses" */
 export class Migration689EncumberanceActiveEffects extends MigrationBase {
     static override version = 0.689;
 
