@@ -256,7 +256,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 if (!combatant) return;
 
                 CheckPF2e.roll(
-                    new CheckModifier(label, systemData.attributes.initiative),
+                    new CheckModifier(label, systemData.attributes.initiative, args.modifiers),
                     { actor: this, type: "initiative", options, notes, dc: args.dc },
                     args.event,
                     (roll) => {
