@@ -26,9 +26,10 @@ import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
-import { craftItem } from "@module/crafting/helpers";
+import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -759,6 +760,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (!formula) return;
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
+                const itemId = itemUuid?.split(".").pop() ?? "";
+                if (isSpellConsumable(itemId)) {
+                    craftSpellConsumable(formula.item, itemQuantity, this.actor);
+                    return;
+                }
                 craftItem(formula.item, itemQuantity, this.actor);
                 return;
             }
