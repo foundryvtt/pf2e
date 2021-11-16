@@ -39,29 +39,27 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
         ["ubiquitous-snares", fromUuid("Compendium.pf2e.feats-srd.bX2WI5k0afqPpCfm")],
     ]);
 
-    private replaceItem({ items, type, slug, replacement }: ReplaceItemArgs): void {
+    private replaceItem({ items, current, replacement }: ReplaceItemArgs): void {
         if (!(replacement instanceof ItemPF2e)) throw ErrorPF2e("Unexpected error retrieving compendium item");
-        const current = items.find(
-            (itemSource) => itemSource.type === type && itemSource.data.slug?.replace(/'/g, "") === slug
-        );
-        if (current) {
-            const newSource = replacement.toObject();
-            if (current.type === "feat" && newSource.type === "feat") {
-                newSource.data.location = current.data.location;
-            }
-            items.splice(items.indexOf(current), 1, newSource);
+        const newSource = replacement.toObject();
+        if (current.type === "feat" && newSource.type === "feat") {
+            newSource.data.location = current.data.location;
         }
+        items.splice(items.indexOf(current), 1, newSource);
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type === "character") {
             this.slugToPromise.forEach(async (promise, slug) => {
-                this.replaceItem({
-                    items: actorSource.items,
-                    type: "feat",
-                    slug: slug,
-                    replacement: await promise,
-                });
+                const current = actorSource.items.find(
+                    (itemSource) => itemSource.type === "feat" && itemSource.data.slug?.replace(/'/g, "") === slug
+                );
+                if (current)
+                    this.replaceItem({
+                        items: actorSource.items,
+                        current: current,
+                        replacement: await promise,
+                    });
             });
         }
     }
@@ -69,7 +67,6 @@ export class Migration692CraftingEntryFeatReplacement extends MigrationBase {
 
 interface ReplaceItemArgs {
     items: ItemSourcePF2e[];
-    type: string;
-    slug: string;
+    current: ItemSourcePF2e;
     replacement: ClientDocument | null;
 }
