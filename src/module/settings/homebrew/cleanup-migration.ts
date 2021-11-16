@@ -1,5 +1,5 @@
 import { MigrationBase } from "@module/migration/base";
-import { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
 import { ConfigPF2eHomebrewList } from "./index";
 import { objectHasKey } from "@util";
@@ -60,6 +60,17 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: strin
                         }
                     }
                     break;
+                }
+                case "weaponTraits": {
+                    const weaponsAndAttacks = actorData.items.filter((item): item is MeleeSource | WeaponSource =>
+                        ["melee", "weapon"].includes(item.type)
+                    );
+                    for (const itemSource of weaponsAndAttacks) {
+                        const traits: string[] = itemSource.data.traits.value;
+                        for (const deleted of deletions) {
+                            traits.findSplice((trait) => trait === deleted);
+                        }
+                    }
                 }
             }
         }
