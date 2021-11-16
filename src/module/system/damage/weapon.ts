@@ -137,7 +137,8 @@ export class WeaponDamagePF2e {
 
         // adapt weapon type (melee, ranged, thrown)
         if (!weapon.data.range) {
-            weapon.data.range = weapon.data.weaponType.value === "ranged" ? 10 : null;
+            weapon.data.range =
+                Number(traits.find((trait) => /^(?:range|thrown)-/.test(trait.name))?.name.replace(/\D/g, "")) || null;
         }
 
         // ensure the base damage object exists
@@ -207,8 +208,13 @@ export class WeaponDamagePF2e {
             } else {
                 weapon.data.damage.dice = dice || 0;
                 weapon.data.damage.die = die || "";
-                if (weapon.data.range.value !== "ranged" || traits.some((trait) => trait.name.startsWith("thrown"))) {
-                    modifier -= actor.data.data.abilities.str.mod;
+                const strengthMod = actor.data.data.abilities.str.mod;
+                const isMelee = weapon.data.range === null;
+                const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
+                if (strengthModToDamage) {
+                    modifier -= strengthMod;
+                } else if (traits.some((trait) => trait.name === "propulsive")) {
+                    modifier -= strengthMod < 0 ? -strengthMod : Math.round(strengthMod / 2);
                 }
                 weapon.data.damage.modifier = modifier;
                 weapon.data.damage.damageType = dmg.damageType;
@@ -258,19 +264,17 @@ export class WeaponDamagePF2e {
         const actorData = actor.data;
 
         // Determine ability modifier
-        let ability: AbilityString | null = null;
+        let ability: "str" | "dex" | null = null;
+        const isMelee = weapon.data.range === null;
+        const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
         {
-            let modifier = 0;
-            const melee = weapon.data.range === null;
-            if (melee) {
+            let modifier: number | null = null;
+            options.push(isMelee ? "melee" : "ranged");
+
+            if (strengthModToDamage) {
                 ability = "str";
                 modifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
-                options.push("melee");
-            } else {
-                options.push("ranged");
-            }
-
-            if (traits.some((t) => t.name === "propulsive")) {
+            } else if (traits.some((t) => t.name === "propulsive")) {
                 ability = "str";
                 const strengthModifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
                 modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
@@ -284,7 +288,8 @@ export class WeaponDamagePF2e {
                 !traits.some((t) => t.name === "unarmed") &&
                 traits.some((t) => t.name === "finesse") &&
                 // finesse melee weapon
-                melee &&
+                isMelee &&
+                typeof modifier === "number" &&
                 // dex bonus higher than the current bonus
                 Math.floor((actorData.data.abilities.dex.value - 10) / 2) > modifier
             ) {
@@ -292,7 +297,7 @@ export class WeaponDamagePF2e {
                 modifier = Math.floor((actorData.data.abilities.dex.value - 10) / 2);
             }
 
-            if (ability) {
+            if (ability && typeof modifier === "number") {
                 numericModifiers.push(
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
                 );
