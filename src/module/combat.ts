@@ -1,4 +1,5 @@
 import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
+import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e } from "./combatant";
 
@@ -80,12 +81,39 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** Disable the initiative button on PC sheets if this was the only encounter */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        super._onDelete(options, userId);
+
         if (this.started) {
             Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
         }
 
-        super._onDelete(options, userId);
+        // Disable the initiative button if this was the only encounter
+        if (!game.combat) {
+            const pcSheets = Object.values(ui.windows).filter(
+                (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
+            );
+            for (const sheet of pcSheets) {
+                sheet.disableInitiativeButton();
+            }
+        }
+    }
+
+    /** Enable the initiative button on PC sheets */
+    protected override _onCreate(
+        data: foundry.data.CombatSource,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        const pcSheets = Object.values(ui.windows).filter(
+            (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
+        );
+        for (const sheet of pcSheets) {
+            sheet.enableInitiativeButton();
+        }
     }
 }
 
