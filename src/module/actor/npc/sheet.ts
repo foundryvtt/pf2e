@@ -123,6 +123,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    lootSheet: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
@@ -166,11 +167,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return options;
     }
 
-    /** Show either the actual NPC sheet or a briefened lootable version if the NPC is dead */
+    /** Show either the actual NPC sheet or a limited version. Show limited if lootable NPC is dead */
     override get template(): string {
-        if (this.isLootSheet) {
-            return "systems/pf2e/templates/actors/npc/loot-sheet.html";
-        } else if (this.actor.limited) {
+        if (this.actor.limited || this.isLootSheet) {
             return "systems/pf2e/templates/actors/limited/npc-sheet.html";
         }
         return "systems/pf2e/templates/actors/npc/sheet.html";
@@ -262,6 +261,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.creatureTraits, sheetData.data.traits.traits);
         this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
+        sheetData.limited = this.actor.limited;
+        sheetData.lootSheet = this.isLootSheet;
 
         // Shield
         const shield = this.actor.heldShield;
@@ -323,11 +324,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      */
     override activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
-
-        // Set the inventory tab as active on a loot-sheet rendering.
-        if (this.isLootSheet) {
-            html.find(".tab.inventory").addClass("active");
-        }
 
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
