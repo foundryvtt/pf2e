@@ -46,11 +46,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     override get template() {
-        let style = "crb-style";
-        if (!game.user.isGM && this.actor.limited) {
-            style = "limited";
-        }
-        return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
+        const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
+        return `systems/pf2e/templates/actors/character/${template}.html`;
     }
 
     protected override async _updateObject(event: Event, formData: any): Promise<void> {
