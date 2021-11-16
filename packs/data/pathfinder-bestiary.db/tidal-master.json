@@ -49,13 +49,15 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "80 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "80"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -70,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Tidal masters use their power over waves and water to drown their enemies.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -101,9 +104,9 @@
             },
             "dr": [
                 {
-                    "label": "Fire",
+                    "exceptions": "",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -144,7 +147,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
                 },
                 "bonus": {
                     "value": 21
@@ -156,7 +162,7 @@
                     },
                     "zzmtxcklbup23dyv2wcn": {
                         "damage": "",
-                        "damageType": "PushorPull10feet"
+                        "damageType": "chaotic"
                     }
                 },
                 "description": {
@@ -232,6 +238,54 @@
             "type": "action"
         },
         {
+            "_id": "RN3i79HbKaXreAiG",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "WD2TqHcVPCybwkQT",
             "data": {
                 "actionCategory": {
@@ -275,7 +329,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Vortex",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -323,11 +377,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Drench",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "r2z8fAZjJ7xC5Mma",
+            "_id": "Y9YG23TX2Se8zYaw",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -339,13 +393,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push or Pull in its damage entry. <strong>Effect</strong> The monster automatically knocks the target away from the monster, or pulls it towards the monster. Unless otherwise noted in the ability description, the creature is pushed or pulled 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
+                    "value": "<p>The tidal master can also pull the creature.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "push",
                 "source": {
                     "value": ""
                 },
@@ -364,10 +418,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Push or Pull",
-            "sort": 500000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push or Pull 10 feet",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -402,7 +460,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -437,7 +495,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
