@@ -58,6 +58,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
+    /** The range of this weapon, or null if a melee weapon */
     get range(): WeaponRange | null {
         return this.data.data.range;
     }
@@ -235,8 +236,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         return this.processChatData(htmlOptions, {
             ...super.getChatData(),
-            group: this.group ? CONFIG.PF2E.weaponGroups[this.group] : null,
             traits,
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.range ? `PF2E.TraitRangeIncrement${this.range}` : null,
+            ],
         });
     }
 
