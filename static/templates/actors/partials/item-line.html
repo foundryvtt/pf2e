@@ -17,7 +17,7 @@
         {{/if}}
     </div>
     {{#if lootsheet}}
-        {{#if (eq item.type 'treasure')}}
+        {{#if (eq item.type "treasure")}}
             <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
         {{else}}
             <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.price.value}}{{/if}}</span>
@@ -83,7 +83,7 @@
         {{/if}}
         <div class="container-held-items">
             {{#each item.contents}}
-                {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=this editable=@root.editable user=@root.user lootsheet=@root.lootsheet owner=@root.owner}}
+                {{> "systems/pf2e/templates/actors/partials/item-line.html" item=this editable=@root.editable user=@root.user lootsheet=@root.lootsheet owner=@root.owner}}
             {{/each}}
         </div>
     {{/unless}}

@@ -7,7 +7,7 @@
 <div class="roll-data" data-attribute="initiative">
     <a class="roll-icon roll-init">
         <!-- @mdizo, shouldn't this be a span? -->
-        {{> systems/pf2e/templates/actors/crb-style/icons/d20.html}}
+        {{> systems/pf2e/templates/actors/character/icons/d20.html}}
     </a>
     <h3>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</h3>
     <h4 class="initiative-select">
@@ -22,5 +22,5 @@
     </h4>
 </div>
 {{#with data.attributes.initiative}}
-    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html title=label }}
+    {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title=label }}
 {{/with}}
