@@ -288,7 +288,8 @@ export class MigrationRunner extends MigrationRunnerBase {
                     await this.migrateSceneToken(migrations, token);
 
                     if (actor.isToken) {
-                        await this.migrateWorldActor(migrations, actor);
+                        const updated = await this.migrateWorldActor(migrations, actor);
+                        if (updated) await actor.update(updated);
                     }
                 }
             }
