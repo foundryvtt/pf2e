@@ -79,9 +79,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get isDead(): boolean {
-        const hasDeathOverlay = !this.getActiveTokens().some(
-            (token) => token.data.overlayEffect !== "icons/svg/skull.svg"
-        );
+        const tokens = this.getActiveTokens();
+        const hasDeathOverlay =
+            tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === "icons/svg/skull.svg");
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
