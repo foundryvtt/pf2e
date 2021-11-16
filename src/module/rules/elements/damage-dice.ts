@@ -16,8 +16,12 @@ export class PF2DamageDiceRuleElement extends RuleElementPF2e {
             delete value.value;
         }
         const selector = this.resolveInjectedProperties(value.selector);
-        value.name = this.data.name ?? this.label;
+        // In English (and in other languages when the same general form is used), labels patterned as
+        // "Title: Subtitle (Parenthetical)" will be reduced to "Subtitle"
+        // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
+        value.name = (this.data.name ?? this.label).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
         value.label = this.label;
+
         if (selector && value.name && value) {
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
