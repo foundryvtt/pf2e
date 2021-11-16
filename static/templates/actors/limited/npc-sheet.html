@@ -1,6 +1,11 @@
 <form class="{{cssClass}} npc-sheet" autocomplete="off">
     <div class = "side-bar">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
+        {{# if (not lootSheet)}}<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>{{/if}}
+        {{# if lootSheet}}
+        <div class="profile" style="background-image: url('{{actor.img}}')">
+            <img src="/icons/svg/skull.svg" />
+        </div>
+        {{/if}}
         <div class="side-bar-section effects">
             <div class="side-bar-section-header">
                 <div class="side-bar-label">
