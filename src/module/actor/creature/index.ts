@@ -241,7 +241,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
                     if (!game.combat) {
-                        ui.notifications.error(game.i18n.localize("PF2E.Encounter.NotInEncounterMode"));
+                        ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
                         return null;
                     }
                     const token = this.getActiveTokens().pop();

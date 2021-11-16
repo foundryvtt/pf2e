@@ -248,8 +248,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Roll Attribute Checks
         html.find(".roll-init").on("click", (event) => {
-            event.preventDefault();
+            const $target = $(event.currentTarget);
             if (
+                !$target.hasClass("disabled") &&
                 "initiative" in this.actor.data.data.attributes &&
                 "roll" in this.actor.data.data.attributes.initiative
             ) {
