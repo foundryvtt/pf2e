@@ -10,7 +10,14 @@ import {
     SaveData,
     SkillData,
 } from "@actor/creature/data";
-import { AbilityString, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import {
+    AbilityString,
+    ActorFlagsPF2e,
+    ArmorClassData,
+    DexterityModifierCapData,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
 
@@ -24,7 +31,15 @@ export interface NPCData extends Omit<NPCSource, "effects" | "flags" | "items" |
     readonly type: NPCSource["type"];
     data: NPCSource["data"];
     readonly _source: NPCSource;
+    flags: NPCFlags;
 }
+
+type NPCFlags = ActorFlagsPF2e & {
+    pf2e: {
+        /** Is this NPC manually toggled as lootable? */
+        lootable: boolean;
+    };
+};
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface NPCSystemData extends CreatureSystemData {

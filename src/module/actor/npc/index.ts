@@ -51,7 +51,8 @@ export class NPCPF2e extends CreaturePF2e {
 
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.getFlag("pf2e", "lootable"));
+        const hasPlacedToken = this.isToken || this.getActiveTokens().some((token) => token.data.actorLink);
+        return this.isDead && hasPlacedToken && (npcsAreLootable || this.data.flags.pf2e.lootable);
     }
 
     /** Grant all users at least limited permission on dead NPCs */
@@ -78,11 +79,14 @@ export class NPCPF2e extends CreaturePF2e {
         return super.testUserPermission(user, permission, options);
     }
 
-    /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
+    /** Setup base ephemeral data to be modified by later data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData = this.data.data;
 
+        // Whether this NPC has been manually marked as lootable by the GM
+        this.data.flags.pf2e.lootable ??= false;
+
+        const systemData = this.data.data;
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
