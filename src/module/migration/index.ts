@@ -93,6 +93,7 @@ import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level"
 import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
 import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
 import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-weapon-range-ability-category-group";
+import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-crafting-entry-feat-replacement";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -190,6 +191,7 @@ export class Migrations {
         Migration689EncumberanceActiveEffects,
         Migration690InitiativeTiebreakItems,
         Migration691WeaponRangeAbilityCategoryGroup,
+        Migration692CraftingEntryFeatReplacement,
     ];
 
     static get latestVersion(): number {
