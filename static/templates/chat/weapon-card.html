@@ -4,7 +4,6 @@
         <h3>{{item.name}}</h3>
     </header>
     <div class="tags">
-        {{#if data.group}}<span class="tag tag_alt">{{localize data.group}}</span>{{/if}}
         {{#if item.isIdentified}}
             <span class="tag" data-trait="{{data.rarity.name}}" data-description="{{data.rarity.description}}"">{{localize data.rarity.label}}</span>
         {{/if}}
@@ -13,6 +12,10 @@
                 <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}"">{{localize trait.label}}</span>
             {{/unless}}
         {{/each}}
+        {{#each data.properties as |property|}}
+            <span class="tag tag_secondary">{{localize property}}</span>
+        {{/each}}
+        {{#if (and item.isIdentified data.material)}}<span class="tag tag_material">{{data.material}}</span>{{/if}}
     </div>
     <div class="card-content">
         {{{data.description.value}}}
