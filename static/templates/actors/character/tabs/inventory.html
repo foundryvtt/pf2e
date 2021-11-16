@@ -53,7 +53,7 @@
             <ol class="item-list">
                 {{#each section.items as |item itemId|}}
                     {{#unless item.isInContainer}}
-                        {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item editable=@root.editable owner=@root.owner user=@root.user}}
+                        {{> "systems/pf2e/templates/actors/partials/item-line.html" item=item editable=@root.editable owner=@root.owner user=@root.user}}
                     {{/unless}}
                 {{/each}}
             </ol>
@@ -65,10 +65,10 @@
             <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.webp" alt="Encumbrance">
             <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
             <div class="encumbrance-label">
-                <span>{{localize 'PF2E.BulkLabel'}} {{bulk}} / {{localize 'PF2E.ConditionTypeEncumbered'}}: {{encumberedAt}}</span>
-                <span>{{localize 'PF2E.BulkMaxLabel'}}: {{limit}}</span>
+                <span>{{localize "PF2E.BulkLabel"}} {{bulk}} / {{localize "PF2E.ConditionTypeEncumbered"}}: {{encumberedAt}}</span>
+                <span>{{localize "PF2E.BulkMaxLabel"}}: {{limit}}</span>
             </div>
-            <div class="encumbrance-light-bulk-overflow">+ ({{combinedBulk.light}}/10) {{localize 'PF2E.BulkTypeLight'}}</div>
+            <div class="encumbrance-light-bulk-overflow">+ ({{combinedBulk.light}}/10) {{localize "PF2E.BulkTypeLight"}}</div>
             <span class="bar-bg"></span>
         </div>
     {{/with}}

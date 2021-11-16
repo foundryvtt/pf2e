@@ -10,14 +10,14 @@
                         <h4 class="skill-name rollable">{{localize skill.label}}</h4>
                         <div class="skill-prof button-group">
                             <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}">
-                                {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
+                                {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
                             <div class="hover-container">
                                 <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
                             </div>
                         </div>
                         {{#with skill}}
-                            {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html abpEnabled=@root.abpEnabled title=label}}
+                            {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html abpEnabled=@root.abpEnabled title=label}}
                         {{/with}}
                     </li>
                 {{/unless}}
@@ -46,7 +46,7 @@
                         </div>
                         <div class="skill-prof button-group skill-container">
                             <select class="skill-proficiency pf-value pf-rank adjust-item-stat-select" data-item-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">
-                                {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
+                                {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
                             </select>
                             {{#if ../owner}}
                                 <div class="item-controls pf-redbackground">
@@ -80,7 +80,7 @@
                     <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}">
-                            {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank}}
+                            {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank}}
                         </select>
                     </div>
                 </li>
