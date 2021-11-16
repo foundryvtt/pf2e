@@ -61,7 +61,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         await super._updateObject(event, formData);
     }
 
-    override async getData(options?: ActorSheetOptions) {
+    override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData: CharacterSheetData = await super.getData(options);
 
         // ABC
@@ -540,6 +540,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return craftingEntries;
     }
 
+    /** Disable the initiative button located on the sidebar */
+    disableInitiativeButton(): void {
+        this.element
+            .find(".sidebar a.roll-init")
+            .addClass("disabled")
+            .attr({ title: game.i18n.localize("PF2E.Encounter.NoActiveEncounter") });
+    }
+
+    /** Enable the initiative button located on the sidebar */
+    enableInitiativeButton(): void {
+        this.element.find(".sidebar a.roll-init").removeClass("disabled").removeAttr("title");
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -550,6 +563,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      */
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
+
+        // Initiative button
+        if (game.combat) {
+            this.enableInitiativeButton();
+        } else {
+            this.disableInitiativeButton();
+        }
 
         // ACTIONS
         html.find('[name="ammo-used"]').on("change", (event) => {
