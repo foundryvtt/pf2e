@@ -3,8 +3,7 @@ import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
-import { OneToTen, OneToThree, TwoToThree } from "@module/data";
-import { ModifierPF2e } from "@module/modifiers";
+import { OneToTen, OneToThree } from "@module/data";
 import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
@@ -321,21 +320,11 @@ export class SpellPF2e extends ItemPF2e {
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
-        // calculate multiple attack penalty
-        const map = this.calculateMap();
-
         if (statistic) {
             const options = this.actor
                 .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
                 .concat(...this.traits);
-            const modifiers: ModifierPF2e[] = [];
-            if (multiAttackPenalty > 1) {
-                modifiers.push(
-                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
-                );
-            }
-
-            statistic.check.roll({ event, item: this, options, modifiers });
+            statistic.check.roll({ event, item: this, multiAttackPenalty, options });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

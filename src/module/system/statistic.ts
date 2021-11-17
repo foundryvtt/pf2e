@@ -4,6 +4,11 @@ import { RollNotePF2e } from "@module/notes";
 import { ActorPF2e } from "@actor";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { PredicatePF2e } from "./predication";
+import { TwoToThree } from "@module/data";
+
+export interface StatisticRollParameters extends RollParameters {
+    multiAttackPenalty?: number;
+}
 
 export interface StatisticCheckData {
     adjustments?: DegreeOfSuccessAdjustment[];
@@ -38,7 +43,7 @@ export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
 
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
-    roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => void;
+    roll: (args: StatisticRollParameters) => void;
     totalModifier: (options?: { options?: string[] }) => number;
     value: number;
     breakdown: string;
@@ -80,11 +85,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const name = game.i18n.localize(check.label ?? data.name);
         return {
             modifiers: modifiers,
-            roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => {
+            roll: (args: StatisticRollParameters) => {
                 if (args?.dc && check.adjustments && check.adjustments.length) {
                     args.dc.adjustments ??= [];
                     args.dc.adjustments.push(...check.adjustments);
                 }
+
                 const context = {
                     actor: this.actor,
                     dc: args?.dc,
@@ -92,7 +98,23 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     options: args?.options,
                     type: check.type,
                 };
-                CheckPF2e.roll(new CheckModifier(name, stat, args?.modifiers), context, args?.event, args?.callback);
+
+                const extraModifiers = [...(args?.modifiers ?? [])];
+
+                // Include multiple attack penalty to extra modifiers if given
+                if (args.multiAttackPenalty && args.multiAttackPenalty > 1) {
+                    if (!args.item) {
+                        console.warn("Missing item argument while calculating MAP during check");
+                    } else {
+                        const map = args.item.calculateMap();
+                        const mapValue = Math.min(3, args.multiAttackPenalty);
+                        extraModifiers.push(
+                            new ModifierPF2e(map.label, map[`map${mapValue as TwoToThree}` as const], "untyped")
+                        );
+                    }
+                }
+
+                CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, args?.event, args?.callback);
             },
             totalModifier: (options?: { options?: string[] }) => {
                 const check = new CheckModifier(name, stat);
