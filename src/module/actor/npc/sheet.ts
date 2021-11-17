@@ -190,7 +190,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     override get isLootSheet(): boolean {
-        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return (
+            this.actor.isLootable &&
+            !this.actor.isOwner &&
+            this.actor.permission !== CONST.ENTITY_PERMISSIONS.OBSERVER &&
+            this.actor.isLootableBy(game.user)
+        );
     }
 
     /**
