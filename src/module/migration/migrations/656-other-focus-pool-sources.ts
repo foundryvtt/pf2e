@@ -22,8 +22,6 @@ export class Migration656OtherFocusPoolSources extends MigrationBase {
         "gravity-weapon",
         "heal-companion",
         "leaf-order",
-        "magic-warrior-aspect",
-        "magic-warrior-transformation",
         "shadow-illusion",
         "storm-order",
         "wings-of-the-dragon",
