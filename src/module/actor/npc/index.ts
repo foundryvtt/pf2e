@@ -51,6 +51,9 @@ export class NPCPF2e extends CreaturePF2e {
 
     /** A user can see an NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
+        if(this.limited){
+            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+        }
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
