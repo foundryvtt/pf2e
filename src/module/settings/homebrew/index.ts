@@ -3,12 +3,12 @@ import Tagify from "@yaireo/tagify";
 import { prepareCleanup } from "./cleanup-migration";
 import { LocalizePF2e } from "@module/system/localize";
 import { MigrationRunner } from "@module/migration/runner";
-import { CharacterPF2e } from "@actor/index";
 import { MigrationBase } from "@module/migration/base";
 import { BaseWeaponType } from "@item/weapon/data";
 
 import "@yaireo/tagify/src/tagify.scss";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
+import { ItemSheetPF2e } from "@item/sheet/base";
 
 export type ConfigPF2eHomebrewList = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewList}`;
@@ -26,7 +26,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
-    private static initialRefresh = true;
+    private initialRefresh = true;
 
     static override readonly SETTINGS = [
         "creatureTraits",
@@ -37,7 +37,15 @@ export class HomebrewElements extends SettingsMenuPF2e {
         "weaponCategories",
         "weaponGroups",
         "baseWeapons",
+        "weaponTraits",
+        "equipmentTraits",
     ] as const;
+
+    /** Homebrew elements from some of the above records are propagated to related records */
+    private secondaryRecords = {
+        weaponTraits: ["npcAttackTraits"],
+        equipmentTraits: ["armorTraits", "consumableTraits"],
+    } as const;
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.html" });
@@ -116,7 +124,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= `hb_${sluggify(tag.value)}` as HomebrewTag<typeof key>["id"];
+                tag.id ??= `hb_${sluggify(tag.value)}` as string as HomebrewTag<typeof key>["id"];
             }
 
             return this.processDeletions(key, data[key]);
@@ -127,7 +135,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         await super._updateObject(_event, data);
 
         // Process updates
-        HomebrewElements.refreshTags();
+        this.refreshTags();
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
@@ -141,35 +149,45 @@ export class HomebrewElements extends SettingsMenuPF2e {
             listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
+            if (objectHasKey(this.secondaryRecords, listKey)) {
+                for (const recordKey of this.secondaryRecords[listKey]) {
+                    const secondaryRecord: Record<string, string> = CONFIG.PF2E[recordKey];
+                    delete secondaryRecord[id];
+                }
+            }
         }
 
         return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */
-    static refreshTags() {
-        for (const key of HomebrewElements.SETTINGS) {
+    refreshTags() {
+        for (const listKey of HomebrewElements.SETTINGS) {
             // The base-weapons map only exists in the localization file
             const coreElements: Record<string, string> =
-                key === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[key];
-            const settingsKey: HomebrewSettingsKey = `homebrew.${key}` as const;
+                listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
+            const settingsKey: HomebrewSettingsKey = `homebrew.${listKey}` as const;
             const elements = game.settings.get("pf2e", settingsKey);
             for (const element of elements) {
                 coreElements[element.id] = element.value;
-                if (key === "magicSchools") {
-                    (CONFIG.PF2E.spellTraits as Record<string, string>)[element.id] = element.value;
+                if (objectHasKey(this.secondaryRecords, listKey)) {
+                    for (const recordKey of this.secondaryRecords[listKey]) {
+                        const record: Record<string, string> = CONFIG.PF2E[recordKey];
+                        record[element.id] = element.value;
+                    }
                 }
             }
         }
 
-        // Refresh any open character sheet to show the new settings
+        // Refresh any open sheets to show the new settings
         if (this.initialRefresh) {
             this.initialRefresh = false;
         } else {
-            const characters = game.actors.filter((actor) => actor instanceof CharacterPF2e) ?? [];
-            for (const character of characters) {
-                character.prepareData();
-                character.sheet.render(false);
+            const sheets = Object.values(ui.windows).filter(
+                (app): app is DocumentSheet => app instanceof ActorSheet || app instanceof ItemSheetPF2e
+            );
+            for (const sheet of sheets) {
+                sheet.render(false);
             }
         }
     }

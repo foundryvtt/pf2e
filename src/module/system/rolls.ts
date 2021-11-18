@@ -104,6 +104,7 @@ export class CheckPF2e {
         ) => Promise<void> | void
     ): Promise<ChatMessagePF2e | ChatMessageDataPF2e | undefined> {
         if (context.options?.length && !context.isReroll) {
+            context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
                 modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
@@ -280,7 +281,9 @@ export class CheckPF2e {
                 })
                 .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
                 .map((trait: StrikeTrait) => {
-                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${trait.label}</span>`;
+                    const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
+                    if (trait.description) $trait.attr({ "data-description": trait.description });
+                    return $trait.prop("outerHTML");
                 })
                 .join("");
 
@@ -370,12 +373,12 @@ export class CheckPF2e {
             context.createMessage = false;
             context.skipDialog = true;
             context.isReroll = true;
-            const newMessage = (await CheckPF2e.roll(
-                check,
-                context
-            )) as foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>;
+
+            const newMessage = await CheckPF2e.roll(check, context);
+            if (!(newMessage instanceof foundry.data.ChatMessageData)) return;
+
             const oldRoll = message.roll;
-            const newRoll = Roll.fromData(JSON.parse(newMessage.roll as string)) as Rolled<Roll<RollDataPF2e>>;
+            const newRoll = Roll.fromData(JSON.parse(newMessage.roll.toString())) as Rolled<Roll<RollDataPF2e>>;
 
             // Keep the new roll by default; Old roll is discarded
             let keepRoll = newRoll;

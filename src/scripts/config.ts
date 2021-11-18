@@ -2444,6 +2444,14 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Homebrew.BaseWeapons.Name",
                 hint: "PF2E.SETTINGS.Homebrew.BaseWeapons.Hint",
             },
+            weaponTraits: {
+                name: "PF2E.SETTINGS.Homebrew.WeaponTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.WeaponTraits.Hint",
+            },
+            equipmentTraits: {
+                name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
+            },
         },
         worldClock: {
             name: "PF2E.SETTINGS.WorldClock.Name",
