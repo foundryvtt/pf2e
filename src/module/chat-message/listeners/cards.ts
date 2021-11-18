@@ -8,6 +8,8 @@ import {
     multiplyCoinValue,
 } from "@item/treasure/helpers";
 import { LocalizePF2e } from "@system/localize";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
+import { craftSpellConsumable } from "@module/crafting/helpers";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -125,6 +127,21 @@ export const ChatCards = {
                         }))
                     ) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                        return;
+                    }
+
+                    if (isSpellConsumable(item.id)) {
+                        craftSpellConsumable(item, quantity, actor);
+                        ChatMessage.create({
+                            user: game.user.id,
+                            content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                                actorName: actor.name,
+                                cost: coinsToString(coinsToRemove),
+                                quantity: quantity,
+                                itemName: item.name,
+                            }),
+                            speaker: { alias: actor.name },
+                        });
                         return;
                     }
 

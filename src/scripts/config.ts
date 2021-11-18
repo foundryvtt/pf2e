@@ -943,6 +943,7 @@ const consumableTraits = {
     olfactory: "PF2E.TraitOlfactory",
     oil: "PF2E.TraitOil",
     polymorph: "PF2E.TraitPolymorph",
+    poison: "PF2E.TraitPoison",
     potion: "PF2E.TraitPotion",
     precious: "PF2E.TraitPrecious",
     scroll: "PF2E.TraitScroll",
@@ -1522,6 +1523,7 @@ export const PF2ECONFIG = {
         worn: "PF2E.TraitWorn",
         wornamulet: "PF2E.TraitWornAmulet",
         "worn-and-attached-to-two-weapons": "PF2E.TraitWornAndAttachedToTwoWeapons",
+        "worn-under-armor": "PF2E.TraitWornUnderArmor",
         wornanklets: "PF2E.TraitWornAnklets",
         wornarmbands: "PF2E.TraitWornArmbands",
         wornbackpack: "PF2E.TraitWornBackpack",
@@ -1618,6 +1620,7 @@ export const PF2ECONFIG = {
         cursed: "PF2E.TraitCursed",
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
+        detection: "PF2E.TraitDetection",
         eidolon: "PF2E.TraitEidolon",
         emotion: "PF2E.TraitEmotion",
         extradimensional: "PF2E.TraitExtradimensional",
@@ -2452,6 +2455,14 @@ export const PF2ECONFIG = {
             baseWeapons: {
                 name: "PF2E.SETTINGS.Homebrew.BaseWeapons.Name",
                 hint: "PF2E.SETTINGS.Homebrew.BaseWeapons.Hint",
+            },
+            weaponTraits: {
+                name: "PF2E.SETTINGS.Homebrew.WeaponTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.WeaponTraits.Hint",
+            },
+            equipmentTraits: {
+                name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
             },
         },
         worldClock: {

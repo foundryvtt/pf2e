@@ -299,3 +299,5 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
 	*  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
 	*  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
+*   Other
+    *   Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente

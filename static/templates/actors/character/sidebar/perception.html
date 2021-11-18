@@ -1,0 +1,26 @@
+<div class="sidebar_title">
+    <h2>{{localize 'PF2E.PerceptionHeader'}}</h2>
+    <h2 class="hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
+        <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
+    </h2>
+</div>
+<div class="roll-data perception-sidebar" data-attribute="perception">
+    <a class="roll-icon attribute-name">
+        {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+    </a>
+
+    <a class="roll-icon attribute-name" data-secret="true">
+        <i class="fas fa-eye-slash"></i>
+    </a>
+    <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
+
+    <div class="perception-rank pf-rank adjust-stat" data-property="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}">
+        <h4>
+            <span>{{data.attributes.perception.rankName}}</span>
+        </h4>
+    </div>
+
+</div>
+{{#with data.attributes.perception}}
+    {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title="PF2E.PerceptionHeader" }}
+{{/with}}

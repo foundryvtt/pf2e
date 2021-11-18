@@ -1,0 +1,56 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
+</div>
+
+<ol class="resistances tags">
+    {{#each data.traits.dr.selected as |v k|}}
+    <li class="tag tag_secondary {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    {{#if @root.owner}}
+        <li class="tag edit-btn">
+            <a class="crb-trait-selector" data-trait-selector="resistances">
+                {{> systems/pf2e/templates/actors/character/icons/plus.html}}
+            </a>
+        </li>
+    {{/if}}
+</ol>
+
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
+</div>
+
+<ol class="weaknesses tags">
+    {{#each data.traits.dv.selected as |v k|}}
+    <li class="tag tag_secondary {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    {{#if @root.owner}}
+        <li class="tag edit-btn">
+            <a class="crb-trait-selector" data-trait-selector="weaknesses">
+                {{> systems/pf2e/templates/actors/character/icons/plus.html}}
+            </a>
+        </li>
+    {{/if}}
+</ol>
+
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
+</div>
+
+<ol class="immunities tags">
+    {{#each data.traits.di.selected as |v k|}}
+    <li class="tag tag_secondary {{k}}">
+        {{localize v}}
+    </li>
+    {{/each}}
+    {{#if @root.owner}}
+        <li class="tag edit-btn">
+            <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di">
+                {{> systems/pf2e/templates/actors/character/icons/plus.html}}
+            </a>
+        </li>
+    {{/if}}
+</ol>

@@ -238,22 +238,21 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 if (!options.includes(longForm)) options.push(longForm);
                 if (this.data.type === "character") ensureProficiencyOption(options, initStat.rank ?? -1);
 
-                // Ensure both a combat and combatant exist before rolling
-                if (!game.combat) {
-                    ui.notifications.error("The game is not currently in Encounter mode.");
-                    return;
-                }
-
-                // Get or create the combatant, creating only if the actor is synthetic
+                // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
-                    const existing = game.combat?.combatants.find((combatant) => combatant.actor === this);
+                    if (!game.combat) {
+                        ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
+                        return null;
+                    }
+                    const token = this.getActiveTokens().pop();
+                    const existing = game.combat.combatants.find((combatant) => combatant.actor === this);
                     if (existing) {
                         return existing;
-                    } else if (game.user.isGM && !this.hasPlayerOwner && game.combat && this.token) {
-                        await this.token.object.toggleCombat(game.combat);
-                        return game.combat.combatants.find((combatant) => combatant.token === this.token) ?? null;
+                    } else if (token) {
+                        await token.toggleCombat(game.combat);
+                        return token.combatant ?? null;
                     } else {
-                        ui.notifications.error(`${this.name} is not a participant in the current encounter.`);
+                        ui.notifications.error(game.i18n.format("PF2E.Encounter.NoTokenInScene", { actor: this.name }));
                         return null;
                     }
                 })();

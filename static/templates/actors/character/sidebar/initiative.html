@@ -1,0 +1,25 @@
+<div class="sidebar_title">
+    <h2>{{localize 'PF2E.InitiativeLabel'}}</h2>
+    <h2 class="hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
+        <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
+    </h2>
+</div>
+<div class="roll-data" data-attribute="initiative">
+    <a class="roll-icon roll-init">
+        {{> "systems/pf2e/templates/actors/character/icons/d20.html"}}
+    </a>
+    <h3>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</h3>
+    <h4 class="initiative-select">
+        <select name="data.attributes.initiative.ability">
+            {{#select data.attributes.initiative.ability}}
+                <option value="perception">{{localize 'PF2E.PerceptionLabel'}}</option>
+                {{#each skills as |label skill|}}
+                    <option value="{{skill}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </h4>
+</div>
+{{#with data.attributes.initiative}}
+    {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title=label }}
+{{/with}}

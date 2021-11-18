@@ -26,9 +26,10 @@ import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/check-degree-of-success";
-import { craftItem } from "@module/crafting/helpers";
+import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -45,11 +46,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     override get template() {
-        let style = "crb-style";
-        if (!game.user.isGM && this.actor.limited) {
-            style = "limited";
-        }
-        return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
+        const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
+        return `systems/pf2e/templates/actors/character/${template}.html`;
     }
 
     protected override async _updateObject(event: Event, formData: any): Promise<void> {
@@ -63,7 +61,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         await super._updateObject(event, formData);
     }
 
-    override async getData(options?: ActorSheetOptions) {
+    override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData: CharacterSheetData = await super.getData(options);
 
         // ABC
@@ -542,6 +540,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return craftingEntries;
     }
 
+    /** Disable the initiative button located on the sidebar */
+    disableInitiativeButton(): void {
+        this.element
+            .find(".sidebar a.roll-init")
+            .addClass("disabled")
+            .attr({ title: game.i18n.localize("PF2E.Encounter.NoActiveEncounter") });
+    }
+
+    /** Enable the initiative button located on the sidebar */
+    enableInitiativeButton(): void {
+        this.element.find(".sidebar a.roll-init").removeClass("disabled").removeAttr("title");
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -552,6 +563,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      */
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
+
+        // Initiative button
+        if (game.combat) {
+            this.enableInitiativeButton();
+        } else {
+            this.disableInitiativeButton();
+        }
 
         // ACTIONS
         html.find('[name="ammo-used"]').on("change", (event) => {
@@ -677,7 +695,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
         html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.onAddCustomModifier(event));
         html.find(".modifier-list .remove-modifier").on("click", (event) => this.onRemoveCustomModifier(event));
-        html.find(".modifier-list").on("click", ".toggle-automation", (event) => this.onToggleAutomation(event));
 
         // Toggle invested state
         html.find(".item-toggle-invest").on("click", (event) => {
@@ -759,6 +776,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (!formula) return;
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
+                const itemId = itemUuid?.split(".").pop() ?? "";
+                if (isSpellConsumable(itemId)) {
+                    craftSpellConsumable(formula.item, itemQuantity, this.actor);
+                    return;
+                }
                 craftItem(formula.item, itemQuantity, this.actor);
                 return;
             }
@@ -1019,16 +1041,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         } else {
             this.actor.removeCustomModifier(stat, name);
         }
-    }
-
-    private onToggleAutomation(event: JQuery.ClickEvent) {
-        const $checkbox = $(event.target);
-        const toggleOff = !$checkbox.hasClass("disabled");
-        const effects = this.actor.effects.contents.filter((effect) =>
-            effect.data.changes.some((change) => change.key === $checkbox.data("automation-key"))
-        );
-        const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
-        this.actor.updateEmbeddedDocuments("ActiveEffect", effectUpdates);
     }
 
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatSource) {

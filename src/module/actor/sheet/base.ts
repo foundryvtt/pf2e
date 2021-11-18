@@ -248,8 +248,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Roll Attribute Checks
         html.find(".roll-init").on("click", (event) => {
-            event.preventDefault();
+            const $target = $(event.currentTarget);
             if (
+                !$target.hasClass("disabled") &&
                 "initiative" in this.actor.data.data.attributes &&
                 "roll" in this.actor.data.data.attributes.initiative
             ) {
@@ -854,12 +855,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const popup = new ScrollWandPopup(
                     this.actor,
                     {},
-                    async (heightenedLevel, itemType, spellData) => {
+                    async (heightenedLevel, itemType, spell) => {
                         if (!(itemType === "scroll" || itemType === "wand")) return;
-                        const item = await createConsumableFromSpell(itemType, spellData, heightenedLevel);
+                        const item = await createConsumableFromSpell(itemType, spell, heightenedLevel);
                         await this._onDropItemCreate(item);
                     },
-                    itemData
+                    item
                 );
                 popup.render(true);
                 return [item];

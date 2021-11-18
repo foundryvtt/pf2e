@@ -240,6 +240,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     override getChatData(): Record<string, unknown> {
+        const material = this.material
+            ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
+                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[this.material.grade]),
+              })
+            : null;
+
         return {
             rarity: {
                 name: this.rarity,
@@ -247,6 +254,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 description: CONFIG.PF2E.traitsDescriptions[this.rarity],
             },
             description: { value: this.description },
+            material,
         };
     }
 
