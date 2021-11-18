@@ -33,6 +33,7 @@ export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
         comboMeleeUsage: boolean;
+        thrownUsage: boolean;
     };
 };
 

@@ -180,16 +180,12 @@ export interface StrikeTrait {
     name: string;
     /** The label for this action which will be rendered on the UI. */
     label: string;
-    /** If true, this trait is toggleable. */
-    toggle?: boolean;
-    /** The roll this trait applies to, if relevant. */
-    rollName?: string;
-    /** The option that this trait applies to the roll (of type `rollName`). */
-    rollOption?: string;
-    /** An extra css class added to the UI marker for this trait. */
-    cssClass?: string;
+    /** Is this trait toggleable? */
+    toggleable?: boolean;
+    /** If toggleable, the toggle state of this trait */
+    toggleState?: boolean;
     /** The description of the trait */
-    description?: string;
+    description?: string | null;
 }
 
 /** An strike which a character can use. */

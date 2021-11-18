@@ -12,9 +12,10 @@ import {
     WeaponRange,
     WeaponSource,
     WeaponTrait,
+    WEAPON_RANGES,
 } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -144,11 +145,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         }
 
         // Force a weapon to be melee if it has a thrown-N trait
-        const mandatoryMelee = this.data.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
+        const mandatoryMelee =
+            !this.data.flags.pf2e.thrownUsage &&
+            this.data.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
         if (mandatoryMelee) this.data.data.range = null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.data.flags.pf2e.comboMeleeUsage ??= false;
+        this.data.flags.pf2e.thrownUsage ??= false;
         // Ensure presence of traits array on melee usage if not have been added yet
         if (this.data.data.meleeUsage) this.data.data.meleeUsage.traits ??= [];
 
@@ -345,7 +349,31 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-        return this.clone(overlay) as Embedded<WeaponPF2e>;
+        return this.clone(overlay, { keepId: true }) as Embedded<WeaponPF2e>;
+    }
+
+    /** Generate a clone of this thrown melee weapon for use as a ranged strike, or `null` if not applicable */
+    toThrownUsage(this: Embedded<WeaponPF2e>): Embedded<WeaponPF2e> | null;
+    toThrownUsage(this: WeaponPF2e): WeaponPF2e | null;
+    toThrownUsage(): Embedded<WeaponPF2e> | WeaponPF2e | null {
+        if (this.isRanged) return null;
+
+        const thrownRange =
+            this.data.data.traits.value
+                .filter((trait) => /^thrown-\d+$/.test(trait))
+                .map((trait) => Number(/\d+$/.exec(trait)) || null)
+                .pop() ?? null;
+        if (!(thrownRange && tupleHasValue(WEAPON_RANGES, thrownRange))) return null;
+
+        const overlay: DeepPartial<WeaponSource> = {
+            data: { range: thrownRange },
+            flags: {
+                pf2e: {
+                    thrownUsage: true,
+                },
+            },
+        };
+        return this.clone(overlay, { keepId: true }) as Embedded<WeaponPF2e>;
     }
 
     /** Generate a melee item from this weapon for use by NPCs */

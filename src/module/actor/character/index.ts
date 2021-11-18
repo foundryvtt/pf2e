@@ -35,7 +35,7 @@ import {
     LinkedProficiency,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, setHasElement, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -45,11 +45,16 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
+import {
+    MultipleAttackPenaltyPF2e,
+    RuleElementSynthetics,
+    WeaponPotencyPF2e,
+} from "@module/rules/rules-data-definitions";
 import { CreaturePF2e } from "../";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
-import { AbilityString, StrikeTrait } from "@actor/data/base";
+import { AbilityString } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -66,7 +71,7 @@ import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
-import { CHARACTER_SHEET_TABS } from "./data/values";
+import { CHARACTER_SHEET_TABS, UNARMED_ID } from "./data/values";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -191,6 +196,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 {} as CharacterSheetTabVisibility
             ),
             flags.pf2e.sheetTabs ?? {}
+        );
+        this.data.flags.pf2e.disableABP ??= false;
+        this.data.flags.pf2e.freeCrafting ??= false;
+        this.data.flags.pf2e.strikeTraits = mergeObject(
+            { [UNARMED_ID]: { nonlethal: true } },
+            this.data.flags.pf2e.strikeTraits ?? {}
         );
 
         // Attributes
@@ -688,7 +699,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
-                _id: randomID(),
+                _id: UNARMED_ID,
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
@@ -903,6 +914,20 @@ export class CharacterPF2e extends CreaturePF2e {
         const weaponTraits = weapon.traits;
         const systemData = this.data.data;
         const { categories } = options;
+
+        // Redirect early if a combination or thrown-N trait is toggled
+        const toggleables = TraitManager.getToggleableTraits(weapon);
+        const allThrownNTraits = new Set(
+            ([10, 15, 20, 30, 40, 60, 100] as const).map((range) => `thrown-${range}` as const)
+        );
+        const thrownNTrait = weapon.data.data.traits.value.find((trait): trait is SetElement<typeof allThrownNTraits> =>
+            setHasElement(allThrownNTraits, trait)
+        );
+        if (thrownNTrait && toggleables[thrownNTrait]) {
+            const thrownUsage = weapon.toThrownUsage();
+            if (thrownUsage && weapon.isMelee) return this.prepareStrike(thrownUsage, options);
+        }
+
         const ammos = options.ammos ?? [];
 
         // Determine the default ability and score for this attack.
@@ -1071,15 +1096,29 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
+        const inflatedTraits = [
+            TraitManager.inflateTrait(weapon, "attack"),
+            ...[...weaponTraits].map((trait) => TraitManager.inflateTrait(weapon, trait)),
+        ]
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .sort((a, b) => (a.toggleable && b.toggleable ? 0 : a.toggleable ? -1 : b.toggleable ? 1 : 0));
+
+        // Nonlethal trait
+        if (inflatedTraits.some((trait) => trait.name === "nonlethal" && trait.toggleState === false)) {
+            const lethalAttackPenalty = new ModifierPF2e("PF2E.Strike.LethalAttack", -2, MODIFIER_TYPE.CIRCUMSTANCE);
+            lethalAttackPenalty.predicate = new PredicatePF2e({ not: ["self:ignore-lethal-nonlethal-penalty"] });
+            modifiers.push(lethalAttackPenalty);
+        }
+
         const flavor = this.getStrikeDescription(weapon);
         const strikeStat = new StatisticModifier(weapon.name, modifiers);
-        const meleeUsage = weapon.toMeleeUsage();
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
             item: weapon.id,
             quantity: weapon.quantity,
             slug: weapon.slug,
+            range: weapon.range,
             ready: weapon.isEquipped,
             glyph: "A",
             type: "strike" as const,
@@ -1087,10 +1126,9 @@ export class CharacterPF2e extends CreaturePF2e {
             criticalSuccess: flavor.criticalSuccess,
             success: flavor.success,
             options: itemData.data.options?.value ?? [],
-            traits: [],
+            traits: inflatedTraits,
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
         });
 
         // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
@@ -1114,45 +1152,6 @@ export class CharacterPF2e extends CreaturePF2e {
             };
             action.ammunition = { compatible, incompatible, selected: selected ?? undefined };
         }
-
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const attackTrait: StrikeTrait = {
-            name: "attack",
-            label: CONFIG.PF2E.featTraits.attack,
-            description: CONFIG.PF2E.traitsDescriptions.attack,
-            toggle: false,
-        };
-        action.traits = [attackTrait].concat(
-            [...weaponTraits].map((trait) => {
-                // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
-                // in use, which can include what are normally NPC-only traits
-                const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
-                const traitObject: StrikeTrait = {
-                    name: trait,
-                    label,
-                    toggle: false,
-                    description: traitDescriptions[trait] ?? "",
-                };
-
-                // look for toggleable traits
-                if (trait.startsWith("two-hand-")) {
-                    traitObject.rollName = "damage-roll";
-                    traitObject.rollOption = "two-handed";
-                } else if (trait.startsWith("versatile-")) {
-                    traitObject.rollName = "damage-roll";
-                    traitObject.rollOption = trait;
-                }
-
-                // trait can be toggled on/off
-                if (traitObject.rollName && traitObject.rollOption) {
-                    traitObject.toggle = true;
-                    traitObject.cssClass = this.getRollOptions([traitObject.rollName]).includes(traitObject.rollOption)
-                        ? "toggled-on"
-                        : "toggled-off";
-                }
-                return traitObject;
-            })
-        );
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)

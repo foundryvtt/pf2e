@@ -10,3 +10,6 @@ export const CHARACTER_SHEET_TABS = [
     "biography",
     "pfs",
 ] as const;
+
+// The static ID used for each PC's basic unarmed attack
+export const UNARMED_ID = "PF2ExxxxxUNARMED";

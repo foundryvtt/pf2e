@@ -56,12 +56,22 @@
                                             {{#> attackDamage action}}{{/attackDamage}}
                                         </div>
                                     </div>
-                                    {{#if action.meleeUsage}}
-                                        <div class="melee-usage" data-action="melee-usage">
-                                            <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
-                                            {{#> attackDamage action.meleeUsage}}{{/attackDamage}}
-                                        </div>
-                                    {{/if}}
+                                    <div class="item-properties tags">
+                                        {{#each action.traits as |trait|}}
+                                            {{#if trait.toggleable}}
+                                                <span
+                                                    data-trait="{{trait.name}}"
+                                                    {{#if trait.toggleable}}
+                                                    class="tag {{#if trait.toggleState}}toggled-on{{else}}toggled-off{{/if}}"
+                                                    data-action="toggle-trait"
+                                                    {{else}}
+                                                    class="tag"
+                                                    {{/if}}
+                                                    {{#if trait.description}}data-description="{{trait.description}}"{{/if}}
+                                                >{{localize trait.label}}</span>
+                                            {{/unless}}
+                                        {{/each}}
+                                    </div>
                                     <div class="item-summary">
                                         <div class="item-description">
                                             <p>{{{localize action.description}}}</p>
@@ -72,11 +82,6 @@
                                                 <dt>{{{localize "PF2E.Success"}}}</dt>
                                                 <dd>{{{localize action.success}}}</dd>
                                             </dl>
-                                        </div>
-                                        <div class="item-properties tags">
-                                            {{#each action.traits as |trait|}}
-                                                <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.description}}data-description="{{trait.description}}"{{/if}} {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{localize trait.label}}</span>
-                                            {{/each}}
                                         </div>
                                     </div>
                                 </li>

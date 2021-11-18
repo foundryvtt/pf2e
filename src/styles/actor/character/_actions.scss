@@ -227,6 +227,27 @@
                 }
             }
 
+            .item-properties {
+                .tag {
+                    &.toggled-on,
+                    &.toggled-off {
+                        cursor: pointer;
+                    }
+
+                    &.toggled-on, &.toggled-off:hover {
+                        color: #f7d488;
+                        background-color: var(--primary);
+                        text-decoration: none;
+                        text-shadow: 0 0 1px white;
+                    }
+                    &.toggled-off, &.toggled-on:hover {
+                        background-color: #460000;
+                        color: silver;
+                        text-decoration: line-through;
+                    }
+                }
+            }
+
             .item-summary {
                 flex-basis: 100%;
                 margin-bottom: 8px;
@@ -257,27 +278,6 @@
                         background: var(--alt);
                         vertical-align: middle;
                         border: 1px solid var(--body);
-                    }
-                }
-
-                .item-properties {
-                    .tag {
-                        &.toggled-on:hover,
-                        &.toggled-off:hover {
-                            box-shadow: none;
-                            text-shadow: 0 0 2px white;
-                        }
-
-                        &.toggled-on,
-                        &.toggled-off {
-                            cursor: pointer;
-                        }
-
-                        &.toggled-on {
-                            background-color: rgba(23, 31, 105, 0.5);
-                            color: black;
-                            text-shadow: 0 0 2px white;
-                        }
                     }
                 }
             }
