@@ -2,7 +2,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign } from "@util";
 import { PhysicalItemPF2e } from "../physical";
-import { getArmorBonus, getResiliencyBonus } from "../runes";
+import { getResiliencyBonus } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
 
 export class ArmorPF2e extends PhysicalItemPF2e {
@@ -137,21 +137,19 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
-        const localize = game.i18n.localize.bind(game.i18n);
+        const translations = LocalizePF2e.translations.PF2E;
         const properties = [
-            CONFIG.PF2E.armorTypes[this.category],
-            this.group ? CONFIG.PF2E.armorGroups[this.group] : null,
-            `${addSign(getArmorBonus(data))} ${localize("PF2E.ArmorArmorLabel")}`,
-            `${data.dex.value || 0} ${localize("PF2E.ArmorDexLabel")}`,
-            `${data.check.value || 0} ${localize("PF2E.ArmorCheckLabel")}`,
-            `${data.speed.value || 0} ${localize("PF2E.ArmorSpeedLabel")}`,
-            data.equipped.value ? localize("PF2E.ArmorEquippedLabel") : null,
-        ].filter((property) => property);
+            this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
+            this.isArmor ? `${data.dex.value || 0} ${translations.ArmorDexLabel}` : null,
+            this.isArmor ? `${data.check.value || 0} ${translations.ArmorCheckLabel}` : null,
+            this.speedPenalty ? `${data.speed.value || 0} ${translations.ArmorSpeedLabel}` : null,
+        ];
 
         return this.processChatData(htmlOptions, {
-            ...data,
-            properties,
+            ...super.getChatData(),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
+            properties,
         });
     }
 

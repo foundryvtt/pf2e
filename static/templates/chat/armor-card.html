@@ -3,18 +3,20 @@
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3>{{item.name}}</h3>
     </header>
-    {{#if (or data.traits data.properties)}}
-        <div class="tags">
-            {{#each data.properties as |property|}}
-                <span class="tag tag_alt">{{localize property}}</span>
-            {{/each}}
-            {{#each data.traits as |trait|}}
-                {{#unless trait.mystified}}
-                    <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize trait.label}}</span>
-                {{/unless}}
-            {{/each}}
-        </div>
-    {{/if}}
+    <div class="tags">
+        {{#if item.isIdentified}}
+            <span class="tag" data-trait="{{data.rarity.name}}" data-description="{{data.rarity.description}}"">{{localize data.rarity.label}}</span>
+        {{/if}}
+        {{#each data.traits as |trait|}}
+            {{#unless trait.mystified}}
+                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize trait.label}}</span>
+            {{/unless}}
+        {{/each}}
+        {{#each data.properties as |property|}}
+            <span class="tag tag_secondary">{{localize property}}</span>
+        {{/each}}
+        {{#if (and item.isIdentified data.material)}}<span class="tag tag_material">{{data.material}}</span>{{/if}}
+    </div>
     <div class="card-content">
         {{{data.description.value}}}
     </div>
