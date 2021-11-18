@@ -78,6 +78,6 @@ export function listen() {
         game.pf2e.StatusEffects.setIconTheme();
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        HomebrewElements.refreshTags();
+        new HomebrewElements().refreshTags();
     });
 }
