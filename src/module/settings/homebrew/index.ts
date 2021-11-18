@@ -116,7 +116,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= `hb_${sluggify(tag.value)}` as HomebrewTag<typeof key>["id"];
+                tag.id ??= `hb_${sluggify(tag.value)}` as string as HomebrewTag<typeof key>["id"];
             }
 
             return this.processDeletions(key, data[key]);
