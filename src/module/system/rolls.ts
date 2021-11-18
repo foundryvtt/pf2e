@@ -281,7 +281,9 @@ export class CheckPF2e {
                 })
                 .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
                 .map((trait: StrikeTrait) => {
-                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${trait.label}</span>`;
+                    const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
+                    if (trait.description) $trait.attr({ "data-description": trait.description });
+                    return $trait.prop("outerHTML");
                 })
                 .join("");
 

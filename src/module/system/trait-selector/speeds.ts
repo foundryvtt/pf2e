@@ -1,5 +1,4 @@
-import { ActorPF2e } from "@actor/base";
-import { NPCPF2e } from "@actor/npc";
+import { ActorPF2e, NPCPF2e } from "@actor";
 import { LabeledValue } from "@module/data";
 import { TagSelectorBase, TagSelectorOptions } from "./base";
 import { SelectableTagField } from "./index";
