@@ -1,13 +1,4 @@
-//mini type definition for rollData within EnrichHTMLOptions
-interface RollData {
-    item?: {
-        name: string;
-        traits: {
-            value: string[];
-            custom: string;
-        };
-    };
-}
+import { ItemSystemData } from "@item/data/base";
 
 export const EnrichContent = {
     //get the different parameters of the @inline command
@@ -29,11 +20,19 @@ export const EnrichContent = {
     },
 
     enrichString: (data: string, options?: EnrichHTMLOptions): string => {
+        //get itemData from options if available
+        let itemData: ItemSystemData | undefined = undefined;
+        if (options?.rollData && typeof options.rollData === "object") {
+            const rollData = options.rollData as Record<string, unknown>;
+            if (rollData.item) {
+                itemData = rollData.item as ItemSystemData;
+            }
+        }
+
         /*
         enrich @inline commands: Localize, Template
         replacement is repeated until nothing gets changed in order to also enrich data coming from @Localize
         */
-        const rollOptions: RollData | undefined = options?.rollData ?? undefined;
         const entityTypes: String[] = ["Localize", "Template"];
         const rgx = new RegExp(`@(${entityTypes.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
         let replaced = true;
@@ -46,7 +45,7 @@ export const EnrichContent = {
                         case "Localize":
                             return EnrichContent.createLocalize(paramString);
                         case "Template":
-                            return EnrichContent.createTemplate(paramString, buttonLabel, rollOptions);
+                            return EnrichContent.createTemplate(paramString, buttonLabel, itemData);
                     }
                     return match;
                 }
@@ -63,7 +62,7 @@ export const EnrichContent = {
     },
 
     //create inline template button from @template command
-    createTemplate(paramString: string, label?: string, rollData?: RollData): string {
+    createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): string {
         //get parameters from data
         const rawParams = EnrichContent.getParams(paramString);
 
@@ -83,8 +82,8 @@ export const EnrichContent = {
         //if no traits are entered manually use the traits from rollOptions if available
         if (!params.traits) {
             params.traits = "";
-            if (rollData?.item) {
-                const itemData = rollData.item;
+
+            if (itemData?.traits) {
                 let traits = itemData.traits.value.join(",");
                 if (!(itemData.traits.custom === "")) {
                     traits = traits.concat(`, ${itemData.traits.custom}`);
