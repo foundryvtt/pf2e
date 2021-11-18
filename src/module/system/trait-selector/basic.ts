@@ -50,31 +50,36 @@ export class TagSelectorBasic extends TagSelectorBase {
     }
 
     override getData() {
-        const { chosen, custom, flat } = (() => {
-            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.object;
-            const property: unknown = getProperty(document.toObject(), this.objectProperty);
+        const { chosen, custom, flat, disabled } = (() => {
+            const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e; data: object } = this.object;
+            // Compare source and prepared properties to determine which tags were automatically selected
+            const sourceProperty: unknown = getProperty(document.toObject(), this.objectProperty);
+            const preparedProperty: unknown = getProperty(document.data, this.objectProperty);
 
-            if (isValuesList(property)) {
-                const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
-                const custom = this.allowCustom ? property.custom : null;
-                return { chosen, custom, flat: false };
+            if (Array.isArray(preparedProperty)) {
+                const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];
+                const automaticallyChosen = preparedProperty.filter((tag) => !manuallyChosen.includes(tag));
+                const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
+                return { chosen, custom: null, flat: true, disabled: automaticallyChosen };
+            } else if (isValuesList(preparedProperty) && isValuesList(sourceProperty)) {
+                const manuallyChosen: string[] = sourceProperty.value.map((prop) => prop.toString());
+                const custom = this.allowCustom ? sourceProperty.custom : null;
+                const automaticallyChosen = preparedProperty.value.filter((tag) => !manuallyChosen.includes(tag));
+                const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
+                return { chosen, custom, flat: false, disabled: automaticallyChosen };
+            } else {
+                return { chosen: [], custom: null, flat: this.flat, disabled: [] };
             }
-
-            if (Array.isArray(property)) {
-                const chosen = property.map((prop) => String(prop));
-                return { chosen, custom: null, flat: true };
-            }
-
-            return { chosen: [], custom: null, flat: this.flat };
         })();
 
         const choices = Object.keys(this.choices).reduce((accumulated, type) => {
             accumulated[type] = {
                 label: this.choices[type],
-                selected: chosen.includes(type) || chosen.includes(type.toLowerCase()),
+                selected: chosen.includes(type),
+                disabled: disabled.includes(type),
             };
             return accumulated;
-        }, {} as Record<string, { label: string; selected: boolean }>);
+        }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
 
         return {
             ...super.getData(),

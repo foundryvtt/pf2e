@@ -147,9 +147,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             // Armor has derived traits: base traits are shown for editing
             data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.toObject().data.traits, {
-                selectedOnly: true,
-            });
         } else if (itemData.type === "lore") {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
