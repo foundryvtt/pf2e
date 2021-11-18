@@ -57,6 +57,23 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return fromItem ?? ChatMessagePF2e.getSpeakerActor(this.data.speaker);
     }
 
+    /** Does this message include a check (1d20 + c) roll? */
+    get isCheckRoll(): boolean {
+        return this.isRoll && !!this.data.flags.pf2e.context;
+    }
+
+    /** Does the message include a rerolled check? */
+    get isReroll(): boolean {
+        return !!this.data.flags.pf2e.context?.isReroll;
+    }
+
+    /** Does the message include a check that hasn't been rerolled? */
+    get isRerollable(): boolean {
+        const actorId = this.data.speaker.actor ?? "";
+        const isOwner = !!game.actors.get(actorId)?.isOwner;
+        return this.isCheckRoll && !this.isReroll && isOwner && this.canUserModify(game.user, "update");
+    }
+
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
         const domItem = this.getItemFromDOM();
