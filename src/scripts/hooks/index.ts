@@ -11,6 +11,7 @@ import * as RenderActorDirectory from "./render-actor-directory";
 import * as DropCanvasData from "./drop-canvas-data";
 import { RenderDialog } from "./render-dialog";
 import { RenderSettings } from "./render-settings";
+import { GetSceneControlButtons } from "./get-scene-control-buttons";
 
 export const HooksPF2e = {
     listen(): void {
@@ -18,6 +19,7 @@ export const HooksPF2e = {
         CanvasReady.listen();
         CloseWorldClockSettings.listen();
         DropCanvasData.listen();
+        GetSceneControlButtons.listen();
         Init.listen();
         HotbarDrop.listen();
         Ready.listen();
