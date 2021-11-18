@@ -1608,6 +1608,7 @@ export const PF2ECONFIG = {
         cursed: "PF2E.TraitCursed",
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
+        detection: "PF2E.TraitDetection",
         eidolon: "PF2E.TraitEidolon",
         emotion: "PF2E.TraitEmotion",
         extradimensional: "PF2E.TraitExtradimensional",

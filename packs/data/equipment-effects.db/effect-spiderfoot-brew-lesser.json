@@ -1,0 +1,58 @@
+{
+    "_id": "wNCxSxruzLVGtLE4",
+    "data": {
+        "description": {
+            "value": "<p>When you drink a <em>spiderfoot brew</em>, tiny clinging hairs grow on your hands and feet, granting you a climb Speed of 15 feet and a +1 item bonus to athletics checks made to climb for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 15
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Special: Fumbus!"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/spider-climb.webp",
+    "name": "Effect: Spiderfoot Brew (Lesser)",
+    "type": "effect"
+}
