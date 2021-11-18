@@ -9,6 +9,7 @@ declare global {
     type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: any }, string]>;
     type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
     type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [JQuery, EntryContextOption[]]>;
+    type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
     type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar, unknown, string]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
@@ -50,6 +51,7 @@ declare global {
         static on(...args: HookParamsDropCanvasData): number;
         static on(...args: HookParamsHotbarDrop): number;
         static on(...args: HookParamsGetChatLogEntryContext): number;
+        static on(...args: HookParamsGetSceneControlButtons): number;
         static on(...args: HookParamsPreCreateItem): number;
         static on(...args: HooksParamsPreUpdateCombat): number;
         static on(...args: HookParamsPreUpdateToken): number;
@@ -79,6 +81,7 @@ declare global {
         static once(...args: HookParamsDropCanvasData): number;
         static once(...args: HookParamsHotbarDrop): number;
         static once(...args: HookParamsGetChatLogEntryContext): number;
+        static once(...args: HookParamsGetSceneControlButtons): number;
         static once(...args: HookParamsPreCreateItem): number;
         static once(...args: HookParamsPreUpdateToken): number;
         static once(...args: HookParamsRenderChatMessage): number;

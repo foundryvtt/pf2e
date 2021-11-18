@@ -7,22 +7,6 @@ import "./styles/main.scss";
 HooksPF2e.listen();
 patchTextEditor();
 
-// world clock application
-Hooks.on("getSceneControlButtons", (controls: any[]) => {
-    controls
-        .find((c) => c.name === "token")
-        .tools.push({
-            name: "worldclock",
-            title: "CONTROLS.WorldClock",
-            icon: "fas fa-clock",
-            visible:
-                game.settings.get("pf2e", "worldClock.showClockButton") &&
-                (game.user.isGM || game.settings.get("pf2e", "worldClock.playersCanView")),
-            onClick: () => game.pf2e.worldClock!.render(true),
-            button: true,
-        });
-});
-
 Hooks.on("renderChatMessage", (message, html) => {
     // remove elements the user does not have permission to see
     html.find('[data-visibility="none"]').remove();
