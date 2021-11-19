@@ -49,8 +49,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 75 feet"
+                "details": "swiftness",
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "75"
+                    }
+                ],
+                "value": ""
             }
         },
         "details": {
@@ -65,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Storm lords wage battles to claim important territory within the Plane of Air.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -132,7 +140,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
                 },
                 "bonus": {
                     "value": 20
@@ -144,7 +155,7 @@
                     },
                     "nzx9b72xs5ctzzoqk9l2": {
                         "damage": "",
-                        "damageType": "Push5feet"
+                        "damageType": "chaotic"
                     }
                 },
                 "description": {
@@ -183,6 +194,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -221,6 +233,54 @@
             "name": "Lightning Lash",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "Qk0N8XSgIpwlNKmf",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "QPywhw5X98V0NX5g",
@@ -264,9 +324,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "High Winds",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -310,50 +370,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Disperse",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "0Yh02nhLLVwoQ2db",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Push",
             "sort": 500000,
             "type": "action"
         },
@@ -402,6 +418,54 @@
             "type": "action"
         },
         {
+            "_id": "uLEPJWbbXAY2E4KJ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "S3Ow01RqWLOKANdE",
             "data": {
                 "description": {
@@ -433,7 +497,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -468,7 +532,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
