@@ -99,7 +99,7 @@ describe("should create container data", () => {
         expect(backPack.isContainer).toBe(true);
         expect(backPack.heldItems.length).toBe(1);
         expect(backPack.heldItems[0]._id).toBe("2");
-        expect(backPack.formattedHeldItemBulk).toBe("L");
+        expect(backPack.formattedHeldItemBulk).toBe("1; 3L");
         expect(backPack.formattedNegateBulk).toBe("2");
         expect(backPack.formattedCapacity).toBe("4");
 

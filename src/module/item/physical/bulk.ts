@@ -416,10 +416,9 @@ function calculateItemBulk({
  * @param nestedExtraDimensionalContainer
  * @return
  */
-function isExtraDimensionalOrBulkReducing(item: BulkItem, nestedExtraDimensionalContainer: boolean): boolean {
+function isExtraDimensionalOrWorn(item: BulkItem, nestedExtraDimensionalContainer: boolean): boolean {
     return (
-        (item.extraDimensionalContainer && !nestedExtraDimensionalContainer) ||
-        (!item.extraDimensionalContainer && item.reducesBulk)
+        (item.extraDimensionalContainer && !nestedExtraDimensionalContainer) || (item.reducesBulk && item.isEquipped)
     );
 }
 
@@ -433,7 +432,7 @@ function isExtraDimensionalOrBulkReducing(item: BulkItem, nestedExtraDimensional
  * @return
  */
 function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensionalContainer: boolean): Bulk {
-    if (isExtraDimensionalOrBulkReducing(item, nestedExtraDimensionalContainer)) {
+    if (isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer)) {
         return bulk.minus(item.negateBulk);
     }
     return bulk;
