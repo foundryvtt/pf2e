@@ -112,11 +112,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
     }
 
-    removeContainer(): void {
-        this.data.data.containerId.value = null;
-        this._container = null;
-    }
-
     /** Generate a list of strings for use in predication */
     getContextStrings(prefix = ""): string[] {
         return [...this.traits]
