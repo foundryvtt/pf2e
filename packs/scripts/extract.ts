@@ -192,7 +192,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
         }
     }
     entityData.img = entityData.img.replace(
-        /^https:\/\/assets\.forge-vtt.com\/bazaar\/systems\/pf2e\/assets\//gi,
+        "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
         "systems/pf2e/"
     ) as typeof entityData["img"];
 
