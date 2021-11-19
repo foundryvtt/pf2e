@@ -190,7 +190,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     override get isLootSheet(): boolean {
-        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
+        return (
+            this.actor.isLootable &&
+            !this.actor.isOwner &&
+            this.actor.permission !== CONST.ENTITY_PERMISSIONS.OBSERVER &&
+            this.actor.isLootableBy(game.user)
+        );
     }
 
     /**
@@ -262,6 +267,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.creatureTraits, sheetData.data.traits.traits);
         this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
+        sheetData.limited = this.actor.limited;
 
         // Shield
         const shield = this.actor.heldShield;
@@ -323,11 +329,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      */
     override activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
-
-        // Set the inventory tab as active on a loot-sheet rendering.
-        if (this.isLootSheet) {
-            html.find(".tab.inventory").addClass("active");
-        }
 
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
