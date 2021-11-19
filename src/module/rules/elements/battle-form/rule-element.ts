@@ -7,6 +7,7 @@ import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -321,6 +322,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
             synthetics.strikes.length = 0;
+            for (const striking of Object.values(synthetics.striking).flat()) {
+                const predicate = (striking.predicate ??= new PredicatePF2e());
+                predicate.not.push("battle-form");
+            }
         }
 
         for (const datum of ruleData) {
