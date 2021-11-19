@@ -123,7 +123,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Toggle default roll mode
-        const rollMode = game.settings.get("core", "rollMode");
+        const rollMode = event?.ctrlKey || event?.metaKey ? "blindroll" : game.settings.get("core", "rollMode");
         if (["gmroll", "blindroll"].includes(rollMode))
             chatData.whisper = ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id);
         if (rollMode === "blindroll") chatData.blind = true;
