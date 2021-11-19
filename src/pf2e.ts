@@ -1,11 +1,9 @@
 import { HooksPF2e } from "@scripts/hooks";
-import { patchTextEditor } from "@scripts/🐵🩹";
 
 import "@system/measure";
 import "./styles/main.scss";
 
 HooksPF2e.listen();
-patchTextEditor();
 
 Hooks.on("renderChatMessage", (message, html) => {
     // remove elements the user does not have permission to see

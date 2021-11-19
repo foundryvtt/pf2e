@@ -26,6 +26,7 @@ import { EffectTracker } from "@system/effect-tracker";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { HomebrewElements } from "@module/settings/homebrew";
+import { TextEditorPF2e } from "@system/text-editor";
 
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
@@ -76,6 +77,8 @@ export function listen() {
         game.pf2e.effectTracker = new EffectTracker();
 
         game.pf2e.StatusEffects.setIconTheme();
+
+        game.pf2e.TextEditor = TextEditorPF2e;
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         new HomebrewElements().refreshTags();

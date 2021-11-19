@@ -43,6 +43,7 @@ import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
 import { CombatantPF2e } from "@module/combatant";
+import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
     interface Game {
@@ -78,6 +79,7 @@ declare global {
             Check: typeof CheckPF2e;
             RuleElements: typeof RuleElements;
             RuleElement: typeof RuleElementPF2e;
+            TextEditor: typeof TextEditorPF2e;
         };
     }
 
