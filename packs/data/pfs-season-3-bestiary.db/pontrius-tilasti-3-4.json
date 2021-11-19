@@ -67,7 +67,7 @@
             "publicNotes": "",
             "source": {
                 "author": "",
-                "value": "Pathfinder Society Scenario #3-05: Inheritors Rite"
+                "value": "Pathfinder Society Scenario #3-05: Inheritor's Rite"
             }
         },
         "resources": {
@@ -256,7 +256,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Spontaneous Divine Spells",
+            "name": "Divine Spontaneous Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -375,7 +375,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Divine Spells",
+            "name": "Bloodline Spells",
             "sort": 200000,
             "type": "spellcastingEntry"
         },
@@ -2268,7 +2268,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Two-handed Wielding",
+                        "property": "flags.pf2e.rollOptions.damage-roll.two-handed"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "Two handed d8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "two-handed"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
