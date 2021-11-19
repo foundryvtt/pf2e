@@ -52,8 +52,6 @@ import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
-import { BulkItem, calculateBulk } from "@item/physical/bulk";
-import { calculateEncumbrance } from "@item/physical/encumbrance";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -928,29 +926,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
-
-        // Bulk
-        const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size).contents;
-
-        // Inventory encumbrance
-        const bonusEncumbranceBulk = this.data.data.attributes.bonusEncumbranceBulk ?? 0;
-        const bonusLimitBulk = this.data.data.attributes.bonusLimitBulk ?? 0;
-
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-        const [bulk] = calculateBulk({
-            items: bulkItems,
-            bulkConfig: bulkConfig,
-            actorSize: this.size,
-        });
-        this.data.data.attributes.encumbrance = calculateEncumbrance(
-            this.data.data.abilities.str.mod,
-            bonusEncumbranceBulk,
-            bonusLimitBulk,
-            bulk,
-            this.size
-        );
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;

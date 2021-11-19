@@ -222,7 +222,7 @@ describe("should calculate bulk", () => {
         });
     });
 
-    test("backpack negates bulk", () => {
+    test("worn backpack negate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -243,6 +243,7 @@ describe("should calculate bulk", () => {
                         bulk: new Bulk({ light: 1 }),
                     }),
                 ],
+                isEquipped: true,
                 negateBulk: new Bulk({ normal: 2 }),
                 bulk: new Bulk({ normal: 1 }),
             }),
@@ -259,6 +260,30 @@ describe("should calculate bulk", () => {
             normal: 1,
         });
         expect(overflow).toEqual({ arrows: 9 });
+    });
+
+    test("unequipped backpack does not negate bulk", () => {
+        const items = [
+            // backpack
+            new BulkItem({
+                id: "1",
+                holdsItems: [
+                    new BulkItem({
+                        id: "1",
+                        bulk: new Bulk({ normal: 1 }),
+                    }),
+                ],
+                isEquipped: false,
+                negateBulk: new Bulk({ normal: 2 }),
+                bulk: new Bulk({ normal: 1 }),
+            }),
+        ];
+        const [bulk] = calculateBulk({ items });
+
+        expect(bulk).toEqual({
+            light: 0,
+            normal: 2,
+        });
     });
 
     test("nesting bag of holdings into backpacks reduces bulk", () => {
