@@ -1,5 +1,149 @@
 # Changelog
 
+## Version 2.19.0
+### New Features
+* (stwlam) Add a scene-darkness adjuster to lighting controls
+* (stwlam) Add a `LinkedProficiency` rules element and add to all weapon-familiarity ancestry feats
+* (stwlam) Add a `ChoiceSet` rules element and reference implementation with Canny Acumen
+* (stwlam) Add a means of selecting a skill for NPC initiative rolling
+* (stwlam) Set a `tiebreakPriority` in initiative data, boost priority via certain items
+* (stwlam) Add support for physical-item homebrew traits
+
+### Bug Fixes
+* (stwlam) Fix thrown dart-group weapons requiring ammunition
+* (stwlam) Refrain from treating ability modifiers like bonuses or penalties
+* (stwlam) Fix "take item" links sometimes having duplicate click listeners in compendium browser
+* (stwlam) Fix bug causing reversion of token condition icon theme on reload
+* (stwlam) Fix bug causing reroll options to appear in damage message context menu
+* (stwlam) Fix migrations of items on synthetic actors
+* (stwlam) Have BattleForm rule elements suppress Striking rule elements
+* (Supe) Fix elite/weak level endlessly updating for legacy npc sheet
+
+### Content Updates
+* (Cora, Kyle S, Dods, ae4355, xdy, and Tikael) Add remaining Guns & Gears items
+* (Abaddon) Bestiary 1- Brush up Golems
+* (Abaddon) Update to sense selector: styling and acuity support
+* (Abaddon) Brush up monsters in Bestiary 1 (D-E)
+* (Abaddon) Bestiary 1: general brushup of chromatic and metallic dragons
+* (Abaddon) Add range increment 75ft for elemental hurricane
+* (ArthurTrumpet) Added Nature Incarnate spell effects
+* (ArthurTrumpet) Update Dragon forms to use rule element type battleform
+* (cepvep) Add IWR to Spells F-H
+* (Cora) Add the SoT3 items and their effects
+* (Drental) Add the Actors and Hazards from PFS Scenario 3-02
+* (Drental) Fix subtypes offirst-level consumables
+* (Drental) Add automation to Megaton Strike feat
+* (Drental) Fix a typo in Giant Animated Statue
+* (Flash Granola) Add several physical-item descriptions
+* (Friz) Fix save button on Retributive Pain spell
+* (Friz) Update Commanding Lash spell to fix issue with save button
+* (Friz) Update items missing Incapacitation traits in the inline roll buttons
+* (Friz) Fix spelling error in Vrykolakas pestilential aura
+* (fryguy) Add radiation damage trait
+* (fryguy) Change avatar cast time to 2 actions
+* (fryguy) Add missing coven spells to named hags
+* (fryguy) Replace hard-coded hefty hauler/lifting belt code with an AE-Like rules elements
+* (rectulo) Add content from Threshold of Knowledge
+* (rectulo) Fix Breath Blaster activation (2 actions) and delete the activate sentence without automation
+* (rectulo) Fix a typo in cold-comfort-lesser
+* (rectulo) Correct the level of the Big Rock Bullet (Major)
+* (rectulo) Fix a typo in the Greater Deed of The Way of the Drifter
+* (rectulo) Fix formatting of deeds in the way of the spellshot
+* (rectulo) Fix formatting of mudrock snare description
+* (rectulo) Fix format for Alchemical Shot feat
+* (rectulo) Fix the level of the crushing (greater) rune
+* (SpartanCPA) Add the new Archetype feats, spells, and spell effects from SoT book 3
+* (SpartanCPA) Add AdjustDegreeOfSuccess to Forlorn
+* (SpartanCPA) Add new traits for SoT 5
+* (SpartanCPA) Add crosslinks to SoT4
+* (SpartanCPA) Correct the flavor text of the Winter Patron
+* (SpartanCPA) Add Poison to spell traits
+* (SpartanCPA) Remove the extra blank line in Red-Rib Gill Mask
+* (SpartanCPA) Add new weapons, spells, effects, and traits from SoT book 4
+* (SpartanCPA) Add sources where NPC were missing them
+* (SpartanCPA) SoT 5 - Add equipment and spells
+* (SpartanCPA) Change Phylactery to Soul Cage
+* (SpartanCPA) Add Formian and Ikeshti languages
+* (SpartanCPA) Correct minor issues with Creature Family abilities
+* (SpartanCPA) Add Vampire, Vrykolakas, Worm That Walks and Ravener template abilities
+* (SpartanCPA) Add NPCs from SoT5
+* (SpartanCPA) Add archetype feats for SoT4
+* (SpartanCPA) Add items from Summit & Sundry
+* (SpartanCPA) Add swamp stride to movement details of Boggards
+* (SpartanCPA) Add items from Tesyovensku’s Warehouse
+* (SpartanCPA) Correct name of "Directed Poison"
+* (SpartanCPA) Add new NPCs from Bounty 16
+* (SpartanCPA) Fix the source of the `Geas` spell
+* (SpartanCPA) Re-standardize save inline button text format
+* (stwlam) Automate Monastic Weaponry
+* (stwlam) Add a fly speed to the Witchfire Warden
+* (stwlam) Migrate spells to clamp level between 1 and 10
+* (stwlam) Add an inventor class icon
+* (stwlam) Set price of Conflagration Club
+* (stwlam) Fix change mode of Magic Warrior Aspect and Magic Warrior Transformation
+* (stwlam) Remove extra focus point included in Wave Order, tune other Druid Order FP REs
+* (stwlam) Add will-save proficiency increase to the Stubborn class feature
+* (stwlam) Correct default vehicle immunities
+* (stwlam) Add several icons for new equipment and spells
+* (Tikael) Add action macro for Whirling Throw feat
+* (Tikael) Add automation for Scales of the Dragon feat
+* (Tikael) Correct price of Genius Diadem
+* (Tikael) Add area to Astral Labyrinth spell
+* (Tikael) Add Air, Water, and Clockwork armor traits, Aura consumable trait, Steam hazard trait
+* (Tikael) Add missing translation string and firearm usage
+* (Tikael) Add hazards and vehicles from Guns & Gears
+* (Tikael) Add all remaining usages from Guns & Gears
+* (Tikael) Add rule elements to SoT 4 feats
+* (Tikael) Normalize source for Guns & Gears
+* (Tikael) Add effects for Relic & Rememberence equipment
+* (Tikael) Add automation for gunslinger class DC advances
+* (Tikael) Add effect for Distracting Feint feat
+* (Tikael) Allow for word wrap of resistances with long exceptions
+* (Tikael) Automate noqual and spellguard shields
+* (Tikael) Add equipment from Pathfinder: Fumbus comic book
+* (Tikael) Correct actions for Fulminating Shot
+* (Tikael) Add items from "The Rune Room" shop in LO:GB
+* (Tikael) Add Skyrider Sword
+* (Tikael) Add "Unscathed Blade" items from Grand Bazaar
+* (Tikael) Add "Resplendent Rose" and "Urban Garden" from Grand Bazaar
+* (Tikael) Add Hero Point Deck journals and rolltable.
+* (Tikael) Add actors for PFS Scenario 3-05
+* (Tikael) Correct class DC for Way of the Spellshot
+* (TMun) Add the Pathfinder:Fumbus! comic to the license file
+* (VestOfHolding) Adding equipment from Morhen's Mobility Apparel
+* (VestOfHolding) Adding everything from the Reclaimed Paradise Wares shop
+* (VestOfHolding) Adding nonmagical attacks immunity
+* (VestOfHolding) Adding equipment from Relics & Rememberance Wares
+* (xdy) Clean up deity journal entries, add a handful of missing entries for deities and pantheons
+
+### Core System Improvements
+* (Abaddon) Add "speed details" text field to NPC sheet
+* (Drental) Allow use of CTRL/META and SHIFT on recovery checks
+* (Drental) Allow import of forge image links
+* (Drental) Move loot/merchant information into tooltip on loot-actor sheets
+* (Eddie) Add Proficiency Without Level support to Formula DCs
+* (Eddie) Add Crafting Entry, which are drawn from class features and feats
+* (Friz) Add roll note to actions/spells with the incapacitation trait to make it more obvious for GMs
+* (stwlam) Instead of hiding scene settings managed by rules-based vision, show them disabled a message
+* (stwlam) Tidy up markup, css, and event listener of Effects Panel
+* (stwlam) Ensure presence of traits array on combo weapon melee-usage properties
+* (stwlam) Localize title of popped out Encounter Tracker
+* (stwlam) Tweak styling of pf2e-theme journal-entry tables
+* (stwlam) Add base items to weapon attack & damage selectors
+* (stwlam) Show level and price tooltips for weapons adjusted by materials and runes
+* (stwlam) Add adjustment and comparison methods to actor-size code
+* (stwlam) Formally end support for Active Effects in the system
+* (stwlam) Add a dedicated record of vehicle traits (just one!)
+* (stwlam) Link proficiencies among equivalent base weapons (e.g., longbow and composite longbow)
+* (stwlam) Automate the Kickback trait
+* (stwlam) Change default setting of "Experimental damage formatting" back to disabled
+* (stwlam) Remove ability property from weapon data, tie some traits to ranged or melee weapons
+* (stwlam) Skip preparing strikes for weapons with a quantity of zero
+* (stwlam) Disable the roll-initiative button if there is no active encounter
+* (stwlam) Expand and align weapon & armor item cards
+* (Supe) Make spellcasting attack rolls and DCs selectable by rules elements
+* (Supe) Remove all code support for defaultRollOptions
+
 ## Version 2.18.3
 ### Bug Fixes
 * (stwlam) Fix attack rolling from weapon icons on PC actions tab
