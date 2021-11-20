@@ -193,6 +193,8 @@ declare global {
 
         getEmbeddedCollection(embeddedName: "Token"): this["data"]["tokens"];
 
+        update(data: DocumentUpdateData<this>, options?: SceneUpdateContext): Promise<this>;
+
         updateEmbeddedDocuments(
             embeddedName: "Token",
             updateData: EmbeddedDocumentUpdateData<TTokenDocument>[],
@@ -263,5 +265,9 @@ declare global {
             | CollectionValue<this["data"]["tiles"]>[]
             | CollectionValue<this["data"]["walls"]>[]
         >;
+    }
+
+    interface SceneUpdateContext extends DocumentModificationContext {
+        animateDarkness?: number;
     }
 }

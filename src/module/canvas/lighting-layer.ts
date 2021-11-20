@@ -11,7 +11,7 @@ export class LightingLayerPF2e<
     override hasGlobalIllumination(): boolean {
         if (!canvas.scene) return false;
         const { globalLight, globalLightThreshold } = canvas.scene.data;
-        return globalLight && (globalLightThreshold === null || this.darknessLevel <= globalLightThreshold);
+        return globalLight && (globalLightThreshold === null || this.darknessLevel < globalLightThreshold);
     }
 
     setPerceivedLightLevel({ defer = true } = {}): void {
