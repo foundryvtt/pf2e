@@ -93,6 +93,19 @@ const config: Configuration = {
                 ],
             },
             {
+                test: /nouislider\.min\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            url: false,
+                            sourceMap: true,
+                        },
+                    },
+                ],
+            },
+            {
                 loader: "thread-loader",
                 options: {
                     workers: os.cpus().length + 1,

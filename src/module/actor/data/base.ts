@@ -3,13 +3,15 @@ import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import type { ItemPF2e } from "@item/base";
-import { CheckModifier, StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@module/modifiers";
 import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "./values";
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
 import { AutoChangeEntry } from "@module/rules/elements/ae-like";
 import { WeaponPF2e } from "@item";
+import { ActorSizePF2e } from "@actor/data/size";
+import { SkillAbbreviation } from "@actor/creature/data";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
@@ -35,6 +37,24 @@ export interface BaseActorDataPF2e
     flags: ActorFlagsPF2e;
 
     readonly _source: BaseActorSourcePF2e;
+}
+
+export interface ActorSystemSource {
+    attributes: {
+        hp: ValueAndMax;
+    };
+    traits?: BaseTraitsSource;
+    /** A record of this actor's current world schema version as well a log of the last migration to occur */
+    schema: DocumentSchemaRecord;
+}
+
+export interface ActorSystemData extends ActorSystemSource {
+    attributes: BaseActorAttributes;
+    traits: BaseTraitsData;
+    /** Icons appearing in the Effects Tracker application */
+    tokenEffects: TemporaryEffect[];
+    /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
+    autoChanges: Record<string, AutoChangeEntry[] | undefined>;
 }
 
 export interface RollOptionFlags {
@@ -69,24 +89,6 @@ export interface BaseActorAttributes {
 // expose _modifiers field to allow initialization in data preparation
 export type HitPointsData = StatisticModifier & BaseHitPointsData;
 
-export interface ActorSystemSource {
-    attributes: {
-        hp: ValueAndMax;
-    };
-    traits?: BaseTraitsData;
-    /** A record of this actor's current world schema version as well a log of the last migration to occur */
-    schema: DocumentSchemaRecord;
-}
-
-export interface ActorSystemData extends ActorSystemSource {
-    attributes: BaseActorAttributes;
-    traits: BaseTraitsData;
-    /** Icons appearing in the Effects Tracker application */
-    tokenEffects: TemporaryEffect[];
-    /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
-    autoChanges: Record<string, AutoChangeEntry[] | undefined>;
-}
-
 export type ImmunityType = SetElement<typeof IMMUNITY_TYPES>;
 export type WeaknessType = SetElement<typeof WEAKNESS_TYPES>;
 export interface LabeledWeakness extends LabeledNumber {
@@ -97,7 +99,7 @@ export interface LabeledResistance extends LabeledNumber {
     type: ResistanceType;
 }
 
-export interface BaseTraitsData {
+export interface BaseTraitsSource {
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity: { value: Rarity };
     /** The character size (such as 'med'). */
@@ -112,6 +114,10 @@ export interface BaseTraitsData {
     dr: LabeledResistance[];
     /** Damage vulnerabilities that this actor has. */
     dv: LabeledWeakness[];
+}
+
+export interface BaseTraitsData extends BaseTraitsSource {
+    size: ActorSizePF2e;
 }
 
 /** Base data describing almost any actor statistic */
@@ -134,15 +140,13 @@ export interface AbilityBasedStatistic extends RawStatistic {
 export type RollFunction = (parameters: RollParameters) => string | void | Promise<void>;
 
 /** Basic initiative-relevant data. */
-export interface RawInitiativeData {
+export interface InitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
-    ability: AbilityString | "perception";
+    ability: SkillAbbreviation | "perception";
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
-    label: string;
+    label?: string;
 }
 
-/** The full data for charatcer initiative. */
-export type InitiativeData = CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
 export type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
@@ -155,7 +159,7 @@ export interface DexterityModifierCapData {
     source: string;
 }
 
-export interface ArmorClassData extends StatisticModifier {
+export interface ArmorClassData {
     /** The actual AC value */
     value: number;
     /** A textual breakdown of the modifiers that compose the value */

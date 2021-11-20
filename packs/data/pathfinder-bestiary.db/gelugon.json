@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "35 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "35"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "details": {
@@ -70,6 +71,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Insectile ice devils are strategists and masterminds in Hell's armies, using their superior intellect to strike against their enemies and spread Hell's influence throughout the planes. An ice devil rarely breaks their solitary contemplation of strategy save to pursue a plan they have devised. They can be enticed otherwise only by an exchange of services to be determined at a later time, adding to the pieces they can play on the board. Occasionally, a mortal strategist of outstanding skill might amuse an ice devil enough for the gelugon to agree to a contest of strategy, typically a strategic board game like chess, to decide a dispute. In the unlikely event the devil loses such a contest, they inevitably go to great lengths to later obtain that mortal's services for their own infernal ends.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -105,21 +107,19 @@
             "dr": [
                 {
                     "exceptions": "silver",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Poison",
+                    "exceptions": "",
                     "type": "poison",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -158,7 +158,7 @@
             "_id": "7wFuaUKgWFlbP6FD",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -179,7 +179,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -257,7 +257,7 @@
                     "dc": "33",
                     "item": 0,
                     "mod": 0,
-                    "value": 23
+                    "value": 25
                 },
                 "tradition": {
                     "value": "divine"
@@ -281,7 +281,7 @@
             "_id": "405uBEN0WrZIypnH",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -380,7 +380,7 @@
                     "dc": "33",
                     "item": 0,
                     "mod": 0,
-                    "value": 23
+                    "value": 25
                 },
                 "tradition": {
                     "value": ""
@@ -1145,7 +1145,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1232,7 +1232,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door",
+            "name": "Dimension Door (At Will)",
             "sort": 1000000,
             "type": "spell"
         },
@@ -1244,7 +1244,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1330,7 +1330,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/fly.webp",
-            "name": "Fly",
+            "name": "Fly (Constant)",
             "sort": 1100000,
             "type": "spell"
         },
@@ -1557,28 +1557,48 @@
             "type": "spell"
         },
         {
-            "_id": "nVOy56Rxz8OQCYGJ",
+            "_id": "1fAehJIKX34N9iag",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "longspear",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "simple",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This very long spear, sometimes called a pike, is purely for thrusting rather than throwing. Used by many soldiers and city watch for crowd control and defense against charging enemies, it must be wielded with two hands.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "spear",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1612,49 +1632,97 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "5 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "lg"
                 },
-                "slug": null,
+                "slug": "longspear",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "reach"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 striking longspear",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.aXuJh4i8HqSu6NYV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longspear.webp",
+            "name": "Longspear",
             "sort": 1400000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "yIloVqSs48TDwk9P",
@@ -1663,6 +1731,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "slowing-frost"
                     ]
@@ -1722,6 +1791,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "slowing-frost"
                     ]
@@ -1782,6 +1852,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1826,6 +1897,202 @@
             "name": "Frost Longspear",
             "sort": 1700000,
             "type": "melee"
+        },
+        {
+            "_id": "COesoRf5oc4fLJhF",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "xx2paGql0oW1VL3k",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "qiGtT3oDu82IOdB6",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "b8LAOUk743PuI1qO",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2100000,
+            "type": "action"
         },
         {
             "_id": "pSpabH5fc53i9K81",
@@ -1877,11 +2144,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "action"
         },
         {
-            "_id": "d3GyIACo6JJ2aWLF",
+            "_id": "8H68KpZMl3WGb1NP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1893,13 +2160,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -1918,10 +2185,78 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1900000,
+            "sort": 2300000,
+            "type": "action"
+        },
+        {
+            "_id": "LmRU9VN6HvnRCcJO",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -1967,9 +2302,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slowing Frost",
-            "sort": 2000000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2013,9 +2348,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Tactician of Cocytus",
-            "sort": 2100000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2050,7 +2385,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2085,7 +2420,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2300000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2120,7 +2455,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2400000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2155,7 +2490,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2500000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2190,7 +2525,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2600000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2225,7 +2560,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2700000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -2260,7 +2595,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2800000,
+            "sort": 3300000,
             "type": "lore"
         },
         {
@@ -2295,7 +2630,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2900000,
+            "sort": 3400000,
             "type": "lore"
         },
         {
@@ -2330,7 +2665,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare",
-            "sort": 3000000,
+            "sort": 3500000,
             "type": "lore"
         }
     ],

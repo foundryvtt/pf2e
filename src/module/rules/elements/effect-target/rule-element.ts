@@ -1,7 +1,7 @@
 import { EffectPF2e, ItemPF2e } from "@item";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { EffectTargetData, EffectTargetSource } from "./data";
-import { TargetPrompt } from "./prompt";
+import { EffectTargetPrompt } from "./prompt";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -9,6 +9,7 @@ import { TargetPrompt } from "./prompt";
  */
 class EffectTargetRuleElement extends RuleElementPF2e {
     constructor(data: EffectTargetSource, item: Embedded<ItemPF2e>) {
+        data.predicate ??= { all: ["weapon:equipped"] };
         super(data, item);
 
         // Pass the targetId to the parent effect item so that it may be referenced by other rule elements on the
@@ -24,11 +25,15 @@ class EffectTargetRuleElement extends RuleElementPF2e {
      */
     override async preCreate(source: EffectTargetSource): Promise<void> {
         if (!(this.item instanceof EffectPF2e)) return;
-        const targetItem = await new TargetPrompt(source, { item: this.item }).resolveTarget();
-        if (targetItem) {
-            source.targetId = targetItem.id;
+        const selection = await new EffectTargetPrompt({
+            predicate: this.data.predicate,
+            scope: this.data.scope ?? "weapon",
+            item: this.item,
+        }).resolveSelection();
+        if (selection) {
+            source.targetId = selection.value.id;
             const effectName = this.item.data._source.name;
-            this.item.data._source.name = `${effectName} (${targetItem.name})`;
+            this.item.data._source.name = `${effectName} (${selection.value.name})`;
         } else {
             source.ignored = true;
         }
@@ -36,6 +41,8 @@ class EffectTargetRuleElement extends RuleElementPF2e {
 }
 
 interface EffectTargetRuleElement extends RuleElementPF2e {
+    item: Embedded<EffectPF2e>;
+
     data: EffectTargetData;
 }
 

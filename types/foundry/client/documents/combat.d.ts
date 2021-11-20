@@ -5,7 +5,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<Combat>);
 
         /** Track the sorted turn order of this combat encounter */
-        turns: TCombatant[];
+        turns: Embedded<TCombatant>[];
 
         /** Record the current round, turn, and tokenId to understand changes in the encounter state */
         current: {
@@ -34,7 +34,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** Get the Combatant who has the current turn. */
-        get combatant(): TCombatant | undefined;
+        get combatant(): Embedded<TCombatant> | undefined;
 
         /** The numeric round of the Combat encounter */
         get round(): number;
@@ -70,7 +70,7 @@ declare global {
          * Get a Combatant using its Token id
          * @param tokenId The id of the Token for which to acquire the combatant
          */
-        getCombatantByToken(tokenId: string): TCombatant | undefined;
+        getCombatantByToken(tokenId: string): Embedded<TCombatant> | undefined;
 
         /** Advance the combat to the next round */
         nextRound(): Promise<this>;
@@ -124,7 +124,7 @@ declare global {
         setInitiative(id: string, value: number): Promise<void>;
 
         /** Return the Array of combatants sorted into initiative order, breaking ties alphabetically by name. */
-        setupTurns(): TCombatant[];
+        setupTurns(): Embedded<TCombatant>[];
 
         /** Begin the combat encounter, advancing to round 1 and turn 1 */
         startCombat(): Promise<this>;
@@ -134,7 +134,7 @@ declare global {
          * This method can be overridden by a system or module which needs to display combatants in an alternative order.
          * By default sort by initiative, next falling back to name, lastly tie-breaking by combatant id.
          */
-        protected _sortCombatants(a: TCombatant, b: TCombatant): number;
+        protected _sortCombatants(a: Embedded<TCombatant>, b: Embedded<TCombatant>): number;
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */
@@ -186,12 +186,12 @@ declare global {
             embeddedName: "Combatant",
             data: PreCreate<TCombatant["data"]["_source"]>[],
             context?: DocumentModificationContext
-        ): Promise<TCombatant[]>;
+        ): Promise<Embedded<TCombatant>[]>;
     }
 
     interface RollInitiativeOptions {
         formula?: number | null;
         updateTurn?: boolean;
-        messageOptions: DocumentModificationContext;
+        messageOptions?: DocumentModificationContext;
     }
 }

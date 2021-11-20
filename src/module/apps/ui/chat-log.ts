@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/rolls";
 
@@ -29,26 +29,15 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             return validActor && message.isRoll && validRollType;
         };
 
+        const canReroll: ContextOptionCondition = (li): boolean => {
+            return game.messages.get(li.data("messageId"), { strict: true }).isRerollable;
+        };
+
         const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
             const message = game.messages.get(li.data("messageId"), { strict: true });
-
             const actorId = message.data.speaker.actor ?? "";
             const actor = game.actors.get(actorId);
-            const canReroll = !message.getFlag("pf2e", "context")?.isReroll === true;
-            return (
-                canReroll &&
-                actor?.data.type === "character" &&
-                actor.isOwner &&
-                actor.data.data.attributes.heroPoints?.rank >= 1 &&
-                (message.isAuthor || game.user.isGM)
-            );
-        };
-        const canReroll: ContextOptionCondition = (li): boolean => {
-            const message = game.messages.get(li.data("messageId"), { strict: true });
-            const actorId = message.data.speaker.actor ?? "";
-            const isOwner = !!game.actors.get(actorId)?.isOwner;
-            const canRerollMessage = !message.getFlag("pf2e", "context")?.isReroll === true;
-            return canRerollMessage && isOwner && (message.isAuthor || game.user.isGM);
+            return message.isRerollable && actor instanceof CharacterPF2e && actor.heroPoints.value > 0;
         };
 
         options.push(

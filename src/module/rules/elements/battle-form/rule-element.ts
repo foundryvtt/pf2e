@@ -1,11 +1,13 @@
 import { CharacterPF2e } from "@actor";
+import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType, CharacterData } from "@actor/data";
-import { MOVEMENT_TYPES, SENSE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -268,10 +270,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                         newSpeed.modifiers
                             .filter((modifier) => modifier.enabled)
                             .map((modifier) => {
-                                const modifierLabel = game.i18n.localize(modifier.name);
                                 const sign = modifier.modifier < 0 ? "" : "+";
                                 const value = modifier.modifier;
-                                return `${modifierLabel} ${sign}${value}`;
+                                return `${this.modifierLabel} ${sign}${value}`;
                             })
                     )
                     .join(", ");
@@ -306,12 +307,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             img: strikeData.img,
-            ability: strikeData.ability,
             category: strikeData.category,
             group: strikeData.group,
+            baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: "melee",
+            range: null,
             traits: strikeData.traits,
         }));
 
@@ -321,6 +322,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
             synthetics.strikes.length = 0;
+            for (const striking of Object.values(synthetics.striking).flat()) {
+                const predicate = (striking.predicate ??= new PredicatePF2e());
+                predicate.not.push("battle-form");
+            }
         }
 
         for (const datum of ruleData) {
@@ -371,8 +376,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private suppressModifiers(statistic: StatisticModifier): void {
         for (const modifier of statistic.modifiers) {
             if (modifier.ignored) continue;
-            if (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) {
-                modifier.predicate?.not?.push("battle-form");
+            if (
+                (!["status", "circumstance"].includes(modifier.type) && modifier.modifier >= 0) ||
+                modifier.type === "ability"
+            ) {
+                modifier.predicate.not.push("battle-form");
                 modifier.ignored = true;
             }
         }

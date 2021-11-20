@@ -23,7 +23,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "isAlchemical": true,
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "name": "Alchemist",
+                "requiredTraits": [
+                    [
+                        "alchemical"
+                    ]
+                ],
+                "selector": "alchemist"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.crafting.entries.alchemist.maxItemLevel",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },

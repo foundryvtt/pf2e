@@ -49,13 +49,15 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "100 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "100"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "details": {
@@ -70,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Elemental tsunamis are huge and destructive.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -101,9 +104,9 @@
             },
             "dr": [
                 {
-                    "label": "Fire",
+                    "exceptions": "",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -144,7 +147,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "push-or-pull-10-feet"
+                    ]
                 },
                 "bonus": {
                     "value": 24
@@ -156,7 +162,7 @@
                     },
                     "859ii80b7hlzsy0zkttm": {
                         "damage": "",
-                        "damageType": "PushorPull10feet"
+                        "damageType": "chaotic"
                     }
                 },
                 "description": {
@@ -232,6 +238,54 @@
             "type": "action"
         },
         {
+            "_id": "7pRxaQFmTGlbnKEr",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "FTMgXssm5HK4Io0O",
             "data": {
                 "actionCategory": {
@@ -275,7 +329,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Vortex",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -321,52 +375,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drench",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "78iO79pQVTytzixz",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push or Pull in its damage entry. <strong>Effect</strong> The monster automatically knocks the target away from the monster, or pulls it towards the monster. Unless otherwise noted in the ability description, the creature is pushed or pulled 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Push or Pull",
             "sort": 500000,
             "type": "action"
         },
@@ -409,9 +419,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Surge",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "MGX1U8Kv59BVYAOI",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The elemental tsunami can also pull the creature.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push-or-pull-10-feet",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push or Pull 10 feet",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -446,7 +504,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -481,7 +539,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],

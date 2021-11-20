@@ -1,0 +1,16 @@
+<ol class="ability-scores">
+    {{#each data.abilities as |ability key|}}
+        <li class="ability" data-ability="{{key}}">
+            <label for="{{@root.options.id}}-{{key}}-ability-score" class="details-label ability-name">{{localize ability.label}}</label>
+            <h2 class="ability-id" title="{{localize "PF2E.AbilityTitle"}}">
+                {{localize (add "PF2E.AbilityId." key)}}
+            </h2>
+            <h3 class="ability-mod" title="{{localize "PF2E.ModifierTitle"}}">
+                {{numberFormat ability.mod decimals=0 sign=true}}
+            </h3>
+            <div class="ability-score" title="{{localize "PF2E.ScoreTitle"}}">
+                <input data-property="data.abilities.{{key}}.value" type="number" value="{{ability.value}}" placeholder="10" />
+            </div>
+        </li>
+    {{/each}}
+</ol>

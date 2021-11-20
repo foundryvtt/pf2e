@@ -69,6 +69,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.isCursed;
     }
 
+    get isTemporary(): boolean {
+        return this.data.data.temporary?.value === true;
+    }
+
     get material() {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
@@ -96,10 +100,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get activations() {
         return Object.values(this.data.data.activations ?? {}).map((action) => {
             const components: string[] = [];
-            if (action.components.cast) components.push(game.i18n.localize("PF2E.ItemActivate.Cast"));
-            if (action.components.command) components.push(game.i18n.localize("PF2E.ItemActivate.Command"));
-            if (action.components.envision) components.push(game.i18n.localize("PF2E.ItemActivate.Envision"));
-            if (action.components.interact) components.push(game.i18n.localize("PF2E.ItemActivate.Interact"));
+            if (action.components.cast) components.push(game.i18n.localize("PF2E.Item.Activation.Cast"));
+            if (action.components.command) components.push(game.i18n.localize("PF2E.Item.Activation.Command"));
+            if (action.components.envision) components.push(game.i18n.localize("PF2E.Item.Activation.Envision"));
+            if (action.components.interact) components.push(game.i18n.localize("PF2E.Item.Activation.Interact"));
 
             return {
                 componentsLabel: components.join(", "),
@@ -151,6 +155,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // preparation
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
+        this.data.isTemporary = this.isTemporary;
+
+        if (this.isTemporary) {
+            systemData.price.value = "0 gp";
+        }
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId.value) {
@@ -226,6 +235,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     override getChatData(): Record<string, unknown> {
+        const material = this.material
+            ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
+                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[this.material.grade]),
+              })
+            : null;
+
         return {
             rarity: {
                 name: this.rarity,
@@ -233,6 +249,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 description: CONFIG.PF2E.traitsDescriptions[this.rarity],
             },
             description: { value: this.description },
+            material,
         };
     }
 

@@ -3,13 +3,13 @@ import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
 
-export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
+export class SenseSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/trait-selector/senses.html",
-            title: "PF2E.Senses",
+            title: "PF2E.Sense.Label",
         });
     }
 
@@ -29,7 +29,7 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         Object.entries(this.choices).forEach(([type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
             choices[type] = {
-                acuity: sense?.acuity ?? "",
+                acuity: sense?.acuity ?? "precise",
                 disabled: sense?.source ? "disabled" : "",
                 label,
                 selected: sense !== undefined,
@@ -37,6 +37,8 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
             };
         });
         data.choices = choices;
+
+        data.senseAcuity = CONFIG.PF2E.senseAcuity;
 
         return data;
     }
@@ -69,9 +71,8 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1]))) {
-                    const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[1] });
+                if (!Number.isNaN(Number(v[2]))) {
+                    choices.push({ type: k, acuity: v[1], value: v[2] });
                 }
             }
         }

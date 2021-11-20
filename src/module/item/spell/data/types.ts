@@ -1,6 +1,5 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { TrickMagicItemCastData } from "@item/data";
 import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -121,7 +120,6 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
-    trickMagicItemData?: TrickMagicItemCastData;
     isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;

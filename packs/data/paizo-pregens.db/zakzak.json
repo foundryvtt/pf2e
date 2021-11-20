@@ -27,10 +27,6 @@
             "classDC": {},
             "flatbonushp": 0,
             "flatbonussp": 0,
-            "heroPoints": {
-                "max": 3,
-                "rank": 1
-            },
             "hp": {
                 "details": "",
                 "temp": 0,
@@ -149,7 +145,11 @@
             },
             "school": "none"
         },
-        "resources": {},
+        "resources": {
+            "heroPoints": {
+                "value": 1
+            }
+        },
         "saves": {
             "will": {
                 "rank": 2
@@ -231,33 +231,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "kBidDkNX51VJdhsE",
-            "changes": [
-                {
-                    "key": "data.martial.martial.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"goblin\", \"category\": \"advanced\" }"
-                },
-                {
-                    "key": "data.martial.simple.familiarity",
-                    "mode": 5,
-                    "value": "{ \"trait\": \"goblin\", \"category\": \"martial\" }"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Goblin Weapon Familiarity",
-            "origin": "Actor.gklGNUnWccKuG74e.Item.Z7t9ERH3Kabkk2ix",
-            "tint": null,
-            "transfer": false
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/goblin.svg",
     "items": [
@@ -1066,7 +1040,7 @@
                         "group": "brawling",
                         "key": "Strike",
                         "label": "Jaws",
-                        "range": "melee",
+                        "range": null,
                         "traits": [
                             "finesse",
                             "unarmed"
@@ -1167,6 +1141,28 @@
                         "mode": "upgrade",
                         "path": "data.martial.weapon-base-horsechopper.rank",
                         "value": 1
+                    },
+                    {
+                        "key": "LinkedProficiency",
+                        "predicate": {
+                            "all": [
+                                "weapon:trait:goblin",
+                                "weapon:category:advanced"
+                            ]
+                        },
+                        "sameAs": "martial",
+                        "slug": "advanced-goblin-weapons"
+                    },
+                    {
+                        "key": "LinkedProficiency",
+                        "predicate": {
+                            "all": [
+                                "weapon:trait:goblin",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        "sameAs": "simple",
+                        "slug": "martial-goblin-weapons"
                     }
                 ],
                 "slug": "goblin-weapon-familiarity",
@@ -1183,32 +1179,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "vYbjcHork2e0wTII",
-                    "changes": [
-                        {
-                            "key": "data.martial.martial.familiarity",
-                            "mode": 5,
-                            "value": "{ \"trait\": \"goblin\", \"category\": \"advanced\" }"
-                        },
-                        {
-                            "key": "data.martial.simple.familiarity",
-                            "mode": 5,
-                            "value": "{ \"trait\": \"goblin\", \"category\": \"martial\" }"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/feats/feats.webp",
-                    "label": "Goblin Weapon Familiarity",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.OYjzfTeWU7RJBT7v"
@@ -1445,9 +1416,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "dex"
-                },
                 "baseItem": "spoon-gun",
                 "bonus": {
                     "value": 0
@@ -1461,6 +1429,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
@@ -1482,9 +1451,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "firearm"
-                },
+                "group": "firearm",
                 "hands": {
                     "value": false
                 },
@@ -1560,9 +1527,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "30"
-                },
+                "range": 30,
                 "reload": {
                     "value": "1"
                 },
@@ -1573,7 +1538,7 @@
                 },
                 "slug": "spoon-gun",
                 "source": {
-                    "value": "Pathfinder Guns and Gears"
+                    "value": "Pathfinder Guns & Gears"
                 },
                 "specific": {
                     "value": false
@@ -1601,9 +1566,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "martial"
                 },
                 "weight": {
                     "value": "1"

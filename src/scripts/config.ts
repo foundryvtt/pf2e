@@ -34,11 +34,11 @@ import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { sluggify } from "@util";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
-import { SenseAcuity } from "@actor/creature/data";
 import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import enJSON from "../../static/lang/en.json";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
 
-export type StatusEffectIconType = "default" | "blackWhite" | "legacy";
+export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
 const actorTypes: Record<ActorType, string> = {
     character: "ACTOR.TypeCharacter",
@@ -47,6 +47,19 @@ const actorTypes: Record<ActorType, string> = {
     loot: "ACTOR.TypeLoot",
     npc: "ACTOR.TypeNpc",
     vehicle: "ACTOR.TypeVehicle",
+};
+
+// Senses
+const senses: Record<SenseType, string> = {
+    darkvision: "PF2E.SensesDarkvision",
+    echolocation: "PF2E.SensesEcholocation",
+    greaterDarkvision: "PF2E.SensesGreaterDarkvision",
+    lifesense: "PF2E.SensesLifesense",
+    lowLightVision: "PF2E.SensesLowLightVision",
+    motionsense: "PF2E.SensesMotionsense",
+    scent: "PF2E.SensesScent",
+    tremorsense: "PF2E.SensesTremorsense",
+    wavesense: "PF2E.SensesWavesense",
 };
 
 // Sense acuity
@@ -208,6 +221,7 @@ const damageTraits = {
     mental: "PF2E.TraitMental",
     nonlethal: "PF2E.TraitNonlethal",
     plant: "PF2E.TraitPlant",
+    radiation: "PF2E.TraitRadiation",
 };
 
 const conditionTypes: Record<ConditionType, string> = {
@@ -288,6 +302,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     light: "PF2E.TraitLight",
     magical: "PF2E.TraitMagical",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
+    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
     olfactory: "PF2E.TraitOlfactory",
     polymorph: "PF2E.TraitPolymorph",
@@ -357,6 +372,14 @@ const baseWeaponTypes = Object.keys(enJSON.PF2E.Weapon.Base).reduce(
     }),
     {} as Record<BaseWeaponType, string>
 );
+
+/** Base weapon types that are considered equivalent for all rules purposes */
+const equivalentWeapons = {
+    "composite-longbow": "longbow",
+    "composite-shortbow": "shortbow",
+    "big-boom-gun": "hand-cannon",
+    "spoon-gun": "hand-cannon",
+} as const;
 
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
@@ -462,6 +485,7 @@ const traitsDescriptions = {
     spellshot: "PF2E.TraitNoDescription",
     sweep: "PF2E.TraitDescriptionSweep",
     tethered: "PF2E.TraitDescriptionTethered",
+    thrown: "PF2E.TraitDescriptionThrown",
     "thrown-10": "PF2E.TraitDescriptionThrown",
     "thrown-15": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
@@ -666,6 +690,25 @@ const traitsDescriptions = {
     finisher: "PF2E.TraitDescriptionFinisher",
     cursebound: "PF2E.TraitDescriptionCursebound",
     hex: "PF2E.TraitDescriptionHex",
+    eidolon: "PF2E.TraitDescriptionEidolon",
+    adjustment: "PF2E.TraitDescriptionAdjustment",
+    apex: "PF2E.TraitDescriptionApex",
+    catalyst: "PF2E.TraitDescriptionCatalyst",
+    contract: "PF2E.TraitDescriptionContract",
+    elixir: "PF2E.TraitDescriptionElixir",
+    fey: "PF2E.TraitDescriptionFey",
+    fulu: "PF2E.TraitDescriptionFulu",
+    mounted: "PF2E.TraitDescriptionMounted",
+    mutagen: "PF2E.TraitDescriptionMutagen",
+    oil: "PF2E.TraitDescriptionOil",
+    portable: "PF2E.TraitDescriptionPortable",
+    potion: "PF2E.TraitDescriptionPotion",
+    scroll: "PF2E.TraitDescriptionScroll",
+    snare: "PF2E.TraitDescriptionSnare",
+    spellheart: "PF2E.TraitDescriptionSpellheart",
+    steam: "PF2E.TraitDescriptionSteam",
+    talisman: "PF2E.TraitDescriptionTalisman",
+    wand: "PF2E.TraitDescriptionWand",
 };
 
 const creatureTraits = {
@@ -712,6 +755,7 @@ const creatureTraits = {
     ethereal: "PF2E.TraitEthereal",
     evocation: "PF2E.TraitEvocation",
     fiend: "PF2E.TraitFiend",
+    formian: "PF2E.TraitFormian",
     fungus: "PF2E.TraitFungus",
     genie: "PF2E.TraitGenie",
     ghoran: "PF2E.TraitGhoran",
@@ -727,6 +771,7 @@ const creatureTraits = {
     herald: "PF2E.TraitHerald",
     humanoid: "PF2E.TraitHumanoid",
     ifrit: "PF2E.TraitIfrit",
+    ikeshti: "PF2E.TraitIkeshti",
     illusion: "PF2E.TraitIllusion",
     incorporeal: "PF2E.TraitIncorporeal",
     inevitable: "PF2E.TraitInevitable",
@@ -797,6 +842,10 @@ const creatureTraits = {
     zombie: "PF2E.TraitZombie",
 };
 
+const vehicleTraits = {
+    magical: "PF2E.TraitMagical",
+};
+
 const spellOtherTraits = {
     attack: "PF2E.TraitAttack",
     auditory: "PF2E.TraitAuditory",
@@ -834,6 +883,7 @@ const spellOtherTraits = {
     nonlethal: "PF2E.TraitNonlethal",
     olfactory: "PF2E.TraitOlfactory",
     plant: "PF2E.TraitPlant",
+    poison: "PF2e.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
     possession: "PF2E.TraitPossession",
     prediction: "PF2E.TraitPrediction",
@@ -864,6 +914,7 @@ const consumableTraits = {
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
     auditory: "PF2E.TraitAuditory",
+    aura: "PF2E.TraitAura",
     catalyst: "PF2E.TraitCatalyst",
     clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
@@ -892,6 +943,7 @@ const consumableTraits = {
     olfactory: "PF2E.TraitOlfactory",
     oil: "PF2E.TraitOil",
     polymorph: "PF2E.TraitPolymorph",
+    poison: "PF2E.TraitPoison",
     potion: "PF2E.TraitPotion",
     precious: "PF2E.TraitPrecious",
     scroll: "PF2E.TraitScroll",
@@ -1101,6 +1153,7 @@ const weaponTraits = {
     sweep: "PF2E.TraitSweep",
     teleportation: "PF2E.TraitTeleportation",
     tethered: "PF2E.TraitTethered",
+    thrown: "PF2E.TraitThrown",
     "thrown-10": "PF2E.TraitThrown10",
     "thrown-15": "PF2E.TraitThrown15",
     "thrown-20": "PF2E.TraitThrown20",
@@ -1186,7 +1239,7 @@ export const PF2ECONFIG = {
 
     statusEffects: {
         overruledByModule: false,
-        lastIconType: "default" as StatusEffectIconType,
+        lastIconType: "default" as StatusEffectIconTheme,
         effectsIconFolder: "systems/pf2e/icons/conditions/",
         effectsIconFileType: "webp",
         keepFoundryStatusEffects: true,
@@ -1407,13 +1460,12 @@ export const PF2ECONFIG = {
     },
 
     weaponCategories,
-    weaponTypes: weaponCategories,
-
     weaponGroups,
     meleeWeaponGroups,
     rangedWeaponGroups,
 
     baseWeaponTypes,
+    equivalentWeapons,
 
     weaponDescriptions: {
         club: "PF2E.WeaponDescriptionClub",
@@ -1437,14 +1489,38 @@ export const PF2ECONFIG = {
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
         "affixed-to-armor": "PF2E.TraitAffixedToArmor",
+        "affixed-to-armor-or-travelers-clothing": "PF2E.TraitAffixedToArmorOrTravelersClothing",
         "affixed-to-armor-or-a-weapon": "PF2E.TraitAffixedToArmorOrAWeapon",
         "affixed-to-headgear": "PF2E.TraitAffixedToHeadgear",
         "affixed-to-weapon": "PF2E.TraitAffixedToWeapon",
+        "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
         "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
+        "affixed-to-crossbow-or-firearm": "PF2E.TraitAffixededToCrossbowOrFirearm",
+        "affixed-to-firearm": "PF2E.TraitAffixededToFirearm",
+        "affixed-to-firearm-with-a-reload-of-1": "PF2E.TraitAffixededToFirearmWithAReloadOf1",
+        "affixed-to-firearm-with-the-kickback-trait": "PF2E.TraitAffixededToFirearmWithTheKickbackTrait",
+        "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixededToATwoHandedFirearmOrCrossbow",
+        "applied-to-a-wind-powered-vehicle": "PF2E.TraitAppliedToAWindPoweredVehicle",
+        "applied-to-any-item-of-light-or-negligible-bulk": "PF2E.TraitAppliedToAnyItemOfLightOrNegligibleBulk",
+        "applied-to-any-visible-article-of-clothing": "PF2E.TraitAppliedToAnyVisibleArticleOfClothing",
+        "applied-to-belt-cape-cloak-or-scarf": "PF2E.TraitAppliedToBeltCapeCloakOrScarf",
+        "applied-to-boots-cape-cloak-or-umbrella": "PF2E.TraitAppliedToBootsCapeCloakOrUmbrella",
+        "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
+        "applied-to-shield": "PF2E.TraitAppliedToShield",
+        "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
+        "attached-to-crossbow-or-firearm-scope": "PF2E.TraitAttachedToCrossbowOrFirearmScope",
+        "attached-to-crossbow-or-firearm-firing-mechanism": "PF2E.TraitAttachedToCrossbowOrFirearmFiringMechanism",
+        "attached-to-firearm": "PF2E.TraitAttachedToFirearm",
+        "attached-to-firearm-scope": "PF2E.TraitAttachedToFirearmScope",
+        "attached-to-a-thrown-weapon": "PF2E.TraitAttachedToAThrownWeapon",
         bonded: "PF2E.TraitBonded",
+        "each-rune-applied-to-a-separate-item-that-has-pockets":
+            "PF2E.TraitEachRuneAppliedToASeparateItemThatHasPockets",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
         wornamulet: "PF2E.TraitWornAmulet",
+        "worn-and-attached-to-two-weapons": "PF2E.TraitWornAndAttachedToTwoWeapons",
+        "worn-under-armor": "PF2E.TraitWornUnderArmor",
         wornanklets: "PF2E.TraitWornAnklets",
         wornarmbands: "PF2E.TraitWornArmbands",
         wornbackpack: "PF2E.TraitWornBackpack",
@@ -1470,7 +1546,8 @@ export const PF2ECONFIG = {
         wornshoes: "PF2E.TraitWornShoes",
         wornhorseshoes: "PF2E.TraitWornHorseshoes",
         wornsaddle: "PF2E.TraitWornSaddle",
-        "etched-onto-armor": "PF2E.TraitEtchedOntoAArmor",
+        "etched-onto-armor": "PF2E.TraitEtchedOntoArmor",
+        "etched-onto-med-heavy-armor": "PF2E.TraitEtchedOntoMedHeavyArmor",
         "etched-onto-a-weapon": "PF2E.TraitEtchedOntoAWeapon",
         wornwrist: "PF2E.TraitWornOnWrists",
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
@@ -1501,13 +1578,17 @@ export const PF2ECONFIG = {
     armorTraits: {
         ...magicSchools,
         ...magicTraditions,
+        air: "PF2E.TraitAir",
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
+        auditory: "PF2E.TraitAuditory",
         bulwark: "PF2E.TraitBulwark",
+        clockwork: "PF2E.TraitClockwork",
         comfort: "PF2E.TraitComfort",
         cursed: "PF2E.TraitCursed",
         evil: "PF2E.TraitEvil",
         extradimensional: "PF2E.TraitExtradimensional",
+        focused: "PF2E.TraitFocused",
         force: "PF2E.TraitForce",
         flexible: "PF2E.TraitFlexible",
         good: "PF2E.TraitGood",
@@ -1516,6 +1597,7 @@ export const PF2ECONFIG = {
         light: "PF2E.TraitLight",
         magical: "PF2E.TraitMagical",
         noisy: "PF2E.TraitNoisy",
+        water: "PF2E.TraitWater",
     },
 
     equipmentTraits: {
@@ -1537,6 +1619,7 @@ export const PF2ECONFIG = {
         cursed: "PF2E.TraitCursed",
         darkness: "PF2E.TraitDarkness",
         death: "PF2E.TraitDeath",
+        detection: "PF2E.TraitDetection",
         eidolon: "PF2E.TraitEidolon",
         emotion: "PF2E.TraitEmotion",
         extradimensional: "PF2E.TraitExtradimensional",
@@ -1563,6 +1646,7 @@ export const PF2ECONFIG = {
         revelation: "PF2E.TraitRevelation",
         saggorak: "PF2E.TraitSaggorak",
         scrying: "PF2E.TraitScrying",
+        sleep: "PF2E.TraitSleep",
         spellheart: "PF2E.TraitSpellheart",
         staff: "PF2E.TraitStaff",
         steam: "PF2E.TraitSteam",
@@ -1571,7 +1655,6 @@ export const PF2ECONFIG = {
         teleportation: "PF2E.TraitTeleportation",
         visual: "PF2E.TraitVisual",
         wand: "PF2E.TraitWand",
-        worn: "PF2E.TraitWorn",
     },
 
     actionTraits,
@@ -1600,10 +1683,13 @@ export const PF2ECONFIG = {
         kaiju: "PF2E.TraitKaiju",
         magical: "PF2E.TraitMagical",
         mechanical: "PF2E.TraitMechanical",
+        steam: "PF2E.TraitSteam",
         summon: "PF2E.TraitSummon",
         trap: "PF2E.TraitTrap",
         virulent: "PF2E.TraitVirulent",
     },
+
+    vehicleTraits,
 
     traitsDescriptions,
 
@@ -1635,25 +1721,6 @@ export const PF2ECONFIG = {
         d8: "PF2E.DamageDieD8",
         d10: "PF2E.DamageDieD10",
         d12: "PF2E.DamageDieD12",
-    },
-
-    weaponRange: {
-        melee: "PF2E.WeaponRangeMelee",
-        10: "PF2E.WeaponRange10",
-        20: "PF2E.WeaponRange20",
-        30: "PF2E.WeaponRange30",
-        40: "PF2E.WeaponRange40",
-        50: "PF2E.WeaponRange50",
-        60: "PF2E.WeaponRange60",
-        70: "PF2E.WeaponRange70",
-        80: "PF2E.WeaponRange80",
-        90: "PF2E.WeaponRange90",
-        100: "PF2E.WeaponRange100",
-        120: "PF2E.WeaponRange120",
-        140: "PF2E.WeaponRange140",
-        150: "PF2E.WeaponRange150",
-        180: "PF2E.WeaponRange180",
-        240: "PF2E.WeaponRange240",
     },
 
     weaponMAP: {
@@ -1862,13 +1929,6 @@ export const PF2ECONFIG = {
         "PF2E.ProficiencyLevel4", // legendary
     ] as const,
 
-    heroPointLevels: {
-        0: "PF2E.HeroPointLevel0",
-        1: "PF2E.HeroPointLevel1",
-        2: "PF2E.HeroPointLevel2",
-        3: "PF2E.HeroPointLevel3",
-    },
-
     actorSizes: sizeTypes,
 
     actorTypes,
@@ -1888,17 +1948,7 @@ export const PF2ECONFIG = {
         prerequisite5: "PF2E.Prerequisite5",
     },
 
-    senses: {
-        darkvision: "PF2E.SensesDarkvision",
-        greaterDarkvision: "PF2E.SensesGreaterDarkvision",
-        lowLightVision: "PF2E.SensesLowLightVision",
-        motionsense: "PF2E.SensesMotionsense",
-        scent: "PF2E.SensesScent",
-        echolocation: "PF2E.SensesEcholocation",
-        tremorsense: "PF2E.SensesTremorsense",
-        lifesense: "PF2E.SensesLifesense",
-        wavesense: "PF2E.SensesWavesense",
-    },
+    senses,
 
     senseAcuity,
 
@@ -2012,6 +2062,7 @@ export const PF2ECONFIG = {
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
         erutaki: "PF2E.LanguageErutaki",
+        formian: "PF2E.LanguageFormian",
         garundi: "PF2E.LanguageGarundi",
         girtablilu: "PF2E.LanguageGirtablilu",
         gnoll: "PF2E.LanguageGnoll",
@@ -2019,6 +2070,7 @@ export const PF2ECONFIG = {
         grippli: "PF2E.LanguageGrippli",
         hallit: "PF2E.LanguageHallit",
         ignan: "PF2E.LanguageIgnan",
+        ikeshti: "PF2E.LanguageIkeshti",
         infernal: "PF2E.LanguageInfernal",
         iruxi: "PF2E.LanguageIruxi",
         jistkan: "PF2E.LanguageJistkan",
@@ -2403,6 +2455,14 @@ export const PF2ECONFIG = {
             baseWeapons: {
                 name: "PF2E.SETTINGS.Homebrew.BaseWeapons.Name",
                 hint: "PF2E.SETTINGS.Homebrew.BaseWeapons.Hint",
+            },
+            weaponTraits: {
+                name: "PF2E.SETTINGS.Homebrew.WeaponTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.WeaponTraits.Hint",
+            },
+            equipmentTraits: {
+                name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
             },
         },
         worldClock: {

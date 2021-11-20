@@ -27,10 +27,6 @@
             "classDC": {},
             "flatbonushp": 0,
             "flatbonussp": 0,
-            "heroPoints": {
-                "max": 3,
-                "rank": 1
-            },
             "hp": {
                 "details": "",
                 "temp": 0,
@@ -148,7 +144,11 @@
             },
             "school": "none"
         },
-        "resources": {},
+        "resources": {
+            "heroPoints": {
+                "value": 1
+            }
+        },
         "saves": {
             "will": {
                 "rank": 2
@@ -408,7 +408,20 @@
                         }
                     ]
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.bonusEncumbranceBulk",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.bonusLimitBulk",
+                        "value": 2
+                    }
+                ],
                 "slug": "hefty-hauler",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -856,9 +869,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "dex"
-                },
                 "baseItem": "dwarven-scattergun",
                 "bonus": {
                     "value": 0
@@ -872,6 +882,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "advanced",
                 "collapsed": {
                     "value": false
                 },
@@ -893,9 +904,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "firearm"
-                },
+                "group": "firearm",
                 "hands": {
                     "value": false
                 },
@@ -971,9 +980,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "50"
-                },
+                "range": 50,
                 "reload": {
                     "value": "1"
                 },
@@ -984,7 +991,7 @@
                 },
                 "slug": "dwarven-scattergun",
                 "source": {
-                    "value": "Pathfinder Guns and Gears"
+                    "value": "Pathfinder Guns & Gears"
                 },
                 "specific": {
                     "value": false
@@ -1013,9 +1020,6 @@
                 "usage": {
                     "value": "held-in-two-hands"
                 },
-                "weaponType": {
-                    "value": "advanced"
-                },
                 "weight": {
                     "value": "2"
                 }
@@ -1037,9 +1041,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "str"
-                },
                 "baseItem": null,
                 "bonus": {
                     "value": 0
@@ -1053,6 +1054,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
@@ -1074,9 +1076,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "club"
-                },
+                "group": "club",
                 "hands": {
                     "value": false
                 },
@@ -1152,9 +1152,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": ""
-                },
+                "range": null,
                 "reload": {
                     "value": ""
                 },
@@ -1190,9 +1188,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "martial"
                 },
                 "weight": {
                     "value": "-"

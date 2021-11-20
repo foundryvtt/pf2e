@@ -2,8 +2,9 @@ import { AbilityString } from "@actor/data/base";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
-import { OneToTen, ZeroToEleven } from "@module/data";
+import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
+import { StatisticData } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
@@ -59,8 +60,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         dc: number;
         mod: number;
     };
-    attack?: SpellAttackRollModifier;
-    dc?: SpellDifficultyClass;
+    statisticData?: StatisticData;
     tradition: {
         value: MagicTradition | "";
     };
@@ -75,7 +75,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: boolean;
     };
     proficiency: {
-        value: number;
+        value: ZeroToFour;
     };
     displayLevels: Record<number, boolean>;
     slots: Record<SlotKey, SpellSlotData>;

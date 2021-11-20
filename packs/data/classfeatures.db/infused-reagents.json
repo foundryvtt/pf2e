@@ -23,7 +23,30 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.crafting.infusedReagents.max",
+                "predicate": {
+                    "all": [
+                        "self:class:alchemist"
+                    ]
+                },
+                "value": "@details.level.value  + floor((@abilities.int.value - 10) / 2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.crafting.infusedReagents.max",
+                "predicate": {
+                    "not": [
+                        "self:class:alchemist"
+                    ]
+                },
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },

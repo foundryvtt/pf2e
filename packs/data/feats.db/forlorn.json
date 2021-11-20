@@ -35,6 +35,32 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
             }
         ],
         "source": {

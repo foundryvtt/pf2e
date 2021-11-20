@@ -39,7 +39,7 @@
                 {{/if}}
                 {{#developMode}}
                     {{#if item.isPhysical}}
-                        <a class="list-row" data-tab="activations">{{localize "PF2E.ItemActivate.Label"}}</a>
+                        <a class="list-row" data-tab="activations">{{localize "PF2E.Item.Activation.Label"}}</a>
                     {{/if}}
                 {{/developMode}}
                 {{#if (and item.isPhysical user.isGM)}}
@@ -47,9 +47,6 @@
                 {{/if}}
                 {{#if enabledRulesUI}}
                     <a class="list-row" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
-                {{/if}}
-                {{#if activeEffects.showAEs}}
-                    <a class="list-row" data-tab="active-effects">{{localize "PF2E.ActiveEffects.Label"}}</a>
                 {{/if}}
             </h4>
 
@@ -81,10 +78,6 @@
             <!-- Rules -->
             <div class="tab item-rules" data-tab="rules">
                 {{> systems/pf2e/templates/items/rules-panel.html item=item}}
-            </div>
-            <!-- Active Effects -->
-            <div class="tab effects" data-tab="active-effects">
-                {{> systems/pf2e/templates/items/ae-tab.html activeEffects=activeEffects}}
             </div>
         </section>
     </article>

@@ -21,7 +21,7 @@ import { CheckPF2e } from "@system/rolls";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
 import { ConditionManager } from "@system/conditions";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { EffectsPanel } from "@system/effect-panel";
+import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
@@ -75,7 +75,9 @@ export function listen() {
         game.pf2e.effectPanel = new EffectsPanel();
         game.pf2e.effectTracker = new EffectTracker();
 
+        game.pf2e.StatusEffects.setIconTheme();
+
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        HomebrewElements.refreshTags();
+        new HomebrewElements().refreshTags();
     });
 }

@@ -45,7 +45,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
             experimentalDamageFormatting: {
                 name: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.hint,
-                default: true,
+                default: false,
                 type: Boolean,
             },
         };

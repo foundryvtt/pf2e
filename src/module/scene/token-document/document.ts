@@ -5,6 +5,7 @@ import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { UserPF2e } from "@module/user";
 import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
+import { CombatantPF2e } from "@module/combatant";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -191,6 +192,8 @@ export interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends
     get object(): TokenPF2e;
 
     readonly parent: ScenePF2e | null;
+
+    get combatant(): Embedded<CombatantPF2e> | null;
 
     _sheet: TokenConfigPF2e | null;
 

@@ -32,6 +32,8 @@ export type OneToThree = Exclude<ZeroToThree, 0>;
 export type TwoToThree = Exclude<OneToThree, 1>;
 export type ZeroToFour = ZeroToThree | 4;
 export type OneToFour = Exclude<ZeroToFour, 0>;
+export type ZeroToFive = ZeroToFour | 5;
+export type OneToFive = Exclude<ZeroToFive, 0>;
 export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
 export type OneToTen = Exclude<ZeroToTen, 0>;
 export type ZeroToEleven = ZeroToTen | 11;
@@ -64,6 +66,8 @@ interface MigratedDocumentSchemaRecord {
 }
 
 export type DocumentSchemaRecord = NewDocumentSchemaRecord | MigratedDocumentSchemaRecord;
+
+export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
 
 export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "abs",

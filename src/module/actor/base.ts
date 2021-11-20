@@ -1,9 +1,9 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
-import { ConditionData, WeaponData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
@@ -13,7 +13,7 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, RollOptionFlags } from "./data/base";
+import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -21,6 +21,8 @@ import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
+import { ActorSizePF2e } from "./data/size";
+import { ActorSpellcasting } from "./spellcasting";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -40,7 +42,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    spellcasting!: Collection<Embedded<SpellcastingEntryPF2e>>;
+    spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
@@ -49,7 +51,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
-            this.spellcasting ??= new Collection();
+            this.spellcasting ??= new ActorSpellcasting(this);
             this.rules ??= [];
             this.initialized = true;
         } else {
@@ -214,6 +216,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.data.data.autoChanges = {};
         this.preparePrototypeToken();
 
+        const notTraits: BaseTraitsData | undefined = this.data.data.traits;
+        if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
+
         // Setup the basic structure of pf2e flags with roll options
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
     }
@@ -229,7 +234,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const spellcastingEntries: Embedded<SpellcastingEntryPF2e>[] = this.items.filter(
             (item) => item instanceof SpellcastingEntryPF2e
         );
-        this.spellcasting = new Collection(spellcastingEntries.map((entry) => [entry.id, entry]));
+        this.spellcasting = new ActorSpellcasting(this, spellcastingEntries);
 
         // Prepare data among owned items as well as actor-data preparation performed by items
         for (const item of this.items) {
@@ -242,22 +247,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
-    }
-
-    /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
-    override applyActiveEffects() {
-        for (const effect of this.effects) {
-            const itemId = effect.data.origin?.match(/Item\.([0-9a-z]+)/i)?.[1] ?? "";
-            const item = this.items.get(itemId);
-
-            if (item instanceof PhysicalItemPF2e && (!item.isEquipped || item.isInvested === false)) {
-                for (const effect of item.effects) {
-                    effect.temporarilyDisable(this);
-                }
-            }
-        }
-
-        super.applyActiveEffects();
     }
 
     /** Prevent character importers from creating martial items */
@@ -296,45 +285,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    _applyInitiativeRollToCombatTracker(roll: Roll) {
-        if (roll?.total) {
-            // check that there is a combat active in this scene
-            if (!game.combat) {
-                ui.notifications.error("No active encounters in the Combat Tracker.");
-                return;
-            }
-
-            const combatant = game.combat.turns.find((combatant) => combatant.actor?.id === this.id);
-            if (!combatant) {
-                ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-                return;
-            }
-            game.combat.setInitiative(combatant.id, roll.total);
-        } else {
-            console.log(
-                "PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ",
-                roll
-            );
-        }
-    }
-
-    getStrikeDescription(weaponData: WeaponData) {
+    getStrikeDescription(weapon: WeaponPF2e) {
         const flavor = {
             description: "PF2E.Strike.Default.Description",
             criticalSuccess: "PF2E.Strike.Default.CriticalSuccess",
             success: "PF2E.Strike.Default.Success",
         };
-        const traits = weaponData.data.traits.value;
-        if (traits.includes("unarmed")) {
+        const traits = weapon.traits;
+        if (traits.has("unarmed")) {
             flavor.description = "PF2E.Strike.Unarmed.Description";
             flavor.success = "PF2E.Strike.Unarmed.Success";
-        } else if (traits.find((trait) => trait.startsWith("thrown"))) {
+        } else if ([...traits].some((trait) => trait.startsWith("thrown-") || trait === "combination")) {
             flavor.description = "PF2E.Strike.Combined.Description";
             flavor.success = "PF2E.Strike.Combined.Success";
-        } else if (weaponData.data.range?.value === "melee") {
+        } else if (weapon.isMelee) {
             flavor.description = "PF2E.Strike.Melee.Description";
             flavor.success = "PF2E.Strike.Melee.Success";
-        } else if ((parseInt(weaponData.data.range?.value, 10) || 0) > 0) {
+        } else {
             flavor.description = "PF2E.Strike.Ranged.Description";
             flavor.success = "PF2E.Strike.Ranged.Success";
         }
@@ -933,21 +900,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
+    /**
+     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
+     * Roll option in this case is a predication property used for filtering.
+     */
     getRollOptions(rollNames: string[]): string[] {
         const rollOptions = this.data.flags.pf2e.rollOptions;
-        return rollNames
-            .flatMap((rollName) =>
-                // convert flag object to array containing the names of all fields with a truthy value
-                Object.entries(rollOptions[rollName] ?? {}).reduce(
-                    (opts: string[], [key, value]) => opts.concat(value ? key : []),
-                    []
-                )
-            )
-            .reduce((unique: string[], option) => {
-                // ensure option entries are unique
-                return unique.includes(option) ? unique : unique.concat(option);
-            }, []);
+        const results = new Set<string>();
+        for (const name of rollNames) {
+            for (const [key, value] of Object.entries(rollOptions[name] ?? {})) {
+                if (value) results.add(key);
+            }
+        }
+
+        return [...results];
     }
 
     /* -------------------------------------------- */

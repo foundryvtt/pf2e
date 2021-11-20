@@ -9,6 +9,7 @@ import {
     SaveData,
     SkillAbbreviation,
     SkillData,
+    CreatureInitiative,
 } from "@actor/creature/data";
 import {
     AbilityString,
@@ -22,15 +23,17 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
-import { CheckModifier, StatisticModifier } from "@module/modifiers";
-import { ZeroToFour, ZeroToThree } from "@module/data";
+import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
+import { StatisticModifier } from "@module/modifiers";
+import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { SENSE_TYPES } from "@actor/data/values";
 import { CraftingFormulaData } from "@module/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
+import { CraftingEntryData } from "@module/crafting/crafting-entry";
+import { PredicatePF2e } from "@system/predication";
+import { ProficiencyRank } from "@item/data";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -170,6 +173,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Crafting-related data, including known formulas */
     crafting: {
         formulas: CraftingFormulaData[];
+        entries: Record<string, CraftingEntryData>;
     };
 }
 
@@ -186,12 +190,16 @@ export interface CharacterProficiency extends RawStatistic {
     label?: string;
     /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
     custom?: true;
-    /** A weapon familiarity from an ancestry feat */
-    familiarity?: {
-        name: string;
-        category: WeaponCategory;
-        trait: WeaponTrait;
-    };
+}
+
+/** A proficiency with a rank that depends on another proficiency */
+export interface LinkedProficiency extends Omit<CharacterProficiency, "custom"> {
+    /** A predicate to match against weapons */
+    predicate: PredicatePF2e;
+    /** The category to which this proficiency is linked */
+    sameAs: WeaponCategory;
+    /** The maximum rank this proficiency can reach */
+    maxRank?: Exclude<ProficiencyRank, "untrained">;
 }
 
 export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
@@ -203,9 +211,12 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiency>;
 
+type LinkedProficiencies = Record<string, LinkedProficiency>;
+
 export type CombatProficiencies = CategoryProficiencies &
-    Partial<BaseWeaponProficiencies> &
-    Partial<WeaponGroupProfiencies>;
+    BaseWeaponProficiencies &
+    WeaponGroupProfiencies &
+    LinkedProficiencies;
 
 export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 
@@ -261,8 +272,15 @@ interface PathfinderSocietyData {
 export type CharacterArmorClass = StatisticModifier & Required<ArmorClassData>;
 
 interface CharacterResources {
+    /** The current number of focus points and pool size */
     focus: { value: number; max: number };
+    /** The current and maximum number of hero points */
+    heroPoints: { value: number; max: number };
+    /** The current and maximum number of invested items */
     investiture: { value: number; max: number };
+    crafting: {
+        infusedReagents: { value: number; max: number };
+    };
 }
 
 interface CharacterPerception extends PerceptionData {
@@ -277,7 +295,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
-    initiative: CheckModifier;
+    initiative: CreatureInitiative;
 
     /** Dexterity modifier cap to AC. Undefined means no limit. */
     dexCap: DexterityModifierCapData[];
@@ -305,8 +323,6 @@ export interface CharacterAttributes extends CreatureAttributes {
     wounded: { value: number; max: number };
     /** The current doomed level (and maximum) for this character. */
     doomed: { value: number; max: number };
-    /** The current number of hero points (and maximum) for this character. */
-    heroPoints: { rank: ZeroToThree; max: number };
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };
@@ -361,5 +377,3 @@ export interface CharacterAttributes extends CreatureAttributes {
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
 }
-
-export type SenseType = typeof SENSE_TYPES[number];

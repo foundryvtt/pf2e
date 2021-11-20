@@ -1,9 +1,8 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor/index";
-import { ConsumableData, ConsumableSource, SpellSource, TrickMagicItemCastData } from "@item/data";
+import { ConsumableData, ConsumableSource } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
+import { SpellPF2e } from "@item/spell";
 import { calculateDC, DCOptions } from "@module/dc";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e } from "@util";
 
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
@@ -44,12 +43,16 @@ function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, h
     }
 }
 
+export function isSpellConsumable(itemId: string): boolean {
+    return Object.values(scrollCompendiumIds).includes(itemId) || Object.values(wandCompendiumIds).includes(itemId);
+}
+
 export async function createConsumableFromSpell(
     type: "scroll" | "wand",
-    spellData: SpellSource,
+    spell: SpellPF2e,
     heightenedLevel?: number
 ): Promise<ConsumableSource> {
-    heightenedLevel = heightenedLevel ?? spellData.data.level.value;
+    heightenedLevel = heightenedLevel ?? spell.level;
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getDocument(itemId ?? "");
@@ -58,26 +61,16 @@ export async function createConsumableFromSpell(
     }
 
     const consumableData = consumable.toObject();
-    consumableData.data.traits.value.push(...spellData.data.traditions.value);
-    consumableData.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
+    spell.traditions.forEach((value) => consumableData.data.traits.value.push(value));
+    consumableData.name = getNameForSpellConsumable(type, spell.name, heightenedLevel);
     const description = consumableData.data.description.value;
-    consumableData.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${description}`;
+    consumableData.data.description.value =
+        (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr/>${description}`;
     consumableData.data.spell = {
-        data: duplicate(spellData),
+        data: duplicate(spell.toObject()),
         heightenedLevel: heightenedLevel,
     };
     return consumableData;
-}
-
-export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boolean {
-    const spellData = item.data.spell?.data?.data;
-    return (
-        !!spellData &&
-        actor.spellcasting
-            .map((entry) => entry.data)
-            .filter((entryData) => ["prepared", "spontaneous"].includes(entryData.data.prepared.value))
-            .some((entryData) => tupleHasValue(spellData.traditions.value, entryData.data.tradition.value))
-    );
 }
 
 export interface TrickMagicItemDifficultyData {
@@ -107,31 +100,4 @@ export function calculateTrickMagicItemCheckDC(
         .map((tradition) => [TraditionSkills[tradition], saveDC]);
 
     return Object.fromEntries(skills);
-}
-
-export function calculateTrickMagicItemCastData(
-    actor: CharacterPF2e | NPCPF2e,
-    skill: SkillAbbreviation
-): TrickMagicItemCastData {
-    const { abilities } = actor.data.data;
-    const highestMentalStat = (["int", "wis", "cha"] as const)
-        .map((ability) => {
-            return { stat: ability, mod: abilities[ability].mod };
-        })
-        .reduce((highest, next) => {
-            if (next.mod > highest.mod) {
-                return next;
-            } else {
-                return highest;
-            }
-        }).stat;
-    const spellDC =
-        actor.data.data.details.level.value +
-        Math.max(0, actor.data.data.skills[skill].rank - 2) * 2 +
-        abilities[highestMentalStat].mod;
-    return {
-        ability: highestMentalStat,
-        data: { spelldc: { value: spellDC, dc: spellDC + 10 } },
-        _id: "",
-    };
 }

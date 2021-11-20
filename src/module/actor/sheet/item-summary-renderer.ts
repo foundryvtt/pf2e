@@ -12,10 +12,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
     constructor(protected sheet: ActorSheet<AType, ItemPF2e>) {}
 
     activateListeners($html: JQuery) {
-        $html.find(".item .item-name h4, .item .melee-name h4").on("click", (event) => {
+        $html.find(".item .item-name h4, .item .melee-name h4").on("click", async (event) => {
             const $target = $(event.currentTarget);
             const $li = $target.closest("li");
-            this.toggleItemSummary($li);
+            await this.toggleItemSummary($li);
 
             // For PC-sheet strikes
             const $summary = $target.closest("li.expandable").find(".item-summary");
@@ -31,14 +31,15 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * Triggers toggling the visibility of an item summary element,
      * delegating the populating of the item summary to renderItemSummary()
      */
-    toggleItemSummary($li: JQuery, options: { instant?: boolean } = {}) {
+    async toggleItemSummary($li: JQuery, options: { instant?: boolean } = {}) {
         const itemId = $li.attr("data-item-id");
         const itemType = $li.attr("data-item-type");
 
         if (itemType === "spellSlot") return;
 
         const actor = this.sheet.actor;
-        const item = actor.items.get(itemId ?? "");
+        const item = itemType === "formula" ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
+        if (!(item instanceof ItemPF2e)) return;
         if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
         // Toggle summary

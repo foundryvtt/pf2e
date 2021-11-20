@@ -8,7 +8,7 @@ import { OneToFour, OneToThree } from "@module/data";
 import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
-import { WeaponPropertyRuneSlot } from "./data";
+import { RANGED_WEAPON_GROUPS, WeaponPropertyRuneSlot, WEAPON_RANGES } from "./data";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData() {
@@ -111,6 +111,22 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 .sort((runeA, runeB) => runeA[1].localeCompare(runeB[1]))
         );
 
+        const traitSet = this.item.traits;
+        const isComboWeapon = traitSet.has("combination");
+
+        const weaponRanges = WEAPON_RANGES.reduce(
+            (ranges: Record<number, string>, range) => ({
+                ...ranges,
+                [range]: game.i18n.format("PF2E.WeaponRangeN", { range: range }),
+            }),
+            {}
+        );
+        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
+        const mandatoryRanged =
+            rangedWeaponGroups.includes(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
+        const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
+
         const meleeUsage = sheetData.data.meleeUsage ?? {
             group: "knife",
             damage: { type: "piercing", die: "d4" },
@@ -144,13 +160,15 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damageDice: CONFIG.PF2E.damageDice,
             conditionTypes: CONFIG.PF2E.conditionTypes,
             damageTypes,
-            weaponRange: CONFIG.PF2E.weaponRange,
+            weaponRanges,
+            mandatoryMelee,
+            mandatoryRanged,
             weaponReload: CONFIG.PF2E.weaponReload,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             bulkTypes: CONFIG.PF2E.bulkTypes,
             sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
-            isComboWeapon: this.item.group === "firearm" && this.item.traits.has("combination"),
+            isComboWeapon,
             meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
             meleeUsage,
             meleeUsageTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? [], {
@@ -189,6 +207,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         for (const slotNumber of [1, 2, 3, 4]) {
             formData[`data.propertyRune${slotNumber}.value`] ||= null;
         }
+
+        // Coerce a weapon range of zero to null
+        formData["data.range"] ||= null;
 
         // Process precious-material selection
         if (typeof formData["preciousMaterial"] === "string") {

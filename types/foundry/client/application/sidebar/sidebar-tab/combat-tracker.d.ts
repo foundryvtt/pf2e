@@ -1,4 +1,4 @@
-declare interface CombatTrackerDefaultOptions extends ApplicationOptions {
+declare interface CombatTrackerOptions extends SidebarTabOptions {
     id: "combat";
     template: string;
     title: string;
@@ -35,10 +35,13 @@ declare interface CombatTrackerData {
 }
 
 /** The combat and turn order tracker tab */
-declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
-    constructor(options?: ApplicationOptions);
+declare class CombatTracker<
+    TCombat extends Combat,
+    TOptions extends CombatTrackerOptions = CombatTrackerOptions
+> extends SidebarTab<TOptions> {
+    constructor(options?: Partial<TOptions>);
 
-    static override get defaultOptions(): CombatTrackerDefaultOptions;
+    static override get defaultOptions(): CombatTrackerOptions;
 
     /** Return an array of Combat encounters which occur within the current Scene. */
     get combats(): TCombat[];
@@ -60,7 +63,7 @@ declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
     /** Scroll the combat log container to ensure the current Combatant turn is centered vertically */
     scrollToTurn(): void;
 
-    override getData(options: CombatTrackerDefaultOptions): CombatTrackerData;
+    override getData(options: CombatTrackerOptions): CombatTrackerData;
 
     override activateListeners(html: JQuery): void;
 
@@ -86,7 +89,7 @@ declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
      * Handle click events on Combat control buttons
      * @param event The originating mousedown event
      */
-    protected _onCombatControl(event: MouseEvent): Promise<void>;
+    protected _onCombatControl(event: JQuery.TriggeredEvent<HTMLElement, HTMLElement, HTMLElement>): Promise<void>;
 
     /**
      * Handle a Combatant control toggle

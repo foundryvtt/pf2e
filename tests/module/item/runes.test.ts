@@ -127,9 +127,7 @@ describe("test runes", () => {
             bonus: {
                 value: 2,
             },
-            group: {
-                value: "bomb",
-            },
+            group: "bomb",
         } as unknown as WeaponData["data"];
 
         expect(getAttackBonus(itemData)).toBe(2);

@@ -1,0 +1,80 @@
+<div class="tab spellbook spellbook-pane" data-group="primary" data-tab="spellbook">
+
+    <ol class="spellcastingEntry-list directory-list item-list">
+        {{#each spellcastingEntries as |entry eid|}}
+            <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
+                <div class="action-header">
+                    {{#if entry.isPrepared}}
+                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
+                    {{/if}}
+
+                {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
+                <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
+                    <i class="{{#if entry.data.showSlotlessLevels.value}}fas{{else}}far{{/if}} fa-list-alt"></i>
+                </a>
+                {{/if}}
+
+                    <h3 class="item-name pf-heading pf-actions">
+                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}" />
+                    </h3>
+                    {{#if @root.owner}}
+                        <div class="item-controls">
+                            {{#unless entry.isRitual}}
+                                <a class="item-control spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                            {{/unless}}
+                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {{/if}}
+                </div>
+
+                {{#unless entry.isRitual}}
+                    <ol class="skills-list spell-dc">
+                        <li class="skill-grid">
+                            <div class="skill-data spell-attack" title="{{entry.statistic.check.breakdown}}">
+                                <span class="skill-score">{{numberFormat entry.statistic.check.value decimals=0 sign=true}}</span>
+                                <h4 class="skill-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
+                            </div>
+
+                            <div class="skill-data" title="{{entry.statistic.dc.breakdown}}">
+                                <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
+                                <h4 class="skill-name spellcasting">{{localize "PF2E.SpellSaveLabel"}}</h4>
+                            </div>
+
+                            {{#if entry.isFocusPool}}
+                            <div class="skill-container focus-pool">
+                                <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
+                                <span class="skill-item pf-value focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
+                                    <h4 class="skill-item pf-title">{{localize "PF2E.Focus.poolLabel"}}</h4>
+                                    <span class="focus-pool-max">
+                                        {{#if @root.data.resources.focus.max}}
+                                            {{@root.data.resources.focus.max}}
+                                        {{else}}
+                                            0
+                                        {{/if}}
+                                    </span>
+                                </span>
+                            </div>
+                            {{/if}}
+                        </li>
+                        <li class="spell-ability">
+                            <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
+                            <span class="pf-value pf-rank adjust-item-stat" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
+                        </li>
+                    </ol>
+                {{/unless}}
+
+                {{> systems/pf2e/templates/actors/spellcasting-spell-list.html entry=entry}}
+            </li>
+        {{/each}}
+
+        {{#if @root.owner}}
+            <li class="item inventory-header spellbook-empty">
+                    <div class="item-controls pf-bluelist pf-add-item-row">
+                        <a class="item-control spellcasting-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
+                            data-level="{{lvl}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}</a>
+                    </div>
+            </li>
+        {{/if}}
+    </ol>
+
+</div>

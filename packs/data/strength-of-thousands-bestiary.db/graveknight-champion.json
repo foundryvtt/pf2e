@@ -1675,9 +1675,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "dex"
-                },
                 "baseItem": "composite-shortbow",
                 "bonus": {
                     "value": 0
@@ -1691,6 +1688,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
@@ -1712,9 +1710,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "bow"
-                },
+                "group": "bow",
                 "hands": {
                     "value": ""
                 },
@@ -1790,9 +1786,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "60"
-                },
+                "range": 60,
                 "reload": {
                     "value": ""
                 },
@@ -1829,9 +1823,6 @@
                 "usage": {
                     "value": "held-in-one-plus-hands"
                 },
-                "weaponType": {
-                    "value": "martial"
-                },
                 "weight": {
                     "value": "1"
                 }
@@ -1853,9 +1844,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "str"
-                },
                 "baseItem": "greatpick",
                 "bonus": {
                     "value": 0
@@ -1869,6 +1857,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
@@ -1890,9 +1879,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "pick"
-                },
+                "group": "pick",
                 "hands": {
                     "value": ""
                 },
@@ -1968,9 +1955,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "melee"
-                },
+                "range": null,
                 "reload": {
                     "value": ""
                 },
@@ -2005,9 +1990,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weaponType": {
-                    "value": "martial"
                 },
                 "weight": {
                     "value": "2"
@@ -2551,10 +2533,10 @@
             "type": "action"
         },
         {
-            "_id": "JHrgnORSCArEqNYi",
+            "_id": "NIJZV9ABMCIiFD7a",
             "data": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -2563,15 +2545,31 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature attempts to move away from the graveknight;</p>\n<p><strong>Effect</strong> The graveknight's armor animates and attempts to Grab the triggering creature. It makes an Athletics check to Grapple using the graveknight's Athletics modifier - 2. The armor can continue to Grapple the creature normally. Since the armor is grappling the creature, the graveknight doesn't need a free hand to do so.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature attempts to move away from the graveknight;</p>\n<p><strong>Effect</strong> The graveknight's armor animates and attempts to Grab the triggering creature. It makes an Athletics check to @Compendium[pf2e.actionspf2e.Grapple]{Grapple} using the graveknight's Athletics modifier - 2. The armor can continue to Grapple the creature normally.</p>\n<p>Since the armor is grappling the creature, the graveknight doesn't need a free hand to do so.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.clutchingArmor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:grapple",
+                                "clutchingArmor"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": -2
+                    }
+                ],
+                "slug": "graveknight-clutching-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #172: Secrets of the Temple-City"
                 },
                 "traits": {
                     "custom": "",
@@ -2590,11 +2588,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Item.dUjjNeqYzn5mcd1C"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.fmUBaLklyVmNt3VD"
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "(Graveknight) Clutching Armor",
+            "name": "Clutching Armor",
             "sort": 2100000,
             "type": "action"
         },
@@ -2672,7 +2670,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": "graveknight-rejunvenation",
+                "slug": "graveknight-rejuvenation",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -2700,7 +2698,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "(Graveknight) Rejunvenation",
+            "name": "Rejuvenation",
             "sort": 2300000,
             "type": "action"
         },
@@ -2753,7 +2751,7 @@
             "type": "action"
         },
         {
-            "_id": "WdvHvt8uhic7ylvy",
+            "_id": "prp1eyvaopN5wPkz",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2765,15 +2763,15 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The graveknight redirects magical energies through its armor, allowing it to deliver magic through an attack. The graveknight Casts a Spell that takes 1 or 2 actions to cast and requires a spell attack roll. The effects of the spell don't occur immediately but are imbued into an attack instead. The graveknight then makes a melee Strike with a weapon or unarmed attack. The spell is coupled with the attack, using the attack roll result to determine the effects of both the Strike and the spell. This counts as two attacks for the graveknight's multiple attack penalty but doesn't apply the penalty until after it's completed Channeling Magic.<span data-visibility=\"gm\"> The graveknight can't use Channel Magic again for [[/br {1d4}#rounds]]{1d4 rounds}.</span></p>"
+                    "value": "<p>The graveknight redirects magical energies through its armor, allowing it to deliver magic through an attack.</p>\n<p>The graveknight Casts a Spell that takes 1 or 2 actions to cast and requires a spell attack roll. The effects of the spell don't occur immediately but are imbued into an attack instead. The graveknight then makes a melee Strike with a weapon or unarmed attack. The spell is coupled with the attack, using the attack roll result to determine the effects of both the Strike and the spell.</p>\n<p>This counts as two attacks for the graveknight's multiple attack penalty but doesn't apply the penalty until after it's completed Channeling Magic.</p>\n<p data-visibility=\"gm\">The graveknight can't use Channel Magic again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "graveknight-channel-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #172: Secrets of the Temple-City"
                 },
                 "traits": {
                     "custom": "",
@@ -2789,16 +2787,16 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Item.KBcigrT6a86IRZS4"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.OMSsLUcnRj6ycEUa"
                 }
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "(Graveknight) Channel Magic",
+            "name": "Channel Magic",
             "sort": 2500000,
             "type": "action"
         },
         {
-            "_id": "aOBXqDVIi0mvd41S",
+            "_id": "UMyRwmu03NP1OaDn",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2816,9 +2814,9 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "graveknight-devastating-blast",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -2827,7 +2825,6 @@
                     },
                     "value": [
                         "arcane",
-                        "cold",
                         "evocation"
                     ]
                 },
@@ -2841,7 +2838,7 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Item.mHikhGM2eV02jgr1"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.IxJbFJ8dG5RbZWBD"
                 }
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
@@ -2850,7 +2847,7 @@
             "type": "action"
         },
         {
-            "_id": "J09OozZwjrmxxCgD",
+            "_id": "MaRy1P1W5DdCPIDq",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2868,16 +2865,20 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "graveknight-graveknights-curse",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "arcane",
+                        "curse",
+                        "necromancy"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -2889,7 +2890,7 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Item.gunkvMlfcjGw3q9h"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.5dbzWZbiTyPKgwKS"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
@@ -2898,7 +2899,7 @@
             "type": "action"
         },
         {
-            "_id": "6zgrk6EZzT5nCujV",
+            "_id": "ivsNAUrOafOxexf5",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2910,15 +2911,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
+                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>\n<p><em>As NPC strikes are not generated from the weapons it holds, this feature cannot be automated. Add a \"Note\" rule element to each of the graveknight's strikes for the correct critical specialization.</em></p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "graveknight-weapon-master",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -2937,7 +2938,7 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Item.f6RCYIbYCradtzW4"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.6isn9nqnvfRrC1wW"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",

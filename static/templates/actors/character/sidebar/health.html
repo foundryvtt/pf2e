@@ -1,0 +1,58 @@
+<div class="sidebar_title">
+  <h2>
+      {{localize 'PF2E.HitPointsHeader'}}
+  </h2>
+  <h2 class="hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
+      <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
+  </h2>
+</div>
+<div class="hitpoints">
+  <div class="hp-big">
+    <div class="container temp-hp">
+      <label>{{localize "PF2E.TempHitPointsShortLabel"}}</label>
+      <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
+        <input name="data.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0" />
+      </div>
+    </div>
+    <div class="container current-hp">
+      <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
+      <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
+        <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" />
+      </div>
+    </div>
+    <div class="container max-hp">
+      <label>{{localize "PF2E.MaxHitPointsShortLabel"}}</label>
+      <div class="data-value">
+          <h2>{{data.attributes.hp.max}}</h2>
+      </div>
+    </div>
+  </div>
+  <div class="hp-small">
+      <div class="recoveryCheck rollable">
+        <a class="roll-icon">
+          {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+        </a>
+      </div>
+      <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
+          <label>{{localize "PF2E.condition.dying.name"}}</label>
+          <span>
+              <span class="proficiency-rank pf-value">{{{data.attributes.dying.icon}}}</span>
+          </span>
+      </a>
+      <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
+          <label>{{localize "PF2E.condition.wounded.name"}}</label>
+          <span>
+              <span class="proficiency-rank pf-value">{{{data.attributes.wounded.icon}}}</span>
+          </span>
+      </a>
+      <a class="dots doomed" title="{{localize "PF2E.condition.doomed.summary"}}">
+          <label>{{localize "PF2E.condition.doomed.name"}}</label>
+          <span>
+              <span class="proficiency-rank pf-value">{{{data.attributes.doomed.icon}}}</span>
+          </span>
+      </a>
+  </div>
+</div>
+{{#with data.attributes.hp}}
+{{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title='PF2E.HitPointsHeader' }}
+{{/with}}

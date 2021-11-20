@@ -1,10 +1,9 @@
 import { RuleElementPF2e } from "../rule-element";
-import { SenseAcuity } from "@actor/creature/data";
 import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType, CreatureData } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { CreatureSensePF2e } from "@actor/creature/sense";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "@actor/creature/sense";
 
 /**
  * @category RuleElement
@@ -28,7 +27,6 @@ export class SenseRuleElement extends RuleElementPF2e {
         const range = this.resolveValue(this.data.range, "");
         if (this.data.selector) {
             const newSense = new CreatureSensePF2e({
-                label: this.label,
                 type: this.data.selector,
                 acuity: this.data.acuity,
                 value: String(range),
@@ -55,6 +53,7 @@ interface SenseRuleElementData extends RuleElementData {
     force: boolean;
     acuity: SenseAcuity;
     range: string | number;
+    selector: SenseType;
 }
 
 interface SenseRuleElementSource extends RuleElementSource {

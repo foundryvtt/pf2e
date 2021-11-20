@@ -20,20 +20,6 @@ export interface SheetSelections {
     custom?: string;
 }
 
-interface ActiveEffectSummary {
-    id: string;
-    iconPath: string | null;
-    name: string;
-    duration: string;
-    enabled: boolean;
-}
-
-export interface AESheetData {
-    showAEs: boolean;
-    canEdit: boolean;
-    effects: ActiveEffectSummary[];
-}
-
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     itemType: string | null;
     hasSidebar: boolean;
@@ -44,7 +30,6 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     data: TItem["data"]["data"];
     user: { isGM: boolean };
     enabledRulesUI: boolean;
-    activeEffects: AESheetData;
 }
 
 export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {

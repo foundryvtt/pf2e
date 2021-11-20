@@ -1,4 +1,4 @@
-import { ArmorPF2e, WeaponPF2e } from "@item";
+import { ArmorPF2e, EffectPF2e, WeaponPF2e } from "@item";
 import { RuleElementData, RuleElementSource } from "@module/rules/rules-data-definitions";
 import { TokenDocumentPF2e } from "@scene";
 
@@ -22,6 +22,7 @@ type TargetData = ArmorTargetData | WeaponTargetData | TokenTargetData;
 export type EffectTargetData = RuleElementData &
     TargetData & {
         key: "TargetPrompt";
+        item: Embedded<EffectPF2e>;
         targetId: string | null;
     };
 

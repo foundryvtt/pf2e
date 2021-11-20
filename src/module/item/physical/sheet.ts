@@ -35,20 +35,16 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
-            $input.val(baseValue).attr({ name: propertyPath, type: "number" });
+            const baseValue = getProperty(this.item.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
         });
 
         $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.item.data._source, propertyPath)) || 0;
-            const preparedValue = Number(getProperty(this.item.data, propertyPath)) || 0;
-            const newValue = Number($input.val()) || 0;
-            if (newValue === baseValue) {
-                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
-            }
+            const preparedValue = getProperty(this.item.data, propertyPath);
+            $input.val(preparedValue);
         });
 
         $html.find("[data-action=activation-add]").on("click", (event) => {
@@ -83,6 +79,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             "data.baseItem",
             "data.preciousMaterial.value",
             "data.preciousMaterialGrade.value",
+            "data.group",
             "data.group.value",
         ];
         for (const path of propertyPaths) {

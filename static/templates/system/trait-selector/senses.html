@@ -1,14 +1,26 @@
 <form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
-    <ol class="trait-list">
-        {{#each choices as |choice key|}}
-        <li class="trait-item">
-            <div class="form-group form-fields">
-                <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.selected}} {{choice.disabled}}>
-                <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
-                <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="0" data-dtype="Number" {{choice.disabled}}/>
-            </div>
-        </li>
-        {{/each}}
-    </ol>
+    <div class="trait-list">
+        <table class="pf2-table">
+            <tr>
+                <th>{{localize "PF2E.Sense.Label"}}</th>
+                <th>{{localize "PF2E.Sense.Acuity.Label"}}</th>
+                <th>{{localize "PF2E.Sense.RangeLabel"}}</th>
+            </tr>
+            {{#each choices as |choice key|}}
+            <tr>
+                <td class="list">
+                    <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.selected}} {{choice.disabled}}>
+                    <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                </td>
+                <td><select name="{{key}}" {{choice.disabled}}>
+                    {{#each ../senseAcuity as |acuity k|}}
+                    <option value={{k}} {{#if (eq k choice.acuity)}} selected {{/if}}>{{localize acuity}}</option>
+                    {{/each}}
+                </select></td>
+                <td><input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="0" data-dtype="Number" {{choice.disabled}}/></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
     <button class="trait-footer" type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
 </form>

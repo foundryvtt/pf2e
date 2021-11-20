@@ -1,5 +1,5 @@
 import { LocalizePF2e } from "@system/localize";
-import { StatusEffectIconType } from "@scripts/config";
+import { StatusEffectIconTheme } from "@scripts/config";
 import { ErrorPF2e } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
@@ -10,19 +10,24 @@ import { CombatPF2e } from "@module/combat";
  * @category PF2
  */
 export class StatusEffects {
+    /** Set the theme for condition icons on tokens */
+    static setIconTheme() {
+        const iconTheme = game.settings.get("pf2e", "statusEffectType");
+        CONFIG.PF2E.statusEffects.lastIconType = iconTheme;
+        CONFIG.PF2E.statusEffects.effectsIconFolder =
+            StatusEffects.SETTINGOPTIONS.iconTypes[iconTheme].effectsIconFolder;
+        CONFIG.PF2E.statusEffects.effectsIconFileType =
+            StatusEffects.SETTINGOPTIONS.iconTypes[iconTheme].effectsIconFileType;
+        CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
+    }
+
+    /** Link status effect icons to conditions */
     static init() {
         if (CONFIG.PF2E.statusEffects.overruledByModule) return;
 
         console.log("PF2e System | Initializing Status Effects Module");
         this.hookIntoFoundry();
 
-        const statusEffectType = game.settings.get("pf2e", "statusEffectType");
-        CONFIG.PF2E.statusEffects.lastIconType = statusEffectType;
-        CONFIG.PF2E.statusEffects.effectsIconFolder =
-            StatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFolder;
-        CONFIG.PF2E.statusEffects.effectsIconFileType =
-            StatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
-        CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
         /** Update FoundryVTT's CONFIG.statusEffects */
         this._updateStatusIcons();
     }
@@ -88,7 +93,7 @@ export class StatusEffects {
                     !combatant.data.defeated
                 ) {
                     lastTokenId = token.id;
-                    this._createChatMessage(token, combatant.hidden);
+                    this._createChatMessage(token.object, combatant.hidden);
                 }
                 if (!combat?.started && lastTokenId !== "") lastTokenId = "";
             });
@@ -451,7 +456,7 @@ export class StatusEffects {
      * If the system setting statusEffectType is changed, we need to upgrade CONFIG
      * And migrate all statusEffect URLs of all Tokens
      */
-    static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconType) {
+    static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme) {
         if (CONFIG.PF2E.statusEffects.overruledByModule) {
             console.log("PF2e System | The PF2eStatusEffect icons are overruled by a module");
             ui.notifications.error(

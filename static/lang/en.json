@@ -53,6 +53,7 @@
         "Search": "Search Compendia"
     },
     "CONTROLS": {
+        "AdjustSceneDarkness": "Adjust Scene Darkness",
         "EffectPanel": "Effects Panel",
         "WorldClock": "World Clock"
     },
@@ -158,6 +159,10 @@
                     "CraftButtonLabel": "Craft",
                     "DropItemZoneLabel": "Drag item here...",
                     "Title": "Select item to Craft"
+                },
+                "SelectSpellDialog": {
+                    "CraftButtonLabel": "Craft",
+                    "Title": "Select Spell"
                 },
                 "Error": {
                     "ItemReferenceMismatch": "Only accepts physical items for Craft from a compendium or the world's Item Directory."
@@ -416,6 +421,15 @@
                     "failure": "<b>Failure</b> Your movement ends, and you trigger reactions as if you had moved out of the square you started in."
                 },
                 "Title": "Tumble Through"
+            },
+            "WhirlingThrow": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You throw the creature the desired distance and it lands @Compendium[pf2e.conditionitems.Prone]{Prone}.",
+                    "success": "<b>Success</b> You throw the creature the desired distance.",
+                    "failure": "<b>Failure</b> You don't throw the creature.",
+                    "criticalFailure": "<b>Critical Failure</b> You don't throw the creature, and it's no longer @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by you."
+                },
+                "Title": "Whirling Throw"
             }
         },
         "ActionsCheck": {
@@ -582,6 +596,7 @@
         "ArmorPropertyRuneGreaterShadow": "Greater Shadow",
         "ArmorPropertyRuneGreaterSlick": "Greater Slick",
         "ArmorPropertyRuneGreaterStanching": "Greater Stanching",
+        "ArmorPropertyRuneImplacable": "Implacable",
         "ArmorPropertyRuneInvisibility": "Invisibility",
         "ArmorPropertyRuneMajorShadow": "Major Shadow",
         "ArmorPropertyRuneMajorSlick": "Major Slick",
@@ -912,7 +927,22 @@
             "CritFailure": "You fail to counteract the target."
         },
         "CraftingTab": {
+            "Alchemical": {
+                "AdvancedAlchemy": "Advanced Alchemy",
+                "AdvancedAlchemyLevel": "Advanced Alchemy Level:",
+                "InfusedReagents": "Infused Reagents:",
+                "ReagentCost": "Reagent Cost:",
+                "ToggleSignatureItem": "Toggle Signature Item",
+                "TotalCost": "Total Cost:"
+            },
+            "Alerts": {
+                "CharacterLevel": "Item level exceeds character level.",
+                "ItemMissingTraits": "Item is not compatible with crafting entry trait requirements, must match one of: {traits}",
+                "MaxItemLevel": "Item level exceeds maximum item level for entry.",
+                "MissingReagents": "Insufficient infused reagents to complete daily crafting."
+            },
             "CraftQuantityTitle": "Quantity",
+            "ExpendFormula": "Expend Formula",
             "ToggleFreeCrafting": "Toggle Free Crafting",
             "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted."
         },
@@ -972,6 +1002,7 @@
         "DCAdjustmentHard": "hard",
         "DCAdjustmentVeryHard": "very hard",
         "DCAdjustmentIncrediblyHard": "incredibly hard",
+        "DCBase": "Base DC 10",
         "DCLabel": "DC: {dc}",
         "DCWithValue": "DC {dc} {text}",
         "DefencesLabel": "Defences",
@@ -996,7 +1027,9 @@
             "P1W": "week"
         },
         "Encounter": {
-            "ExcludingFromInitiative": "Excluding {type} {actor} from initiative."
+            "ExcludingFromInitiative": "Excluding {type} {actor} from initiative.",
+            "NoActiveEncounter": "There is no active encounter.",
+            "NoTokenInScene": "{actor} has no token in the scene."
         },
         "EditHazardLabel": "Edit Hazard?",
         "EditItemTitle": "Edit Item",
@@ -1125,11 +1158,11 @@
         "HeightTitle": "Your height",
         "Heritage": "Heritage",
         "HeritageTitle": "Your character's heritage",
-        "HeroPointLevel0": "Zero Hero Points",
-        "HeroPointLevel1": "One Hero Point",
-        "HeroPointLevel2": "Two Hero Points",
-        "HeroPointLevel3": "Three Hero Points",
         "HeroPointsLabel": "Hero Points",
+        "HeroPointRatio": {
+            "One": "1/{max} Hero Point",
+            "Many": "{value}/{max} Hero Points"
+        },
         "HitPointsHeader": "Hit Points",
         "HitPointsShortLabel": "HP",
         "HitPointsDetailsLabel": "HP Details",
@@ -1152,7 +1185,16 @@
         "InventroyBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "InvestedLabel": "Invested",
         "Item": {
-            "CannotAddType": "{type} items cannot be added to this actor.",
+            "Activation": {
+                "Label": "Activation",
+                "Add": "Add Activation",
+                "Command": "command",
+                "CommandSheetLabel": "Command",
+                "Envision": "envision",
+                "EnvisionSheetLabel": "Envision",
+                "Interact": "Interact",
+                "Cast": "Cast a Spell"
+            },
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
@@ -1179,6 +1221,7 @@
                     "hellknight-plate": "Hellknight Plate"
                 }
             },
+            "CannotAddType": "{type} items cannot be added to this actor.",
             "Deity": {
                 "Alignment": "Alignment",
                 "FollowerAlignments": "Follower Alignments",
@@ -1243,6 +1286,7 @@
                     "PotencyStrikingFourPropertiesMaterial": "+{potency} {striking} {property1} {property2} {property3} {property4} {material} {base}"
                 },
                 "HandsLabel": "Hands",
+                "MandatoryMelee": "This weapon has a trait that can only be used with melee weapons.",
                 "MaterialAndRunes": {
                     "MaterialOption": "{type} ({grade})",
                     "Title": "Material Composition and Runes",
@@ -1256,23 +1300,17 @@
                         "Melee": "Melee Strike: {weapon}"
                     }
                 },
+                "NoRangeMelee": "None (Melee)",
                 "OtherTags": {
                     "Label": "Other Tags",
                     "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
                 },
+                "RangeIncrementN": "Range Increment {range} ft.",
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
                 }
             }
-        },
-        "ItemActivate": {
-            "Label": "Activate",
-            "Add": "Add Activation",
-            "Command": "command",
-            "Envision": "envision",
-            "Interact": "Interact",
-            "Cast": "Cast a Spell"
         },
         "ItemBonus0": "0",
         "ItemBonus1": "+1 Weapon Potency",
@@ -1328,6 +1366,7 @@
         "LanguageDruidic": "Druidic",
         "LanguageDwarven": "Dwarven",
         "LanguageDziriak": "D'ziriak",
+        "LanguageFormian": "Formian",
         "LanguageEkujae": "Ekujae shape-script",
         "LanguageElven": "Elven",
         "LanguageErutaki": "Erutaki",
@@ -1342,6 +1381,7 @@
         "LanguageHalfling": "Halfling",
         "LanguageHallit": "Hallit",
         "LanguageIgnan": "Ignan",
+        "LanguageIkeshti": "Ikeshti",
         "LanguageInfernal": "Infernal",
         "LanguageIruxi": "Iruxi",
         "LanguageJistkan": "Jistkan",
@@ -1714,6 +1754,8 @@
             "AdjustDegreeOfSuccess": "Adjust Degree of Success",
             "BaseSpeed": "Base Speed",
             "BattleForm": "Battle Form",
+            "ChoiceSet": "Choice Set",
+            "CraftingEntry": "Crafting Entry",
             "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
             "EffectTarget": "Effect Target",
@@ -1722,6 +1764,7 @@
             "FlatModifier": "Flat Modifier",
             "FixedProficiency": "Fixed Proficiency",
             "Immunity": "Immunity",
+            "LinkedProficiency": "Linked Proficiency",
             "LoseHitPoints": "Lose Hit Points",
             "MultipleAttackPenalty": "Multiple Attack Penalty",
             "Note": "Note",
@@ -1775,11 +1818,11 @@
                 "name": "Show Status Effects in Combat"
             },
             "statusEffectType": {
-                "blackWhite": "Black & White icons",
-                "default": "Default icons",
-                "hint": "Determines which icon set is used for status effects. Thanks to errational#2007 for inspiration and Ediwir#7664 for the B&W tokens by Lorc@OpenGameArt.",
-                "legacy": "Legacy icons",
-                "name": "Status Icon Set"
+                "blackWhite": "Black & white",
+                "default": "Full color",
+                "hint": "Determines which icon set is used for condition token effects. Thanks to errational#2007 for inspiration and Ediwir#7664 for the B&W tokens by Lorc@OpenGameArt.",
+                "legacy": "Legacy",
+                "name": "Condition Icon Set"
             },
             "Player": {
                 "QuickRolls": {
@@ -1849,7 +1892,8 @@
                 "Hint": "Decide how much and what kinds of automation should apply to your game world.",
                 "RulesBasedVision": {
                     "Name": "Rules-based vision",
-                    "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii."
+                    "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii.",
+                    "ManagedBy": "Managed by <a>rules-based vision</a>."
                 },
                 "EffectExpiration": {
                     "Name": "Effects auto-expire",
@@ -1865,8 +1909,8 @@
                 }
             },
             "Homebrew": {
-                "Name": "Homebrew",
-                "Label": "Manage Homebrew Settings",
+                "Name": "Homebrew Elements",
+                "Label": "Manage Homebrew Elements",
                 "Hint": "Add custom traits, languages, and other elements of a homebrew world.",
                 "Instructions": "These settings allow GMs to add traits, languages, and other elements to a homebrew world. To add such elements, simply type the desired terms in the appropriate fields, separated by commas or tab keystrokes. They will then appear in the appropriate places on actor and item sheets. To update a term, click it to make the desired changes.",
                 "ConfirmDelete": {
@@ -1879,7 +1923,7 @@
                 },
                 "FeatTraits": {
                     "Name": "Feat Traits",
-                    "Hint": "Traits that can be applied to feats (e.g., Lineage, Monk)"
+                    "Hint": "Traits that can be applied to feats (e.g., Lineage, Monk) and actions"
                 },
                 "Languages": {
                     "Name": "Languages",
@@ -1904,6 +1948,14 @@
                 "BaseWeapons": {
                     "Name": "Base Weapons",
                     "Hint": "The bottom level of Pathfinder 2e weapon taxonomy (e.g, Heavy Crossbow, Longsword)"
+                },
+                "WeaponTraits": {
+                    "Name": "Weapon Traits",
+                    "Hint": "Traits applicable to weapons and NPC attacks"
+                },
+                "EquipmentTraits": {
+                    "Name": "Equipment Traits",
+                    "Hint": "Traits applicable to equipment other than weapons"
                 }
             },
             "Metagame": {
@@ -2110,7 +2162,9 @@
                 "Precise": "Precise",
                 "Imprecise": "Imprecise",
                 "Vague": "Vague"
-            }
+            },
+            "Label": "Senses",
+            "RangeLabel": "Range"
         },
         "SettingsColorBlue": "Bluegray",
         "SettingsColorLabel": "UI Theme",
@@ -2355,6 +2409,7 @@
         "TargetFlatFootedLabel": "Enable abilities that require a flat-footed target",
         "TempHPTitle": "The amount of temporary hit points you have",
         "TempHitPointsShortLabel": "Temp HP",
+        "TemporaryItemToolTip": "This item is temporary and will expire after a duration or during daily preparations. It has no value and cannot be sold.",
         "Time": {
             "Duration": "Duration",
             "Unit": {
@@ -2408,9 +2463,16 @@
         "TraitAeon": "Aeon",
         "TraitAffixedToArmor": "Affixed to Armor",
         "TraitAffixedToArmorOrAWeapon": "Affixed to Armor or a Weapon",
+        "TraitAffixedToArmorOrTravelersClothing": "Affixed to Armor or Travelers Clothing",
+        "TraitAffixededToCrossbowOrFirearm": "Affixed to Crossbow or Firearm",
+        "TraitAffixededToFirearm": "Affixed to Firearm",
+        "TraitAffixededToFirearmWithAReloadOf1": "Affixed to a Firearm With a Reload of 1",
+        "TraitAffixededToFirearmWithTheKickbackTrait": "Affixed to a Firearm With the Kickback Trait",
         "TraitAffixedToHeadgear": "Affixed to Headgear",
         "TraitAffixedToWeapon": "Affixed to a Weapon",
+        "TraitAffixedToARangedWeapon": "Affixed to a Ranged Weapon",
         "TraitAffixedToAShield": "Affixed to a Shield",
+        "TraitAffixededToATwoHandedFirearmOrCrossbow": "Affixed to a Two-Handed Firearm or Crossbow",
         "TraitAgathion": "Agathion",
         "TraitAgile": "Agile",
         "TraitAir": "Air",
@@ -2425,6 +2487,13 @@
         "TraitAnugobu": "Anugobu",
         "TraitApex": "Apex",
         "TraitAphorite": "Aphorite",
+        "TraitAppliedToAWindPoweredVehicle": "Applied to a wind-powered vehicle",
+        "TraitAppliedToAnyItemOfLightOrNegligibleBulk": "Applied to any item of light or negligible Bulk",
+        "TraitAppliedToAnyVisibleArticleOfClothing": "Applied to any visible article of clothing",
+        "TraitAppliedToBeltCapeCloakOrScarf": "Applied to belt, cape, cloak, or scarf",
+        "TraitAppliedToBootsCapeCloakOrUmbrella": "Applied to boots, cape, cloak, or umbrella",
+        "TraitAppliedToDuelingCapeOrShield": "Applied to dueling cape or shield",
+        "TraitAppliedToShield": "Applied to shield",
         "TraitAquatic": "Aquatic",
         "TraitArcane": "Arcane",
         "TraitArchetype": "Archetype",
@@ -2435,6 +2504,12 @@
         "TraitAsura": "Asura",
         "TraitAttachedToShield": "Attached to Shield",
         "TraitAttachedToCrossbowOrFirearm": "Attached to Crossbow or Firearm",
+        "TraitAttachedToCrossbowOrFirearmFiringMechanism": "Attached to Crossbow or Firearm (Firing Mechanism)",
+        "TraitAttachedToCrossbowOrFirearmScope": "Attached to Crossbow or Firearm (Scope)",
+        "TraitAttachedToFirearm": "Attached To Firearm",
+        "TraitAttachedToFirearmFiringMechanism": "Attached To Firearm (Firing Mechanism)",
+        "TraitAttachedToFirearmScope": "Attached To Firearm (Scope)",
+        "TraitAttachedToAThrownWeapon": "Attached to a Thrown Weapon",
         "TraitAttack": "Attack",
         "TraitAuditory": "Auditory",
         "TraitAutomaton": "Automaton",
@@ -2645,6 +2720,7 @@
         "TraitDescriptionIllusion": "Effects and magic items with this trait are associated with the illusion school of magic, typically involving false sensory stimuli.",
         "TraitDescriptionIfrit": "A type of geniekin descended from a being from the Plane of Fire.",
         "TraitDescriptionIncapacitation": "An ability with this trait can take a character completely out of the fight or even kill them, and it's harder to use on a more powerful character. If a spell has the incapacitation trait, any creature of more than twice the spell's level treats the result of their check to prevent being incapacitated by the spell as one degree of success better, or the result of any check the spellcaster made to incapacitate them as one degree of success worse. If any other effect has the incapacitation trait, a creature of higher level than the item, creature, or hazard generating the effect gains the same benefits.",
+        "TraitDescriptionIncapacitationShort": "If the target level is higher than the ability level (or 2x spell level) treat the result as one degree better.",
         "TraitDescriptionIncorporeal": "An incorporeal creature or object has no physical form. It can pass through solid objects, including walls. When inside an object, an incorporeal creature can't perceive, attack, or interact with anything outside the object, and if it starts its turn in an object, it is slowed 1. Corporeal creatures can pass through an incorporeal creature, but they can't end their movement in its space. An incorporeal creature can't attempt Strength-based checks against physical creatures or objects-only against incorporeal ones-unless those objects have the ghost touch property rune. Likewise, a corporeal creature can't attempt Strength-based checks against incorporeal creatures or objects. Incorporeal creatures usually have immunity to effects or conditions that require a physical body, like disease, poison, and precision damage. They usually have resistance against all damage (except force damage and damage from Strikes with the ghost touch property rune), with double the resistance against non-magical damage.",
         "TraitDescriptionInfused": "You created an alchemical item with the infused trait using your infused reagents, and it has a limited time before it becomes inert. Any nonpermanent effects from your infused alchemical items, with the exception of afflictions such as slow-acting poisons, end when you make your daily preparations again.",
         "TraitDescriptionIngested": "This poison is delivered when drunk or eaten.",
@@ -2736,7 +2812,7 @@
         "TraitDescriptionStaff": "This magic item holds spells of a particular theme and allows a spellcaster to cast additional spells by preparing the staff.",
         "TraitDescriptionSteam": "Items with this trait are powered by engines that boil water to produce steam and move their components.",
         "TraitDescriptionStrix": "Winged humanoids, most of whom live in and around Cheliax.",
-        "TraitDescriptionStructure": "An item with the structure trait creates a magical building or other structure when activated. The item must be activated on a plot of land free of other structures. The structure adapts to the natural terrain, adopting the structural requirements for being built there. The structure adjusts around small features such as ponds or spires of rock, but it can’t be created on water or other nonsolid surfaces. If activated on snow, sand dunes, or other soft surfaces with a solid surface underneath, the structure’s foundation (if any) reaches the solid ground. If an item with this trait is activated on a solid but unstable surface, such as a swamp or an area plagued by tremors, roll a DC 3 flat check each day; on a failure, the structure begins to sink or collapse. The structure doesn’t harm creatures within the area when it appears, and it can’t be created within a crowd or in a densely populated area. Any creature inadvertently caught inside the structure when the item is activated ends up unharmed inside the complete structure and always has a clear path of escape. A creature inside the structure when the activation ends isn’t harmed, and it lands harmlessly on the ground if it was on an upper level of the structure.",
+        "TraitDescriptionStructure": "An item with the structure trait creates a magical building or other structure when activated. The item must be activated on a plot of land free of other structures. The structure adapts to the natural terrain, adopting the structural requirements for being built there. The structure adjusts around small features such as ponds or spires of rock, but it can't be created on water or other nonsolid surfaces. If activated on snow, sand dunes, or other soft surfaces with a solid surface underneath, the structure's foundation (if any) reaches the solid ground. If an item with this trait is activated on a solid but unstable surface, such as a swamp or an area plagued by tremors, roll a DC 3 flat check each day; on a failure, the structure begins to sink or collapse. The structure doesn't harm creatures within the area when it appears, and it can't be created within a crowd or in a densely populated area. Any creature inadvertently caught inside the structure when the item is activated ends up unharmed inside the complete structure and always has a clear path of escape. A creature inside the structure when the activation ends isn't harmed, and it lands harmlessly on the ground if it was on an upper level of the structure.",
         "TraitDescriptionSummoned": "A creature called by a conjuration spell or effect gains the summoned trait. A summoned creature can't summon other creatures, create things of value, or cast spells that require a cost. It has the minion trait. If it tries to cast a spell of equal or higher level than the spell that summoned it, it overpowers the summoning magic, causing the summoned creature's spell to fail and the summon spell to end. Otherwise, the summoned creature uses the standard abilities for a creature of its kind. It generally attacks your enemies to the best of its abilities. If you can communicate with it, you can attempt to command it, but the GM determines the degree to which it follows your commands. Immediately when you finish Casting the Spell, the summoned creature uses its 2 actions for that turn. Summoned creatures can be banished by various spells and effects. They are automatically banished if reduced to 0 Hit Points or if the spell that called them ends.",
         "TraitDescriptionSuli": "Sulis are planar scions descended from jann.",
         "TraitDescriptionSwashbuckler": "This indicates abilities from the Swashbuckler class.",
@@ -2765,6 +2841,22 @@
         "TraitDescriptionWater": "Effects with the water trait either manipulate or conjure water. Those that manipulate water have no effect in an area without water. Creatures with this trait consist primarily of water or have a magical connection to the element.",
         "TraitDescriptionWitch": "This indicates abilities from the witch class.",
         "TraitDescriptionWizard": "This indicates abilities from the wizard class.",
+        "TraitDescriptionEidolon": "A creature with this trait is a summoner's eidolon. An item with this trait can be worn by an eidolon. An eidolon can have up to two items invested.",
+        "TraitDescriptionAdjustment": "Items with this trait are intended to alter existing pieces of equipment, typically armors, shields, and weapons. The given item will note which type of equipment it modifies. A piece of equipment can only be affected by a single adjustment at a time. Unless otherwise noted, adding or removing an adjustment requires using a 10-minute activity and a repair kit.",
+        "TraitDescriptionApex": "When you Invest an Item that has the apex trait, it improves one of your ability scores, either increasing it by 2 or to a total of 18, whichever grants the higher score. This gives you all the benefits of the new ability score until the investiture ends. An apex item grants this benefit only the first time it's invested within a 24-hour period, and you can benefit from only one apex item at a time. If you attempt to invest an apex item when you already have one invested, you don't gain the ability score increase, though you do gain any other effects of Investing the Item.",
+        "TraitDescriptionCatalyst": "Items with the catalyst trait are consumable material spell components that alter or magnify specific spells. Activating a catalyst is part of Casting the Spell. The catalyst might increase the number of actions required to Cast the Spell, as indicated in the catalyst's Activate entry. Additionally, the spell gains material components if it didn't have them already or adds the catalyst to its existing components. Because the catalyst becomes part of the material components, you can draw the catalyst as part of Casting the Spell.",
+        "TraitDescriptionContract": "A contract is a type of item that magically establishes an agreement between multiple parties and typically grants magical benefits.",
+        "TraitDescriptionElixir": "Elixirs are alchemical liquids that are used by drinking them.",
+        "TraitDescriptionFey": "Creatures of the First World are called the fey.",
+        "TraitDescriptionFulu": "Fulus are small paper charms that can be affixed to a suit of armor, a shield, a weapon, a creature, or even a structure. Some fulus are composed of multiple such charms, taking effect only once all have been affixed. Normal fulus have effects immediately once affixed, while fulu talismans have an effect only once activated. Once a fulu has been activated, it lasts for the given duration and then burns out. Unless otherwise noted, fulus expire one year after being created, reverting to mundane paper. All fulus have the fulu and consumable traits. Fulus also have a tradition trait—either arcane, divine, occult or primal—determined by the magical tradition of its creator. For example, a fulu created by a priest would have the divine trait, whereas a witch who dabbles in fate might create a fulu with the occult trait. Some fulus also have the talisman trait, if they work similarly to talismans (such as being affixed to a suit of armor, a shield, or a weapon. Each fulu's stat block indicates the type of item or creature it can be affixed to. Affixing or removing a fulu requires using the Affix a Fulu activity, or the Affix a Talisman action instead if the fulu is also a talisman.",
+        "TraitDescriptionMutagen": "An elixir with the mutagen trait temporarily transmogrifies the subject's body and alters its mind. A mutagen always conveys one or more beneficial effects paired with one or more detrimental effects. Mutagens are polymorph effects, meaning you can benefit from only one at a time.",
+        "TraitDescriptionOil": "Oils are magical gels, ointments, pastes, or salves that are typically applied to an object and are used up in the process.",
+        "TraitDescriptionPotion": "A potion is a magical liquid activated when you drink it.",
+        "TraitDescriptionScroll": "A scroll contains a single spell you can cast without a spell slot.",
+        "TraitDescriptionSnare": "Traps typically made by rangers, snares follow special rules that allow them to be constructed quickly and used on the battlefield.",
+        "TraitDescriptionSpellheart": "Spellhearts are permanent items that work similarly to talismans. You affix a spellheart using the Affix a Spellheart activity, which is otherwise identical to Affix a Talisman. The limit of one talisman per item remains—an item can have one spellheart or one talisman, not both. When casting a cantrip from a spellheart, you can use your own spell attack roll or spell DC if it's higher. Crafting a spellheart requires the spells the spellheart can cast. For example, a major five-feather wreath requires air walk, gale blast, and wall of wind.",
+        "TraitDescriptionTalisman": "A talisman is a small object affixed to armor, a shield, or a weapon (called the affixed item). You must be wielding or wearing an item to activate a talisman attached to it. Once activated, a talisman burns out permanently.",
+        "TraitDescriptionWand": "A wand contains a single spell which you can cast once per day.",
         "TraitDetection": "Detection",
         "TraitDevil": "Devil",
         "TraitDhampir": "Dhampir",
@@ -2784,6 +2876,7 @@
         "TraitDuergar": "Duergar",
         "TraitDuskwalker": "Duskwalker",
         "TraitDwarf": "Dwarf",
+        "TraitEachRuneAppliedToASeparateItemThatHasPockets": "Each rune applied to a separate item that has pockets",
         "TraitEarth": "Earth",
         "TraitEidolon": "Eidolon",
         "TraitElectricity": "Electricity",
@@ -2820,6 +2913,7 @@
         "TraitFocused": "Focused",
         "TraitForce": "Force",
         "TraitForceful": "Forceful",
+        "TraitFormian": "Formian",
         "TraitFortune": "Fortune",
         "TraitFreeHand": "Free-Hand",
         "TraitFulu": "Fulu",
@@ -2861,6 +2955,7 @@
         "TraitHuman": "Human",
         "TraitHumanoid": "Humanoid",
         "TraitIfrit": "Ifrit",
+        "TraitIkeshti": "Ikeshti",
         "TraitIllusion": "Illusion",
         "TraitIncapacitation": "Incapacitation",
         "TraitIncarnate": "Incarnate",
@@ -2920,6 +3015,7 @@
         "TraitNoisy": "Noisy",
         "TraitNonlethal": "Nonlethal",
         "TraitNonlethalAttacks": "Nonlethal Attacks",
+        "TraitNonmagicalAttacks": "Non-magical Attacks",
         "TraitNymph": "Nymph",
         "TraitOath": "Oath",
         "TraitObjectImmunities": "Object Immunities",
@@ -2957,6 +3053,7 @@
         "TraitProteanAnatomy": "Protean Anatomy",
         "TraitPsychopomp": "Psychopomp",
         "TraitQlippoth": "Qlippoth",
+        "TraitRadiation": "Radiation",
         "TraitRage": "Rage",
         "TraitRakshasa": "Rakshasa",
         "TraitRange": "Range",
@@ -3009,6 +3106,7 @@
         "TraitRangeIncrement500": "Range Increment 500 ft",
         "TraitRangeIncrement60": "Range Increment 60 ft",
         "TraitRangeIncrement70": "Range Increment 70 ft",
+        "TraitRangeIncrement75": "Range Increment 75 ft",
         "TraitRangeIncrement80": "Range Increment 80 ft",
         "TraitRangeIncrement90": "Range Increment 90 ft",
         "TraitRangedTrip": "Ranged Trip",
@@ -3101,6 +3199,7 @@
         "TraitTeleportation": "Teleportation",
         "TraitTengu": "Tengu",
         "TraitTethered": "Tethered",
+        "TraitThrown": "Thrown",
         "TraitThrown10": "Thrown 10 ft.",
         "TraitThrown15": "Thrown 15 ft.",
         "TraitThrown20": "Thrown 20 ft.",
@@ -3165,6 +3264,8 @@
         "TraitHeldTwoHands": "Held in 2 hands",
         "TraitTattooedOnTheBody": "Tattooed on the Body",
         "TraitWorn": "Worn",
+        "TraitWornAndAttachedToTwoWeapons": "Worn and Attached to Two Weapons",
+        "TraitWornUnderArmor": "Worn Under Light Armor or Clothes",
         "TraitWornAmulet": "Worn Amulet",
         "TraitWornArmbands": "Worn Armbands",
         "TraitWornBackpack": "Worn Backpack",
@@ -3192,7 +3293,8 @@
         "TraitWornBarding": "Worn Barding",
         "TraitWornOnBelt": "Worn on Belt",
         "TraitWornSaddle": "Worn Saddle",
-        "TraitEtchedOntoAArmor": "Etched onto Armor",
+        "TraitEtchedOntoArmor": "Etched onto Armor",
+        "TraitEtchedOntoMedHeavyArmor": "Etched onto Medium or Heavy Armor",
         "TraitEtchedOntoAWeapon": "Etched onto a Weapon",
         "TraitEtchedOntoAThrownWeapon": "Etched on Thrown Weapon",
         "TraitEtchedOntoAMeleeWeapon": "Etched on Melee Weapon",
@@ -3260,10 +3362,16 @@
             "shiftModifyDamageTitle": "Modify the rolled damage/healing",
             "shiftModifyDamageHint": "Use positive modifier to harm, negative to heal.",
             "RuleElements": {
+                "ChoiceSet": {
+                    "Prompt": "Make a selection.",
+                    "SaveLabel": "Save"
+                },
                 "EffectTarget": {
-                    "NoSelectionMade": "No selection was made: {effect} is inactive.",
-                    "NoValidOptions": "{actor} has no valid targets for {effect}.",
                     "Prompt": "Choose the target of this effect."
+                },
+                "Prompt": {
+                    "NoSelectionMade": "No selection was made: {item} is inactive.",
+                    "NoValidOptions": "{actor} has no valid targets for {item}."
                 }
             }
         },
@@ -3369,6 +3477,7 @@
                 "greatclub": "Greatclub",
                 "greatpick": "Greatpick",
                 "greatsword": "Greatsword",
+                "griffon-cane": "Griffon Cane",
                 "guisarme": "Guisarme",
                 "gun-sword": "Gun Sword",
                 "halberd": "Halberd",
@@ -3398,6 +3507,7 @@
                 "light-hammer": "Light Hammer",
                 "light-mace": "Light Mace",
                 "light-pick": "Light Pick",
+                "lion-scythe": "Lion Scythe",
                 "long-air-repeater": "Long Air Repeater",
                 "longbow": "Longbow",
                 "longspear": "Longspear",
@@ -3425,6 +3535,7 @@
                 "piranha-kiss": "Piranha Kiss",
                 "poi": "Poi",
                 "polytool": "Polytool",
+                "probing-cane": "Probing Cane",
                 "ranseur": "Ranseur",
                 "rapier": "Rapier",
                 "rapier-pistol": "Rapier Pistol",
@@ -3445,6 +3556,7 @@
                 "shield-bash": "Shield Bash",
                 "shield-boss": "Shield Boss",
                 "shield-spikes": "Shield Spikes",
+                "shobhad-longrifle": "Shobhad Longrifle",
                 "shortbow": "Shortbow",
                 "shortsword": "Shortsword",
                 "shuriken": "Shuriken",
@@ -3461,6 +3573,7 @@
                 "staff": "Staff",
                 "starknife": "Starknife",
                 "stiletto-pen": "Stiletto Pen",
+                "sun-sling": "Sun Sling",
                 "sword-cane": "Sword Cane",
                 "tamchal-chakram": "Tamchal Chakram",
                 "taw-launcher": "Taw Launcher",
@@ -3884,6 +3997,7 @@
         "WeaponRange20": "20 ft.",
         "WeaponRange240": "240 ft.",
         "WeaponRange30": "30 ft.",
+        "WeaponRange300": "300 ft.",
         "WeaponRange40": "40 ft.",
         "WeaponRange50": "50 ft.",
         "WeaponRange60": "60 ft.",
@@ -3892,6 +4006,7 @@
         "WeaponRange90": "90 ft.",
         "WeaponRangeLabel": "Weapon Range",
         "WeaponRangeMelee": "Melee",
+        "WeaponRangeN": "{range} ft.",
         "WeaponRangeReach": "Reach",
         "WeaponReloadLabel": "Reload Time",
         "WeaponSpecialization": "Weapon Specialization",
@@ -4427,6 +4542,7 @@
             "InventoryTab": "Inventory",
             "SavesExtraInfoLabelPlaceholder": "Bonus to all saves...",
             "SensesLabel": "Senses",
+            "SpeedExtraInfoLabelPlaceholder": "Speed details...",
             "Spells": {
                 "AttackLabel": "Attack",
                 "DCLabel": "DC",

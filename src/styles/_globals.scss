@@ -5,6 +5,7 @@
 $primary-color: #5e0000 !default;
 $secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
 $tertiary-color: #E9D7A1 !default; /* compliments the primary color, usually used in combination */
+$dim-gray-color: #666;
 $alt-color: #786452; /* for all other uses */
 $alt-dark: #443730;
 $background-color: #F8F4F1 !default;
@@ -63,6 +64,7 @@ $rank-legendary: $primary-color;
     --lighter: #{$light-1};
     --dark: #{$dark-color};
     --darker: #{$dark-1};
+    --dim-gray: #{$dim-gray-color};
     --bg: #{$background-color};
     --sub: #{$sub-color};
     --btn-color: #{$btn-color};
@@ -472,6 +474,27 @@ table.pf2-table {
 }
 
 em[data-visibility="gm"] {
+    display: inline-block;
+}
+
+/* ----------------------------------------- */
+/* PF2E Owner Visibility Elements
+/* ----------------------------------------- */
+[data-visibility="owner"]:is(div, em, p, span, strong) {
+    box-sizing: border-box;
+    border: 1px dotted;
+    background: #ddebe1;
+    padding: 3px;
+    margin-bottom: 4px;
+
+    em[data-visibility="owner"] {
+        border: none;
+        padding: 0;
+        margin-bottom: 0;
+    }
+}
+
+em[data-visibility="owner"] {
     display: inline-block;
 }
 

@@ -9,15 +9,17 @@ import {
     AbilityBasedStatistic,
     Rollable,
     StrikeData,
+    InitiativeData,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
-import { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledString, LabeledValue, ValuesList, ZeroToThree } from "@module/data";
+import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import { LabeledValue, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
-import { CreatureSensePF2e } from "./sense";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
+import { RollParameters } from "@system/rolls";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -72,9 +74,10 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 
-export type SenseAcuity = "precise" | "imprecise" | "vague";
-export interface SenseData extends LabeledString {
+export interface SenseData {
+    type: SenseType;
     acuity?: SenseAcuity;
+    value: string;
     source?: string;
 }
 
@@ -140,6 +143,16 @@ export interface LabeledSpeed extends LabeledValue {
 export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
+
+export type CreatureInitiative = InitiativeData &
+    CheckModifier & {
+        roll: (parameters: RollParameters) => Promise<void>;
+        /**
+         * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
+         * constitutes a higher priority.
+         */
+        tiebreakPriority: ZeroToTwo;
+    };
 
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 

@@ -1,8 +1,7 @@
-import { ActorPF2e } from "@actor/base";
 import { getPropertySlots } from "../runes";
 import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
-import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
+import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import Tagify from "@yaireo/tagify";
@@ -14,7 +13,6 @@ import {
     TAG_SELECTOR_TYPES,
 } from "@module/system/trait-selector";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { ActiveEffectPF2e } from "@module/active-effect";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
@@ -192,52 +190,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
-            activeEffects: this.getActiveEffectsData(),
-        };
-    }
-
-    protected getActiveEffectsData(): AESheetData {
-        const durationString = (duration: foundry.data.EffectDurationData): string => {
-            const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
-
-            /** @todo use `as const` when fixed in typescript 4.3.3 */
-            const durationFields: ["rounds", "seconds", "turns"] = ["rounds", "seconds", "turns"];
-            const unit = durationFields.find((unit) => duration[unit] !== undefined);
-            const quantity = unit && duration[unit];
-            if (!(typeof unit === "string" && typeof quantity === "number")) return translations.Duration.Permanent;
-
-            type UnitLabel = "Second" | "Seconds" | "Round" | "Rounds" | "Turn" | "Turns";
-            const unitLabel =
-                quantity === 1
-                    ? ((unit.slice(0, 1).toUpperCase() + unit.slice(1, -1)) as UnitLabel)
-                    : ((unit.slice(0, 1).toUpperCase() + unit.slice(1)) as UnitLabel);
-            return game.i18n.format(translations.Duration[unitLabel], {
-                quantity,
-            });
-        };
-
-        const actor = this.item.actor;
-        const oldOrigin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // Foundry 0.7
-        const newOrigin = `Actor.${actor?.id}.Item.${this.item.id}`; // Foundry 0.8
-        const effects =
-            actor instanceof ActorPF2e
-                ? actor.effects.contents.filter(
-                      (effect) => effect.data.origin === newOrigin || effect.data.origin === oldOrigin
-                  )
-                : this.item.effects.contents;
-
-        const ruleUIEnabled = game.settings.get("pf2e", "enabledRulesUI");
-
-        return {
-            showAEs: ruleUIEnabled,
-            canEdit: this.actor === null && !this.item.uuid.match(/Compendium/),
-            effects: effects.map((effect) => ({
-                id: effect.id,
-                iconPath: effect.data.icon ?? null,
-                name: effect.data.label,
-                duration: durationString(effect.data.duration),
-                enabled: effect.isEnabled,
-            })),
         };
     }
 
@@ -433,66 +385,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollsLinks.listen(html);
-
-        // Active Effect controls
-        html.find('.tab.effects table th a[data-action="create"]').on("click", async () => {
-            const newEffect = await ActiveEffectPF2e.create(
-                {
-                    label: "New Effect",
-                    icon: this.item.img,
-                    origin: this.item.uuid,
-                    disabled: false,
-                },
-                { parent: this.item as unknown as foundry.documents.BaseItem }
-            );
-            this.render();
-            this.item.effects.get(newEffect?.id ?? "")!.sheet.render(true);
-        });
-
-        const $aeControls = html.find(".tab.effects table tbody td.controls");
-
-        const actor = this.item.actor;
-        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
-
-        const getEffects = (): ActiveEffect[] => {
-            return actor instanceof ActorPF2e
-                ? actor.effects.contents.filter((effect) => effect.data.origin === origin)
-                : this.item.effects.contents;
-        };
-        const getEffectId = (target: HTMLElement): string | undefined => {
-            return $(target).closest("tr").data("effect-id");
-        };
-        const effects = getEffects();
-        effects;
-
-        $aeControls.find('input[data-action="enable"]').on("change", (event) => {
-            event.preventDefault();
-
-            const effects = getEffects();
-            const effectId = getEffectId(event.target);
-            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
-            if (effect instanceof ActiveEffect) {
-                const isDisabled = !$(event.target as HTMLInputElement).is(":checked");
-                effect.update({ disabled: isDisabled }).then(() => this.render());
-            }
-        });
-
-        $aeControls.find('a[data-action="edit"]').on("click", (event) => {
-            const effects = getEffects();
-            const effectId = getEffectId(event.target);
-            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
-            if (effect instanceof ActiveEffect) {
-                effect.sheet.render(true);
-            }
-        });
-        $aeControls.find('a[data-action="delete"]').on("click", (event) => {
-            const effects = getEffects();
-            const effectId = getEffectId(event.target);
-            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
-            if (effect instanceof ActiveEffect) {
-                effect.delete();
-            }
-        });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
