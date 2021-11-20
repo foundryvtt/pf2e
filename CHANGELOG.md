@@ -20,7 +20,7 @@
 * (Supe) Fix elite/weak level endlessly updating for legacy npc sheet
 
 ### Content Updates
-* (Cora, Kyle S, Dods, ae4355, xdy, and Tikael) Add remaining Guns & Gears items
+* (Cora, Kyle S, Dods, ae4355, xdy, and Tikael) Add remaining Guns & Gears and LO: Grand Bazaar items
 * (Abaddon) Bestiary 1- Brush up Golems
 * (Abaddon) Update to sense selector: styling and acuity support
 * (Abaddon) Brush up monsters in Bestiary 1 (D-E)
