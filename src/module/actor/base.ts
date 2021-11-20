@@ -4,7 +4,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -130,6 +130,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
     get heldShield(): Embedded<ArmorPF2e> | null {
         return null;
+    }
+
+    /** Get roll options from this actor's traits an other properties */
+    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const conditions = this.itemTypes.condition
+            .flatMap((condition) =>
+                condition.fromSystem && condition.isActive ? condition.slug ?? sluggify(condition.name) : []
+            )
+            .map((slug) => `${prefix}:condition:${slug}`);
+
+        return new Set([...this.traits].map((trait) => `${prefix}:trait:${trait}`).concat(conditions));
+    }
+
+    /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
+    getContextualClone(rollOptions: string[]): this {
+        const rollOptionsAll = rollOptions.reduce(
+            (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
+            {}
+        );
+        const flags: this["data"]["_source"]["flags"] = { pf2e: { rollOptions: { all: rollOptionsAll } } };
+        const overrideData: DeepPartial<this["data"]["_source"]> = { flags };
+
+        return this.clone(overrideData);
     }
 
     /**
@@ -463,12 +486,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (canvas.tokens.controlled.length > 0) {
             const save = $(ev.currentTarget).attr("data-save") as SaveType;
             const dc = Number($(ev.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits?.value;
+            const itemTraits = item.data.data.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
                 if (actor.data.data.saves[save]?.roll) {
-                    const options = actor.getRollOptions(["all", "saving-throw", save]);
+                    const options = [
+                        ...actor.getRollOptions(["all", "saving-throw", save]),
+                        ...actor.getSelfRollOptions(),
+                        ...item.actor.getSelfRollOptions("origin"),
+                    ];
                     if (item instanceof SpellPF2e) {
                         options.push("magical", "spell");
                         if (Object.keys(item.data.data.damage.value).length > 0) {
@@ -477,11 +504,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     }
                     if (itemTraits) {
                         options.push(...itemTraits);
+                        options.push(...itemTraits.map((trait) => `trait:${trait}`));
                     }
                     actor.data.data.saves[save].roll({
                         event: ev,
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options,
+                        options: Array.from(new Set(options)),
                     });
                 } else {
                     actor.rollSave(ev, save);
@@ -904,11 +932,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
      * Roll option in this case is a predication property used for filtering.
      */
-    getRollOptions(rollNames: string[]): string[] {
+    getRollOptions(domains: string[]): string[] {
         const rollOptions = this.data.flags.pf2e.rollOptions;
         const results = new Set<string>();
-        for (const name of rollNames) {
-            for (const [key, value] of Object.entries(rollOptions[name] ?? {})) {
+        for (const domain of domains) {
+            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
                 if (value) results.add(key);
             }
         }
