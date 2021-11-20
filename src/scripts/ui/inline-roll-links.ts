@@ -3,7 +3,7 @@ import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
-import { StatisticBuilder } from "@system/statistic";
+import { Statistic } from "@system/statistic";
 import { calculateDC } from "@module/dc";
 
 function resolveActors(): ActorPF2e[] {
@@ -119,7 +119,7 @@ export const InlineRollsLinks = {
                     if (actors.length) {
                         actors.forEach((actor) => {
                             if (actor instanceof CreaturePF2e) {
-                                const flatCheck = StatisticBuilder.from(actor, {
+                                const flatCheck = new Statistic(actor, {
                                     name: "",
                                     modifiers: [],
                                     check: { type: "flat-check" },
@@ -304,7 +304,7 @@ export const InlineRollsLinks = {
                 const { pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
                 actors.forEach((actor) => {
                     if (actor instanceof CreaturePF2e) {
-                        const flatCheck = StatisticBuilder.from(actor, {
+                        const flatCheck = new Statistic(actor, {
                             name: "",
                             modifiers: [],
                             check: { type: "flat-check" },

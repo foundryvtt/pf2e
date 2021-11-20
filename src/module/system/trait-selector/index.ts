@@ -1,6 +1,6 @@
 export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
 export { ResistanceSelector } from "./resistances";
-export { TraitSelectorSenses } from "./senses";
+export { SenseSelector } from "./senses";
 export { TraitSelectorSpeeds } from "./speeds";
 export { WeaknessSelector } from "./weaknesses";
 export { TagSelectorOptions } from "./base";
@@ -29,7 +29,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "damageCategories",
     "weaponDamage",
     "healingTypes",
-    "weaponTypes",
     "weaponCategories",
     "weaponGroups",
     "baseWeaponTypes",
@@ -42,7 +41,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "equipmentTraits",
     "itemBonuses",
     "damageDie",
-    "weaponRange",
     "weaponMAP",
     "weaponReload",
     "armorTypes",
@@ -67,7 +65,6 @@ export const SELECTABLE_TAG_FIELDS = [
     "actionsNumber",
     "actionCategories",
     "proficiencyLevels",
-    "heroPointLevels",
     "actorSizes",
     "bulkTypes",
     "conditionTypes",
@@ -88,6 +85,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "levels",
     "dcAdjustments",
     "npcAttackTraits",
+    "vehicleTraits",
 ] as const;
 
 export type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];

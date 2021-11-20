@@ -123,6 +123,23 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue = getProperty(this.actor.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
+            event.target.select();
+        });
+
+        html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const preparedValue = getProperty(this.actor.data, propertyPath);
+            $input.val(preparedValue);
+        });
+
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
         html.find(selectors).on("change", (event) => {
@@ -173,8 +190,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // Roll recovery flat check when Dying
-        html.find(".recoveryCheck.rollable").on("click", () => {
-            this.actor.rollRecovery();
+        html.find(".recoveryCheck.rollable").on("click", (event) => {
+            this.actor.rollRecovery(event);
         });
 
         // strikes
@@ -199,9 +216,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
-            const entryData = this.actor.spellcasting.get(index)?.data;
-            if (entryData && entryData.data.attack?.roll) {
-                entryData.data.attack.roll({ event });
+            const entry = this.actor.spellcasting.get(index);
+            if (entry) {
+                entry.statistic.check.roll({ event, modifiers: [] });
             }
         });
 

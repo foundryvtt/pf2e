@@ -9,6 +9,7 @@ declare global {
     type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: any }, string]>;
     type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
     type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [JQuery, EntryContextOption[]]>;
+    type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
     type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar, unknown, string]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
@@ -50,6 +51,7 @@ declare global {
         static on(...args: HookParamsDropCanvasData): number;
         static on(...args: HookParamsHotbarDrop): number;
         static on(...args: HookParamsGetChatLogEntryContext): number;
+        static on(...args: HookParamsGetSceneControlButtons): number;
         static on(...args: HookParamsPreCreateItem): number;
         static on(...args: HooksParamsPreUpdateCombat): number;
         static on(...args: HookParamsPreUpdateToken): number;
@@ -60,6 +62,7 @@ declare global {
         static on(...args: HookParamsRender<Dialog, "Dialog">): number;
         static on(...args: HookParamsRender<ActorDirectory, "ActorDirectory">): number;
         static on(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
+        static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsUpdateCombat): number;
         static on(...args: HookParamsUpdateWorldTime): number;
@@ -79,6 +82,7 @@ declare global {
         static once(...args: HookParamsDropCanvasData): number;
         static once(...args: HookParamsHotbarDrop): number;
         static once(...args: HookParamsGetChatLogEntryContext): number;
+        static once(...args: HookParamsGetSceneControlButtons): number;
         static once(...args: HookParamsPreCreateItem): number;
         static once(...args: HookParamsPreUpdateToken): number;
         static once(...args: HookParamsRenderChatMessage): number;
@@ -88,6 +92,7 @@ declare global {
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
         static once(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
+        static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
         static once(...args: HookParamsUpdateWorldTime): number;
         static once(...args: HookParameters<string, any>): number;

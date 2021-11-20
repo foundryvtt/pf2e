@@ -1,6 +1,6 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
 import { getDegreeOfSuccess, DegreeOfSuccessText, CheckDC } from "./check-degree-of-success";
@@ -104,6 +104,7 @@ export class CheckPF2e {
         ) => Promise<void> | void
     ): Promise<ChatMessagePF2e | ChatMessageDataPF2e | undefined> {
         if (context.options?.length && !context.isReroll) {
+            context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
                 modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
@@ -274,18 +275,36 @@ export class CheckPF2e {
 
         if (ctx.traits) {
             const traits: string = ctx.traits
-                .map((trait: StrikeTrait) => {
+                .map((trait) => {
                     trait.label = game.i18n.localize(trait.label);
                     return trait;
                 })
                 .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
                 .map((trait: StrikeTrait) => {
-                    return `<span class="tag" data-trait=${trait.name} data-description=${trait.description}>${trait.label}</span>`;
+                    const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
+                    if (trait.description) $trait.attr({ "data-description": trait.description });
+                    return $trait.prop("outerHTML");
                 })
                 .join("");
-            flavor += `<div class="tags">\n${traits}\n</div><hr />`;
+
+            const otherTags = ((): string[] => {
+                if (item instanceof WeaponPF2e && item.isRanged) {
+                    // Show the range increment for ranged weapons
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range: item.range ?? 10 });
+                    return [`<span class="tag tag_secondary">${label}</span>`];
+                } else {
+                    return [];
+                }
+            })().join("");
+            flavor += `<div class="tags">\n${traits}\n${otherTags}</div><hr />`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
+
+        if (ctx.options && ctx.options.indexOf("incapacitation") > -1) {
+            flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
+            flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
+        }
+
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
         const message = (await roll.toMessage(
             {
@@ -329,8 +348,8 @@ export class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor?.data.type === "character") {
-                const heroPointCount = actor.data.data.attributes.heroPoints.rank;
+            if (actor instanceof CharacterPF2e) {
+                const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
                         "data.attributes.heroPoints.rank": Math.clamped(heroPointCount - 1, 0, 3),
@@ -354,12 +373,12 @@ export class CheckPF2e {
             context.createMessage = false;
             context.skipDialog = true;
             context.isReroll = true;
-            const newMessage = (await CheckPF2e.roll(
-                check,
-                context
-            )) as foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>;
+
+            const newMessage = await CheckPF2e.roll(check, context);
+            if (!(newMessage instanceof foundry.data.ChatMessageData)) return;
+
             const oldRoll = message.roll;
-            const newRoll = Roll.fromData(JSON.parse(newMessage.roll as string)) as Rolled<Roll<RollDataPF2e>>;
+            const newRoll = Roll.fromData(JSON.parse(newMessage.roll.toString())) as Rolled<Roll<RollDataPF2e>>;
 
             // Keep the new roll by default; Old roll is discarded
             let keepRoll = newRoll;

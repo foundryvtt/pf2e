@@ -87,6 +87,13 @@ import { Migration682BiographyFields } from "./migrations/682-biography-fields";
 import { Migration683FlavorTextToPublicNotes } from "./migrations/683-flavortext-to-public-notes";
 import { Migration684RationsToConsumable } from "./migrations/684-rations-to-consumable";
 import { Migration685FixMeleeUsageTraits } from "./migrations/685-fix-melee-usage-traits";
+import { Migration686HeroPointsToResources } from "./migrations/686-hero-points-to-resources";
+import { Migration687FamiliarityAEsToREs } from "./migrations/687-familiarity-aes-to-res";
+import { Migration688ClampSpellLevel } from "./migrations/688-clamp-spell-level";
+import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumberance-aes";
+import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
+import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-weapon-range-ability-category-group";
+import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-crafting-entry-feat-replacement";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -178,6 +185,13 @@ export class Migrations {
         Migration683FlavorTextToPublicNotes,
         Migration684RationsToConsumable,
         Migration685FixMeleeUsageTraits,
+        Migration686HeroPointsToResources,
+        Migration687FamiliarityAEsToREs,
+        Migration688ClampSpellLevel,
+        Migration689EncumberanceActiveEffects,
+        Migration690InitiativeTiebreakItems,
+        Migration691WeaponRangeAbilityCategoryGroup,
+        Migration692CraftingEntryFeatReplacement,
     ];
 
     static get latestVersion(): number {

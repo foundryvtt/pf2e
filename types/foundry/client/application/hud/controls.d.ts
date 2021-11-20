@@ -2,7 +2,7 @@ declare interface SceneControlTool {
     name: string;
     title: string;
     icon: string;
-    visible: string;
+    visible: boolean;
     onClick?: () => void;
     button?: boolean;
 }

@@ -1,0 +1,90 @@
+<li class="item list-row {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
+    <div class="item-name rollable{{#if (and lootsheet (not owner))}} long{{/if}}">
+        <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+        <h4>
+            {{item.name}}
+            {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize 'PF2E.TemporaryItemToolTip'}}"></i>{{/if}}
+            {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{data.identification.identified.name}})</span>{{/if}}
+            {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
+            {{#if item.isTwoHanded}}
+                <span title="{{localize 'PF2E.TraitTwoHandedHelp'}}">
+                    <i class="far fa-hand-paper"></i> (<i class="far fa-hand-paper"></i>)
+                </span>
+            {{/if}}
+        </h4>
+        {{#if item.hasCharges}}
+            <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
+        {{/if}}
+    </div>
+    {{#if lootsheet}}
+        {{#if (eq item.type "treasure")}}
+            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
+        {{else}}
+            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.price.value}}{{/if}}</span>
+        {{/if}}
+    {{else}}
+        {{#if (eq item.type 'treasure')}}
+            <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}</span>
+        {{/if}}
+    {{/if}}
+    <span class="item-quantity">
+        {{#if owner}}
+            <a class="item-decrease-quantity">-</a>
+        {{/if}}
+        <span>{{item.data.quantity.value}}</span>
+        {{#if owner}}
+            <a class="item-increase-quantity">+</a>
+        {{/if}}
+    </span>
+    <span class="item-weight">{{item.totalWeight}}</span>
+
+    {{#if editable}}
+        <div class="item-controls">
+            {{#if item.isContainer}}
+                {{#if item.containerData.isCollapsed}}
+                    <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box"></i></a>
+                {{else}}
+                    <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box-open"></i></a>
+                {{/if}}
+            {{/if}}
+
+            {{#if item.canBeEquipped}}
+                {{#if item.isInvestable}}
+                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
+                {{/if}}
+                <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+            {{/if}}
+            {{#if user.isGM}}
+                {{#if item.isIdentified}}
+                    <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
+                {{else}}
+                    <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
+                {{/if}}
+            {{/if}}
+            {{#if item.isSellableTreasure}}
+                <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
+            {{/if}}
+            {{#if item.showEdit}}
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+            {{/if}}
+            {{#if (or owner (not lootsheet))}}
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+        </div>
+    {{/if}}
+</li>
+<div class="container-metadata" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
+    {{#unless item.containerData.isCollapsed}}
+        {{#if item.isContainer}}
+            <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
+                <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>
+                <span class="container-capacity-label">{{localize 'PF2E.CapacityBarLabel'}}: {{item.containerData.formattedHeldItemBulk}} / {{item.containerData.formattedCapacity}}</span>
+            </div>
+        {{/if}}
+        <div class="container-held-items">
+            {{#each item.containerData.heldItems}}
+                {{> "systems/pf2e/templates/actors/partials/item-line.html" item=this editable=@root.editable user=@root.user lootsheet=@root.lootsheet owner=@root.owner}}
+            {{/each}}
+        </div>
+    {{/unless}}
+</div>

@@ -11,6 +11,16 @@ export interface SpellListData {
 
 /** Spell list render data for a SpellcastingEntryPF2e */
 export interface SpellcastingEntryListData extends SpellListData {
+    statistic: {
+        check: {
+            value: number;
+            breakdown: string;
+        };
+        dc: {
+            value: number;
+            breakdown: string;
+        };
+    };
     tradition: MagicTradition;
     castingType: PreparationType;
     isPrepared?: boolean;

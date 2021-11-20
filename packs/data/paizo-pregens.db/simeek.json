@@ -29,10 +29,6 @@
             },
             "flatbonushp": 0,
             "flatbonussp": 0,
-            "heroPoints": {
-                "max": 3,
-                "rank": 0
-            },
             "hp": {
                 "details": "",
                 "temp": 0,
@@ -156,7 +152,11 @@
             },
             "school": "none"
         },
-        "resources": {},
+        "resources": {
+            "heroPoints": {
+                "value": 0
+            }
+        },
         "saves": {
             "fortitude": {
                 "rank": 2,
@@ -850,7 +850,20 @@
                         }
                     ]
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.bonusEncumbranceBulk",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.attributes.bonusLimitBulk",
+                        "value": 2
+                    }
+                ],
                 "slug": "hefty-hauler",
                 "source": {
                     "value": ""
@@ -1237,9 +1250,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "str"
-                },
                 "baseItem": "halberd",
                 "bonus": {
                     "value": 0
@@ -1253,6 +1263,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
@@ -1274,9 +1285,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "polearm"
-                },
+                "group": "polearm",
                 "hands": {
                     "value": ""
                 },
@@ -1352,9 +1361,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "melee"
-                },
+                "range": null,
                 "reload": {
                     "value": ""
                 },
@@ -1390,9 +1397,6 @@
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weaponType": {
-                    "value": "martial"
                 },
                 "weight": {
                     "value": "2"
@@ -2712,9 +2716,6 @@
                 "MAP": {
                     "value": ""
                 },
-                "ability": {
-                    "value": "str"
-                },
                 "baseItem": "dagger",
                 "bonus": {
                     "value": 0
@@ -2728,6 +2729,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "simple",
                 "collapsed": {
                     "value": false
                 },
@@ -2749,9 +2751,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": {
-                    "value": "knife"
-                },
+                "group": "knife",
                 "hands": {
                     "value": ""
                 },
@@ -2827,9 +2827,7 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": {
-                    "value": "10"
-                },
+                "range": null,
                 "reload": {
                     "value": ""
                 },
@@ -2867,9 +2865,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "simple"
                 },
                 "weight": {
                     "value": "L"

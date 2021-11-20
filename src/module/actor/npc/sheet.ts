@@ -317,11 +317,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return sheetData;
     }
 
-    /** Skip this since the sheet shows the user the source value when focusing on an input element to edit */
-    protected override getIntendedChange(_propertyPath: string, update: number): number {
-        return update;
-    }
-
     /**
      * Subscribe to events from the sheet.
      * @param html HTML content ready to render the sheet.
@@ -365,25 +360,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             event.preventDefault();
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
-        });
-
-        html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
-            $input.val(baseValue).attr({ name: propertyPath, type: "number" }).css({ color: "black" });
-        });
-
-        html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
-            const $input = $(event.target);
-            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
-            const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor.data._source, propertyPath)) || 0;
-            const preparedValue = Number(getProperty(this.actor.data, propertyPath)) || 0;
-            const newValue = Number($input.val()) || 0;
-            if (newValue === baseValue) {
-                $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
-            }
         });
     }
 
@@ -593,19 +569,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             if (item.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(item._id);
                 if (!entry) continue;
-
-                // There are still some bestiary entries where these values are strings.
-                item.data.spelldc.dc = Number(item.data.spelldc.dc);
-                item.data.spelldc.value = Number(item.data.spelldc.value);
-
-                if (this.isElite) {
-                    item.data.spelldc.dc += 2;
-                    item.data.spelldc.value += 2;
-                } else if (this.isWeak) {
-                    item.data.spelldc.dc -= 2;
-                    item.data.spelldc.value -= 2;
-                }
-
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }

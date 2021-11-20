@@ -95,7 +95,12 @@ class AELikeRuleElement extends RuleElementPF2e {
                 break;
             }
             case "add": {
-                if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
+                if (
+                    !(
+                        typeof change === "number" &&
+                        (typeof current === "number" || current === undefined || current === null)
+                    )
+                ) {
                     return this.warn("path");
                 }
                 const newValue = (current ?? 0) + change;

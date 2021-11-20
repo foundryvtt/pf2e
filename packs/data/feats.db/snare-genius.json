@@ -29,7 +29,44 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "isDailyPrep": false,
+                "isPrepared": true,
+                "key": "CraftingEntry",
+                "name": "Snare Crafting",
+                "requiredTraits": [
+                    [
+                        "snare"
+                    ]
+                ],
+                "selector": "snareCrafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.entries.snareCrafting.maxSlots",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 3
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "start": 4,
+                            "value": 5
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

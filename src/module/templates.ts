@@ -2,48 +2,50 @@
 export function loadPF2ETemplates() {
     const templatePaths = [
         // effect panel
-        "systems/pf2e/templates/system/effect-panel.html",
+        "systems/pf2e/templates/system/effects-panel.html",
 
         // world clock
         "systems/pf2e/templates/system/world-clock.html",
 
-        // Actor Sheets Partials (CRB-Style Tooltip)
-        "systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html",
+        // Actor Sheets Partials (Character Tooltip)
+        "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html",
+        "systems/pf2e/templates/actors/character/partials/traits.html",
+        "systems/pf2e/templates/actors/character/partials/background.html",
+        "systems/pf2e/templates/actors/character/partials/abilities.html",
+        "systems/pf2e/templates/actors/character/partials/header.html",
 
         // Actor Sheets Partials (CRB-Syle Sidebar)
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-armorclass.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-class-dc.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-health.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-stamina.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-resistances.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-perception.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-initiative.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-saves.html",
+        "systems/pf2e/templates/actors/character/sidebar/armor-class.html",
+        "systems/pf2e/templates/actors/character/sidebar/class-dc.html",
+        "systems/pf2e/templates/actors/character/sidebar/health.html",
+        "systems/pf2e/templates/actors/character/sidebar/stamina.html",
+        "systems/pf2e/templates/actors/character/sidebar/resistances.html",
+        "systems/pf2e/templates/actors/character/sidebar/perception.html",
+        "systems/pf2e/templates/actors/character/sidebar/initiative.html",
+        "systems/pf2e/templates/actors/character/sidebar/saves.html",
 
-        // Actor Sheets Partials (CRB-Style Main Section)
-        "systems/pf2e/templates/actors/crb-style/actor-header.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-character.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/inventory.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/actor-crafting.html",
-        "systems/pf2e/templates/actors/crb-style/tabs/item-line.html",
-        "systems/pf2e/templates/actors/crb-style/character-traits.html",
-        "systems/pf2e/templates/actors/crb-style/character-background.html",
-        "systems/pf2e/templates/actors/crb-style/character-abilities.html",
+        // Actor Sheets Partials (Character Main Section)
+        "systems/pf2e/templates/actors/character/tabs/general.html",
+        "systems/pf2e/templates/actors/character/tabs/actions.html",
+        "systems/pf2e/templates/actors/character/tabs/biography.html",
+        "systems/pf2e/templates/actors/character/tabs/effects.html",
+        "systems/pf2e/templates/actors/character/tabs/feats.html",
+        "systems/pf2e/templates/actors/character/tabs/inventory.html",
+        "systems/pf2e/templates/actors/character/tabs/pfs.html",
+        "systems/pf2e/templates/actors/character/tabs/proficiencies.html",
+        "systems/pf2e/templates/actors/character/tabs/spellcasting.html",
+        "systems/pf2e/templates/actors/character/tabs/crafting.html",
 
         // Actor Sheet Partials (General)
+        "systems/pf2e/templates/actors/partials/item-line.html",
+        "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
+        "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
-        "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
+        "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html",
 
         // SVG icons
-        "systems/pf2e/templates/actors/crb-style/icons/d20.html",
-        "systems/pf2e/templates/actors/crb-style/icons/plus.html",
+        "systems/pf2e/templates/actors/character/icons/d20.html",
+        "systems/pf2e/templates/actors/character/icons/plus.html",
 
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",
@@ -57,7 +59,6 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/npc/partials/item.html",
 
         // Item Sheet Partials
-        "systems/pf2e/templates/items/ae-tab.html",
         "systems/pf2e/templates/items/rules-panel.html",
         "systems/pf2e/templates/items/action-details.html",
         "systems/pf2e/templates/items/action-sidebar.html",

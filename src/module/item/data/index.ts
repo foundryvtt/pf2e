@@ -1,4 +1,3 @@
-import { AbilityString } from "@actor/data/base";
 import type { ActionData, ActionSource } from "@item/action/data";
 import type { AncestryData, AncestrySource } from "@item/ancestry/data";
 import type { ArmorData, ArmorSource } from "@item/armor/data";
@@ -20,16 +19,11 @@ import type { SpellData, SpellSource } from "@item/spell/data";
 import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spellcasting-entry/data";
 import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
+import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemType } from "../physical/data";
 import { NonPhysicalItemType } from "./non-physical";
 
-export type ProficiencyRank = "untrained" | "trained" | "expert" | "master" | "legendary";
-
-export interface TrickMagicItemCastData {
-    ability: AbilityString;
-    data: { spelldc: { value: number; dc: number } };
-    _id: string;
-}
+export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
 
 export type ItemType = NonPhysicalItemType | PhysicalItemType;
 

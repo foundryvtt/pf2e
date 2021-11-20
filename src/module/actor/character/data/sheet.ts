@@ -1,34 +1,24 @@
 import { CharacterPF2e } from "@actor";
-import { CreatureTraitsData } from "@actor/creature/data";
-import { CreatureSensePF2e } from "@actor/creature/sense";
 import { SpellcastingSheetData } from "@actor/npc/sheet";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
+import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { CraftingFormula } from "@module/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
-import { CharacterAttributes, CharacterSystemData } from ".";
-
-interface CharacterSenses extends CreatureSensePF2e {
-    localizedName?: string;
-    localizedAcuity?: string;
-}
+import { CharacterSystemData } from ".";
 
 interface CharacterSheetOptions extends ActorSheetOptions {
     showUnpreparedSpells: boolean;
 }
 
-interface CharacterSystemSheetData extends CharacterSystemData {
-    attributes: CharacterAttributes & {
+type CharacterSystemSheetData = CharacterSystemData & {
+    attributes: {
         doomed: {
             icon: string;
         };
         dying: {
             icon: string;
-        };
-        heroPoints: {
-            icon: string;
-            hover: string;
         };
         wounded: {
             icon: string;
@@ -43,10 +33,22 @@ interface CharacterSystemSheetData extends CharacterSystemData {
     effects: {
         conditions?: FlattenedCondition[];
     };
-    traits: CreatureTraitsData & {
-        senses: CharacterSenses[];
-        size: {
-            localizedName?: string;
+    resources: {
+        heroPoints: {
+            icon: string;
+            hover: string;
+        };
+    };
+};
+
+interface CraftingEntries {
+    other: CraftingEntry[];
+    alchemical: {
+        entries: CraftingEntry[];
+        totalReagentCost: number;
+        infusedReagents: {
+            value: number;
+            max: number;
         };
     };
 }
@@ -54,6 +56,7 @@ interface CharacterSystemSheetData extends CharacterSystemData {
 interface CraftingData {
     noCost: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
+    entries: CraftingEntries;
 }
 
 /** Additional fields added in sheet data preparation */
@@ -62,6 +65,8 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     //actor:
     ancestry: Embedded<AncestryPF2e> | null;
     background: Embedded<BackgroundPF2e> | null;
+    adjustedBonusEncumbranceBulk: boolean;
+    adjustedBonusLimitBulk: boolean;
     class: Embedded<ClassPF2e> | null;
     crafting: CraftingData;
     data: CharacterSystemSheetData;

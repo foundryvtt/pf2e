@@ -1,0 +1,90 @@
+<div class="tab skills skillstab-pane" data-group="primary" data-tab="skills">
+    <ol class="overflow-list skills-pane">
+        <h3 class="item-name pf-heading pf-actions core-title">{{localize "PF2E.CoreSkillsHeader"}}</h3>
+        <ol class="skills-list">
+            <!-- Core Skills -->
+            {{#each data.skills as |skill key|}}
+                {{#unless skill.lore}}
+                    <li class="skill" data-skill="{{key}}">
+                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
+                        <h4 class="skill-name rollable">{{localize skill.label}}</h4>
+                        <div class="skill-prof button-group">
+                            <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}">
+                                {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
+                            </select>
+                            <div class="hover-container">
+                                <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
+                            </div>
+                        </div>
+                        {{#with skill}}
+                            {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html abpEnabled=@root.abpEnabled title=label}}
+                        {{/with}}
+                    </li>
+                {{/unless}}
+            {{/each}}
+        </ol>
+
+        <!-- Lore Header -->
+        <ol class="lore-header inventory-header directory-list">
+            <li class="item action-header">
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.LoreSkillsHeader"}}</h3>
+                {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="{{localize "PF2E.CreateSkillTitle"}}" data-type="lore"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                    </div>
+                {{/if}}
+            </li>
+        </ol>
+        <ol class="lores-list">
+            <!-- Lore Skills -->
+            {{#each data.skills as |skill idx|}}
+                {{#if skill.lore}}
+                    <li class="skill item" data-skill="{{skill.shortform}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
+                        <div class="skill-name lore-name-input item-name-input">
+                            <input data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.name}}" style="color: white;"/>
+                        </div>
+                        <div class="skill-prof button-group skill-container">
+                            <select class="skill-proficiency pf-value pf-rank adjust-item-stat-select" data-item-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">
+                                {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=skill.rank}}
+                            </select>
+                            {{#if ../owner}}
+                                <div class="item-controls pf-redbackground">
+                                    <a class="item-control item-delete skill-armor" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </li>
+                {{/if}}
+            {{/each}}
+        </ol>
+        <!-- Combat Proficiencies Header -->
+        <ol class="lore-header inventory-header directory-list combat-proficiencies">
+            <li class="action-header">
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.MartialSkillsHeader"}}</h3>
+                {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control add pf-heading" title="{{localize "PF2E.AddCombatProficiency.Title"}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                    </div>
+                {{/if}}
+            </li>
+        </ol>
+        <ol class="combat-list">
+            <!-- Combat Proficiencies -->
+            {{#each data.martial as |proficiency key|}}
+                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-skill="{{key}}">
+                    {{#if proficiency.custom}}
+                        <a class="delete"><i class="fa fa-trash"></i></a>
+                    {{/if}}
+                    <h1 class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
+                    <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}">
+                            {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank}}
+                        </select>
+                    </div>
+                </li>
+            {{/each}}
+        </ol>
+    </ol>
+</div>

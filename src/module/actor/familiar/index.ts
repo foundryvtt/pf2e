@@ -8,6 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
 import { LabeledSpeed } from "@actor/creature/data";
+import { ActorSizePF2e } from "@actor/data/size";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -34,7 +35,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         systemData.details.level = { value: 0 };
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
-            size: { value: "tiny" },
+            size: new ActorSizePF2e({ value: "tiny" }),
             traits: { value: ["minion"], custom: "" },
         };
 
@@ -83,7 +84,8 @@ export class FamiliarPF2e extends CreaturePF2e {
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
-            data.attributes.speed = this.prepareSpeed("land", synthetics);
+            const { attributes } = data;
+            attributes.speed = this.prepareSpeed("land", synthetics);
             const { otherSpeeds } = data.attributes.speed;
             for (let idx = 0; idx < otherSpeeds.length; idx++) {
                 otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
@@ -91,26 +93,21 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             // Hit Points
             {
-                const modifiers = [
-                    new ModifierPF2e("PF2E.MasterLevelHP", this.level * 5, MODIFIER_TYPE.UNTYPED),
-                    ...this.data.data.attributes.hp.modifiers,
-                ];
-                (statisticsModifiers.hp || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m));
-                (statisticsModifiers["hp-per-level"] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => {
-                        m.modifier *= data.details.level.value;
-                        modifiers.push(m);
+                const perLevelModifiers = statisticsModifiers["hp-per-level"]
+                    ?.filter(filterModifier)
+                    .map((modifier) => {
+                        const clone = modifier.clone();
+                        clone.modifier *= this.level;
+                        return clone;
                     });
 
-                const hpData = duplicate(data.attributes.hp);
-                delete (hpData as any).modifiers;
+                const modifiers = [
+                    new ModifierPF2e("PF2E.MasterLevelHP", this.level * 5, MODIFIER_TYPE.UNTYPED),
+                    statisticsModifiers.hp?.filter(filterModifier).map((m) => m.clone()) ?? [],
+                    perLevelModifiers ?? [],
+                ].flat();
 
-                const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, {
+                const stat = mergeObject(new StatisticModifier("hp", modifiers), attributes.hp, {
                     overwrite: false,
                 });
                 stat.max = stat.totalModifier;

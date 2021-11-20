@@ -27,7 +27,43 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "name": "Gadget Specialist",
+                "requiredTraits": [
+                    [
+                        "gadget"
+                    ]
+                ],
+                "selector": "gadgetSpecialist"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.crafting.entries.gadgetSpecialist.maxSlots",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 2
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": 3
+                        },
+                        {
+                            "start": 4,
+                            "value": 4
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

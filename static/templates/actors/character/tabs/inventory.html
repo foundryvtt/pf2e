@@ -1,0 +1,75 @@
+<div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
+    <ol class="currency">
+        <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
+        {{#each totalCoinage as |value denomination|}}
+            <li class="denomination {{denomination}}">
+                <div class="currency-image" title="{{localize value.label}}"></div>
+                <span>{{value.value}}</span>
+            </li>
+        {{/each}}
+        {{#if @root.owner}}
+            <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
+                <button type="button">+</button>
+            </li>
+            <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
+                <button type="button">-</button>
+            </li>
+        {{/if}}
+    </ol>
+    <div class="wealth">
+        <div class="wealth-label inventory-header">
+            <h3 class="item-name">
+                {{localize "PF2E.TotalCoinage"}}
+                <span>{{totalCoinageGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+                {{#if @root.owner}}
+                    <span class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
+                        <button type="button"><i class="fas fa-coins"></i></button>
+                    </span>
+                {{/if}}
+            </h3>
+            <h3 class="item-name">{{localize "PF2E.TotalWealth"}} <span>{{totalWealthGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span></h3>
+        </div>
+    </div>
+
+    <ol class="inventory-list directory-list inventory-pane">
+        {{#each actor.inventory as |section sid|}}
+            <div class="inventory-header">
+                <h3 class="item-name">{{section.label}}</h3>
+                {{#if (eq sid "equipment")}}
+                    <span class="item-invested-total" {{#if section.overInvested}}style="color:orange; text-shadow: 1px 1px 0px black;"{{/if}}>{{localize "PF2E.InvestedLabel"}} ({{section.investedItemCount}}/{{section.investedMax}})</span>
+                {{/if}}
+                {{#if (eq sid "treasure")}}
+                    <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+                {{/if}}
+                <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+                <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+                {{#if @root.editable}}
+                    <div class="item-controls">
+                        <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+                        <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{sid}}"><i class="fas fa-search"></i></a>
+                    </div>
+                {{/if}}
+            </div>
+            <ol class="item-list">
+                {{#each section.items as |item itemId|}}
+                    {{#unless item.isInContainer}}
+                        {{> "systems/pf2e/templates/actors/partials/item-line.html" item=item editable=@root.editable owner=@root.owner user=@root.user}}
+                    {{/unless}}
+                {{/each}}
+            </ol>
+        {{/each}}
+    </ol>
+
+    {{#with data.attributes.encumbrance}}
+        <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
+            <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.webp" alt="Encumbrance">
+            <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
+            <div class="encumbrance-label">
+                <span>{{localize "PF2E.BulkLabel"}} {{bulk}} / {{localize "PF2E.ConditionTypeEncumbered"}}: {{encumberedAt}}</span>
+                <span>{{localize "PF2E.BulkMaxLabel"}}: {{limit}}</span>
+            </div>
+            <div class="encumbrance-light-bulk-overflow">+ ({{combinedBulk.light}}/10) {{localize "PF2E.BulkTypeLight"}}</div>
+            <span class="bar-bg"></span>
+        </div>
+    {{/with}}
+</div>

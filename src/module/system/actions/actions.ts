@@ -4,7 +4,7 @@ import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
-import { StatisticWithDC } from "@system/statistic";
+import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
@@ -22,6 +22,7 @@ import { longJump } from "./athletics/long-jump";
 import { shove } from "./athletics/shove";
 import { swim } from "./athletics/swim";
 import { trip } from "./athletics/trip";
+import { whirlingThrow } from "./athletics/whirling-throw";
 import { craft } from "@system/actions/crafting/craft";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
@@ -73,7 +74,7 @@ interface SimpleRollActionCheckOptions {
     checkType: CheckType;
     event: JQuery.Event;
     difficultyClass?: CheckDC;
-    difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC;
+    difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic<StatisticDataWithDC>;
     extraNotes?: (selector: string) => RollNotePF2e[];
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;
@@ -101,6 +102,7 @@ export class ActionsPF2e {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+        actions.whirlingThrow = whirlingThrow;
 
         // crafting
         actions.craft = craft;

@@ -120,6 +120,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 return this.getUpdatedActor(baseActor, migrations);
             } catch (error) {
+                // Output the error, since this means a migration threw it
                 console.error(error);
                 return null;
             }
@@ -140,7 +141,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                 );
                 await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true });
             } catch (error) {
-                console.error(error);
+                // Output as a warning, since this merely means data preparation following the update
+                // (hopefully intermittently) threw an error
+                console.warn(error);
             }
         }
 
@@ -152,7 +155,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 );
                 await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
 
@@ -160,7 +163,23 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
+            }
+        }
+
+        // Delete embedded ActiveEffects on embedded Items
+        for await (const updated of updatedItems) {
+            const original = baseActor.items.find((item) => item._id === updated._id);
+            if (!original) continue;
+            const itemAEDiff = this.diffCollection(original.effects, updated.effects);
+            if (itemAEDiff.deleted.length > 0) {
+                // Doubly-embedded documents can't be updated or deleted directly, so send up the entire item
+                // as a full replacement update
+                try {
+                    await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false });
+                } catch (error) {
+                    console.warn(error);
+                }
             }
         }
 
@@ -178,7 +197,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 await macro.update(changes, { noHook: true });
             }
         } catch (error) {
-            console.error(error);
+            console.warn(error);
         }
     }
 
@@ -192,7 +211,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 table.update(changes, { noHook: true });
             }
         } catch (error) {
-            console.error(error);
+            console.warn(error);
         }
     }
 
@@ -276,7 +295,14 @@ export class MigrationRunner extends MigrationRunnerBase {
                     await this.migrateSceneToken(migrations, token);
 
                     if (actor.isToken) {
-                        await this.migrateWorldActor(migrations, actor);
+                        const updated = await this.migrateWorldActor(migrations, actor);
+                        if (updated) {
+                            try {
+                                await actor.update(updated);
+                            } catch (error) {
+                                console.warn(error);
+                            }
+                        }
                     }
                 }
             }

@@ -4,7 +4,7 @@
     {{#each activations}}
         <div class="activation form-list">
             <header>
-                <strong>{{localize "PF2E.ItemActivate.Label"}}</strong>
+                <strong>{{localize "PF2E.Item.Activation.Label"}}</strong>
                 {{#unless action.components.cast}}
                     {{{actionGlyph action.actionCost}}}
                 {{/unless}}
@@ -17,19 +17,19 @@
             <div class="details-container-flex-row spell-components">
                 <label>
                     <input type="checkbox" name="{{base}}.components.command" {{checked action.components.command}} data-dtype="Boolean"/>
-                    <span>{{localize "PF2E.ItemActivate.Command"}}</span>
+                    <span>{{localize "PF2E.Item.Activation.CommandSheetLabel"}}</span>
                 </label>
                 <label>
                     <input type="checkbox" name="{{base}}.components.envision" {{checked action.components.envision}} data-dtype="Boolean"/>
-                    <span>{{localize "PF2E.ItemActivate.Envision"}}</span>
+                    <span>{{localize "PF2E.Item.Activation.EnvisionSheetLabel"}}</span>
                 </label>
                 <label>
                     <input type="checkbox" name="{{base}}.components.interact" {{checked action.components.interact}} data-dtype="Boolean"/>
-                    <span>{{localize "PF2E.ItemActivate.Interact"}}</span>
+                    <span>{{localize "PF2E.Item.Activation.Interact"}}</span>
                 </label>
                 <label>
                     <input type="checkbox" name="{{base}}.components.cast" {{checked action.components.cast}} data-dtype="Boolean"/>
-                    <span>{{localize "PF2E.ItemActivate.Cast"}}</span>
+                    <span>{{localize "PF2E.Item.Activation.Cast"}}</span>
                 </label>
             </div>
 
@@ -43,13 +43,13 @@
                         {{/select}}
                     </select>
                     {{#if (eq action.actionCost.type "action")}}
-                    <select name="{{base}}.actionCost.value" data-dtype="Number">
-                        {{#select action.actionCost.value}}
-                            {{#each @root.actionsNumber as |name type|}}
-                                <option value="{{type}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
+                        <select name="{{base}}.actionCost.value" data-dtype="Number">
+                            {{#select action.actionCost.value}}
+                                {{#each @root.actionsNumber as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
                     {{/if}}
                 </div>
                 <div class="details-container-flex-row frequency">
@@ -82,5 +82,5 @@
             <input type="hidden" name="{{base}}.description.value" value="{{action.description.value}}"/>
         </div>
     {{/each}}
-    <button data-action="activation-add"><i class="fas fa-plus"></i>{{localize "PF2E.ItemActivate.Add"}}</button>
+    <button data-action="activation-add"><i class="fas fa-plus"></i>{{localize "PF2E.Item.Activation.Add"}}</button>
 </section>

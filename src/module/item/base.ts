@@ -23,7 +23,7 @@ import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
         ready?: boolean;
     };
@@ -42,11 +42,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             super(data, context);
             this.rules = [];
             this.initialized = true;
-        } else {
-            if (data.type) {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
-            }
+        } else if (data.type) {
+            const ready = { pf2e: { ready: true } };
+            return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
         }
     }
 
@@ -151,7 +149,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Ensure the presence of the pf2e flag scope */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.flags.pf2e ??= {};
+        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
@@ -166,7 +164,11 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
+        htmlOptions: EnrichHTMLOptions = {},
+        data: T
+    ): T {
+        data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
@@ -383,7 +385,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const modifiers: ModifierPF2e[] = [];
         const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
-        modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+        modifiers.push(AbilityModifier.fromScore(ability, score));
 
         const proficiencyRank = spellcastingEntry.rank;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));

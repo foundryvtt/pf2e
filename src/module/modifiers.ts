@@ -1,7 +1,8 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e } from "../util";
+import { ErrorPF2e, sluggify } from "../util";
+import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     "proficiency:untrained",
@@ -62,8 +63,6 @@ export interface RawModifier {
     notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
-    /** The list of roll options to use during actor data preparation instead of the default roll options for the statistic */
-    defaultRollOptions?: string[];
 }
 
 /**
@@ -85,7 +84,6 @@ export class ModifierPF2e implements RawModifier {
     critical?: boolean;
     traits?: string[];
     notes?: string;
-    defaultRollOptions?: string[];
 
     /**
      * Create a new modifier.
@@ -93,7 +91,7 @@ export class ModifierPF2e implements RawModifier {
      * @param modifier The actual numeric benefit/penalty that this modifier provides.
      * @param type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
      * @param enabled If true, this modifier will be applied to the result; otherwise, it will not.
-     * @param source The source which this modifier originates from, if any.
+     * @param source The source from which this modifier originates, if any.
      * @param notes Any notes about this modifier.
      */
     constructor(
@@ -142,7 +140,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(): ModifierPF2e {
+    clone(options: { test?: string[] } = {}): ModifierPF2e {
         const clone = new ModifierPF2e(
             this.name,
             this.modifier,
@@ -159,68 +157,37 @@ export class ModifierPF2e implements RawModifier {
         clone.damageCategory = this.damageCategory;
         clone.critical = this.critical;
         clone.traits = deepClone(this.traits);
-        clone.defaultRollOptions = deepClone(this.defaultRollOptions);
+
+        if (options.test) {
+            clone.test(options.test);
+        }
 
         return clone;
+    }
+
+    /** Sets the ignored property after testing the predicate */
+    test(options: string[]) {
+        this.ignored = !this.predicate.test(options);
     }
 }
 
 export type MinimalModifier = Pick<ModifierPF2e, "name" | "type" | "modifier">;
 
-// ability scores
-export const STRENGTH = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityStr", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const DEXTERITY = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityDex", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const CONSTITUTION = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityCon", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const INTELLIGENCE = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityInt", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const WISDOM = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityWis", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const CHARISMA = Object.freeze({
-    withScore: (score: number) =>
-        new ModifierPF2e("PF2E.AbilityCha", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
-});
-export const AbilityModifier = Object.freeze({
+// Ability scores
+export const AbilityModifier = {
     /**
      * Create a modifier from a given ability type and score.
      * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
      * @param score The score of this ability.
      * @returns The modifier provided by the given ability score.
      */
-    fromAbilityScore: (ability: AbilityString, score: number) => {
-        switch (ability) {
-            case "str":
-                return STRENGTH.withScore(score);
-            case "dex":
-                return DEXTERITY.withScore(score);
-            case "con":
-                return CONSTITUTION.withScore(score);
-            case "int":
-                return INTELLIGENCE.withScore(score);
-            case "wis":
-                return WISDOM.withScore(score);
-            case "cha":
-                return CHARISMA.withScore(score);
-            default:
-                // Throwing an actual error can completely break the sheet. Instead, log
-                // and use 0 for the modifier
-                console.error(`invalid ability abbreviation: ${ability}`);
-                return new ModifierPF2e("PF2E.AbilityUnknown", 0, MODIFIER_TYPE.ABILITY);
-        }
-    },
-});
+    fromScore: (ability: AbilityString, score: number) =>
+        new ModifierPF2e(
+            `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+            Math.floor((score - 10) / 2),
+            MODIFIER_TYPE.ABILITY
+        ),
+};
 
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
@@ -342,6 +309,19 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
     const highestBonus: Record<string, ModifierPF2e> = {};
     const lowestPenalty: Record<string, ModifierPF2e> = {};
 
+    // There are no ability bonuses or penalties, so always take the highest ability modifier.
+    const abilityModifiers = modifiers.filter((m) => m.type === MODIFIER_TYPE.ABILITY && !m.ignored);
+    const bestAbility = abilityModifiers.reduce((best: ModifierPF2e | null, modifier): ModifierPF2e | null => {
+        if (best === null) {
+            return modifier;
+        } else {
+            return modifier.modifier > best.modifier ? modifier : best;
+        }
+    }, null);
+    for (const modifier of abilityModifiers) {
+        modifier.ignored = modifier !== bestAbility;
+    }
+
     for (const modifier of modifiers) {
         // Always disable ignored modifiers and don't do anything further with them.
         if (modifier.ignored) {
@@ -381,6 +361,8 @@ export class StatisticModifier {
     totalModifier!: number;
     /** A textual breakdown of the modifiers factoring into this statistic */
     breakdown = "";
+    /** Optional notes, which are often added to statistic modifiers */
+    notes?: RollNotePF2e[];
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 

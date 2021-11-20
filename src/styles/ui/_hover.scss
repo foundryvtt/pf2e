@@ -169,7 +169,7 @@
                             letter-spacing: 0.5px;
                             color: var(--tertiary);
                             width: min-content;
-                            .remove-modifier, .toggle-automation {
+                            .remove-modifier {
                                 white-space: nowrap;
                             }
                         }
@@ -187,39 +187,10 @@
                             padding-top: 2px;
                         }
 
-                        .remove-modifier, .toggle-automation {
+                        .remove-modifier {
                           grid-area: close;
                           font-size: 0.8rem;
                           cursor: pointer;
-                        }
-
-                        .toggle-automation {
-                          font-size: 12px;
-                          &:hover {
-                            opacity: 0.6;
-                            &:after {
-                              color: red;
-                              content: "\f715"; // Font Awesome "slash"
-                              position: absolute;
-                              right: 13px;
-                            }
-                          }
-                          &.disabled {
-                            opacity: 0.6;
-                            &:after {
-                              color: red;
-                              content: "\f715"; // Font Awesome "slash"
-                              position: absolute;
-                              right: 13px;
-                            }
-                            &:hover {
-                              opacity: initial;
-                              &:after {
-                                content: none;
-                              }
-                            }
-
-                          }
                         }
 
                         &.add-modifier {

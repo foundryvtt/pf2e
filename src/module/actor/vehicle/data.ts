@@ -4,7 +4,9 @@ import {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
+    BaseTraitsData,
 } from "@actor/data/base";
+import { ValuesList } from "@module/data";
 import { VehiclePF2e } from ".";
 
 /** The stored source data of a vehicle actor */
@@ -63,8 +65,15 @@ interface VehicleSystemData extends ActorSystemData {
         };
     };
 
+    traits: VehicleTraitsData;
+
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
+}
+export type VehicleTrait = keyof ConfigPF2e["PF2E"]["vehicleTraits"];
+type VehicleTraits = ValuesList<VehicleTrait>;
+interface VehicleTraitsData extends BaseTraitsData {
+    traits: VehicleTraits;
 }
 
 export interface VehicleDimensions {

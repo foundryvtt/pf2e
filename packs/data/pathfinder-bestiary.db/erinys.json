@@ -51,11 +51,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "40 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -70,6 +71,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Erinyes exact vengeance and bloody justice for a creature's crimes, torturing and punishing their victims in ironic fashion before allowing them the escape of death. While an erinys appears as a fallen angel and the first erinyes shared that origin, erinyes now originate in myriad ways, some promoted from lesser devils and others shaped from lemures themselves forged from the souls of torturers and persecutors. The erinyes' origin is entwined with Eiseth, herself a fallen angel and one of Hell's most powerful demigods. The first erinyes were all considered to be Eiseth's metaphorical daughters, but erinyes formed since that time are no longer limited to a single gender.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -104,21 +106,19 @@
             "dr": [
                 {
                     "exceptions": "silver",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Poison",
+                    "exceptions": "",
                     "type": "poison",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -157,7 +157,7 @@
             "_id": "rcxWb9Kc1EL274oS",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -178,7 +178,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -256,7 +256,7 @@
                     "dc": "26",
                     "item": 0,
                     "mod": 0,
-                    "value": 16
+                    "value": 18
                 },
                 "tradition": {
                     "value": "divine"
@@ -280,7 +280,7 @@
             "_id": "v9Riihj8yqnWlLqj",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -379,7 +379,7 @@
                     "dc": "26",
                     "item": 0,
                     "mod": 0,
-                    "value": 16
+                    "value": 18
                 },
                 "tradition": {
                     "value": ""
@@ -407,7 +407,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -496,7 +496,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
+            "name": "True Seeing (Constant)",
             "sort": 300000,
             "type": "spell"
         },
@@ -607,7 +607,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -694,7 +694,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door",
+            "name": "Dimension Door (At will)",
             "sort": 500000,
             "type": "spell"
         },
@@ -908,7 +908,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -999,7 +999,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
+            "name": "Fear (At will)",
             "sort": 800000,
             "type": "spell"
         },
@@ -1011,7 +1011,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1098,7 +1098,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
-            "name": "Illusory Disguise",
+            "name": "Illusory Disguise (At will)",
             "sort": 900000,
             "type": "spell"
         },
@@ -1307,28 +1307,48 @@
             "type": "spell"
         },
         {
-            "_id": "GM5RnbqCP5dZ7Xn0",
+            "_id": "OjH9zugdZf9plsD2",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "composite-longbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bow",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1362,73 +1382,143 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "20 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": 100,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "composite-longbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-one-plus-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "100 feet of erinys-hair rope",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "name": "Composite Longbow",
             "sort": 1200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "I1vnzxqwZo3Qxk0Y",
+            "_id": "qQyKvk6u3S9vDGzo",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1462,6 +1552,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1469,20 +1562,59 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "longsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -1490,31 +1622,46 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "breastplate",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "Longsword",
             "sort": 1300000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "mWXkOjHfgH88w9dw",
+            "_id": "d1NLDUJL2CAqdBvW",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 4
+                },
+                "armorType": {
+                    "value": "medium"
+                },
+                "baseItem": "breastplate",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": -2
                 },
                 "collapsed": {
                     "value": false
@@ -1523,19 +1670,25 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half‑plate armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dex": {
+                    "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "2"
+                },
+                "group": {
+                    "value": "plate"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -1557,33 +1710,58 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "8 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "breastplate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": -5
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 16
                 },
                 "traits": {
                     "custom": "",
@@ -1593,21 +1771,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "3"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "longsword",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/breastplate.webp",
+            "name": "Breastplate",
             "sort": 1400000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "ZDiqEJoiottQ17jj",
+            "_id": "Ir7VUc4vTn1TT3EX",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1623,10 +1805,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>100 feet of rope.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1660,7 +1842,7 @@
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": "0"
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1669,7 +1851,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "5 sp"
                 },
                 "quantity": {
                     "value": 1
@@ -1678,9 +1860,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "rope",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -1696,15 +1878,170 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 striking composite longbow",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
+            "name": "100 feet of Erinys-Hair Rope",
             "sort": 1500000,
             "type": "equipment"
+        },
+        {
+            "_id": "CIRHLHAH2o7JU8SV",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": {
+                    "value": 60
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "arrows",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 1600000,
+            "type": "consumable"
         },
         {
             "_id": "upJaEvHTKGpsW57H",
@@ -1713,6 +2050,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1760,7 +2098,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Longsword",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "melee"
         },
         {
@@ -1770,6 +2108,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1820,7 +2159,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flaming Composite Longbow",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "melee"
         },
         {
@@ -1830,6 +2169,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "rope-snare"
                     ]
@@ -1864,8 +2204,216 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rope",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "melee"
+        },
+        {
+            "_id": "cQrkrn9uX9hV860V",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "8aYfDhAzJOdFBLKs",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "NwuVG96DJON1Txro",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
+            "_id": "PrsRCxi6j7SHJeMu",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 2300000,
+            "type": "action"
         },
         {
             "_id": "vKdhNyXTKHDMUfAc",
@@ -1880,7 +2428,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any weapon an erinys holds gains the effects of a Compendium[pf2e.equipment-srd.XszNvxnymWYRaoTp]{Flaming} rune while they hold it.</p>"
+                    "value": "<p>Any weapon an erinys holds gains the effects of a @Compendium[pf2e.equipment-srd.Flaming]{Flaming} rune while they hold it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1908,7 +2456,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Flames of Fury",
-            "sort": 1900000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -1950,9 +2498,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Furious Fusillade",
-            "sort": 2000000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -1996,7 +2544,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rope Snare",
-            "sort": 2100000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2031,7 +2579,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2066,7 +2614,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2300000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2101,7 +2649,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2400000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2136,7 +2684,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2500000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2171,7 +2719,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2600000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2206,7 +2754,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2700000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -2241,7 +2789,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2800000,
+            "sort": 3300000,
             "type": "lore"
         }
     ],

@@ -49,13 +49,15 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "25 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -70,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Invisible stalkers have a poor opinion of mortals due to the unsavory nature of the violent tasks summoners usually call them to the Material Plane to perform.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -137,6 +140,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -176,6 +180,54 @@
             "name": "Fist",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "Vkvj7g0PCVVufjEu",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "6TdllGeax8h6457M",
@@ -218,71 +270,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Naturally Invisible",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "jIYWnrF4NVH0CtuE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The invisible stalker deals [[/r {2d6}[precision]]]{2d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Sneak Attack",
             "sort": 300000,
             "type": "action"
         },
@@ -331,6 +318,72 @@
             "type": "action"
         },
         {
+            "_id": "LaQ2wdVBDXDNbGSR",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The invisible stalker deals [[/r {2d6}[precision]]]{2d6 extra precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "j6fk49Jk2HSBPNXG",
             "data": {
                 "description": {
@@ -362,7 +415,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -397,7 +450,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -450,7 +503,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],

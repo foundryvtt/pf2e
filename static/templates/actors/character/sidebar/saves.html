@@ -1,0 +1,25 @@
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.SavesHeader"}}</h2>
+</div>
+<ul class="sidebar-saves">
+    {{#each data.saves as |save sid|}}
+        <li class="roll-data" data-save="{{sid}}">
+            <h2 class="save-label">{{localize save.label}}</h2>
+            <div class="save-rank adjust-stat" data-property="data.saves.{{sid}}.rank" value="{{save.rank}}">
+                <h4><span>{{save.rankName}}</span></h4>
+            </div>
+            <div class="save-roll">
+                <a class="roll-icon save-name">
+                    {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+                </a>
+                <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
+            </div>
+            <h4 class="button hover" data-tooltip-content="#{{@root.options.id}}-{{sid}}-modifiers">
+                {{localize "PF2E.ModifiersTitle"}}
+            </h4>
+            {{#with save}}
+                {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title=label }}
+            {{/with}}
+        </li>
+    {{/each}}
+</ul>
