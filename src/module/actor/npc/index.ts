@@ -539,7 +539,9 @@ export class NPCPF2e extends CreaturePF2e {
                 const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
                 action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
                     const label =
-                        attackEffects[tag] ?? this.items.find((item) => sluggify(item.name) === tag)?.name ?? tag;
+                        attackEffects[tag] ??
+                        this.items.find((item) => (item.slug ?? sluggify(item.name)) === tag)?.name ??
+                        tag;
                     return { tag, label };
                 });
                 if (
@@ -714,7 +716,8 @@ export class NPCPF2e extends CreaturePF2e {
                 };
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value); // always add all weapon traits as options
+                    // always add all weapon traits as options
+                    const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                     const clonedModifiers = Object.fromEntries(
                         Object.entries(statisticsModifiers).map(([key, modifiers]) => [
                             key,
