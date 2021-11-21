@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 320,
                 "temp": 0,
                 "value": 320
@@ -49,13 +49,15 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "75 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "75"
                     }
                 ],
-                "value": "50 feet"
+                "value": "50"
             }
         },
         "details": {
@@ -70,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The Grim Reaper is the unflinching personification of death. Silent as the grave and as inevitable as time itself, this legendary being hunts down and finishes creatures that have evaded death for far too long. Sometimes the Grim Reaper comes without warning, while at others it comes to finish the work that other creatures could not. The Grim Reaper serves no god, fiend, or aeon. It is both despised and feared by psychopomps and celestials, but few-if any-dare to stand in its way. Like some eternal plague, it kills those who try to cure the multiverse of its presence. It stands alone and holds only its own council, and the pleading and reasoning of mortals and immortals alike fall on deaf ears once the Grim Reaper closes on its quarry. Its own reasoning is silent to mortal ears and inscrutable to the mortal mind, but no matter the reason, the result is unyielding and final.</p>\n<p>While some legends hold that the Grim Reaper appears before everyone as they die, the truth is quite a bit more disturbing. Such vigils in fact lie within the providence of the psychopomps, a race of immortals charged with the protection and guidance of mortal souls through the afterlife. The Grim Reaper has little interest in protecting souls or guiding them. It is instead compelled by sinister agendas arising within the nighted realm of Abaddon, where the Horsemen of the Apocalypse rule. Indeed there are many similarities in shape and form between the Grim Reaper and Charon, the Horseman of Death, but no recorded instance exists of these two powerful entities working together. Instead, the Grim Reaper serves as something of a manifestation of Abaddon itself, and in this regard is believed by some to be an incarnation of the mysterious First Horseman. When the Grim Reaper comes to a world, it does so not as an angel of mercy, but as a relentless harvester of life. Those who fall to the Grim Reaper were not destined to die as much as they were selected, hunted, and murdered.</p>\n<p>Perhaps the most frightening legends surrounding the Grim Reaper concern its nature as a singular entity, for some believe that more than one grim reaper exists in the Great Beyond. These whispers tell of a cabal of at least nine of these creatures that stalk reality, culling the living as inexplicable servants of true entropy. According to the teaching of some death cults, the final goal of the Grim Reaper is to end the entire cycle of life and death and serve as a silent lord of an empty universe.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -107,9 +110,9 @@
             },
             "dr": [
                 {
-                    "label": "All",
+                    "exceptions": "",
                     "type": "all",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [],
@@ -125,7 +128,7 @@
                 "value": "rare"
             },
             "senses": {
-                "value": "darkvision, see invisibility, status sight, true seeing"
+                "value": "darkvision, status sight; see invisibility, true seeing"
             },
             "size": {
                 "value": "med"
@@ -146,7 +149,7 @@
             "_id": "EQkkoNzp3vAoNmlK",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -167,7 +170,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -778,7 +781,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -867,7 +870,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
+            "name": "True Seeing (Constant)",
             "sort": 700000,
             "type": "spell"
         },
@@ -879,7 +882,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -977,7 +980,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/haste.webp",
-            "name": "Haste",
+            "name": "Haste (Constant)",
             "sort": 800000,
             "type": "spell"
         },
@@ -989,7 +992,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1077,33 +1080,53 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
-            "name": "See Invisibility",
+            "name": "See Invisibility (Constant)",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "SbwBLMRfhG0dAjtQ",
+            "_id": "RAZJ9RVjZfN5VawA",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "scythe",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d10",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>Derived from a farming tool used to mow down long grains and cereals, this weapon has a long wooden shaft with protruding handles, capped with a curved blade set at a right angle.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "polearm",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1137,27 +1160,69 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "scythe",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -1165,21 +1230,28 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "deadly-d10",
+                        "trip"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "scythe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.H74vYwHJ8XT4qOPI"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/scythe.webp",
+            "name": "Scythe",
             "sort": 1000000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "qqpgMalbjoAykhjP",
@@ -1188,6 +1260,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "death-strike",
                         "energy-drain"
@@ -1217,7 +1290,7 @@
                     },
                     "value": [
                         "agile",
-                        "deadly 3d10",
+                        "deadly-3d10",
                         "magical",
                         "reach-10",
                         "trip"
@@ -1323,6 +1396,102 @@
             "type": "action"
         },
         {
+            "_id": "2PycpD20mOycPIdP",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "piLj6Ji8aXO1RqwY",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
             "_id": "6aClhFTvO5NOf1iA",
             "data": {
                 "actionCategory": {
@@ -1366,60 +1535,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Aura of Misfortune",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "DL17IAxoc3zQSIeD",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The grim reaper can choose whether or not it takes positive damage.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 1500000,
+            "name": "Aura of Misfortune",
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1465,7 +1583,126 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Lurking Death",
-            "sort": 1600000,
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "h33Fv6w68EH7zO7T",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "l8QIFbI5moYezO1g",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1509,9 +1746,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Death Strike",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1555,7 +1792,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Drain",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1599,7 +1836,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Final Death",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -1631,9 +1868,9 @@
                         "value": "common"
                     },
                     "value": [
+                        "agile",
                         "divine",
-                        "evocation",
-                        "agile"
+                        "evocation"
                     ]
                 },
                 "trigger": {
@@ -1645,9 +1882,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infuse Weapon",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -1682,7 +1919,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1717,7 +1954,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2200000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1752,7 +1989,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2300000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -1787,7 +2024,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2400000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -1822,7 +2059,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2500000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -1857,7 +2094,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2600000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -1892,7 +2129,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2700000,
+            "sort": 3000000,
             "type": "lore"
         }
     ],

@@ -49,13 +49,15 @@
                 "value": 0
             },
             "speed": {
+                "details": "earth glide",
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "20 feet"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "20"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -70,6 +72,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Grikkitogs, also known as \"hungry earth,\" are strange parasites from the Plane of Earth that infest and possess earth, rock, and stone in order to feed their endless hunger. A young grikkitog is a formless apparition until it corrupts an earth elemental host, forming the grikkitog's core. A grikkitog can then infest the earth and stone nearby with its voracious essence, forming maws and eyes all around it. These creatures are particularly dangerous to small creatures that lair within gaps and holes among rocks, as well as mountain climbers searching for the perfect handhold.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -96,10 +99,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "adamantine",
-                    "label": "All",
-                    "type": "All",
-                    "value": "10"
+                    "exceptions": "except adamantine",
+                    "type": "all",
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -139,6 +141,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "barbed-maw"
                     ]
@@ -221,7 +224,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Implant Core",
             "sort": 200000,
             "type": "action"
@@ -271,6 +274,102 @@
             "type": "action"
         },
         {
+            "_id": "EIzQttmu7Zbpj03u",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "FlBGiZFNje9T4LTo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "QMCJ4eMLrKIZq31c",
             "data": {
                 "actionCategory": {
@@ -298,7 +397,11 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "aura",
+                        "earth",
+                        "occult"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -311,7 +414,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infestation Aura",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -355,7 +458,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Barbed Maw",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -399,7 +502,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Earth Glide",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -434,7 +537,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -487,7 +590,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -522,7 +625,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
