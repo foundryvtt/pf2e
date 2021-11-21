@@ -1,8 +1,8 @@
 {
-    "_id": "tSF9z5VTeevxoww3",
+    "_id": "kHRbOHKEedKaBFH5",
     "data": {
         "description": {
-            "value": "<p>The creature gains a -2 status bonus to sonic damage rolls and a -1 status bonus to AC and all saves against sonic and auditory effects</p>"
+            "value": "<p>The creature gains a +1 status bonus to AC and saves against evil creatures.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,45 +11,30 @@
             "value": -1
         },
         "level": {
-            "value": 6
+            "value": 1
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Harmonizing Aura",
                 "predicate": {
                     "all": [
-                        "trait:sonic"
+                        "origin:trait:evil"
                     ]
                 },
                 "selector": "ac",
                 "type": "status",
-                "value": "-1"
+                "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Harmonizing Aura",
                 "predicate": {
                     "any": [
-                        "trait:sonic",
-                        "trait:auditory"
+                        "origin:trait:evil"
                     ]
                 },
                 "selector": "saving-throw",
                 "type": "status",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Harmonizing Aura",
-                "predicate": {
-                    "all": [
-                        "trait:sonic"
-                    ]
-                },
-                "selector": "damage",
-                "type": "status",
-                "value": -2
+                "value": 1
             }
         ],
         "source": {
@@ -73,7 +58,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/unfathomable-song.webp",
-    "name": "Effect: Harmonizing Aura (Enemies)",
+    "img": "systems/pf2e/icons/spells/divine-aura.webp",
+    "name": "Effect: Transfer Protection",
     "type": "effect"
 }
