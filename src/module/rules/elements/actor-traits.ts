@@ -21,10 +21,14 @@ export class ActorTraitsRuleElement extends RuleElementPF2e {
 
         const traits: string[] = this.actor.data.data.traits.traits.value;
         const newTraits = this.data.add.filter((trait) => !traits.includes(trait));
-        traits.push(...newTraits);
+        for (const trait of newTraits) {
+            traits.push(trait);
+            this.actor.rollOptions.all[`self:trait:${trait}`] = true;
+        }
 
         for (const toRemove of this.data.remove) {
             traits.findSplice((trait) => trait === toRemove);
+            this.actor.rollOptions.all[`self:trait:${toRemove}`] = false;
         }
     }
 }
