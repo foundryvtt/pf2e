@@ -97,7 +97,9 @@ export const ChatCards = {
                             message.render(true);
                         }
                     }
-                } else if (action === "save") ActorPF2e.rollSave(event, item);
+                } else if (action === "save") {
+                    ActorPF2e.rollSave(event, item);
+                }
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = card.attr("data-strike-index");
                 const strikeName = card.attr("data-strike-name");

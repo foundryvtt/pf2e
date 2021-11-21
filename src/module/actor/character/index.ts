@@ -91,6 +91,16 @@ export class CharacterPF2e extends CreaturePF2e {
         return deepClone(this.data.data.resources.heroPoints);
     }
 
+    /** Add options from ancestry and class */
+    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const options = super.getSelfRollOptions(prefix);
+        const [ancestry, pcClass] = [this.ancestry, this.class];
+        if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
+        if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
+
+        return options;
+    }
+
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
@@ -992,7 +1002,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
         const linkedRank = ((): number => {
-            const statements = weapon.getContextStrings();
+            const statements = weapon.getItemRollOptions();
             const linkedProficiency = Object.values(systemData.martial)
                 .filter((p): p is LinkedProficiency => "sameAs" in p)
                 .find((proficiency) => proficiency.predicate.test(statements));
@@ -1217,7 +1227,11 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
-                    const context = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                    const context = this.createAttackRollContext(
+                        args.event!,
+                        ["all", "attack-roll"],
+                        ["attack", ...weapon.getItemRollOptions("")]
+                    );
                     const options = [
                         ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
                     ];

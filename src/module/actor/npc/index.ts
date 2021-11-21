@@ -101,9 +101,8 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Add rarity and custom traits to main trait list
         const traits = this.data.data.traits;
-        const rarity = traits.rarity.value;
         const customTraits = traits.traits.custom.split(/\s*[,;|]\s*/).filter((trait) => trait);
-        const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
+        const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
         const rules = this.rules.filter((rule) => !rule.ignored);
@@ -575,7 +574,11 @@ export class NPCPF2e extends CreaturePF2e {
                 action.attack = async (args: RollParameters) => {
                     const attackEffects = await this.getAttackEffects(itemData);
                     const rollNotes = notes.concat(attackEffects);
-                    const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                    const ctx = this.createAttackRollContext(
+                        args.event!,
+                        ["all", "attack-roll"],
+                        ["attack", ...traits]
+                    );
                     // always add all weapon traits as options
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                     CheckPF2e.roll(
@@ -601,7 +604,11 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(itemData);
                             const rollNotes = notes.concat(attackEffects);
-                            const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                            const ctx = this.createAttackRollContext(
+                                args.event!,
+                                ["all", "attack-roll"],
+                                ["attack", ...traits]
+                            );
                             // always add all weapon traits as options
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                             CheckPF2e.roll(
@@ -624,7 +631,11 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(itemData);
                             const rollNotes = notes.concat(attackEffects);
-                            const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                            const ctx = this.createAttackRollContext(
+                                args.event!,
+                                ["all", "attack-roll"],
+                                ["attack", ...traits]
+                            );
                             // always add all weapon traits as options
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                             CheckPF2e.roll(
@@ -649,7 +660,11 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(itemData);
                             const rollNotes = notes.concat(attackEffects);
-                            const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                            const ctx = this.createAttackRollContext(
+                                args.event!,
+                                ["all", "attack-roll"],
+                                ["attack", ...traits]
+                            );
                             // always add all weapon traits as options
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
                             CheckPF2e.roll(

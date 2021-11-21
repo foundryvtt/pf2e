@@ -3,7 +3,6 @@ import { SAVE_TYPES } from "@actor/data/values";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
-import { sluggify } from "@util";
 import { ABCItemPF2e } from "../abc";
 import { ClassData, ClassTrait } from "./data";
 
@@ -51,9 +50,6 @@ export class ClassPF2e extends ABCItemPF2e {
             saves[saveType].rank = Math.max(saves[saveType].rank, classDetails.savingThrows[saveType]) as ZeroToFour;
             this.logAutoChange(`data.saves.${saveType}.rank`, classDetails.savingThrows[saveType]);
         }
-
-        const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`self:class:${slug}`] = true;
     }
 }
 
