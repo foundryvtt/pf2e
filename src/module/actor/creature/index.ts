@@ -581,8 +581,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    protected createAttackRollContext(
-        event: JQuery.TriggeredEvent,
+    createAttackRollContext(
+        event: JQuery.TriggeredEvent | null | undefined,
         domains: string[],
         attackTraits: string[]
     ): AttackRollContext {
@@ -615,7 +615,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
         return {
-            event,
+            event: event ?? undefined,
             options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
             dc,

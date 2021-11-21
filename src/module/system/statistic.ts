@@ -1,15 +1,18 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e, RollParameters } from "@system/rolls";
 import { RollNotePF2e } from "@module/notes";
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e } from "@actor";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { PredicatePF2e } from "./predication";
+
+type AttackCheck = "attack-roll" | "spell-attack-roll";
+type CheckType = "skill-check" | "perception-check" | "saving-throw" | "flat-check" | AttackCheck;
 
 export interface StatisticCheckData {
     adjustments?: DegreeOfSuccessAdjustment[];
     label?: string;
     modifiers?: ModifierPF2e[];
-    type: string;
+    type: CheckType;
 }
 
 export interface StatisticDifficultyClassData {
@@ -57,7 +60,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     constructor(private actor: ActorPF2e, public readonly data: T) {}
 
     /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
-    static from(actor: ActorPF2e, stat: StatisticModifier, name: string, label: string, type: string) {
+    static from(actor: ActorPF2e, stat: StatisticModifier, name: string, label: string, type: CheckType) {
         return new Statistic(actor, {
             name: name,
             check: { adjustments: stat.adjustments, label, type },
@@ -81,13 +84,30 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         return {
             modifiers: modifiers,
             roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => {
+                const actor = this.actor;
+
+                // This is required to determine the AC for attack dialogs
+                const rollContext = (() => {
+                    const isCreature = actor instanceof CreaturePF2e;
+                    if (isCreature && ["attack-roll", "spell-attack-roll"].includes(check.type)) {
+                        const options = [
+                            "all",
+                            "attack-roll",
+                            check.type === "spell-attack-roll" ? "spell-attack-roll" : undefined,
+                        ].filter((option): option is string => !!option);
+                        return actor.createAttackRollContext(args.event, options, ["attack"]);
+                    }
+
+                    return null;
+                })();
+
                 if (args?.dc && check.adjustments && check.adjustments.length) {
                     args.dc.adjustments ??= [];
                     args.dc.adjustments.push(...check.adjustments);
                 }
                 const context = {
-                    actor: this.actor,
-                    dc: args?.dc,
+                    actor,
+                    dc: args?.dc ?? rollContext?.dc,
                     notes: data.notes,
                     options: args?.options,
                     type: check.type,
