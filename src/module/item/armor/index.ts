@@ -16,7 +16,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isShield(): boolean {
-        return this.data.data.armorType.value === "shield";
+        return this.data.data.category === "shield";
     }
 
     get isArmor(): boolean {
@@ -28,11 +28,11 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get group(): ArmorGroup | null {
-        return this.data.data.group.value || null;
+        return this.data.data.group || null;
     }
 
     get category(): ArmorCategory {
-        return this.data.data.armorType.value;
+        return this.data.data.category;
     }
 
     get dexCap(): number | null {
