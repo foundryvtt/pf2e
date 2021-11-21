@@ -90,12 +90,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 const rollContext = (() => {
                     const isCreature = actor instanceof CreaturePF2e;
                     if (isCreature && ["attack-roll", "spell-attack-roll"].includes(check.type)) {
-                        const options = [
-                            "all",
-                            "attack-roll",
-                            check.type === "spell-attack-roll" ? "spell-attack-roll" : undefined,
-                        ].filter((option): option is string => !!option);
-                        return actor.createAttackRollContext(args.event, options, ["attack"]);
+                        const domains = [];
+                        if (check.type === "spell-attack-roll") {
+                            domains.push("spell-attack-roll");
+                        }
+                        return actor.createAttackRollContext({ domains });
                     }
 
                     return null;
