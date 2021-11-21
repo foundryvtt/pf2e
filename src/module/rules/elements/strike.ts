@@ -20,7 +20,13 @@ export class StrikeRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics) {
-        if (!(tupleHasValue(WEAPON_RANGES, this.data.range) || this.data.range === null)) {
+        if (
+            !(
+                tupleHasValue(WEAPON_RANGES, this.data.range) ||
+                this.data.range === null ||
+                this.data.range === undefined
+            )
+        ) {
             return;
         }
         const source: PreCreate<WeaponSource> = {
