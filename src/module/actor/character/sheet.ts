@@ -695,7 +695,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
         html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.onAddCustomModifier(event));
         html.find(".modifier-list .remove-modifier").on("click", (event) => this.onRemoveCustomModifier(event));
-        html.find(".modifier-list").on("click", ".toggle-automation", (event) => this.onToggleAutomation(event));
 
         // Toggle invested state
         html.find(".item-toggle-invest").on("click", (event) => {
@@ -1042,16 +1041,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         } else {
             this.actor.removeCustomModifier(stat, name);
         }
-    }
-
-    private onToggleAutomation(event: JQuery.ClickEvent) {
-        const $checkbox = $(event.target);
-        const toggleOff = !$checkbox.hasClass("disabled");
-        const effects = this.actor.effects.contents.filter((effect) =>
-            effect.data.changes.some((change) => change.key === $checkbox.data("automation-key"))
-        );
-        const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
-        this.actor.updateEmbeddedDocuments("ActiveEffect", effectUpdates);
     }
 
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatSource) {
