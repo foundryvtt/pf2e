@@ -1261,11 +1261,8 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
-                    const context = this.createAttackRollContext(
-                        args.event!,
-                        ["all", "attack-roll"],
-                        ["attack", ...weapon.getItemRollOptions("")]
-                    );
+                    const traits = weapon.getItemRollOptions("");
+                    const context = this.createAttackRollContext({ traits });
                     const options = [
                         ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
                     ];
