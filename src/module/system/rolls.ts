@@ -352,7 +352,7 @@ export class CheckPF2e {
                 const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
-                        "data.attributes.heroPoints.rank": Math.clamped(heroPointCount - 1, 0, 3),
+                        "data.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, 3),
                     });
                     rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
                 } else {
