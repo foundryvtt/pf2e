@@ -581,7 +581,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    public createAttackRollContext(
+    createAttackRollContext(
         event: JQuery.TriggeredEvent | null | undefined,
         domains: string[],
         attackTraits: string[]
