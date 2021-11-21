@@ -182,12 +182,16 @@ table.pf2-table {
     }
 }
 
-/* ----------------------------------------- */
-/* PF2E Action Custom Element                */
-/* ----------------------------------------- */
 
-[data-pf2-action] {
-    background: #DDD;
+a.inline-roll, a.entity-link {
+    font-weight: 500;
+    line-height: 1.6em;
+}
+
+@mixin inline-link {
+    font-weight: 500;
+    line-height: 1.5em;
+    background: #ddd;
     padding: 1px 4px;
     border: 1px solid #4b4a44;
     border-radius: 2px;
@@ -196,6 +200,14 @@ table.pf2-table {
     cursor: pointer;
     box-sizing: border-box;
     font-weight: 500;
+}
+
+/* ----------------------------------------- */
+/* PF2E Action Custom Element                */
+/* ----------------------------------------- */
+
+[data-pf2-action] {
+    @include inline-link;
 }
 
 [data-pf2-action][data-pf2-glyph]::before {
@@ -360,15 +372,7 @@ table.pf2-table {
 /* ----------------------------------------- */
 
 [data-pf2-check] {
-    background: #ddd;
-    padding: 1px 4px;
-    border: 1px solid #4b4a44;
-    border-radius: 2px;
-    white-space: nowrap;
-    word-break: break-all;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight: 500;
+    @include inline-link;
 }
 
 [data-pf2-check]:not([data-pf2-show-dc="gm"]) {
@@ -400,15 +404,7 @@ table.pf2-table {
 /* ----------------------------------------- */
 
 [data-pf2-effect-area] {
-    background: #ddd;
-    padding: 1px 4px;
-    border: 1px solid #4b4a44;
-    border-radius: 2px;
-    white-space: nowrap;
-    word-break: break-all;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight: 500;
+    @include inline-link;
 
     &:not([data-pf2-show-dc="gm"]) {
         background: #e8e8ef;
@@ -458,7 +454,7 @@ table.pf2-table {
     box-sizing: border-box;
     border: 1px dotted;
     background: #e8e8ef;
-    padding: 3px;
+    padding: 0 3px;
     margin-bottom: 4px;
 
     em[data-visibility="gm"] {
@@ -479,7 +475,7 @@ em[data-visibility="gm"] {
     box-sizing: border-box;
     border: 1px dotted;
     background: #ddebe1;
-    padding: 3px;
+    padding: 0 3px;
     margin-bottom: 4px;
 
     em[data-visibility="owner"] {
