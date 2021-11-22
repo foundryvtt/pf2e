@@ -30,14 +30,14 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                         .map((armor) => ({
                             value: armor,
                             label: armor.name,
-                            domain: armor.getContextStrings(),
+                            domain: armor.getItemRollOptions(),
                         }));
                 }
                 case "weapon": {
                     return this.actor.itemTypes.weapon.map((weapon) => ({
                         value: weapon,
                         label: weapon.name,
-                        domain: weapon.getContextStrings(),
+                        domain: weapon.getItemRollOptions(),
                     }));
                 }
             }
