@@ -18,7 +18,6 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e, RollParameters } from "@system/rolls";
 import {
     Alignment,
-    AlignmentComponent,
     AttackRollContext,
     CreatureSpeeds,
     LabeledSpeed,
@@ -159,6 +158,31 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Add alignment traits and other creature properties self roll options */
+    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const options = super.getSelfRollOptions(prefix);
+
+        const { alignment } = this;
+        const alignmentTraits = [
+            ...new Set([
+                ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
+                ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
+                ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
+                ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
+            ]),
+        ].map((trait) => `${prefix}:trait:${trait}`);
+
+        for (const trait of alignmentTraits) options.add(trait);
+
+        const { itemTypes } = this;
+        const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
+        if (targetIsSpellcaster) options.add(`${prefix}:caster`);
+
+        if (this.hitPoints.negativeHealing) options.add(`${prefix}:negative-healing`);
+
+        return options;
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -182,6 +206,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
+
+        /** Set initial roll options for AE-like predicates */
+        for (const option of this.getSelfRollOptions()) {
+            this.rollOptions.all[option] = true;
+        }
 
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
@@ -552,18 +581,29 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    protected createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]): AttackRollContext {
-        const ctx = this.createStrikeRollContext(rollNames);
+    createAttackRollContext(
+        event: JQuery.TriggeredEvent | null | undefined,
+        domains: string[],
+        attackTraits: string[]
+    ): AttackRollContext {
+        const ctx = this.createStrikeRollContext(domains);
         let dc: CheckDC | null = null;
         let distance: number | null = null;
         if (ctx.target?.actor instanceof CreaturePF2e) {
+            // Clone the actor to recalculate its AC with contextual roll options
+            const traitRollOptions = attackTraits.map((trait) => `trait:${trait}`);
+            const contextActor = ctx.target.actor.getContextualClone([
+                ...this.getSelfRollOptions("origin"),
+                ...traitRollOptions,
+            ]);
+
             dc = {
                 label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
                     creature: ctx.target.name,
                     dc: "{dc}",
                 }),
                 scope: "AttackOutcome",
-                value: ctx.target.actor.data.data.attributes.ac.value,
+                value: contextActor.attributes.ac.value,
             };
 
             // calculate distance
@@ -575,7 +615,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
         return {
-            event,
+            event: event ?? undefined,
             options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
             dc,
@@ -592,62 +632,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    private createStrikeRollContext(rollNames: string[]) {
-        const options = this.getRollOptions(rollNames);
-
-        const getAlignmentTraits = (alignment: Alignment): AlignmentComponent[] => {
-            return [
-                ...new Set([
-                    ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
-                    ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
-                    ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
-                    ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
-                ]),
-            ];
-        };
-        const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
-        options.push(
-            ...conditions
-                .map((condition) => [`self:${condition.data.data.hud.statusName}`, `condition:${condition.slug}`])
-                .flat(),
-            ...getAlignmentTraits(this.alignment).map((alignment) => `trait:${alignment}`)
-        );
-        if (this.hitPoints.negativeHealing) {
-            options.push("negative-healing");
-        }
+    private createStrikeRollContext(domains: string[]) {
+        const options = [...this.getRollOptions(domains), ...this.getSelfRollOptions()];
 
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e
         );
         const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
-        if (target?.actor instanceof CreaturePF2e) {
-            if (target.actor.hitPoints.negativeHealing) {
-                options.push("target:negative-healing");
-            }
-
-            const { itemTypes } = target.actor;
-            const targetConditions = itemTypes.condition.filter((condition) => condition.fromSystem);
-            const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
-            options.push(
-                ...targetConditions
-                    .map((condition) => [
-                        `target:${condition.data.data.hud.statusName}`,
-                        `target:condition:${condition.slug}`,
-                    ])
-                    .flat(),
-                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`),
-                ...(targetIsSpellcaster ? ["target:caster"] : []).flat()
-            );
-        }
-
-        const traits = (target?.actor?.data.data.traits.traits.custom ?? "")
-            .split(/[;,\\|]/)
-            .map((value) => value.trim())
-            .concat(target?.actor?.data.data.traits.traits.value ?? [])
-            .filter((value) => !!value)
-            .map((trait) => [`target:${trait}`, `target:trait:${trait}`])
-            .flat();
-        options.push(...traits);
 
         return {
             options: [...new Set(options)],

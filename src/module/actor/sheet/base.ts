@@ -73,10 +73,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
 
-    override get isEditable(): boolean {
-        return this.actor.canUserModify(game.user, "update");
-    }
-
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
         return false;

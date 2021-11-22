@@ -1,16 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import {
-    ClassData,
-    FeatData,
-    ItemDataPF2e,
-    ItemSourcePF2e,
-    LoreData,
-    PhysicalItemData,
-    PhysicalItemSource,
-    WeaponData,
-} from "@item/data";
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
@@ -916,38 +907,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.update({ "data.resources.crafting.infusedReagents.value": value });
         });
 
-        $formulas.find(".daily-crafting").on("click", async () => {
-            const entries = (await this.actor.getCraftingEntries()).filter((e) => e.isDailyPrep);
-            const alchemicalEntries = entries.filter((e) => e.isAlchemical);
-            const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
-            const reagentValue = (this.actor.data.data.resources.crafting.infusedReagents.value || 0) - reagentCost;
-            if (reagentValue < 0) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
-                return;
-            } else {
-                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
-            }
-
-            // Remove infused/temp items
-            for (const item of this.actor.physicalItems) {
-                if (item.data.data.temporary?.value) await item.delete();
-            }
-
-            for (const entry of entries) {
-                for (const prepData of entry.preparedFormulas) {
-                    const item: PhysicalItemSource = prepData.item.toObject();
-                    item.data.quantity.value = prepData.quantity || 1;
-                    item.data.temporary = { value: true };
-                    if (
-                        entry.isAlchemical &&
-                        (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
-                    ) {
-                        item.data.traits.value.push("infused");
-                    }
-                    await this.actor.addToInventory(item);
-                }
-            }
-        });
+        $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
     }
 
     /** Handle changing of proficiency-rank via dropdown */

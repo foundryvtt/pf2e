@@ -113,7 +113,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    getContextStrings(prefix = ""): string[] {
+    getItemRollOptions(prefix = ""): string[] {
         return [...this.traits]
             .map((trait) => `trait:${trait}`)
             .concat(
