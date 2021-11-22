@@ -28,7 +28,7 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
-import { registerSettings } from "@module/settings";
+import { registerSettings } from "@system/settings";
 import { loadPF2ETemplates } from "@module/templates";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
