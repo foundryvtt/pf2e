@@ -56,8 +56,8 @@
         <div class="filtercontainer" id="weaponTypefilter">
             <h3>{{localize "PF2E.BrowserFilterWeaponFilters"}}</h3>
             <dl style="display:none;">
-                {{#each weaponCategories as |weaponType key|}}
-                    <label><dt><input type="checkbox" name="weapontype-{{lower key}}"></dt><dd>{{localize weaponType}}</dd></label>
+                {{#each weaponCategories as |category key|}}
+                    <label><dt><input type="checkbox" name="category-{{lower key}}"></dt><dd>{{localize category}}</dd></label>
                 {{/each}}
                 {{#each weaponGroups as |group key|}}
                     <label><dt><input type="checkbox" name="group-{{lower key}}"></dt><dd>{{localize group}}</dd></label>
@@ -93,7 +93,7 @@
         {{#each inventoryItems as |item id|}}
             <li class="item flexrow" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems"
                 {{#each item.filters as |filterKey|}}{{#if (lookup item.data filterKey)}}{{#with (lookup item.data filterKey) as |property|}}
-                data-{{lower filterKey}}="{{lower property.value}}"
+                data-{{lower filterKey}}="{{lower (coalesce property.value property)}}"
                 {{/with}}{{/if}}{{/each}}>
                 <div class="image">
                     <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="cell">
                     <span title="Item Price">
-                        {{#if (eq item.type 'treasure')}}
+                        {{#if (eq item.type "treasure")}}
                             {{item.data.value.value}} {{item.data.denomination.value}}
                         {{else}}
                             {{item.data.price.value}}
