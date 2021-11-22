@@ -5,6 +5,8 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { Statistic } from "@system/statistic";
 import { calculateDC } from "@module/dc";
+import { EffectPF2e } from "@item";
+import { ErrorPF2e } from "@util";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -16,6 +18,47 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
+async function setCooldown(
+    actor: ActorPF2e,
+    cooldown: string,
+    unit: string | undefined,
+    label: string | undefined,
+    showIcon: string | undefined
+) {
+    const ITEM_UUID = "Compendium.pf2e.bestiary-effects.4oQSjijgpQ0zlVi0";
+    const effect = await fromUuid(ITEM_UUID);
+
+    if (!(effect instanceof EffectPF2e)) {
+        throw ErrorPF2e("Cooldown effect not found");
+    }
+
+    const effectSource = effect.toObject();
+
+    if (cooldown) {
+        if (unit) {
+            effectSource.data.duration.unit = unit;
+        }
+
+        if (label) {
+            effectSource.name = label;
+        }
+
+        if (showIcon && effectSource.data.tokenIcon) {
+            effectSource.data.tokenIcon.show = showIcon === "true";
+        }
+
+        if (cooldown.includes("d")) {
+            const roll = await new Roll(cooldown).evaluate({ async: true });
+            roll.toMessage({}, { rollMode: "blindroll" });
+            effectSource.data.duration.value = Number(roll.total);
+        } else {
+            effectSource.data.duration.value = Number(cooldown);
+        }
+
+        await actor.createEmbeddedDocuments("Item", [effectSource]);
+    }
+}
+
 const inlineSelector = [
     "action",
     "check",
@@ -25,6 +68,7 @@ const inlineSelector = [
     "repost",
     "saving-throw",
     "skill-check",
+    "cooldown",
 ]
     .map((keyword) => `[data-pf2-${keyword}]`)
     .join(",");
@@ -375,6 +419,22 @@ export const InlineRollsLinks = {
                 ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
+            }
+        });
+
+        $links.filter("[data-pf2-cooldown]").on("click", (event) => {
+            const actors = resolveActors();
+            const { pf2Cooldown, pf2Unit, pf2Label, pf2ShowIcon } = event.currentTarget.dataset;
+            if (pf2Cooldown) {
+                if (actors.length) {
+                    actors.forEach((actor) => {
+                        setCooldown(actor, pf2Cooldown, pf2Unit, pf2Label, pf2ShowIcon);
+                    });
+                } else {
+                    console.warn(`PF2e System | Select an actor(s) to place the cooldown'`);
+                }
+            } else {
+                console.warn(`PF2e System | No cooldown set`);
             }
         });
     },
