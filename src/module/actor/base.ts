@@ -516,7 +516,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 }
             }
         } else {
-            throw ErrorPF2e(game.i18n.localize("PF2E.UI.errorTargetToken"));
+            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
         }
     }
 
