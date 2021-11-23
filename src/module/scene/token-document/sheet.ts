@@ -53,8 +53,21 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
             }
         });
 
-        if (game.settings.get("pf2e", "automation.rulesBasedVision")) {
-            // Indicate that this setting is managed by rules-based vision
+        const $visionInputs = $html.find(
+            ["dimSight", "brightSight", "sightAngle"].map((selector) => `input[name="${selector}"]`).join(", ")
+        );
+
+        // Disable vision management if vision is also disabled
+        if (!this.token.data.vision) {
+            $visionInputs.prop({ disabled: true });
+        }
+        $html.find<HTMLInputElement>('input[name="vision"]').on("change", (event) => {
+            $visionInputs.prop({ disabled: !event.currentTarget.checked });
+        });
+
+        // Indicate that this setting is managed by rules-based vision
+        const rbvEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
+        if (rbvEnabled && ["character", "familiar"].includes(this.actor?.type ?? "")) {
             for (const selector of ["dimSight", "brightSight", "sightAngle"]) {
                 const $input = $html.find(`input[name="${selector}"]`);
 
