@@ -110,7 +110,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     dc: args.dc ?? rollContext?.dc,
                     notes: data.notes,
                     options: args.options,
-                    item: args.item,
+                    item: args.item ?? null,
                     type: check.type,
                 };
                 CheckPF2e.roll(new CheckModifier(name, stat, args.modifiers), context, args.event, args.callback);
