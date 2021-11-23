@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
-import { HomebrewElements, HomebrewTag } from "@module/settings/homebrew";
+import { HomebrewElements, HomebrewTag } from "@system/settings/homebrew";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";

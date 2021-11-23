@@ -25,7 +25,7 @@ import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
-import { HomebrewElements } from "@module/settings/homebrew";
+import { HomebrewElements } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 
 /**
