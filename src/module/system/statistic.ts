@@ -41,7 +41,7 @@ export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
 
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
-    roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => void;
+    roll: (args?: RollParameters) => void;
     totalModifier: (options?: { options?: string[] }) => number;
     value: number;
     breakdown: string;
@@ -83,7 +83,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const name = game.i18n.localize(check.label ?? data.name);
         return {
             modifiers: modifiers,
-            roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => {
+            roll: (args: RollParameters = {}) => {
                 const actor = this.actor;
 
                 // This is required to determine the AC for attack dialogs
@@ -101,18 +101,19 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     return null;
                 })();
 
-                if (args?.dc && check.adjustments && check.adjustments.length) {
+                if (args.dc && check.adjustments && check.adjustments.length) {
                     args.dc.adjustments ??= [];
                     args.dc.adjustments.push(...check.adjustments);
                 }
                 const context = {
                     actor,
-                    dc: args?.dc ?? rollContext?.dc,
+                    dc: args.dc ?? rollContext?.dc,
                     notes: data.notes,
-                    options: args?.options,
+                    options: args.options,
+                    item: args.item,
                     type: check.type,
                 };
-                CheckPF2e.roll(new CheckModifier(name, stat, args?.modifiers), context, args?.event, args?.callback);
+                CheckPF2e.roll(new CheckModifier(name, stat, args.modifiers), context, args.event, args.callback);
             },
             totalModifier: (options?: { options?: string[] }) => {
                 const check = new CheckModifier(name, stat);
