@@ -13,49 +13,6 @@ export function registerSettings() {
         registerWorldSchemaVersion();
     }
 
-    game.settings.register("pf2e", "defaultTokenSettings", {
-        name: "PF2E.SETTINGS.DefaultTokenSettings.Name",
-        hint: "PF2E.SETTINGS.DefaultTokenSettings.Hint",
-        scope: "world",
-        config: false,
-        default: true,
-        type: Boolean,
-    });
-
-    game.settings.register("pf2e", "defaultTokenSettingsName", {
-        name: "PF2E.SETTINGS.DefaultTokenSettingsName.Name",
-        hint: "PF2E.SETTINGS.DefaultTokenSettingsName.Hint",
-        scope: "world",
-        config: true,
-        default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-        type: Number,
-        choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: "TOKEN.DISPLAY_NONE",
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: "TOKEN.DISPLAY_CONTROL",
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: "TOKEN.DISPLAY_OWNER_HOVER",
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: "TOKEN.DISPLAY_HOVER",
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: "TOKEN.DISPLAY_OWNER",
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: "TOKEN.DISPLAY_ALWAYS",
-        },
-    });
-
-    game.settings.register("pf2e", "defaultTokenSettingsBar", {
-        name: "PF2E.SETTINGS.DefaultTokenSettingsBar.Name",
-        hint: "PF2E.SETTINGS.DefaultTokenSettingsBar.Hint",
-        scope: "world",
-        config: true,
-        default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-        type: Number,
-        choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: "TOKEN.DISPLAY_NONE",
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: "TOKEN.DISPLAY_CONTROL",
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: "TOKEN.DISPLAY_OWNER_HOVER",
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: "TOKEN.DISPLAY_HOVER",
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: "TOKEN.DISPLAY_OWNER",
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: "TOKEN.DISPLAY_ALWAYS",
-        },
-    });
-
     game.settings.register("pf2e", "tokens.autoscale", {
         name: "PF2E.SETTINGS.Tokens.Autoscale.Name",
         hint: "PF2E.SETTINGS.Tokens.Autoscale.Hint",

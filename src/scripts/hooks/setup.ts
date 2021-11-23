@@ -35,6 +35,11 @@ export function listen() {
     Hooks.once("setup", () => {
         LocalizePF2e.ready = true;
 
+        // Soft-set system-preferred core settings until they've been explicitly set by the GM
+        const defaultTokenSettings = game.settings.settings.get("core.defaultToken").default;
+        defaultTokenSettings.displayName = defaultTokenSettings.displayBars = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+        defaultTokenSettings.bar1 = { attribute: "data.attributes.hp.value" };
+
         // Register actor and item sheets
         registerSheets();
 
