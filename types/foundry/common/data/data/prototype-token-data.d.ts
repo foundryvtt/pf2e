@@ -32,7 +32,7 @@ declare namespace foundry {
         interface PrototypeTokenSource {
             _id: string;
             name: string;
-            displayName: number;
+            displayName: TokenDisplayMode;
             actorId: string | null;
             actorLink: boolean;
             img: string;
@@ -54,7 +54,7 @@ declare namespace foundry {
             lightAngle: number;
             lightAnimation: AnimationSource;
             disposition: TokenDisposition;
-            displayBars: number;
+            displayBars: TokenDisplayMode;
             bar1: TokenBarSource;
             bar2: TokenBarSource;
             flags: Record<string, Record<string, unknown>>;
