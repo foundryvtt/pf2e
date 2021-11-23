@@ -131,9 +131,6 @@ declare global {
 
         get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
 
-        get(module: "pf2e", setting: "defaultTokenSettings"): boolean;
-        get(module: "pf2e", setting: "defaultTokenSettingsBar"): number;
-        get(module: "pf2e", setting: "defaultTokenSettingsName"): string;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
         get(module: "pf2e", setting: "pfsSheetTab"): boolean;
@@ -146,9 +143,8 @@ declare global {
         get(module: "pf2e", setting: "seenUnionAnnouncement"): boolean;
     }
 
-    interface WorldSettingsStorage {
-        get(setting: "pf2e.worldSchemaVersion"): string | undefined;
-        getItem(setting: "pf2e.worldSchemaVersion"): string | null;
+    interface ClientSettingsMap {
+        get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
     }
 
     const BUILD_MODE: "development" | "production";
