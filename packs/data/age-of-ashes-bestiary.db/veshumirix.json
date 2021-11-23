@@ -49,17 +49,20 @@
                 "value": 0
             },
             "speed": {
+                "details": "swim in magma only",
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "160 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "160"
                     },
                     {
-                        "type": "Swim",
-                        "value": "50 feet "
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "50"
                     }
                 ],
-                "value": "50 feet"
+                "value": "50"
             }
         },
         "details": {
@@ -74,6 +77,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #148: Fires of the Haunted City"
             }
         },
@@ -174,7 +178,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -273,14 +277,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "Gu9Ls9kK91VBsUrT",
+            "_id": "HJwVm2TXnBSmdy28",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": 15
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -300,8 +307,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "2d6"
@@ -309,16 +318,19 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Fire Shield]{Spell Effect: Fire Shield}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "value": ""
+                    "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
-                    "value": 8
+                    "value": 4
                 },
                 "location": {
                     "value": "UwdvzOviNTex0Xqb"
@@ -329,136 +341,38 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
                 "rules": [],
                 "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "school": {
-                    "value": "conjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=30"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
+                    "basic": "",
                     "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/burning-hands.webp",
-            "name": "Burning Hands",
-            "sort": 200000,
-            "type": "spell"
-        },
-        {
-            "_id": "xUDLwhHhHEWQjjLn",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": 20
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "fire"
-                            },
-                            "value": "6d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "UwdvzOviNTex0Xqb"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
                 },
                 "scaling": {
                     "damage": {
-                        "0": "2d6"
+                        "0": "1d6"
                     },
                     "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fire-shield",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=119"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -486,21 +400,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/fireball.webp",
-            "name": "Fireball",
-            "sort": 300000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.YrzBLPLd3r9m6t1p"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/fire-shield.webp",
+            "name": "Fire Shield (Constant)",
+            "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "NIkxrjkpwRQJ3Ghe",
+            "_id": "23aybhsSs40twjme",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -520,8 +441,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "4d6"
@@ -529,7 +452,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -537,8 +460,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 8
+                },
+                "level": {
+                    "value": 4
                 },
                 "location": {
                     "value": "UwdvzOviNTex0Xqb"
@@ -549,6 +475,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -557,12 +486,24 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -593,21 +534,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
             "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
-            "name": "Wall of Fire",
-            "sort": 400000,
+            "name": "Wall of Fire (At Will)",
+            "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "9h7bxUwrqnw6OQOO",
+            "_id": "oL5Fl0yCYktN3J8q",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "burst",
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -627,25 +575,30 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
-                            "value": "2d6"
+                            "value": "6d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<hr />\n<p><strong>Heightened</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
+                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 8
+                },
                 "level": {
-                    "value": 4
+                    "value": 3
                 },
                 "location": {
                     "value": "UwdvzOviNTex0Xqb"
@@ -656,23 +609,38 @@
                 "prepared": {
                     "value": ""
                 },
-                "range": {
+                "primarycheck": {
                     "value": ""
+                },
+                "range": {
+                    "value": "500 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fireball",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=118"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
@@ -700,21 +668,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/fire-shield.webp",
-            "name": "Fire Shield",
-            "sort": 500000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/fireball.webp",
+            "name": "Fireball",
+            "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "5rwAoqcqnJvTj6XP",
+            "_id": "NtNZz3pZ90BCanve",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "cone",
+                    "value": "15"
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -734,23 +709,27 @@
                 "damage": {
                     "value": {
                         "0": {
-                            "applyMod": true,
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
-                            "value": "1d4"
+                            "value": "2d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
+                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 1
@@ -764,41 +743,49 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
                 },
                 "scaling": {
                     "damage": {
-                        "0": "1d4"
+                        "0": "2d6"
                     },
                     "interval": 1
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
                 },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "burning-hands",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
                 "spellType": {
-                    "value": "attack"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
-                    "custom": "",
                     "value": [
                         "arcane",
                         "primal"
@@ -810,17 +797,19 @@
                         "value": "common"
                     },
                     "value": [
-                        "attack",
-                        "fire",
-                        "cantrip"
+                        "fire"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/produce-flame.webp",
-            "name": "Produce Flame",
-            "sort": 600000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/burning-hands.webp",
+            "name": "Burning Hands (At Will)",
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -872,7 +861,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 700000,
+            "sort": 600000,
             "type": "melee"
         },
         {
@@ -920,7 +909,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 800000,
+            "sort": 700000,
             "type": "melee"
         },
         {
@@ -967,7 +956,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 900000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -1014,8 +1003,200 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horns",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "melee"
+        },
+        {
+            "_id": "XteT6RS3CQMyiNDq",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "fjxiygmwqMkFDeyM",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "RwCa647AJFm8BWJR",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "95BHm1GQDEedURfw",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 1300000,
+            "type": "action"
         },
         {
             "_id": "UfanUBQ8Zs0ulv4e",
@@ -1067,7 +1248,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1083,12 +1264,28 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The dragon is targeted with an attack. <strong>Effect</strong> The dragon raises its wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is Flying, it descends 10 feet after the attack.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Veshumirix is targeted with an attack.</p>\n<hr />\n<p><strong>Effect</strong> Veshumirix raises its wing, gaining a +2 circumstance bonus to AC against the triggering attack. If Veshumirix is Flying, it descends 10 feet after the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.wingDeflection"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "wingDeflection"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1109,9 +1306,73 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Wing Deflection",
-            "sort": 1200000,
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "97RfnojA9doZCy1G",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1127,7 +1388,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Veshumirix breathes a blast of magma that deals [[/r {9d6}[fire]]]{9d6 fire damage} and [[/r {4d12}[bludgeoning]]]{4d12 bludgeoning damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"42\" data-pf2-traits=\"evocation,fire,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Veshumirix breathes a blast of magma that deals [[/r {9d6}[fire] + {4d12}[bludgeoning]]]{9d6 fire damage and 4d12 bludgeoning damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"42\" data-pf2-traits=\"evocation,fire,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1157,9 +1418,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1300000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1175,7 +1436,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon makes two claw Strikes and one horns Strike in any order.</p>"
+                    "value": "<p>Veshumirix makes two claw Strikes and one horns Strike in any order.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1201,9 +1462,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 1400000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1219,7 +1480,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dragon recharges its Breath Weapon whenever it scores a critical hit with a Strike.</p>"
+                    "value": "<p>Veshumirix recharges his Breath Weapon whenever it scores a critical hit with a Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1247,7 +1508,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 1500000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1291,7 +1552,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Magma Swim",
-            "sort": 1600000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1307,7 +1568,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>If the next action the dragon uses is Breath Weapon, the magma clings to those it damages. Each creature that fails its save against the Breath Weapon takes [[/r 4d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and as long as it has this persistent fire damage, it also takes a -10-foot status penalty to its Speeds.</p>"
+                    "value": "<p>If the next action Veshumirix uses is Breath Weapon, the magma clings to those it damages. Each creature that fails its save against the Breath Weapon takes [[/r {4d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and as long as it has this persistent fire damage, it also takes a -10-foot status penalty to its Speeds.</p>\n<p>@Compendium[pf2e.bestiary-effects.7qoZauizAKfPIXeu]{Effect: Volcanic Purge}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1333,9 +1594,10 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "mce_19": "<p>If the next action Veshumirix uses is Breath Weapon, the magma clings to those it damages. Each creature that fails its save against the Breath Weapon takes [[/r {4d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and as long as it has this persistent fire damage, it also takes a -10-foot status penalty to its Speeds.</p>\n<p>@Compendium[pf2e.bestiary-effects.7qoZauizAKfPIXeu]{Effect: Volcanic Purge}</p>",
             "name": "Volcanic Purge",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1370,7 +1632,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1405,7 +1667,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1440,7 +1702,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1475,7 +1737,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1510,7 +1772,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2200000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -1545,7 +1807,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2300000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -1580,7 +1842,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2400000,
+            "sort": 2800000,
             "type": "lore"
         }
     ],
