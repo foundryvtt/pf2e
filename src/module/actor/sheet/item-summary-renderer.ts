@@ -176,11 +176,9 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.data.type) {
             case "spell":
-                if (chatData.isSave && chatData.save && typeof chatData.save === "object") {
+                if (chatData.isSave) {
                     const save = chatData.save as Record<string, unknown>;
-                    buttons.append(
-                        `<span>${game.i18n.localize("PF2E.SaveDCLabel")} ${save.dc} ${save.basic} ${save.str}</span>`
-                    );
+                    buttons.append(`<span>${save.label}</span>`);
                 }
 
                 if (actor instanceof CharacterPF2e) {

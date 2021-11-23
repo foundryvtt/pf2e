@@ -3,7 +3,10 @@ import { CheckPF2e, RollParameters } from "@system/rolls";
 import { RollNotePF2e } from "@module/notes";
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
-import { PredicatePF2e } from "./predication";
+import { PredicatePF2e } from "@system/predication";
+import { StatisticChatData } from "./data";
+
+export * from "./data";
 
 type AttackCheck = "attack-roll" | "spell-attack-roll";
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "flat-check" | AttackCheck;
@@ -53,7 +56,7 @@ export interface StatisticDifficultyClass {
     breakdown: string;
 }
 
-type CheckValue<T extends BaseStatisticData> = T extends StatisticDataWithCheck ? StatisticCheck : undefined;
+type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : undefined;
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
@@ -136,7 +139,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
-    dc(options?: { options?: string[] }): T extends StatisticDataWithDC ? StatisticDifficultyClass : undefined;
+    dc(options?: { options?: string[] }): T["dc"] extends object ? StatisticDifficultyClass : undefined;
 
     dc(options?: { options?: string[] }): StatisticDifficultyClass | undefined {
         const data = this.data;
@@ -164,5 +167,25 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     .join(", ");
             },
         };
+    }
+
+    /** Creates view data for sheets and chat messages */
+    getChatData(options: { options?: string[] } = {}): StatisticChatData<T> {
+        const checkData = this.check;
+        const dcData = this.dc({ options: options.options });
+        return {
+            check: checkData
+                ? {
+                      value: checkData.value,
+                      breakdown: checkData.breakdown,
+                  }
+                : undefined,
+            dc: dcData
+                ? {
+                      value: dcData.value,
+                      breakdown: dcData.breakdown,
+                  }
+                : undefined,
+        } as StatisticChatData<T>;
     }
 }

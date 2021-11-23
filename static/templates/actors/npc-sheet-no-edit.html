@@ -472,7 +472,7 @@
                             {{/each}}
 
                             {{#if chatData.isSave}}
-                            <span class="tag-legacy">{{localize "PF2E.SaveDCLabel"}} {{chatData.save.dc}} {{chatData.save.basic}} {{localize chatData.save.str}}</span>
+                            <span class="tag-legacy">{{chatData.save.label}}</span>
                             {{/if}}
                             {{#if chatData.isAttack}}
                             <span class="tag-legacy"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
