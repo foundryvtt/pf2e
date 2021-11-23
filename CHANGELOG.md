@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 2.19.2
+### Bug Fixes
+* (stwlam) Fix initiative rolls not persisting when rolling for multiple actors
+* (stwlam) Fix compendium browser not finding weapons by category or group
+* (Supe) Fix chat messages for spell attack rolls not having references to their originating items
+
+### Content Updates
+* (Abaddon) Brushup blue dragons in Bestiary 1
+* (rectulo) Correct level of the Eagle Eye and Firearm Expert feat
+* (SpartanCPA) Fix dedication resiliency feats
+
+### Core System Improvements
+* (tropic) Add source field to item sheets
+
 ## Version 2.19.1
 ### Bug Fixes
 * (Supe) Fix spell attack rolls not displaying target AC

@@ -15,11 +15,13 @@ import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";
-import { CheckPF2e, RollParameters } from "@system/rolls";
+import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
     AttackRollContext,
     CreatureSpeeds,
+    InitiativeRollParams,
+    InitiativeRollResult,
     LabeledSpeed,
     MovementType,
     SenseData,
@@ -261,7 +263,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             ability: initSkill,
             label,
             tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
-            roll: async (args: RollParameters): Promise<void> => {
+            roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
                 const options = args.options ?? [];
                 // Push skill name to options if not already there
                 if (!options.includes(longForm)) options.push(longForm);
@@ -285,16 +287,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
                         return null;
                     }
                 })();
-                if (!combatant) return;
+                if (!combatant) return null;
 
-                CheckPF2e.roll(
+                const roll = await CheckPF2e.roll(
                     new CheckModifier(label, systemData.attributes.initiative, args.modifiers),
                     { actor: this, type: "initiative", options, notes, dc: args.dc },
-                    args.event,
-                    (roll) => {
-                        game.combat?.setInitiative(combatant.id, roll.total);
-                    }
+                    args.event
                 );
+                if (!roll) return null;
+
+                // Update the tracker unless requested not to
+                const updateTracker = args.updateTracker ?? true;
+                if (updateTracker) {
+                    game.combat?.setInitiative(combatant.id, roll.total);
+                }
+
+                return { combatant, roll };
             },
         });
 
