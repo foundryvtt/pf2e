@@ -270,7 +270,7 @@ export class CheckPF2e {
                 }
                 return false;
             })
-            .map((note) => TextEditor.enrichHTML(note.text))
+            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
             .join("<br />");
 
         if (ctx.traits) {
