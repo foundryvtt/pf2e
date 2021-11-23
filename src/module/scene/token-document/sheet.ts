@@ -1,4 +1,5 @@
 import { VehiclePF2e } from "@actor";
+import { ErrorPF2e } from "@util";
 import { TokenDocumentPF2e } from ".";
 
 export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends TokenConfig<TDocument> {
@@ -53,8 +54,27 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         });
 
         if (game.settings.get("pf2e", "automation.rulesBasedVision")) {
-            $html.find('input[name$="Sight"]').closest(".form-group").val(0).css({ display: "none" });
-            $html.find('input[name="sightAngle"]').closest(".form-group").val(360).css({ display: "none" });
+            // Indicate that this setting is managed by rules-based vision
+            for (const selector of ["dimSight", "brightSight", "sightAngle"]) {
+                const $input = $html.find(`input[name="${selector}"]`);
+
+                if (selector === "brightSight") {
+                    const $managedBy = $("<p>").html(
+                        game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
+                    );
+                    $input.replaceWith($managedBy);
+                    $managedBy.closest(".form-group").addClass("managed-by-rbv");
+
+                    $managedBy.find("a").on("click", () => {
+                        const menu = game.settings.menus.get("pf2e.automation");
+                        if (!menu) throw ErrorPF2e("Automation Settings application not found");
+                        const app = new menu.type();
+                        app.render(true);
+                    });
+                } else {
+                    $input.remove();
+                }
+            }
         }
 
         super.activateListeners($html);

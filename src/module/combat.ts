@@ -1,5 +1,6 @@
 import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e } from "./combatant";
 
@@ -71,9 +72,12 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
                 combatant.actor instanceof CharacterPF2e || combatant.actor instanceof NPCPF2e
         );
         const rollResults = await Promise.all(
-            fightyCombatants.map((combatant) =>
-                combatant.actor.data.data.attributes.initiative.roll({ updateTracker: false })
-            )
+            fightyCombatants.map((combatant) => {
+                const checkType = combatant.actor.data.data.attributes.initiative.ability;
+                const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const options = combatant.actor.getRollOptions(["all", "initiative", skills[checkType] ?? checkType]);
+                return combatant.actor.data.data.attributes.initiative.roll({ options, updateTracker: false });
+            })
         );
 
         const initiatives = rollResults.flatMap((result) =>
