@@ -140,11 +140,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
-            baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
             otherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags, {
-                selectedOnly: true,
-            }),
-            baseOtherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, baseData.data.traits.otherTags ?? [], {
                 selectedOnly: true,
             }),
             adjustedLevelHint,
