@@ -218,7 +218,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
             const entry = this.actor.spellcasting.get(index);
             if (entry) {
-                entry.statistic.check.roll({ event, modifiers: [] });
+                entry.statistic.check.roll({ event });
             }
         });
 
