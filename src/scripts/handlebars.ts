@@ -123,7 +123,7 @@ export function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("enrichHTML", (html) => {
-        return TextEditor.enrichHTML(html);
+        return game.pf2e.TextEditor.enrichHTML(html);
     });
 
     Handlebars.registerHelper("json", (html) => {
