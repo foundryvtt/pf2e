@@ -94,6 +94,7 @@ import { Migration689EncumberanceActiveEffects } from "./migrations/689-encumber
 import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-items";
 import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-weapon-range-ability-category-group";
 import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-crafting-entry-feat-replacement";
+import { Migration693ArmorCategoryGroup } from "./migrations/693-armor-category-group";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -192,6 +193,7 @@ export class Migrations {
         Migration690InitiativeTiebreakItems,
         Migration691WeaponRangeAbilityCategoryGroup,
         Migration692CraftingEntryFeatReplacement,
+        Migration693ArmorCategoryGroup,
     ];
 
     static get latestVersion(): number {

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data";
+import { ArmorSource, ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
 /** Set the "hands" (usage) property of weapons */
@@ -84,8 +84,14 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "whip-claw",
     ]);
 
+    isShield(source: ItemSourcePF2e & { data: { armorType?: { value?: unknown } } }): source is MaybeOldShieldData {
+        return (
+            source.type === "armor" && (source.data.armorType?.value === "shield" || source.data.category === "shield")
+        );
+    }
+
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (itemSource.type === "armor" && itemSource.data.armorType.value === "shield") {
+        if (this.isShield(itemSource)) {
             itemSource.data.usage.value = "held-in-one-hand";
         } else if (itemSource.type === "weapon") {
             itemSource.data.usage ??= { value: "held-in-one-hand" };
@@ -111,4 +117,8 @@ export class Migration680SetWeaponHands extends MigrationBase {
             }
         }
     }
+}
+
+interface MaybeOldShieldData extends ArmorSource {
+    armorType?: { value?: unknown };
 }
