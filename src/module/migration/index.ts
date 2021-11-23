@@ -95,6 +95,7 @@ import { Migration690InitiativeTiebreakItems } from "./migrations/690-tiebreak-i
 import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-weapon-range-ability-category-group";
 import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-crafting-entry-feat-replacement";
 import { Migration693ArmorCategoryGroup } from "./migrations/693-armor-category-group";
+import { Migration694RetireSystemTokenSettings } from "./migrations/694-retire-system-token-settings";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -194,6 +195,7 @@ export class Migrations {
         Migration691WeaponRangeAbilityCategoryGroup,
         Migration692CraftingEntryFeatReplacement,
         Migration693ArmorCategoryGroup,
+        Migration694RetireSystemTokenSettings,
     ];
 
     static get latestVersion(): number {

@@ -164,54 +164,47 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext = {}
     ): Promise<InstanceType<A>[]> {
-        if (game.settings.get("pf2e", "defaultTokenSettings")) {
-            for (const datum of data) {
-                // Set wounds, advantage, and display name visibility
-                const nameMode = game.settings.get("pf2e", "defaultTokenSettingsName");
-                const barMode = game.settings.get("pf2e", "defaultTokenSettingsBar");
-                const merged = mergeObject(datum, {
-                    permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
-                    token: {
-                        bar1: { attribute: "attributes.hp" }, // Default Bar 1 to Wounds
-                        displayName: nameMode, // Default display name to be on owner hover
-                        displayBars: barMode, // Default display bars to be on owner hover
-                        flags: {
-                            // Sync token dimensions with actor size?
-                            pf2e: {
-                                linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
-                            },
+        for (const datum of data) {
+            // Set wounds, advantage, and display name visibility
+            const merged = mergeObject(datum, {
+                permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                token: {
+                    flags: {
+                        // Sync token dimensions with actor size?
+                        pf2e: {
+                            linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
                         },
                     },
-                });
+                },
+            });
 
-                // Set default token dimensions for familiars and vehicles
-                const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
-                merged.token.height ??= dimensionMap[datum.type!] ?? 1;
-                merged.token.width ??= merged.token.height;
+            // Set default token dimensions for familiars and vehicles
+            const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+            merged.token.height ??= dimensionMap[datum.type!] ?? 1;
+            merged.token.width ??= merged.token.height;
 
-                switch (merged.type) {
-                    case "character":
-                    case "familiar":
-                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
-                        // Default characters and their minions to having tokens with vision and an actor link
-                        merged.token.actorLink = true;
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-                        merged.token.vision = true;
-                        break;
-                    case "loot":
-                        // Make loot actors linked, interactable and neutral disposition
-                        merged.token.actorLink = true;
-                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
-                        break;
-                    case "npc":
-                        if (!merged.flags?.core?.sourceId) {
-                            merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
-                        }
-                        break;
-                    default:
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
-                }
+            switch (merged.type) {
+                case "character":
+                case "familiar":
+                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    // Default characters and their minions to having tokens with vision and an actor link
+                    merged.token.actorLink = true;
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                    merged.token.vision = true;
+                    break;
+                case "loot":
+                    // Make loot actors linked, interactable and neutral disposition
+                    merged.token.actorLink = true;
+                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                    break;
+                case "npc":
+                    if (!merged.flags?.core?.sourceId) {
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                    }
+                    break;
+                default:
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
             }
         }
 
@@ -292,11 +285,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken() {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const useSystemTokenSettings = game.settings.get("pf2e", "defaultTokenSettings");
         const tokenImgIsDefault =
             this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
         const tokenImgIsActorImg = this.data.token.img === this.img;
-        if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
+        if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
         }
 
