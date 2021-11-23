@@ -1129,12 +1129,12 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async filterItems(li: JQuery): Promise<void> {
+    async filterItems($lis: JQuery): Promise<void> {
         let counter = 0;
-        li.hide();
-        for (const spell of li) {
-            if (this.getFilterResult(spell)) {
-                $(spell).show();
+        $lis.hide();
+        for (const li of $lis) {
+            if (this.getFilterResult(li)) {
+                $(li).show();
                 counter += 1;
                 if (counter % 20 === 0) {
                     // Yield to the browser to render what it has
@@ -1224,7 +1224,6 @@ export class CompendiumBrowser extends Application {
             traits: {},
             itemtypes: {},
             rarity: {},
-            weapontype: {},
             consumabletype: {},
             proficiencies: {},
             actorsize: {},
