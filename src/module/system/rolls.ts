@@ -102,7 +102,7 @@ export class CheckPF2e {
             outcome: typeof DegreeOfSuccessText[number] | undefined,
             message: ChatMessagePF2e | ChatMessageDataPF2e
         ) => Promise<void> | void
-    ): Promise<ChatMessagePF2e | ChatMessageDataPF2e | undefined> {
+    ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -150,7 +150,7 @@ export class CheckPF2e {
                     new CheckModifiersDialog(check, resolve, context).render(true);
                 });
                 const rolled = await dialogClosed;
-                if (!rolled) return;
+                if (!rolled) return null;
             }
         }
 
@@ -334,7 +334,7 @@ export class CheckPF2e {
             await callback(roll, ctx.outcome, message);
         }
 
-        return message;
+        return roll;
     }
 
     /** Reroll a rolled check given a chat message. */
