@@ -20,7 +20,7 @@
     </div>
 
     <div class="card-buttons">
-        {{#if data.isSave}}<button type="button" data-action="save" data-save="{{data.save.value}}" data-dc="{{data.save.dc}}">{{localize "PF2E.SaveDCLabel"}} {{data.save.dc}} {{data.save.basic}} {{localize data.save.str}}</button>{{/if}}
+        {{#if data.isSave}}<button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.dc}}">{{data.save.label}}</button>{{/if}}
         {{#if data.isAttack}}
             <div class="spell-attack-buttons" data-visibility="owner">
                 <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>

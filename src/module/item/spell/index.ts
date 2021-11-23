@@ -234,18 +234,24 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         const statistic = trickData?.statistic || spellcasting?.statistic;
-        const spellDC = statistic?.dc({ options: [...this.traits] }).value;
-        const spellAttack = statistic?.check.value;
+        if (!statistic) {
+            console.warn(
+                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
+            );
+            return { ...systemData };
+        }
 
+        const statisticChatData = statistic.getChatData({ options: [...this.traits] });
+        const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
         const formula = this.getDamageFormula(level, rollData);
         const hasDamage = formula && formula !== "0";
 
-        // Spell saving throw text and DC
-        const save = duplicate(this.data.data.save);
-        save.dc = isSave ? spellDC : spellAttack;
-        save.str = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : "";
+        // Spell save label
+        const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : "";
+        const saveKey = systemData.save.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
+        const saveLabel = game.i18n.format(saveKey, { dc: spellDC, type: saveType });
 
         // Spell attack labels
         const isHeal = systemData.spellType.value === "heal";
@@ -294,9 +300,13 @@ export class SpellPF2e extends ItemPF2e {
         return {
             ...systemData,
             description: { value: description },
-            save,
             isAttack,
             isSave,
+            save: {
+                ...statisticChatData.dc,
+                type: systemData.save.value,
+                label: saveLabel,
+            },
             hasDamage,
             spellLvl: level,
             levelLabel,
