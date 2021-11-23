@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { LocalizePF2e } from "../system/localize";
+import { LocalizePF2e } from "@system/localize";
 
 type SettingsKey =
     | "dateTheme"
