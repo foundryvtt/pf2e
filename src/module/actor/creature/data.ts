@@ -19,7 +19,8 @@ import { SaveType } from "@actor/data";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
-import { RollParameters } from "@system/rolls";
+import { RollDataPF2e, RollParameters } from "@system/rolls";
+import { CombatantPF2e } from "@module/combatant";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -144,9 +145,19 @@ export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
+export interface InitiativeRollParams extends RollParameters {
+    /** Whether the encounter tracker should be updated with the roll result */
+    updateTracker?: boolean;
+}
+
+export interface InitiativeRollResult {
+    combatant: CombatantPF2e;
+    roll: Rolled<Roll<RollDataPF2e>>;
+}
+
 export type CreatureInitiative = InitiativeData &
     CheckModifier & {
-        roll: (parameters: RollParameters) => Promise<void>;
+        roll: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
         /**
          * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
          * constitutes a higher priority.

@@ -70,11 +70,30 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
             (combatant): combatant is Embedded<CombatantPF2e<CharacterPF2e | NPCPF2e>> =>
                 combatant.actor instanceof CharacterPF2e || combatant.actor instanceof NPCPF2e
         );
-        await Promise.all(
-            fightyCombatants.map((combatant) => combatant.actor.data.data.attributes.initiative.roll({}))
+        const rollResults = await Promise.all(
+            fightyCombatants.map((combatant) =>
+                combatant.actor.data.data.attributes.initiative.roll({ updateTracker: false })
+            )
         );
+
+        const initiatives = rollResults.flatMap((result) =>
+            result ? { id: result.combatant.id, value: result.roll.total } : []
+        );
+
+        this.setMultipleInitiatives(initiatives);
+
+        // Roll the rest with the parent method
         const remainingIds = ids.filter((id) => !fightyCombatants.some((c) => c.id === id));
         return super.rollInitiative(remainingIds, options);
+    }
+
+    /** Set the initiative of multiple combatants */
+    async setMultipleInitiatives(initiatives: { id: string; value: number }[]): Promise<void> {
+        const currentId = this.combatant?.id;
+        const updates = initiatives.map((i) => ({ _id: i.id, initiative: i.value }));
+        await this.updateEmbeddedDocuments("Combatant", updates);
+        // Ensure the current turn is preserved
+        await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
     /* -------------------------------------------- */
