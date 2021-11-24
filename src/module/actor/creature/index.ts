@@ -598,11 +598,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         let dc: CheckDC | null = null;
         let distance: number | null = null;
         if (ctx.target?.actor instanceof CreaturePF2e) {
+            // Target roll options
+            ctx.options.push(...ctx.target.actor.getSelfRollOptions("target"));
+
             // Clone the actor to recalculate its AC with contextual roll options
-            const traitRollOptions = attackTraits.map((trait) => `trait:${trait}`);
             const contextActor = ctx.target.actor.getContextualClone([
                 ...this.getSelfRollOptions("origin"),
-                ...traitRollOptions,
+                ...attackTraits.map((trait) => `trait:${trait}`),
             ]);
 
             dc = {
