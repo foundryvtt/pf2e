@@ -635,6 +635,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createDamageRollContext(event: JQuery.Event) {
         const ctx = this.createStrikeRollContext(["all", "damage-roll"]);
+        const targetRollOptions = ctx.target?.actor?.getSelfRollOptions("target") ?? [];
+        ctx.options.push(...targetRollOptions);
+
         return {
             event,
             options: Array.from(new Set(ctx.options)),
