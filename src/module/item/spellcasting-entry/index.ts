@@ -407,15 +407,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             return { value: signatureSpells.size, max: totalSlots };
         })();
 
-        const statistic = this.statistic;
-
         return {
             id: this.id,
             name: this.name,
-            statistic: {
-                check: { ...statistic.check },
-                dc: { ...statistic.dc() },
-            },
+            statistic: this.statistic.getChatData(),
             tradition: this.tradition,
             castingType: this.data.data.prepared.value,
             isPrepared: this.isPrepared,
