@@ -42,7 +42,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             super(data, context);
             this.rules = [];
             this.initialized = true;
-        } else if (data.type) {
+        } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
         }
