@@ -300,3 +300,8 @@ export function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "sol
     icon.classList.add(styleClass, glyphClass);
     return icon;
 }
+
+/** Short form of type and non-null check */
+export function isObject(value: unknown): value is object {
+    return typeof value === "object" && value !== null;
+}
