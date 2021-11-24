@@ -139,8 +139,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 condition.fromSystem && condition.isActive ? condition.slug ?? sluggify(condition.name) : []
             )
             .map((slug) => `${prefix}:condition:${slug}`);
+        if (conditions.includes(`${prefix}:condition:flat-footed`)) conditions.push(`${prefix}:flatFooted`);
 
-        return new Set([...this.traits].map((trait) => `${prefix}:trait:${trait}`).concat(conditions));
+        const traits = Array.from(this.traits);
+        return new Set([
+            ...traits.map((trait) => `${prefix}:${trait}`),
+            ...traits.map((trait) => `${prefix}:trait:${trait}`),
+            ...conditions,
+        ]);
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
