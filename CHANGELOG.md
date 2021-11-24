@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.19.3
+### Bug Fixes
+* (stwlam) Fix rerolling checks from chat messages
+* (stwlam) Fix rolling initiative from encounter tracker excluding roll options
+* (stwlam) Restore target roll options on strikes
+
 ## Version 2.19.2
 ### Bug Fixes
 * (stwlam) Fix initiative rolls not persisting when rolling for multiple actors
