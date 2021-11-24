@@ -44,6 +44,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
 
+        const rollData = this.item.getRollData();
+        data.data.description.value = game.pf2e.TextEditor.enrichHTML(this.item.description, { rollData });
+
         const itemData: ItemDataPF2e = data.item;
 
         mergeObject(data, {
