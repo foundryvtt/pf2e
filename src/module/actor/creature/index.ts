@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import { CreatureData } from "@actor/data";
 import {
     CheckModifier,
@@ -35,7 +35,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SKILL_EXPANDED, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/combatant";
 
@@ -236,14 +236,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
 
         const systemData = this.data.data;
-        const initSkill = systemData.attributes.initiative.ability || "perception";
+        const checkType = systemData.attributes.initiative.ability || "perception";
+
+        const [ability, initStat] =
+            checkType === "perception"
+                ? (["wis", systemData.attributes.perception] as const)
+                : ([systemData.skills[checkType]?.ability ?? "int", systemData.skills[checkType]] as const);
 
         const skillLongForms: Record<string, string | undefined> = SKILL_DICTIONARY;
-        const longForm = skillLongForms[initSkill] ?? initSkill;
-        const [ability, initStat] =
-            initSkill === "perception"
-                ? ["wis", systemData.attributes.perception]
-                : [SKILL_EXPANDED[longForm] ?? "int", systemData.skills[initSkill]];
+        const longForm = skillLongForms[checkType] ?? checkType;
         const modifiers = [
             initStat.modifiers.map((m) =>
                 m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
@@ -255,18 +256,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
         const skillName = game.i18n.localize(
-            initSkill === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[initSkill]
+            checkType === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[checkType]
         );
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
 
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
-            ability: initSkill,
+            ability: checkType,
             label,
             tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
-                const options = args.options ?? [];
-                // Push skill name to options if not already there
-                if (!options.includes(longForm)) options.push(longForm);
+                if (!("initiative" in this.data.data.attributes)) return null;
+
+                const options = Array.from(
+                    new Set([
+                        ...this.getRollOptions(["all", "initiative", `${ability}-based`, longForm]),
+                        ...(args.options ?? []),
+                    ])
+                );
+
                 if (this.data.type === "character") ensureProficiencyOption(options, initStat.rank ?? -1);
 
                 // Get or create the combatant
