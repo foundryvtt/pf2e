@@ -64,6 +64,7 @@ declare global {
         static on(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
+        static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
         static on(...args: HookParamsUpdateCombat): number;
         static on(...args: HookParamsUpdateWorldTime): number;
         static on(...args: HookParameters<string, any>): number;
@@ -94,6 +95,7 @@ declare global {
         static once(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
         static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
+        static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
         static once(...args: HookParamsUpdateWorldTime): number;
         static once(...args: HookParameters<string, any>): number;
 
