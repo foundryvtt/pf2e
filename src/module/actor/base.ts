@@ -10,7 +10,6 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
 import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
 import { ActorSheetPF2e } from "./sheet/base";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
@@ -514,60 +513,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         } else {
             ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
         }
-    }
-
-    /**
-     * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param roll The chat entry which contains the roll data
-     */
-    static async setCombatantInitiative(roll: JQuery): Promise<void> {
-        const skillRolled = roll.find(".flavor-text").text();
-        const valueRolled = parseFloat(roll.find(".dice-total").text());
-        const promises: Promise<void>[] = [];
-        for (const token of canvas.tokens.controlled) {
-            if (!game.combat) {
-                ui.notifications.error("No active encounters in the Combat Tracker.");
-                return;
-            }
-
-            const combatant = game.combat.getCombatantByToken(token.id);
-            if (!combatant) {
-                ui.notifications.error("You haven't added this token to the Combat Tracker.");
-                return;
-            }
-
-            // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
-            let value = valueRolled;
-            if (!combatant.actor?.hasPlayerOwner) {
-                value += 0.5;
-            }
-            const iniativeIsNow = game.i18n.format("PF2E.InitativeIsNow", { name: combatant.name, value: value });
-            const message = `
-      <div class="dice-roll">
-      <div class="dice-result">
-        <div class="dice-tooltip" style="display: none;">
-            <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span></span>
-            </div>
-        </div>
-        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
-        </div>
-      </div>
-      </div>
-      `;
-            await ChatMessagePF2e.create({
-                user: game.user.id,
-                speaker: { alias: token.name },
-                content: message,
-                whisper: ChatMessage.getWhisperRecipients("GM")?.map((user) => user.id),
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            });
-
-            promises.push(game.combat.setInitiative(combatant.id, value));
-        }
-
-        await Promise.all(promises);
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
