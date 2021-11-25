@@ -86,6 +86,8 @@ export function listen() {
         game.pf2e.TextEditor = TextEditorPF2e;
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        new HomebrewElements().refreshTags();
+        const homebrew = new HomebrewElements();
+        homebrew.refreshTags();
+        homebrew.registerModuleTags();
     });
 }
