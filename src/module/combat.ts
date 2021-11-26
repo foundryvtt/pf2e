@@ -2,7 +2,7 @@ import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
-import { CombatantPF2e } from "./combatant";
+import { CombatantPF2e, RolledCombatant } from "./combatant";
 
 export class CombatPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
@@ -24,6 +24,12 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return typeof a.initiative === "number" && typeof b.initiative === "number" && a.initiative === b.initiative
             ? resolveTie()
             : super._sortCombatants(a, b);
+    }
+
+    /** A public method to access _sortCombatants in order to get the combatant with the higher initiative */
+    getCombatantWithHigherInit(a: RolledCombatant, b: RolledCombatant): RolledCombatant | null {
+        const sortResult = this._sortCombatants(a, b);
+        return sortResult > 0 ? b : sortResult < 0 ? a : null;
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
