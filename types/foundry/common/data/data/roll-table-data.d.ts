@@ -22,7 +22,7 @@ declare module foundry {
         interface RollTableSource {
             _id: string;
             name: string;
-            img: string;
+            img?: ImagePath;
             description: string;
             results: TableResultSource[];
             formula: string;
@@ -48,6 +48,8 @@ declare module foundry {
         }
 
         interface RollTableData extends Omit<RollTableSource, "results"> {
+            img: ImagePath;
+
             readonly _source: RollTableSource;
         }
     }
