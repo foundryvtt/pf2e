@@ -11,6 +11,13 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
         return this.data.defeated;
     }
 
+    /** Can the user see this combatant's name? */
+    get canSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.token?.data.displayName ?? 0;
+        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.isOwner || !!this.actor?.hasPlayerOwner;
+    }
+
     hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
         if (this.parent !== than.parent) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");

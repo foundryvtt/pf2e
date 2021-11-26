@@ -33,6 +33,15 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
             onUpdate: (event) => this.onDropCombatant(event),
             onEnd: () => this.saveNewOrder(),
         });
+
+        for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+            const combatantId = row.getAttribute("data-combatant-id") ?? "";
+            const combatant = this.viewed?.combatants.get(combatantId, { strict: true });
+            const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
+            if (!combatant?.canSeeName && nameElement) {
+                nameElement.innerText = "";
+            }
+        }
     }
 
     /* -------------------------------------------- */
@@ -45,6 +54,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     ): Promise<void> {
         const control = event.currentTarget.dataset.control;
         if ((control === "rollNPC" || control === "rollAll") && this.viewed && event.ctrlKey) {
+            event.stopPropagation();
             await this.viewed[control]({ secret: true });
         } else {
             await super._onCombatControl(event);
@@ -57,6 +67,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     ): Promise<void> {
         const control = event.currentTarget.dataset.control;
         if (control === "rollInitiative" && this.viewed && event.ctrlKey) {
+            event.stopPropagation();
             const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
             const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
             await this.viewed.rollInitiative([combatant.id], { secret: true });
