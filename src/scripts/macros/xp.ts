@@ -85,23 +85,32 @@ export interface EncounterBudgets {
     extreme: number;
 }
 
-function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): EncounterBudget {
+const encounterNames = new Map<keyof EncounterBudgets, EncounterBudget>([
+    ["trivial", "Trivial"],
+    ["low", "Low"],
+    ["moderate", "Moderate"],
+    ["severe", "Severe"],
+    ["extreme", "Extreme"],
+]);
+
+function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): keyof EncounterBudgets {
     if (challenge < budgets.low) {
-        return "Trivial";
+        return "trivial";
     } else if (challenge < budgets.moderate) {
-        return "Low";
+        return "low";
     } else if (challenge < budgets.severe) {
-        return "Moderate";
+        return "moderate";
     } else if (challenge < budgets.extreme) {
-        return "Severe";
+        return "severe";
     } else {
-        return "Extreme";
+        return "extreme";
     }
 }
 
 interface XP {
     encounterBudgets: EncounterBudgets;
     rating: EncounterBudget;
+    ratingXP: number;
     xpPerPlayer: number;
     totalXP: number;
     partySize: number;
@@ -130,13 +139,16 @@ export function calculateXP(
         severe: Math.floor(budget * 1.5),
         extreme: Math.floor(budget * 2),
     };
-    const rating = calculateEncounterRating(totalXP, encounterBudgets);
+    const ratingKey = calculateEncounterRating(totalXP, encounterBudgets);
+    const ratingXP = encounterBudgets[ratingKey];
+    const rating = encounterNames.get(ratingKey)!;
     return {
         partyLevel,
         partySize,
         totalXP,
         encounterBudgets,
         rating,
+        ratingXP,
         xpPerPlayer: Math.floor((totalXP / partySize) * 4),
     };
 }
