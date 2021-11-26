@@ -25,6 +25,15 @@ export const UserVisibility = {
                     elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
                 }
             });
+
+            $html.find("[data-owner-title]").each((_idx, elem) => {
+                if (hasOwnership) {
+                    const value = elem.dataset.ownerTitle!;
+                    elem.setAttribute("title", value);
+                } else {
+                    elem.removeAttribute("data-owner-title");
+                }
+            });
         }
     },
 };
