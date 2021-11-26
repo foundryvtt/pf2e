@@ -43,9 +43,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
 
-        const rollData = this.item.getRollData();
-        data.data.description.value = game.pf2e.TextEditor.enrichHTML(this.item.description, { rollData });
-
         const itemData: ItemDataPF2e = data.item;
 
         mergeObject(data, {
@@ -155,6 +152,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected getBaseData(): ItemSheetDataPF2e<TItem> {
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
+
+        const rollData = this.item.getRollData();
+        itemData.data.description.value = game.pf2e.TextEditor.enrichHTML(itemData.data.description.value, {
+            rollData
+        });
 
         const isEditable = this.isEditable;
         return {
