@@ -11,6 +11,7 @@ import { DamageChatCard } from "@system/damage/chat-card";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
+import { UserVisibility } from "@scripts/ui/user-visibility";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -117,6 +118,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
+
+        // Show/Hide GM only sections, DCs, and other such elements
+        UserVisibility.process($html, { actor: this.actor });
 
         if (this.isDamageRoll) {
             await DamageButtons.append(this, $html);

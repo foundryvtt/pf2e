@@ -1,4 +1,5 @@
 import { EnrichContent } from "@scripts/ui/enrich-content";
+import { UserVisibility } from "@scripts/ui/user-visibility";
 
 /**
  * Patches the TextEditor to fix a core bug and eventually add new PF2e specific functionality
@@ -11,11 +12,7 @@ export class TextEditorPF2e extends TextEditor {
         const $html = $("<div/>");
         $html.html(content);
 
-        // remove elements the user does not have permission to see
-        $html.find('[data-visibility="none"]').remove();
-        if (!game.user.isGM) {
-            $html.find('[data-visibility="gm"]').remove();
-        }
+        UserVisibility.process($html);
 
         // Fix a core bug where roll data doesn't apply to the formula
         const rollData = options?.rollData;
