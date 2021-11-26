@@ -1,4 +1,3 @@
-import { getPropertySlots } from "../runes";
 import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
@@ -133,23 +132,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "armor") {
-            // Armor data
-            const slots = getPropertySlots(data);
-            this.assignPropertySlots(data, slots);
-            data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
-            data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
-            data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
-            data.categories = CONFIG.PF2E.armorTypes;
-            data.groups = CONFIG.PF2E.armorGroups;
-            data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
-            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.sizes = CONFIG.PF2E.actorSizes;
-
-            // Armor has derived traits: base traits are shown for editing
-            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
         } else if (itemData.type === "lore") {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
@@ -191,16 +173,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
         };
-    }
-
-    assignPropertySlots(data: Record<string, boolean>, number: number) {
-        const slots = [1, 2, 3, 4] as const;
-
-        for (const slot of slots) {
-            if (number >= slot) {
-                data[`propertyRuneSlots${slot}`] = true;
-            }
-        }
     }
 
     /** Prepare form options on the item sheet */
