@@ -39,9 +39,15 @@ declare class CombatTracker<
     TCombat extends Combat,
     TOptions extends CombatTrackerOptions = CombatTrackerOptions
 > extends SidebarTab<TOptions> {
-    constructor(options?: Partial<TOptions>);
-
     static override get defaultOptions(): CombatTrackerOptions;
+
+    /** Record a reference to the currently highlighted Token */
+    protected _highlighted: CollectionValue<TCombat["combatants"]>["token"];
+
+    /** Record the currently tracked Combat encounter */
+    viewed: TCombat | null;
+
+    constructor(options?: Partial<TOptions>);
 
     /** Return an array of Combat encounters which occur within the current Scene. */
     get combats(): TCombat[];
@@ -89,13 +95,13 @@ declare class CombatTracker<
      * Handle click events on Combat control buttons
      * @param event The originating mousedown event
      */
-    protected _onCombatControl(event: JQuery.TriggeredEvent<HTMLElement, HTMLElement, HTMLElement>): Promise<void>;
+    protected _onCombatControl(event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>): Promise<void>;
 
     /**
      * Handle a Combatant control toggle
      * @param event The originating mousedown event
      */
-    protected _onCombatantControl(event: MouseEvent): Promise<void>;
+    protected _onCombatantControl(event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>): Promise<void>;
 
     /**
      * Handle toggling the defeated status effect on a combatant Token
