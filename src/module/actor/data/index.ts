@@ -18,6 +18,10 @@ export type SaveType = typeof SAVE_TYPES[number];
 
 export type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
+export interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
+    secret?: boolean;
+}
+
 export {
     AbilityString,
     CharacterData,

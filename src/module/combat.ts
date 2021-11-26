@@ -1,5 +1,6 @@
 import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
@@ -71,7 +72,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
-    override async rollInitiative(ids: string[], options: RollInitiativeOptions = {}): Promise<this> {
+    override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
         const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);
         const fightyCombatants = combatants.filter(
             (combatant): combatant is Embedded<CombatantPF2e<CharacterPF2e | NPCPF2e>> =>
@@ -81,8 +82,16 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
             fightyCombatants.map((combatant) => {
                 const checkType = combatant.actor.data.data.attributes.initiative.ability;
                 const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
-                const options = combatant.actor.getRollOptions(["all", "initiative", skills[checkType] ?? checkType]);
-                return combatant.actor.data.data.attributes.initiative.roll({ options, updateTracker: false });
+                const rollOptions = combatant.actor.getRollOptions([
+                    "all",
+                    "initiative",
+                    skills[checkType] ?? checkType,
+                ]);
+                if (options.secret) rollOptions.push("secret");
+                return combatant.actor.data.data.attributes.initiative.roll({
+                    options: rollOptions,
+                    updateTracker: false,
+                });
             })
         );
 
@@ -148,4 +157,6 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
 
 export interface CombatPF2e {
     readonly data: foundry.data.CombatData<this, CombatantPF2e>;
+
+    rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }

@@ -36,11 +36,41 @@ export class EncounterTrackerPF2e extends CombatTracker<CombatPF2e> {
         });
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Allow CTRL-clicking to make the rolls blind */
+    protected override async _onCombatControl(
+        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
+    ): Promise<void> {
+        const control = event.currentTarget.dataset.control;
+        if ((control === "rollNPC" || control === "rollAll") && this.viewed && event.ctrlKey) {
+            await this.viewed[control]({ secret: true });
+        } else {
+            await super._onCombatControl(event);
+        }
+    }
+
+    /** Allow CTRL-clicking to make the roll blind */
+    protected override async _onCombatantControl(
+        event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
+    ): Promise<void> {
+        const control = event.currentTarget.dataset.control;
+        if (control === "rollInitiative" && this.viewed && event.ctrlKey) {
+            const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
+            const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
+            await this.viewed.rollInitiative([combatant.id], { secret: true });
+        } else {
+            await super._onCombatantControl(event);
+        }
+    }
+
     /** Handle the drop event of a dragged & dropped combatant */
     private async onDropCombatant(event: SortableEvent): Promise<void> {
         this.validateDrop(event);
 
-        const combat = game.combat!;
+        const combat = this.viewed!;
         const droppedId = event.item.getAttribute("data-combatant-id") ?? "";
         const dropped = combat.combatants.get(droppedId, { strict: true }) as RolledCombatant;
         if (typeof dropped.initiative !== "number") {
@@ -71,10 +101,10 @@ export class EncounterTrackerPF2e extends CombatTracker<CombatPF2e> {
     /** Save the new order, or reset the viewed order if no change was made */
     private async saveNewOrder(): Promise<void> {
         const newOrder = this.getCombatantsFromDOM();
-        const oldOrder = game.combat?.turns.filter((c) => c.initiative !== null) ?? [];
+        const oldOrder = this.viewed?.turns.filter((c) => c.initiative !== null) ?? [];
         const orderWasChanged = newOrder.some((c) => newOrder.indexOf(c) !== oldOrder.indexOf(c));
         if (orderWasChanged) {
-            await game.combat?.setMultipleInitiatives(newOrder.map((c) => ({ id: c.id, value: c.initiative })));
+            await this.viewed?.setMultipleInitiatives(newOrder.map((c) => ({ id: c.id, value: c.initiative })));
         } else {
             console.debug("No order change!?");
             this.render();
