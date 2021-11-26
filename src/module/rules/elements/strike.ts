@@ -1,3 +1,4 @@
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import {
@@ -19,6 +20,8 @@ import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../ru
 class StrikeRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
+    weapon: Embedded<WeaponPF2e>;
+
     constructor(data: StrikeSource, item: Embedded<ItemPF2e>) {
         data.range = Number(data.range) || null;
         super(data, item);
@@ -28,9 +31,31 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.data.baseType ??= null;
         this.data.range ??= null;
         this.data.traits ??= [];
+        this.data.replaceAll = !!(this.data.replaceAll ?? false);
+
+        this.weapon = this.constructWeapon();
     }
 
-    override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics) {
+    override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics): void {
+        const predicatePassed =
+            !this.data.predicate ||
+            ((): boolean => {
+                const rollOptions = this.actor.getRollOptions(["all", "attack", "attack-roll"]);
+                return this.data.predicate.test(rollOptions);
+            })();
+
+        if (predicatePassed) strikes.push(this.weapon);
+    }
+
+    /** Exclude other strikes if this rule element specifies that its strike replaces all others */
+    override onAfterPrepareData(): void {
+        if (this.data.replaceAll && this.actor.data.type === "character") {
+            const systemData = this.actor.data.data;
+            systemData.actions = systemData.actions.filter((action) => action.weapon === this.weapon);
+        }
+    }
+
+    private constructWeapon(): Embedded<WeaponPF2e> {
         const source: PreCreate<WeaponSource> = {
             _id: this.item.id,
             name: this.label,
@@ -49,12 +74,15 @@ class StrikeRuleElement extends RuleElementPF2e {
                 equipped: { value: true },
             },
         };
-        strikes.push(new WeaponPF2e(source, { parent: this.actor }) as Embedded<WeaponPF2e>);
+
+        return new WeaponPF2e(source, { parent: this.actor }) as Embedded<WeaponPF2e>;
     }
 }
 
 interface StrikeRuleElement {
     data: StrikeData;
+
+    get actor(): CharacterPF2e | NPCPF2e;
 }
 
 interface StrikeSource extends RuleElementSource {
@@ -66,6 +94,7 @@ interface StrikeSource extends RuleElementSource {
     damage?: unknown;
     range?: unknown;
     traits?: unknown;
+    replaceAll?: unknown;
     options?: unknown;
 }
 
@@ -78,6 +107,7 @@ interface StrikeData extends RuleElementData {
     damage?: { base?: WeaponDamage };
     range: WeaponRange | null;
     traits: WeaponTrait[];
+    replaceAll: boolean;
     options?: string[];
 }
 
