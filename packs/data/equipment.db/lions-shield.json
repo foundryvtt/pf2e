@@ -105,7 +105,6 @@
                 "value": 1
             },
             {
-                "acuity": "melee",
                 "category": "martial",
                 "damage": {
                     "base": {
@@ -124,18 +123,17 @@
                     "base": {
                         "damageType": "piercing",
                         "dice": 2,
-                        "die": "d6",
-                        "predicate": {
-                            "all": [
-                                "self:shield:raised"
-                            ]
-                        }
+                        "die": "d6"
                     }
                 },
                 "group": "shield",
                 "key": "Strike",
                 "label": "Lion's Shield (Activation)",
-                "range": null,
+                "predicate": {
+                    "all": [
+                        "self:shield:raised"
+                    ]
+                },
                 "traits": [
                     "deadly-d6"
                 ]
