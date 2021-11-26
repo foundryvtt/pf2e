@@ -29,7 +29,7 @@ declare global {
          * Determine the image icon path that should be used to portray this Combatant in the combat tracker or
          * elsewhere
          */
-        get img(): string;
+        get img(): VideoPath;
 
         /** A convenience reference to the current initiative score of this Combatant */
         get initiative(): number | null;
