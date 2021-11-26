@@ -1,6 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/rolls";
+import { ErrorPF2e } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override _getEntryContextOptions(): EntryContextOption[] {
@@ -24,9 +25,10 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
             // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
             // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-            const validActor = canvas.tokens.controlled[0]?.actor?.data.type === "npc";
-            const validRollType = $li.find(".dice-total-setInitiative-btn").length > 0;
-            return validActor && message.isRoll && validRollType;
+            const validActor =
+                message.token?.actor?.data.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
+            const validRollType = message.isRoll && message.isCheckRoll;
+            return validActor && validRollType;
         };
 
         const canReroll: ContextOptionCondition = (li): boolean => {
@@ -75,7 +77,23 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.ClickToSetInitiativeContext",
                 icon: '<i class="fas fa-fist-raised"></i>',
                 condition: canApplyInitiative,
-                callback: (li) => ActorPF2e.setCombatantInitiative(li),
+                callback: ($li) => {
+                    const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
+                    const roll = message.isRoll ? message.roll : null;
+                    if (!roll || Number.isNaN(roll.total || "NaN")) throw ErrorPF2e("No roll found");
+
+                    const token = message.token;
+                    if (!token) {
+                        ui.notifications.error(
+                            game.i18n.format("PF2E.Encounter.NoTokenInScene", {
+                                actor: message.actor?.name ?? message.user?.name ?? "",
+                            })
+                        );
+                        return;
+                    }
+
+                    token.setInitiative({ initiative: roll.total });
+                },
             },
             {
                 name: "PF2E.RerollMenu.HeroPoint",
