@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor/base";
+import { ErrorPF2e } from "@util";
 import { CombatPF2e } from "./combat";
 
 export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
@@ -8,6 +9,14 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
      */
     get defeated(): boolean {
         return this.data.defeated;
+    }
+
+    hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
+        if (this.parent !== than.parent) {
+            throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
+        }
+
+        return this.parent.getCombatantWithHigherInit(this, than) === this;
     }
 
     /**
@@ -45,3 +54,5 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
 export interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     readonly parent: CombatPF2e | null;
 }
+
+export type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };
