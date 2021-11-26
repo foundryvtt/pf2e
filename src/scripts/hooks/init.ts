@@ -85,8 +85,8 @@ export const Init = {
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
-            // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-            CONFIG.Combat.initiative.decimals = 1;
+            // Decimals are 😠
+            CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.combat = EncounterTrackerPF2e;
