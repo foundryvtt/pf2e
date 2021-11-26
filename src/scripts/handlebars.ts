@@ -35,6 +35,11 @@ export function registerHandlebarsHelpers() {
         return !arg;
     });
 
+    /** Return the first argument that is neither undefined nor null */
+    Handlebars.registerHelper("coalesce", (...args: unknown[]) => {
+        return args.find((arg) => arg !== undefined && arg !== null) ?? null;
+    });
+
     Handlebars.registerHelper("lower", (str) => {
         return String.prototype.toLowerCase.call(str ?? "");
     });
@@ -118,7 +123,7 @@ export function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("enrichHTML", (html) => {
-        return TextEditor.enrichHTML(html);
+        return game.pf2e.TextEditor.enrichHTML(html);
     });
 
     Handlebars.registerHelper("json", (html) => {

@@ -5,7 +5,7 @@ import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@mod
 import { ChatMessagePF2e } from "@module/chat-message";
 import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
-import type { HomebrewSettingsKey, HomebrewTag } from "@module/settings/homebrew";
+import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
@@ -43,6 +43,7 @@ import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
 import { CombatantPF2e } from "@module/combatant";
+import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
     interface Game {
@@ -78,6 +79,7 @@ declare global {
             Check: typeof CheckPF2e;
             RuleElements: typeof RuleElements;
             RuleElement: typeof RuleElementPF2e;
+            TextEditor: typeof TextEditorPF2e;
         };
     }
 
@@ -129,9 +131,6 @@ declare global {
 
         get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
 
-        get(module: "pf2e", setting: "defaultTokenSettings"): boolean;
-        get(module: "pf2e", setting: "defaultTokenSettingsBar"): number;
-        get(module: "pf2e", setting: "defaultTokenSettingsName"): string;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
         get(module: "pf2e", setting: "pfsSheetTab"): boolean;
@@ -144,9 +143,8 @@ declare global {
         get(module: "pf2e", setting: "seenUnionAnnouncement"): boolean;
     }
 
-    interface WorldSettingsStorage {
-        get(setting: "pf2e.worldSchemaVersion"): string | undefined;
-        getItem(setting: "pf2e.worldSchemaVersion"): string | null;
+    interface ClientSettingsMap {
+        get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
     }
 
     const BUILD_MODE: "development" | "production";

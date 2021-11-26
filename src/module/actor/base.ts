@@ -4,13 +4,12 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
 import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
 import { ActorSheetPF2e } from "./sheet/base";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
@@ -55,10 +54,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            if (data.type) {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
-            }
+            const ready = { pf2e: { ready: true } };
+            return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
         }
     }
 
@@ -132,6 +129,35 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
+    /** Get roll options from this actor's traits an other properties */
+    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const conditions = this.itemTypes.condition
+            .flatMap((condition) =>
+                condition.fromSystem && condition.isActive ? condition.slug ?? sluggify(condition.name) : []
+            )
+            .map((slug) => `${prefix}:condition:${slug}`);
+        if (conditions.includes(`${prefix}:condition:flat-footed`)) conditions.push(`${prefix}:flatFooted`);
+
+        const traits = Array.from(this.traits);
+        return new Set([
+            ...traits.map((trait) => `${prefix}:${trait}`),
+            ...traits.map((trait) => `${prefix}:trait:${trait}`),
+            ...conditions,
+        ]);
+    }
+
+    /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
+    getContextualClone(rollOptions: string[]): this {
+        const rollOptionsAll = rollOptions.reduce(
+            (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
+            {}
+        );
+        const flags: this["data"]["_source"]["flags"] = { pf2e: { rollOptions: { all: rollOptionsAll } } };
+        const overrideData: DeepPartial<this["data"]["_source"]> = { flags };
+
+        return this.clone(overrideData);
+    }
+
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
@@ -141,54 +167,47 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext = {}
     ): Promise<InstanceType<A>[]> {
-        if (game.settings.get("pf2e", "defaultTokenSettings")) {
-            for (const datum of data) {
-                // Set wounds, advantage, and display name visibility
-                const nameMode = game.settings.get("pf2e", "defaultTokenSettingsName");
-                const barMode = game.settings.get("pf2e", "defaultTokenSettingsBar");
-                const merged = mergeObject(datum, {
-                    permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
-                    token: {
-                        bar1: { attribute: "attributes.hp" }, // Default Bar 1 to Wounds
-                        displayName: nameMode, // Default display name to be on owner hover
-                        displayBars: barMode, // Default display bars to be on owner hover
-                        flags: {
-                            // Sync token dimensions with actor size?
-                            pf2e: {
-                                linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
-                            },
+        for (const datum of data) {
+            // Set wounds, advantage, and display name visibility
+            const merged = mergeObject(datum, {
+                permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                token: {
+                    flags: {
+                        // Sync token dimensions with actor size?
+                        pf2e: {
+                            linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
                         },
                     },
-                });
+                },
+            });
 
-                // Set default token dimensions for familiars and vehicles
-                const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
-                merged.token.height ??= dimensionMap[datum.type!] ?? 1;
-                merged.token.width ??= merged.token.height;
+            // Set default token dimensions for familiars and vehicles
+            const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+            merged.token.height ??= dimensionMap[datum.type!] ?? 1;
+            merged.token.width ??= merged.token.height;
 
-                switch (merged.type) {
-                    case "character":
-                    case "familiar":
-                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
-                        // Default characters and their minions to having tokens with vision and an actor link
-                        merged.token.actorLink = true;
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-                        merged.token.vision = true;
-                        break;
-                    case "loot":
-                        // Make loot actors linked, interactable and neutral disposition
-                        merged.token.actorLink = true;
-                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
-                        break;
-                    case "npc":
-                        if (!merged.flags?.core?.sourceId) {
-                            merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
-                        }
-                        break;
-                    default:
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
-                }
+            switch (merged.type) {
+                case "character":
+                case "familiar":
+                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    // Default characters and their minions to having tokens with vision and an actor link
+                    merged.token.actorLink = true;
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                    merged.token.vision = true;
+                    break;
+                case "loot":
+                    // Make loot actors linked, interactable and neutral disposition
+                    merged.token.actorLink = true;
+                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                    break;
+                case "npc":
+                    if (!merged.flags?.core?.sourceId) {
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                    }
+                    break;
+                default:
+                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
             }
         }
 
@@ -269,11 +288,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken() {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const useSystemTokenSettings = game.settings.get("pf2e", "defaultTokenSettings");
         const tokenImgIsDefault =
             this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
         const tokenImgIsActorImg = this.data.token.img === this.img;
-        if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
+        if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
         }
 
@@ -463,12 +481,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (canvas.tokens.controlled.length > 0) {
             const save = $(ev.currentTarget).attr("data-save") as SaveType;
             const dc = Number($(ev.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits?.value;
+            const itemTraits = item.data.data.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
                 if (actor.data.data.saves[save]?.roll) {
-                    const options = actor.getRollOptions(["all", "saving-throw", save]);
+                    const options = [
+                        ...actor.getRollOptions(["all", "saving-throw", save]),
+                        ...actor.getSelfRollOptions(),
+                        ...item.actor.getSelfRollOptions("origin"),
+                    ];
                     if (item instanceof SpellPF2e) {
                         options.push("magical", "spell");
                         if (Object.keys(item.data.data.damage.value).length > 0) {
@@ -477,73 +499,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     }
                     if (itemTraits) {
                         options.push(...itemTraits);
+                        options.push(...itemTraits.map((trait) => `trait:${trait}`));
                     }
                     actor.data.data.saves[save].roll({
                         event: ev,
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options,
+                        options: Array.from(new Set(options)),
                     });
                 } else {
                     actor.rollSave(ev, save);
                 }
             }
         } else {
-            throw ErrorPF2e(game.i18n.localize("PF2E.UI.errorTargetToken"));
+            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
         }
-    }
-
-    /**
-     * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param roll The chat entry which contains the roll data
-     */
-    static async setCombatantInitiative(roll: JQuery): Promise<void> {
-        const skillRolled = roll.find(".flavor-text").text();
-        const valueRolled = parseFloat(roll.find(".dice-total").text());
-        const promises: Promise<void>[] = [];
-        for (const token of canvas.tokens.controlled) {
-            if (!game.combat) {
-                ui.notifications.error("No active encounters in the Combat Tracker.");
-                return;
-            }
-
-            const combatant = game.combat.getCombatantByToken(token.id);
-            if (!combatant) {
-                ui.notifications.error("You haven't added this token to the Combat Tracker.");
-                return;
-            }
-
-            // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
-            let value = valueRolled;
-            if (!combatant.actor?.hasPlayerOwner) {
-                value += 0.5;
-            }
-            const iniativeIsNow = game.i18n.format("PF2E.InitativeIsNow", { name: combatant.name, value: value });
-            const message = `
-      <div class="dice-roll">
-      <div class="dice-result">
-        <div class="dice-tooltip" style="display: none;">
-            <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span></span>
-            </div>
-        </div>
-        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
-        </div>
-      </div>
-      </div>
-      `;
-            await ChatMessagePF2e.create({
-                user: game.user.id,
-                speaker: { alias: token.name },
-                content: message,
-                whisper: ChatMessage.getWhisperRecipients("GM")?.map((user) => user.id),
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            });
-
-            promises.push(game.combat.setInitiative(combatant.id, value));
-        }
-
-        await Promise.all(promises);
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
@@ -904,11 +873,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
      * Roll option in this case is a predication property used for filtering.
      */
-    getRollOptions(rollNames: string[]): string[] {
+    getRollOptions(domains: string[]): string[] {
         const rollOptions = this.data.flags.pf2e.rollOptions;
         const results = new Set<string>();
-        for (const name of rollNames) {
-            for (const [key, value] of Object.entries(rollOptions[name] ?? {})) {
+        for (const domain of domains) {
+            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
                 if (value) results.add(key);
             }
         }

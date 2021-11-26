@@ -1,7 +1,8 @@
 import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
-import { CombatantPF2e } from "./combatant";
+import { CombatantPF2e, RolledCombatant } from "./combatant";
 
 export class CombatPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
@@ -23,6 +24,12 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return typeof a.initiative === "number" && typeof b.initiative === "number" && a.initiative === b.initiative
             ? resolveTie()
             : super._sortCombatants(a, b);
+    }
+
+    /** A public method to access _sortCombatants in order to get the combatant with the higher initiative */
+    getCombatantWithHigherInit(a: RolledCombatant, b: RolledCombatant): RolledCombatant | null {
+        const sortResult = this._sortCombatants(a, b);
+        return sortResult > 0 ? b : sortResult < 0 ? a : null;
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
@@ -70,11 +77,33 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
             (combatant): combatant is Embedded<CombatantPF2e<CharacterPF2e | NPCPF2e>> =>
                 combatant.actor instanceof CharacterPF2e || combatant.actor instanceof NPCPF2e
         );
-        await Promise.all(
-            fightyCombatants.map((combatant) => combatant.actor.data.data.attributes.initiative.roll({}))
+        const rollResults = await Promise.all(
+            fightyCombatants.map((combatant) => {
+                const checkType = combatant.actor.data.data.attributes.initiative.ability;
+                const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const options = combatant.actor.getRollOptions(["all", "initiative", skills[checkType] ?? checkType]);
+                return combatant.actor.data.data.attributes.initiative.roll({ options, updateTracker: false });
+            })
         );
+
+        const initiatives = rollResults.flatMap((result) =>
+            result ? { id: result.combatant.id, value: result.roll.total } : []
+        );
+
+        this.setMultipleInitiatives(initiatives);
+
+        // Roll the rest with the parent method
         const remainingIds = ids.filter((id) => !fightyCombatants.some((c) => c.id === id));
         return super.rollInitiative(remainingIds, options);
+    }
+
+    /** Set the initiative of multiple combatants */
+    async setMultipleInitiatives(initiatives: { id: string; value: number }[]): Promise<void> {
+        const currentId = this.combatant?.id;
+        const updates = initiatives.map((i) => ({ _id: i.id, initiative: i.value }));
+        await this.updateEmbeddedDocuments("Combatant", updates);
+        // Ensure the current turn is preserved
+        await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
     /* -------------------------------------------- */

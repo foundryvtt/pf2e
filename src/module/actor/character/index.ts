@@ -52,6 +52,7 @@ import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
+import { PhysicalItemSource } from "@item/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -91,6 +92,16 @@ export class CharacterPF2e extends CreaturePF2e {
         return deepClone(this.data.data.resources.heroPoints);
     }
 
+    /** Add options from ancestry and class */
+    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const options = super.getSelfRollOptions(prefix);
+        const [ancestry, pcClass] = [this.ancestry, this.class];
+        if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
+        if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
+
+        return options;
+    }
+
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
@@ -121,6 +132,39 @@ export class CharacterPF2e extends CreaturePF2e {
         const craftingEntryData = this.data.data.crafting.entries[selector];
         if (!craftingEntryData) return;
         return new CraftingEntry(this, craftingFormulas, craftingEntryData);
+    }
+
+    async performDailyCrafting() {
+        const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
+        const alchemicalEntries = entries.filter((e) => e.isAlchemical);
+        const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
+        const reagentValue = (this.data.data.resources.crafting.infusedReagents.value || 0) - reagentCost;
+        if (reagentValue < 0) {
+            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+            return;
+        } else {
+            await this.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+        }
+
+        // Remove infused/temp items
+        for (const item of this.physicalItems) {
+            if (item.data.data.temporary?.value) await item.delete();
+        }
+
+        for (const entry of entries) {
+            for (const prepData of entry.preparedFormulas) {
+                const item: PhysicalItemSource = prepData.item.toObject();
+                item.data.quantity.value = prepData.quantity || 1;
+                item.data.temporary = { value: true };
+                if (
+                    entry.isAlchemical &&
+                    (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
+                ) {
+                    item.data.traits.value.push("infused");
+                }
+                await this.addToInventory(item);
+            }
+        }
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -992,7 +1036,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
         const linkedRank = ((): number => {
-            const statements = weapon.getContextStrings();
+            const statements = weapon.getItemRollOptions();
             const linkedProficiency = Object.values(systemData.martial)
                 .filter((p): p is LinkedProficiency => "sameAs" in p)
                 .find((proficiency) => proficiency.predicate.test(statements));
@@ -1217,7 +1261,8 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
-                    const context = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
+                    const traits = weapon.getItemRollOptions("");
+                    const context = this.createAttackRollContext({ traits });
                     const options = [
                         ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
                     ];

@@ -81,8 +81,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getContextStrings(prefix = "weapon"): string[] {
-        return super.getContextStrings(prefix).concat(
+    override getItemRollOptions(prefix = "weapon"): string[] {
+        return super.getItemRollOptions(prefix).concat(
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,

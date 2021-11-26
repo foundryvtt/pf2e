@@ -7,16 +7,17 @@ import { MigrationBase } from "@module/migration/base";
 import { BaseWeaponType } from "@item/weapon/data";
 
 import "@yaireo/tagify/src/tagify.scss";
-import { objectHasKey, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify } from "@util";
 import { ItemSheetPF2e } from "@item/sheet/base";
+import { isHomebrewFlag } from "./helpers";
 
-export type ConfigPF2eHomebrewList = typeof HomebrewElements.SETTINGS[number];
-export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewList}`;
+export type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
+export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
 
-export interface HomebrewTag<T extends ConfigPF2eHomebrewList = ConfigPF2eHomebrewList> {
+export interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
-        : T extends Exclude<ConfigPF2eHomebrewList, "baseWeapons">
+        : T extends Exclude<ConfigPF2eHomebrewRecord, "baseWeapons">
         ? keyof ConfigPF2e["PF2E"][T]
         : never;
     value: string;
@@ -51,8 +52,8 @@ export class HomebrewElements extends SettingsMenuPF2e {
         return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.html" });
     }
 
-    protected static override get settings(): Record<ConfigPF2eHomebrewList, PartialSettingsData> {
-        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewList; value: PartialSettingsData } => {
+    protected static override get settings(): Record<ConfigPF2eHomebrewRecord, PartialSettingsData> {
+        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewRecord; value: PartialSettingsData } => {
             return {
                 key,
                 value: {
@@ -64,7 +65,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
             };
         }).reduce(
             (settings, setting) => mergeObject(settings, { [setting.key]: setting.value }),
-            {} as Record<ConfigPF2eHomebrewList, ClientSettingsData & { placeholder: string }>
+            {} as Record<ConfigPF2eHomebrewRecord, ClientSettingsData & { placeholder: string }>
         );
     }
 
@@ -120,7 +121,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     protected override async _updateObject(
         _event: Event,
-        data: Record<ConfigPF2eHomebrewList, HomebrewTag[]>
+        data: Record<ConfigPF2eHomebrewRecord, HomebrewTag[]>
     ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
@@ -139,7 +140,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private processDeletions(listKey: ConfigPF2eHomebrewList, newTagList: HomebrewTag[]): MigrationBase | null {
+    private processDeletions(listKey: ConfigPF2eHomebrewRecord, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -161,22 +162,11 @@ export class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */
-    refreshTags() {
+    refreshTags(): void {
         for (const listKey of HomebrewElements.SETTINGS) {
-            // The base-weapons map only exists in the localization file
-            const coreElements: Record<string, string> =
-                listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
             const settingsKey: HomebrewSettingsKey = `homebrew.${listKey}` as const;
             const elements = game.settings.get("pf2e", settingsKey);
-            for (const element of elements) {
-                coreElements[element.id] = element.value;
-                if (objectHasKey(this.secondaryRecords, listKey)) {
-                    for (const recordKey of this.secondaryRecords[listKey]) {
-                        const record: Record<string, string> = CONFIG.PF2E[recordKey];
-                        record[element.id] = element.value;
-                    }
-                }
-            }
+            this.updateConfigRecords(elements, listKey);
         }
 
         // Refresh any open sheets to show the new settings
@@ -188,6 +178,51 @@ export class HomebrewElements extends SettingsMenuPF2e {
             );
             for (const sheet of sheets) {
                 sheet.render(false);
+            }
+        }
+    }
+
+    /** Register homebrew elements stored in a prescribed location in module flags */
+    registerModuleTags(): void {
+        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+        for (const [key, foundryModule] of activeModules) {
+            const homebrew = foundryModule.data.flags?.[key]?.["pf2e-homebrew"];
+            if (isObject(homebrew) && isHomebrewFlag(homebrew)) {
+                for (const recordKey of HomebrewElements.SETTINGS) {
+                    const elements = homebrew[recordKey] ?? {};
+                    // A registered tag can be a string label or an object containing a label and description
+                    const tags = Object.entries(elements).map(([id, value]) => ({
+                        id: `hb_${id}`,
+                        value: typeof value === "string" ? value : value.label,
+                    })) as unknown as HomebrewTag[];
+                    this.updateConfigRecords(tags, recordKey);
+
+                    // Register descriptions if present
+                    for (const [key, value] of Object.entries(elements)) {
+                        if (typeof value === "object") {
+                            const hbKey = `hb_${key}` as unknown as keyof ConfigPF2e["PF2E"]["traitsDescriptions"];
+                            CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private getConfigRecord(recordKey: ConfigPF2eHomebrewRecord): Record<string, string> {
+        return recordKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[recordKey];
+    }
+
+    private updateConfigRecords(elements: HomebrewTag[], listKey: ConfigPF2eHomebrewRecord): void {
+        // The base-weapons map only exists in the localization file
+        const coreElements: Record<string, string> = this.getConfigRecord(listKey);
+        for (const element of elements) {
+            coreElements[element.id] = element.value;
+            if (objectHasKey(this.secondaryRecords, listKey)) {
+                for (const recordKey of this.secondaryRecords[listKey]) {
+                    const record: Record<string, string> = CONFIG.PF2E[recordKey];
+                    record[element.id] = element.value;
+                }
             }
         }
     }

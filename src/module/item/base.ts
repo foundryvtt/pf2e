@@ -42,7 +42,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             super(data, context);
             this.rules = [];
             this.initialized = true;
-        } else if (data.type) {
+        } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
         }
@@ -162,7 +162,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /**
      * Internal method that transforms data into something that can be used for chat.
-     * Currently renders description text using TextEditor.enrichHTML()
+     * Currently renders description text using enrichHTML.
      */
     protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
         htmlOptions: EnrichHTMLOptions = {},
@@ -171,7 +171,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
+            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
                 ...htmlOptions,
                 rollData: htmlOptions.rollData ?? this.getRollData(),
             });

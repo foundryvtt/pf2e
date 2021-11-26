@@ -1,5 +1,45 @@
 # Changelog
 
+## Version 2.19.3
+### Bug Fixes
+* (stwlam) Fix rerolling checks from chat messages
+* (stwlam) Fix rolling initiative from encounter tracker excluding roll options
+* (stwlam) Restore target roll options on strikes
+
+## Version 2.19.2
+### Bug Fixes
+* (stwlam) Fix initiative rolls not persisting when rolling for multiple actors
+* (stwlam) Fix compendium browser not finding weapons by category or group
+* (Supe) Fix chat messages for spell attack rolls not having references to their originating items
+
+### Content Updates
+* (Abaddon) Brushup blue dragons in Bestiary 1
+* (rectulo) Correct level of the Eagle Eye and Firearm Expert feat
+* (SpartanCPA) Fix dedication resiliency feats
+
+### Core System Improvements
+* (tropic) Add source field to item sheets
+
+## Version 2.19.1
+### Bug Fixes
+* (Supe) Fix spell attack rolls not displaying target AC
+* (stwlam) Fix actor sheets being ostensibly editable in locked compendia
+* (stwlam) Fix update path to hero points when rerolling from chat cards
+* (stwlam) Fix typo in @Localize syntax on Scarlet Triad Agent
+* (stwlam) Fix renamed attack effects appearing as slugs on NPC sheets
+
+### Content Updates
+* (rectulo) Fix rain of bolts feat prerequisites
+* (rectulo) Fix formatting of arcane slam feat
+* (rectulo) Fix formatting of the core cannon feat
+* (SpartanCPA) Update Erinys and the variants in AV Book 2
+* (stwlam) Fix typo in Caligni Vanguard's Death Blaze ability
+
+### Core System Improvements
+* (Bolt) Make Strike RE assume melee when range not specified
+* (stwlam) Add self: and origin: contextual roll options for use by rules elements
+* (stwlam) Tidy up Strike rule element, have it accommodate invalid/omitted range properties
+
 ## Version 2.19.0
 ### New Features
 * (stwlam) Add a scene-darkness adjuster to lighting controls

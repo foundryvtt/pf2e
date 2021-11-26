@@ -1,0 +1,64 @@
+{
+    "_id": "kHRbOHKEedKaBFH5",
+    "data": {
+        "description": {
+            "value": "<p>The creature gains a +1 status bonus to AC and saves against evil creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "origin:trait:evil"
+                    ]
+                },
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "origin:trait:evil"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/divine-aura.webp",
+    "name": "Effect: Transfer Protection",
+    "type": "effect"
+}

@@ -1,12 +1,12 @@
 import { MigrationBase } from "@module/migration/base";
 import { ItemSourcePF2e, MeleeSource, WeaponSource } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
-import { ConfigPF2eHomebrewList } from "./index";
+import { ConfigPF2eHomebrewRecord } from ".";
 import { objectHasKey } from "@util";
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from "@actor/character/data";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 
-export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: string[]): MigrationBase {
+export function prepareCleanup(listKey: ConfigPF2eHomebrewRecord, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
         static override version = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
 

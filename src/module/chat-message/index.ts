@@ -3,13 +3,14 @@ import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
-import { TokenPF2e } from "@module/canvas";
 import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { DamageChatCard } from "@system/damage/chat-card";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
+import { TokenDocumentPF2e } from "@scene";
+import { SetAsInitiative } from "./listeners/set-as-initiative";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -107,10 +108,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the token of the speaker if possible */
-    get token(): TokenPF2e | null {
+    get token(): TokenDocumentPF2e | null {
         if (!canvas.ready) return null;
-        const tokenId = this.data.speaker.token;
-        return canvas.tokens.placeables.find((token) => token.id === tokenId) ?? null;
+        const sceneId = this.data.speaker.scene ?? "";
+        const tokenId = this.data.speaker.token ?? "";
+        return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
     override async getHTML(): Promise<JQuery> {
@@ -128,6 +130,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         ChatCards.listen($html);
         InlineRollsLinks.listen($html);
         DegreeOfSuccessHighlights.listen(this, $html);
+        if (canvas.ready) SetAsInitiative.listen($html);
 
         $html.find(".tag[data-trait]").each((_idx, span) => {
             const $tag = $(span);
@@ -149,19 +152,19 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     private onHoverIn(): void {
-        const token = this.token;
+        const token = this.token?.object;
         if (token?.isVisible && !token.isControlled) {
             token.emitHoverIn();
         }
     }
 
     private onHoverOut(): void {
-        this.token?.emitHoverOut();
+        this.token?.object.emitHoverOut();
     }
 
     private onClick(event: JQuery.ClickEvent): void {
         event.preventDefault();
-        const token = this.token;
+        const token = this.token?.object;
         if (token?.isVisible) {
             token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }

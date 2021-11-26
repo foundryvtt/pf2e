@@ -365,7 +365,7 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list tags">
-        {{#each baseTraits as |trait|}}
+        {{#each traits as |trait|}}
             <li class="tag">{{localize trait.label}}</li>
         {{/each}}
     </ul>
@@ -375,10 +375,10 @@
     <label>
         {{localize "PF2E.Item.Weapon.OtherTags.Label"}}
         <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Weapon.OtherTags.Hint"></i>
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Weapon.OtherTags.Label" data-property="data.otherTags"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="otherWeaponTags" data-title="PF2E.Item.Weapon.OtherTags.Label" data-property="data.traits.otherTags"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list tags">
-        {{#each baseOtherTags as |tag|}}
+        {{#each otherTags as |tag|}}
             <li class="tag tag_alt">{{localize tag.label}}</li>
         {{/each}}
     </ul>

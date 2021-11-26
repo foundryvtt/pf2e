@@ -28,7 +28,7 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
-import { registerSettings } from "@module/settings";
+import { registerSettings } from "@system/settings";
 import { loadPF2ETemplates } from "@module/templates";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
@@ -85,8 +85,8 @@ export const Init = {
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
-            // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-            CONFIG.Combat.initiative.decimals = 1;
+            // Decimals are 😠
+            CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.combat = EncounterTrackerPF2e;

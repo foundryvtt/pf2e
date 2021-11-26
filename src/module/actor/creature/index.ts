@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import { CreatureData } from "@actor/data";
 import {
     CheckModifier,
@@ -15,12 +15,13 @@ import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";
-import { CheckPF2e, RollParameters } from "@system/rolls";
+import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
-    AlignmentComponent,
     AttackRollContext,
     CreatureSpeeds,
+    InitiativeRollParams,
+    InitiativeRollResult,
     LabeledSpeed,
     MovementType,
     SenseData,
@@ -34,7 +35,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SKILL_EXPANDED, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/combatant";
 
@@ -159,6 +160,31 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Add alignment traits and other creature properties self roll options */
+    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
+        const options = super.getSelfRollOptions(prefix);
+
+        const { alignment } = this;
+        const alignmentTraits = [
+            ...new Set([
+                ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
+                ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
+                ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
+                ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
+            ]),
+        ].map((trait) => `${prefix}:trait:${trait}`);
+
+        for (const trait of alignmentTraits) options.add(trait);
+
+        const { itemTypes } = this;
+        const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
+        if (targetIsSpellcaster) options.add(`${prefix}:caster`);
+
+        if (this.hitPoints.negativeHealing) options.add(`${prefix}:negative-healing`);
+
+        return options;
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -183,6 +209,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
 
+        /** Set initial roll options for AE-like predicates */
+        for (const option of this.getSelfRollOptions()) {
+            this.rollOptions.all[option] = true;
+        }
+
         for (const rule of this.rules) {
             rule.onApplyActiveEffects();
         }
@@ -205,14 +236,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
 
         const systemData = this.data.data;
-        const initSkill = systemData.attributes.initiative.ability || "perception";
+        const checkType = systemData.attributes.initiative.ability || "perception";
+
+        const [ability, initStat] =
+            checkType === "perception"
+                ? (["wis", systemData.attributes.perception] as const)
+                : ([systemData.skills[checkType]?.ability ?? "int", systemData.skills[checkType]] as const);
 
         const skillLongForms: Record<string, string | undefined> = SKILL_DICTIONARY;
-        const longForm = skillLongForms[initSkill] ?? initSkill;
-        const [ability, initStat] =
-            initSkill === "perception"
-                ? ["wis", systemData.attributes.perception]
-                : [SKILL_EXPANDED[longForm] ?? "int", systemData.skills[initSkill]];
+        const longForm = skillLongForms[checkType] ?? checkType;
         const modifiers = [
             initStat.modifiers.map((m) =>
                 m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
@@ -224,18 +256,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
         const skillName = game.i18n.localize(
-            initSkill === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[initSkill]
+            checkType === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[checkType]
         );
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
 
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
-            ability: initSkill,
+            ability: checkType,
             label,
             tiebreakPriority: this.data.data.attributes.initiative.tiebreakPriority,
-            roll: async (args: RollParameters): Promise<void> => {
-                const options = args.options ?? [];
-                // Push skill name to options if not already there
-                if (!options.includes(longForm)) options.push(longForm);
+            roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
+                if (!("initiative" in this.data.data.attributes)) return null;
+
+                const options = Array.from(
+                    new Set([
+                        ...this.getRollOptions(["all", "initiative", `${ability}-based`, longForm]),
+                        ...(args.options ?? []),
+                    ])
+                );
+
                 if (this.data.type === "character") ensureProficiencyOption(options, initStat.rank ?? -1);
 
                 // Get or create the combatant
@@ -256,16 +294,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
                         return null;
                     }
                 })();
-                if (!combatant) return;
+                if (!combatant) return null;
 
-                CheckPF2e.roll(
+                const roll = await CheckPF2e.roll(
                     new CheckModifier(label, systemData.attributes.initiative, args.modifiers),
                     { actor: this, type: "initiative", options, notes, dc: args.dc },
-                    args.event,
-                    (roll) => {
-                        game.combat?.setInitiative(combatant.id, roll.total);
-                    }
+                    args.event
                 );
+                if (!roll) return null;
+
+                // Update the tracker unless requested not to
+                const updateTracker = args.updateTracker ?? true;
+                if (updateTracker) {
+                    game.combat?.setInitiative(combatant.id, roll.total);
+                }
+
+                return { combatant, roll };
             },
         });
 
@@ -552,18 +596,34 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    protected createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]): AttackRollContext {
-        const ctx = this.createStrikeRollContext(rollNames);
+    /**
+     * Calculates attack roll target data including the target's DC.
+     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
+     * but more can be added via the options.
+     */
+    createAttackRollContext(options: { domains?: string[]; traits?: string[] } = {}): AttackRollContext {
+        const domains = ["all", "attack-roll", ...(options?.domains ?? [])];
+        const attackTraits = ["attack", ...(options.traits ?? [])];
+        const ctx = this.createStrikeRollContext(domains);
         let dc: CheckDC | null = null;
         let distance: number | null = null;
         if (ctx.target?.actor instanceof CreaturePF2e) {
+            // Target roll options
+            ctx.options.push(...ctx.target.actor.getSelfRollOptions("target"));
+
+            // Clone the actor to recalculate its AC with contextual roll options
+            const contextActor = ctx.target.actor.getContextualClone([
+                ...this.getSelfRollOptions("origin"),
+                ...attackTraits.map((trait) => `trait:${trait}`),
+            ]);
+
             dc = {
                 label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
                     creature: ctx.target.name,
                     dc: "{dc}",
                 }),
                 scope: "AttackOutcome",
-                value: ctx.target.actor.data.data.attributes.ac.value,
+                value: contextActor.attributes.ac.value,
             };
 
             // calculate distance
@@ -575,7 +635,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
         return {
-            event,
             options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
             dc,
@@ -585,6 +644,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createDamageRollContext(event: JQuery.Event) {
         const ctx = this.createStrikeRollContext(["all", "damage-roll"]);
+        const targetRollOptions = ctx.target?.actor?.getSelfRollOptions("target") ?? [];
+        ctx.options.push(...targetRollOptions);
+
         return {
             event,
             options: Array.from(new Set(ctx.options)),
@@ -592,62 +654,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    private createStrikeRollContext(rollNames: string[]) {
-        const options = this.getRollOptions(rollNames);
-
-        const getAlignmentTraits = (alignment: Alignment): AlignmentComponent[] => {
-            return [
-                ...new Set([
-                    ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
-                    ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
-                    ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
-                    ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
-                ]),
-            ];
-        };
-        const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
-        options.push(
-            ...conditions
-                .map((condition) => [`self:${condition.data.data.hud.statusName}`, `condition:${condition.slug}`])
-                .flat(),
-            ...getAlignmentTraits(this.alignment).map((alignment) => `trait:${alignment}`)
-        );
-        if (this.hitPoints.negativeHealing) {
-            options.push("negative-healing");
-        }
+    private createStrikeRollContext(domains: string[]) {
+        const options = [...this.getRollOptions(domains), ...this.getSelfRollOptions()];
 
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e
         );
         const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
-        if (target?.actor instanceof CreaturePF2e) {
-            if (target.actor.hitPoints.negativeHealing) {
-                options.push("target:negative-healing");
-            }
-
-            const { itemTypes } = target.actor;
-            const targetConditions = itemTypes.condition.filter((condition) => condition.fromSystem);
-            const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
-            options.push(
-                ...targetConditions
-                    .map((condition) => [
-                        `target:${condition.data.data.hud.statusName}`,
-                        `target:condition:${condition.slug}`,
-                    ])
-                    .flat(),
-                ...getAlignmentTraits(target.actor.alignment).map((alignment) => `target:trait:${alignment}`),
-                ...(targetIsSpellcaster ? ["target:caster"] : []).flat()
-            );
-        }
-
-        const traits = (target?.actor?.data.data.traits.traits.custom ?? "")
-            .split(/[;,\\|]/)
-            .map((value) => value.trim())
-            .concat(target?.actor?.data.data.traits.traits.value ?? [])
-            .filter((value) => !!value)
-            .map((trait) => [`target:${trait}`, `target:trait:${trait}`])
-            .flat();
-        options.push(...traits);
 
         return {
             options: [...new Set(options)],

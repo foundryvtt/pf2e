@@ -102,7 +102,7 @@ export class CheckPF2e {
             outcome: typeof DegreeOfSuccessText[number] | undefined,
             message: ChatMessagePF2e | ChatMessageDataPF2e
         ) => Promise<void> | void
-    ): Promise<ChatMessagePF2e | ChatMessageDataPF2e | undefined> {
+    ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -150,7 +150,7 @@ export class CheckPF2e {
                     new CheckModifiersDialog(check, resolve, context).render(true);
                 });
                 const rolled = await dialogClosed;
-                if (!rolled) return;
+                if (!rolled) return null;
             }
         }
 
@@ -270,7 +270,7 @@ export class CheckPF2e {
                 }
                 return false;
             })
-            .map((note) => TextEditor.enrichHTML(note.text))
+            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
             .join("<br />");
 
         if (ctx.traits) {
@@ -328,13 +328,13 @@ export class CheckPF2e {
                 rollMode: ctx.rollMode ?? "roll",
                 create: ctx.createMessage === undefined ? true : ctx.createMessage,
             }
-        )) as ChatMessagePF2e;
+        )) as ChatMessagePF2e | ChatMessageDataPF2e;
 
         if (callback) {
             await callback(roll, ctx.outcome, message);
         }
 
-        return message;
+        return roll;
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -352,7 +352,7 @@ export class CheckPF2e {
                 const heroPointCount = actor.heroPoints.value;
                 if (heroPointCount) {
                     await actor.update({
-                        "data.attributes.heroPoints.rank": Math.clamped(heroPointCount - 1, 0, 3),
+                        "data.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, 3),
                     });
                     rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
                 } else {
@@ -374,48 +374,50 @@ export class CheckPF2e {
             context.skipDialog = true;
             context.isReroll = true;
 
-            const newMessage = await CheckPF2e.roll(check, context);
-            if (!(newMessage instanceof foundry.data.ChatMessageData)) return;
+            await CheckPF2e.roll(check, context, undefined, async (newRoll, _degreeOfSuccess, newMessage) => {
+                if (!(newRoll instanceof Roll)) return;
 
-            const oldRoll = message.roll;
-            const newRoll = Roll.fromData(JSON.parse(newMessage.roll.toString())) as Rolled<Roll<RollDataPF2e>>;
+                const oldRoll = message.roll;
 
-            // Keep the new roll by default; Old roll is discarded
-            let keepRoll = newRoll;
-            let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
+                // Keep the new roll by default; Old roll is discarded
+                let keepRoll = newRoll;
+                let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
-            // Check if we should keep the old roll instead.
-            if (
-                (keep === "best" && oldRoll.total > newRoll.total) ||
-                (keep === "worst" && oldRoll.total < newRoll.total)
-            ) {
-                // If so, switch the css classes and keep the old roll.
-                [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
-                keepRoll = oldRoll;
-            }
-            const renders = {
-                old: await CheckPF2e.renderReroll(oldRoll),
-                new: await CheckPF2e.renderReroll(newRoll),
-            };
-
-            const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
-            rerollIcon.classList.add("pf2e-reroll-indicator");
-            rerollIcon.setAttribute("title", rerollFlavor);
-
-            await message.delete({ render: false });
-            await keepRoll.toMessage(
-                {
-                    content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
-                    flavor: `${rerollIcon.outerHTML}${newMessage.flavor}`,
-                    speaker: message.data.speaker,
-                    flags: {
-                        pf2e: flags,
-                    },
-                },
-                {
-                    rollMode: context?.rollMode ?? "roll",
+                // Check if we should keep the old roll instead.
+                if (
+                    (keep === "best" && oldRoll.total > newRoll.total) ||
+                    (keep === "worst" && oldRoll.total < newRoll.total)
+                ) {
+                    // If so, switch the css classes and keep the old roll.
+                    [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
+                    keepRoll = oldRoll;
                 }
-            );
+                const renders = {
+                    old: await CheckPF2e.renderReroll(oldRoll),
+                    new: await CheckPF2e.renderReroll(newRoll),
+                };
+
+                const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
+                rerollIcon.classList.add("pf2e-reroll-indicator");
+                rerollIcon.setAttribute("title", rerollFlavor);
+
+                await message.delete({ render: false });
+                const newFlavor =
+                    (newMessage instanceof ChatMessagePF2e ? newMessage.data.flavor : newMessage.flavor) ?? "";
+                await keepRoll.toMessage(
+                    {
+                        content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
+                        flavor: `${rerollIcon.outerHTML}${newFlavor}`,
+                        speaker: message.data.speaker,
+                        flags: {
+                            pf2e: flags,
+                        },
+                    },
+                    {
+                        rollMode: context?.rollMode ?? "roll",
+                    }
+                );
+            });
         }
     }
 

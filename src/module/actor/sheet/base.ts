@@ -16,7 +16,7 @@ import {
     TagSelectorBasic,
     ResistanceSelector,
     SenseSelector,
-    TraitSelectorSpeeds,
+    SpeedSelector,
     WeaknessSelector,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
@@ -27,7 +27,6 @@ import {
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
-import { SKILL_DICTIONARY } from "@actor/data/values";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
@@ -35,7 +34,6 @@ import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 import { ActorDataPF2e, SaveType } from "@actor/data";
-import { SkillAbbreviation } from "@actor/creature/data";
 import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
@@ -72,10 +70,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
-
-    override get isEditable(): boolean {
-        return this.actor.canUserModify(game.user, "update");
-    }
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -254,11 +248,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 "initiative" in this.actor.data.data.attributes &&
                 "roll" in this.actor.data.data.attributes.initiative
             ) {
-                const checkType = this.actor.data.data.attributes.initiative.ability as unknown as SkillAbbreviation;
-                const options = this.actor.getRollOptions(
-                    ["all", "initiative"].concat(SKILL_DICTIONARY[checkType] ?? checkType)
-                );
-                this.actor.data.data.attributes.initiative.roll({ event, options });
+                this.actor.data.data.attributes.initiative.roll({ event });
             }
         });
 
@@ -1230,7 +1220,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const TagSelector = {
                 resistances: ResistanceSelector,
                 senses: SenseSelector,
-                "speed-types": TraitSelectorSpeeds,
+                "speed-types": SpeedSelector,
                 weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);

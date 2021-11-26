@@ -1,50 +1,31 @@
 import { ModifierPF2e } from "@module/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import type { ConditionData, ConditionSource } from "@item/data";
+import { ConditionData, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e, ItemPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
+import { ErrorPF2e, sluggify } from "@util";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
-    static _compediumConditions: Map<string, ConditionData> = new Map();
-    static _customConditions: Map<string, ConditionData> = new Map();
+    private static _conditions: Map<string, ConditionData> = new Map();
 
-    static _compendiumConditionStatusNames: Map<string, ConditionData> = new Map();
-    static _customStatusNames: Map<string, ConditionData> = new Map();
+    static _conditionStatusNames: Map<string, ConditionData> = new Map();
 
-    static __conditionsCache: Map<string, ConditionData> = new Map();
-
-    /**
-     * Gets a collection of conditions.
-     * @return A list of status names.
-     */
-    public static get conditions(): Map<string, ConditionData> {
-        if (ConditionManager.__conditionsCache.size === 0) {
-            this.__conditionsCache = new Map<string, ConditionData>();
-
-            this._compediumConditions.forEach((condition, name) =>
-                this.__conditionsCache.set(name, deepClone(condition))
-            );
-            this._customConditions.forEach((condition, name) => this.__conditionsCache.set(name, deepClone(condition)));
-
-            Object.freeze(this.__conditionsCache);
-        }
-
-        return this.__conditionsCache;
+    /** Gets a copy of the conditions Map */
+    static get conditions(): Map<string, ConditionData> {
+        return new Map(this._conditions.entries());
     }
 
-    /** Gets a list of condition names. */
-    public static get conditionsNames(): IterableIterator<string> {
-        return Array.from(this._compediumConditions.keys()).concat(Array.from(this._customConditions.keys())).values();
+    /** Gets a list of condition slugs. */
+    static get conditionsNames(): string[] {
+        return [...this._conditions.keys()];
     }
 
     /** Gets a list of status names. */
-    public static get statusNames(): IterableIterator<string> {
-        return Array.from(this._compendiumConditionStatusNames.keys())
-            .concat(Array.from(this._customStatusNames.keys()))
-            .values();
+    static get statusNames(): string[] {
+        return [...this._conditionStatusNames.keys()];
     }
 
     static async init() {
@@ -52,32 +33,24 @@ export class ConditionManager {
             (await game.packs.get<CompendiumCollection<ConditionPF2e>>("pf2e.conditionitems")?.getDocuments()) ?? [];
 
         for (const condition of content) {
-            this._compediumConditions.set(condition.name.toLowerCase(), condition.data);
-            this._compendiumConditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
+            this._conditions.set(condition.slug, condition.data);
+            this._conditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
         }
 
-        Object.freeze(ConditionManager._compediumConditions);
-        Object.freeze(ConditionManager._compendiumConditionStatusNames);
+        Object.freeze(ConditionManager._conditions);
+        Object.freeze(ConditionManager._conditionStatusNames);
     }
 
     /**
      * Get a condition using the condition name.
-     * @param conditionKey A list of conditions
+     * @param conditionKey A condition slug
      */
-    public static getCondition(conditionKey: string): ConditionData {
-        conditionKey = conditionKey.toLocaleLowerCase();
+    static getCondition(conditionKey: string): ConditionData {
+        conditionKey = sluggify(conditionKey);
+        const condition = ConditionManager._conditions.get(conditionKey)?.toObject();
+        if (!condition) throw ErrorPF2e("Unexpected failure looking up condition");
 
-        const condition = deepClone(
-            ConditionManager._customConditions.get(conditionKey) ??
-                ConditionManager._compediumConditions.get(conditionKey) ??
-                ConditionManager._compediumConditions.get(conditionKey.replace(/-/g, " "))
-        );
-
-        if (!condition) {
-            throw Error("PF2e System | Unexpected failure looking up condition");
-        }
-
-        return condition;
+        return new ConditionData(condition);
     }
 
     /**
@@ -85,49 +58,8 @@ export class ConditionManager {
      * @param statusName A list of conditions
      */
     public static getConditionByStatusName(statusName: string): ConditionData | undefined {
-        if (ConditionManager._customStatusNames.has(statusName)) {
-            return deepClone(ConditionManager._customStatusNames.get(statusName));
-        } else {
-            const conditionData = this._compendiumConditionStatusNames.get(statusName);
-            return conditionData === undefined ? undefined : deepClone(conditionData);
-        }
-    }
-
-    /**
-     * Creates a new custom condition object.
-     * @param name The name of the condition.
-     * @param data The condition data to use.
-     * @return True if the object was created.
-     */
-    public static createCustomCondition(name: string, data: ConditionData): boolean {
-        name = name.toLocaleLowerCase();
-
-        if (ConditionManager._customConditions.has(name)) {
-            return false;
-        }
-
-        data.flags.pf2e.condition = true;
-
-        this._customConditions.set(name, data);
-        this._customStatusNames.set(data.data.hud.statusName, data);
-
-        return true;
-    }
-
-    /**
-     * Deletes a custom condition object.
-     * @param name The name of the condition.
-     * @return True if the object was deleted.
-     */
-    public static deleteCustomCondition(name: string): boolean {
-        name = name.toLocaleLowerCase();
-
-        if (ConditionManager._customConditions.has(name)) {
-            this._customConditions.delete(name);
-            return true;
-        }
-
-        return false;
+        const conditionData = this._conditionStatusNames.get(statusName);
+        return conditionData && new ConditionData(conditionData.toObject());
     }
 
     /**
