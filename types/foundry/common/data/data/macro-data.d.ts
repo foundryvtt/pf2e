@@ -4,7 +4,7 @@ declare module foundry {
             _id: string;
             name: string;
             type: "chat" | "script";
-            img: string;
+            img: ImagePath;
             actorIds: string[];
             author: string;
             command: string;
