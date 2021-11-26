@@ -898,7 +898,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 source.data.damage.die = "d6";
             }
 
-            return new WeaponPF2e(source, { parent: this }) as Embedded<WeaponPF2e>;
+            return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
         synthetics.strikes.unshift(unarmed);
 
