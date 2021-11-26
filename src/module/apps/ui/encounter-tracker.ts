@@ -18,6 +18,9 @@ export class EncounterTrackerPF2e extends CombatTracker<CombatPF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
+        // Defer to Combat Enhancements module if in use
+        if (game.modules.get("combat-enhancements")?.active) return;
+
         const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
 
