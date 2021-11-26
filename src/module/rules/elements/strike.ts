@@ -75,7 +75,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             },
         };
 
-        return new WeaponPF2e(source, { parent: this.actor }) as Embedded<WeaponPF2e>;
+        return new WeaponPF2e(source, { parent: this.actor, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
     }
 }
 

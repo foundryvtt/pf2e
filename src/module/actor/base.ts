@@ -55,7 +55,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
+            return new CONFIG.PF2E.Actor.documentClasses[data.type!](data, { ...ready, ...context });
         }
     }
 
@@ -175,7 +175,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
+                            linkToActorSize: !["hazard", "loot"].includes(datum.type!),
                         },
                     },
                 },
