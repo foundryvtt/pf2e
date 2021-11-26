@@ -16,7 +16,7 @@ import {
     TagSelectorBasic,
     ResistanceSelector,
     SenseSelector,
-    TraitSelectorSpeeds,
+    SpeedSelector,
     WeaknessSelector,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
@@ -1220,7 +1220,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const TagSelector = {
                 resistances: ResistanceSelector,
                 senses: SenseSelector,
-                "speed-types": TraitSelectorSpeeds,
+                "speed-types": SpeedSelector,
                 weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);

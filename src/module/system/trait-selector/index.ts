@@ -1,7 +1,7 @@
 export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
 export { ResistanceSelector } from "./resistances";
 export { SenseSelector } from "./senses";
-export { TraitSelectorSpeeds } from "./speeds";
+export { SpeedSelector } from "./speeds";
 export { WeaknessSelector } from "./weaknesses";
 export { TagSelectorOptions } from "./base";
 

@@ -1,9 +1,9 @@
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { LabeledValue } from "@module/data";
+import { LabeledString } from "@module/data";
 import { TagSelectorBase, TagSelectorOptions } from "./base";
 import { SelectableTagField } from "./index";
 
-export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
+export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.attributes.speed.otherSpeeds";
 
     static override get defaultOptions(): TagSelectorOptions {
@@ -24,16 +24,17 @@ export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
             data.hasExceptions = true;
         }
 
-        const choices: any = {};
-        const resistances: LabeledValue[] = getProperty(this.object.data, this.objectProperty);
-        Object.entries(this.choices).forEach(([type, label]) => {
-            const res = resistances.find((res) => res.type === type);
+        const choices: Record<string, { selected: boolean; label: string; value: string }> = {};
+        const speeds: LabeledString[] = getProperty(this.object.data, this.objectProperty);
+        const speedLabels: Record<string, string> = CONFIG.PF2E.speedTypes;
+        for (const [type] of Object.entries(this.choices)) {
+            const speed = speeds.find((res) => res.type === type);
             choices[type] = {
-                label,
-                selected: res !== undefined,
-                value: res?.value ?? "",
+                selected: !!speed,
+                label: game.i18n.localize(speedLabels[type]),
+                value: speed?.value ?? "",
             };
-        });
+        }
         data.choices = choices;
 
         return data;
@@ -64,13 +65,12 @@ export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
     }
 
     protected getUpdateData(formData: Record<string, unknown>) {
-        type TagChoice = { type: string; label: string; value: string };
+        type TagChoice = { type: string; value: string };
         const choices: TagChoice[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && Array.isArray(v) && v[0]) {
                 if (!Number.isNaN(Number(v[1])) && v[1]) {
-                    const label = this.choices[k];
-                    choices.push({ type: k, label, value: v[1] });
+                    choices.push({ type: k, value: v[1] });
                 }
             }
         }
