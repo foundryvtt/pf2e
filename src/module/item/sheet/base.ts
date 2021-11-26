@@ -249,22 +249,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
-    /**
-     * Get the action image to use for a particular action type.
-     */
-    protected getActionImg(action: string): ImagePath {
-        const img: Record<string, ImagePath> = {
-            0: "systems/pf2e/icons/default-icons/mystery-man.svg",
-            1: "systems/pf2e/icons/actions/OneAction.webp",
-            2: "systems/pf2e/icons/actions/TwoActions.webp",
-            3: "systems/pf2e/icons/actions/ThreeActions.webp",
-            free: "systems/pf2e/icons/actions/FreeAction.webp",
-            reaction: "systems/pf2e/icons/actions/Reaction.webp",
-            passive: "systems/pf2e/icons/actions/Passive.webp",
-        };
-        return img[action ?? "0"];
-    }
-
     private async addDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const newKey = randomID(20);
