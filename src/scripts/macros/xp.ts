@@ -85,13 +85,18 @@ export interface EncounterBudgets {
     extreme: number;
 }
 
-const encounterNames = new Map<keyof EncounterBudgets, EncounterBudget>([
-    ["trivial", "Trivial"],
-    ["low", "Low"],
-    ["moderate", "Moderate"],
-    ["severe", "Severe"],
-    ["extreme", "Extreme"],
-]);
+function generateEncounterBudgets(partySize: number): EncounterBudgets {
+    const budget = partySize * 20;
+    return {
+        trivial: Math.floor(budget * 0.5),
+        low: Math.floor(budget * 0.75),
+        moderate: budget,
+        severe: Math.floor(budget * 1.5),
+        extreme: Math.floor(budget * 2),
+    };
+}
+
+const rewardEncounterBudgets = generateEncounterBudgets(4);
 
 function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): keyof EncounterBudgets {
     if (challenge < budgets.low) {
@@ -109,7 +114,7 @@ function calculateEncounterRating(challenge: number, budgets: EncounterBudgets):
 
 interface XP {
     encounterBudgets: EncounterBudgets;
-    rating: EncounterBudget;
+    rating: keyof EncounterBudgets;
     ratingXP: number;
     xpPerPlayer: number;
     totalXP: number;
@@ -124,7 +129,6 @@ export function calculateXP(
     hazards: HazardLevel[],
     dcOptions: DCOptions
 ): XP {
-    const budget = partySize * 20;
     const creatureChallenge = npcLevels
         .map((level) => calculateCreatureXP(partyLevel, level, dcOptions))
         .reduce((a, b) => a + b, 0);
@@ -132,16 +136,9 @@ export function calculateXP(
         .map((hazard) => getHazardXp(partyLevel, hazard, dcOptions))
         .reduce((a, b) => a + b, 0);
     const totalXP = creatureChallenge + hazardChallenge;
-    const encounterBudgets = {
-        trivial: Math.floor(budget * 0.5),
-        low: Math.floor(budget * 0.75),
-        moderate: budget,
-        severe: Math.floor(budget * 1.5),
-        extreme: Math.floor(budget * 2),
-    };
-    const ratingKey = calculateEncounterRating(totalXP, encounterBudgets);
-    const ratingXP = encounterBudgets[ratingKey];
-    const rating = encounterNames.get(ratingKey)!;
+    const encounterBudgets = generateEncounterBudgets(partySize);
+    const rating = calculateEncounterRating(totalXP, encounterBudgets);
+    const ratingXP = rewardEncounterBudgets[rating];
     return {
         partyLevel,
         partySize,
