@@ -22,7 +22,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         } = await super.getData();
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
-        const potencyRuneValue = sheetData.data.potencyRune.value ?? 0;
+        const potencyRuneValue =
+            game.settings.get("pf2e", "automaticBonusVariant") === "ABPFundamentalPotency"
+                ? 4
+                : sheetData.data.potencyRune.value ?? 0;
         const propertyRuneSlots = [
             [1, sheetData.data.propertyRune1],
             [2, sheetData.data.propertyRune2],
