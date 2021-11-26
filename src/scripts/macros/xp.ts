@@ -99,13 +99,13 @@ function generateEncounterBudgets(partySize: number): EncounterBudgets {
 const rewardEncounterBudgets = generateEncounterBudgets(4);
 
 function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): keyof EncounterBudgets {
-    if (challenge < budgets.low) {
+    if (challenge <= budgets.trivial) {
         return "trivial";
-    } else if (challenge < budgets.moderate) {
+    } else if (challenge <= budgets.low) {
         return "low";
-    } else if (challenge < budgets.severe) {
+    } else if (challenge <= budgets.moderate) {
         return "moderate";
-    } else if (challenge < budgets.extreme) {
+    } else if (challenge <= budgets.severe) {
         return "severe";
     } else {
         return "extreme";
