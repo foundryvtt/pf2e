@@ -20,6 +20,7 @@ import { WeaponSheetPF2e } from "@item/weapon/sheet";
 import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
+import { ArmorSheetPF2e } from "@item/armor/sheet";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -95,15 +96,6 @@ export function registerSheets() {
         });
     }
 
-    for (const itemType of PHYSICAL_ITEM_TYPES) {
-        if (["book", "weapon"].includes(itemType)) continue;
-        Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
-            types: [itemType],
-            label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
-            makeDefault: true,
-        });
-    }
-
     const sheetEntries = [
         ["action", ActionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
@@ -116,11 +108,22 @@ export function registerSheets() {
         ["spell", SpellSheetPF2e],
         ["kit", KitSheetPF2e],
         ["weapon", WeaponSheetPF2e],
+        ["armor", ArmorSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
         Items.registerSheet("pf2e", Sheet, {
             types: [type],
             label: game.i18n.format(sheetLabel, { type: localizeType(type) }),
+            makeDefault: true,
+        });
+    }
+
+    // Add any missing physical item sheets
+    for (const itemType of PHYSICAL_ITEM_TYPES) {
+        if (sheetEntries.some(([type, _sheet]) => itemType === type)) continue;
+        Items.registerSheet("pf2e", PhysicalItemSheetPF2e, {
+            types: [itemType],
+            label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
         });
     }
