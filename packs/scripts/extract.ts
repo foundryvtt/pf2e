@@ -191,7 +191,8 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             delete entityData.flags[flagScope];
         }
     }
-    entityData.img = entityData.img.replace(
+
+    entityData.img &&= entityData.img.replace(
         "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
         "systems/pf2e/"
     ) as ImagePath;
