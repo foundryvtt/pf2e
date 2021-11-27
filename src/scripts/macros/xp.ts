@@ -75,8 +75,6 @@ function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptio
     }
 }
 
-export type EncounterBudget = "Trivial" | "Low" | "Moderate" | "Severe" | "Extreme";
-
 export interface EncounterBudgets {
     trivial: number;
     low: number;
