@@ -148,6 +148,8 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
+
+    const _templateCache: Record<string, unknown>;
 }
 
 type ConfiguredConfig = Config<
