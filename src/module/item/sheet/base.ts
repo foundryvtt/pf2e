@@ -96,17 +96,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.detailsActive = true;
             data.damageTypes = CONFIG.PF2E.damageTypes;
 
-            // Melee attack effects can be chosen from the NPC's actions
-            const attackEffectOptions: Record<string, string> =
-                this.actor?.itemTypes.action.reduce((options, action) => {
-                    const key = action.slug ?? sluggify(action.name);
-                    return mergeObject(options, { [key]: action.name }, { inplace: false });
-                }, CONFIG.PF2E.attackEffects) ?? {};
-            this.actor?.itemTypes.consumable.forEach((consumable) => {
-                const key = consumable.slug ?? sluggify(consumable.name);
-                attackEffectOptions[key] = consumable.name;
-            });
-            data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
+            data.attackEffects = this.prepareOptions(this.getAttackEffectOptions(), data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.npcAttackTraits, data.data.traits, { selectedOnly: true });
         } else if (itemData.type === "condition") {
             // Condition types
@@ -233,22 +223,26 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (noCustom) {
             selectorOptions.allowCustom = false;
         } else if (this.actor && configTypes.includes("attackEffects")) {
-            // Melee attack effects can be chosen from the NPC's actions
-            const attackEffectOptions: Record<string, string> = this.actor.itemTypes.action.reduce(
-                (options, action) => {
-                    const key = action.slug ?? sluggify(action.name);
-                    return mergeObject(options, { [key]: action.name }, { inplace: false });
-                },
-                CONFIG.PF2E.attackEffects
-            );
-            this.actor?.itemTypes.consumable.forEach((consumable) => {
-                const key = consumable.slug ?? sluggify(consumable.name);
-                attackEffectOptions[key] = consumable.name;
-            });
-            selectorOptions.customChoices = attackEffectOptions;
+            selectorOptions.customChoices = this.getAttackEffectOptions();
         }
 
         new TagSelectorBasic(this.item, selectorOptions).render(true);
+    }
+
+    /**
+     * Get NPC attack effect options
+     */
+    protected getAttackEffectOptions(): Record<string, string> {
+        // Melee attack effects can be chosen from the NPC's actions and consumable items
+        const attackEffectOptions: Record<string, string> =
+            this.actor?.items
+                .filter((item) => item.type === "action" || item.type === "consumable")
+                .reduce((options, item) => {
+                    const key = item.slug ?? sluggify(item.name);
+                    return mergeObject(options, { [key]: item.name }, { inplace: false });
+                }, CONFIG.PF2E.attackEffects) ?? {};
+
+        return attackEffectOptions;
     }
 
     private async addDamageRoll(event: JQuery.TriggeredEvent) {
