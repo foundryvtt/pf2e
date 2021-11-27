@@ -218,7 +218,7 @@ export function sluggify(label: string, { camel = null }: { camel?: "dromedary" 
         }
         case "dromedary":
             return label
-                .replace(/'/g, "")
+                .replace(/[^-\w\s]/g, "")
                 .replace(/[-_]+/g, " ")
                 .replace(/(?:^\w|[A-Z]|\b\w)/g, (part, index) =>
                     index === 0 ? part.toLowerCase() : part.toUpperCase()
