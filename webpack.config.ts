@@ -2,7 +2,9 @@ import * as fs from "fs-extra";
 import * as os from "os";
 import * as path from "path";
 import * as process from "process";
-import { Configuration, DefinePlugin } from "webpack";
+import glob from "glob";
+import { Configuration as WebpackConfiguration, DefinePlugin } from "webpack";
+import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import copyWebpackPlugin from "copy-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -13,12 +15,26 @@ import SimpleProgressWebpackPlugin from "simple-progress-webpack-plugin";
 const buildMode = process.argv[3] === "production" ? "production" : "development";
 const isProductionBuild = buildMode === "production";
 
-const outDir = (() => {
+interface Configuration extends WebpackConfiguration {
+    devServer?: WebpackDevServerConfiguration;
+}
+
+const allTemplates = () => {
+    return glob
+        .sync("**/*.html", { cwd: path.join(__dirname, "static/templates") })
+        .map((file: string) => `"systems/pf2e/templates/${file}"`)
+        .join(", ");
+};
+
+const [outDir, foundryUri] = (() => {
     const configPath = path.resolve(process.cwd(), "foundryconfig.json");
     const config = fs.readJSONSync(configPath, { throws: false });
-    return config instanceof Object
-        ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
-        : path.join(__dirname, "dist/");
+    const outDir =
+        config instanceof Object
+            ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
+            : path.join(__dirname, "dist/");
+    const foundryUri = (config instanceof Object ? config.foundryUri : "") ?? "http://localhost:30000";
+    return [outDir, foundryUri];
 })();
 
 type Optimization = Configuration["optimization"];
@@ -58,6 +74,15 @@ const config: Configuration = {
     },
     module: {
         rules: [
+            !isProductionBuild
+                ? {
+                      test: /\.html$/,
+                      loader: "raw-loader",
+                  }
+                : {
+                      test: /\.html$/,
+                      loader: "null-loader",
+                  },
             {
                 test: /\.ts$/,
                 use: [
@@ -71,6 +96,19 @@ const config: Configuration = {
                             compilerOptions: {
                                 noEmit: false,
                             },
+                        },
+                    },
+                    "webpack-import-glob-loader",
+                ],
+            },
+            {
+                test: /template-preloader\.ts$/,
+                use: [
+                    {
+                        loader: "string-replace-loader",
+                        options: {
+                            search: '"__ALL_TEMPLATES__"',
+                            replace: allTemplates,
                         },
                     },
                 ],
@@ -119,6 +157,21 @@ const config: Configuration = {
     devtool: isProductionBuild ? undefined : "inline-source-map",
     bail: isProductionBuild,
     watch: !isProductionBuild,
+    devServer: {
+        hot: true,
+        devMiddleware: {
+            writeToDisk: true,
+        },
+        proxy: [
+            {
+                context: (pathname: string) => {
+                    return !pathname.match("^/ws");
+                },
+                target: foundryUri,
+                ws: true,
+            },
+        ],
+    },
     plugins: [
         new ForkTsCheckerWebpackPlugin({ typescript: { memoryLimit: 4096 } }),
         new DefinePlugin({
@@ -151,12 +204,13 @@ const config: Configuration = {
             "@system": path.resolve(__dirname, "src/module/system"),
             "@util": path.resolve(__dirname, "src/util"),
         },
-        extensions: [".ts"],
+        extensions: [".ts", ".js"],
     },
     output: {
         clean: true,
         path: outDir,
         filename: "[name].bundle.js",
+        publicPath: "/systems/pf2e",
     },
 };
 
