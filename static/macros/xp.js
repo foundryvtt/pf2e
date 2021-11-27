@@ -50,7 +50,7 @@ function dialogTemplate(xp) {
     </tr>
 </table>
 <h2>${game.i18n.localize("PF2E.Encounter.Budget.EncounterBudget")}</h2>
-<table>
+<table class="pf2-table">
     <tr>
         <th>${game.i18n.localize("PF2E.Encounter.Budget.Threat")}</th>
         <th>${game.i18n.localize("PF2E.Encounter.Budget.XPBudget")}</th>
@@ -89,7 +89,7 @@ function dialogTemplate(xp) {
     </tr>
 </table>
 <h2>${game.i18n.localize("PF2E.Encounter.CreatureXPAndRole.CreatureXPAndRole")}</h2>
-<table>
+<table class="pf2-table">
     <tr>
         <th>${game.i18n.localize("PF2E.Encounter.CreatureXPAndRole.CreatureLevel")}</th>
         <th>XP</th>
