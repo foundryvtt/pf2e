@@ -33,51 +33,51 @@ function dialogTemplate(xp) {
 <h2>XP</h2>
 <table>
     <tr>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.PartySize")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.PartySize")}</th>
         <td>${xp.partySize}</td>
     </tr>
     <tr>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.PartyLevel")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.PartyLevel")}</th>
         <td>${xp.partyLevel}</td>
     </tr>
     <tr>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.Threat")}</th>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats."+xp.rating)} (${xp.totalXP} XP)</td>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.Threat")}</th>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats."+xp.rating)} (${xp.totalXP} XP)</td>
     </tr>
     <tr>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.Reward")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.Reward")}</th>
         <td>${xp.ratingXP} XP</td>
     </tr>
 </table>
-<h2>${game.i18n.localize("PF2E.EncounterBudget.EncounterBudget")}</h2>
+<h2>${game.i18n.localize("PF2E.Encounter.Budget.EncounterBudget")}</h2>
 <table>
     <tr>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.Threat")}</th>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.XPBudget")}</th>
-        <th>${game.i18n.localize("PF2E.EncounterBudget.Reward")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.Threat")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.XPBudget")}</th>
+        <th>${game.i18n.localize("PF2E.Encounter.Budget.Reward")}</th>
     </tr>
     <tr>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats.trivial")}</td>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats.trivial")}</td>
         <td>${xp.encounterBudgets.trivial} XP</td>
         <td>40 XP</td>
     </tr>
     <tr>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats.low")}</td>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats.low")}</td>
         <td>${xp.encounterBudgets.low} XP</td>
         <td>60 XP</td>
     </tr>
     <tr>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats.moderate")}</td>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats.moderate")}</td>
         <td>${xp.encounterBudgets.moderate} XP</td>
         <td>80 XP</td>
     </tr>
     <tr>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats.severe")}</td>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats.severe")}</td>
         <td>${xp.encounterBudgets.severe} XP</td>
         <td>120 XP</td>
     </tr>
     <tr>
-        <td>${game.i18n.localize("PF2E.EncounterBudget.Threats.extreme")}</td>
+        <td>${game.i18n.localize("PF2E.Encounter.Budget.Threats.extreme")}</td>
         <td>${xp.encounterBudgets.extreme} XP</td>
         <td>160 XP</td>
     </tr>
@@ -90,11 +90,11 @@ const askLevelPopupTemplate = () => {
     return `
     <form>
     <div class="form-group">
-        <label>${game.i18n.localize("PF2E.EncounterBudget.PartySize")}</label>
+        <label>${game.i18n.localize("PF2E.Encounter.Budget.PartySize")}</label>
         <input id="party-size" name="party-size" type="number" value="${partySize}">
     </div>
     <div class="form-group">
-        <label>${game.i18n.localize("PF2E.EncounterBudget.PartyLevel")}</label>
+        <label>${game.i18n.localize("PF2E.Encounter.Budget.PartyLevel")}</label>
         <input id="party-level" name="party-level" type="number" value="${partyLevel}">
     </div>
     </form>
