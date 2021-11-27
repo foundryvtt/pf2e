@@ -34,7 +34,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             );
             modifier.label = this.label;
             if (this.data.damageType) {
-                modifier.damageType = this.data.damageType;
+                modifier.damageType = this.resolveInjectedProperties(this.data.damageType);
             }
             if (this.data.damageCategory) {
                 modifier.damageCategory = this.data.damageCategory;
