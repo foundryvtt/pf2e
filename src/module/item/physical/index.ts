@@ -165,6 +165,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this._container?.id !== this.data.data.containerId.value) {
             this._container = null;
         }
+
+        // Unequip items on loot actors so that rule elements are not initialized
+        if (this.actor?.type === "loot") {
+            this.data.data.equipped.value = false;
+        }
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
