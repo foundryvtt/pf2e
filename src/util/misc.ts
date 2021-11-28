@@ -218,7 +218,7 @@ export function sluggify(label: string, { camel = null }: { camel?: "dromedary" 
         }
         case "dromedary":
             return label
-                .replace(/'/g, "")
+                .replace(/[^-\w\s]/g, "")
                 .replace(/[-_]+/g, " ")
                 .replace(/(?:^\w|[A-Z]|\b\w)/g, (part, index) =>
                     index === 0 ? part.toLowerCase() : part.toUpperCase()
@@ -261,7 +261,7 @@ const actionGlyphMap: Record<string, string> = {
     2: "D",
     3: "T",
     "1 or 2": "A/D",
-    "1 to 3": "A/T",
+    "1 to 3": "A - T",
     "2 or 3": "D/T",
     free: "F",
     reaction: "R",

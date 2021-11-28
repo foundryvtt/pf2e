@@ -106,18 +106,6 @@ export class NPCPF2e extends CreaturePF2e {
         traits.traits.value = Array.from(traitSet).sort();
 
         const rules = this.rules.filter((rule) => !rule.ignored);
-
-        // Toggles
-        (data as any).toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag(game.system.id, "rollOptions.all.target:flatFooted"),
-                },
-            ],
-        };
-
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
@@ -790,14 +778,15 @@ export class NPCPF2e extends CreaturePF2e {
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
-        rules.forEach((rule) => {
+        // Call post-data-preparation RuleElement hooks
+        for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData(this.data, synthetics);
+                rule.onAfterPrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
-        });
+        }
     }
 
     private async updateTokenAttitude(attitude: string): Promise<void> {
@@ -849,6 +838,9 @@ export class NPCPF2e extends CreaturePF2e {
             }
             return item.name;
         };
+        const formatNoteText = (itemName: string, description: string) => {
+            return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
+        };
 
         for (const attackEffect of sourceItemData.data.attackEffects.value) {
             const item = this.items.find(
@@ -857,26 +849,15 @@ export class NPCPF2e extends CreaturePF2e {
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
-                const description = item.data.data.description.value;
-                const itemName = formatItemName(item);
-                note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
+                note.text = formatNoteText(formatItemName(item), item.description);
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
-                if (!compendium.index) await compendium.getIndex();
-                const itemId = compendium.index.find((entry) => entry.name === attackEffect)?._id ?? "";
-                const packItem = await compendium.getDocument(itemId);
+                const packItem = (await compendium.getDocuments({ "data.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    const description = packItem.description;
-                    const itemName = formatItemName(packItem);
-                    note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
+                    note.text = formatNoteText(formatItemName(packItem), packItem.description);
                     notes.push(note);
-                } else {
-                    console.warn(game.i18n.format("PF2E.NPC.AttackEffectMissing", { attackEffect }));
-                    const sourceItem = this.items.get(sourceItemData._id, { strict: true });
-                    const update = sourceItemData.data.attackEffects.value.filter((effect) => effect !== attackEffect);
-                    await sourceItem.update({ ["data.attackEffects.value"]: update });
                 }
             }
         }

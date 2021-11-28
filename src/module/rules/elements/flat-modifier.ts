@@ -20,7 +20,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(_actorData: unknown, { statisticsModifiers }: RuleElementSynthetics) {
+    override onBeforePrepareData({ statisticsModifiers }: RuleElementSynthetics) {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
@@ -34,7 +34,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             );
             modifier.label = this.label;
             if (this.data.damageType) {
-                modifier.damageType = this.data.damageType;
+                modifier.damageType = this.resolveInjectedProperties(this.data.damageType);
             }
             if (this.data.damageCategory) {
                 modifier.damageCategory = this.data.damageCategory;

@@ -10,6 +10,7 @@ import {
     Rollable,
     StrikeData,
     InitiativeData,
+    RollToggle,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
@@ -49,6 +50,10 @@ export interface CreatureSystemSource extends ActorSystemSource {
 
     /** Saving throw data */
     saves?: Record<SaveType, { value?: number; mod?: number }>;
+
+    toggles?: {
+        actions: RollToggle[];
+    };
 }
 
 export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
@@ -71,6 +76,10 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
     saves: CreatureSaves;
 
     actions?: StrikeData[];
+
+    toggles: {
+        actions: RollToggle[];
+    };
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
