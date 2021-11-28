@@ -5,7 +5,7 @@ import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e } from "@module/combatant";
+import { CombatantPF2e } from "@module/encounter";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */

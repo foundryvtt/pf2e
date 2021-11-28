@@ -14,8 +14,7 @@ import {
 } from "@module/canvas";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatPF2e } from "@module/combat";
-import { CombatantPF2e } from "@module/combatant";
+import { EncounterPF2e, CombatantPF2e } from "@module/encounter";
 import { FolderPF2e } from "@module/folder";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { MacroPF2e } from "@module/macro";
@@ -48,7 +47,7 @@ export const Init = {
             CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
             CONFIG.Actor.documentClass = ActorPF2e;
             CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
-            CONFIG.Combat.documentClass = CombatPF2e;
+            CONFIG.Combat.documentClass = EncounterPF2e;
             CONFIG.Combatant.documentClass = CombatantPF2e;
             CONFIG.FogExploration.documentClass = FogExplorationPF2e;
             CONFIG.Folder.documentClass = FolderPF2e;

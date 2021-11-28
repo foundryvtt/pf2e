@@ -3,7 +3,7 @@ import { StatusEffectIconTheme } from "@scripts/config";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
-import { CombatPF2e } from "@module/combat";
+import { EncounterPF2e } from "@module/encounter";
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -78,7 +78,7 @@ export class StatusEffects {
 
         if (game.user.isGM && game.settings.get("pf2e", "statusEffectShowCombatMessage")) {
             let lastTokenId = "";
-            Hooks.on("updateCombat", (combat: CombatPF2e) => {
+            Hooks.on("updateCombat", (combat: EncounterPF2e) => {
                 const combatant = combat.combatant;
                 const token = combatant?.token;
                 if (
