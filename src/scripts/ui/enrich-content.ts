@@ -6,10 +6,10 @@ export const EnrichContent = {
         const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
         const parameters = new Map();
 
-        const paramString = data.trim().split("|");
-        if (!Array.isArray(paramString)) return error;
+        const paramStrings = data.trim().split("|");
+        if (!Array.isArray(paramStrings)) return error;
 
-        for (const param of paramString) {
+        for (const param of paramStrings) {
             const paramComponents = param.trim().split(":");
             if (paramComponents.length !== 2) return error;
 
