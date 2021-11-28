@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 135,
                 "temp": 0,
                 "value": 135
@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "35"
             }
@@ -65,6 +66,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #147: Tomorrow Must Burn"
             }
         },
@@ -88,7 +90,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -106,7 +108,7 @@
                 "value": "rare"
             },
             "senses": {
-                "value": "Darkvision, scent (imprecise) 30 feet"
+                "value": "darkvision, scent (imprecise) 30 feet"
             },
             "size": {
                 "value": "lg"
@@ -131,10 +133,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "ghast-fever",
-                        "paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -178,10 +177,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "grab",
-                        "paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -221,7 +217,7 @@
             "type": "melee"
         },
         {
-            "_id": "IH7wKxaXZj1UzfbX",
+            "_id": "DxojGnsJOG0ItLxo",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -233,13 +229,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become sickened 1 (plus, on a critical failure, slowed 1 as long as it's sickened). While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -248,10 +244,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -261,14 +254,66 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
+            "name": "Darkvision",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "trOnsGBD8eQAZ1hT",
+            "_id": "7wgXd0InH2pMtroD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 Feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "Am5pbCNVDkDBNz5Y",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -280,15 +325,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become sickened 1 (plus, on a critical failure, slowed 1 as long as it's sickened). While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition.<span data-visibility=\"gm\"> A creature that succeeds at its save is temporarily immune for 1 minute.</span></p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghast Stench]{Effect: Ghast Stench}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-stench",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -308,32 +353,43 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.SEzkqVJxr2eJDsuJ"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "BJPGlAhTO9hVQNK3",
+            "_id": "6SHvoR38wFsY94R8",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghastly bear is adjacent to the corpse of a creature that died within the last hour. <strong>Effect</strong> The ghastly bear devours a chunk of the corpse and regains 6d6 Hit Points. It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -342,9 +398,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "manipulate"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -354,14 +408,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume Flesh",
-            "sort": 500000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "es2w2fpml6iaV2mI",
+            "_id": "eCRAMtpF3k73LRFd",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -373,15 +431,67 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Stage 1</strong> carrier with no ill effect (1 day); <strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day); <strong>Stage 3</strong> as stage 2 (1 day); <strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day); <strong>Stage 5</strong> as stage 4 (1 day); <strong>Stage 6</strong> dead, and rises as a ghast the next midnight</p>"
+                    "value": "<p>Any living creature hit by a ghastly bear's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-paralysis",
                 "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "j3NCaHUgoOUiHpye",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghast-ghast-fever",
+                "source": {
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -400,106 +510,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.hA6HsM4i4yPfEsDH"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghast Fever",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "k41Mo8B8rO9cvre9",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A ghastly bear gains a [[/r +4 # circumstance bonus to damage]] circumstance bonus to damage rolls against creatures it has grabbed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mauler",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "wCeWPpQgF4CbObes",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Any living creature hit by a ghastly bear's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become paralyzed. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "incapacitation",
-                        "occult",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralysis",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "irrtFZC0kWDot7A8",
+            "_id": "DEoIu6kGyGbwbSn3",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -511,22 +533,24 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghastly bear is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghastly bear devours a chunk of the corpse and regains [[/r {6d6}[healing]]]{6d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-consume-flesh",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "manipulate"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -536,9 +560,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "name": "Consume Flesh",
             "sort": 900000,
             "type": "action"
         },
