@@ -1,4 +1,5 @@
 import { ItemSystemData } from "@item/data/base";
+import { isItemSystemData } from "@item/data/helpers";
 
 export const EnrichContent = {
     //get the different parameters of the @inline command
@@ -24,8 +25,8 @@ export const EnrichContent = {
         let itemData: ItemSystemData | undefined = undefined;
         if (options?.rollData && typeof options.rollData === "object") {
             const rollData = options.rollData as Record<string, unknown>;
-            if (rollData.item) {
-                itemData = rollData.item as ItemSystemData;
+            if (rollData.item && typeof rollData.item === "object" && isItemSystemData(rollData.item)) {
+                itemData = rollData.item;
             }
         }
 
