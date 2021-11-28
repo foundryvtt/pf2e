@@ -1,6 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { SENSE_TYPES } from "@actor/creature/sense";
-import { ActorType, CharacterData } from "@actor/data";
+import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -130,7 +130,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onBeforePrepareData(_actorData: unknown, synthetics: RuleElementSynthetics): void {
+    override onBeforePrepareData(synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
         const { rollOptions } = this.actor;
@@ -153,7 +153,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onAfterPrepareData(_actorData: CharacterData, synthetics: RuleElementSynthetics): void {
+    override onAfterPrepareData(synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
         this.prepareAC();
@@ -214,7 +214,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSense) continue;
             newSense.acuity ??= "precise";
             const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
-            new SenseRuleElement(ruleData, this.item).onBeforePrepareData(this.actor.data, synthetics);
+            new SenseRuleElement(ruleData, this.item).onBeforePrepareData(synthetics);
         }
     }
 
@@ -330,7 +330,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         for (const datum of ruleData) {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
-            new StrikeRuleElement(datum, this.item).onBeforePrepareData(this.actor.data, synthetics);
+            new StrikeRuleElement(datum, this.item).onBeforePrepareData(synthetics);
         }
         this.actor.data.data.actions = this.data.ownUnarmed
             ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))

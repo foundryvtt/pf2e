@@ -106,18 +106,6 @@ export class NPCPF2e extends CreaturePF2e {
         traits.traits.value = Array.from(traitSet).sort();
 
         const rules = this.rules.filter((rule) => !rule.ignored);
-
-        // Toggles
-        (data as any).toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag(game.system.id, "rollOptions.all.target:flatFooted"),
-                },
-            ],
-        };
-
         const synthetics = this.prepareCustomModifiers(rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
@@ -790,14 +778,15 @@ export class NPCPF2e extends CreaturePF2e {
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
-        rules.forEach((rule) => {
+        // Call post-data-preparation RuleElement hooks
+        for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData(this.data, synthetics);
+                rule.onAfterPrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
-        });
+        }
     }
 
     private async updateTokenAttitude(attitude: string): Promise<void> {

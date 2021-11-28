@@ -1,13 +1,13 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
-import { CharacterData, NPCData } from "@actor/data";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { DamageDicePF2e } from "@module/modifiers";
 
 /**
  * @category RuleElement
  */
-export class PF2DamageDiceRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(_actorData: CharacterData | NPCData, { damageDice }: RuleElementSynthetics) {
+export class DamageDiceRuleElement extends RuleElementPF2e {
+    override onBeforePrepareData({ damageDice }: RuleElementSynthetics) {
         const value: Omit<DamageDiceRuleElementData, "key"> & { key?: string } = deepClone(this.data);
         delete value.key;
         if (this.data.value) {
@@ -31,10 +31,12 @@ export class PF2DamageDiceRuleElement extends RuleElementPF2e {
     }
 }
 
-interface DamageDiceRuleElementData extends RuleElementData {
-    name?: string;
+export interface DamageDiceRuleElement {
+    data: DamageDiceRuleElementData;
+
+    get actor(): CharacterPF2e | NPCPF2e;
 }
 
-export interface PF2DamageDiceRuleElement {
-    data: DamageDiceRuleElementData;
+interface DamageDiceRuleElementData extends RuleElementData {
+    name?: string;
 }
