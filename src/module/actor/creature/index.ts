@@ -203,6 +203,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 modifiers[index] = ModifierPF2e.fromObject(modifier);
             });
         });
+
+        // Toggles
+        this.data.data.toggles = {
+            actions: [
+                {
+                    label: "PF2E.TargetFlatFootedLabel",
+                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
+                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                },
+            ],
+        };
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -215,7 +226,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         for (const rule of this.rules) {
-            rule.onApplyActiveEffects();
+            rule.onApplyActiveEffects?.();
         }
 
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
@@ -334,7 +345,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         for (const rule of rules) {
             try {
-                rule.onBeforePrepareData(actorData, synthetics);
+                rule.onBeforePrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);

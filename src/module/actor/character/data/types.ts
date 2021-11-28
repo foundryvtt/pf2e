@@ -19,7 +19,6 @@ import {
     PerceptionData,
     RawStatistic,
     AbilityBasedStatistic,
-    RollToggle,
     StrikeData,
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
@@ -163,10 +162,6 @@ export interface CharacterSystemData extends CreatureSystemData {
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
-
-    toggles: {
-        actions: RollToggle[];
-    };
 
     resources: CharacterResources;
 
