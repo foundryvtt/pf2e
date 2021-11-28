@@ -622,21 +622,6 @@ $adjusted-lower: #cc3311;
             align-self: stretch;
         }
 
-        .senses {
-            flex: 2;
-
-            .perception {
-                width: 100%;
-                label {
-                    flex-basis: 5em;
-                }
-                input {
-                    flex: 0 0 24px;
-                    z-index: 1;
-                }
-            }
-        }
-
         .ability-scores {
             flex: 2;
             flex-direction: column;
@@ -692,6 +677,10 @@ $adjusted-lower: #cc3311;
             padding: 4px;
             border: 1px solid $primary-accent;
             border-radius: 0px 0px 3px 3px;
+
+            &.min-height {
+                flex: 50px;
+            }
         }
 
         &.headerless .section-body {
@@ -733,7 +722,35 @@ $adjusted-lower: #cc3311;
         }
 
         &.languages {
+            flex: 2;
+        }
+
+        &.senses {
             flex: 1;
+
+            .section-body {
+                gap: 5px;
+            }
+
+            .perception {
+                width: 100%;
+                padding: 2px;
+                flex-wrap: nowrap;
+                gap: 5px;
+
+                .label {
+                    flex: 0;
+                }
+
+                .mod {
+                    flex: 0 0 30px;
+                }
+
+                .details {
+                    flex: 1;
+                    text-align: left;
+                }
+            }
         }
     }
 

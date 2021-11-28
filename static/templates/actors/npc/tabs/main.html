@@ -36,13 +36,32 @@
             </div>
         </div>
     </div>
+    <!-- SENSES -->
+    <div class="senses section-container">
+        <div class="section-header">
+            <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
+        </div>
+        <div class="section-body">
+            <div class="perception labelled-field flexrow" data-attribute="perception">
+                <label class="attribute-label rollable label"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
+                {{#with data.attributes.perception as |perception|}}
+                    <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier mod adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
+                {{/with}}
+                {{# if options.editable }}
+                    <input name="data.traits.senses.value" class="details" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize 'PF2E.SpecialSensesLabel'}}" />
+                {{else}}
+                    <span>{{data.traits.senses.value}}</span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
     <div class="top-sections">
+        <!-- ABILITY SCORES -->
         <div class="ability-scores section-container">
             <div class="section-header">
                 <h4>{{localize "PF2E.AbilityScoresHeader"}}</h4>
             </div>
-            <!-- ABILITY SCORES -->
-            <div class="section-body">
+            <div class="section-body min-height">
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
@@ -53,40 +72,21 @@
                 </div>
             </div>
         </div>
-        <!-- SENSES -->
-        <div class="senses section-container">
-            <div class="section-header">
-                <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
-            </div>
-            <div class="section-body">
-                <div class="perception labelled-field" data-attribute="perception">
-                    <label class="attribute-label rollable"><a>{{localize "PF2E.PerceptionLabel"}}</a></label>
-                    {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
-                    {{/with}}
-                </div>
-                {{# if options.editable }}
-                    <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize 'PF2E.SpecialSensesLabel'}}" />
-                {{else}}
-                    <span>{{data.traits.senses.value}}</span>
+        <!-- LANGUAGES -->
+        <div class="languages section-container">
+            <div class="section-header" data-attribute="languages" for="data.traits.languages">
+                <h4>{{localize "PF2E.Languages"}}</h4>
+                {{# if options.editable}}
+                    <div class="languages-controls controls">
+                        <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
+                    </div>
                 {{/if}}
             </div>
-        </div>
-    </div>
-    <!-- LANGUAGES -->
-    <div class="languages section-container">
-        <div class="section-header" data-attribute="languages" for="data.traits.languages">
-            <h4>{{localize "PF2E.Languages"}}</h4>
-            {{# if options.editable}}
-                <div class="languages-controls controls">
-                    <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fas fa-edit"></i></a>
-                </div>
-            {{/if}}
-        </div>
-        <div class="section-body">
-            {{#each languages as |language|}}
-                <div class="tag-legacy language">{{localize language}}</div>
-            {{/each}}
+            <div class="section-body min-height">
+                {{#each languages as |language|}}
+                    <div class="tag-legacy language">{{localize language}}</div>
+                {{/each}}
+            </div>
         </div>
     </div>
     <!-- SKILLS -->
