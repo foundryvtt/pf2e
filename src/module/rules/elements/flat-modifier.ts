@@ -20,7 +20,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(_actorData: unknown, { statisticsModifiers }: RuleElementSynthetics) {
+    override onBeforePrepareData({ statisticsModifiers }: RuleElementSynthetics) {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);

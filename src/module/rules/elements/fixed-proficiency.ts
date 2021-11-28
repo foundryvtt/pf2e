@@ -1,9 +1,10 @@
-import { AbilityString, CharacterData, NPCData } from "@actor/data";
+import { RuleElementPF2e } from "../rule-element";
+import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
+import { CharacterPF2e, NPCPF2e } from "@actor";
+import { AbilityString, ActorType } from "@actor/data";
 import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
 import { objectHasKey, tupleHasValue } from "@util";
-import { RuleElementPF2e } from "../rule-element";
-import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 
 const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }> = {
     ac: { ability: "dex" as const, shortform: "ac" },
@@ -12,8 +13,10 @@ const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }>
 /**
  * @category RuleElement
  */
-export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
+export class FixedProficiencyRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
+    override onBeforePrepareData({ statisticsModifiers }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         let value = this.resolveValue(this.data.value);
         if (selector === "ac") {
@@ -32,7 +35,7 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         } else {
             const modifier = new ModifierPF2e(
                 this.data.name ?? this.label,
-                value - actorData.data.abilities[ability].mod,
+                value - this.actor.data.data.abilities[ability].mod,
                 MODIFIER_TYPE.PROFICIENCY
             );
             modifier.label = this.label;
@@ -40,9 +43,9 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onAfterPrepareData(actorData: CharacterData | NPCData) {
+    override onAfterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const { data } = actorData;
+        const { data } = this.actor.data;
         const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const skills: Record<string, StatisticModifier> = data.skills;
         const target = skills[skill] ?? (objectHasKey(data.attributes, skill) ? data.attributes[skill] : null);
@@ -64,10 +67,12 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface PF2FixedProficiencyRuleElement {
+export interface FixedProficiencyRuleElement {
     data: RuleElementData & {
         name?: string;
         ability?: string;
         force?: boolean;
     };
+
+    get actor(): CharacterPF2e | NPCPF2e;
 }

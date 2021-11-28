@@ -36,7 +36,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.weapon = this.constructWeapon();
     }
 
-    override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics): void {
+    override onBeforePrepareData({ strikes }: RuleElementSynthetics): void {
         const predicatePassed =
             !this.data.predicate ||
             ((): boolean => {
