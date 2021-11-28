@@ -1,5 +1,6 @@
 import { ItemSystemData } from "@item/data/base";
 import { isItemSystemData } from "@item/data/helpers";
+import { isObject } from "@util";
 
 export const EnrichContent = {
     //get the different parameters of the @inline command
@@ -25,7 +26,7 @@ export const EnrichContent = {
         let itemData: ItemSystemData | undefined = undefined;
         if (options?.rollData && typeof options.rollData === "object") {
             const rollData = options.rollData as Record<string, unknown>;
-            if (rollData.item && typeof rollData.item === "object" && isItemSystemData(rollData.item)) {
+            if (rollData.item && isObject(rollData.item) && isItemSystemData(rollData.item)) {
                 itemData = rollData.item;
             }
         }
@@ -93,37 +94,20 @@ export const EnrichContent = {
             }
         }
 
-        //add extraTraits (added to default traits from rollData or manually set traits)
-        if (params.extraTraits) {
-            let traits = params.traits;
-            const extraTraits = params.extraTraits.split(",");
-            extraTraits.forEach((element) => {
-                if (traits.search(element) === -1) traits = traits.concat(`,${element}`);
-            });
-            params.traits = traits.replace(/^,/, "");
-        }
-
-        //if no button label is entered directly create default label
-        if (!label) {
-            const templateSize = game.i18n.format("PF2E.TemplateLabels.FeetDistance", {
-                distance: params.distance,
-                unit: game.i18n.localize("PF2E.TemplateLabels.InlineButtons.Feet"),
-            });
-            const templateType = game.i18n.localize(
-                `PF2E.TemplateLabels.InlineButtons.TemplateTypeLabels.${
-                    params.type.charAt(0).toUpperCase() + params.type.slice(1)
-                }`
-            );
-
-            label = game.i18n.format("PF2E.TemplateLabels.TemplateLabel", {
-                distance: templateSize,
-                type: templateType,
-            });
+        //add damaging-effect if param damaging = true and not already included
+        if (params.damaging && params.damaging === "true") {
+            if (params.traits.search("damaging-effect") === -1)
+                params.traits = params.traits.concat(",damaging-effect").replace(/^,/, "");
         }
 
         //add the html elements used for the inline buttons
         const html = document.createElement("span");
-        html.innerHTML = label;
+        html.innerHTML =
+            label ??
+            game.i18n.format("PF2E.InlineButtons.TemplateLabel", {
+                type: params.type,
+                unit: params.distance,
+            });
         html.setAttribute("data-pf2-effect-area", params.type);
         html.setAttribute("data-pf2-distance", params.distance);
         if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
