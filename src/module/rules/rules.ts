@@ -3,23 +3,23 @@ import { RuleElementPF2e } from "./rule-element";
 export { RuleElementPF2e };
 import { RuleElementSource } from "./rules-data-definitions";
 import { FlatModifierRuleElement } from "./elements/flat-modifier";
-import { PF2FixedProficiencyRuleElement } from "./elements/fixed-proficiency";
+import { FixedProficiencyRuleElement } from "./elements/fixed-proficiency";
 import { TempHPRuleElement } from "./elements/temphp";
 import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-cap";
-import { PF2DamageDiceRuleElement } from "./elements/damage-dice";
-import { PF2TogglePropertyRuleElement } from "./elements/toggle-property";
-import { PF2TokenImageRuleElement } from "./elements/token-image";
+import { DamageDiceRuleElement } from "./elements/damage-dice";
+import { TogglePropertyRuleElement } from "./elements/toggle-property";
+import { TokenImageRuleElement } from "./elements/token-image";
 import { BaseSpeedRuleElement } from "./elements/base-speed";
 import { SenseRuleElement } from "./elements/sense";
-import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
+import { TokenEffectIconRuleElement } from "./elements/token-effect-icon";
 import { StrikeRuleElement } from "./elements/strike";
 import { RollNoteRuleElement } from "./elements/roll-note";
 import { WeaponPotencyRuleElement } from "./elements/weapon-potency";
-import { PF2StrikingRuleElement } from "./elements/striking";
-import { PF2MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
+import { StrikingRuleElement } from "./elements/striking";
+import { MultipleAttackPenaltyRuleElement } from "./elements/multiple-attack-penalty";
 import { ActorTraitsRuleElement } from "@module/rules/elements/actor-traits";
-import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
-import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
+import { RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-check-dc";
+import { AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
 import { CreatureSizeRuleElement } from "./elements/creature-size";
@@ -41,33 +41,33 @@ export class RuleElements {
     static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
-        AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
+        AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
         CraftingEntry: CraftingEntryRuleElement,
         CraftingFormula: CraftingFormulaRuleElement,
         CreatureSize: CreatureSizeRuleElement,
-        DamageDice: PF2DamageDiceRuleElement,
+        DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
         EffectTarget: EffectTargetRuleElement,
-        FixedProficiency: PF2FixedProficiencyRuleElement,
+        FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
         Immunity: ImmunityRuleElement,
         LinkedProficiency: LinkedProficiencyRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
-        MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
+        MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
-        RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
+        RecoveryCheckDC: RecoveryCheckDCRuleElement,
         Resistance: ResistanceRuleElement,
         RollOption: RollOptionRuleElement,
         TempHP: TempHPRuleElement,
-        ToggleProperty: PF2TogglePropertyRuleElement,
-        TokenEffectIcon: PF2TokenEffectIconRuleElement,
-        TokenImage: PF2TokenImageRuleElement,
+        ToggleProperty: TogglePropertyRuleElement,
+        TokenEffectIcon: TokenEffectIconRuleElement,
+        TokenImage: TokenImageRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
-        Striking: PF2StrikingRuleElement,
+        Striking: StrikingRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
     });

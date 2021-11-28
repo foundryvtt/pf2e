@@ -40,7 +40,7 @@ export interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-export interface FamiliarSystemData extends Omit<FamiliarSystemSource, "traits">, CreatureSystemData {
+export interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "traits">, CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
             value: string;

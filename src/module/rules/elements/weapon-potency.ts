@@ -9,7 +9,7 @@ import { ActorType } from "@actor/data";
 export class WeaponPotencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    override onBeforePrepareData(_actorData: unknown, { weaponPotency }: RuleElementSynthetics) {
+    override onBeforePrepareData({ weaponPotency }: RuleElementSynthetics) {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
