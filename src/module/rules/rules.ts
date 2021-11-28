@@ -3,7 +3,6 @@ import { RuleElementPF2e } from "./rule-element";
 export { RuleElementPF2e };
 import { RuleElementSource } from "./rules-data-definitions";
 import { FlatModifierRuleElement } from "./elements/flat-modifier";
-import { PF2MageArmorRuleElement } from "./spells/mage-armor";
 import { PF2FixedProficiencyRuleElement } from "./elements/fixed-proficiency";
 import { TempHPRuleElement } from "./elements/temphp";
 import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-cap";
@@ -57,7 +56,6 @@ export class RuleElements {
         Immunity: ImmunityRuleElement,
         LinkedProficiency: LinkedProficiencyRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
-        MageArmor: PF2MageArmorRuleElement,
         MultipleAttackPenalty: PF2MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
