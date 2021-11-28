@@ -96,6 +96,7 @@ import { Migration691WeaponRangeAbilityCategoryGroup } from "./migrations/691-we
 import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-crafting-entry-feat-replacement";
 import { Migration693ArmorCategoryGroup } from "./migrations/693-armor-category-group";
 import { Migration694RetireSystemTokenSettings } from "./migrations/694-retire-system-token-settings";
+import { Migration695AddAuthor } from "./migrations/695-author-field";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -196,6 +197,7 @@ export class Migrations {
         Migration692CraftingEntryFeatReplacement,
         Migration693ArmorCategoryGroup,
         Migration694RetireSystemTokenSettings,
+        Migration695AddAuthor,
     ];
 
     static get latestVersion(): number {

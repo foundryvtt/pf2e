@@ -18,6 +18,7 @@ import { Migration689EncumberanceActiveEffects } from "@module/migration/migrati
 import { Migration690InitiativeTiebreakItems } from "@module/migration/migrations/690-tiebreak-items";
 import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
 import { Migration693ArmorCategoryGroup } from "@module/migration/migrations/693-armor-category-group";
+import { Migration695AddAuthor } from "@module/migration/migrations/695-author-field";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -32,6 +33,7 @@ const migrations: MigrationBase[] = [
     new Migration690InitiativeTiebreakItems(),
     new Migration691WeaponRangeAbilityCategoryGroup(),
     new Migration693ArmorCategoryGroup(),
+    new Migration695AddAuthor(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
