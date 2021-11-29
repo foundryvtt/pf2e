@@ -21,7 +21,7 @@ import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
-import { CombatantPF2e } from "@module/combatant";
+import { CombatantPF2e } from "@module/encounter";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,

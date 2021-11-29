@@ -16,7 +16,7 @@ import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
 import { WorldClock } from "@system/world-clock";
-import { CombatPF2e } from "./module/combat";
+import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 import {
     AbilityModifier,
@@ -42,7 +42,6 @@ import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
-import { CombatantPF2e } from "@module/combatant";
 import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
@@ -102,7 +101,7 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface ClientSettings {
@@ -158,7 +157,7 @@ type ConfiguredConfig = Config<
     ActorPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
-    CombatPF2e,
+    EncounterPF2e,
     CombatantPF2e,
     EncounterTrackerPF2e,
     CompendiumDirectoryPF2e,
