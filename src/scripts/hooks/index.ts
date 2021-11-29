@@ -5,7 +5,6 @@ import { Init } from "./init";
 import * as HotbarDrop from "./hotbar-drop";
 import * as Ready from "./ready";
 import * as Setup from "./setup";
-import * as UpdateScene from "./update-scene";
 import * as UpdateWorldTime from "./update-world-time";
 import * as RenderActorDirectory from "./render-actor-directory";
 import * as DropCanvasData from "./drop-canvas-data";
@@ -27,7 +26,6 @@ export const HooksPF2e = {
         RenderActorDirectory.listen();
         RenderSceneControls.listen();
         Setup.listen();
-        UpdateScene.listen();
         UpdateWorldTime.listen();
         RenderDialog.listen();
         RenderSettings.listen();
