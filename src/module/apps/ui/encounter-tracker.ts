@@ -1,5 +1,5 @@
 import { EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
 
@@ -15,13 +15,15 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
         // Defer to Combat Enhancements module if in use
-        if (game.modules.get("combat-enhancements")?.active) return;
+        if (game.modules.get("combat-enhancements")?.active) {
+            return super.activateListeners($html);
+        }
 
         const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
+        const encounter = this.viewed;
+        if (!encounter) throw ErrorPF2e("No combat found");
 
         Sortable.create(tracker, {
             animation: 200,
@@ -34,14 +36,29 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
             onEnd: () => this.saveNewOrder(),
         });
 
+        // Hide names in the tracker of combatants with tokens that have unviewable nameplates
         for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
-            const combatantId = row.getAttribute("data-combatant-id") ?? "";
-            const combatant = this.viewed?.combatants.get(combatantId, { strict: true });
+            const combatantId = row.dataset.combatantId ?? "";
+            const combatant = encounter.combatants.get(combatantId, { strict: true });
             const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
-            if (!combatant?.canSeeName && nameElement) {
-                nameElement.innerText = "";
+            if (nameElement && !combatant.canSeeName()) nameElement.innerText = "";
+
+            if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
+                const toggleNameVisibility = document.createElement("a");
+                const isActive = game.users.some((user) => !combatant.canSeeName(user));
+                toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
+                toggleNameVisibility.dataset.control = "toggle-name-visibility";
+                toggleNameVisibility.title = game.i18n.localize(
+                    isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
+                );
+                const icon = fontAwesomeIcon("signature");
+                toggleNameVisibility.append(icon);
+
+                row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(toggleNameVisibility);
             }
         }
+
+        super.activateListeners($html);
     }
 
     /* -------------------------------------------- */
@@ -65,12 +82,17 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     protected override async _onCombatantControl(
         event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
     ): Promise<void> {
+        event.stopPropagation();
+        if (!this.viewed) return;
+
         const control = event.currentTarget.dataset.control;
-        if (control === "rollInitiative" && this.viewed && event.ctrlKey) {
-            event.stopPropagation();
-            const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
-            const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
+        const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
+        const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
+
+        if (control === "rollInitiative" && event.ctrlKey) {
             await this.viewed.rollInitiative([combatant.id], { secret: true });
+        } else if (control == "toggle-name-visibility") {
+            await combatant.toggleNameVisibility();
         } else {
             await super._onCombatantControl(event);
         }
