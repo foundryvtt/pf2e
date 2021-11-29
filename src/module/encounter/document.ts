@@ -5,7 +5,7 @@ import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
 
-export class CombatPF2e extends Combat<CombatantPF2e> {
+export class EncounterPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
         return this.data.active;
     }
@@ -155,7 +155,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 }
 
-export interface CombatPF2e {
+export interface EncounterPF2e {
     readonly data: foundry.data.CombatData<this, CombatantPF2e>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;

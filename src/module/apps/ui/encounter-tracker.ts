@@ -1,10 +1,9 @@
-import { CombatPF2e } from "@module/combat";
-import { RolledCombatant } from "@module/combatant";
+import { EncounterPF2e, RolledCombatant } from "@module/encounter";
 import { ErrorPF2e } from "@util";
 import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
 
-export class EncounterTrackerPF2e extends CombatTracker<CombatPF2e> {
+export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     sortable!: Sortable;
 
     /** Fix Foundry setting the title to "Combat Tracker" unlocalized */
