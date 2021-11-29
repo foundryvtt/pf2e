@@ -25,17 +25,6 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const encounter = this.viewed;
         if (!encounter) throw ErrorPF2e("No combat found");
 
-        Sortable.create(tracker, {
-            animation: 200,
-            dataIdAttr: "data-combatant-id",
-            direction: "vertical",
-            dragoverBubble: true,
-            easing: "cubic-bezier(1, 0, 0, 1)",
-            ghostClass: "drag-gap",
-            onUpdate: (event) => this.onDropCombatant(event),
-            onEnd: () => this.saveNewOrder(),
-        });
-
         // Hide names in the tracker of combatants with tokens that have unviewable nameplates
         for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
             const combatantId = row.dataset.combatantId ?? "";
@@ -56,6 +45,19 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
                 row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(toggleNameVisibility);
             }
+        }
+
+        if (game.user.isGM) {
+            Sortable.create(tracker, {
+                animation: 200,
+                dataIdAttr: "data-combatant-id",
+                direction: "vertical",
+                dragoverBubble: true,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                ghostClass: "drag-gap",
+                onUpdate: (event) => this.onDropCombatant(event),
+                onEnd: () => this.saveNewOrder(),
+            });
         }
 
         super.activateListeners($html);
@@ -91,7 +93,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
         if (control === "rollInitiative" && event.ctrlKey) {
             await this.viewed.rollInitiative([combatant.id], { secret: true });
-        } else if (control == "toggle-name-visibility") {
+        } else if (control === "toggle-name-visibility") {
             await combatant.toggleNameVisibility();
         } else {
             await super._onCombatantControl(event);
