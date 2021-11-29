@@ -22,13 +22,13 @@ export const EnrichContent = {
 
     enrichString: (data: string, options?: EnrichHTMLOptions): string => {
         // Get itemData from options if available
-        const itemData = () => {
+        const itemData = (() => {
             if (options?.rollData && isObject(options.rollData)) {
                 const rollData = options.rollData as Record<string, unknown>;
                 return isObject<ItemSystemData>(rollData.item) ? rollData.item : undefined;
             }
             return undefined;
-        };
+        })();
 
         // Enrich @inline commands: Localize, Template
         // Localize calls the function again in order to enrich data contained in there
@@ -40,7 +40,7 @@ export const EnrichContent = {
                 case "Localize":
                     return EnrichContent.enrichString(game.i18n.localize(paramString), options);
                 case "Template":
-                    return EnrichContent.createTemplate(paramString, buttonLabel, itemData());
+                    return EnrichContent.createTemplate(paramString, buttonLabel, itemData);
             }
             return match;
         });
