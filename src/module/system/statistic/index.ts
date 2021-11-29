@@ -9,7 +9,10 @@ export * from "./data";
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
     roll: (args?: RollParameters) => void;
-    totalModifier: (options?: { options?: string[] }) => number;
+    withOptions: (options?: { options?: string[] }) => {
+        value: number;
+        breakdown: string;
+    };
     value: number;
     breakdown: string;
 }
@@ -81,7 +84,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 };
                 CheckPF2e.roll(new CheckModifier(name, stat, args.modifiers), context, args.event, args.callback);
             },
-            totalModifier: (options?: { options?: string[] }) => {
+            withOptions: (options?: { options?: string[] }) => {
                 const check = new CheckModifier(name, stat);
 
                 // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -90,7 +93,13 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 });
                 check.applyStackingRules();
 
-                return check.totalModifier;
+                return {
+                    value: check.totalModifier,
+                    breakdown: check.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .join(", "),
+                };
             },
             value: stat.totalModifier,
             get breakdown() {
@@ -135,15 +144,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     /** Creates view data for sheets and chat messages */
     getChatData(options: { options?: string[] } = {}): StatisticChatData<T> {
-        const checkData = this.check;
+        const checkObject = this.check;
+        const check = checkObject?.withOptions({ options: options.options });
         const dcData = this.dc({ options: options.options });
         return {
-            check: checkData
-                ? {
-                      value: checkData.value,
-                      breakdown: checkData.breakdown,
-                  }
-                : undefined,
+            check,
             dc: dcData
                 ? {
                       value: dcData.value,
