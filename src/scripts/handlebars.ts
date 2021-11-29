@@ -31,10 +31,6 @@ export function registerHandlebarsHelpers() {
         return condition ? "disabled" : "";
     });
 
-    Handlebars.registerHelper("not", (arg) => {
-        return !arg;
-    });
-
     /** Return the first argument that is neither undefined nor null */
     Handlebars.registerHelper("coalesce", (...args: unknown[]) => {
         return args.find((arg) => arg !== undefined && arg !== null) ?? null;
