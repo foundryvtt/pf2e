@@ -21,8 +21,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
         } = await super.getData();
 
+        const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
-        const potencyRuneValue = sheetData.data.potencyRune.value ?? 0;
+        const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
         const propertyRuneSlots = [
             [1, sheetData.data.propertyRune1],
             [2, sheetData.data.propertyRune2],
@@ -140,11 +141,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
-            baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
             otherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags, {
-                selectedOnly: true,
-            }),
-            baseOtherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, baseData.data.traits.otherTags ?? [], {
                 selectedOnly: true,
             }),
             adjustedLevelHint,

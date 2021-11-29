@@ -42,7 +42,7 @@ function prepStrings(costs: Costs, itemUuid: string) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: coinsToString(costs.lostMaterials),
         }),
-        itemLink: TextEditor.enrichHTML("@" + itemUuid.replace(".", "[") + "]"),
+        itemLink: game.pf2e.TextEditor.enrichHTML("@" + itemUuid.replace(".", "[") + "]"),
     };
 }
 

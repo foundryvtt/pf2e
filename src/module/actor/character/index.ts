@@ -52,6 +52,7 @@ import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
+import { PhysicalItemSource } from "@item/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -131,6 +132,39 @@ export class CharacterPF2e extends CreaturePF2e {
         const craftingEntryData = this.data.data.crafting.entries[selector];
         if (!craftingEntryData) return;
         return new CraftingEntry(this, craftingFormulas, craftingEntryData);
+    }
+
+    async performDailyCrafting() {
+        const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
+        const alchemicalEntries = entries.filter((e) => e.isAlchemical);
+        const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
+        const reagentValue = (this.data.data.resources.crafting.infusedReagents.value || 0) - reagentCost;
+        if (reagentValue < 0) {
+            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+            return;
+        } else {
+            await this.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+        }
+
+        // Remove infused/temp items
+        for (const item of this.physicalItems) {
+            if (item.data.data.temporary?.value) await item.delete();
+        }
+
+        for (const entry of entries) {
+            for (const prepData of entry.preparedFormulas) {
+                const item: PhysicalItemSource = prepData.item.toObject();
+                item.data.quantity.value = prepData.quantity || 1;
+                item.data.temporary = { value: true };
+                if (
+                    entry.isAlchemical &&
+                    (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
+                ) {
+                    item.data.traits.value.push("infused");
+                }
+                await this.addToInventory(item);
+            }
+        }
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -229,17 +263,6 @@ export class CharacterPF2e extends CreaturePF2e {
         this.data.data.crafting.formulas.forEach((formula) => {
             formula.deletable = true;
         });
-
-        // Toggles
-        systemData.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
-                },
-            ],
-        };
     }
 
     protected override async _preUpdate(
@@ -864,7 +887,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 source.data.damage.die = "d6";
             }
 
-            return new WeaponPF2e(source, { parent: this }) as Embedded<WeaponPF2e>;
+            return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
         synthetics.strikes.unshift(unarmed);
 
@@ -928,14 +951,15 @@ export class CharacterPF2e extends CreaturePF2e {
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
-        rules.forEach((rule) => {
+        // Call post-data-preparation RuleElement hooks
+        for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData(this.data, synthetics);
+                rule.onAfterPrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
-        });
+        }
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
@@ -1227,11 +1251,8 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
-                    const context = this.createAttackRollContext(
-                        args.event!,
-                        ["all", "attack-roll"],
-                        ["attack", ...weapon.getItemRollOptions("")]
-                    );
+                    const traits = weapon.getItemRollOptions("");
+                    const context = this.createAttackRollContext({ traits });
                     const options = [
                         ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
                     ];

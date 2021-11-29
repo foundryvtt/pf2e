@@ -8,28 +8,28 @@
             "hardness": 10,
             "hasHealth": true,
             "hp": {
-                "details": "",
+                "details": "to break each branch",
                 "max": 40,
                 "temp": 0,
                 "tempmax": 0,
                 "value": 40
             },
             "stealth": {
-                "details": "Expert",
+                "details": "<p>(expert)</p>",
                 "value": 22
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
-            "description": "The statue of the willow tree animates, its branches lashing out to try to grab anyone in area B2.",
-            "disable": "Athletics or Thievery DC 25 (trained) to force or lever open a single branch, disabling that branch and freeing any creature trapped within. \r\nThievery DC 29 (expert) to disrupt the tree's magical animation, shut it down, and free all trapped creatures. Placing a dreamstone in the tree's trunk takes 2 Interact actions and causes the trap to shut down, freeing all trapped creatures. Placing the cursed dreamstone from area B4 in the trunk instead increases the tree's actions per turn to 4 and gives it a +2 item bonus to all saving throws and attack rolls.",
+            "description": "<p>The statue of the willow tree animates, its branches lashing out to try to grab anyone in area <strong>B2</strong>.</p>",
+            "disable": "<p><span data-pf2-check=\"athletics\" data-pf2-traits=\"complex,magical,trap,hazard,action:force-open\" data-pf2-label=\"Force Open a Branch DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Athletics</span> or <span data-pf2-check=\"thievery\" data-pf2-traits=\"complex,magical,trap,hazard\" data-pf2-label=\"Lever Open a Branch DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to force or lever open a single branch, disabling that branch and freeing any creature trapped within. <span data-pf2-check=\"thievery\" data-pf2-traits=\"complex,magical,trap,hazard\" data-pf2-label=\"Disrupt the Tree's Magical Animation DC\" data-pf2-dc=\"29\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) to disrupt the tree's magical animation, shut it down, and free all trapped creatures. Placing a <em>dreamstone</em> in the tree's trunk takes 2 Interact actions and causes the trap to shut down, freeing all trapped creatures. Placing the cursed <em>dreamstone</em> from area <strong>B4</strong> in the trunk instead increases the tree's actions per turn to 4 and gives it a +2 item bonus to all saving throws and attack rolls.</p>",
             "isComplex": true,
             "level": {
                 "value": 10
             },
-            "reset": "The trap deactivates and resets if it has no creatures grabbed and no creatures in the room to attack. If an uncursed dreamstone is placed in its trunk, the statue doesn't reactivate.",
-            "routine": "(3 actions) The statue uses each action to attempt a branch Strike against a random creature in the room that it hasn't grabbed. If there are no creatures for it to attack and it has at least one creature grabbed, it instead Constricts. The trap can have up to six creatures grabbed."
+            "reset": "<p>The trap deactivates and resets if it has no creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and no creatures in the room to attack. If an uncursed <em>dreamstone</em> is placed in its trunk, the statue doesn't reactivate.</p>",
+            "routine": "<p>(3 actions) The statue uses each action to attempt a branch Strike against a random creature in the room that it hasn't @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If there are no creatures for it to attack and it has at least one creature grabbed, it instead Constricts. The trap can have up to six creatures grabbed.</p>"
         },
         "saves": {
             "fortitude": {
@@ -46,7 +46,7 @@
             }
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder #147: Tomorrow Must Burn"
         },
         "statusEffects": [],
         "traits": {
@@ -63,15 +63,16 @@
             "dr": [],
             "dv": [],
             "rarity": {
-                "value": "common"
+                "value": "rare"
             },
             "size": {
                 "value": "med"
             },
             "traits": {
-                "custom": "Rare",
+                "custom": "",
                 "value": [
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -81,51 +82,6 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "7OO4EaZqoN2OpQoI",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The tree of dreadful dreams can attempt up to six Attacks of Opportunity each round.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
             "_id": "agvYAJn23dKfPmcI",
             "data": {
                 "attack": {
@@ -134,7 +90,6 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "grab",
                         "independent-limbs"
                     ]
                 },
@@ -175,53 +130,8 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Branch",
-            "sort": 200000,
+            "sort": 100000,
             "type": "melee"
-        },
-        {
-            "_id": "A1pyv8ujpnoW66v2",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The branch @Compendium[pf2e.actionspf2e.Strike]{Strike} does not suffer multiple attack penalties.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Independent Limbs",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "cP2We7SRbI7YuRzt",
@@ -267,9 +177,9 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Constrict",
-            "sort": 400000,
+            "sort": 275000,
             "type": "action"
         },
         {
@@ -285,7 +195,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that begins its turn grabbed by the trap experiences vivid, warped visions of true events and must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"31\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Terrifying Visions DC\" data-pf2-show-dc=\"gm\">Will</span> save or take [[/r {4d8}[mental]]]{4d8 mental damage}. On a critical failure, the creature also becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed}1. A creature that succeeds at its save is temporarily immune for 24 hours.</p>"
+                    "value": "<p>A creature that begins its turn grabbed by the trap experiences vivid, warped visions of true events and must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"31\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Terrifying Visions DC\" data-pf2-show-dc=\"gm\">Will</span> save or take [[/r {4d8}[mental]]]{4d8 mental damage}. On a critical failure, the creature also becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}. A creature that succeeds at its save is temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -312,9 +222,98 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Terrifying Visions",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "DOuyoqgTXzVADMKJ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\">The tree of dreadful dreams can attempt up to six Attacks of Opportunity each round.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 50000,
+            "type": "action"
+        },
+        {
+            "_id": "KYpQ8TgZcmUrKnjC",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any creature struck by the tree's Branch strike are @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. Additionally the tree's Branch strikes do not suffer from multiple attack penalties.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Independent Limbs",
+            "sort": 0,
             "type": "action"
         }
     ],

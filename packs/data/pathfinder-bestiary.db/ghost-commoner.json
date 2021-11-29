@@ -49,8 +49,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 25 feet"
+                "details": "",
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
+                "value": "0"
             }
         },
         "details": {
@@ -65,6 +71,7 @@
             "privateNotes": "",
             "publicNotes": "<p>The ghost commoner is an ordinary person who believes they died unjustly, usually due to foul play or betrayal.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -88,7 +95,6 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -99,9 +105,8 @@
             "dr": [
                 {
                     "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
-                    "label": "All",
                     "type": "all",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -143,6 +148,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -229,6 +235,54 @@
             "type": "action"
         },
         {
+            "_id": "S3Fu71OxK2sIatwI",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "IJJkrvlbpFMLn1jb",
             "data": {
                 "actionCategory": {
@@ -269,7 +323,62 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "e0HlUAAMpLWUEDUU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -318,9 +427,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Frightful Moan",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -354,8 +463,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dwelling Lore",
-            "sort": 500000,
+            "name": "Dwelling Lore (applies to the place the ghost is bound to)",
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -390,7 +499,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         }
     ],

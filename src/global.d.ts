@@ -5,7 +5,7 @@ import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@mod
 import { ChatMessagePF2e } from "@module/chat-message";
 import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
-import type { HomebrewSettingsKey, HomebrewTag } from "@module/settings/homebrew";
+import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
@@ -16,7 +16,7 @@ import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
 import { WorldClock } from "@system/world-clock";
-import { CombatPF2e } from "./module/combat";
+import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 import {
     AbilityModifier,
@@ -42,7 +42,7 @@ import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
-import { CombatantPF2e } from "@module/combatant";
+import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
     interface Game {
@@ -78,6 +78,7 @@ declare global {
             Check: typeof CheckPF2e;
             RuleElements: typeof RuleElements;
             RuleElement: typeof RuleElementPF2e;
+            TextEditor: typeof TextEditorPF2e;
         };
     }
 
@@ -100,7 +101,7 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface ClientSettings {
@@ -129,9 +130,6 @@ declare global {
 
         get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
 
-        get(module: "pf2e", setting: "defaultTokenSettings"): boolean;
-        get(module: "pf2e", setting: "defaultTokenSettingsBar"): number;
-        get(module: "pf2e", setting: "defaultTokenSettingsName"): string;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
         get(module: "pf2e", setting: "pfsSheetTab"): boolean;
@@ -144,12 +142,13 @@ declare global {
         get(module: "pf2e", setting: "seenUnionAnnouncement"): boolean;
     }
 
-    interface WorldSettingsStorage {
-        get(setting: "pf2e.worldSchemaVersion"): string | undefined;
-        getItem(setting: "pf2e.worldSchemaVersion"): string | null;
+    interface ClientSettingsMap {
+        get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
     }
 
     const BUILD_MODE: "development" | "production";
+
+    const _templateCache: Record<string, unknown>;
 }
 
 type ConfiguredConfig = Config<
@@ -158,7 +157,7 @@ type ConfiguredConfig = Config<
     ActorPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
-    CombatPF2e,
+    EncounterPF2e,
     CombatantPF2e,
     EncounterTrackerPF2e,
     CompendiumDirectoryPF2e,

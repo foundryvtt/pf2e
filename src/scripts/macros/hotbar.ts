@@ -75,7 +75,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     actor,
                     strike: action,
                     strikeIndex: actionIndex,
-                    strikeDescription: TextEditor.enrichHTML(game.i18n.localize(action.description)),
+                    strikeDescription: game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description)),
                 };
 
                 const messageContent = await renderTemplate(

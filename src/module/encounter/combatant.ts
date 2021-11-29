@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
-import { CombatPF2e } from "./combat";
+import { ErrorPF2e } from "@util";
+import { EncounterPF2e } from ".";
 
 export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     /** In order for the Combat Tracker's "Skip Defeated" feature to function, a Combatant instance needs a `defeated`
@@ -8,6 +9,14 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
      */
     get defeated(): boolean {
         return this.data.defeated;
+    }
+
+    hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
+        if (this.parent !== than.parent) {
+            throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
+        }
+
+        return this.parent.getCombatantWithHigherInit(this, than) === this;
     }
 
     /**
@@ -43,5 +52,7 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
 }
 
 export interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    readonly parent: CombatPF2e | null;
+    readonly parent: EncounterPF2e | null;
 }
+
+export type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };

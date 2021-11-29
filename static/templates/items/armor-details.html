@@ -1,7 +1,7 @@
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorTypeLabel"}}</label>
-    <select name="data.armorType.value" data-dtype="String">
-        {{#select data.armorType.value}}
+    <select name="data.category" data-dtype="String">
+        {{#select data.category}}
             {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
@@ -11,8 +11,8 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
-    <select name="data.group.value" data-dtype="String">
-        {{#select data.group.value}}
+    <select name="data.group" data-dtype="String">
+        {{#select data.group}}
             <option value=""></option>
             {{#each groups as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
@@ -193,7 +193,7 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list tags">
-        {{#each baseTraits as |trait|}}
+        {{#each traits as |trait|}}
             <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
         {{/each}}
     </ul>

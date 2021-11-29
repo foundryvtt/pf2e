@@ -75,8 +75,6 @@ function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptio
     }
 }
 
-export type EncounterBudget = "Trivial" | "Low" | "Moderate" | "Severe" | "Extreme";
-
 export interface EncounterBudgets {
     trivial: number;
     low: number;
@@ -85,23 +83,37 @@ export interface EncounterBudgets {
     extreme: number;
 }
 
-function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): EncounterBudget {
-    if (challenge < budgets.low) {
-        return "Trivial";
-    } else if (challenge < budgets.moderate) {
-        return "Low";
-    } else if (challenge < budgets.severe) {
-        return "Moderate";
-    } else if (challenge < budgets.extreme) {
-        return "Severe";
+function generateEncounterBudgets(partySize: number): EncounterBudgets {
+    const budget = partySize * 20;
+    return {
+        trivial: Math.floor(budget * 0.5),
+        low: Math.floor(budget * 0.75),
+        moderate: budget,
+        severe: Math.floor(budget * 1.5),
+        extreme: Math.floor(budget * 2),
+    };
+}
+
+const rewardEncounterBudgets = generateEncounterBudgets(4);
+
+function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): keyof EncounterBudgets {
+    if (challenge <= budgets.trivial) {
+        return "trivial";
+    } else if (challenge <= budgets.low) {
+        return "low";
+    } else if (challenge <= budgets.moderate) {
+        return "moderate";
+    } else if (challenge <= budgets.severe) {
+        return "severe";
     } else {
-        return "Extreme";
+        return "extreme";
     }
 }
 
 interface XP {
     encounterBudgets: EncounterBudgets;
-    rating: EncounterBudget;
+    rating: keyof EncounterBudgets;
+    ratingXP: number;
     xpPerPlayer: number;
     totalXP: number;
     partySize: number;
@@ -115,7 +127,6 @@ export function calculateXP(
     hazards: HazardLevel[],
     dcOptions: DCOptions
 ): XP {
-    const budget = partySize * 20;
     const creatureChallenge = npcLevels
         .map((level) => calculateCreatureXP(partyLevel, level, dcOptions))
         .reduce((a, b) => a + b, 0);
@@ -123,20 +134,16 @@ export function calculateXP(
         .map((hazard) => getHazardXp(partyLevel, hazard, dcOptions))
         .reduce((a, b) => a + b, 0);
     const totalXP = creatureChallenge + hazardChallenge;
-    const encounterBudgets = {
-        trivial: Math.floor(budget * 0.5),
-        low: Math.floor(budget * 0.75),
-        moderate: budget,
-        severe: Math.floor(budget * 1.5),
-        extreme: Math.floor(budget * 2),
-    };
+    const encounterBudgets = generateEncounterBudgets(partySize);
     const rating = calculateEncounterRating(totalXP, encounterBudgets);
+    const ratingXP = rewardEncounterBudgets[rating];
     return {
         partyLevel,
         partySize,
         totalXP,
         encounterBudgets,
         rating,
+        ratingXP,
         xpPerPlayer: Math.floor((totalXP / partySize) * 4),
     };
 }

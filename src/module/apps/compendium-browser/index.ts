@@ -475,10 +475,9 @@ export class CompendiumBrowser extends Application {
         // Define index fields for different types of equipment
         const kitFields = ["img", "data.price.value", "data.traits"];
         const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
-        const armorFields = [...baseFields, "data.armorType.value", "data.group.value"];
-        const weaponFields = [...baseFields, "data.category", "data.group"];
+        const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
         const consumableFields = [...baseFields, "data.consumableType.value"];
-        const indexFields = [...new Set([...armorFields, ...weaponFields, ...consumableFields])];
+        const indexFields = [...new Set([...armorAndWeaponFields, ...consumableFields])];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("equipment"), indexFields)) {
@@ -487,10 +486,8 @@ export class CompendiumBrowser extends Application {
                 if (itemData.type === "treasure" && itemData.data.stackGroup.value === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
                     let skip = false;
-                    if (itemData.type === "weapon") {
-                        if (!hasAllIndexFields(itemData, weaponFields)) skip = true;
-                    } else if (itemData.type === "armor") {
-                        if (!hasAllIndexFields(itemData, armorFields)) skip = true;
+                    if (itemData.type === "weapon" || itemData.type === "armor") {
+                        if (!hasAllIndexFields(itemData, armorAndWeaponFields)) skip = true;
                     } else if (itemData.type === "kit") {
                         if (!hasAllIndexFields(itemData, kitFields)) skip = true;
                     } else if (itemData.type === "consumable") {
@@ -518,7 +515,6 @@ export class CompendiumBrowser extends Application {
                         "traits",
                         "price",
                         "source",
-                        "armorType",
                         "category",
                         "consumableType",
                         "group",
@@ -1129,12 +1125,12 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async filterItems(li: JQuery): Promise<void> {
+    async filterItems($lis: JQuery): Promise<void> {
         let counter = 0;
-        li.hide();
-        for (const spell of li) {
-            if (this.getFilterResult(spell)) {
-                $(spell).show();
+        $lis.hide();
+        for (const li of $lis) {
+            if (this.getFilterResult(li)) {
+                $(li).show();
                 counter += 1;
                 if (counter % 20 === 0) {
                     // Yield to the browser to render what it has
@@ -1224,7 +1220,6 @@ export class CompendiumBrowser extends Application {
             traits: {},
             itemtypes: {},
             rarity: {},
-            weapontype: {},
             consumabletype: {},
             proficiencies: {},
             actorsize: {},

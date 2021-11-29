@@ -51,14 +51,10 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Burrow",
                         "type": "burrow",
                         "value": "40"
                     },
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "80"
                     }
@@ -838,7 +834,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 800000,
             "type": "action"
@@ -886,8 +882,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Scent (Imprecise) 60 Feet",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
             "sort": 900000,
             "type": "action"
         },
@@ -904,7 +900,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 Feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Each creature that ends its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"arcane,aura,evocation,fire\" data-pf2-label=\"Sweltering Heat DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw or become @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} while it remains in the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Each creature that ends its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"arcane,aura,evocation,fire\" data-pf2-label=\"Sweltering Heat DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw or become @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} while it remains in the aura.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -935,7 +931,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sweltering Heat",
             "sort": 1000000,
             "type": "action"
@@ -964,10 +960,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -995,7 +991,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 1100000,
             "type": "action"

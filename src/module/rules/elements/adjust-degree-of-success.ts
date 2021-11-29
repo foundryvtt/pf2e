@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from "../rule-element";
-import { CharacterData, NPCData } from "@actor/data";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/check-degree-of-success";
@@ -9,8 +9,8 @@ import { tupleHasValue } from "@util";
 /**
  * @category RuleElement
  */
-export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    override onAfterPrepareData(actorData: CharacterData | NPCData) {
+export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
+    override onAfterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const adjustment = this.data.adjustment;
 
@@ -27,6 +27,7 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
 
             const skill = this.skillAbbreviationFromString(selector);
             const save = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
+            const actorData = this.actor.data;
             if (selector === "saving-throw" || save) {
                 if (selector === "saving-throw") {
                     SAVE_TYPES.forEach((save) => {
@@ -89,8 +90,10 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface PF2AdjustDegreeOfSuccessRuleElement {
+export interface AdjustDegreeOfSuccessRuleElement {
     data: RuleElementData & {
         adjustment?: CheckDCModifiers;
     };
+
+    get actor(): CharacterPF2e | NPCPF2e;
 }

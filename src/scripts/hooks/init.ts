@@ -14,8 +14,7 @@ import {
 } from "@module/canvas";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatPF2e } from "@module/combat";
-import { CombatantPF2e } from "@module/combatant";
+import { EncounterPF2e, CombatantPF2e } from "@module/encounter";
 import { FolderPF2e } from "@module/folder";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { MacroPF2e } from "@module/macro";
@@ -28,7 +27,7 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
-import { registerSettings } from "@module/settings";
+import { registerSettings } from "@system/settings";
 import { loadPF2ETemplates } from "@module/templates";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
@@ -48,7 +47,7 @@ export const Init = {
             CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
             CONFIG.Actor.documentClass = ActorPF2e;
             CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
-            CONFIG.Combat.documentClass = CombatPF2e;
+            CONFIG.Combat.documentClass = EncounterPF2e;
             CONFIG.Combatant.documentClass = CombatantPF2e;
             CONFIG.FogExploration.documentClass = FogExplorationPF2e;
             CONFIG.Folder.documentClass = FolderPF2e;
@@ -85,8 +84,8 @@ export const Init = {
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
-            // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-            CONFIG.Combat.initiative.decimals = 1;
+            // Decimals are 😠
+            CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.combat = EncounterTrackerPF2e;

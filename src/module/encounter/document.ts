@@ -1,9 +1,11 @@
 import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { RollInitiativeOptionsPF2e } from "@actor/data";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
-import { CombatantPF2e } from "./combatant";
+import { CombatantPF2e, RolledCombatant } from "./combatant";
 
-export class CombatPF2e extends Combat<CombatantPF2e> {
+export class EncounterPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
         return this.data.active;
     }
@@ -23,6 +25,12 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         return typeof a.initiative === "number" && typeof b.initiative === "number" && a.initiative === b.initiative
             ? resolveTie()
             : super._sortCombatants(a, b);
+    }
+
+    /** A public method to access _sortCombatants in order to get the combatant with the higher initiative */
+    getCombatantWithHigherInit(a: RolledCombatant, b: RolledCombatant): RolledCombatant | null {
+        const sortResult = this._sortCombatants(a, b);
+        return sortResult > 0 ? b : sortResult < 0 ? a : null;
     }
 
     /** Exclude orphaned, loot-actor, and minion tokens from combat */
@@ -64,17 +72,47 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
-    override async rollInitiative(ids: string[], options: RollInitiativeOptions = {}): Promise<this> {
+    override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
         const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);
         const fightyCombatants = combatants.filter(
             (combatant): combatant is Embedded<CombatantPF2e<CharacterPF2e | NPCPF2e>> =>
                 combatant.actor instanceof CharacterPF2e || combatant.actor instanceof NPCPF2e
         );
-        await Promise.all(
-            fightyCombatants.map((combatant) => combatant.actor.data.data.attributes.initiative.roll({}))
+        const rollResults = await Promise.all(
+            fightyCombatants.map((combatant) => {
+                const checkType = combatant.actor.data.data.attributes.initiative.ability;
+                const skills: Record<string, string | undefined> = SKILL_DICTIONARY;
+                const rollOptions = combatant.actor.getRollOptions([
+                    "all",
+                    "initiative",
+                    skills[checkType] ?? checkType,
+                ]);
+                if (options.secret) rollOptions.push("secret");
+                return combatant.actor.data.data.attributes.initiative.roll({
+                    options: rollOptions,
+                    updateTracker: false,
+                });
+            })
         );
+
+        const initiatives = rollResults.flatMap((result) =>
+            result ? { id: result.combatant.id, value: result.roll.total } : []
+        );
+
+        this.setMultipleInitiatives(initiatives);
+
+        // Roll the rest with the parent method
         const remainingIds = ids.filter((id) => !fightyCombatants.some((c) => c.id === id));
         return super.rollInitiative(remainingIds, options);
+    }
+
+    /** Set the initiative of multiple combatants */
+    async setMultipleInitiatives(initiatives: { id: string; value: number }[]): Promise<void> {
+        const currentId = this.combatant?.id;
+        const updates = initiatives.map((i) => ({ _id: i.id, initiative: i.value }));
+        await this.updateEmbeddedDocuments("Combatant", updates);
+        // Ensure the current turn is preserved
+        await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
     /* -------------------------------------------- */
@@ -117,6 +155,8 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 }
 
-export interface CombatPF2e {
+export interface EncounterPF2e {
     readonly data: foundry.data.CombatData<this, CombatantPF2e>;
+
+    rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }

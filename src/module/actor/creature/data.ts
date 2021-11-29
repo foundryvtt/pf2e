@@ -10,6 +10,7 @@ import {
     Rollable,
     StrikeData,
     InitiativeData,
+    RollToggle,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
@@ -19,7 +20,8 @@ import { SaveType } from "@actor/data";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
-import { RollParameters } from "@system/rolls";
+import { RollDataPF2e, RollParameters } from "@system/rolls";
+import { CombatantPF2e } from "@module/encounter";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -48,6 +50,10 @@ export interface CreatureSystemSource extends ActorSystemSource {
 
     /** Saving throw data */
     saves?: Record<SaveType, { value?: number; mod?: number }>;
+
+    toggles?: {
+        actions: RollToggle[];
+    };
 }
 
 export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
@@ -70,6 +76,10 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
     saves: CreatureSaves;
 
     actions?: StrikeData[];
+
+    toggles: {
+        actions: RollToggle[];
+    };
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -144,9 +154,19 @@ export interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
+export interface InitiativeRollParams extends RollParameters {
+    /** Whether the encounter tracker should be updated with the roll result */
+    updateTracker?: boolean;
+}
+
+export interface InitiativeRollResult {
+    combatant: CombatantPF2e;
+    roll: Rolled<Roll<RollDataPF2e>>;
+}
+
 export type CreatureInitiative = InitiativeData &
     CheckModifier & {
-        roll: (parameters: RollParameters) => Promise<void>;
+        roll: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
         /**
          * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
          * constitutes a higher priority.
@@ -168,7 +188,6 @@ export enum VisionLevels {
 export type VisionLevel = ZeroToThree;
 
 export interface AttackRollContext {
-    event?: JQuery.TriggeredEvent;
     options: string[];
     targets: Set<TokenPF2e>;
     dc: CheckDC | null;

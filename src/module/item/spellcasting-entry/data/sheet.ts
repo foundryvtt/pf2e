@@ -1,5 +1,6 @@
 import { SpellPF2e } from "@item";
 import { ZeroToTen } from "@module/data";
+import { StatisticChatData } from "@system/statistic";
 import { MagicTradition, PreparationType } from ".";
 
 /** Final render data used for showing a spell list  */
@@ -11,16 +12,7 @@ export interface SpellListData {
 
 /** Spell list render data for a SpellcastingEntryPF2e */
 export interface SpellcastingEntryListData extends SpellListData {
-    statistic: {
-        check: {
-            value: number;
-            breakdown: string;
-        };
-        dc: {
-            value: number;
-            breakdown: string;
-        };
-    };
+    statistic: StatisticChatData;
     tradition: MagicTradition;
     castingType: PreparationType;
     isPrepared?: boolean;
