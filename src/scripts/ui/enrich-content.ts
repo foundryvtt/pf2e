@@ -78,7 +78,7 @@ export const EnrichContent = {
         }
 
         // Add damaging-effect if param damaging = true and not already included
-        if (params.damaging && params.damaging === "true") {
+        if (params.damaging === "true") {
             if (params.traits.search("damaging-effect") === -1)
                 params.traits = params.traits.concat(",damaging-effect").replace(/^,/, "");
         }
