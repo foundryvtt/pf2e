@@ -69,14 +69,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.heroPoints
         );
 
-        // Update class dc label
+        // Update class DC label
         sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
         sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
-
-        // Localize senses
-        for (const sense of sheetData.data.traits.senses) {
-            sense.label = game.i18n.localize(CONFIG.PF2E.senses[sense.type]) ?? sense.type;
-        }
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
