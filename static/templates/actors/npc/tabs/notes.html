@@ -1,34 +1,22 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
     <div class = "notes-section public-notes">
-        <label class= "details-label">
-            {{localize "PF2E.NPC.PublicNotes"}}
-        </label>
+        <label class= "details-label">{{localize "PF2E.NPC.PublicNotes"}}</label>
         <div class="notes-text">
             {{editor content=data.details.publicNotes target="data.details.publicNotes" button=true editable=editable}}
         </div>
     </div>
     <div class="notes-section private-notes">
-        <label class="details-label">
-            {{localize "PF2E.NPC.PrivateNotes"}}
-        </label>
+        <label class="details-label">{{localize "PF2E.NPC.PrivateNotes"}}</label>
         <div class = "notes-text">
             {{editor content=data.details.privateNotes target="data.details.privateNotes" button=true editable=editable}}
         </div>
     </div>
     <div class="source section-container headerless">
         <div class="section-body flexrow">
-            {{# if options.editable }}
             <label>{{localize "PF2E.Source.Label"}}:</label>
-            <input class="source-input" name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize 'PF2E.Source.SourcePlaceholder'}}"/>
-            {{else}}
-            <span style="flex:2">{{localize "PF2E.Source.Label"}}: {{data.details.source.value}}</span>
-            {{/if}}
-            {{# if options.editable }}
+            <input class="source-input" name="data.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
             <label>{{localize "PF2E.Source.AuthorLabel"}}:</label>
-            <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="{{localize 'PF2E.Source.AuthorPlaceholder'}}"/>
-            {{else}}
-            <span>{{localize "PF2E.Source.AuthorLabel"}}: {{data.details.source.author}}</span>
-            {{/if}}
+            <input name="data.details.source.author"  type="text" value="{{data.details.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
         </div>
     </div>
 </div>
