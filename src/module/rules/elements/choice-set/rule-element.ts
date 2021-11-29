@@ -22,7 +22,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item.
-        if (this.data.selection) {
+        if (typeof this.data.selection === "string") {
             item.data.flags.pf2e.rulesSelections[this.data.flag] = this.data.selection;
         } else {
             // If no selection has been made, disable this and all other rule elements on the item.
