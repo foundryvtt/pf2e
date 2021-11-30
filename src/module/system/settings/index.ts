@@ -161,6 +161,18 @@ export function registerSettings() {
         },
     });
 
+    game.settings.register("pf2e", "deathIcon", {
+        name: "PF2E.Settings.DeathIcon.Name",
+        hint: "PF2E.Settings.DeathIcon.Hint",
+        scope: "world",
+        config: false,
+        default: "icons/svg/skull.svg",
+        type: String,
+        onChange: (choice?: string) => {
+            if (choice) CONFIG.controlIcons.defeated = choice;
+        },
+    });
+
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",

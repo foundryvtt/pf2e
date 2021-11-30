@@ -107,16 +107,18 @@ declare global {
     interface ClientSettings {
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
+        get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
 
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
-        get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
+        get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
+        get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
-        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm " | "owner" | "all";
-        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm " | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
