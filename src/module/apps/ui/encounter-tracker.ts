@@ -23,7 +23,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
         const encounter = this.viewed;
-        if (!encounter) throw ErrorPF2e("No combat found");
+        if (!encounter) return super.activateListeners($html);
 
         // Hide names in the tracker of combatants with tokens that have unviewable nameplates
         for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
