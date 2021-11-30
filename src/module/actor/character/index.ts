@@ -98,8 +98,8 @@ export class CharacterPF2e extends CreaturePF2e {
         const { itemTypes } = this;
 
         // Ancestry and class
-        const ancestry = itemTypes.ancestry.shift();
-        const pcClass = itemTypes.class.shift();
+        const ancestry = this.ancestry;
+        const pcClass = this.class;
         if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
         if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
 

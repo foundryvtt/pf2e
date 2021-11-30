@@ -45,7 +45,7 @@ class TempHPRuleElement extends RuleElementPF2e {
                 "data.attributes.hp.temp": value,
                 "data.attributes.hp.tempsource": this.item.id,
             });
-            this.broadcast(value - currentTempHP);
+            this.broadcast(value, currentTempHP);
         }
     }
 
@@ -75,7 +75,7 @@ class TempHPRuleElement extends RuleElementPF2e {
         const currentTempHP = Number(getProperty(updatedActorData, "data.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             actorUpdates["data.attributes.hp.temp"] = value;
-            this.broadcast(value - currentTempHP);
+            this.broadcast(value, currentTempHP);
         }
     }
 
@@ -90,14 +90,16 @@ class TempHPRuleElement extends RuleElementPF2e {
     }
 
     /** Send out a chat message notifying everyone that the actor gained temporary HP */
-    broadcast(quantity: number): void {
-        ChatMessage.createDocuments([
-            {
-                user: game.user.id,
-                content: game.i18n.format("PF2E.Item.Effect.TempHPBroadcast", { actor: this.actor.name, quantity }),
-                whisper: this.actor.hasPlayerOwner ? [] : game.users.filter((u) => u.isGM).map((gm) => gm.id),
-            },
-        ]);
+    broadcast(newQuantity: number, oldQuantity: number): void {
+        const singularOrPlural =
+            newQuantity === 1
+                ? "PF2E.Encounter.Broadcast.TempHP.SingleNew"
+                : "PF2E.Encounter.Broadcast.TempHP.PluralNew";
+        const wasAt = oldQuantity > 0 ? game.i18n.format("PF2E.Encounter.Broadcast.TempHP.WasAt", { oldQuantity }) : "";
+        const [actor, item] = [this.actor.name, this.item.name];
+        const content = game.i18n.format(singularOrPlural, { actor, newQuantity, wasAt, item });
+        const recipients = game.users.filter((u) => this.actor.testUserPermission(u, "OWNER")).map((u) => u.id);
+        ChatMessage.createDocuments([{ content, whisper: recipients }]);
     }
 }
 
