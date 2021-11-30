@@ -34,7 +34,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
             if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
                 const toggleNameVisibility = document.createElement("a");
-                const isActive = game.users.some((user) => !combatant.canSeeName(user));
+                const isActive = game.users.contents.every((user) => combatant.canSeeName(user));
                 toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
                 toggleNameVisibility.dataset.control = "toggle-name-visibility";
                 toggleNameVisibility.title = game.i18n.localize(
