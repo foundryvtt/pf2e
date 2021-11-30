@@ -3,7 +3,7 @@ import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
-export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
+class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     get encounter() {
         return this.parent;
     }
@@ -23,12 +23,22 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
         );
     }
 
+    overridePriority(initiative: number): number | null {
+        return this.data.flags.pf2e.overridePriority[initiative] ?? null;
+    }
+
     hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
         if (this.parent !== than.parent) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
         }
 
         return this.parent.getCombatantWithHigherInit(this, than) === this;
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
     }
 
     /**
@@ -85,8 +95,20 @@ export class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> e
     }
 }
 
-export interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
+type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> & {
+    flags: {
+        pf2e: {
+            overridePriority: Record<number, number | undefined>;
+        };
+    };
+};
+
+interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
     readonly parent: EncounterPF2e | null;
+
+    readonly data: CombatantDataPF2e<this>;
 }
 
-export type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };
+type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };
+
+export { CombatantPF2e, RolledCombatant };
