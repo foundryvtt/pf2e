@@ -291,6 +291,13 @@ interface RuleElementPF2e {
     onCreate?(actorUpdates: Record<string, unknown>): void;
 
     /**
+     * Run at the start of the actor's turn. Similar to onCreate and onDelete, this provides an opportunity to make
+     * updates to the actor.
+     * @param actorUpdates A record containing update data for the actor
+     */
+    onTurnStart?(actorUpdates: Record<string, unknown>): void;
+
+    /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
      * on the actorData or token objects, e.g. removing temp HP.
      *

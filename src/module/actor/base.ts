@@ -131,10 +131,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Get roll options from this actor's traits an other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const conditions = this.itemTypes.condition
-            .flatMap((condition) =>
-                condition.fromSystem && condition.isActive ? condition.slug ?? sluggify(condition.name) : []
-            )
+        const { itemTypes } = this;
+        const effects = itemTypes.effect
+            .flatMap((e) => (e.isExpired ? [] : e.slug ?? sluggify(e.name)))
+            .map((slug) => `${prefix}:effect:${slug}`);
+        const conditions = itemTypes.condition
+            .flatMap((c) => (c.fromSystem && c.isActive ? c.slug ?? sluggify(c.name) : []))
             .map((slug) => `${prefix}:condition:${slug}`);
         if (conditions.includes(`${prefix}:condition:flat-footed`)) conditions.push(`${prefix}:flatFooted`);
 
@@ -142,6 +144,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return new Set([
             ...traits.map((trait) => `${prefix}:${trait}`),
             ...traits.map((trait) => `${prefix}:trait:${trait}`),
+            ...effects,
             ...conditions,
         ]);
     }

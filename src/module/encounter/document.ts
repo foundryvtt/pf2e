@@ -2,6 +2,7 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/data/values";
+import { UserPF2e } from "@module/user";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
 
@@ -163,6 +164,41 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
         );
         for (const sheet of pcSheets) {
             sheet.enableInitiativeButton();
+        }
+    }
+
+    // Call onTurnStart for each rule element on the new turn's actor
+    protected override _onUpdate(
+        changed: DeepPartial<foundry.data.CombatSource>,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        const { actor } = this.combatant ?? { actor: null };
+        if (!(actor && Object.keys(changed).includes("turn"))) return;
+
+        // Find the best user to make the update
+        const updater = ((): UserPF2e | null => {
+            const combatUpdatingUser = game.users.get(userId, { strict: true });
+
+            const users = game.users.filter((u) => u.active);
+            const assignedUser = users.find((u) => u.character === actor);
+            const firstGM = users.find((u) => u.isGM);
+            const anyoneWithPermission = users.find((u) => actor.canUserModify(u, "update"));
+            return combatUpdatingUser.active && actor.canUserModify(combatUpdatingUser, "update")
+                ? combatUpdatingUser
+                : assignedUser ?? firstGM ?? anyoneWithPermission ?? null;
+        })();
+        if (game.user !== updater) return;
+
+        // Now that a user has been found, make the updates if there are any
+        const actorUpdates: Record<string, unknown> = {};
+        for (const rule of actor.rules) {
+            rule.onTurnStart?.(actorUpdates);
+        }
+        if (Object.keys(actorUpdates).length > 0) {
+            actor.update(actorUpdates);
         }
     }
 }
