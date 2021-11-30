@@ -167,7 +167,7 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
         }
     }
 
-    // Call onTurnStart for each rule element on the new turn's actor
+    /** Call onTurnStart for each rule element on the new turn's actor */
     protected override _onUpdate(
         changed: DeepPartial<foundry.data.CombatSource>,
         options: DocumentModificationContext,
@@ -175,31 +175,38 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        const { actor } = this.combatant ?? { actor: null };
-        if (!(actor && Object.keys(changed).includes("turn"))) return;
+        // No updates necessary if this combatant has already had a turn this round
+        if (!this.combatant?.actor || this.combatant.roundOfLastTurn === this.round) return;
+
+        const lastTurn = this.previous.turn;
+        const isNextTurn = typeof changed.turn === "number" && (lastTurn === null || changed.turn > lastTurn);
+        const { actor } = this.combatant;
+        if (!isNextTurn) return;
 
         // Find the best user to make the update
         const updater = ((): UserPF2e | null => {
-            const combatUpdatingUser = game.users.get(userId, { strict: true });
+            const userUpdatingThis = game.users.get(userId, { strict: true });
 
-            const users = game.users.filter((u) => u.active);
-            const assignedUser = users.find((u) => u.character === actor);
-            const firstGM = users.find((u) => u.isGM);
-            const anyoneWithPermission = users.find((u) => actor.canUserModify(u, "update"));
-            return combatUpdatingUser.active && actor.canUserModify(combatUpdatingUser, "update")
-                ? combatUpdatingUser
+            const activeUsers = game.users.filter((u) => u.active);
+            const assignedUser = activeUsers.find((u) => u.character === actor);
+            const firstGM = activeUsers.find((u) => u.isGM);
+            const anyoneWithPermission = activeUsers.find((u) => actor.canUserModify(u, "update"));
+            return userUpdatingThis.active && actor.canUserModify(userUpdatingThis, "update")
+                ? userUpdatingThis
                 : assignedUser ?? firstGM ?? anyoneWithPermission ?? null;
         })();
         if (game.user !== updater) return;
 
-        // Now that a user has been found, make the updates if there are any
-        const actorUpdates: Record<string, unknown> = {};
-        for (const rule of actor.rules) {
-            rule.onTurnStart?.(actorUpdates);
-        }
-        if (Object.keys(actorUpdates).length > 0) {
-            actor.update(actorUpdates);
-        }
+        this.combatant.update({ "flags.pf2e.roundOfLastTurn": this.round }).then(() => {
+            // Now that a user has been found, make the updates if there are any
+            const actorUpdates: Record<string, unknown> = {};
+            for (const rule of actor.rules) {
+                rule.onTurnStart?.(actorUpdates);
+            }
+            if (Object.keys(actorUpdates).length > 0) {
+                actor.update(actorUpdates);
+            }
+        });
     }
 }
 

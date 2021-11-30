@@ -12,6 +12,11 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         return this.data.defeated;
     }
 
+    /** The round this combatant last had a turn */
+    get roundOfLastTurn(): number | null {
+        return this.data.flags.pf2e.roundOfLastTurn;
+    }
+
     /** Can the user see this combatant's name? */
     canSeeName(user: UserPF2e = game.user): boolean {
         const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
@@ -39,6 +44,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         super.prepareBaseData();
 
         this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
+        this.data.flags.pf2e.roundOfLastTurn ??= null;
     }
 
     /**
@@ -98,6 +104,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
 type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> & {
     flags: {
         pf2e: {
+            roundOfLastTurn: number | null;
             overridePriority: Record<number, number | undefined>;
         };
     };
