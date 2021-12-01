@@ -1,13 +1,12 @@
 import { CreatureTrait } from "@actor/creature/data";
 import type { ItemPF2e } from "@item/base";
-import { FeatTrait } from "@item/feat/data";
-import { SpellTrait } from "@item/spell/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
 import { NPCAttackTrait } from "@item/melee/data";
+import { ActionTrait } from "@item/action/data";
 
 export interface BaseItemSourcePF2e<
     TItemType extends ItemType = ItemType,
@@ -34,7 +33,7 @@ export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
     readonly _source: BaseItemSourcePF2e;
 }
 
-export type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait | NPCAttackTrait;
+export type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait;
 
 export type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
 
