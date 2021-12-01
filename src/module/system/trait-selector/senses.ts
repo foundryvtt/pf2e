@@ -60,22 +60,37 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
             });
     }
 
-    protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(_event: Event, formData: SenseFormData): Promise<void> {
         const update = this.getUpdateData(formData);
         if (update) {
             this.object.update({ [this.objectProperty]: update });
         }
     }
 
-    protected getUpdateData(formData: Record<string, unknown>) {
-        const choices: Record<string, unknown>[] = [];
-        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
-            if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[2]))) {
-                    choices.push({ type: k, acuity: v[1], value: v[2] });
+    protected getUpdateData(formData: SenseFormData): SenseUpdateData[] {
+        return Object.entries(formData)
+            .filter(
+                (entry): entry is [string, [true, string, string?] | true] =>
+                    entry[1] === true || (Array.isArray(entry[1]) && entry[1][0] === true)
+            )
+            .map(([type, values]) => {
+                if (values === true) {
+                    return { type };
+                } else if (!Number(values[2])) {
+                    const acuity = values[1];
+                    return { type, acuity };
+                } else {
+                    const acuity = values[1];
+                    const range = Number(values[2]);
+                    return { type, acuity, value: range };
                 }
-            }
-        }
-        return choices;
+            });
     }
+}
+
+type SenseFormData = Record<string, [boolean, string, string?] | boolean>;
+interface SenseUpdateData {
+    type: string;
+    acuity?: string;
+    value?: number;
 }

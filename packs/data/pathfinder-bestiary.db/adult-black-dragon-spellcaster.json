@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -74,7 +75,6 @@
             "privateNotes": "",
             "publicNotes": "<p>Murderous tyrants of marshes, swamps, bogs, and fens, black dragons terrorize their domains with intense fervor. Gleefully sadistic, they rule their fetid principalities from a deep cave or otherwise isolated part of the swamp with a mix of lightning-quick raids and subterfuge. Their hatred for other creatures is as acidic as their breath weapons, and they rarely tolerate even other dragons of their kind-except perhaps to mate or temporarily collaborate to take down a mutual enemy.</p>\n<p>Black dragons are amphibious-although they breathe air, their gills also allow them to breathe water. Their frills and fins make them accomplished swimmers, well suited to their wetland environments and submerged lairs. They're immune to the fetid water that comes as a result of their magical ability to corrupt water.</p>\n<p>Black dragon lairs are as foul as their souls. The floors are littered with rotting meat, and plundered treasures line the muck and slime of their dank caves amid twisted roots and creepers. Such places are often crawling with pests, snakes, and slimes. Though they claim natural caverns when they can, they make do with areas of dense, twisted vegetation within a swamp. Black dragon treasure hoards primarily consist of gems and expensive glass work, as valuables of softer substance can't survive the dragon's acidic presence.</p>\n<hr />\n<p>While there are many types of dragons, from the powerful planar dragons to the strange esoteric dragons, few dragon varieties are as well-known and as rightly feared as the chromatic dragons. Differentiated by the hue of their scales, each color of dragon unleashes its own flavor of murderous cruelty-be it by claw, tooth, or breath-and unlike most creatures, dragons only become more powerful as they age. Their lust for treasure, food, bloodshed, and control are legendary. Physically powerful with egos to match, these dragons are often morally depraved and act as criminal masterminds, vicious tyrants, or voracious raiders.</p>",
             "source": {
-                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
@@ -3135,10 +3135,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
+                                "trait:arcane",
+                                "trait:divine",
+                                "trait:primal",
+                                "trait:occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -3188,7 +3188,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, <span data-pf2-check=\"will\" data-pf2-dc=\"28\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"28\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3241,7 +3241,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within reach of the dragon's tail takes an action to Strike or attempt a skill check;</p>\n<p><strong>Effect</strong> The dragon Strikes with its tail at the triggering creature at a -2 penalty. If it hits, the creature takes a -2 circumstance penalty to the triggering roll.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Tail Lash (Attack Roll)]{Effect: Tail Lash (Attack Roll)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Tail Lash (Skill Check)]{Effect: Tail Lash (Skill Check)}</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within reach of the dragon's tail takes an action to Strike or attempt a skill check</p>\n<p><strong>Effect</strong> The dragon Strikes with its tail at the triggering creature at a -2 penalty. If it hits, the creature takes a -2 circumstance penalty to the triggering roll.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Tail Lash (Attack Roll)]{Effect: Tail Lash (Attack Roll)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Tail Lash (Skill Check)]{Effect: Tail Lash (Skill Check)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3249,7 +3249,7 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.tail-lash"
+                        "property": "flags.pf2e.rollOptions.attack-roll.tail-lash"
                     },
                     {
                         "key": "FlatModifier",
@@ -3300,7 +3300,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a spray of acid that deals [[/r {12d6}[acid]]]{12d6 acid damage} in an <span data-pf2-effect-area=\"line\" data-pf2-distance=\"80\">80-foot line</span> (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"acid,arcane,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a spray of acid that deals [[/r {12d6}[acid]]]{12d6 acid damage} in an @Template[type:line|distance:80]{80-foot line} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"acid,arcane,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3348,7 +3348,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per day;</p>\n<p><strong>Effect</strong> The dragon permanently befouls 10 cubic feet of liquid within 90 feet. The liquid becomes undrinkable and unable to support water-breathing life.</p>\n<p>This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"28\" data-pf2-traits=\"arcane,concentrate,necromancy\" data-pf2-label=\"Corrupt Water DC\" data-pf2-show-dc=\"gm\">Will</span> save to protect liquids in its possession). This doesn't affect liquids in a creature's body.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> Once per day</p>\n<p><strong>Effect</strong> The dragon permanently befouls 10 cubic feet of liquid within 90 feet. The liquid becomes undrinkable and unable to support water-breathing life.</p>\n<p>This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"28\" data-pf2-traits=\"arcane,concentrate,necromancy\" data-pf2-label=\"Corrupt Water DC\" data-pf2-show-dc=\"gm\">Will</span> save to protect liquids in its possession). This doesn't affect liquids in a creature's body.</p>"
                 },
                 "requirements": {
                     "value": ""

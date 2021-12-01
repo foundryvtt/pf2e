@@ -37,7 +37,7 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
 import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
-import { CombatantPF2e } from "@module/combatant";
+import { CombatantPF2e } from "@module/encounter";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -80,9 +80,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get isDead(): boolean {
-        const hasDeathOverlay = !this.getActiveTokens().some(
-            (token) => token.data.overlayEffect !== "icons/svg/skull.svg"
-        );
+        const deathIcon = game.settings.get("pf2e", "deathIcon");
+        const tokens = this.getActiveTokens();
+        const hasDeathOverlay = tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === deathIcon);
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
