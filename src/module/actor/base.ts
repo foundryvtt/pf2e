@@ -975,6 +975,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
+    async toggleCondition(conditionSlug: ConditionType): Promise<void> {
+        if (this.hasCondition(conditionSlug)) {
+            await this.decreaseCondition(conditionSlug, { forceRemove: true });
+        } else {
+            await this.increaseCondition(conditionSlug);
+        }
+    }
+
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
         const importData = JSON.parse(json);
