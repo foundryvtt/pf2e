@@ -1,23 +1,26 @@
 import { CanvasInit } from "./canvas-init";
 import { CanvasReady } from "./canvas-ready";
+import { CloseCombatTrackerConfig } from "./close-combat-tracker-config";
 import { CloseWorldClockSettings } from "./close-world-clock-settings";
-import { Init } from "./init";
+import { DropCanvasData } from "./drop-canvas-data";
+import { GetSceneControlButtons } from "./get-scene-control-buttons";
 import { HotbarDrop } from "./hotbar-drop";
+import { Init } from "./init";
 import { Ready } from "./ready";
+import { RenderActorDirectory } from "./render-actor-directory";
+import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
+import { RenderDialog } from "./render-dialog";
+import { RenderSceneControls } from "./render-scene-controls";
+import { RenderSettings } from "./render-settings";
 import { Setup } from "./setup";
 import { UpdateWorldTime } from "./update-world-time";
-import { RenderActorDirectory } from "./render-actor-directory";
-import { DropCanvasData } from "./drop-canvas-data";
-import { RenderDialog } from "./render-dialog";
-import { RenderSettings } from "./render-settings";
-import { GetSceneControlButtons } from "./get-scene-control-buttons";
-import { RenderSceneControls } from "./render-scene-controls";
 
 export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
             CanvasInit,
             CanvasReady,
+            CloseCombatTrackerConfig,
             CloseWorldClockSettings,
             DropCanvasData,
             GetSceneControlButtons,
@@ -26,10 +29,11 @@ export const HooksPF2e = {
             Ready,
             RenderActorDirectory,
             RenderSceneControls,
-            Setup,
-            UpdateWorldTime,
+            RenderCombatTrackerConfig,
             RenderDialog,
             RenderSettings,
+            Setup,
+            UpdateWorldTime,
         ];
         for (const Listener of listeners) {
             Listener.listen();
