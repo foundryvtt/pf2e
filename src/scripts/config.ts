@@ -1222,6 +1222,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...npcAttackTraits,
+    summon: "PF2E.TraitSummon",
 };
 
 const weaponPropertyRunes: Record<string, string> = {
