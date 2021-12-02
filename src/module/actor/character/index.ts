@@ -9,7 +9,7 @@ import {
     StatisticModifier,
     ProficiencyModifier,
 } from "@module/modifiers";
-import { ensureWeaponCategory, ensureWeaponGroup, ensureWeaponSize, WeaponDamagePF2e } from "@system/damage/weapon";
+import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "../data/values";
 import {
@@ -965,21 +965,23 @@ export class CharacterPF2e extends CreaturePF2e {
         }
     ): CharacterStrike {
         const itemData = weapon.data;
+        const { rollNotes, statisticsModifiers } = options.synthetics;
         const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.traits;
         const systemData = this.data.data;
         const { categories, synthetics } = options;
         const ammos = options.ammos ?? [];
 
-        // Determine the base ability score for this attack.
-        let ability: "str" | "dex" = weapon.isMelee ? "str" : "dex";
-        const score = systemData.abilities[ability].value;
-        modifiers.push(AbilityModifier.fromScore(ability, score));
+        // Determine the default ability and score for this attack.
+        const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
+        const score = systemData.abilities[defaultAbility].value;
+        modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
         if (weapon.isMelee && weaponTraits.has("finesse")) {
-            ability = "dex";
             const dexScore = systemData.abilities.dex.value;
             modifiers.push(AbilityModifier.fromScore("dex", dexScore));
         }
+
+        const weaponRollOptions = weapon.getItemRollOptions();
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
@@ -989,47 +991,59 @@ export class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
         const linkedRank = ((): number => {
-            const statements = weapon.getItemRollOptions();
             const linkedProficiency = Object.values(systemData.martial)
                 .filter((p): p is LinkedProficiency => "sameAs" in p)
-                .find((proficiency) => proficiency.predicate.test(statements));
+                .find((proficiency) => proficiency.predicate.test(weaponRollOptions));
             return linkedProficiency?.rank ?? 0;
         })();
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, linkedRank);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
-        const selectors = [
-            "attack",
-            "mundane-attack",
-            `${ability}-attack`,
-            `${ability}-based`,
-            `${weapon.id}-attack`,
-            `${sluggify(weapon.name)}-attack`,
-            "attack-roll",
-            "all",
-        ];
-
-        if (baseWeapon && !selectors.includes(`${baseWeapon}-attack`)) {
-            selectors.push(`${baseWeapon}-attack`);
-        }
-
-        if (weapon.group) {
-            selectors.push(`${weapon.group}-weapon-group-attack`);
-        }
-
         const defaultOptions = this.getRollOptions(["all", "attack-roll"])
             .concat(...weaponTraits) // always add weapon traits as options
-            .concat(weapon.getItemRollOptions())
-            .concat(weapon.isMelee ? "melee" : "ranged")
-            .concat(`${ability}-attack`);
+            .concat(weaponRollOptions)
+            .concat(weapon.isMelee ? "melee" : "ranged");
         ensureProficiencyOption(defaultOptions, proficiencyRank);
-        ensureWeaponCategory(defaultOptions, weapon.category);
-        ensureWeaponGroup(defaultOptions, weapon.group);
-        ensureWeaponSize(defaultOptions, weapon.size, this.size);
+
+        // Determine the ability-based synthetic selectors according to the prevailing ability modifier
+        const selectors = (() => {
+            const baseSelectors = [
+                "attack",
+                "mundane-attack",
+                `${weapon.id}-attack`,
+                `${sluggify(weapon.name)}-attack`,
+                "attack-roll",
+                "all",
+            ];
+
+            const abilityModifier = [
+                ...modifiers,
+                ...baseSelectors.flatMap((selector) => statisticsModifiers[selector] ?? []),
+            ]
+                .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
+                .flatMap((modifier) => (modifier.predicate.test(defaultOptions) ? modifier : []))
+                .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
+
+            if (!abilityModifier) {
+                console.warn(
+                    `PF2e System | No ability modifier was determined for attack roll with ${weapon.name} (${weapon.uuid})`
+                );
+                return baseSelectors;
+            }
+            const ability = abilityModifier.ability;
+
+            return [
+                baseSelectors,
+                baseWeapon && !baseWeapon.includes(`${baseWeapon}-attack`) ? `${baseWeapon}-attack` : [],
+                weapon.group ? `${weapon.group}-weapon-group-attack` : [],
+                `${ability}-attack`,
+                `${ability}-based`,
+            ].flat();
+        })();
 
         // Extract weapon roll notes
-        const notes = selectors.flatMap((key) => duplicate(synthetics.rollNotes[key] ?? []));
+        const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
 
         if (weapon.group === "bomb") {
             const attackBonus = Number(itemData.data.bonus?.value) || 0;
@@ -1056,7 +1070,6 @@ export class CharacterPF2e extends CreaturePF2e {
         {
             const potency: WeaponPotencyPF2e[] = [];
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
-            const { statisticsModifiers } = synthetics;
             for (const key of selectors) {
                 modifiers.push(
                     ...(statisticsModifiers[key] ?? []).map((m) => m.clone({ test: this.getRollOptions(selectors) }))
@@ -1216,13 +1229,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 roll: (args: RollParameters) => {
                     const traits = ["attack", ...weapon.traits];
                     const context = this.createAttackRollContext({ traits });
-                    const options = [
-                        ...new Set([
-                            ...(args.options ?? []),
-                            ...context.options,
-                            ...action.options,
-                            ...defaultOptions,
-                    ];
+                    const options = Array.from(
+                        new Set([args.options ?? [], context.options, action.options, defaultOptions])
+                    ).flat();
                     const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
@@ -1245,11 +1254,11 @@ export class CharacterPF2e extends CreaturePF2e {
                     itemData,
                     this,
                     action.traits,
-                    synthetics.statisticsModifiers,
+                    statisticsModifiers,
                     synthetics.damageDice,
                     proficiencyRank,
                     options,
-                    synthetics.rollNotes,
+                    rollNotes,
                     weaponPotency,
                     synthetics.striking
                 );

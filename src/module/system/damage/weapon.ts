@@ -13,7 +13,6 @@ import {
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
 import { DamageCategory, DamageDieSize } from "./damage";
-import { SIZES } from "@module/data";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
@@ -76,47 +75,6 @@ function isNonPhysicalDamage(damageType?: string): boolean {
         damageType !== "" &&
         DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
     );
-}
-
-export function ensureWeaponCategory(options: string[], weaponCategory: "simple" | "martial" | "advanced" | "unarmed") {
-    if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith("weapon:category:"))) {
-        options.push(`weapon:category:${weaponCategory}`);
-    }
-}
-
-export function ensureWeaponGroup(options: string[], weaponGroup: string | null) {
-    if (weaponGroup && !options.some((option) => option.toLowerCase().startsWith("weapon:group:"))) {
-        options.push(`weapon:group:${weaponGroup}`);
-    }
-}
-
-const WEAPON_SIZE_EXPANDED = {
-    tiny: "tiny",
-    sm: "small",
-    med: "medium",
-    lg: "large",
-    huge: "huge",
-    grg: "gargantuan",
-} as const;
-export function ensureWeaponSize(
-    options: string[],
-    weaponSize: typeof SIZES[number] | null | undefined,
-    wielderSize: typeof SIZES[number] | null | undefined
-) {
-    if (weaponSize) {
-        if (!options.some((option) => option.toLowerCase().startsWith("weapon:size:"))) {
-            options.push(`weapon:size:${WEAPON_SIZE_EXPANDED[weaponSize] ?? weaponSize}`);
-        }
-        wielderSize = wielderSize === "sm" ? "med" : wielderSize; // treat small creatures as medium
-        if (wielderSize && SIZES.indexOf(weaponSize) > SIZES.indexOf(wielderSize)) {
-            if (!options.some((option) => option.toLowerCase().startsWith("weapon:oversized"))) {
-                options.push("weapon:oversized");
-            }
-            if (!options.some((option) => option.toLowerCase().startsWith("oversized"))) {
-                options.push("oversized"); // transitional value until Giant Instinct has been adapted
-            }
-        }
-    }
 }
 
 /**
