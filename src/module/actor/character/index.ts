@@ -263,17 +263,6 @@ export class CharacterPF2e extends CreaturePF2e {
         this.data.data.crafting.formulas.forEach((formula) => {
             formula.deletable = true;
         });
-
-        // Toggles
-        systemData.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
-                },
-            ],
-        };
     }
 
     protected override async _preUpdate(
@@ -962,14 +951,15 @@ export class CharacterPF2e extends CreaturePF2e {
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
-        rules.forEach((rule) => {
+        // Call post-data-preparation RuleElement hooks
+        for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData(this.data, synthetics);
+                rule.onAfterPrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
-        });
+        }
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;

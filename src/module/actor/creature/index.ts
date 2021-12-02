@@ -37,7 +37,7 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
 import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
-import { CombatantPF2e } from "@module/combatant";
+import { CombatantPF2e } from "@module/encounter";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -80,9 +80,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get isDead(): boolean {
-        const hasDeathOverlay = !this.getActiveTokens().some(
-            (token) => token.data.overlayEffect !== "icons/svg/skull.svg"
-        );
+        const deathIcon = game.settings.get("pf2e", "deathIcon");
+        const tokens = this.getActiveTokens();
+        const hasDeathOverlay = tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === deathIcon);
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
@@ -203,6 +203,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 modifiers[index] = ModifierPF2e.fromObject(modifier);
             });
         });
+
+        // Toggles
+        this.data.data.toggles = {
+            actions: [
+                {
+                    label: "PF2E.TargetFlatFootedLabel",
+                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
+                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                },
+            ],
+        };
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -215,7 +226,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         for (const rule of this.rules) {
-            rule.onApplyActiveEffects();
+            rule.onApplyActiveEffects?.();
         }
 
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
@@ -334,7 +345,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         for (const rule of rules) {
             try {
-                rule.onBeforePrepareData(actorData, synthetics);
+                rule.onBeforePrepareData?.(synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
