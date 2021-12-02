@@ -41,6 +41,12 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
     }
 
+    /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
+    async toggleDefeated(): Promise<void> {
+        await this.update({ defeated: !this.defeated });
+        await this.token?.object.toggleEffect(game.settings.get("pf2e", "deathIcon"), { overlay: true });
+    }
+
     /**
      * Hide the tracked resource if the combatant represents a non-player-owned actor
      * @todo Make this a configurable with a metagame-knowledge setting
