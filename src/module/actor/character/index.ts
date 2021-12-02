@@ -1020,7 +1020,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const defaultOptions = this.getRollOptions(["all", "attack-roll"])
             .concat(...weaponTraits) // always add weapon traits as options
-            .concat([...weaponTraits].map((trait) => `trait:${trait}`)) // new standard form
+            .concat(weapon.getItemRollOptions())
             .concat(weapon.isMelee ? "melee" : "ranged")
             .concat(`${ability}-attack`);
         ensureProficiencyOption(defaultOptions, proficiencyRank);
@@ -1214,10 +1214,14 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
-                    const traits = weapon.getItemRollOptions("");
+                    const traits = ["attack", ...weapon.traits];
                     const context = this.createAttackRollContext({ traits });
                     const options = [
-                        ...new Set([...(args.options ?? []), ...context.options, ...action.options, ...defaultOptions]),
+                        ...new Set([
+                            ...(args.options ?? []),
+                            ...context.options,
+                            ...action.options,
+                            ...defaultOptions,
                     ];
                     const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {
