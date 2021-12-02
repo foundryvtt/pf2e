@@ -122,7 +122,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         // Show/Hide GM only sections, DCs, and other such elements
         UserVisibility.process($html, { actor: this.actor });
 
-        if (this.isDamageRoll) {
+        if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
             // Clean up styling of old damage messages

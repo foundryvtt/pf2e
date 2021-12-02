@@ -2,11 +2,10 @@ import { VisionLevels } from "@actor/creature/data";
 import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { UserPF2e } from "@module/user";
 import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CombatantPF2e } from "@module/combatant";
+import { CombatantPF2e } from "@module/encounter";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -185,21 +184,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Call `onCreateToken` hook of any rule element on this actor's items */
-    protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
-        user: UserPF2e
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        const actor = game.actors.get(data.actorId ?? "");
-        if (!actor) return;
-        for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
-            rule.onCreateToken(actor.data, rule.item.data, data);
-        }
-    }
-
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["data"]["_source"],
@@ -222,6 +206,10 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
         canvas.darkvision.refresh({ drawMask: true });
+
+        if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
+            ui.combat.render();
+        }
     }
 }
 

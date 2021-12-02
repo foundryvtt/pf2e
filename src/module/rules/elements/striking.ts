@@ -1,14 +1,16 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementSynthetics, StrikingPF2e } from "../rules-data-definitions";
-import { CharacterData, NPCData } from "@actor/data";
 import { getStrikingDice } from "@item/runes";
 import { WeaponPF2e } from "@item";
+import { ActorType } from "@actor/data";
 
 /**
  * @category RuleElement
  */
-export class PF2StrikingRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(_actorData: CharacterData | NPCData, { striking }: RuleElementSynthetics) {
+export class StrikingRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
+    override onBeforePrepareData({ striking }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const strikingValue =
             "value" in this.data

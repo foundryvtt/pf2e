@@ -3,7 +3,7 @@ import { StatusEffectIconTheme } from "@scripts/config";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
-import { CombatPF2e } from "@module/combat";
+import { EncounterPF2e } from "@module/encounter";
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -62,14 +62,14 @@ export class StatusEffects {
     static hookIntoFoundry() {
         /** Create hooks onto FoundryVTT */
         Hooks.on("renderTokenHUD", (app, html, data) => {
-            console.log("PF2e System | Rendering PF2e customized status effects");
             StatusEffects._hookOnRenderTokenHUD(app, html, data);
         });
-        Hooks.on("onTokenHUDClear", (tokenHUD, token: TokenPF2e) => {
-            if (tokenHUD._state === tokenHUD?.constructor?.RENDER_STATES?.NONE) {
+        Hooks.on("clearTokenHUD", (tokenHUD, token) => {
+            if (!(tokenHUD instanceof TokenHUD && token instanceof TokenPF2e)) return;
+
+            if (tokenHUD._state === TokenHUD.RENDER_STATES.NONE) {
                 // Closing the token HUD
                 if (token?.statusEffectChanged === true) {
-                    console.log("PF2e System | StatusEffects were updated - Message to chat");
                     token.statusEffectChanged = false;
                     StatusEffects._createChatMessage(token);
                 }
@@ -78,7 +78,9 @@ export class StatusEffects {
 
         if (game.user.isGM && game.settings.get("pf2e", "statusEffectShowCombatMessage")) {
             let lastTokenId = "";
-            Hooks.on("updateCombat", (combat: CombatPF2e) => {
+            Hooks.on("updateCombat", (combat) => {
+                if (!(combat instanceof EncounterPF2e)) return;
+
                 const combatant = combat.combatant;
                 const token = combatant?.token;
                 if (

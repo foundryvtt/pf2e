@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
-import type { ActorDataPF2e, ActorType, CreatureData } from "@actor/data";
+import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import type { ItemDataPF2e } from "@item/data";
 import { RawModifier } from "@module/modifiers";
 import { PredicatePF2e } from "@system/predication";
 import {
@@ -108,42 +107,6 @@ abstract class RuleElementPF2e {
     set ignored(value: boolean) {
         this.data.ignored = value;
     }
-
-    /**
-     * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
-     * elements
-     */
-    onApplyActiveEffects(): void {}
-
-    /**
-     * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
-     * an actor.update() was called. Use this hook if you want to save or modify values on the actual data objects
-     * after actor changes. Those values should not be saved back to the actor unless we mess up.
-     *
-     * This callback is run for each rule in random order and is run very often, so watch out for performance.
-     *
-     * @param actorData actor data
-     * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
-     * damage modifiers or bonuses
-     */
-    onBeforePrepareData(_actorData?: CreatureData, _synthetics?: RuleElementSynthetics): void {}
-
-    /**
-     * Run after all actor preparation callbacks have been run so you should see all final values here.
-     *
-     * @param actorData see onBeforePrepareData
-     * @param synthetics see onBeforePrepareData
-     */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSynthetics) {}
-
-    /**
-     * Run before a new token is created of the actor that holds the item.
-     *
-     * @param actorData the actor data of the actor that holds the item
-     * @param item the item data of the item containing the rule element
-     * @param token the token data of the token to be created
-     */
-    onCreateToken(_actorData: ActorDataPF2e, _item: ItemDataPF2e, _token: PreDocumentId<foundry.data.TokenSource>) {}
 
     /**
      * Callback used to parse and look up values when calculating rules. Parses strings that look like
@@ -279,6 +242,33 @@ abstract class RuleElementPF2e {
 }
 
 interface RuleElementPF2e {
+    /**
+     * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
+     * elements
+     */
+    onApplyActiveEffects?(): void;
+
+    /**
+     * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
+     * an actor.update() was called. Use this hook if you want to save or modify values on the actual data objects
+     * after actor changes. Those values should not be saved back to the actor unless we mess up.
+     *
+     * This callback is run for each rule in random order and is run very often, so watch out for performance.
+     *
+     * @param actorData actor data
+     * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
+     * damage modifiers or bonuses
+     */
+    onBeforePrepareData?(synthetics: RuleElementSynthetics): void;
+
+    /**
+     * Run after all actor preparation callbacks have been run so you should see all final values here.
+     *
+     * @param actorData see onBeforePrepareData
+     * @param synthetics see onBeforePrepareData
+     */
+    onAfterPrepareData?(synthetics: RuleElementSynthetics): void;
+
     /**
      * Run before this rules element's parent item is created. The rule element is temporarilly constructed from its
      * source data, which is also passed to the method. A rule element can alter itself before its parent item is

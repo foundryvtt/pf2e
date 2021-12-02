@@ -1,11 +1,11 @@
-import { CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
 
-export class CombatPF2e extends Combat<CombatantPF2e> {
+export class EncounterPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
         return this.data.active;
     }
@@ -13,12 +13,12 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
     protected override _sortCombatants(a: Embedded<CombatantPF2e>, b: Embedded<CombatantPF2e>): number {
         const resolveTie = (): number => {
-            const [priorityA, priorityB] = [a, b].map((combatant): number =>
-                combatant?.actor instanceof CharacterPF2e ||
-                combatant?.actor instanceof NPCPF2e ||
-                combatant.actor instanceof HazardPF2e
-                    ? combatant.actor.data.data.attributes.initiative.tiebreakPriority
-                    : 3
+            const [priorityA, priorityB] = [a, b].map(
+                (combatant): number =>
+                    combatant.overridePriority(combatant.initiative ?? 0) ??
+                    (combatant.actor && "initiative" in combatant.actor.data.data.attributes
+                        ? combatant.actor.data.data.attributes.initiative.tiebreakPriority
+                        : 3)
             );
             return priorityA === priorityB ? a.id.localeCompare(b.id) : priorityA - priorityB;
         };
@@ -107,9 +107,21 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 
     /** Set the initiative of multiple combatants */
-    async setMultipleInitiatives(initiatives: { id: string; value: number }[]): Promise<void> {
+    async setMultipleInitiatives(
+        initiatives: { id: string; value: number; overridePriority?: number | null }[]
+    ): Promise<void> {
         const currentId = this.combatant?.id;
-        const updates = initiatives.map((i) => ({ _id: i.id, initiative: i.value }));
+        const updates = initiatives.map((i) => ({
+            _id: i.id,
+            initiative: i.value,
+            flags: {
+                pf2e: {
+                    overridePriority: {
+                        [i.value]: i.overridePriority,
+                    },
+                },
+            },
+        }));
         await this.updateEmbeddedDocuments("Combatant", updates);
         // Ensure the current turn is preserved
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
@@ -155,7 +167,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 }
 
-export interface CombatPF2e {
+export interface EncounterPF2e {
     readonly data: foundry.data.CombatData<this, CombatantPF2e>;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;

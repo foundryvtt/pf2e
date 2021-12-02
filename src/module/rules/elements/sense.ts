@@ -1,7 +1,7 @@
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../rules-data-definitions";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
-import { ActorType, CreatureData } from "@actor/data";
+import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "@actor/creature/sense";
 
@@ -21,7 +21,7 @@ export class SenseRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(_actorData: CreatureData, synthetics: RuleElementSynthetics): void {
+    override onBeforePrepareData(synthetics: RuleElementSynthetics): void {
         if (this.ignored) return;
 
         const range = this.resolveValue(this.data.range, "");

@@ -41,7 +41,10 @@ export interface NPCSystemData extends CreatureSystemData {
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { base?: number; value: number };
         /** Which sourcebook this creature comes from. */
-        source: { value: string };
+        source: {
+            value: string;
+            author?: string;
+        };
         /** The type of this creature (such as 'undead') */
         creatureType: string;
         /** A very brief description */

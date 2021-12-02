@@ -45,7 +45,7 @@ export class PlayerConfigPF2e extends FormApplication {
      * @param html the html element where the button will be created
      */
     static hookOnRenderSettings(): void {
-        Hooks.on("renderSettings", (_app: SettingsConfig, html: JQuery) => {
+        Hooks.on("renderSettings", (_app, html) => {
             const configButton = $(
                 `<button id="pf2e-player-config" data-action="pf2e-player-config">
                     <i class="fas fa-cogs"></i> ${PlayerConfigPF2e.defaultOptions.title}

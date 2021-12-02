@@ -1,15 +1,19 @@
-import { CharacterData, NPCData } from "@actor/data";
+import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorType } from "@actor/data";
 import { RuleElementPF2e } from "../rule-element";
 
 /**
  * @category RuleElement
  */
-export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData) {
+class RecoveryCheckDCRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+
+    override onBeforePrepareData() {
         const slug = this.data.slug || this.item.slug;
         if (slug) {
+            const actorData = this.actor.data;
             let recoveryModifier = getProperty(actorData.data.attributes, "dying.recoveryMod") || 0;
-            const synergizers = (getProperty(actorData.data.attributes, "dying.synergizers") || []) as string[];
+            const synergizers: string[] = getProperty(actorData.data.attributes, "dying.synergizers") || [];
             if (!synergizers.includes(slug)) {
                 synergizers.push(slug);
             }
@@ -34,3 +38,9 @@ export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
         }
     }
 }
+
+interface RecoveryCheckDCRuleElement extends RuleElementPF2e {
+    get actor(): CharacterPF2e | NPCPF2e;
+}
+
+export { RecoveryCheckDCRuleElement };

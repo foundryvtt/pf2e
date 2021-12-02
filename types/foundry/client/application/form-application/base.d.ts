@@ -33,7 +33,7 @@ declare global {
          * Keep track of any FilePicker instances which are associated with this form
          * The values of this Array are inner-objects with references to the FilePicker instances and other metadata
          */
-        filepickers: any[];
+        filepickers: FilePicker[];
 
         /**
          * Keep track of any mce editors which may be active as part of this form
