@@ -748,10 +748,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "trait:arcane",
-                                "trait:primal",
-                                "trait:occult",
-                                "trait:divine"
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -855,7 +855,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.wing-deflection"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "wing-deflection"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
