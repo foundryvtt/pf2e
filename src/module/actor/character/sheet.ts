@@ -498,31 +498,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
 
-        // Inventory encumbrance
-        // FIXME: this is hard coded for now
-        const featSlugs = new Set(
-            actorData.items
-                .filter((item: ItemDataPF2e) => item.type === "feat")
-                .map((item: ItemDataPF2e) => item.data.slug)
-        );
-
-        let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
-        if (featSlugs.has("hefty-hauler")) {
-            bonusEncumbranceBulk += 2;
-            bonusLimitBulk += 2;
-        }
-        const equippedLiftingBelt = actorData.items.some(
-            (item: ItemDataPF2e) =>
-                item.type === "equipment" &&
-                item.data.slug === "lifting-belt" &&
-                item.data.equipped.value &&
-                item.data.invested.value
-        );
-        if (equippedLiftingBelt) {
-            bonusEncumbranceBulk += 1;
-            bonusLimitBulk += 1;
-        }
+        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
+        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
         const [bulk] = calculateBulk({
             items: bulkItems,
             bulkConfig: bulkConfig,
