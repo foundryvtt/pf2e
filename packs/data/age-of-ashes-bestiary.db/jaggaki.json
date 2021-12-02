@@ -66,7 +66,6 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "author": "",
                 "value": "Pathfinder #147: Tomorrow Must Burn"
             }
         },
@@ -3686,8 +3685,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "paralyzing-touch"
+                        "lich-paralyzing-touch"
                     ]
                 },
                 "bonus": {
@@ -4021,7 +4021,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "positive"
                             ]
                         },
@@ -4169,55 +4169,6 @@
             "type": "action"
         },
         {
-            "_id": "VrdfFFHSF7Aq0mkH",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A creature damaged by Jaggaki's hand Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"arcane,curse,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Touch DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. The creature becomes paralyzed for 1 round on a failure. On a critical failure, the creature is paralyzed permanently, falls prone, and seems dead. A <span data-pf2-check=\"medicine\" data-pf2-dc=\"25\" data-pf2-traits=\"arcane,curse,necromancy\" data-pf2-label=\"Reveal the Victim is Alive DC\" data-pf2-show-dc=\"gm\">Medicine</span> check reveals the victim is alive.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "arcane",
-                        "curse",
-                        "incapacitation",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralyzing Touch",
-            "sort": 3800000,
-            "type": "action"
-        },
-        {
             "_id": "L10IjFT5OxF7Vdtw",
             "data": {
                 "actionCategory": {
@@ -4258,6 +4209,59 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Steady Spellcasting",
+            "sort": 3800000,
+            "type": "action"
+        },
+        {
+            "_id": "pLURCvEu8rYktiZE",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature damaged by the Jaggaki's hand Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"arcane,curse,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Touch DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>The creature becomes @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a failure. On a critical failure, the creature is paralyzed permanently, falls @Compendium[pf2e.conditionitems.Prone]{Prone}, and seems dead. A <span data-pf2-check=\"medicine\" data-pf2-dc=\"25\" data-pf2-traits=\"arcane,curse,necromancy\" data-pf2-label=\"Diagnose Paralysis DC\" data-pf2-show-dc=\"gm\">Medicine</span> check reveals the victim is alive.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lich-paralyzing-touch",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "arcane",
+                        "curse",
+                        "incapacitation",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.XvPm866TKSfclErJ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralyzing Touch",
             "sort": 3900000,
             "type": "action"
         },
