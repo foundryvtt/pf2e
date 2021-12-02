@@ -75,7 +75,8 @@ declare module foundry {
             hidden: boolean;
             lightAnimation: AnimationSource;
             disposition: TokenDisposition;
-            displayBars: number;
+            displayName: TokenDisplayMode;
+            displayBars: TokenDisplayMode;
             bar1: TokenBarSource;
             bar2: TokenBarSource;
             flags: Record<string, Record<string, unknown>>;

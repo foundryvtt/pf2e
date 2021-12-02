@@ -1,12 +1,17 @@
 export {};
 declare global {
-    type HookCallback<P extends any[]> = (...args: P) => boolean | void | Promise<boolean | void>;
-    type HookParameters<H extends string, C extends any[]> = [hook: H, callback: HookCallback<C>];
+    type HookCallback<P extends unknown[]> = (...args: P) => boolean | void | Promise<boolean | void>;
+    type HookParameters<H extends string, C extends unknown[]> = [hook: H, callback: HookCallback<C>];
+
+    // Sequence of hooks called on world load
     type HookParamsInit = HookParameters<"init", never>;
     type HookParamsSetup = HookParameters<"setup", never>;
+    type HookParamsCanvasInit = HookParameters<"canvasInit", [DrawnCanvas]>;
+    type HookParamsCanvasReady = HookParameters<"canvasReady", [DrawnCanvas]>;
     type HookParamsReady = HookParameters<"ready", never>;
-    type HookParamsCanvasReady = HookParameters<"canvasReady", [Canvas]>;
-    type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: any }, string]>;
+
+    type HookParamsClose<T extends Application, N extends string> = HookParameters<`close${N}`, [T, JQuery]>;
+    type HookParamsDeleteCombat = HookParameters<"deleteCombat", [Combat, { [key: string]: unknown }, string]>;
     type HookParamsDropCanvasData = HookParameters<"dropCanvasData", [Canvas, DropCanvasData]>;
     type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [JQuery, EntryContextOption[]]>;
     type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
@@ -17,11 +22,17 @@ declare global {
     >;
     type HooksParamsPreUpdateCombat = HookParameters<
         "preUpdateCombat",
-        [Combat, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+        [Combat, object, { diff: boolean; advanceTime: number; [key: string]: unknown }, string]
     >;
     type HookParamsPreUpdateToken = HookParameters<
         "preUpdateToken",
-        [Scene, foundry.data.TokenData, Partial<foundry.data.TokenData>, { diff: boolean; [key: string]: any }, string]
+        [
+            Scene,
+            foundry.data.TokenData,
+            Partial<foundry.data.TokenData>,
+            { diff: boolean; [key: string]: unknown },
+            string
+        ]
     >;
     type HookParamsRender<T extends Application, N extends string> = HookParameters<
         `render${N}`,
@@ -31,9 +42,9 @@ declare global {
         "renderChatMessage",
         [ChatMessage, JQuery, foundry.data.ChatMessageSource]
     >;
-    type HookParamsUpdateCombat = HookParameters<
-        "updateCombat",
-        [Combat, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+    type HookParamsUpdate<T extends ClientDocument, N extends string> = HookParameters<
+        `update${N}`,
+        [T, DocumentUpdateData<T>, DocumentModificationContext]
     >;
     type HookParamsUpdateWorldTime = HookParameters<"updateWorldTime", [number, number]>;
 
@@ -47,7 +58,9 @@ declare global {
         static on(...args: HookParamsSetup): number;
         static on(...args: HookParamsInit): number;
         static on(...args: HookParamsReady): number;
+        static on(...args: HookParamsCanvasInit): number;
         static on(...args: HookParamsCanvasReady): number;
+        static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static on(...args: HookParamsDropCanvasData): number;
         static on(...args: HookParamsHotbarDrop): number;
         static on(...args: HookParamsGetChatLogEntryContext): number;
@@ -58,6 +71,7 @@ declare global {
         static on(...args: HookParamsRenderChatMessage): number;
         static on(...args: HookParamsRender<ChatLog, "ChatLog">): number;
         static on(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
+        static on(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static on(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static on(...args: HookParamsRender<Dialog, "Dialog">): number;
         static on(...args: HookParamsRender<ActorDirectory, "ActorDirectory">): number;
@@ -65,9 +79,10 @@ declare global {
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
-        static on(...args: HookParamsUpdateCombat): number;
+        static on(...args: HookParamsUpdate<Combat, "Combat">): number;
+        static on(...args: HookParamsUpdate<Scene, "Scene">): number;
         static on(...args: HookParamsUpdateWorldTime): number;
-        static on(...args: HookParameters<string, any>): number;
+        static on(...args: HookParameters<string, unknown[]>): number;
 
         /**
          * Register a callback handler for an event which is only triggered once the first time the event occurs.
@@ -79,7 +94,9 @@ declare global {
         static once(...args: HookParamsSetup): number;
         static once(...args: HookParamsInit): number;
         static once(...args: HookParamsReady): number;
+        static once(...args: HookParamsCanvasInit): number;
         static once(...args: HookParamsCanvasReady): number;
+        static once(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static once(...args: HookParamsDropCanvasData): number;
         static once(...args: HookParamsHotbarDrop): number;
         static once(...args: HookParamsGetChatLogEntryContext): number;
@@ -90,14 +107,17 @@ declare global {
         static once(...args: HookParamsRender<ActorDirectory, "ActorDirectory">): number;
         static once(...args: HookParamsRender<ChatLog, "ChatLog">): number;
         static once(...args: HookParamsRender<ChatPopout, "ChatPopout">): number;
+        static once(...args: HookParamsRender<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
         static once(...args: HookParamsRender<ItemDirectory, "ItemDirectory">): number;
         static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
         static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
+        static once(...args: HookParamsUpdate<Combat, "Combat">): number;
+        static once(...args: HookParamsUpdate<Scene, "Scene">): number;
         static once(...args: HookParamsUpdateWorldTime): number;
-        static once(...args: HookParameters<string, any>): number;
+        static once(...args: HookParameters<string, unknown[]>): number;
 
         /**
          * Unregister a callback handler for a particular hook event
@@ -115,7 +135,7 @@ declare global {
          * @param args  Arguments passed to the hook callback functions
          */
 
-        static callAll(hook: string, ...args: any[]): boolean;
+        static callAll(hook: string, ...args: unknown[]): boolean;
 
         /**
          * Call hook listeners in the order in which they were registered.
@@ -127,7 +147,7 @@ declare global {
          * @param hook  The hook being triggered
          * @param args  Arguments passed to the hook callback functions
          */
-        static call(hook: string, ...args: any[]): boolean;
+        static call(hook: string, ...args: unknown[]): boolean;
     }
 
     interface DropCanvasData<T extends string = string, D extends object = object> {
