@@ -302,6 +302,8 @@ export function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "sol
 }
 
 /** Short form of type and non-null check */
-export function isObject(value: unknown): value is object {
+export function isObject<T extends object>(value: unknown): value is DeepPartial<T>;
+export function isObject<T extends string>(value: unknown): value is { [K in T]?: unknown };
+export function isObject(value: unknown): boolean {
     return typeof value === "object" && value !== null;
 }

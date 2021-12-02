@@ -20,17 +20,13 @@ import {
 } from "@item/data";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
-import { LabeledString, ValuesList, ZeroToEleven } from "@module/data";
+import { ValuesList, ZeroToEleven } from "@module/data";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
 import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
 import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
-
-interface NPCSheetLabeledValue extends LabeledString {
-    localizedName?: string;
-}
 
 interface ActionsDetails {
     label: string;
@@ -76,7 +72,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments>;
     traits: CreatureTraitsData & {
-        senses: NPCSheetLabeledValue[];
         size: {
             localizedName?: string;
         };
@@ -411,13 +406,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
         sheetSystemData.details.alignment.localizedName = localizedName;
-    }
-
-    protected prepareSenses(sheetSystemData: NPCSystemSheetData) {
-        const configSenses = CONFIG.PF2E.senses;
-        for (const sense of sheetSystemData.traits.senses) {
-            sense.localizedName = objectHasKey(configSenses, sense.type) ? configSenses[sense.type] : sense.type;
-        }
     }
 
     private prepareSkills(sheetSystemData: NPCSystemSheetData) {
