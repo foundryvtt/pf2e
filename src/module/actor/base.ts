@@ -624,7 +624,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 }
                 value = Math.clamped(value, 0, hp.max);
                 updateActorData["data.attributes.hp.value"] = value;
+
+                // Mark the actor as dead if the setting is enabled
+                if (value === 0) {
+                    const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+                    if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero)) {
+                        game.combats.active?.combatants
+                            .find((c) => c.actor === this && !c.data.defeated)
+                            ?.toggleDefeated();
+                    }
+                }
             }
+
             if (shield && updatedShieldHp >= 0) {
                 updateActorData.items = [
                     {
@@ -1105,13 +1116,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: string, key: string): any;
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
-}
-
-declare namespace ActorPF2e {
-    function updateDocuments(
-        updates?: DocumentUpdateData<ActorPF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActorPF2e[]>;
 }
 
 export { ActorPF2e };

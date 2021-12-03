@@ -198,6 +198,13 @@ export function registerSettings() {
         type: AutomationSettings,
         restricted: true,
     });
+    game.settings.register("pf2e", "automation.actorsDeadAtZero", {
+        name: CONFIG.PF2E.SETTINGS.automation.actorsDeadAtZero.name,
+        scope: "world",
+        config: false,
+        default: "npcsOnly",
+        type: String,
+    });
     AutomationSettings.registerSettings();
 
     game.settings.registerMenu("pf2e", "metagame", {
