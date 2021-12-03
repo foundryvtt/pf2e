@@ -40,7 +40,6 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
@@ -708,17 +707,6 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 },
             };
-
-            // powerful fist
-            const fistFeat = itemTypes.feat.find((feat) =>
-                ["powerful-fist", "martial-artist-dedication"].includes(feat.slug ?? "")
-            );
-            if (fistFeat) {
-                source.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
-                source.data.slug = "fist";
-                source.data.baseItem = "fist";
-                source.data.damage.die = "d6";
-            }
 
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
