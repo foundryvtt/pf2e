@@ -1118,11 +1118,4 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
 
-declare namespace ActorPF2e {
-    function updateDocuments(
-        updates?: DocumentUpdateData<ActorPF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActorPF2e[]>;
-}
-
 export { ActorPF2e };
