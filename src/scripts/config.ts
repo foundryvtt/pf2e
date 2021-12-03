@@ -1222,6 +1222,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...npcAttackTraits,
+    summon: "PF2E.TraitSummon",
 };
 
 const weaponPropertyRunes: Record<string, string> = {
@@ -2420,6 +2421,14 @@ export const PF2ECONFIG = {
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
                 hint: "PF2E.SETTINGS.Automation.EffectExpiration.Hint",
+            },
+            actorsDeadAtZero: {
+                name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
+                hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
+                neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
+                npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
+                pcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.PCsOnly",
+                both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
             },
             lootableNPCs: {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",

@@ -98,7 +98,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                     const separatedPrefix = prefix ? `${prefix}:` : "";
                     return `${separatedPrefix}${key}`;
                 }),
-            ...this.data.data.traits.otherTags.map((tag) => `tag:${tag}`)
+            ...this.data.data.traits.otherTags.map((tag) => `${prefix}tag:${tag}`)
         );
     }
 

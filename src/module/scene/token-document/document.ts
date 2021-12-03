@@ -164,10 +164,11 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
      * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
      * `TokenDocument` updates.
      */
-    static override async updateDocuments(
-        updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
+    static override async updateDocuments<T extends ConstructorOf<TokenDocumentPF2e>>(
+        this: T,
+        updates: DocumentUpdateData<InstanceType<T>>[] = [],
         context: DocumentModificationContext = {}
-    ): Promise<TokenDocumentPF2e[]> {
+    ): Promise<InstanceType<T>[]> {
         const scene = context.parent;
         if (scene instanceof ScenePF2e) {
             updates = updates.filter((data) => {
@@ -177,7 +178,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             });
         }
 
-        return super.updateDocuments(updates, context) as Promise<TokenDocumentPF2e[]>;
+        return super.updateDocuments(updates, context) as Promise<InstanceType<T>[]>;
     }
 
     /* -------------------------------------------- */
