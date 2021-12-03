@@ -19,6 +19,7 @@ import { Migration690InitiativeTiebreakItems } from "@module/migration/migration
 import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
 import { Migration693ArmorCategoryGroup } from "@module/migration/migrations/693-armor-category-group";
 import { Migration695SummonToSummoned } from "@module/migration/migrations/695-summon-to-summoned";
+import { Migration696FlatAbilityModifiers } from "@module/migration/migrations/696-flat-ability-modifiers";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -34,6 +35,7 @@ const migrations: MigrationBase[] = [
     new Migration691WeaponRangeAbilityCategoryGroup(),
     new Migration693ArmorCategoryGroup(),
     new Migration695SummonToSummoned(),
+    new Migration696FlatAbilityModifiers(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
