@@ -22,6 +22,7 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -146,10 +147,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
     }
 
-    /** Ensure the presence of the pf2e flag scope */
+    /** Ensure the presence of the pf2e flag scope with default properties and values */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
+        this.data.flags.pf2e.grantedBy ??= null;
+        this.data.flags.pf2e.itemGrants ??= [];
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
@@ -551,6 +555,45 @@ class ItemPF2e extends Item<ActorPF2e> {
         return this.update(this.toObject(), { diff: false, recursive: false });
     }
 
+    static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
+        this: T,
+        data: PreCreate<InstanceType<T>["data"]["_source"]>[] = [],
+        context: DocumentModificationContext<InstanceType<T>> = {}
+    ): Promise<InstanceType<T>[]> {
+        if (context.parent) {
+            for await (const itemSource of [...data]) {
+                if (!itemSource.data?.rules) continue;
+                const item = new ItemPF2e(itemSource, { parent: context.parent }) as Embedded<ItemPF2e>;
+                const rules = item.prepareRuleElements();
+                for await (const rule of rules) {
+                    const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
+                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
+                }
+            }
+        }
+
+        return super.createDocuments(data, context) as Promise<InstanceType<T>[]>;
+    }
+
+    static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
+        this: T,
+        ids: string[] = [],
+        context: DocumentModificationContext<InstanceType<T>> = {}
+    ): Promise<InstanceType<T>[]> {
+        ids = Array.from(new Set(ids));
+        const actor = context.parent;
+        if (actor) {
+            const items = ids.flatMap((id) => actor.items.get(id) ?? []);
+            for (const item of items) {
+                for await (const rule of item.rules) {
+                    await rule.preDelete?.({ pendingItems: items, context });
+                }
+            }
+            ids = Array.from(new Set(items.map((i) => i.id)));
+        }
+        return super.deleteDocuments(ids, context) as Promise<InstanceType<T>[]>;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -562,14 +605,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
 
-        if (this.actor) {
-            // Run pre-create operations on rule elements
-            const rules = RuleElements.fromOwnedItem(this as Embedded<this>);
-            for await (const rule of rules) {
-                const source = this.data._source.data.rules[rules.indexOf(rule)];
-                await rule.preCreate?.(source);
-            }
-        } else {
+        if (!this.actor) {
             // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
         }

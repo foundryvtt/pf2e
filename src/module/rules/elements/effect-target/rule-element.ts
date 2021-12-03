@@ -1,5 +1,6 @@
 import { EffectPF2e, ItemPF2e } from "@item";
 import { RuleElementPF2e } from "@module/rules/rule-element";
+import { REPreCreateParameters } from "@module/rules/rules-data-definitions";
 import { EffectTargetData, EffectTargetSource } from "./data";
 import { EffectTargetPrompt } from "./prompt";
 
@@ -23,7 +24,7 @@ class EffectTargetRuleElement extends RuleElementPF2e {
      * Adjust the effect's name and set the targetId from the user's selection, or set the entire rule element to be
      * ignored if no selection was made.
      */
-    override async preCreate(source: EffectTargetSource): Promise<void> {
+    override async preCreate({ ruleSource }: REPreCreateParameters<EffectTargetSource>): Promise<void> {
         if (!(this.item instanceof EffectPF2e)) return;
         const selection = await new EffectTargetPrompt({
             predicate: this.data.predicate,
@@ -31,11 +32,11 @@ class EffectTargetRuleElement extends RuleElementPF2e {
             item: this.item,
         }).resolveSelection();
         if (selection) {
-            source.targetId = selection.value.id;
+            ruleSource.targetId = selection.value.id;
             const effectName = this.item.data._source.name;
             this.item.data._source.name = `${effectName} (${selection.value.name})`;
         } else {
-            source.ignored = true;
+            ruleSource.ignored = true;
         }
     }
 }
