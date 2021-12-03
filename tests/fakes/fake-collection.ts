@@ -1,4 +1,7 @@
 import type { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { FakeActor } from "./fake-actor";
+import { FakeItem } from "./fake-item";
 
 /** In Foundry this is actually a subclass of Map, but it incompatibly extends it at several points. */
 export class FakeCollection<V> {
@@ -58,6 +61,18 @@ export class FakeWorldCollection<V extends { data: object }> extends FakeCollect
 
 export class FakeActors extends FakeWorldCollection<ActorPF2e> {
     tokens: Record<string, ActorPF2e | undefined> = {};
+
+    documentClass = FakeActor as unknown as typeof ActorPF2e;
+
+    constructor(entries: [string, ActorPF2e][] = []) {
+        super(entries);
+    }
+}
+
+export class FakeItems extends FakeWorldCollection<ActorPF2e> {
+    tokens: Record<string, ActorPF2e | undefined> = {};
+
+    documentClass = FakeItem as unknown as typeof ItemPF2e;
 
     constructor(entries: [string, ActorPF2e][] = []) {
         super(entries);

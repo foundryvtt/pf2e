@@ -16,7 +16,7 @@ import characterJSON from "../../packs/data/iconics.db/amiri-level-1.json";
 import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
 import { ArmorSource } from "@item/data";
 import { FoundryUtils } from "tests/utils";
-import { FakeActors, FakeCollection, FakeWorldCollection } from "tests/fakes/fake-collection";
+import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "tests/fakes/fake-collection";
 import { LocalizePF2e } from "@module/system/localize";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
@@ -57,7 +57,7 @@ describe("test migration runner", () => {
         },
         actors: new FakeActors(),
         i18n: { format: (stringId: string, data: object): string => {} },
-        items: new FakeWorldCollection<FakeItem>(),
+        items: new FakeItems(),
         macros: new FakeWorldCollection<FakeMacro>(),
         messages: new FakeWorldCollection<FakeChatMessage>(),
         tables: new FakeWorldCollection<FakeRollTable>(),
