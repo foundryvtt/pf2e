@@ -1,24 +1,28 @@
-import { SenseData } from "./data";
-
 export class CreatureSensePF2e implements SenseData {
     /** low-light vision, darkvision, scent, etc. */
     type: SenseType;
     /** One of "precise", "imprecise", or "vague" */
     acuity: SenseAcuity;
+    /** Is acuity visible? */
+    showAcuity: boolean;
     /** The range of the sense, if any */
     value: string;
     /** The source of the sense, if any */
     source?: string;
+    /** Is this a temporary ability? */
+    temporary: boolean;
 
     get range(): number {
         return Number(this.value) || Infinity;
     }
 
-    constructor(data: Omit<SenseData, "value"> & { value?: string }) {
+    constructor(data: Omit<SenseData, "type"> & { type: SenseType }) {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
+        this.showAcuity = data.showAcuity ?? true;
         this.value = data.value ?? "";
         this.source = data.source || undefined;
+        this.temporary = data.temporary ?? false;
     }
 
     /** The localized label of the sense */
@@ -59,6 +63,15 @@ export class CreatureSensePF2e implements SenseData {
     hasLongerRangeThan(sense: { value: string }): boolean {
         return this.range > Number(sense.value);
     }
+}
+
+interface SenseData {
+    type?: SenseType;
+    acuity: SenseAcuity;
+    showAcuity?: boolean;
+    value?: string;
+    source?: string;
+    temporary?: boolean;
 }
 
 export type SenseAcuity = typeof SENSE_ACUITIES[number];
