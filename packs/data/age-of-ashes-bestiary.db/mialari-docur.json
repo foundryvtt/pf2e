@@ -134,7 +134,7 @@
                     "value": "cha"
                 },
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 3
                 },
                 "description": {
                     "value": ""
@@ -2816,7 +2816,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key":"ToggleProperty",
+                        "property":"flags.pf2e.rollOptions.all.ranged-legerdemain"
+                    },
+                    {
+                        "key":"FlatModifier",
+                        "selector":"thievery",
+                        "type":"circumstance",
+                        "value":-2,
+                        "predicate":{
+                            "all":[
+                                "ranged-legerdemain"
+                            ]
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2852,7 +2868,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Mialari deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Mialari deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
