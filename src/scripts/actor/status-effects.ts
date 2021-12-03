@@ -1,9 +1,9 @@
 import { LocalizePF2e } from "@system/localize";
 import { StatusEffectIconTheme } from "@scripts/config";
-import { ErrorPF2e, objectHasKey } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
-import { CombatPF2e } from "@module/combat";
+import { EncounterPF2e } from "@module/encounter";
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -62,14 +62,14 @@ export class StatusEffects {
     static hookIntoFoundry() {
         /** Create hooks onto FoundryVTT */
         Hooks.on("renderTokenHUD", (app, html, data) => {
-            console.log("PF2e System | Rendering PF2e customized status effects");
             StatusEffects._hookOnRenderTokenHUD(app, html, data);
         });
-        Hooks.on("onTokenHUDClear", (tokenHUD, token: TokenPF2e) => {
-            if (tokenHUD._state === tokenHUD?.constructor?.RENDER_STATES?.NONE) {
+        Hooks.on("clearTokenHUD", (tokenHUD, token) => {
+            if (!(tokenHUD instanceof TokenHUD && token instanceof TokenPF2e)) return;
+
+            if (tokenHUD._state === TokenHUD.RENDER_STATES.NONE) {
                 // Closing the token HUD
                 if (token?.statusEffectChanged === true) {
-                    console.log("PF2e System | StatusEffects were updated - Message to chat");
                     token.statusEffectChanged = false;
                     StatusEffects._createChatMessage(token);
                 }
@@ -78,7 +78,9 @@ export class StatusEffects {
 
         if (game.user.isGM && game.settings.get("pf2e", "statusEffectShowCombatMessage")) {
             let lastTokenId = "";
-            Hooks.on("updateCombat", (combat: CombatPF2e) => {
+            Hooks.on("updateCombat", (combat) => {
+                if (!(combat instanceof EncounterPF2e)) return;
+
                 const combatant = combat.combatant;
                 const token = combatant?.token;
                 if (
@@ -382,8 +384,7 @@ export class StatusEffects {
                 (condition) => condition.fromSystem && condition.data.data.active
             ) ?? [];
         for (const condition of conditions) {
-            type ConditionKey = keyof typeof StatusEffects.conditions;
-            const conditionInfo = StatusEffects.conditions[condition.data.data.hud.statusName as ConditionKey];
+            const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = "summary" in conditionInfo ? conditionInfo.summary : "";
             statusEffectList += `
                 <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.data.hud.statusName}.${
@@ -476,6 +477,83 @@ export class StatusEffects {
         CONFIG.PF2E.statusEffects.effectsIconFileType = iconType.effectsIconFileType;
         CONFIG.PF2E.statusEffects.lastIconType = chosenSetting;
         StatusEffects.updateStatusIcons();
+    }
+
+    /**
+     * Add status effects to a token
+     * @deprecated
+     */
+    static async setStatus(
+        token: TokenPF2e,
+        effects: { name: string; value?: string; source?: string; toggle?: boolean }[] = []
+    ) {
+        console.warn("PF2e System | This method is deprecated. It will be removed by the release of Foundry V9.");
+        for await (const status of Object.values(effects)) {
+            const slug = sluggify(status.name);
+            const value = status.value;
+            const source = status.source ? status.source : "PF2eStatusEffects.setStatus";
+
+            const condition = game.pf2e.ConditionManager.getCondition(slug);
+
+            if (!condition) {
+                console.error(`PF2e System | "${slug}" is not a vaild condition!`);
+                continue;
+            }
+
+            const effect = token?.actor?.itemTypes?.condition?.find(
+                (condition) =>
+                    condition.data.data.source.value === source && condition.data.data.hud.statusName === slug
+            )?.data;
+
+            if (typeof value === "string" && condition.data.value.isValued) {
+                if (effect) {
+                    // Has value with type string
+                    let newValue = 0;
+
+                    if (value.startsWith("+") || value.startsWith("-")) {
+                        // Increment/decrement value
+                        newValue = Number(effect.data.value.value) + Number(value);
+                    } else {
+                        // Set value
+                        newValue = Number(value);
+                    }
+
+                    if (Number.isNaN(newValue)) {
+                        console.log(`PF2e System | '${value}' is not a number!`);
+                        continue;
+                    }
+
+                    await game.pf2e.ConditionManager.updateConditionValue(effect._id, token, newValue);
+                } else if (Number(value) > 0) {
+                    // No effect, but value is a number and is greater than 0.
+                    // Add a new condition with the value.
+                    const conditionData = condition.toObject();
+                    conditionData.data.source.value = source;
+                    conditionData.data.value.value = Number(value);
+                    await game.pf2e.ConditionManager.addConditionToToken(conditionData, token);
+                }
+            } else if (!value) {
+                // Value was not provided.
+
+                if (condition.data.value.isValued) {
+                    console.log(`PF2e System | '${slug}' must have a value.`);
+                    continue;
+                }
+
+                if (effect !== undefined && status.toggle) {
+                    // Condition exists and toggle was true
+                    // Remove it.
+                    await game.pf2e.ConditionManager.removeConditionFromToken([effect._id], token);
+                } else if (effect === undefined) {
+                    // Effect does not exist.  Create it.
+                    const conditionData = condition.toObject();
+                    // Set the source to this function.
+                    conditionData.data.source.value = source;
+                    await game.pf2e.ConditionManager.addConditionToToken(conditionData, token);
+                }
+            }
+        }
+        this._createChatMessage(token);
     }
 
     /** Helper to get status effect name from image url */

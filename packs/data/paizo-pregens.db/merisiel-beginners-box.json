@@ -2544,7 +2544,23 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "ability": "dex",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "weapon:melee",
+                                "weapon:trait:finesse"
+                            ],
+                            "not": [
+                                "weapon:category:unarmed"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "ability"
+                    }
+                ],
                 "slug": "thief-racket",
                 "source": {
                     "value": ""

@@ -657,11 +657,4 @@ interface ItemPF2e {
     getFlag(scope: string, key: string): any;
 }
 
-declare namespace ItemPF2e {
-    function updateDocuments(
-        updates?: DocumentUpdateData<ItemPF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
-}
-
 export { ItemPF2e };
