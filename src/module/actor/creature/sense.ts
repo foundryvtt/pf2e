@@ -1,5 +1,5 @@
 export class CreatureSensePF2e implements SenseData {
-    /** low-light vision, darkvision, scent, etc. */
+    /** Low-light vision, darkvision, scent, etc. */
     type: SenseType;
     /** One of "precise", "imprecise", or "vague" */
     acuity: SenseAcuity;
