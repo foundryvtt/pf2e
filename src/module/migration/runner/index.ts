@@ -50,14 +50,9 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actor or item documents in batches of 50 */
     private async migrateWorldDocuments<TDocument extends ActorPF2e | ItemPF2e>(
         collection: WorldCollection<TDocument>,
-        DocumentClass: {
-            updateDocuments(
-                updates?: DocumentUpdateData<TDocument>[],
-                context?: DocumentModificationContext
-            ): Promise<TDocument[]>;
-        },
         migrations: MigrationBase[]
     ): Promise<void> {
+        const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
         const updateGroup: TDocument["data"]["_source"][] = [];
         for await (const document of collection) {
             if (updateGroup.length === 50) {
@@ -249,10 +244,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         if (migrations.length === 0) return;
 
         // Migrate World Actors
-        await this.migrateWorldDocuments(game.actors, CONFIG.Actor.documentClass, migrations);
+        await this.migrateWorldDocuments(game.actors, migrations);
 
         // Migrate World Items
-        await this.migrateWorldDocuments(game.items, CONFIG.Item.documentClass, migrations);
+        await this.migrateWorldDocuments(game.items, migrations);
 
         const promises: Promise<unknown>[] = [];
         // Migrate World Macros
