@@ -16,6 +16,7 @@ declare global {
     type HookParamsGetChatLogEntryContext = HookParameters<"getChatLogEntryContext", [JQuery, EntryContextOption[]]>;
     type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
     type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar, unknown, string]>;
+    type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
         [PreCreate<foundry.data.ItemSource>, DocumentModificationContext, string]
@@ -62,9 +63,10 @@ declare global {
         static on(...args: HookParamsCanvasReady): number;
         static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static on(...args: HookParamsDropCanvasData): number;
-        static on(...args: HookParamsHotbarDrop): number;
         static on(...args: HookParamsGetChatLogEntryContext): number;
         static on(...args: HookParamsGetSceneControlButtons): number;
+        static on(...args: HookParamsHotbarDrop): number;
+        static on(...args: HookParamsLightingRefresh): number;
         static on(...args: HookParamsPreCreateItem): number;
         static on(...args: HooksParamsPreUpdateCombat): number;
         static on(...args: HookParamsPreUpdateToken): number;
@@ -98,9 +100,10 @@ declare global {
         static once(...args: HookParamsCanvasReady): number;
         static once(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
         static once(...args: HookParamsDropCanvasData): number;
-        static once(...args: HookParamsHotbarDrop): number;
         static once(...args: HookParamsGetChatLogEntryContext): number;
         static once(...args: HookParamsGetSceneControlButtons): number;
+        static once(...args: HookParamsHotbarDrop): number;
+        static once(...args: HookParamsLightingRefresh): number;
         static once(...args: HookParamsPreCreateItem): number;
         static once(...args: HookParamsPreUpdateToken): number;
         static once(...args: HookParamsRenderChatMessage): number;

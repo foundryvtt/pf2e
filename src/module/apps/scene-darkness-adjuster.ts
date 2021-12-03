@@ -1,12 +1,14 @@
 import { ScenePF2e } from "@scene";
 import { fontAwesomeIcon } from "@util";
-import noUiSlider, { PipsMode } from "nouislider";
+import noUiSlider, { API as Slider, PipsMode } from "nouislider";
 import "nouislider/dist/nouislider.min.css";
 
 export class SceneDarknessAdjuster extends Application {
     static readonly instance = new this();
 
     private scene: ScenePF2e | null = null;
+
+    slider?: Slider;
 
     static override get defaultOptions(): ApplicationOptions {
         return {
@@ -40,7 +42,7 @@ export class SceneDarknessAdjuster extends Application {
 
         $("#darkness-adjuster").find(".window-header").remove();
 
-        const slider = noUiSlider.create($slider[0], {
+        this.slider = noUiSlider.create($slider[0], {
             range: { min: 0, max: 1 },
             start: [0.25, this.scene.data.darkness, 0.75],
             connect: [true, false, false, true],
@@ -58,14 +60,14 @@ export class SceneDarknessAdjuster extends Application {
         });
 
         // Show a preview while the darkness level is being moved
-        slider.on("slide", (values, thumbNumber) => {
+        this.slider.on("slide", (values, thumbNumber) => {
             if (thumbNumber === 1) {
                 canvas.lighting.refresh(Number(values[1]));
             }
         });
 
         // Update the scene when the user drops the slider thumb or clicks a position on the slide
-        slider.on("change", (values, thumbNumber) => {
+        this.slider.on("change", (values, thumbNumber) => {
             if (canvas.scene && thumbNumber === 1) {
                 const newValue = Number(values[1]);
                 canvas.scene.update(
@@ -96,5 +98,20 @@ export class SceneDarknessAdjuster extends Application {
             };
             $(connect).addClass(classes[index]);
         });
+    }
+
+    onLightingRefresh(darkness: number): void {
+        if (!this.rendered) return;
+
+        const { slider } = this;
+        const sliderValues = slider?.get();
+        if (slider && Array.isArray(sliderValues)) {
+            const currentValue = sliderValues[1];
+            const stepValue = Math.round(darkness * 20) / 20;
+            if (stepValue !== currentValue) {
+                sliderValues[1] = stepValue;
+                slider.set(sliderValues);
+            }
+        }
     }
 }
