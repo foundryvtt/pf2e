@@ -97,6 +97,7 @@ import { Migration692CraftingEntryFeatReplacement } from "./migrations/692-craft
 import { Migration693ArmorCategoryGroup } from "./migrations/693-armor-category-group";
 import { Migration694RetireSystemTokenSettings } from "./migrations/694-retire-system-token-settings";
 import { Migration695SummonToSummoned } from "./migrations/695-summon-to-summoned";
+import { Migration696FlatAbilityModifiers } from "./migrations/696-flat-ability-modifiers";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -198,6 +199,7 @@ export class Migrations {
         Migration693ArmorCategoryGroup,
         Migration694RetireSystemTokenSettings,
         Migration695SummonToSummoned,
+        Migration696FlatAbilityModifiers,
     ];
 
     static get latestVersion(): number {

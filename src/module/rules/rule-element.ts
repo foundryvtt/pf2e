@@ -108,6 +108,12 @@ abstract class RuleElementPF2e {
         this.data.ignored = value;
     }
 
+    failValidation(message: string) {
+        const { name, uuid } = this.item;
+        console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${message}`);
+        this.ignored = true;
+    }
+
     /**
      * Callback used to parse and look up values when calculating rules. Parses strings that look like
      * {actor|x.y.z}, {item|x.y.z} or {rule|x.y.z} where x.y.z is the path on the current actor, item or rule.
