@@ -180,11 +180,6 @@ declare global {
 
     namespace TokenDocument {
         function _canUpdate(user: User, doc: TokenDocument, data: foundry.data.TokenData<TokenDocument>): boolean;
-
-        function updateDocuments(
-            updates?: DocumentUpdateData<TokenDocument>[],
-            context?: DocumentModificationContext
-        ): Promise<TokenDocument[]>;
     }
 
     type TokenDocumentUUID = `Scene.${string}.Token.${string}`;

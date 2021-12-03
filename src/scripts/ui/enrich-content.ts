@@ -77,12 +77,6 @@ export const EnrichContent = {
             }
         }
 
-        // Add damaging-effect if param damaging = true and not already included
-        if (params.damaging === "true") {
-            if (params.traits.search("damaging-effect") === -1)
-                params.traits = params.traits.concat(",damaging-effect").replace(/^,/, "");
-        }
-
         // Add the html elements used for the inline buttons
         const html = document.createElement("span");
         html.innerHTML =
