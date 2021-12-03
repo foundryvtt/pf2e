@@ -44,10 +44,6 @@ declare global {
         Actor: {
             documentClass: {
                 new (data: PreCreate<TActor["data"]["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
-                updateDocuments(
-                    updates?: DocumentUpdateData<TActor>[],
-                    context?: DocumentModificationContext
-                ): Promise<TActor[]>;
             };
             collection: Actors<TActor>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
@@ -97,10 +93,6 @@ declare global {
         Item: {
             documentClass: {
                 new (data: PreCreate<TItem["data"]["_source"]>, context?: DocumentConstructionContext<TItem>): TItem;
-                updateDocuments(
-                    updates?: DocumentUpdateData<TItem>[],
-                    context?: DocumentModificationContext
-                ): Promise<TItem[]>;
             };
             collection: typeof Items;
             sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
