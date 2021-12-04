@@ -81,10 +81,8 @@ export const EnrichContent = {
         if (!label) {
             label = game.i18n.format("PF2E.TemplateLabel", {
                 size: params.distance,
-                unit: game.i18n.localize("PF2E.FootInline"),
-                shape: game.i18n.localize(
-                    `PF2E.AreaType${params.type.charAt(0).toUpperCase() + params.type.slice(1)}Inline`
-                ),
+                unit: game.i18n.localize("PF2E.Foot"),
+                shape: game.i18n.localize(`PF2E.AreaType${params.type.charAt(0).toUpperCase() + params.type.slice(1)}`),
             });
         }
 
