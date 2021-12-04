@@ -1,5 +1,103 @@
 # Changelog
 
+## Version.2.20.0
+### New Features
+* (stwlam) Significant update to the Encounter Tracker:
+  * Drag & drop initiative ordering, deferring to the Combat Enhancements module if found active
+  * Support for CTRL-clicking (blind) of initiative roll buttons
+  * Fully remove non-integer initiative values
+  * Tracker settings:
+    * Automatically mark NPCs as dead/defeated upon reaching 0 HP. Will be expanded in a future update to also cover PCs.
+    * Change the overlay icon used to mark dead/defeated tokens
+* (stwlam) Add support for module-registered homebrew elements
+* (stwlam) Add Metagame Knowledge setting to link visibility of token names in tracker and chat messages to player-visibility of token nameplates
+
+### Bug Fixes
+* (Drental) Remove setting a default DC when no DC is supplied in an inline roll
+* (Drental) Allow to add property runes with ABP as fundamental runes
+* (In3luki) Fix NPC attack effects being removed when the actor has no source item
+* (stwlam) Fix issue causing Hefty Hauler and Lifting Belt to give double bonuses
+* (stwlam) Prevent sheet from rerendering twice when PC level is reduced
+* (stwlam) Refrain from fading back in the scene darkness adjuster when it's already rendered
+* (stwlam) Fix issue causing strikes that use alternative abilities from not being affected by conditions that penalties all checks based on those abilities
+* (stwlam) Fix styling bug causing text in tagify input fields to appear outside element
+* (stwlam) Refrain from showing damage buttons on rolls hidden from the user (typically blind or private GM)
+* (stwlam) Unequip items on loot actors so that rule elements aren't initialized
+
+### Core System Improvements
+* (SoldierC4) Add creature table to XP macro
+* (stwlam) Add support for indicating that a strike on a PC (e.g., many Monk stance attacks) replace all other strikes
+* (stwlam) Adjust "ability"-type FlatModifier REs to require the specification of an ability
+* (stwlam) Show new darkness level on adjuster when changed via other than moving the slider thumb
+* (stwlam) Add a `toggleCondition` method to ActorPF2e
+* (stwlam) Have ChoiceSet RE accept an empty string as a selection
+* (stwlam) Add support for data references to the damageType property on FlatModifier rule elements
+* (stwlam) Have sense labels on PCs and familiar sheets show range and acuity when appropriate
+* (Supe) Show breakdown for spell save buttons if the user is an owner or GM
+
+### Data Updates
+* (Abaddon) @Template - remove damaging option
+* (Abaddon) Add spellcaster variants for blue dragons
+* (Abaddon) Brushup blue, brass, bronze, green, red, white dragons
+* (Abaddon) Refactor @template inline buttons
+* (ArthurTrumpet) Add spell effect links to Nature Incarnate spells
+* (Bennyty) Add Alternate Nyarlathotep
+* (Bennyty) Correct area of Spray of Stars spell
+* (Bennyty) Fix areas and traits for Oracle spells
+* (Bolt) Correct category of Energized Cartridge
+* (cepvep) Correct Blood Ward to not be a Cantrip
+* (cepvep) Add the Master Abilities for Familiars
+* (Crusufix) Correct rarity of Ring of Discretion
+* (Drental) Add missing hazards from PFS season 1
+* (Friz) Correct Description of Xulgath Abilities
+* (Friz) Update description of Xulgath Demon Caller abilities
+* (LebombJames) Change "1 to 3" actions glyph to be more clear
+* (rectulo) Add prerequisite in Sniper's Aim
+* (rectulo) Add the sentence for the effects of each type of Clockwork Goggles
+* (rectulo) Correct a link in the Deflecting Shot feat description
+* (rectulo) Fix formatting of Black Powder Boost, Friendly Toss, Hair Trigger, Immaculate Holsters, Power Slide feats
+* (rectulo) Re-ordering sentences in the Pistolero's Challenge feat
+* (rectulo) Fill in description of Elemental Bulwark feat
+* (SoldierC4) Correct actions for the Gunner's Bandolier
+* (SoldierC4) Add formula and description to hero point deck
+* (SoldierC4) Fix XP macro reward and rating values, localize
+* (SpartanCPA) Standardize distance format of Aura abilities
+* (SpartanCPA) Remove duplicate copy of Gunslinger "Incredible Senses"
+* (SpartanCPA) Normalize speed types on old NPCs
+* (SpartanCPA) Normalize old spellcastingEntry items in NPCs
+* (SpartanCPA) Lock stances to one strike where appropriate
+* (SpartanCPA) Get rid of Foundry default "Mystery Man" icons in packs
+* (SpartanCPA) Fix typo in range of "Lose the Path"
+* (SpartanCPA) Fix some formatting issues in Bon Mot
+* (SpartanCPA) Fill in speed details field where appropriate on NPC sheets
+* (SpartanCPA) Ensure that Persistent Damage is properly typed
+* (SpartanCPA) Ensure new lines in NPC text where needed
+* (SpartanCPA) Ensure Effect is on a new line from Trigger/Requirement
+* (SpartanCPA) Correct traits of "Energized Cartridge"
+* (SpartanCPA) Correct the traits of the Fire Mephit
+* (SpartanCPA) Correct the name of "Shooter's Camouflage"
+* (SpartanCPA) Correct the book source for Rituals
+* (SpartanCPA) Correct the action cost for "Skip Between"
+* (SpartanCPA) Correct range on "Crushing Despair"
+* (SpartanCPA) Correct predicates of "+1 Saves vs Magic" features
+* (SpartanCPA) Correct persistent bleed on Extinction Curse monster
+* (SpartanCPA) Audit the Dullahan
+* (SpartanCPA) Audit Belcorra Haruvex
+* (SpartanCPA) Add a strike rule element to Lion's Shield
+* (SpartanCPA) Add rollable touch damage to the Mantle spells
+* (stwlam) Set appropriate consumable types according to traits
+* (stwlam) Ensure that initial size of Animal Form spell effects is medium until level 4
+* (stwlam) Add range to Wind Crash attack
+* (stwlam) Add license covering all Rexard icons
+* (Tikael) Finish Age of Ashes 4 Brushup
+* (Tikael) Correct description of Channel Life Force hero point card
+* (Tikael) Correct damage type of Harmona Gun
+* (Tikael) Correct and update Flaming Star descriptions
+* (Tikael) Brushup Age of Ashes book 3
+* (Tikael) Add missing creature from Troubles in Otari adventure
+* (Tikael) Add automation for Scales of the Dragon feat
+* (VestOfHolding) Add most missing spell and ancestry trait descriptions
+
 ## Version 2.19.3
 ### Bug Fixes
 * (stwlam) Fix rerolling checks from chat messages
