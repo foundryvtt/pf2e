@@ -406,9 +406,6 @@
                     "rarity": {
                         "value": "uncommon"
                     },
-                    "selected": {
-                        "tengu": "Tengu"
-                    },
                     "value": [
                         "tengu"
                     ]
@@ -2650,7 +2647,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Assorted Jewelry and  Baubles",
+            "name": "Assorted Jewelry and Baubles",
             "sort": 3600000,
             "type": "treasure"
         },
@@ -4119,7 +4116,23 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "ability": "dex",
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "weapon:melee",
+                                "weapon:trait:finesse"
+                            ],
+                            "not": [
+                                "weapon:category:unarmed"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "ability"
+                    }
+                ],
                 "slug": "thief-racket",
                 "source": {
                     "value": ""

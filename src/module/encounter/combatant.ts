@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor/base";
-import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
@@ -13,14 +12,8 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 
     /** Can the user see this combatant's name? */
-    canSeeName(user: UserPF2e = game.user): boolean {
-        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
-        const nameDisplayMode = this.token?.data.displayName ?? 0;
-        return (
-            anyoneCanSee.includes(nameDisplayMode) ||
-            !!this.actor?.canUserModify(user, "update") ||
-            !!this.actor?.hasPlayerOwner
-        );
+    get playersCanSeeName(): boolean {
+        return !!this.token?.playersCanSeeName;
     }
 
     overridePriority(initiative: number): number | null {

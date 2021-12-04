@@ -32,6 +32,16 @@ export const MODIFIER_TYPE = Object.freeze({
     UNTYPED: "untyped",
 } as const);
 
+export const MODIFIER_TYPES = [
+    "ability",
+    "circumstance",
+    "item",
+    "potency",
+    "proficiency",
+    "status",
+    "untyped",
+] as const;
+
 export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
 export interface RawModifier {
@@ -43,6 +53,8 @@ export interface RawModifier {
     modifier?: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
+    /** If the type is "ability", this should be set to a particular ability */
+    ability?: AbilityString;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
@@ -74,6 +86,7 @@ export class ModifierPF2e implements RawModifier {
     label?: string;
     modifier: number;
     type: ModifierType;
+    ability?: AbilityString;
     enabled: boolean;
     ignored: boolean;
     source?: string;
@@ -181,12 +194,15 @@ export const AbilityModifier = {
      * @param score The score of this ability.
      * @returns The modifier provided by the given ability score.
      */
-    fromScore: (ability: AbilityString, score: number) =>
-        new ModifierPF2e(
+    fromScore: (ability: AbilityString, score: number) => {
+        const modifier = new ModifierPF2e(
             `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
             Math.floor((score - 10) / 2),
             MODIFIER_TYPE.ABILITY
-        ),
+        );
+        modifier.ability = ability;
+        return modifier;
+    },
 };
 
 // proficiency ranks
@@ -378,7 +394,7 @@ export class StatisticModifier {
             const seen: ModifierPF2e[] = [];
             this._modifiers.filter((m) => {
                 const found = seen.find((o) => o.name === m.name) !== undefined;
-                if (!found) seen.push(m);
+                if (!found || m.type === "ability") seen.push(m);
                 return found;
             });
             this._modifiers = seen;

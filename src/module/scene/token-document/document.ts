@@ -41,6 +41,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         return this.data.flags.pf2e.linkToActorSize;
     }
 
+    get playersCanSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.data.displayName ?? 0;
+        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
@@ -164,10 +170,11 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
      * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
      * `TokenDocument` updates.
      */
-    static override async updateDocuments(
-        updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
+    static override async updateDocuments<T extends ConstructorOf<TokenDocumentPF2e>>(
+        this: T,
+        updates: DocumentUpdateData<InstanceType<T>>[] = [],
         context: DocumentModificationContext = {}
-    ): Promise<TokenDocumentPF2e[]> {
+    ): Promise<InstanceType<T>[]> {
         const scene = context.parent;
         if (scene instanceof ScenePF2e) {
             updates = updates.filter((data) => {
@@ -177,7 +184,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             });
         }
 
-        return super.updateDocuments(updates, context) as Promise<TokenDocumentPF2e[]>;
+        return super.updateDocuments(updates, context) as Promise<InstanceType<T>[]>;
     }
 
     /* -------------------------------------------- */
