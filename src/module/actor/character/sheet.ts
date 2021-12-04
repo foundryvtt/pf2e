@@ -585,6 +585,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.disableInitiativeButton();
         }
 
+        // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
+        html.find(".roll-init").on("mouseenter", (event) => {
+            const $target = $(event.currentTarget);
+            if ($target.hasClass("disabled") && game.combat) {
+                this.enableInitiativeButton();
+            } else if (!$target.hasClass("disabled") && !game.combat) {
+                this.disableInitiativeButton();
+            }
+        });
+
         // ACTIONS
         html.find('[name="ammo-used"]').on("change", (event) => {
             event.stopPropagation();
