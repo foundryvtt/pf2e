@@ -77,14 +77,27 @@ export const EnrichContent = {
             }
         }
 
+        // If no button label is entered directly create default label
+        if (!label) {
+            const templateSize = game.i18n.format("PF2E.TemplateLabels.FeetDistance", {
+                distance: params.distance,
+                unit: game.i18n.localize("PF2E.TemplateLabels.InlineButtons.Feet"),
+            });
+            const templateType = game.i18n.localize(
+                `PF2E.TemplateLabels.InlineButtons.TemplateTypeLabels.${
+                    params.type.charAt(0).toUpperCase() + params.type.slice(1)
+                }`
+            );
+
+            label = game.i18n.format("PF2E.TemplateLabels.TemplateLabel", {
+                distance: templateSize,
+                type: templateType,
+            });
+        }
+
         // Add the html elements used for the inline buttons
         const html = document.createElement("span");
-        html.innerHTML =
-            label ??
-            game.i18n.format("PF2E.InlineButtons.TemplateLabel", {
-                type: params.type,
-                unit: params.distance,
-            });
+        html.innerHTML = label;
         html.setAttribute("data-pf2-effect-area", params.type);
         html.setAttribute("data-pf2-distance", params.distance);
         if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
