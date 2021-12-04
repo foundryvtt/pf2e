@@ -31,6 +31,7 @@ interface HazardAttributes {
     };
     hardness: number;
     initiative: {
+        roll?: undefined;
         tiebreakPriority: ZeroToTwo;
     };
     stealth: {
