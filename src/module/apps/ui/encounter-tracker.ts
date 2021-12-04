@@ -26,24 +26,28 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         if (!encounter) return super.activateListeners($html);
 
         // Hide names in the tracker of combatants with tokens that have unviewable nameplates
-        for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
-            const combatantId = row.dataset.combatantId ?? "";
-            const combatant = encounter.combatants.get(combatantId, { strict: true });
-            const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
-            if (nameElement && !combatant.canSeeName()) nameElement.innerText = "";
+        if (game.settings.get("pf2e", "metagame.tokenSetsNameVisibility")) {
+            for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+                const combatantId = row.dataset.combatantId ?? "";
+                const combatant = encounter.combatants.get(combatantId, { strict: true });
+                const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
+                if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) nameElement.innerText = "";
 
-            if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
-                const toggleNameVisibility = document.createElement("a");
-                const isActive = game.users.contents.every((user) => combatant.canSeeName(user));
-                toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
-                toggleNameVisibility.dataset.control = "toggle-name-visibility";
-                toggleNameVisibility.title = game.i18n.localize(
-                    isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
-                );
-                const icon = fontAwesomeIcon("signature");
-                toggleNameVisibility.append(icon);
+                if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
+                    const toggleNameVisibility = document.createElement("a");
+                    const isActive = combatant.playersCanSeeName;
+                    toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
+                    toggleNameVisibility.dataset.control = "toggle-name-visibility";
+                    toggleNameVisibility.title = game.i18n.localize(
+                        isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
+                    );
+                    const icon = fontAwesomeIcon("signature");
+                    toggleNameVisibility.append(icon);
 
-                row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(toggleNameVisibility);
+                    row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(
+                        toggleNameVisibility
+                    );
+                }
             }
         }
 

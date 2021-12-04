@@ -35,10 +35,8 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
     static override get defaultOptions(): ChatLogOptions;
 
-    /**
-     * A reference to the Messages collection that the chat log displays
-     */
-    get collection(): Game["messages"];
+    /** A reference to the Messages collection that the chat log displays */
+    get collection(): Messages<TChatMessage>;
 
     /* -------------------------------------------- */
     /*  Application Rendering                       */
@@ -93,7 +91,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @param [notify] Trigger a notification which shows the log as having a new unread message
      * @return A Promise which resolves once the message is posted
      */
-    postOne(message: ChatMessage, notify?: boolean): Promise<void>;
+    postOne(message: TChatMessage, notify?: boolean): Promise<void>;
 
     /**
      * Scroll the chat log to the bottom
@@ -105,7 +103,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @param message The ChatMessage instance to update
      * @param notify  Trigger a notification which shows the log as having a new unread message
      */
-    updateMessage(message: ChatMessage, { notify }?: { notify?: boolean }): void;
+    updateMessage(message: TChatMessage, notify?: boolean): Promise<void>;
 
     updateTimestamps(): void;
 
