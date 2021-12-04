@@ -7,6 +7,9 @@ export class LightingLayerPF2e<
     /** A light-blending filter to apply to the coloration container */
     blendFilter!: BlurFilter;
 
+    /** Temporarilly disable the refreshLighting hook */
+    noRefreshHooks = false;
+
     /** Fix bug in 0.8 core method */
     override hasGlobalIllumination(): boolean {
         if (!canvas.scene) return false;
@@ -32,7 +35,7 @@ export class LightingLayerPF2e<
     }
 
     /** Set the perceived brightness of sourced lighting */
-    override refresh(darkness?: number | null): void {
+    override refresh(darkness?: number | null, { noHooks = false } = {}): void {
         if (canvas.sight.hasLowLightVision) {
             for (const source of this.sources) {
                 if (source.isDarkness) continue;
@@ -42,7 +45,10 @@ export class LightingLayerPF2e<
             }
         }
 
+        // Since upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
+        this.noRefreshHooks = noHooks;
         super.refresh(darkness);
+        this.noRefreshHooks = false;
 
         if (canvas.sight.rulesBasedVision) {
             if (!this.blendFilter) {
