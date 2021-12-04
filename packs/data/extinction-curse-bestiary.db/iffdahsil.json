@@ -51,14 +51,10 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Burrow",
                         "type": "burrow",
                         "value": "40"
                     },
                     {
-                        "exceptions": "",
-                        "label": "Climb",
                         "type": "climb",
                         "value": "25"
                     }
@@ -199,10 +195,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -862,7 +856,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 700000,
             "type": "action"
@@ -910,7 +904,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense (Imprecise) 60 feet",
             "sort": 800000,
             "type": "action"
@@ -958,7 +952,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scent (Imprecise) 60 feet",
             "sort": 900000,
             "type": "action"
@@ -1006,7 +1000,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 60 feet",
             "sort": 1000000,
             "type": "action"
@@ -1054,7 +1048,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1100000,
             "type": "action"
@@ -1102,7 +1096,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
             "sort": 1200000,
             "type": "action"
@@ -1131,10 +1125,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1162,7 +1156,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus to Saves vs. Magical Effects",
             "sort": 1300000,
             "type": "action"
@@ -1210,7 +1204,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 30",
             "sort": 1400000,
             "type": "action"
@@ -1265,7 +1259,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
             "sort": 1500000,
             "type": "action"
@@ -1283,7 +1277,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet, DC 45. @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering or starting its turn in the aura that fails at a Fortitude save becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}. If the target was already doomed or drained, the values of these conditions increase by 1, to a maximum of doomed 3 and drained 3. A creature that dies while doomed 3 and drained 3 in this way disintegrates into black sand.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"fortitude\" data-pf2-dc=\"45\" data-pf2-traits=\"aura,necromancy,occult\" data-pf2-label=\"Aura of Annihilation DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p>A creature entering or starting its turn in the aura that fails at a Fortitude save becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}. If the target was already doomed or drained, the values of these conditions increase by 1, to a maximum of doomed 3 and drained 3. A creature that dies while doomed 3 and drained 3 in this way disintegrates into black sand.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1313,7 +1307,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aura of Annihilation",
             "sort": 1600000,
             "type": "action"
@@ -1360,7 +1354,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unkillable",
             "sort": 1700000,
             "type": "action"

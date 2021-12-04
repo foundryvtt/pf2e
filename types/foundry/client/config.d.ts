@@ -3,24 +3,24 @@ import * as PIXI from "pixi.js";
 
 declare global {
     interface Config<
-        TAmbientLightDocument extends AmbientLightDocument,
-        TActiveEffect extends ActiveEffect,
-        TActor extends Actor,
-        TChatLog extends ChatLog,
-        TChatMessage extends ChatMessage,
-        TCombat extends Combat,
-        TCombatant extends Combatant<TActor | null>,
-        TCombatTracker extends CombatTracker<TCombat>,
-        TCompendiumDirectory extends CompendiumDirectory,
-        TFogExploration extends FogExploration,
-        TFolder extends Folder,
-        TItem extends Item,
-        TMacro extends Macro,
-        TMeasuredTemplateDocument extends MeasuredTemplateDocument,
-        TTileDocument extends TileDocument,
-        TTokenDocument extends TokenDocument,
-        TScene extends Scene,
-        TUser extends User
+        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
+        TActiveEffect extends ActiveEffect = ActiveEffect,
+        TActor extends Actor = Actor,
+        TChatLog extends ChatLog = ChatLog,
+        TChatMessage extends ChatMessage = ChatMessage,
+        TCombat extends Combat = Combat,
+        TCombatant extends Combatant<TActor | null> = Combatant<TActor | null>,
+        TCombatTracker extends CombatTracker<TCombat> = CombatTracker<TCombat>,
+        TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
+        TFogExploration extends FogExploration = FogExploration,
+        TFolder extends Folder = Folder,
+        TItem extends Item = Item,
+        TMacro extends Macro = Macro,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
+        TTileDocument extends TileDocument = TileDocument,
+        TTokenDocument extends TokenDocument = TokenDocument,
+        TScene extends Scene = Scene,
+        TUser extends User = User
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -44,10 +44,6 @@ declare global {
         Actor: {
             documentClass: {
                 new (data: PreCreate<TActor["data"]["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
-                updateDocuments(
-                    updates?: DocumentUpdateData<TActor>[],
-                    context?: DocumentModificationContext
-                ): Promise<TActor[]>;
             };
             collection: Actors<TActor>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
@@ -97,10 +93,6 @@ declare global {
         Item: {
             documentClass: {
                 new (data: PreCreate<TItem["data"]["_source"]>, context?: DocumentConstructionContext<TItem>): TItem;
-                updateDocuments(
-                    updates?: DocumentUpdateData<TItem>[],
-                    context?: DocumentModificationContext
-                ): Promise<TItem[]>;
             };
             collection: typeof Items;
             sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
@@ -393,7 +385,7 @@ declare global {
             up: string;
             down: string;
             defeated: string;
-            [key: string]: string;
+            [key: string]: string | undefined;
         };
 
         /**

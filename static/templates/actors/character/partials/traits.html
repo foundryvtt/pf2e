@@ -140,13 +140,11 @@
     </div>
     <div class="pc pc_senses">
         <span class="details-label">
-            {{localize 'PF2E.Senses'}}
+            {{localize "PF2E.Senses"}}
         </span>
         <ol class="tags">
             {{#each data.traits.senses as |sense k|}}
-            <li class="tag tag_alt {{k}}">
-                {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
-            </li>
+                {{#if sense.label}}<li class="tag tag_alt {{k}}">{{sense.label}}</li>{{/if}}
             {{/each}}
             {{#if @root.owner}}
                 <li class="tag tag_secondary edit-btn">

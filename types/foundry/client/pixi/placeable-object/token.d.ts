@@ -450,7 +450,7 @@ declare global {
         attribute: string;
         type: "bar";
         value: number;
-        max: number;
+        max?: number;
         editable: boolean;
     }
 }

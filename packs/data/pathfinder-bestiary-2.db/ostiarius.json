@@ -155,12 +155,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -243,8 +240,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "24",
-                    "item": 0,
+                    "dc": 24,
                     "mod": 0,
                     "value": 14
                 },
@@ -278,12 +274,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "ritual"
                 },
                 "proficiency": {
@@ -366,8 +359,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "22",
-                    "item": 0,
+                    "dc": 22,
                     "mod": 0,
                     "value": 12
                 },
@@ -1214,7 +1206,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>[[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -1287,7 +1279,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 1100000,
             "type": "action"
@@ -1334,7 +1326,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Painsight",
             "sort": 1200000,
             "type": "action"
@@ -1386,7 +1378,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy",
             "sort": 1300000,
             "type": "action"
@@ -1434,7 +1426,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1400000,
             "type": "action"
@@ -1481,7 +1473,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sense Portal",
             "sort": 1500000,
             "type": "action"
@@ -1510,10 +1502,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1540,7 +1532,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 1600000,
             "type": "action"
@@ -1590,7 +1582,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Whispering Wounds",
             "sort": 1700000,
             "type": "action"
@@ -1638,7 +1630,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 5 (deactivated by good or silver)",
             "sort": 1800000,
             "type": "action"
@@ -1656,7 +1648,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ostiarius inspires their willing allies and themself by whispering words of courage from their wounds. The ostiarius and their allies in a 50-foot emanation gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects. The ostiarius can Sustain Compel Courage.</p>\n<p>Non-velstracs who accept this compelled courage find bleeding wounds opening on their own bodies to whisper in thanks. They take [[/r 1 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and can't attempt a flat check to end this damage as long as they're compelled.</p>"
+                    "value": "<p>The ostiarius inspires their willing allies and themself by whispering words of courage from their wounds. The ostiarius and their allies in a 50-foot emanation gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects. The ostiarius can Sustain Compel Courage.</p>\n<p>Non-velstracs who accept this compelled courage find bleeding wounds opening on their own bodies to whisper in thanks. They take [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and can't attempt a flat check to end this damage as long as they're compelled.</p>"
                 },
                 "requirements": {
                     "value": ""

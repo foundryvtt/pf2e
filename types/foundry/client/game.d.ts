@@ -60,7 +60,15 @@ declare global {
         keyboard: KeyboardManager;
 
         /** A mapping of installed modules */
-        modules: Map<string, { active: boolean }>;
+        modules: Map<
+            string,
+            {
+                active: boolean;
+                data: {
+                    flags?: Record<string, Record<string, unknown>>;
+                };
+            }
+        >;
 
         /** The user role permissions setting */
         permissions: Record<string, number[]>;

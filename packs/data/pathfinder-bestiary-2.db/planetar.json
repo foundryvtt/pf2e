@@ -51,8 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "60"
                     }
@@ -155,12 +153,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -243,8 +238,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "37",
-                    "item": 0,
+                    "dc": 37,
                     "mod": 0,
                     "value": 29
                 },
@@ -278,12 +272,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "ritual"
                 },
                 "proficiency": {
@@ -366,8 +357,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "37",
-                    "item": 0,
+                    "dc": 37,
                     "mod": 0,
                     "value": 27
                 },
@@ -4157,7 +4147,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 3400000,
             "type": "action"
@@ -4205,7 +4195,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 3500000,
             "type": "action"
@@ -4253,7 +4243,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
             "sort": 3600000,
             "type": "action"
@@ -4282,10 +4272,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -4313,7 +4303,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 3700000,
             "type": "action"
@@ -4368,7 +4358,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+4 Bonus on Perception to Detect Illusions",
             "sort": 3800000,
             "type": "action"
@@ -4416,7 +4406,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aura of Righteousness",
             "sort": 3900000,
             "type": "action"
@@ -4464,7 +4454,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (deactivated by evil)",
             "sort": 4000000,
             "type": "action"
@@ -4482,7 +4472,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals [[/r 1d6 #persistent good]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage} to the target. The planetar can convert all the physical damage from the attack into good damage.</p>"
+                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals [[/r {1d6}[persistent,good]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage} to the target. The planetar can convert all the physical damage from the attack into good damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4570,7 +4560,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Holy Armaments",
             "sort": 4200000,
             "type": "action"

@@ -70,10 +70,10 @@
             "value": 0
         },
         "preciousMaterial": {
-            "value": ""
+            "value": null
         },
         "preciousMaterialGrade": {
-            "value": ""
+            "value": null
         },
         "price": {
             "value": "245 gp"
@@ -96,7 +96,50 @@
         "resiliencyRune": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Potency Rune",
+                "selector": "{item|_id}-attack",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "category": "martial",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d6"
+                    }
+                },
+                "group": "shield",
+                "key": "Strike",
+                "range": null
+            },
+            {
+                "category": "martial",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d6"
+                    }
+                },
+                "group": "shield",
+                "key": "Strike",
+                "label": "Lion's Shield (Activation)",
+                "predicate": {
+                    "all": [
+                        "self:shield:raised"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "deadly-d6"
+                ]
+            }
+        ],
         "size": {
             "value": "med"
         },

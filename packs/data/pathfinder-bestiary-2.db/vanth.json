@@ -51,8 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "40"
                     }
@@ -164,12 +162,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -252,8 +247,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "22",
-                    "item": 0,
+                    "dc": 22,
                     "mod": 0,
                     "value": 12
                 },
@@ -1674,7 +1668,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 1400000,
             "type": "action"
@@ -1722,7 +1716,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense",
             "sort": 1500000,
             "type": "action"
@@ -1751,10 +1745,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1782,7 +1776,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 1600000,
             "type": "action"
@@ -1800,7 +1794,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet, @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1930,7 +1924,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infuse Weapon",
             "sort": 1900000,
             "type": "action"
@@ -1976,7 +1970,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spirit Touch",
             "sort": 2000000,
             "type": "action"

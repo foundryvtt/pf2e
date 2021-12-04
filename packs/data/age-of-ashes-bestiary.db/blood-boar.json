@@ -49,8 +49,9 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "details": {
@@ -100,7 +101,7 @@
                 "value": "common"
             },
             "senses": {
-                "value": "bloodsense 60 feet, low-light vision, scent (imprecise) 30 feet"
+                "value": "bloodsense (precise) 60 feet, low-light vision, scent (imprecise) 30 feet"
             },
             "size": {
                 "value": "med"
@@ -250,25 +251,25 @@
             "type": "action"
         },
         {
-            "_id": "lEqyfM5a7c0ikwug",
+            "_id": "0tyhJYUBZLs3j7c9",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP. <strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{Wounded 3}, it can no longer use this ability.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -287,10 +288,110 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Ferocity",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
             "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "RiXHSOTCKfKIONvP",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "xSd36hFNsd1RqBw7",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -332,9 +433,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Chase Down",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -350,7 +451,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The blood boar lets forth a hair-raising squeal. Each creature within 30 feet must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Terrifying Squeal DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (frightened 2 on a critical failure). If the blood boar uses Terrifying Squeal on the same turn after using Chase Down, the Will save DC is instead 25.</p>"
+                    "value": "<p>The blood boar lets forth a hair-raising squeal. Each creature within 30 feet must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Terrifying Squeal DC\" data-pf2-show-dc=\"gm\">Will</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure)</span>.</p>\n<p data-visibility=\"gm\">If the blood boar uses Terrifying Squeal on the same turn after using Chase Down, the <span data-pf2-check=\"will\" data-pf2-dc=\"25\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Terrifying Squeal DC\" data-pf2-show-dc=\"gm\">Will</span> save DC is instead 25.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -381,9 +482,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Terrifying Squeal",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -418,7 +519,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -453,7 +554,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -488,7 +589,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],

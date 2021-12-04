@@ -162,6 +162,7 @@ declare global {
                  * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
                  * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
                  */
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 static createDocuments<T extends ConstructorOf<any>>(
                     this: T,
                     data?: PreCreate<InstanceType<T>["data"]["_source"]>[],
@@ -193,10 +194,11 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                static updateDocuments(
-                    updates?: DocumentUpdateData<Document>[],
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                static updateDocuments<T extends ConstructorOf<any>>(
+                    updates?: DocumentUpdateData<InstanceType<T>>[],
                     context?: DocumentModificationContext
-                ): Promise<Document[]>;
+                ): Promise<InstanceType<T>[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.
@@ -225,11 +227,12 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const deleted = await Actor.deleteDocuments([actor.id], {pack: "mymodule.mypack"});
                  */
-                static deleteDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                static deleteDocuments<T extends ConstructorOf<any>>(
+                    this: T,
                     ids?: string[],
                     context?: DocumentModificationContext
-                ): Promise<T[]>;
+                ): Promise<InstanceType<T>[]>;
 
                 /**
                  * Create a new Document using provided input data, saving it to the database.

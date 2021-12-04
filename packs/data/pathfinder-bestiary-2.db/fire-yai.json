@@ -51,8 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "40"
                     }
@@ -159,12 +157,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -2254,7 +2249,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -2303,7 +2298,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -2376,7 +2371,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 2000000,
             "type": "action"
@@ -2424,7 +2419,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 2100000,
             "type": "action"
@@ -2453,10 +2448,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -2484,7 +2479,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 2200000,
             "type": "action"
@@ -2580,7 +2575,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (deactivated by acid or cold)",
             "sort": 2400000,
             "type": "action"
@@ -2651,7 +2646,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The fire yai attempts a katana Strike. If it hits, the fire yai attempts an Athletics check against the target creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The fire yai Strides or Flies up to half its Speed in any direction. The struck creature takes [[/r 4d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and is pushed along with the yai an equal distance. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until the yai's next turn or until the yai makes a katana Strike.</p>\n<p><strong>Success</strong> As critical success, but the creature takes [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Failure</strong> The struck creature is pushed back 5 feet.</p>\n<p><strong>Critical Failure</strong> The struck creature is unaffected.</p>"
+                    "value": "<p>The fire yai attempts a katana Strike. If it hits, the fire yai attempts an Athletics check against the target creature's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The fire yai Strides or Flies up to half its Speed in any direction. The struck creature takes [[/r {4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and is pushed along with the yai an equal distance. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until the yai's next turn or until the yai makes a katana Strike.</p>\n<p><strong>Success</strong> As critical success, but the creature takes [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Failure</strong> The struck creature is pushed back 5 feet.</p>\n<p><strong>Critical Failure</strong> The struck creature is unaffected.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -1,37 +1,30 @@
 import { HooksPF2e } from "@scripts/hooks";
 
 import "@system/measure";
+import { TemplatePreloader } from "@util/template-preloader";
 import "./styles/main.scss";
 
 HooksPF2e.listen();
 
-Hooks.on("renderChatMessage", (message, html) => {
-    // remove elements the user does not have permission to see
-    html.find('[data-visibility="none"]').remove();
+if (BUILD_MODE === "development") {
+    const hot = module.hot;
+    if (hot) {
+        hot.accept();
 
-    if (!game.user.isGM) {
-        html.find('[data-visibility="gm"]').remove();
-    }
+        if (hot.status() === "apply") {
+            for (const template in _templateCache) {
+                if (Object.prototype.hasOwnProperty.call(_templateCache, template)) {
+                    delete _templateCache[template];
+                }
+            }
 
-    const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
-    if (!((actor && actor.isOwner) || game.user.isGM || message.isAuthor)) {
-        html.find('[data-visibility="owner"]').remove();
-    }
-
-    // show DC for inline checks if user has sufficient permission
-    html.find('[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])').each((_idx, elem) => {
-        const dc = elem.dataset.pf2Dc!.trim()!;
-        const role = elem.dataset.pf2ShowDc!.trim();
-        if (
-            role === "all" ||
-            (role === "gm" && game.user.isGM) ||
-            (role === "owner" && ((actor && actor.isOwner) || game.user.isGM || message.isAuthor))
-        ) {
-            elem.innerHTML = game.i18n.format("PF2E.DCWithValue", {
-                dc,
-                text: elem.innerHTML,
+            TemplatePreloader.preloadHandlebarsTemplates().then(() => {
+                for (const application in ui.windows) {
+                    if (Object.prototype.hasOwnProperty.call(ui.windows, application)) {
+                        ui.windows[application].render(true);
+                    }
+                }
             });
-            elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
         }
-    });
-});
+    }
+}

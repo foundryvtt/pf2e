@@ -1,12 +1,12 @@
 {
-    "_id": "l8PzmglYbEtM5Xy6",
+    "_id": "3Pa5JoY9PYdV5x1e",
     "data": {
         "abilities": {
             "cha": {
-                "mod": -2
+                "mod": -3
             },
             "con": {
-                "mod": 1
+                "mod": 2
             },
             "dex": {
                 "mod": 3
@@ -15,7 +15,7 @@
                 "mod": -4
             },
             "str": {
-                "mod": -3
+                "mod": 1
             },
             "wis": {
                 "mod": 1
@@ -24,16 +24,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 14
+                "value": 15
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 12,
+                "max": 8,
                 "temp": 0,
-                "value": 12
+                "value": 8
             },
             "initiative": {
                 "ability": "perception"
@@ -43,19 +43,20 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "type": "climb",
+                        "value": "10"
                     }
                 ],
-                "value": "30 feet, climb 20 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -63,21 +64,22 @@
                 "value": "N"
             },
             "blurb": "",
-            "creatureType": "Animal",
+            "creatureType": "",
             "level": {
-                "value": 1
+                "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Swarms of centipedes are dangerous indeed, ravenous carpets of skittering hunger capable of devouring a traveler whole in a matter of minutes. Some alchemists submerge whole centipedes taken from swarms in their elixirs and some mutagens, claiming such infusions increase potency, though other say this is nothing more than quackish claptrap. Kobolds and mitflits are both known to incorporate swarms of centipedes into cunning traps, from simple pits filled with vermin or more complex affairs involving chutes that dump the vermin onto the heads of unwary intruders.</p>",
+            "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society Scenario #1-04: Bandits of Immenwood"
+                "author": "",
+                "value": "Pathfinder Adventure: Troubles in Otari"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 2
+                "value": 6
             },
             "reflex": {
                 "saveDetail": "",
@@ -85,40 +87,23 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 4
+                "value": 3
             }
         },
         "traits": {
             "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
+                "value": []
             },
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "6"
+                    "type": "fire",
+                    "value": 5
                 }
             ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "3"
-                },
-                {
-                    "exceptions": "",
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "3"
-                }
-            ],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -131,13 +116,12 @@
                 "value": "low-light vision"
             },
             "size": {
-                "value": "lg"
+                "value": "sm"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "animal",
-                    "swarm"
+                    "animal"
                 ]
             }
         }
@@ -147,21 +131,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "e6gQA5jXDMbCKyDj",
+            "_id": "WqgfgkwqUVMJK44b",
             "data": {
-                "actionCategory": {
-                    "value": "offensive"
+                "attack": {
+                    "value": ""
                 },
-                "actionType": {
-                    "value": "action"
+                "attackEffects": {
+                    "value": []
                 },
-                "actions": {
-                    "value": 2
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "9q8iyzx4pxl84au3xl2w": {
+                        "damage": "1d6+1",
+                        "damageType": "piercing"
+                    }
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} and must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Claws and Teeth DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<p>A creature affected by this attack can spend 2 actions on it's turn to attempt another <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Claws and Teeth DC\" data-pf2-show-dc=\"gm\">Reflex</span> save to remove the clumsy condition.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage</p>\n<p><strong>Failure</strong> The creature takes full damage and is clumsy 2.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is clumsy 2, and falls prone.</p>"
-                },
-                "requirements": {
                     "value": ""
                 },
                 "rules": [],
@@ -174,34 +161,30 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "selected": {},
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
+                "weaponType": {
+                    "value": "melee"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Swarming Claws and Teeth",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
             "sort": 100000,
-            "type": "action"
+            "type": "melee"
         },
         {
-            "_id": "9c3g4yNI2sNlNpvD",
+            "_id": "vD2W3lPbzBJ0yxml",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 8
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -227,16 +210,64 @@
             "type": "lore"
         },
         {
-            "_id": "JOLdVXeT0P45d9vw",
+            "_id": "Rocjsria9JUsNrFA",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
+                "mod": {
+                    "value": 2
+                },
+                "proficient": {
                     "value": 0
                 },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Climb or Swim",
+                        "predicate": {
+                            "any": [
+                                "action:climb",
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+4 to Climb or Swim",
+                        "options": "action:climb,action:swim"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 300000,
+            "type": "lore"
+        },
+        {
+            "_id": "cqEebNFM2mutvkpb",
+            "data": {
+                "description": {
+                    "value": ""
+                },
                 "mod": {
-                    "value": 4
+                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -257,18 +288,18 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 300000,
+            "name": "Stealth",
+            "sort": 400000,
             "type": "lore"
         }
     ],
-    "name": "Squirrel Swarm",
+    "name": "Brimstone Rat",
     "token": {
         "disposition": -1,
-        "height": 2,
+        "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Squirrel Swarm",
-        "width": 2
+        "name": "Brimstone Rat",
+        "width": 1
     },
     "type": "npc"
 }

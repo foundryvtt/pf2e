@@ -10,7 +10,6 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
 import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
 import { ActorSheetPF2e } from "./sheet/base";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
@@ -55,10 +54,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            if (data.type) {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
-            }
+            const ready = { pf2e: { ready: true } };
+            return new CONFIG.PF2E.Actor.documentClasses[data.type!](data, { ...ready, ...context });
         }
     }
 
@@ -178,7 +175,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize: !["hazard", "loot"].includes(datum.type ?? ""),
+                            linkToActorSize: !["hazard", "loot"].includes(datum.type!),
                         },
                     },
                 },
@@ -518,60 +515,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param roll The chat entry which contains the roll data
-     */
-    static async setCombatantInitiative(roll: JQuery): Promise<void> {
-        const skillRolled = roll.find(".flavor-text").text();
-        const valueRolled = parseFloat(roll.find(".dice-total").text());
-        const promises: Promise<void>[] = [];
-        for (const token of canvas.tokens.controlled) {
-            if (!game.combat) {
-                ui.notifications.error("No active encounters in the Combat Tracker.");
-                return;
-            }
-
-            const combatant = game.combat.getCombatantByToken(token.id);
-            if (!combatant) {
-                ui.notifications.error("You haven't added this token to the Combat Tracker.");
-                return;
-            }
-
-            // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
-            let value = valueRolled;
-            if (!combatant.actor?.hasPlayerOwner) {
-                value += 0.5;
-            }
-            const iniativeIsNow = game.i18n.format("PF2E.InitativeIsNow", { name: combatant.name, value: value });
-            const message = `
-      <div class="dice-roll">
-      <div class="dice-result">
-        <div class="dice-tooltip" style="display: none;">
-            <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span></span>
-            </div>
-        </div>
-        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
-        </div>
-      </div>
-      </div>
-      `;
-            await ChatMessagePF2e.create({
-                user: game.user.id,
-                speaker: { alias: token.name },
-                content: message,
-                whisper: ChatMessage.getWhisperRecipients("GM")?.map((user) => user.id),
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            });
-
-            promises.push(game.combat.setInitiative(combatant.id, value));
-        }
-
-        await Promise.all(promises);
-    }
-
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
         if (!entryId || !spellLevel) {
             // TODO: Consider throwing an error on null inputs in the future.
@@ -681,7 +624,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 }
                 value = Math.clamped(value, 0, hp.max);
                 updateActorData["data.attributes.hp.value"] = value;
+
+                // Mark the actor as dead if the setting is enabled
+                if (value === 0) {
+                    const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+                    if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero)) {
+                        game.combats.active?.combatants
+                            .find((c) => c.actor === this && !c.data.defeated)
+                            ?.toggleDefeated();
+                    }
+                }
             }
+
             if (shield && updatedShieldHp >= 0) {
                 updateActorData.items = [
                     {
@@ -1032,6 +986,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
+    async toggleCondition(conditionSlug: ConditionType): Promise<void> {
+        if (this.hasCondition(conditionSlug)) {
+            await this.decreaseCondition(conditionSlug, { forceRemove: true });
+        } else {
+            await this.increaseCondition(conditionSlug);
+        }
+    }
+
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
         const importData = JSON.parse(json);
@@ -1153,13 +1116,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: string, key: string): any;
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
-}
-
-declare namespace ActorPF2e {
-    function updateDocuments(
-        updates?: DocumentUpdateData<ActorPF2e>[],
-        context?: DocumentModificationContext
-    ): Promise<ActorPF2e[]>;
 }
 
 export { ActorPF2e };

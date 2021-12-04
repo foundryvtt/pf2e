@@ -16,7 +16,7 @@ import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
 import { WorldClock } from "@system/world-clock";
-import { CombatPF2e } from "./module/combat";
+import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 import {
     AbilityModifier,
@@ -42,7 +42,6 @@ import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
-import { CombatantPF2e } from "@module/combatant";
 import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
@@ -102,22 +101,25 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface ClientSettings {
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
+        get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
 
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
-        get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
+        get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
+        get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
+        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
-        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm " | "owner" | "all";
-        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm " | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
@@ -148,6 +150,8 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
+
+    const _templateCache: Record<string, unknown>;
 }
 
 type ConfiguredConfig = Config<
@@ -156,7 +160,7 @@ type ConfiguredConfig = Config<
     ActorPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
-    CombatPF2e,
+    EncounterPF2e,
     CombatantPF2e,
     EncounterTrackerPF2e,
     CompendiumDirectoryPF2e,

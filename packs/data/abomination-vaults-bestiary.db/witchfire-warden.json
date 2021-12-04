@@ -51,12 +51,11 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "label": "Fly",
                         "type": "fly",
                         "value": "40"
                     }
                 ],
-                "value": ""
+                "value": "0"
             }
         },
         "details": {
@@ -71,7 +70,6 @@
             "privateNotes": "",
             "publicNotes": "<p>Manifesting as a sinuous form wreathed in sickly green flames, this incorporeal undead forms when a powerful hag or witch dies in agony or rage. The body at the center of the flames usually resembles the witch's idealized self-image, regardless of their age and appearance at the time of their death.</p>\n<p>A witchfire often resides in a bog or swamp, which slowly blackens and decays around them. These regions are often plagued by will-o'-wisps, which seem to have an uncanny relationship with the resident witchfire. A witchfire might visit villages on the edge of their home terrain to lure away villagers, but always attack victims within earshot to make sure that other villagers hear the screams. A witchfire might also ally with other hags or witches and even join their covens, but a witchfire is incapable of forming covens entirely on their own.</p>",
             "source": {
-                "author": "",
                 "value": "Pathfinder #164: Hands of the Devil"
             }
         },
@@ -165,12 +163,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -253,8 +248,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "28",
-                    "item": 0,
+                    "dc": 28,
                     "mod": 0,
                     "value": 18
                 },
@@ -716,7 +710,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r 1d4 #persistent mental]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being @Compendium[pf2e.conditionitems.Sickened]{Sickened}, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by 1d4."
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r {1d4}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being @Compendium[pf2e.conditionitems.Sickened]{Sickened}, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by 1d4."
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1253,7 +1247,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature makes a melee Strike against or touches the witchfire; <strong>Effect</strong> The witchfire makes a witchflame caress Strike against the triggering creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature makes a melee Strike against or touches the witchfire</p>\n<p><strong>Effect</strong> The witchfire makes a witchflame caress Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1326,7 +1320,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
             "sort": 1400000,
             "type": "action"
@@ -1375,7 +1369,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Witchflame",
             "sort": 1500000,
             "type": "action"
@@ -1393,7 +1387,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature within 30 feet of the witchfire burns with witchflame; <strong>Effect</strong> The witchfire's eyes and mouth glow brightly, and the witchflame on the target creature momentarily burns much hotter, dealing [[/r {5d6}[fire]]]{5d6 fire damage} and [[/r {5d6}[negative]]]{5d6 negative damage} to that creature (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"fire,necromancy,occult,damaging-effect\" data-pf2-label=\"Witchflame Kindling DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).<span data-visibility=\"gm\"> The witchfire can't use Witchflame Kindling for [[/br 1d4 #rounds]]{1d4 rounds}.</span></p>"
+                    "value": "<p><strong>Requirements</strong> A creature within 30 feet of the witchfire burns with witchflame</p>\n<p><strong>Effect</strong> The witchfire's eyes and mouth glow brightly, and the witchflame on the target creature momentarily burns much hotter, dealing [[/r {5d6}[fire]]]{5d6 fire damage} and [[/r {5d6}[negative]]]{5d6 negative damage} to that creature (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"fire,necromancy,occult,damaging-effect\" data-pf2-label=\"Witchflame Kindling DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).<span data-visibility=\"gm\"> The witchfire can't use Witchflame Kindling for [[/br 1d4 #rounds]]{1d4 rounds}.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1423,7 +1417,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Witchflame Kindling",
             "sort": 1600000,
             "type": "action"

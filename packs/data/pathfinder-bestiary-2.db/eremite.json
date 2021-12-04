@@ -51,8 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "50"
                     }
@@ -165,10 +163,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -251,8 +247,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "42",
-                    "item": 0,
+                    "dc": 42,
                     "mod": 0,
                     "value": 32
                 },
@@ -287,10 +282,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "ritual"
                 },
                 "proficiency": {
@@ -373,8 +366,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "42",
-                    "item": 0,
+                    "dc": 42,
                     "mod": 0,
                     "value": 32
                 },
@@ -2346,7 +2338,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>[[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -2397,7 +2389,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>[[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -2469,7 +2461,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 2100000,
             "type": "action"
@@ -2516,7 +2508,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Painsight",
             "sort": 2200000,
             "type": "action"
@@ -2568,7 +2560,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy",
             "sort": 2300000,
             "type": "action"
@@ -2616,7 +2608,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 2400000,
             "type": "action"
@@ -2664,7 +2656,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
             "sort": 2500000,
             "type": "action"
@@ -2712,7 +2704,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 25 (deactivated by good or silver)",
             "sort": 2600000,
             "type": "action"
@@ -2741,10 +2733,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -2772,7 +2764,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 2700000,
             "type": "action"
@@ -2868,7 +2860,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralytic Perfection",
             "sort": 2900000,
             "type": "action"
@@ -2978,7 +2970,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The eremite has a creature grabbed;</p>\n<p><strong>Effect</strong> The eremite excises flesh or bone from a creature it has grabbed. The target takes [[/r 6d10 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> The eremite has a creature grabbed;</p>\n<p><strong>Effect</strong> The eremite excises flesh or bone from a creature it has grabbed. The target takes [[/r {6d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3148,7 +3140,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shadow Traveler",
             "sort": 3500000,
             "type": "action"

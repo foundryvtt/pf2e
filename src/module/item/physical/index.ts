@@ -1,8 +1,8 @@
+import { ItemPF2e, ContainerPF2e } from "@item";
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { Rarity, Size } from "@module/data";
-import { ItemPF2e } from "@item/index";
-import type { ContainerPF2e } from "@item/index";
+import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
@@ -164,6 +164,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId.value) {
             this._container = null;
+        }
+
+        // Unequip items on loot actors so that rule elements are not initialized
+        if (this.actor instanceof LootPF2e) {
+            this.data.data.equipped.value = false;
         }
     }
 

@@ -2,10 +2,10 @@ import { VisionLevels } from "@actor/creature/data";
 import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { UserPF2e } from "@module/user";
 import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
-import { CombatantPF2e } from "@module/combatant";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { CombatantPF2e } from "@module/encounter";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -39,6 +39,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
         return this.data.flags.pf2e.linkToActorSize;
+    }
+
+    get playersCanSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.data.displayName ?? 0;
+        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
     }
 
     /** Refresh this token's properties if it's controlled and the request came from its actor */
@@ -119,15 +125,56 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         }
     }
 
+    /** Set a token's initiative on the current encounter, creating a combatant if necessary */
+    async setInitiative({
+        initiative,
+        sendMessage = true,
+    }: {
+        initiative: number;
+        sendMessage?: boolean;
+    }): Promise<void> {
+        if (!game.combat) {
+            ui.notifications.error("PF2E.Encounter.NoActiveEncounter");
+            return;
+        }
+
+        const currentId = game.combat.combatant?.id;
+        if (this.combatant && game.combat.combatants.has(this.combatant.id)) {
+            await game.combat.setInitiative(this.combatant.id, initiative);
+        } else {
+            await game.combat.createEmbeddedDocuments("Combatant", [
+                {
+                    tokenId: this.id,
+                    initiative,
+                },
+            ]);
+        }
+        // Ensure the current turn is preserved
+        await this.update({ turn: game.combat.turns.findIndex((c) => c.id === currentId) });
+
+        if (sendMessage) {
+            await ChatMessagePF2e.createDocuments([
+                {
+                    speaker: { scene: this.scene?.id, token: this.id },
+                    whisper: this.actor?.hasPlayerOwner
+                        ? []
+                        : game.users.contents.flatMap((user) => (user.isGM ? user.id : [])),
+                    content: game.i18n.format("PF2E.InitativeIsNow", { name: this.name, value: initiative }),
+                },
+            ]);
+        }
+    }
+
     /**
-     * Foundry (at least as of 0.8.8) has a security exploit allowing any user, regardless of permissions, to update
+     * Foundry (at least as of 0.8.9) has a security exploit allowing any user, regardless of permissions, to update
      * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
      * `TokenDocument` updates.
      */
-    static override async updateDocuments(
-        updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
+    static override async updateDocuments<T extends ConstructorOf<TokenDocumentPF2e>>(
+        this: T,
+        updates: DocumentUpdateData<InstanceType<T>>[] = [],
         context: DocumentModificationContext = {}
-    ): Promise<TokenDocumentPF2e[]> {
+    ): Promise<InstanceType<T>[]> {
         const scene = context.parent;
         if (scene instanceof ScenePF2e) {
             updates = updates.filter((data) => {
@@ -137,27 +184,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             });
         }
 
-        return super.updateDocuments(updates, context) as Promise<TokenDocumentPF2e[]>;
+        return super.updateDocuments(updates, context) as Promise<InstanceType<T>[]>;
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    /** Call `onCreateToken` hook of any rule element on this actor's items */
-    protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
-        user: UserPF2e
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        const actor = game.actors.get(data.actorId ?? "");
-        if (!actor) return;
-        for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
-            rule.onCreateToken(actor.data, rule.item.data, data);
-        }
-    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
@@ -181,6 +213,10 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
         canvas.darkvision.refresh({ drawMask: true });
+
+        if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
+            ui.combat.render();
+        }
     }
 }
 

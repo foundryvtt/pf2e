@@ -51,8 +51,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
-                        "label": "Fly",
                         "type": "fly",
                         "value": "35"
                     }
@@ -164,10 +162,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -290,10 +286,8 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "ritual"
                 },
                 "proficiency": {
@@ -1309,7 +1303,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 1100000,
             "type": "action"
@@ -1361,7 +1355,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
             "sort": 1200000,
             "type": "action"
@@ -1409,7 +1403,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1300000,
             "type": "action"
@@ -1482,10 +1476,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
+                                "trait:arcane",
+                                "trait:primal",
+                                "trait:occult",
+                                "trait:divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1513,7 +1507,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 1500000,
             "type": "action"
@@ -1531,7 +1525,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature can't remove the fatigued condition while infected;</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"disease\" data-pf2-label=\"Bubonic Plague DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Onset</strong> 1 day;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every [[/r 1d20 #minutes]]{1d20 minutes} (1 day)</p>"
+                    "value": "<p>A creature can't remove the fatigued condition while infected;</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"disease\" data-pf2-label=\"Bubonic Plague DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Onset</strong> 1 day;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every [[/r 1d20 #minutes]]{1d20 minutes} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1559,7 +1553,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bubonic Plague",
             "sort": 1600000,
             "type": "action"

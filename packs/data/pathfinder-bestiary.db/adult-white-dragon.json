@@ -49,17 +49,18 @@
                 "value": 0
             },
             "speed": {
+                "details": "climb on ice only",
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "80 feet"
+                        "type": "climb",
+                        "value": "30"
                     },
                     {
-                        "type": "Ice Climb",
-                        "value": "30 feet"
+                        "type": "fly",
+                        "value": "120"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -72,7 +73,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>The most feral and least intelligent of all the chromatic dragons, white dragons are brutish, predatory, and chiefly motivated by self-preservation. Nearly all other dragons look down on white dragons as hopelessly hotheaded and dull, though this does not make them any less dangerous-in fact, it may mean the opposite. It's nearly impossible to treat with white dragons, not because they lack the capacity to do so, but because they just don't care to. They are as difficult to deal with as they are quick to anger, and they become incensed at almost anything. When a white dragon does speak, it spews threats, inane jokes, and incoherent babbling as a prelude to attacking-and when the attack comes, it's bloody and relentless.</p>\n<p>Thankfully, white dragons prefer very cold, remote locations that are far from people. Dwelling on glacial mountaintops or in ice caverns beneath forbidding tundra, they treat the lands around them as their own personal hunting grounds. They fly out to feed or terrorize other creatures, especially those who trespass near the dragon's territory, then bring any treasure back to be displayed in icy niches in their lairs. They collect all kinds of valuables, with a slight preference for items with high utility-such as tools, trade goods, and fine food-over coins or jewels. The ability to shape ice lets white dragons rearrange their lairs exactly to their specifications, and they take great pride in how they've decorated their homes over the years.</p>",
+            "publicNotes": "<p>The most feral and least intelligent of all the chromatic dragons, white dragons are brutish, predatory, and chiefly motivated by self-preservation. Nearly all other dragons look down on white dragons as hopelessly hotheaded and dull, though this does not make them any less dangerous-in fact, it may mean the opposite. It's nearly impossible to treat with white dragons, not because they lack the capacity to do so, but because they just don't care to. They are as difficult to deal with as they are quick to anger, and they become incensed at almost anything. When a white dragon does speak, it spews threats, inane jokes, and incoherent babbling as a prelude to attacking-and when the attack comes, it's bloody and relentless.</p>\n<p>Thankfully, white dragons prefer very cold, remote locations that are far from people. Dwelling on glacial mountaintops or in ice caverns beneath forbidding tundra, they treat the lands around them as their own personal hunting grounds. They fly out to feed or terrorize other creatures, especially those who trespass near the dragon's territory, then bring any treasure back to be displayed in icy niches in their lairs. They collect all kinds of valuables, with a slight preference for items with high utility-such as tools, trade goods, and fine food-over coins or jewels. The ability to shape ice lets white dragons rearrange their lairs exactly to their specifications, and they take great pride in how they've decorated their homes over the years.</p>\n<hr />\n<p>While there are many types of dragons, from the powerful planar dragons to the strange esoteric dragons, few dragon varieties are as well-known and as rightly feared as the chromatic dragons. Differentiated by the hue of their scales, each color of dragon unleashes its own flavor of murderous cruelty-be it by claw, tooth, or breath-and unlike most creatures, dragons only become more powerful as they age. Their lust for treasure, food, bloodshed, and control are legendary. Physically powerful with egos to match, these dragons are often morally depraved and act as criminal masterminds, vicious tyrants, or voracious raiders.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -110,9 +111,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -146,10 +146,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "gM9g0QOCU67n6AaF",
+            "_id": "B7rzf0nBJmzg8x0y",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -157,12 +157,9 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
-                "item": {
-                    "value": 0
-                },
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -170,10 +167,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -245,10 +242,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "27",
-                    "item": 0,
+                    "dc": 27,
                     "mod": 0,
-                    "value": 17
+                    "value": 19
                 },
                 "tradition": {
                     "value": "arcane"
@@ -269,14 +265,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "gUosERqksrUge53y",
+            "_id": "ac9hRct9QTDrzhy1",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -297,7 +296,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -305,16 +304,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "gM9g0QOCU67n6AaF"
+                    "value": "B7rzf0nBJmzg8x0y"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -328,9 +333,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -361,21 +372,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/obscuring-mist.webp",
-            "name": "Obscuring Mist",
+            "name": "Obscuring Mist (At Will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "CHBRqRjlRF1rlG95",
+            "_id": "ui2iVt9gJcMIs6H5",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "line",
-                    "value": 60
+                    "value": "60"
+                },
+                "areasize": {
+                    "value": "60-foot line"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -393,18 +411,10 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "untyped"
-                            },
-                            "value": "2d6"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionitems.Prone]{Prone}, and takes 2d6 bludgeoning damage.</p>"
+                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked Prone, and takes 2d6 bludgeoning damage.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -412,16 +422,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "gM9g0QOCU67n6AaF"
+                    "value": "B7rzf0nBJmzg8x0y"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -430,17 +446,23 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "gust-of-wind",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
@@ -468,9 +490,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.g8QqHpv2CWDwmIm1"
+                }
+            },
             "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
-            "name": "Gust of Wind",
+            "name": "Gust of Wind (At Will)",
             "sort": 300000,
             "type": "spell"
         },
@@ -481,6 +507,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -533,6 +560,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -580,6 +608,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -665,6 +694,54 @@
             "type": "action"
         },
         {
+            "_id": "MJVKsTpwu0QDO6t7",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
             "_id": "pydkk6U2LVFlha3A",
             "data": {
                 "actionCategory": {
@@ -677,7 +754,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>; 5 feet, [[/r {2d6}[cold]]]{2d6 cold damage}</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, [[/r {2d6}[cold]]]{2d6 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,aura,cold,evocation,damaging-effect\" data-pf2-label=\"Dragon Chill DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -708,9 +785,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dragon Chill",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -726,7 +803,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>90 feet, @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"27\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"27\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -763,7 +840,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -779,7 +856,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>; <strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the dragon. <strong>Effect</strong> The dragon's blood sprays on the creature, dealing [[/r {2d6}[cold]]]{2d6 cold damage}. A creature that takes cold damage in this way is slowed 1 for 1 round.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An adjacent creature deals piercing or slashing damage to the dragon.</p>\n<p><strong>Effect</strong> The dragon's blood sprays on the creature, dealing [[/r {2d6}[cold]]]{2d6 cold damage}. A creature that takes cold damage in this way is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -810,7 +887,71 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Freezing Blood",
-            "sort": 1000000,
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "QkmDtTbsggbI0MQy",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "trait:arcane",
+                                "trait:divine",
+                                "trait:primal",
+                                "trait:occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -826,7 +967,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a cloud of frost that deals [[/r {11d6}[cold]]]{11d6 cold damage} in a 40-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"arcane,cold,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a cloud of frost that deals [[/r {11d6}[cold]]]{11d6 cold damage} in a @Template[type:cone|distance:40]{40-foot cone} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"arcane,cold,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -856,9 +997,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -900,9 +1041,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -946,7 +1087,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -962,7 +1103,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dragon slams into the ground. It can do this if it's on the ground Flying within 10 feet of the ground. Each creature on the ground within 10 feet must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Ground Slam DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or fall prone and take [[/r {3d6}[bludgeoning]]]{3d6 bludgeoning damage}. The dragon can then Step.</p>"
+                    "value": "<p>The dragon slams into the ground. It can do this if it's on the ground or Flying within 10 feet of the ground. Each creature on the ground within @Template[type:emanation|distance:10]{10 feet} must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Ground Slam DC\" data-pf2-show-dc=\"gm\">Reflex</span> save<span data-visibility=\"gm\"> or fall @Compendium[pf2e.conditionitems.Prone]{Prone} and take [[/r {3d6}[bludgeoning]]]{3d6 bludgeoning damage}</span>.</p>\n<p data-visibility=\"gm\">The dragon can then Step.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -988,9 +1129,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Ground Slam",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1034,7 +1175,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ice Climb",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1050,7 +1191,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon reshapes a cube of ice or snow it touches, up to 10 feet across. Any creature standing atop the ice must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"15\" data-pf2-traits=\"arcane,transmutation,water\" data-pf2-label=\"Shape Ice DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or Acrobatic check. On a failure, the creature falls prone atop the ice; on a critical failure, it falls off the ice entirely and is also prone.</p>"
+                    "value": "<p>The dragon reshapes a cube of ice or snow it touches, up to 10 feet across. Any creature standing atop the ice must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"15\" data-pf2-traits=\"arcane,transmutation,water\" data-pf2-label=\"Shape Ice DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or <span data-pf2-check=\"acrobatics\" data-pf2-dc=\"15\" data-pf2-traits=\"arcane,transmutation,water\" data-pf2-label=\"Shape Ice DC\" data-pf2-show-dc=\"gm\">Acrobatics</span> check.</p>\n<p data-visibility=\"gm\">On a failure, the creature falls @Compendium[pf2e.conditionitems.Prone]{Prone} atop the ice; on a critical failure, it falls off the ice entirely and is also prone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1080,9 +1221,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Shape Ice",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1117,7 +1258,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1152,7 +1293,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1187,7 +1328,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1900000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1222,7 +1363,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1257,7 +1398,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "lore"
         }
     ],

@@ -1,4 +1,3 @@
-import { getPropertySlots } from "../runes";
 import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
@@ -43,9 +42,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const data: any = this.getBaseData();
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
-
-        const rollData = this.item.getRollData();
-        data.data.description.value = game.pf2e.TextEditor.enrichHTML(this.item.description, { rollData });
 
         const itemData: ItemDataPF2e = data.item;
 
@@ -100,17 +96,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.detailsActive = true;
             data.damageTypes = CONFIG.PF2E.damageTypes;
 
-            // Melee attack effects can be chosen from the NPC's actions
-            const attackEffectOptions: Record<string, string> =
-                this.actor?.itemTypes.action.reduce((options, action) => {
-                    const key = action.slug ?? sluggify(action.name);
-                    return mergeObject(options, { [key]: action.name }, { inplace: false });
-                }, CONFIG.PF2E.attackEffects) ?? {};
-            this.actor?.itemTypes.consumable.forEach((consumable) => {
-                const key = consumable.slug ?? sluggify(consumable.name);
-                attackEffectOptions[key] = consumable.name;
-            });
-            data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
+            data.attackEffects = this.prepareOptions(this.getAttackEffectOptions(), data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.npcAttackTraits, data.data.traits, { selectedOnly: true });
         } else if (itemData.type === "condition") {
             // Condition types
@@ -133,23 +119,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === "armor") {
-            // Armor data
-            const slots = getPropertySlots(data);
-            this.assignPropertySlots(data, slots);
-            data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
-            data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
-            data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
-            data.categories = CONFIG.PF2E.armorTypes;
-            data.groups = CONFIG.PF2E.armorGroups;
-            data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
-            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.sizes = CONFIG.PF2E.actorSizes;
-
-            // Armor has derived traits: base traits are shown for editing
-            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
         } else if (itemData.type === "lore") {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
@@ -174,6 +143,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
 
+        const rollData = this.item.getRollData();
+        itemData.data.description.value = game.pf2e.TextEditor.enrichHTML(itemData.data.description.value, {
+            rollData,
+        });
+
         const isEditable = this.isEditable;
         return {
             itemType: null,
@@ -191,16 +165,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
         };
-    }
-
-    assignPropertySlots(data: Record<string, boolean>, number: number) {
-        const slots = [1, 2, 3, 4] as const;
-
-        for (const slot of slots) {
-            if (number >= slot) {
-                data[`propertyRuneSlots${slot}`] = true;
-            }
-        }
     }
 
     /** Prepare form options on the item sheet */
@@ -259,38 +223,26 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (noCustom) {
             selectorOptions.allowCustom = false;
         } else if (this.actor && configTypes.includes("attackEffects")) {
-            // Melee attack effects can be chosen from the NPC's actions
-            const attackEffectOptions: Record<string, string> = this.actor.itemTypes.action.reduce(
-                (options, action) => {
-                    const key = action.slug ?? sluggify(action.name);
-                    return mergeObject(options, { [key]: action.name }, { inplace: false });
-                },
-                CONFIG.PF2E.attackEffects
-            );
-            this.actor?.itemTypes.consumable.forEach((consumable) => {
-                const key = consumable.slug ?? sluggify(consumable.name);
-                attackEffectOptions[key] = consumable.name;
-            });
-            selectorOptions.customChoices = attackEffectOptions;
+            selectorOptions.customChoices = this.getAttackEffectOptions();
         }
 
         new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
     /**
-     * Get the action image to use for a particular action type.
+     * Get NPC attack effect options
      */
-    protected getActionImg(action: string): ImagePath {
-        const img: Record<string, ImagePath> = {
-            0: "systems/pf2e/icons/default-icons/mystery-man.svg",
-            1: "systems/pf2e/icons/actions/OneAction.webp",
-            2: "systems/pf2e/icons/actions/TwoActions.webp",
-            3: "systems/pf2e/icons/actions/ThreeActions.webp",
-            free: "systems/pf2e/icons/actions/FreeAction.webp",
-            reaction: "systems/pf2e/icons/actions/Reaction.webp",
-            passive: "systems/pf2e/icons/actions/Passive.webp",
-        };
-        return img[action ?? "0"];
+    protected getAttackEffectOptions(): Record<string, string> {
+        // Melee attack effects can be chosen from the NPC's actions and consumable items
+        const attackEffectOptions: Record<string, string> =
+            this.actor?.items
+                .filter((item) => item.type === "action" || item.type === "consumable")
+                .reduce((options, item) => {
+                    const key = item.slug ?? sluggify(item.name);
+                    return mergeObject(options, { [key]: item.name }, { inplace: false });
+                }, CONFIG.PF2E.attackEffects) ?? {};
+
+        return attackEffectOptions;
     }
 
     private async addDamageRoll(event: JQuery.TriggeredEvent) {

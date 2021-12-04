@@ -161,6 +161,18 @@ export function registerSettings() {
         },
     });
 
+    game.settings.register("pf2e", "deathIcon", {
+        name: "PF2E.Settings.DeathIcon.Name",
+        hint: "PF2E.Settings.DeathIcon.Hint",
+        scope: "world",
+        config: false,
+        default: "icons/svg/skull.svg",
+        type: String,
+        onChange: (choice?: string) => {
+            if (choice) CONFIG.controlIcons.defeated = choice;
+        },
+    });
+
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
@@ -185,6 +197,13 @@ export function registerSettings() {
         icon: "fas fa-robot",
         type: AutomationSettings,
         restricted: true,
+    });
+    game.settings.register("pf2e", "automation.actorsDeadAtZero", {
+        name: CONFIG.PF2E.SETTINGS.automation.actorsDeadAtZero.name,
+        scope: "world",
+        config: false,
+        default: "npcsOnly",
+        type: String,
     });
     AutomationSettings.registerSettings();
 

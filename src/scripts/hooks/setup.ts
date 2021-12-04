@@ -28,64 +28,67 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { HomebrewElements } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 
-/**
- * This runs after game data has been requested and loaded from the servers, so entities exist
- */
-export function listen() {
-    Hooks.once("setup", () => {
-        LocalizePF2e.ready = true;
+/** This runs after game data has been requested and loaded from the servers, so entities exist */
+export const Setup = {
+    listen: (): void => {
+        Hooks.once("setup", () => {
+            LocalizePF2e.ready = true;
 
-        // Soft-set system-preferred core settings until they've been explicitly set by the GM
-        const defaultTokenSettings = game.settings.settings.get("core.defaultToken").default;
-        defaultTokenSettings.displayName = defaultTokenSettings.displayBars = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
-        defaultTokenSettings.bar1 = { attribute: "data.attributes.hp.value" };
+            // Soft-set system-preferred core settings until they've been explicitly set by the GM
+            const defaultTokenSettings = game.settings.settings.get("core.defaultToken").default;
+            defaultTokenSettings.displayName = defaultTokenSettings.displayBars = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            defaultTokenSettings.bar1 = { attribute: "data.attributes.hp.value" };
 
-        // Register actor and item sheets
-        registerSheets();
+            // Register actor and item sheets
+            registerSheets();
 
-        // Exposed objects for macros and modules
-        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
-        game.pf2e.actions = {
-            earnIncome,
-            raiseAShield,
-            restForTheNight,
-            steelYourResolve,
-            encouragingWords,
-        };
-        game.pf2e.importer = {
-            actor: ActorImporter,
-        };
-        game.pf2e.rollItemMacro = rollItemMacro;
-        game.pf2e.rollActionMacro = rollActionMacro;
-        game.pf2e.gm = {
-            calculateXP,
-            launchTravelSheet,
-        };
-        game.pf2e.system = {
-            remigrate,
-        };
-        game.pf2e.Dice = DicePF2e;
-        game.pf2e.StatusEffects = StatusEffects;
-        game.pf2e.ConditionManager = ConditionManager;
-        game.pf2e.ModifierType = MODIFIER_TYPE;
-        game.pf2e.Modifier = ModifierPF2e;
-        game.pf2e.AbilityModifier = AbilityModifier;
-        game.pf2e.ProficiencyModifier = ProficiencyModifier;
-        game.pf2e.StatisticModifier = StatisticModifier;
-        game.pf2e.CheckModifier = CheckModifier;
-        game.pf2e.Check = CheckPF2e;
-        game.pf2e.RuleElements = RuleElements;
-        game.pf2e.RuleElement = RuleElementPF2e;
+            // Exposed objects for macros and modules
+            Object.defineProperty(globalThis.game, "pf2e", { value: {} });
+            game.pf2e.actions = {
+                earnIncome,
+                raiseAShield,
+                restForTheNight,
+                steelYourResolve,
+                encouragingWords,
+            };
+            game.pf2e.importer = {
+                actor: ActorImporter,
+            };
+            game.pf2e.rollItemMacro = rollItemMacro;
+            game.pf2e.rollActionMacro = rollActionMacro;
+            game.pf2e.gm = {
+                calculateXP,
+                launchTravelSheet,
+            };
+            game.pf2e.system = {
+                remigrate,
+            };
+            game.pf2e.Dice = DicePF2e;
+            game.pf2e.StatusEffects = StatusEffects;
+            game.pf2e.ConditionManager = ConditionManager;
+            game.pf2e.ModifierType = MODIFIER_TYPE;
+            game.pf2e.Modifier = ModifierPF2e;
+            game.pf2e.AbilityModifier = AbilityModifier;
+            game.pf2e.ProficiencyModifier = ProficiencyModifier;
+            game.pf2e.StatisticModifier = StatisticModifier;
+            game.pf2e.CheckModifier = CheckModifier;
+            game.pf2e.Check = CheckPF2e;
+            game.pf2e.RuleElements = RuleElements;
+            game.pf2e.RuleElement = RuleElementPF2e;
 
-        // Start system sub-applications
-        game.pf2e.effectPanel = new EffectsPanel();
-        game.pf2e.effectTracker = new EffectTracker();
+            // Start system sub-applications
+            game.pf2e.effectPanel = new EffectsPanel();
+            game.pf2e.effectTracker = new EffectTracker();
 
-        game.pf2e.StatusEffects.setIconTheme();
+            CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
+            game.pf2e.StatusEffects.setIconTheme();
 
-        game.pf2e.TextEditor = TextEditorPF2e;
+            game.pf2e.TextEditor = TextEditorPF2e;
 
-        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        new HomebrewElements().refreshTags();
-    });
-}
+            // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+            const homebrew = new HomebrewElements();
+            homebrew.refreshTags();
+            homebrew.registerModuleTags();
+        });
+    },
+};
