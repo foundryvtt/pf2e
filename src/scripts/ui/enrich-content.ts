@@ -79,19 +79,12 @@ export const EnrichContent = {
 
         // If no button label is entered directly create default label
         if (!label) {
-            const templateSize = game.i18n.format("PF2E.TemplateLabels.FeetDistance", {
-                distance: params.distance,
-                unit: game.i18n.localize("PF2E.TemplateLabels.InlineButtons.Feet"),
-            });
-            const templateType = game.i18n.localize(
-                `PF2E.TemplateLabels.InlineButtons.TemplateTypeLabels.${
-                    params.type.charAt(0).toUpperCase() + params.type.slice(1)
-                }`
-            );
-
-            label = game.i18n.format("PF2E.TemplateLabels.TemplateLabel", {
-                distance: templateSize,
-                type: templateType,
+            label = game.i18n.format("PF2E.TemplateLabel", {
+                size: params.distance,
+                unit: game.i18n.localize("PF2E.FootInline"),
+                shape: game.i18n.localize(
+                    `PF2E.AreaType${params.type.charAt(0).toUpperCase() + params.type.slice(1)}Inline`
+                ),
             });
         }
 
