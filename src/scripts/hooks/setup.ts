@@ -25,7 +25,8 @@ import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
-import { HomebrewElements } from "@module/settings/homebrew";
+import { HomebrewElements } from "@system/settings/homebrew";
+import { TextEditorPF2e } from "@system/text-editor";
 
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
@@ -33,6 +34,11 @@ import { HomebrewElements } from "@module/settings/homebrew";
 export function listen() {
     Hooks.once("setup", () => {
         LocalizePF2e.ready = true;
+
+        // Soft-set system-preferred core settings until they've been explicitly set by the GM
+        const defaultTokenSettings = game.settings.settings.get("core.defaultToken").default;
+        defaultTokenSettings.displayName = defaultTokenSettings.displayBars = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+        defaultTokenSettings.bar1 = { attribute: "data.attributes.hp.value" };
 
         // Register actor and item sheets
         registerSheets();
@@ -76,6 +82,8 @@ export function listen() {
         game.pf2e.effectTracker = new EffectTracker();
 
         game.pf2e.StatusEffects.setIconTheme();
+
+        game.pf2e.TextEditor = TextEditorPF2e;
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         new HomebrewElements().refreshTags();

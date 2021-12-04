@@ -179,7 +179,6 @@ export enum VisionLevels {
 export type VisionLevel = ZeroToThree;
 
 export interface AttackRollContext {
-    event?: JQuery.TriggeredEvent;
     options: string[];
     targets: Set<TokenPF2e>;
     dc: CheckDC | null;

@@ -96,7 +96,7 @@ export class DamageRollModifiersDialog extends Application {
 
         const notes = ((damage.notes ?? []) as RollNotePF2e[])
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
-            .map((note) => TextEditor.enrichHTML(note.text))
+            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
             .join("<br />");
         flavor += `${notes}`;
 

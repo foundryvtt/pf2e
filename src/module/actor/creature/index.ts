@@ -589,20 +589,25 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
     }
 
-    createAttackRollContext(
-        event: JQuery.TriggeredEvent | null | undefined,
-        domains: string[],
-        attackTraits: string[]
-    ): AttackRollContext {
+    /**
+     * Calculates attack roll target data including the target's DC.
+     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
+     * but more can be added via the options.
+     */
+    createAttackRollContext(options: { domains?: string[]; traits?: string[] } = {}): AttackRollContext {
+        const domains = ["all", "attack-roll", ...(options?.domains ?? [])];
+        const attackTraits = ["attack", ...(options.traits ?? [])];
         const ctx = this.createStrikeRollContext(domains);
         let dc: CheckDC | null = null;
         let distance: number | null = null;
         if (ctx.target?.actor instanceof CreaturePF2e) {
+            // Target roll options
+            ctx.options.push(...ctx.target.actor.getSelfRollOptions("target"));
+
             // Clone the actor to recalculate its AC with contextual roll options
-            const traitRollOptions = attackTraits.map((trait) => `trait:${trait}`);
             const contextActor = ctx.target.actor.getContextualClone([
                 ...this.getSelfRollOptions("origin"),
-                ...traitRollOptions,
+                ...attackTraits.map((trait) => `trait:${trait}`),
             ]);
 
             dc = {
@@ -623,7 +628,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
         return {
-            event: event ?? undefined,
             options: Array.from(new Set(ctx.options)),
             targets: ctx.targets,
             dc,
@@ -633,6 +637,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected createDamageRollContext(event: JQuery.Event) {
         const ctx = this.createStrikeRollContext(["all", "damage-roll"]);
+        const targetRollOptions = ctx.target?.actor?.getSelfRollOptions("target") ?? [];
+        ctx.options.push(...targetRollOptions);
+
         return {
             event,
             options: Array.from(new Set(ctx.options)),

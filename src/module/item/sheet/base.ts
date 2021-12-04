@@ -44,6 +44,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
 
+        const rollData = this.item.getRollData();
+        data.data.description.value = game.pf2e.TextEditor.enrichHTML(this.item.description, { rollData });
+
         const itemData: ItemDataPF2e = data.item;
 
         mergeObject(data, {
@@ -147,9 +150,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             // Armor has derived traits: base traits are shown for editing
             data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.toObject().data.traits, {
-                selectedOnly: true,
-            });
         } else if (itemData.type === "lore") {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
