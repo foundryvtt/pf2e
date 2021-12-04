@@ -65,7 +65,7 @@ export class AncestryBackgroundClassManager {
             await actor.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
         } else if (newLevel < actor.level) {
             const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
-            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete);
+            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
         }
     }
 
