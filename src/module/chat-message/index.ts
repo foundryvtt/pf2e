@@ -110,7 +110,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the token of the speaker if possible */
     get token(): TokenDocumentPF2e | null {
-        if (!canvas.ready) return null;
+        if (!game.scenes) return null;
         const sceneId = this.data.speaker.scene ?? "";
         const tokenId = this.data.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
@@ -120,7 +120,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibility.process($html, { actor: this.actor });
+        UserVisibility.process($html, { message: this, actor: this.actor });
 
         if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
