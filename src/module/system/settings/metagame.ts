@@ -8,6 +8,7 @@ export class MetagameSettings extends SettingsMenuPF2e {
     static override readonly SETTINGS = [
         "showDC",
         "showResults",
+        "tokenSetsNameVisibility",
         "secretDamage",
         "secretCondition",
         "partyVision",
@@ -37,6 +38,21 @@ export class MetagameSettings extends SettingsMenuPF2e {
                     gm: "PF2E.SETTINGS.Metagame.ShowResults.Gm",
                     owner: "PF2E.SETTINGS.Metagame.ShowResults.Owner",
                     all: "PF2E.SETTINGS.Metagame.ShowResults.All",
+                },
+            },
+            tokenSetsNameVisibility: {
+                name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
+                hint: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Hint",
+                default: false,
+                type: Boolean,
+                onChange: async () => {
+                    await ui.combat.render();
+                    const renderedMessages = document.querySelectorAll<HTMLLIElement>("#chat-log > li");
+                    for await (const rendered of Array.from(renderedMessages)) {
+                        const message = game.messages.get(rendered?.dataset.messageId ?? "");
+                        if (!message) continue;
+                        await ui.chat.updateMessage(message);
+                    }
                 },
             },
             secretDamage: {

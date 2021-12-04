@@ -41,6 +41,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         return this.data.flags.pf2e.linkToActorSize;
     }
 
+    get playersCanSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.data.displayName ?? 0;
+        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
