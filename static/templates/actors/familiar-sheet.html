@@ -62,7 +62,7 @@
                     <strong>{{localize "PF2E.Senses"}}</strong>
                     <span class="tags">
                         {{#each data.traits.senses as |sense idx|}}
-                            <span class="tag">{{localize sense.label}}{{#if (and (ne sense.type "darkvision") (ne sense.type "lowLightVision"))}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
+                            {{#if sense.label}}<span class="tag">{{sense.label}}</span>{{/if}}
                         {{/each}}
                     </span>
                     <div>

@@ -6,13 +6,13 @@
                 "value": 0
             },
             "hardness": 0,
-            "hasHealth": true,
+            "hasHealth": false,
             "hp": {
                 "details": "",
-                "max": 10,
+                "max": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": 10
+                "value": 0
             },
             "stealth": {
                 "details": "",
@@ -20,15 +20,16 @@
             }
         },
         "creatureType": "",
+        "customModifiers": {},
         "details": {
-            "description": "The echo of diabolic bells reverberates with a bone-shaking clamor.",
-            "disable": "Religion DC 27 (expert) to break the curse with recitations against the power of Hell (2 actions), or Performance DC 22 (expert) to Perform an opposing composition.",
+            "description": "<p>The echo of diabolic bells reverberates with a bone-shaking clamor.</p>",
+            "disable": "<p><span data-pf2-check=\"religion\" data-pf2-traits=\"auditory,complex,haunt,sonic,hazard\" data-pf2-label=\"Recite Against the Power of Hell DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">Religion</span> (expert) to break the curse with recitations against the power of Hell (2 actions), or <span data-pf2-check=\"performance\" data-pf2-traits=\"auditory,complex,haunt,sonic,hazard\" data-pf2-label=\"Perform an Opposing Composition DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Performance</span> (expert) to Perform an opposing composition</p>",
             "isComplex": true,
             "level": {
                 "value": 6
             },
-            "reset": "The bells cease ringing if there are no living creatures within 30 feet.",
-            "routine": "(1 action)The bells toll, dealing 4d6 sonic damage to each living creature within 30 feet (DC 24 basic Fortitude save)."
+            "reset": "<p>The bells cease ringing if there are no living creatures within 30 feet.</p>",
+            "routine": "<p>(1 action) The bells toll, dealing [[/r {4d6}[sonic]]]{4d6 sonic damage} to each living creature within @Template[type:emanation|distance:30]{30 feet} (<span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect,auditory,complex,haunt,sonic,hazard\" data-pf2-label=\"Phantom Bells Toll DC\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>"
         },
         "saves": {
             "fortitude": {
@@ -58,13 +59,13 @@
             "dr": [],
             "dv": [],
             "rarity": {
-                "value": "common"
+                "value": "rare"
             },
             "size": {
                 "value": "med"
             },
             "traits": {
-                "custom": "Rare",
+                "custom": "",
                 "value": [
                     "auditory",
                     "haunt",
@@ -81,7 +82,7 @@
             "_id": "nPeM50gZBykCKDxe",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -90,7 +91,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong>: A living creature approaches within 30 feet.</p>\n<p><strong>Effect:</strong> Sounds of creaking metal fill the area as the phantom bells begin to swing and the haunt rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature approaches within 30 feet.</p>\n<p><strong>Effect</strong> Sounds of creaking metal fill the area as the phantom bells begin to swing and the haunt rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -104,10 +105,6 @@
                     "custom": "",
                     "rarity": {
                         "value": "common"
-                    },
-                    "selected": {
-                        "auditory": "Auditory",
-                        "sonic": "Sonic"
                     },
                     "value": [
                         "auditory",
@@ -127,51 +124,6 @@
             "name": "Distant Ringing",
             "sort": 100000,
             "type": "action"
-        },
-        {
-            "_id": "pfyScFXaVG8zhy7x",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 0
-                },
-                "damageRolls": {
-                    "wqcdqj132mdfp137z4ynbc": {
-                        "damage": "4d6",
-                        "damageType": "sonic"
-                    }
-                },
-                "description": {
-                    "value": "<p><strong>Range</strong>: 30 feet radius.</p>\n<p><strong>Targets</strong>: All creatures.</p>\n<p>DC 24 basic Fortitude save</p>"
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bell Toll (Automatically Hits)",
-            "sort": 200000,
-            "type": "melee"
         }
     ],
     "name": "Phantom Bells",

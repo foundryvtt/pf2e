@@ -69,14 +69,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.heroPoints
         );
 
-        // Update class dc label
+        // Update class DC label
         sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
         sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
-
-        // Localize senses
-        for (const sense of sheetData.data.traits.senses) {
-            sense.label = game.i18n.localize(CONFIG.PF2E.senses[sense.type]) ?? sense.type;
-        }
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
@@ -503,31 +498,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
 
-        // Inventory encumbrance
-        // FIXME: this is hard coded for now
-        const featSlugs = new Set(
-            actorData.items
-                .filter((item: ItemDataPF2e) => item.type === "feat")
-                .map((item: ItemDataPF2e) => item.data.slug)
-        );
-
-        let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
-        if (featSlugs.has("hefty-hauler")) {
-            bonusEncumbranceBulk += 2;
-            bonusLimitBulk += 2;
-        }
-        const equippedLiftingBelt = actorData.items.some(
-            (item: ItemDataPF2e) =>
-                item.type === "equipment" &&
-                item.data.slug === "lifting-belt" &&
-                item.data.equipped.value &&
-                item.data.invested.value
-        );
-        if (equippedLiftingBelt) {
-            bonusEncumbranceBulk += 1;
-            bonusLimitBulk += 1;
-        }
+        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
+        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
         const [bulk] = calculateBulk({
             items: bulkItems,
             bulkConfig: bulkConfig,
@@ -612,6 +584,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         } else {
             this.disableInitiativeButton();
         }
+
+        // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
+        html.find(".roll-init").on("mouseenter", (event) => {
+            const $target = $(event.currentTarget);
+            if ($target.hasClass("disabled") && game.combat) {
+                this.enableInitiativeButton();
+            } else if (!$target.hasClass("disabled") && !game.combat) {
+                this.disableInitiativeButton();
+            }
+        });
 
         // ACTIONS
         html.find('[name="ammo-used"]').on("change", (event) => {

@@ -1,5 +1,5 @@
 import { EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
 
@@ -15,24 +15,56 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
         // Defer to Combat Enhancements module if in use
-        if (game.modules.get("combat-enhancements")?.active) return;
+        if (game.modules.get("combat-enhancements")?.active) {
+            return super.activateListeners($html);
+        }
 
         const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
+        const encounter = this.viewed;
+        if (!encounter) return super.activateListeners($html);
 
-        Sortable.create(tracker, {
-            animation: 200,
-            dataIdAttr: "data-combatant-id",
-            direction: "vertical",
-            dragoverBubble: true,
-            easing: "cubic-bezier(1, 0, 0, 1)",
-            ghostClass: "drag-gap",
-            onUpdate: (event) => this.onDropCombatant(event),
-            onEnd: () => this.saveNewOrder(),
-        });
+        // Hide names in the tracker of combatants with tokens that have unviewable nameplates
+        if (game.settings.get("pf2e", "metagame.tokenSetsNameVisibility")) {
+            for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+                const combatantId = row.dataset.combatantId ?? "";
+                const combatant = encounter.combatants.get(combatantId, { strict: true });
+                const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
+                if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) nameElement.innerText = "";
+
+                if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
+                    const toggleNameVisibility = document.createElement("a");
+                    const isActive = combatant.playersCanSeeName;
+                    toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
+                    toggleNameVisibility.dataset.control = "toggle-name-visibility";
+                    toggleNameVisibility.title = game.i18n.localize(
+                        isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
+                    );
+                    const icon = fontAwesomeIcon("signature");
+                    toggleNameVisibility.append(icon);
+
+                    row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(
+                        toggleNameVisibility
+                    );
+                }
+            }
+        }
+
+        if (game.user.isGM) {
+            Sortable.create(tracker, {
+                animation: 200,
+                dataIdAttr: "data-combatant-id",
+                direction: "vertical",
+                dragoverBubble: true,
+                easing: "cubic-bezier(1, 0, 0, 1)",
+                ghostClass: "drag-gap",
+                onUpdate: (event) => this.onDropCombatant(event),
+                onEnd: () => this.saveNewOrder(),
+            });
+        }
+
+        super.activateListeners($html);
     }
 
     /* -------------------------------------------- */
@@ -45,6 +77,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     ): Promise<void> {
         const control = event.currentTarget.dataset.control;
         if ((control === "rollNPC" || control === "rollAll") && this.viewed && event.ctrlKey) {
+            event.stopPropagation();
             await this.viewed[control]({ secret: true });
         } else {
             await super._onCombatControl(event);
@@ -55,11 +88,17 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     protected override async _onCombatantControl(
         event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
     ): Promise<void> {
+        event.stopPropagation();
+        if (!this.viewed) return;
+
         const control = event.currentTarget.dataset.control;
-        if (control === "rollInitiative" && this.viewed && event.ctrlKey) {
-            const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
-            const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
+        const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
+        const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
+
+        if (control === "rollInitiative" && event.ctrlKey) {
             await this.viewed.rollInitiative([combatant.id], { secret: true });
+        } else if (control === "toggle-name-visibility") {
+            await combatant.toggleNameVisibility();
         } else {
             await super._onCombatantControl(event);
         }
@@ -69,45 +108,59 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     private async onDropCombatant(event: SortableEvent): Promise<void> {
         this.validateDrop(event);
 
-        const combat = this.viewed!;
+        const encounter = this.viewed!;
         const droppedId = event.item.getAttribute("data-combatant-id") ?? "";
-        const dropped = combat.combatants.get(droppedId, { strict: true }) as RolledCombatant;
+        const dropped = encounter.combatants.get(droppedId, { strict: true }) as RolledCombatant;
         if (typeof dropped.initiative !== "number") {
             ui.notifications.error(game.i18n.format("PF2E.Encounter.HasNoInitiativeScore", { actor: dropped.name }));
             return;
         }
 
         const newOrder = this.getCombatantsFromDOM();
+        const oldOrder = encounter.turns.filter((c) => c.initiative !== null);
+        // Exit early if the order wasn't changed
+        if (newOrder.every((c) => newOrder.indexOf(c) === oldOrder.indexOf(c))) return;
+
+        this.setInitiativeFromDrop(newOrder, dropped);
+        await this.saveNewOrder(newOrder);
+    }
+
+    private setInitiativeFromDrop(newOrder: RolledCombatant[], dropped: RolledCombatant): void {
         const aboveDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) - 1);
         const belowDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) + 1);
-        if (belowDropped && !aboveDropped) {
-            // Combatant was dropped to the top: set its initiative to be just above the former highest
-            this.setRelativeInitiative({ higher: dropped, lower: belowDropped, adjust: dropped });
-        } else if (aboveDropped && !belowDropped) {
-            // Combatant was dropped to the bottom: set its initiative to be just below the former lowest
-            this.setRelativeInitiative({ higher: aboveDropped, lower: dropped });
-        } else if (aboveDropped && belowDropped) {
-            for (const combatant of newOrder) {
-                // Use find instead of index access so that the type will be RolledCombatant | undefined
-                const currentAbove = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(combatant) - 1);
-                const currentBelow = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(combatant) + 1);
-                if (currentAbove) this.setRelativeInitiative({ higher: currentAbove, lower: combatant });
-                if (currentBelow) this.setRelativeInitiative({ higher: combatant, lower: currentBelow });
+
+        const hasAboveAndBelow = !!aboveDropped && !!belowDropped;
+        const hasAboveAndNoBelow = !!aboveDropped && !belowDropped;
+        const hasBelowAndNoAbove = !aboveDropped && !!belowDropped;
+        const aboveIsHigherThanBelow = hasAboveAndBelow && belowDropped.initiative < aboveDropped.initiative;
+        const belowIsHigherThanAbove = hasAboveAndBelow && belowDropped.initiative < aboveDropped.initiative;
+        const wasDraggedUp =
+            !!belowDropped && this.viewed?.getCombatantWithHigherInit(dropped, belowDropped) === belowDropped;
+        const wasDraggedDown = !!aboveDropped && !wasDraggedUp;
+
+        // Set a new initiative intuitively, according to allegedly commonplace intuitions
+        dropped.data.initiative =
+            hasBelowAndNoAbove || (aboveIsHigherThanBelow && wasDraggedUp)
+                ? belowDropped.initiative + 1
+                : hasAboveAndNoBelow || (belowIsHigherThanAbove && wasDraggedDown)
+                ? aboveDropped.initiative - 1
+                : hasAboveAndBelow
+                ? belowDropped.initiative
+                : dropped.initiative;
+
+        const withSameInitiative = newOrder.filter((c) => c.initiative === dropped.initiative);
+        if (withSameInitiative.length > 1) {
+            for (let priority = 0; priority < withSameInitiative.length; priority++) {
+                withSameInitiative[priority].data.flags.pf2e.overridePriority[dropped.initiative] = priority;
             }
         }
     }
 
     /** Save the new order, or reset the viewed order if no change was made */
-    private async saveNewOrder(): Promise<void> {
-        const newOrder = this.getCombatantsFromDOM();
-        const oldOrder = this.viewed?.turns.filter((c) => c.initiative !== null) ?? [];
-        const orderWasChanged = newOrder.some((c) => newOrder.indexOf(c) !== oldOrder.indexOf(c));
-        if (orderWasChanged) {
-            await this.viewed?.setMultipleInitiatives(newOrder.map((c) => ({ id: c.id, value: c.initiative })));
-        } else {
-            console.debug("No order change!?");
-            this.render();
-        }
+    private async saveNewOrder(newOrder = this.getCombatantsFromDOM()): Promise<void> {
+        await this.viewed?.setMultipleInitiatives(
+            newOrder.map((c) => ({ id: c.id, value: c.initiative, overridePriority: c.overridePriority(c.initiative) }))
+        );
     }
 
     private validateDrop(event: SortableEvent): void {
@@ -132,29 +185,5 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
             .map((row) => row.getAttribute("data-combatant-id") ?? "")
             .map((id) => combat.combatants.get(id, { strict: true }))
             .filter((c): c is RolledCombatant => typeof c.initiative === "number");
-    }
-
-    /** Set the relative initiatives between two combatants so that `higher` has a higher initiative than `lower` */
-    private setRelativeInitiative({
-        higher,
-        lower,
-        adjust = lower,
-    }: {
-        higher: RolledCombatant;
-        lower: RolledCombatant;
-        adjust?: RolledCombatant;
-    }): void {
-        if (higher.hasHigherInitiative({ than: lower })) return;
-        if (adjust === higher) {
-            higher.data.initiative = lower.initiative;
-            if (lower.hasHigherInitiative({ than: higher })) {
-                higher.data.initiative = lower.initiative + 1;
-            }
-        } else if (adjust === lower) {
-            lower.data.initiative = higher.initiative;
-            if (lower.hasHigherInitiative({ than: higher })) {
-                lower.data.initiative = higher.initiative - 1;
-            }
-        }
     }
 }

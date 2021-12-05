@@ -13,7 +13,6 @@ import {
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
 import { DamageCategory, DamageDieSize } from "./damage";
-import { SIZES } from "@module/data";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
@@ -76,47 +75,6 @@ function isNonPhysicalDamage(damageType?: string): boolean {
         damageType !== "" &&
         DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
     );
-}
-
-export function ensureWeaponCategory(options: string[], weaponCategory: "simple" | "martial" | "advanced" | "unarmed") {
-    if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith("weapon:category:"))) {
-        options.push(`weapon:category:${weaponCategory}`);
-    }
-}
-
-export function ensureWeaponGroup(options: string[], weaponGroup: string | null) {
-    if (weaponGroup && !options.some((option) => option.toLowerCase().startsWith("weapon:group:"))) {
-        options.push(`weapon:group:${weaponGroup}`);
-    }
-}
-
-const WEAPON_SIZE_EXPANDED = {
-    tiny: "tiny",
-    sm: "small",
-    med: "medium",
-    lg: "large",
-    huge: "huge",
-    grg: "gargantuan",
-} as const;
-export function ensureWeaponSize(
-    options: string[],
-    weaponSize: typeof SIZES[number] | null | undefined,
-    wielderSize: typeof SIZES[number] | null | undefined
-) {
-    if (weaponSize) {
-        if (!options.some((option) => option.toLowerCase().startsWith("weapon:size:"))) {
-            options.push(`weapon:size:${WEAPON_SIZE_EXPANDED[weaponSize] ?? weaponSize}`);
-        }
-        wielderSize = wielderSize === "sm" ? "med" : wielderSize; // treat small creatures as medium
-        if (wielderSize && SIZES.indexOf(weaponSize) > SIZES.indexOf(wielderSize)) {
-            if (!options.some((option) => option.toLowerCase().startsWith("weapon:oversized"))) {
-                options.push("weapon:oversized");
-            }
-            if (!options.some((option) => option.toLowerCase().startsWith("oversized"))) {
-                options.push("oversized"); // transitional value until Giant Instinct has been adapted
-            }
-        }
-    }
 }
 
 /**
@@ -264,46 +222,41 @@ export class WeaponDamagePF2e {
         const actorData = actor.data;
 
         // Determine ability modifier
-        let ability: "str" | "dex" | null = null;
         const isMelee = weapon.data.range === null;
         const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
         {
-            let modifier: number | null = null;
             options.push(isMelee ? "melee" : "ranged");
+            const strengthModValue = actorData.data.abilities.str.mod;
+            const modifierValue = strengthModToDamage
+                ? strengthModValue
+                : traits.some((t) => t.name === "propulsive")
+                ? strengthModValue < 0
+                    ? strengthModValue
+                    : Math.floor(strengthModValue / 2)
+                : null;
 
-            if (strengthModToDamage) {
-                ability = "str";
-                modifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
-            } else if (traits.some((t) => t.name === "propulsive")) {
-                ability = "str";
-                const strengthModifier = Math.floor((actorData.data.abilities.str.value - 10) / 2);
-                modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
-            }
-
-            // check for Rogue's Racket: Thief
-            if (
-                // character has Thief Racket class feature
-                actor.items.some((item) => item.type === "feat" && item.slug === "thief-racket") &&
-                // NOT unarmed attack
-                !traits.some((t) => t.name === "unarmed") &&
-                traits.some((t) => t.name === "finesse") &&
-                // finesse melee weapon
-                isMelee &&
-                typeof modifier === "number" &&
-                // dex bonus higher than the current bonus
-                Math.floor((actorData.data.abilities.dex.value - 10) / 2) > modifier
-            ) {
-                ability = "dex";
-                modifier = Math.floor((actorData.data.abilities.dex.value - 10) / 2);
-            }
-
-            if (ability && typeof modifier === "number") {
-                numericModifiers.push(
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
-                );
+            if (typeof modifierValue === "number") {
+                const strModifier = new ModifierPF2e(CONFIG.PF2E.abilities.str, modifierValue, MODIFIER_TYPE.ABILITY);
+                strModifier.ability = "str";
+                numericModifiers.push(strModifier);
             }
         }
-        const selectors: string[] = WeaponDamagePF2e.getSelectors(weapon, ability, proficiencyRank);
+
+        // Find the best active ability modifier in order to get the correct synthetics selectors
+        const modifiersAndSelectors = numericModifiers
+            .concat(statisticsModifiers["damage"] ?? [])
+            .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
+            .flatMap((modifier) => {
+                const selectors = WeaponDamagePF2e.getSelectors(weapon, modifier.ability, proficiencyRank);
+                return modifier.predicate.test(options) ? { modifier, selectors } : [];
+            });
+
+        const { selectors } =
+            modifiersAndSelectors.length > 0
+                ? modifiersAndSelectors.reduce((best, candidate) =>
+                      candidate.modifier.modifier > best.modifier.modifier ? candidate : best
+                  )
+                : { selectors: WeaponDamagePF2e.getSelectors(weapon, null, proficiencyRank) };
 
         // Kickback trait
         if (traits.some((trait) => trait.name === "kickback")) {
@@ -339,9 +292,9 @@ export class WeaponDamagePF2e {
         }
 
         // custom damage
-        const normalDice = weapon.data?.property1?.dice ?? 0;
+        const normalDice = weapon.data.property1?.dice ?? 0;
         if (normalDice > 0) {
-            const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
+            const damageType = weapon.data.property1?.damageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
                     name: "PF2E.WeaponCustomDamageLabel",
