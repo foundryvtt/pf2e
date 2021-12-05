@@ -264,19 +264,58 @@ declare global {
             exploredColor: number;
             unexploredColor: number;
             layers: {
-                background: typeof BackgroundLayer;
-                drawings: typeof DrawingsLayer;
-                grid: typeof GridLayer;
-                walls: typeof WallsLayer;
-                templates: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
-                notes: typeof NotesLayer;
-                tokens: ConstructorOf<TTokenDocument["object"]["layer"]>;
-                foreground: typeof ForegroundLayer;
-                sounds: typeof SoundsLayer;
-                lighting: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
-                sight: ConstructorOf<SightLayer<TTokenDocument["object"], TFogExploration>>;
-                effects: typeof EffectsLayer;
-                controls: typeof ControlsLayer;
+                background: {
+                    group: "primary";
+                    layerClass: typeof BackgroundLayer;
+                };
+                drawings: {
+                    group: "primary";
+                    layerClass: typeof DrawingsLayer;
+                };
+                grid: {
+                    group: "primary";
+                    layerClass: typeof GridLayer;
+                };
+                walls: {
+                    group: "effects";
+                    layerClass: typeof WallsLayer;
+                };
+                templates: {
+                    group: "primary";
+                    layerClass: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
+                };
+                notes: {
+                    group: "interface";
+                    layerClass: typeof NotesLayer;
+                };
+                tokens: {
+                    group: "primary";
+                    layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
+                };
+                foreground: {
+                    group: "primary";
+                    layerClass: typeof ForegroundLayer;
+                };
+                sounds: {
+                    group: "interface";
+                    layerClass: typeof SoundsLayer;
+                };
+                lighting: {
+                    group: "effects";
+                    layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
+                };
+                sight: {
+                    group: "effects";
+                    layerClass: ConstructorOf<SightLayer<TTokenDocument["object"], TFogExploration>>;
+                };
+                weather: {
+                    group: "effects";
+                    layerClass: typeof EffectsLayer;
+                };
+                controls: {
+                    group: "interface";
+                    layerClass: typeof ControlsLayer;
+                };
             };
             lightLevels: {
                 dark: number;
