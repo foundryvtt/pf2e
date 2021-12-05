@@ -1,5 +1,14 @@
 # Changelog
 
+## Version.2.20.1
+### Bug Fixes
+* (stwlam) Fix setting of system token defaults
+* (stwlam) Restore compatibility with TokenHUD feature of Monk's Little Details module
+* (stwlam) Actually save selected actorsDeadAtZero setting
+* (stwlam) Fix drag/drop used from undocked tracker
+* (stwlam) Limit deference to Combat Enhancements module to just drag/drop
+* (Supe) Fix rest for the night for flexible spellcasting
+
 ## Version.2.20.0
 ### New Features
 * (stwlam) Significant update to the Encounter Tracker:
