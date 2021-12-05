@@ -102,15 +102,15 @@ export class StatusEffects {
         // Status Effects Controls
         const effects = html.find(".status-effects");
         effects
-            .on("click", ".pf2e-effect-control", this._setStatusValue.bind(token))
-            .on("contextmenu", ".pf2e-effect-control", this._setStatusValue.bind(token))
-            .on("mouseover mouseout", ".pf2e-effect-control", this._showStatusDescr);
+            .on("click", ".pf2e-effect-control", this.setStatusValue.bind(token))
+            .on("contextmenu", ".pf2e-effect-control", this.setStatusValue.bind(token))
+            .on("mouseover mouseout", ".pf2e-effect-control", this.showStatusDescr);
 
         effects.off("click", ".effect-control").on("click", ".effect-control", this.toggleStatus.bind(token));
         effects
             .off("contextmenu", ".effect-control")
             .on("contextmenu", ".effect-control", this.toggleStatus.bind(token))
-            .on("mouseover mouseout", ".effect-control", this._showStatusDescr);
+            .on("mouseover mouseout", ".effect-control", this.showStatusDescr);
     }
 
     /** Updates the core CONFIG.statusEffects with the new icons */
@@ -153,7 +153,7 @@ export class StatusEffects {
                 if (!conditionData) continue;
 
                 $icon.attr("data-effect", slug);
-                $icon.attr("data-condition", slug);
+                $icon.attr("data-condition", conditionData.name);
 
                 const affecting = affectingConditions.find((condition) => condition.slug === slug);
 
@@ -190,10 +190,10 @@ export class StatusEffects {
 
         for (const icon of $statusIcons) {
             const $icon = $(icon);
-            const status = $icon.attr("data-effect");
-            const conditionSlug = $icon.attr("data-condition");
+            const conditionSlug = $icon.attr("data-effect");
+            const conditionName = $icon.attr("data-condition");
 
-            if (conditionSlug && status) {
+            if (conditionSlug && conditionName) {
                 // Icon is a condition
                 const applied = appliedConditions.find((condition) => condition.slug === conditionSlug);
                 const conditionBase = game.pf2e.ConditionManager.getCondition(conditionSlug);
@@ -234,10 +234,8 @@ export class StatusEffects {
         }
     }
 
-    /**
-     * Show the Status Effect name and summary on mouseover of the token HUD
-     */
-    static _showStatusDescr(event: JQuery.TriggeredEvent) {
+    /** Show the Status Effect name and summary on mouseover of the token HUD */
+    private static showStatusDescr(event: JQuery.TriggeredEvent) {
         const f = $(event.currentTarget);
         const statusDescr = $("div.status-effect-summary");
         if (f.attr("src")?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
@@ -251,10 +249,9 @@ export class StatusEffects {
 
     /**
      * A click event handler to increment or decrement valued conditions.
-     *
      * @param event    The window click event
      */
-    static async _setStatusValue(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
+    private static async setStatusValue(this: TokenPF2e, event: JQuery.TriggeredEvent): Promise<void> {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -264,10 +261,10 @@ export class StatusEffects {
         }
 
         const $icon = $(event.currentTarget);
-        const slug = $icon.attr("data-condition");
-
+        const slug = $icon.attr("data-effect");
         const { actor } = this;
         if (!(actor && slug)) return;
+
         const condition = actor.itemTypes.condition.find(
             (condition) =>
                 condition.fromSystem &&
@@ -316,7 +313,7 @@ export class StatusEffects {
         event.stopImmediatePropagation();
 
         const $target = $(event.currentTarget);
-        const slug = $target.attr("data-condition") ?? "";
+        const slug = $target.attr("data-effect") ?? "";
         const src = ($target.attr("src") ?? "") as ImagePath;
 
         if (event.shiftKey || src === "icons/svg/skull.svg") {
