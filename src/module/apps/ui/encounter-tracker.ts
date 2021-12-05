@@ -15,13 +15,9 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        // Defer to Combat Enhancements module if in use
-        if (game.modules.get("combat-enhancements")?.active) {
-            return super.activateListeners($html);
-        }
-
-        const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
+        const tracker = $html[0].querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
+
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
 
@@ -51,7 +47,8 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
             }
         }
 
-        if (game.user.isGM) {
+        // Defer to Combat Enhancements module if in use
+        if (game.user.isGM && !game.modules.get("combat-enhancements")?.active) {
             Sortable.create(tracker, {
                 animation: 200,
                 dataIdAttr: "data-combatant-id",
@@ -178,7 +175,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const { combat } = game;
         if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
 
-        const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
+        const tracker = this.element[0].querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("Unexpected failure to retriever tracker DOM element");
 
         return Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))
