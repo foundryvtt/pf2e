@@ -15,8 +15,9 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
 
     /** Make the combatants sortable */
     override activateListeners($html: JQuery): void {
-        const tracker = document.querySelector<HTMLOListElement>("#combat-tracker");
+        const tracker = $html[0].querySelector<HTMLOListElement>("#combat-tracker");
         if (!tracker) throw ErrorPF2e("No tracker found");
+
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
 
