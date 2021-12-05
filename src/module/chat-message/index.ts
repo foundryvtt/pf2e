@@ -163,7 +163,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     private onHoverOut(): void {
-        this.token?.object.emitHoverOut();
+        this.token?.object?.emitHoverOut();
     }
 
     private onClick(event: JQuery.ClickEvent): void {
