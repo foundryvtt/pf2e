@@ -217,8 +217,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
-    override prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
 
         /** Set initial roll options for AE-like predicates */
         for (const option of this.getSelfRollOptions()) {
