@@ -52,18 +52,16 @@ export class ActorSpellcasting extends Collection<Embedded<SpellcastingEntryPF2e
             const slots = entry.data.data.slots;
             let updated = false;
             for (const slot of Object.values(slots)) {
-                if (entry.isSpontaneous || entry.isInnate) {
-                    if (slot.value < slot.max) {
-                        slot.value = slot.max;
-                        updated = true;
-                    }
-                } else {
+                if (entry.isPrepared && !entry.isFlexible) {
                     for (const preparedSpell of Object.values(slot.prepared)) {
                         if (preparedSpell.expended) {
                             preparedSpell.expended = false;
                             updated = true;
                         }
                     }
+                } else if (slot.value < slot.max) {
+                    slot.value = slot.max;
+                    updated = true;
                 }
             }
 
