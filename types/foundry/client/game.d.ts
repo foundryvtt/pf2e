@@ -244,7 +244,7 @@ declare global {
                 url: string;
                 version: string;
             };
-            entityTypes: {
+            documentTypes: {
                 Actor: string[];
                 ChatMessage: string[];
                 Combat: string[];
