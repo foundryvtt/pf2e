@@ -232,15 +232,15 @@ declare global {
                  * @param [options={}] Additional field options
                  */
                 function embeddedCollectionField(
-                    document: ConstructorOf<foundry.abstract.Document>,
-                    options?: { required?: boolean; default?: ConstructorOf<foundry.abstract.Document> }
+                    document: ConstructorOf<abstract.Document>,
+                    options?: { required?: boolean; default?: ConstructorOf<abstract.Document> }
                 ): foundry.abstract.DocumentField;
 
                 /** Return a document field which is a modification of a static field type */
-                function field(
-                    field: foundry.abstract.DocumentField,
-                    options?: Record<string, unknown>
-                ): foundry.abstract.DocumentField;
+                function field<T extends abstract.DocumentField, U extends DeepPartial<T>>(
+                    field: T,
+                    options?: U
+                ): T & U;
 
                 /** Generic interfaces returned by the above "dynamic field" functions */
                 interface ForeignDocumentField<
