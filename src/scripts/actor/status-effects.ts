@@ -316,7 +316,7 @@ export class StatusEffects {
         const slug = $target.attr("data-effect") ?? "";
         const src = ($target.attr("src") ?? "") as ImagePath;
 
-        if (event.shiftKey || src === "icons/svg/skull.svg") {
+        if (event.shiftKey || src === CONFIG.controlIcons.defeated) {
             return StatusEffects._onToggleOverlay(event, this);
         }
 
