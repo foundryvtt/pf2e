@@ -286,12 +286,17 @@ export class MigrationRunner extends MigrationRunnerBase {
             await pack.configure({ locked: true });
         }
 
-        // Migrate Scene Actors
+        // Migrate tokens and synthetic actors
         for await (const scene of game.scenes.contents) {
             for await (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
-                    await this.migrateSceneToken(migrations, token);
+                    try {
+                        await this.migrateSceneToken(migrations, token);
+                    } catch (error) {
+                        console.error(error);
+                        continue;
+                    }
 
                     if (actor.isToken) {
                         const updated = await this.migrateWorldActor(migrations, actor);
