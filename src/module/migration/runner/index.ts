@@ -210,8 +210,11 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocumentPF2e): Promise<void> {
-        if (!migrations.some((migration) => !!migration.updateToken)) return;
+    private async migrateSceneToken(
+        migrations: MigrationBase[],
+        token: TokenDocumentPF2e
+    ): Promise<foundry.data.TokenSource | null> {
+        if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
@@ -224,8 +227,10 @@ export class MigrationRunner extends MigrationRunnerBase {
                     console.warn(error);
                 }
             }
+            return updatedToken;
         } catch (error) {
             console.error(error);
+            return null;
         }
     }
 
@@ -291,12 +296,8 @@ export class MigrationRunner extends MigrationRunnerBase {
             for await (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
-                    try {
-                        await this.migrateSceneToken(migrations, token);
-                    } catch (error) {
-                        console.error(error);
-                        continue;
-                    }
+                    const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
+                    if (!wasSuccessful) continue;
 
                     if (actor.isToken) {
                         const updated = await this.migrateWorldActor(migrations, actor);
