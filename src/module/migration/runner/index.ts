@@ -59,7 +59,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
                 } catch (error) {
-                    console.error(error);
+                    console.warn(error);
                 } finally {
                     updateGroup.length = 0;
                 }
@@ -74,7 +74,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 await DocumentClass.updateDocuments(updateGroup, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
     }
@@ -218,7 +218,11 @@ export class MigrationRunner extends MigrationRunnerBase {
             const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes, { noHook: true });
+                try {
+                    await token.update(changes, { noHook: true });
+                } catch (error) {
+                    console.warn(error);
+                }
             }
         } catch (error) {
             console.error(error);
