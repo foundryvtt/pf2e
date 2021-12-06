@@ -1,5 +1,5 @@
 import { ItemSystemData } from "@item/data/base";
-import { isObject } from "@util";
+import { isObject, objectHasKey } from "@util";
 
 export const EnrichContent = {
     // Get the different parameters of the @inline command
@@ -82,7 +82,9 @@ export const EnrichContent = {
             label = game.i18n.format("PF2E.TemplateLabel", {
                 size: params.distance,
                 unit: game.i18n.localize("PF2E.Foot"),
-                shape: game.i18n.localize(`PF2E.AreaType${params.type.charAt(0).toUpperCase() + params.type.slice(1)}`),
+                shape: objectHasKey(CONFIG.PF2E.areaTypes, params.type)
+                    ? game.i18n.localize(CONFIG.PF2E.areaTypes[params.type])
+                    : "",
             });
         }
 
