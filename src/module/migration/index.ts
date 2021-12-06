@@ -98,6 +98,7 @@ import { Migration693ArmorCategoryGroup } from "./migrations/693-armor-category-
 import { Migration694RetireSystemTokenSettings } from "./migrations/694-retire-system-token-settings";
 import { Migration695SummonToSummoned } from "./migrations/695-summon-to-summoned";
 import { Migration696FlatAbilityModifiers } from "./migrations/696-flat-ability-modifiers";
+import { Migration697WeaponReachTrait } from "./migrations/697-weapon-reach-trait";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -200,6 +201,7 @@ export class Migrations {
         Migration694RetireSystemTokenSettings,
         Migration695SummonToSummoned,
         Migration696FlatAbilityModifiers,
+        Migration697WeaponReachTrait,
     ];
 
     static get latestVersion(): number {
