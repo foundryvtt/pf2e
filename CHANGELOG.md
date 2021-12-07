@@ -1,5 +1,25 @@
 # Changelog
 
+## Version.2.20.2
+### Bug Fixes
+* (stwlam) Restore "weapon:oversized" roll option on strikes
+* (stwlam) When under battle form effect, suppress damage roll notes not originating from form
+* (stwlam) Fix speed label-rendering issue on PC sheets
+
+### Core System Improvements
+* (stwlam) Make death overlay always available from token HUD
+
+### Data Updates
+* (Abaddon) Brushup Bestiary 1 copper, gold, and silver dragons
+* (Abaddon) Add wing deflection rules for blue dragons
+* (Abaddon) Fix white dragon aura formatting
+* (stwlam) Fix jaws label and deadly trait on Tyrannosaurus effect, foot attack type on Triceratops effect
+* (stwlam) Correct "reach" trait on fauchards
+* (Tikael) Fix some instances of incorrect resist all on NPCs
+* (Tikael) Remove unnecessary symbols from descriptions
+* (Tikael) Correct the poison label in spell traits
+* (Tikael) Correct range of Leshy and sprite ancestry strikes
+
 ## Version.2.20.1
 ### Bug Fixes
 * (stwlam) Fix setting of system token defaults
