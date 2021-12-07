@@ -22,8 +22,8 @@ let system = JSON.parse(systemRaw);
 
 system.version = `${system.version}.${argv.buildno}`;
 system.url = `https://gitlab.com/${argv.gitlabpath}`;
-system.manifest = `https://gitlab.com/${argv.gitlabpath}/-/jobs/artifacts/${argv.branch}/raw/system.json?job=build`;
-system.download = `https://gitlab.com/${argv.gitlabpath}/-/jobs/artifacts/${argv.branch}/raw/pf2e.zip?job=build`;
+// system.manifest = `https://gitlab.com/${argv.gitlabpath}/-/jobs/artifacts/${argv.branch}/raw/system.json?job=build`;
+// system.download = `https://gitlab.com/${argv.gitlabpath}/-/jobs/artifacts/${argv.branch}/raw/pf2e.zip?job=build`;
 
 fs.writeFileSync('system.json', JSON.stringify(system, null, 2));
 
