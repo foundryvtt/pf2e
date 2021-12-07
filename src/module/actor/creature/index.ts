@@ -503,6 +503,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 (otherSpeed) => otherSpeed.type === movementType
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
+
+            speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
             const base = Number(speed.value ?? 0);
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),

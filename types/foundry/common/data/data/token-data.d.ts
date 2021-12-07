@@ -67,7 +67,7 @@ declare module foundry {
             elevation: number;
             lockRotation: boolean;
             effects: string[];
-            overlayEffect: string;
+            overlayEffect: string | null;
             vision: boolean;
             dimSight: number;
             brightSight: number;

@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@system/localize";
 import { StatusEffectIconTheme } from "@scripts/config";
-import { ErrorPF2e, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 import { ActorPF2e } from "@actor/base";
 import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
@@ -27,8 +27,6 @@ export class StatusEffects {
 
         console.log("PF2e System | Initializing Status Effects Module");
         this.hookIntoFoundry();
-
-        /** Update FoundryVTT's CONFIG.statusEffects */
         this.updateStatusIcons();
     }
 
@@ -37,7 +35,7 @@ export class StatusEffects {
     }
 
     static get SETTINGOPTIONS() {
-        // switching to other icons need to migrate all tokens
+        // Switching to other icons need to migrate all tokens
         return {
             iconTypes: {
                 default: {
@@ -56,13 +54,10 @@ export class StatusEffects {
         };
     }
 
-    /**
-     * Hook PF2e's status effects into FoundryVTT
-     */
+    /** Hook PF2e's status effects into FoundryVTT */
     static hookIntoFoundry() {
-        /** Create hooks onto FoundryVTT */
-        Hooks.on("renderTokenHUD", (app, html, data) => {
-            StatusEffects._hookOnRenderTokenHUD(app, html, data);
+        Hooks.on("renderTokenHUD", (_app, html, data) => {
+            StatusEffects.hookOnRenderTokenHUD(html, data);
         });
         Hooks.on("clearTokenHUD", (tokenHUD, token) => {
             if (!(tokenHUD instanceof TokenHUD && token instanceof TokenPF2e)) return;
@@ -104,13 +99,13 @@ export class StatusEffects {
         effects
             .on("click", ".pf2e-effect-control", this.setStatusValue.bind(token))
             .on("contextmenu", ".pf2e-effect-control", this.setStatusValue.bind(token))
-            .on("mouseover mouseout", ".pf2e-effect-control", this.showStatusDescr);
+            .on("mouseover mouseout", ".pf2e-effect-control", this.showStatusLabel);
 
         effects.off("click", ".effect-control").on("click", ".effect-control", this.toggleStatus.bind(token));
         effects
             .off("contextmenu", ".effect-control")
             .on("contextmenu", ".effect-control", this.toggleStatus.bind(token))
-            .on("mouseover mouseout", ".effect-control", this.showStatusDescr);
+            .on("mouseover mouseout", ".effect-control", this.showStatusLabel);
     }
 
     /** Updates the core CONFIG.statusEffects with the new icons */
@@ -124,9 +119,10 @@ export class StatusEffects {
                 const extension = CONFIG.PF2E.statusEffects.effectsIconFileType;
                 return `${folder}${slug}.${extension}`;
             });
+        CONFIG.statusEffects.push(CONFIG.controlIcons.defeated);
     }
 
-    static async _hookOnRenderTokenHUD(_app: TokenHUD, html: JQuery, tokenData: TokenHUDData) {
+    private static async hookOnRenderTokenHUD(html: JQuery, tokenData: TokenHUDData) {
         const token = canvas.tokens.get(tokenData._id);
 
         if (!token) {
@@ -178,6 +174,8 @@ export class StatusEffects {
                 } else if (!$icon.hasClass("active") && affecting) {
                     $icon.addClass("active");
                 }
+            } else if (iconPath === CONFIG.controlIcons.defeated) {
+                $icon.attr({ "data-condition": game.i18n.localize("PF2E.Actor.Dead") });
             }
         }
     }
@@ -235,15 +233,12 @@ export class StatusEffects {
     }
 
     /** Show the Status Effect name and summary on mouseover of the token HUD */
-    private static showStatusDescr(event: JQuery.TriggeredEvent) {
-        const f = $(event.currentTarget);
+    private static showStatusLabel(event: JQuery.TriggeredEvent) {
+        const $toggle = $(event.currentTarget);
         const statusDescr = $("div.status-effect-summary");
-        if (f.attr("src")?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const slug = f.attr("data-effect");
-            if (objectHasKey(StatusEffects.conditions, slug)) {
-                const conditionInfo = StatusEffects.conditions[slug];
-                statusDescr.text("name" in conditionInfo ? conditionInfo.name : "").toggleClass("active");
-            }
+        const label = $toggle.attr("data-condition");
+        if (label) {
+            statusDescr.text(label).toggleClass("active");
         }
     }
 
@@ -256,7 +251,7 @@ export class StatusEffects {
         event.stopImmediatePropagation();
 
         if (event.shiftKey) {
-            StatusEffects._onToggleOverlay(event, this);
+            await StatusEffects.onToggleOverlay(event, this);
             return;
         }
 
@@ -317,7 +312,7 @@ export class StatusEffects {
         const src = ($target.attr("src") ?? "") as ImagePath;
 
         if (event.shiftKey || src === CONFIG.controlIcons.defeated) {
-            return StatusEffects._onToggleOverlay(event, this);
+            return StatusEffects.onToggleOverlay(event, this);
         }
 
         const { actor } = this;
@@ -355,21 +350,34 @@ export class StatusEffects {
         }
     }
 
-    /**
-     * Recreating TokenHUD._onToggleOverlay. Handle assigning a status effect icon as the overlay effect
-     */
-    static _onToggleOverlay(event: JQuery.TriggeredEvent, token: TokenPF2e) {
+    /** Recreating TokenHUD._onToggleOverlay. Handle assigning a status effect icon as the overlay effect */
+    private static async onToggleOverlay(event: JQuery.TriggeredEvent, token: TokenPF2e): Promise<void> {
         event.preventDefault();
+
         const $target = $(event.currentTarget);
         const iconPath = ($(event.currentTarget).attr("src") ?? "") as ImagePath;
-        token.toggleEffect(iconPath, { overlay: true });
-        $target.siblings().removeClass("overlay");
-        $target.toggleClass("overlay");
+
+        // Do nothing if left-clicking an active overlay or right-clicking an inactive one
+        if (
+            (event.type === "click" && token.data.overlayEffect === iconPath) ||
+            (event.type === "contextmenu" && token.data.overlayEffect !== iconPath)
+        ) {
+            return;
+        }
+
+        const deathIcon = CONFIG.controlIcons.defeated;
+        const togglingDead = iconPath === deathIcon;
+        if (token.combatant && togglingDead) {
+            await token.combatant.toggleDefeated();
+        } else {
+            await token.toggleEffect(iconPath, { overlay: true });
+            $target.siblings().removeClass("overlay");
+            $target.toggleClass("overlay");
+        }
+        await token.layer.hud?.render();
     }
 
-    /**
-     * Creates a ChatMessage with the Actors current status effects.
-     */
+    /** Creates a ChatMessage with the Actors current status effects. */
     static _createChatMessage(token: TokenPF2e, whisper = false) {
         let statusEffectList = "";
 

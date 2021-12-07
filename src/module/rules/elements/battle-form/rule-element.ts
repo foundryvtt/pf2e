@@ -5,6 +5,7 @@ import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/da
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import { RollNotePF2e } from "@module/notes";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { PredicatePF2e } from "@system/predication";
@@ -343,6 +344,9 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);
+                this.suppressNotes(
+                    Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : []))
+                );
                 const baseModifier: number = this.resolveValue(strike.modifier);
                 action.unshift(new ModifierPF2e(this.modifierLabel, baseModifier, "untyped"));
 
@@ -385,6 +389,16 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             }
         }
         statistic.applyStackingRules();
+    }
+
+    private suppressNotes(notes: RollNotePF2e[]): void {
+        for (const note of notes) {
+            if (!note.predicate?.all?.includes("battle-form")) {
+                note.predicate =
+                    note.predicate instanceof PredicatePF2e ? note.predicate : new PredicatePF2e(note.predicate);
+                note.predicate.not.push("battle-form");
+            }
+        }
     }
 
     override applyDamageExclusion(modifiers: RawModifier[]): void {
