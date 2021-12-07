@@ -82,6 +82,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a list of strings for use in predication */
     override getItemRollOptions(prefix = "weapon"): string[] {
+        const actorSize = this.actor?.data.data.traits.size;
+        const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
+
         return super.getItemRollOptions(prefix).concat(
             Object.entries({
                 [`category:${this.category}`]: true,
@@ -89,6 +92,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
+                oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 magical: this.isMagical,
