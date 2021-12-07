@@ -44,8 +44,8 @@ const SETTINGS = {
         type: String,
         choices: {
             noABP: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP",
-            ABPRulesAsWritten: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten",
             ABPFundamentalPotency: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency",
+            ABPRulesAsWritten: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten",
         },
     },
     proficiencyVariant: {
