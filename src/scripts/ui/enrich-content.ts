@@ -57,44 +57,47 @@ export const EnrichContent = {
         const params = Object.fromEntries(rawParams);
 
         // Check for correct param notation
-        if (!params.type) return "Error in @Template: type parameter is mandatory";
-        if (!params.distance) return "Error in @Template: distance parameter is mandatory";
-        if (!["cone", "emanation", "burst", "line"].includes(params.type))
-            return `Error in @Template: type ${params.type} is not supported`;
-        if (isNaN(+params.distance)) return `Error in @Template: dimension ${params.distance} is not a number`;
-        if (params.width && isNaN(+params.width)) return `Error in @Template: width ${params.width} is not a number`;
+        if (!params.type) {
+            return game.i18n.localize("PF2E.InlineTemplateErrors.TypeMissing");
+        } else if (!params.distance) {
+            return game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing");
+        } else if (!objectHasKey(CONFIG.PF2E.areaTypes, params.type)) {
+            return game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type });
+        } else if (isNaN(+params.distance)) {
+            return game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance });
+        } else if (params.width && isNaN(+params.width)) {
+            return game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width });
+        } else {
+            // If no traits are entered manually use the traits from rollOptions if available
+            if (!params.traits) {
+                params.traits = "";
 
-        // If no traits are entered manually use the traits from rollOptions if available
-        if (!params.traits) {
-            params.traits = "";
-
-            if (itemData?.traits) {
-                let traits = itemData.traits.value.join(",");
-                if (!(itemData.traits.custom === "")) {
-                    traits = traits.concat(`, ${itemData.traits.custom}`);
+                if (itemData?.traits) {
+                    let traits = itemData.traits.value.join(",");
+                    if (!(itemData.traits.custom === "")) {
+                        traits = traits.concat(`, ${itemData.traits.custom}`);
+                    }
+                    params.traits = traits;
                 }
-                params.traits = traits;
             }
-        }
 
-        // If no button label is entered directly create default label
-        if (!label) {
-            label = game.i18n.format("PF2E.TemplateLabel", {
-                size: params.distance,
-                unit: game.i18n.localize("PF2E.Foot"),
-                shape: objectHasKey(CONFIG.PF2E.areaTypes, params.type)
-                    ? game.i18n.localize(CONFIG.PF2E.areaTypes[params.type])
-                    : "",
-            });
-        }
+            // If no button label is entered directly create default label
+            if (!label) {
+                label = game.i18n.format("PF2E.TemplateLabel", {
+                    size: params.distance,
+                    unit: game.i18n.localize("PF2E.Foot"),
+                    shape: game.i18n.localize(CONFIG.PF2E.areaTypes[params.type]),
+                });
+            }
 
-        // Add the html elements used for the inline buttons
-        const html = document.createElement("span");
-        html.innerHTML = label;
-        html.setAttribute("data-pf2-effect-area", params.type);
-        html.setAttribute("data-pf2-distance", params.distance);
-        if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
-        if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
-        return html.outerHTML;
+            // Add the html elements used for the inline buttons
+            const html = document.createElement("span");
+            html.innerHTML = label;
+            html.setAttribute("data-pf2-effect-area", params.type);
+            html.setAttribute("data-pf2-distance", params.distance);
+            if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
+            if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            return html.outerHTML;
+        }
     },
 };
