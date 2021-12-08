@@ -18,6 +18,7 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
+    AlignmentTrait,
     AttackRollContext,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -163,19 +164,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Add alignment traits and other creature properties self roll options */
     override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const options = super.getSelfRollOptions(prefix);
-
-        const { alignment } = this;
-        const alignmentTraits = [
-            ...new Set([
-                ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
-                ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
-                ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
-                ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
-            ]),
-        ].map((trait) => `${prefix}:trait:${trait}`);
-
-        for (const trait of alignmentTraits) options.add(trait);
-
         const { itemTypes } = this;
         const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
         if (targetIsSpellcaster) options.add(`${prefix}:caster`);
@@ -234,9 +222,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    // Set whether this actor is wearing armor
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        // Add alignment traits from the creature's alignment
+        const alignmentTraits = ((): AlignmentTrait[] => {
+            const { alignment } = this;
+            return [
+                ["LG", "NG", "CG"].includes(alignment) ? ("good" as const) : [],
+                ["LE", "NE", "CE"].includes(alignment) ? ("evil" as const) : [],
+                ["LG", "LN", "LE"].includes(alignment) ? ("lawful" as const) : [],
+                ["CG", "CN", "CE"].includes(alignment) ? ("chaotic" as const) : [],
+            ].flat();
+        })();
+        for (const trait of alignmentTraits) {
+            this.data.data.traits.traits.value.push(trait);
+        }
+
+        // Set whether this actor is wearing armor
         this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
     }
 

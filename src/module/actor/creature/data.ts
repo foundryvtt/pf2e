@@ -12,7 +12,7 @@ import {
     InitiativeData,
     RollToggle,
 } from "@actor/data/base";
-import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
+import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledValue, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
@@ -106,7 +106,8 @@ export type Abilities = Record<AbilityString, AbilityData>;
 /** A type representing the possible ability strings. */
 export type Language = keyof ConfigPF2e["PF2E"]["languages"];
 export type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
-export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"];
+export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
+export type AlignmentTrait = typeof ALIGNMENT_TRAITS[number];
 
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
@@ -175,8 +176,6 @@ export type CreatureInitiative = InitiativeData &
     };
 
 export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
-
-export type AlignmentComponent = "good" | "evil" | "lawful" | "chaotic" | "neutral";
 
 export enum VisionLevels {
     BLINDED,

@@ -156,7 +156,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             di: CONFIG.PF2E.immunityTypes,
             dv: CONFIG.PF2E.weaknessTypes,
             ci: CONFIG.PF2E.immunityTypes,
-            traits: CONFIG.PF2E.creatureTraits,
+            traits: { ...CONFIG.PF2E.creatureTraits, ...CONFIG.PF2E.alignmentTraits },
         };
 
         for (const [t, choices] of Object.entries(map)) {
