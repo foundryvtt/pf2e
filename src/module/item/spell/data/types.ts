@@ -8,7 +8,7 @@ import { ValuesList, OneToTen } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
 
-export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemData>;
+export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemSource>;
 
 export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     /** Prepared data */
@@ -43,7 +43,7 @@ export interface SpellDamage {
     type: SpellDamageType;
 }
 
-export interface SpellSystemData extends ItemSystemData, ItemLevelData {
+export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
     level: {
         value: OneToTen;
@@ -114,14 +114,9 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     hasCounteractCheck: {
         value: boolean;
     };
-    isSave?: boolean;
-    damageLabel?: string;
-    isAttack?: boolean;
-    spellLvl?: string;
-    properties?: (number | string)[];
-    item?: string;
-    isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;
     };
 }
+
+export type SpellSystemData = SpellSystemSource;
