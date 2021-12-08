@@ -35,6 +35,18 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "TempHP",
+                "onTurnStart": true,
+                "predicate": {
+                    "all": [
+                        "self:feature:inexorable-iron",
+                        "self:weapon:melee",
+                        "self:weapon:hands:2"
+                    ]
+                },
+                "value": "max(floor(@details.level.value / 2), 1)"
             }
         ],
         "source": {

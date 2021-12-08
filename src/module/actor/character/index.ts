@@ -95,9 +95,23 @@ export class CharacterPF2e extends CreaturePF2e {
     /** Add options from ancestry and class */
     override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const options = super.getSelfRollOptions(prefix);
-        const [ancestry, pcClass] = [this.ancestry, this.class];
+        const { itemTypes } = this;
+
+        // Ancestry and class
+        const ancestry = this.ancestry;
+        const pcClass = this.class;
         if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
         if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
+
+        // Feats and features
+        const featTypes = new Set(["ancestry", "archetype", "class", "general", "skill"]);
+        for (const feat of itemTypes.feat) {
+            if (["ancestryfeature", "classfeature"].includes(feat.featType.value)) {
+                options.add(`${prefix}:feature:${feat.slug ?? sluggify(feat.name)}`);
+            } else if (featTypes.has(feat.featType.value)) {
+                options.add(`${prefix}:feat:${feat.slug ?? sluggify(feat.name)}`);
+            }
+        }
 
         return options;
     }
