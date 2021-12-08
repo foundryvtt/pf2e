@@ -21,6 +21,7 @@ import { Migration693ArmorCategoryGroup } from "@module/migration/migrations/693
 import { Migration695SummonToSummoned } from "@module/migration/migrations/695-summon-to-summoned";
 import { Migration696FlatAbilityModifiers } from "@module/migration/migrations/696-flat-ability-modifiers";
 import { Migration697WeaponReachTrait } from "@module/migration/migrations/697-weapon-reach-trait";
+import { Migration698RemoveDerivedActorTraits } from "@module/migration/migrations/698-remove-derived-actor-traits";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -38,6 +39,7 @@ const migrations: MigrationBase[] = [
     new Migration695SummonToSummoned(),
     new Migration696FlatAbilityModifiers(),
     new Migration697WeaponReachTrait(),
+    new Migration698RemoveDerivedActorTraits(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
