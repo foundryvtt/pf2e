@@ -1,14 +1,16 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
-import { CheckPF2e, RollParameters } from "@system/rolls";
+import { CheckPF2e } from "@system/rolls";
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
-import { BaseStatisticData, CheckType, StatisticChatData, StatisticData } from "./data";
+import { BaseStatisticData, CheckType, StatisticChatData, StatisticData, StatisticRollParameters } from "./data";
+import { ItemPF2e } from "@item";
 
 export * from "./data";
 
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
-    roll: (args?: RollParameters) => void;
+    calculateMap(options: { item: ItemPF2e; options?: string[] }): { penalty: number; label: string };
+    roll: (args?: StatisticRollParameters) => void;
     withOptions: (options?: { options?: string[] }) => {
         value: number;
         breakdown: string;
@@ -51,9 +53,24 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
         const stat = new StatisticModifier(data.name, modifiers);
         const name = game.i18n.localize(check.label ?? data.name);
-        return {
+
+        const checkObject: StatisticCheck = {
             modifiers: modifiers,
-            roll: (args: RollParameters = {}) => {
+            calculateMap: (options: { item: ItemPF2e; options: string[] }) => {
+                const baseMap = options.item.calculateMap();
+                const penalties = [...(check.penalties ?? [])];
+                penalties.push({
+                    label: "PF2E.MultipleAttackPenalty",
+                    penalty: baseMap.map2,
+                });
+                const { label, penalty } = penalties.reduce(
+                    (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
+                    penalties[0]
+                );
+
+                return { label, penalty };
+            },
+            roll: (args: StatisticRollParameters = {}) => {
                 const actor = this.actor;
 
                 // This is required to determine the AC for attack dialogs
@@ -74,6 +91,22 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     args.dc.adjustments ??= [];
                     args.dc.adjustments.push(...check.adjustments);
                 }
+
+                const extraModifiers = [...(args?.modifiers ?? [])];
+
+                // Include multiple attack penalty to extra modifiers if given
+                if (args.attackNumber && args.attackNumber > 1) {
+                    const item = args.item;
+                    if (!item) {
+                        console.warn("Missing item argument while calculating MAP during check");
+                    } else {
+                        const map = checkObject.calculateMap({ item, options: args.options });
+                        const mapValue = Math.min(3, args.attackNumber);
+                        const penalty = (mapValue - 1) * map.penalty;
+                        extraModifiers.push(new ModifierPF2e(map.label, penalty, "untyped"));
+                    }
+                }
+
                 const context = {
                     actor,
                     dc: args.dc ?? rollContext?.dc,
@@ -82,7 +115,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     item: args.item ?? null,
                     type: check.type,
                 };
-                CheckPF2e.roll(new CheckModifier(name, stat, args.modifiers), context, args.event, args.callback);
+                CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, args.event, args.callback);
             },
             withOptions: (options?: { options?: string[] }) => {
                 const check = new CheckModifier(name, stat);
@@ -108,7 +141,9 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
             },
-        } as CheckValue<T>;
+        };
+
+        return checkObject as CheckValue<T>;
     }
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
@@ -143,12 +178,16 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     /** Creates view data for sheets and chat messages */
-    getChatData(options: { options?: string[] } = {}): StatisticChatData<T> {
+    getChatData(options: { item?: ItemPF2e; options?: string[] } = {}): StatisticChatData<T> {
         const checkObject = this.check;
         const check = checkObject?.withOptions({ options: options.options });
         const dcData = this.dc({ options: options.options });
+
+        const mapData = options.item && checkObject?.calculateMap({ item: options.item, options: options.options });
+        const map1 = mapData?.penalty ?? -5;
+
         return {
-            check,
+            check: check ? { ...check, map1, map2: map1 * 2 } : undefined,
             dc: dcData
                 ? {
                       value: dcData.value,

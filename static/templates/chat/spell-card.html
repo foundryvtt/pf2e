@@ -23,11 +23,11 @@
         {{#if data.isSave}}
             <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
         {{/if}}
-        {{#if data.isAttack}}
+        {{#if data.check}}
             <div class="spell-attack-buttons" data-visibility="owner">
                 <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
-                <button type="button" data-action="spellAttack2">{{localize "PF2E.MAPAbbreviationLabel" penalty=-5}}</button>
-                <button type="button" data-action="spellAttack3">{{localize "PF2E.MAPAbbreviationLabel" penalty=-10}}</button>
+                <button type="button" data-action="spellAttack2">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map1}}</button>
+                <button type="button" data-action="spellAttack3">{{localize "PF2E.MAPAbbreviationLabel" penalty=data.check.map2}}</button>
             </div>
         {{/if}}
         {{#if data.hasDamage}}<button type="button" data-action="spellDamage" data-visibility="owner">{{data.damageLabel}}</button>{{/if}}
