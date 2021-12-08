@@ -16,7 +16,7 @@ import { ResistanceRuleElement } from "../iwr/resistance";
 import { WeaknessRuleElement } from "../iwr/weakness";
 import { SenseRuleElement } from "../sense";
 import { StrikeRuleElement } from "../strike";
-import { TempHPRuleElement } from "../temphp";
+import { TempHPRuleElement } from "../temp-hp";
 import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
