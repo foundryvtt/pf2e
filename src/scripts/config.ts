@@ -37,6 +37,7 @@ import { ActorType } from "@actor/data";
 import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import enJSON from "../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { AlignmentTrait } from "@actor/creature/data";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -170,7 +171,7 @@ const damageCategories: Record<DamageCategory, string> = {
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
-const alignmentTraits = {
+const alignmentTraits: Record<AlignmentTrait, string> = {
     chaotic: "PF2E.TraitChaotic",
     evil: "PF2E.TraitEvil",
     good: "PF2E.TraitGood",
@@ -719,7 +720,6 @@ const traitsDescriptions = {
 };
 
 const creatureTraits = {
-    ...alignmentTraits,
     ...ancestryItemTraits,
     ...elementalTraits,
     ...energyDamageTypes,
@@ -1826,6 +1826,8 @@ export const PF2ECONFIG = {
         NE: "PF2E.AlignmentNE",
         CE: "PF2E.AlignmentCE",
     },
+
+    alignmentTraits,
 
     attitude: {
         hostile: "PF2E.Attitudes.Hostile",

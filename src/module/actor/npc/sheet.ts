@@ -1,6 +1,6 @@
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, ALIGNMENT_TRAITS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -232,6 +232,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     override async getData(): Promise<NPCSheetData> {
         const sheetData: NPCSheetData = await super.getData();
+
+        // Filter out alignment traits for sheet presentation purposes
+        const alignmentTraits: readonly string[] = ALIGNMENT_TRAITS;
+        const actorTraits = sheetData.data.traits.traits;
+        actorTraits.value = actorTraits.value.filter((t) => !alignmentTraits.includes(t));
 
         // recall knowledge DCs
         const identifyCreatureData = (sheetData.identifyCreatureData = this.getIdentifyCreatureData());

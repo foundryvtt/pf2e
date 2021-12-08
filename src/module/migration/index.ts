@@ -99,6 +99,7 @@ import { Migration694RetireSystemTokenSettings } from "./migrations/694-retire-s
 import { Migration695SummonToSummoned } from "./migrations/695-summon-to-summoned";
 import { Migration696FlatAbilityModifiers } from "./migrations/696-flat-ability-modifiers";
 import { Migration697WeaponReachTrait } from "./migrations/697-weapon-reach-trait";
+import { Migration698RemoveDerivedActorTraits } from "./migrations/698-remove-derived-actor-traits";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -202,6 +203,7 @@ export class Migrations {
         Migration695SummonToSummoned,
         Migration696FlatAbilityModifiers,
         Migration697WeaponReachTrait,
+        Migration698RemoveDerivedActorTraits,
     ];
 
     static get latestVersion(): number {
