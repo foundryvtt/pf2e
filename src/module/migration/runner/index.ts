@@ -59,7 +59,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
                 } catch (error) {
-                    console.error(error);
+                    console.warn(error);
                 } finally {
                     updateGroup.length = 0;
                 }
@@ -74,7 +74,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 await DocumentClass.updateDocuments(updateGroup, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
     }
@@ -210,18 +210,27 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocumentPF2e): Promise<void> {
-        if (!migrations.some((migration) => !!migration.updateToken)) return;
+    private async migrateSceneToken(
+        migrations: MigrationBase[],
+        token: TokenDocumentPF2e
+    ): Promise<foundry.data.TokenSource | null> {
+        if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes, { noHook: true });
+                try {
+                    await token.update(changes, { noHook: true });
+                } catch (error) {
+                    console.warn(error);
+                }
             }
+            return updatedToken;
         } catch (error) {
             console.error(error);
+            return null;
         }
     }
 
@@ -282,12 +291,13 @@ export class MigrationRunner extends MigrationRunnerBase {
             await pack.configure({ locked: true });
         }
 
-        // Migrate Scene Actors
+        // Migrate tokens and synthetic actors
         for await (const scene of game.scenes.contents) {
             for await (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
-                    await this.migrateSceneToken(migrations, token);
+                    const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
+                    if (!wasSuccessful) continue;
 
                     if (actor.isToken) {
                         const updated = await this.migrateWorldActor(migrations, actor);
