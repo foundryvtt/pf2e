@@ -3,8 +3,7 @@ import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
-import { OneToTen, OneToThree, TwoToThree } from "@module/data";
-import { ModifierPF2e } from "@module/modifiers";
+import { OneToTen } from "@module/data";
 import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
@@ -241,7 +240,7 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const statisticChatData = statistic.getChatData({ options: [...this.traits] });
+        const statisticChatData = statistic.getChatData({ item: this, options: [...this.traits] });
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -302,6 +301,7 @@ export class SpellPF2e extends ItemPF2e {
             description: { value: description },
             isAttack,
             isSave,
+            check: isAttack ? statisticChatData.check : undefined,
             save: {
                 ...statisticChatData.dc,
                 type: systemData.save.value,
@@ -321,40 +321,22 @@ export class SpellPF2e extends ItemPF2e {
         };
     }
 
-    /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
+    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, attackNumber = 1) {
         // Prepare roll data
         const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
-        // calculate multiple attack penalty
-        const map = this.calculateMap();
-
         if (statistic) {
             const options = this.actor
                 .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
                 .concat(...this.traits);
-            const modifiers: ModifierPF2e[] = [];
-            if (multiAttackPenalty > 1) {
-                modifiers.push(
-                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
-                );
-            }
-
-            statistic.check.roll({ event, item: this, options, modifiers });
+            statistic.check.roll({ event, item: this, options, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
     }
 
-    /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
     rollDamage(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent) {
         const castLevel = (() => {
             const button = event.currentTarget;
