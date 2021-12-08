@@ -4,7 +4,7 @@ export { RuleElementPF2e };
 import { RuleElementSource } from "./rules-data-definitions";
 import { FlatModifierRuleElement } from "./elements/flat-modifier";
 import { FixedProficiencyRuleElement } from "./elements/fixed-proficiency";
-import { TempHPRuleElement } from "./elements/temphp";
+import { TempHPRuleElement } from "./elements/temp-hp";
 import { DexterityModifierCapRuleElement } from "./elements/dexterity-modifier-cap";
 import { DamageDiceRuleElement } from "./elements/damage-dice";
 import { TogglePropertyRuleElement } from "./elements/toggle-property";
