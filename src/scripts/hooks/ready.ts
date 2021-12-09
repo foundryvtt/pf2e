@@ -65,7 +65,7 @@ export const Ready = {
             game.pf2e.worldClock = new WorldClock();
 
             // Sort item types for display in sidebar create-item dialog
-            game.system.entityTypes.Item.sort((typeA, typeB) => {
+            game.system.documentTypes.Item.sort((typeA, typeB) => {
                 return game.i18n
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));

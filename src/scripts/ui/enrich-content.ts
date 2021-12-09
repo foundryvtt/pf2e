@@ -32,8 +32,8 @@ export const EnrichContent = {
 
         // Enrich @inline commands: Localize, Template
         // Localize calls the function again in order to enrich data contained in there
-        const entityTypes: String[] = ["Localize", "Template"];
-        const rgx = new RegExp(`@(${entityTypes.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
+        const types: String[] = ["Localize", "Template"];
+        const rgx = new RegExp(`@(${types.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
 
         return data.replace(rgx, (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
             switch (inlineType) {

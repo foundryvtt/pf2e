@@ -92,7 +92,10 @@ declare global {
         };
         Canvas: ConfiguredConfig["Canvas"] & {
             layers: ConfiguredConfig["Canvas"]["layers"] & {
-                darkvision: typeof DarkvisionLayerPF2e;
+                darkvision: {
+                    group: "effects";
+                    layerClass: typeof DarkvisionLayerPF2e;
+                };
             };
         };
     }
