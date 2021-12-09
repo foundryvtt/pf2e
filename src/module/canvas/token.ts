@@ -93,21 +93,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return partyVisionEnabled || super._isVisionSource();
     }
 
-    /** Prevent premature redraw of resource bar */
-    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
-        if (bar.geometry) super._drawBar(number, bar, data);
-    }
-
-    /** Prevent premature redraw of border */
-    protected override _refreshBorder(): void {
-        if (this.border?.geometry) super._refreshBorder();
-    }
-
-    /** Prevent premature redraw of targeting reticle */
-    protected override _refreshTarget(): void {
-        if (this.target?.geometry) super._refreshTarget();
-    }
-
     /** Include actor overrides in the clone if it is a preview */
     override clone(): this {
         const clone = super.clone();
@@ -118,11 +103,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         return clone;
-    }
-
-    override async animateMovement(ray: Ray) {
-        await super.animateMovement(ray);
-        canvas.darkvision.refresh({ drawMask: true });
     }
 
     /* -------------------------------------------- */
