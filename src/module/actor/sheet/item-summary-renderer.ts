@@ -54,7 +54,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             const $summary = $('<div class="item-summary">');
             const chatData = item.getChatData({ secrets: actor.isOwner }, $li.data());
             this.renderItemSummary($summary, item, chatData);
-            $li.append($summary);
+            $li.children(".item-name, .item-controls").last().after($summary);
             if (options.instant) {
                 InlineRollsLinks.listen($summary);
             } else {

@@ -1,6 +1,7 @@
 import { ItemPF2e } from "@item";
 import { PromptChoice } from "@module/rules/apps/prompt";
 import { RuleElementPF2e } from "@module/rules/rule-element";
+import { REPreCreateParameters } from "@module/rules/rules-data-definitions";
 import { sluggify } from "@util";
 import { ChoiceSetData, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
@@ -36,8 +37,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * Adjust the effect's name and set the targetId from the user's selection, or set the entire rule element to be
      * ignored if no selection was made.
      */
-    override async preCreate(source: ChoiceSetSource): Promise<void> {
-        this.setDefaultFlag(source);
+    override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
+        this.setDefaultFlag(ruleSource);
         const selection = await new ChoiceSetPrompt({
             predicate: this.data.predicate,
             item: this.item,
@@ -45,12 +46,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }).resolveSelection();
 
         if (selection) {
-            source.selection = selection.value;
+            ruleSource.selection = selection.value;
             const effectName = this.item.data._source.name;
             const label = game.i18n.localize(selection.label);
             this.item.data._source.name = `${effectName} (${label})`;
         } else {
-            source.ignored = true;
+            ruleSource.ignored = true;
         }
     }
 
