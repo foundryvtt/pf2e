@@ -1,5 +1,5 @@
 .app.token-sheet {
-    .tab[data-tab="image"] {
+    .tab.active[data-tab="appearance"] {
         fieldset {
             border: 1px solid #b5b3a4;
             > legend {
@@ -27,14 +27,6 @@
                 margin: 6px 0;
             }
             .form-group.scale.children-disabled {
-                input[type="range"] {
-                    opacity: 0.5;
-                    pointer-events: none;
-
-                    &::-webkit-slider-thumb, ::-moz-range-thumb {
-                        visibility: hidden;
-                    }
-                }
                 .range-value {
                     border: none;
                     background-color: rgba(0, 0, 0, 0.05);
@@ -52,10 +44,11 @@
                 background: rgba(0, 0, 0, 0.05);
                 border-radius: 3px;
                 color: #4b4a44;
-                padding: 32px 48px;
+                padding: 16px 48px;
                 position: absolute;
                 right: 0;
                 text-align: center;
+                top: 4px;
 
                 a {
                     color: var(--primary);
