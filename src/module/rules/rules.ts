@@ -33,6 +33,7 @@ import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting/craf
 import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
 import { ChoiceSetRuleElement } from "./elements/choice-set/rule-element";
 import { LinkedProficiencyRuleElement } from "./elements/linked-proficiency";
+import { GrantItemRuleElement } from "./elements/grant-item";
 
 /**
  * @category RuleElement
@@ -53,6 +54,7 @@ export class RuleElements {
         EffectTarget: EffectTargetRuleElement,
         FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
+        GrantItem: GrantItemRuleElement,
         Immunity: ImmunityRuleElement,
         LinkedProficiency: LinkedProficiencyRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,

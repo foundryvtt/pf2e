@@ -589,8 +589,8 @@ declare global {
      * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
      * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
      */
-    interface DocumentModificationContext {
-        parent?: foundry.abstract.Document | null;
+    interface DocumentModificationContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
+        parent?: T["parent"];
         pack?: string;
         noHook?: boolean;
         index?: boolean;

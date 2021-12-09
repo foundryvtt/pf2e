@@ -10,8 +10,8 @@ import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e, groupBy } from "@util";
-import { LorePF2e } from "@item";
+import { ErrorPF2e, groupBy, objectHasKey } from "@util";
+import { FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency, CombatProficiencies } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -198,8 +198,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Feats
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: number | string; feat?: FeatData }[];
-            bonusFeats: FeatData[];
+            feats: { id: string; level: number | string; feat?: FeatData; grants: FeatPF2e[] }[];
+            bonusFeats: { data: FeatData; grants: FeatPF2e[] }[];
         }
         const tempFeats: FeatData[] = [];
         const featSlots: Record<string, FeatSlot> = {
@@ -214,9 +214,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonus: { label: "PF2E.FeatBonusHeader", feats: [], bonusFeats: [] },
         };
         if (game.settings.get("pf2e", "dualClassVariant")) {
-            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1 });
+            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1, grants: [] });
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level });
+                featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level, grants: [] });
             }
         } else {
             //Use delete so it is in the right place on the sheet
@@ -224,7 +224,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
             for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.archetype.feats.push({ id: `archetype-${level}`, level });
+                featSlots.archetype.feats.push({ id: `archetype-${level}`, level, grants: [] });
             }
         } else {
             // Use delete so it is in the right place on the sheet
@@ -376,13 +376,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             // class
             else if (itemData.type === "class") {
                 const classItem: ClassData = itemData;
-                const mapFeatLevels = (featLevels: number[], prefix: string) => {
+                type SheetFeatList = { id: string; level: number; grants: FeatPF2e[] }[];
+                const mapFeatLevels = (featLevels: number[], prefix: string): SheetFeatList => {
                     if (!featLevels) {
                         return [];
                     }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level }));
+                        .map((level) => ({ id: `${prefix}-${level}`, level, grants: [] }));
                 };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry");
@@ -396,10 +397,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             featSlots.ancestry.feats.unshift({
                 id: "ancestry-bonus",
                 level: 1,
+                grants: [],
             });
             for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
                 const index = (level + 1) / 2;
-                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level });
+                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level, grants: [] });
             }
         }
 
@@ -408,6 +410,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             featSlots.skill.feats.unshift({
                 id: background.id,
                 level: game.i18n.localize("PF2E.FeatBackgroundShort"),
+                grants: [],
             });
         }
 
@@ -417,39 +420,52 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
-        for (const feat of tempFeats) {
-            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === feat.data.location);
+        for (const featData of tempFeats) {
+            if (featData.flags.pf2e.grantedBy) continue;
+
+            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === featData.data.location);
             const existing = allFeatSlots[slotIndex]?.feat;
             if (slotIndex !== -1 && existing) {
-                console.debug(`Foundry VTT | Multiple feats with same index: ${feat.name}, ${existing.name}`);
+                console.debug(`Foundry VTT | Multiple feats with same index: ${featData.name}, ${existing.name}`);
                 slotIndex = -1;
             }
 
             if (slotIndex !== -1) {
-                allFeatSlots[slotIndex].feat = feat;
+                const slot = allFeatSlots[slotIndex];
+                slot.feat = featData;
+                for (const grantedId of featData.flags.pf2e.itemGrants) {
+                    const item = this.actor.items.get(grantedId);
+                    if (item instanceof FeatPF2e) slot.grants.push(item);
+                }
             } else {
-                let featType = feat.data.featType.value || "bonus";
+                let featType = featData.data.featType.value || "bonus";
 
                 if (featType === "heritage") {
                     featType = "ancestryfeature";
                 }
                 if (featType === "pfsboon") {
-                    pfsBoons.push(feat);
+                    pfsBoons.push(featData);
                 } else if (["deityboon", "curse"].includes(featType)) {
-                    deityBoonsCurses.push(feat);
+                    deityBoonsCurses.push(featData);
                 } else {
                     if (!["ancestryfeature", "classfeature"].includes(featType)) {
                         featType = "bonus";
                     }
 
-                    if (featType in featSlots) {
-                        const slots: FeatSlot = featSlots[featType];
-                        slots.bonusFeats.push(feat);
+                    if (objectHasKey(featSlots, featType)) {
+                        const slots = featSlots[featType];
+                        const bonusFeat = {
+                            data: featData,
+                            grants: featData.flags.pf2e.itemGrants
+                                .map((i) => this.actor.items.get(i))
+                                .filter((i): i is Embedded<FeatPF2e> => i instanceof FeatPF2e),
+                        };
+                        slots.bonusFeats.push(bonusFeat);
                     }
                 }
             }
         }
-        featSlots.classfeature.bonusFeats.sort((a, b) => (a.data.level.value > b.data.level.value ? 1 : -1));
+        featSlots.classfeature.bonusFeats.sort((a, b) => (a.data.data.level.value > b.data.data.level.value ? 1 : -1));
 
         // assign mode to actions
         Object.values(actions)

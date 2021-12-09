@@ -26,8 +26,8 @@ export abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extend
 }
 
 export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
-    type: BaseItemSourcePF2e["type"];
-    data: BaseItemSourcePF2e["data"];
+    type: ItemType;
+    data: ItemSystemData;
     flags: ItemFlagsPF2e;
 
     readonly _source: BaseItemSourcePF2e;
@@ -49,6 +49,8 @@ export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<
 export interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string>;
+        itemGrants: string[];
+        grantedBy: string | null;
         [key: string]: unknown;
     };
 }

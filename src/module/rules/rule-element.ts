@@ -9,6 +9,8 @@ import {
     RuleElementData,
     RuleElementSynthetics,
     RuleValue,
+    REPreCreateParameters,
+    REPreDeleteParameters,
 } from "./rules-data-definitions";
 
 export class TokenEffect implements TemporaryEffect {
@@ -276,18 +278,25 @@ interface RuleElementPF2e {
     onAfterPrepareData?(synthetics: RuleElementSynthetics): void;
 
     /**
-     * Run before this rules element's parent item is created. The rule element is temporarilly constructed from its
-     * source data, which is also passed to the method. A rule element can alter itself before its parent item is
-     * stored on an actor; it can also alter the item source itself in the same manner.
-     * @param source This rule element's own source data. Any changes made to it will be included as part of item
-     *               creation.
+     * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
+     * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
+     * manner.
+     * @see REPreCreateParameters
      */
-    preCreate?(source: RuleElementSource): Promise<void>;
+    preCreate?({ ruleSource, itemSource, pendingItems, context }: REPreCreateParameters): Promise<void>;
 
     /**
-     * Run after an item holding this rule is added to an actor. If you modify or add the rule after the item
-     * is already present on the actor, nothing will happen. Rules that add toggles won't work here since
-     * this method is only called on item add.
+     * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
+     * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
+     * manner.
+     * @see REPreDeleteParameters
+     */
+    preDelete?({ pendingItems, context }: REPreDeleteParameters): Promise<void>;
+
+    /**
+     * Runs after an item holding this rule is added to an actor. If you modify or add the rule after the item
+     * is already present on the actor, nothing will happen. Rules that add toggles won't work here since this method is
+     * only called on item add.
      *
      * @param actorUpdates The first time a rule is run it receives an empty object. After all rules set various values
      * on the object, this object is then passed to actor.update(). This is useful if you want to set specific values on
@@ -304,8 +313,8 @@ interface RuleElementPF2e {
     onTurnStart?(actorUpdates: Record<string, unknown>): void;
 
     /**
-     * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
-     * on the actorData or token objects, e.g. removing temp HP.
+     * Runs after an item holding this rule is removed from an actor. This method is used for cleaning up any values
+     * on the actorData or token objects (e.g., removing temp HP).
      *
      * @param actorData data of the actor that holds the item
      * @param item the removed item data
