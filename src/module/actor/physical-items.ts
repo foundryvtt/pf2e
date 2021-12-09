@@ -1,5 +1,5 @@
 import { ContainerPF2e, PhysicalItemPF2e } from "@item";
-import { Bulk, BulkItem, calculateBulk, formatBulk, toBulkItem, weightToBulk } from "@item/physical/bulk";
+import { BulkItem, calculateBulk, formatBulk, toBulkItem, weightToBulk } from "@item/physical/bulk";
 import { Size } from "@module/data";
 
 /**
@@ -26,11 +26,7 @@ export class PhysicalItems extends Collection<Embedded<PhysicalItemPF2e>> {
         const bulkItems: BulkItem[] = [];
         for (const item of this) {
             const bulkItem: BulkItem = toBulkItem(item.data);
-            let nestedExtraDimensionalContainer: boolean | undefined = false;
             if (item instanceof ContainerPF2e) {
-                const extraDimensional = item.data.data.traits.value.includes('extradimensional');
-                nestedExtraDimensionalContainer = extraDimensional && item.isInContainer && item.container?.data.data.traits.value.includes('extradimensional');
-                const useNegateBulk = extraDimensional ? !nestedExtraDimensionalContainer : item.data.data.negateBulk && item.data.data.equipped;
                 for (const containedItem of item.contents) {
                     const containedBulkItem = toBulkItem(containedItem.data);
                     bulkItem.holdsItems.push(containedBulkItem);
@@ -47,16 +43,9 @@ export class PhysicalItems extends Collection<Embedded<PhysicalItemPF2e>> {
             }
             const [approximatedBulk] = calculateBulk({
                 items: bulkItem === undefined ? [] : [bulkItem],
-                nestedExtraDimensionalContainer: nestedExtraDimensionalContainer,
                 bulkConfig: bulkConfig,
                 actorSize: size,
             });
-            if(nestedExtraDimensionalContainer){
-                console.log("nested");
-                console.log(bulkItem);
-                console.log(item);
-                console.log(approximatedBulk);
-            }
             item.data.totalWeight = formatBulk(approximatedBulk);
             if (!item.isInContainer) {
                 bulkItems.push(bulkItem);

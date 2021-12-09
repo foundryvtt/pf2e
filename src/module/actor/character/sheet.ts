@@ -9,7 +9,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { FeatPF2e, LorePF2e } from "@item";
+import { ContainerPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency, CombatProficiencies } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -517,21 +517,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             actorData.data.attributes.shieldBroken =
                 equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
-
-        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        const [bulk] = calculateBulk({
-            items: bulkItems,
-            bulkConfig: bulkConfig,
-            actorSize: this.actor.data.data.traits.size.value,
-        });
-        actorData.data.attributes.encumbrance = calculateEncumbrance(
-            actorData.data.abilities.str.mod,
-            bonusEncumbranceBulk,
-            bonusLimitBulk,
-            bulk,
-            actorData.data?.traits?.size?.value ?? "med"
-        );
     }
 
     protected prepareSpellcasting(sheetData: CharacterSheetData) {
