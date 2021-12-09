@@ -72,10 +72,13 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.sheetClass = TokenConfigPF2e;
 
-            CONFIG.Canvas.layers.darkvision = DarkvisionLayerPF2e;
-            CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
-            CONFIG.Canvas.layers.sight = SightLayerPF2e;
-            CONFIG.Canvas.layers.templates = TemplateLayerPF2e;
+            CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
+            CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
+            CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+            CONFIG.Canvas.layers.darkvision = {
+                group: "effects",
+                layerClass: DarkvisionLayerPF2e,
+            };
 
             // Make darkness visibility a little more appropriate for basic map use
             CONFIG.Canvas.lightLevels.dim = 0.25;

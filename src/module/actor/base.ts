@@ -246,8 +246,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
-    override prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );

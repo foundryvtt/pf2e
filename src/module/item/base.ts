@@ -526,8 +526,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         data: { folder?: string } = {},
         options: Partial<FormApplicationOptions> = {}
     ): Promise<ItemPF2e | undefined> {
-        const original = game.system.entityTypes.Item;
-        game.system.entityTypes.Item = original.filter(
+        const original = game.system.documentTypes.Item;
+        game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !(
                     ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
@@ -535,7 +535,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 )
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
-        game.system.entityTypes.Item = original;
+        game.system.documentTypes.Item = original;
         return newItem;
     }
 
