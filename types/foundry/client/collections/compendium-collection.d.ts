@@ -164,7 +164,7 @@ declare global {
     function fromUuid(uuid: string): Promise<ClientDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
-        readonly entity: T extends Actor
+        readonly documentName: T extends Actor
             ? "Actor"
             : T extends Item
             ? "Item"

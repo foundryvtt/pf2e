@@ -10,7 +10,7 @@ export interface PackMetadata {
     system: string;
     name: string;
     path: string;
-    entity: string;
+    documentName: string;
 }
 
 export const PackError = (message: string) => {
@@ -35,7 +35,7 @@ export function isItemSource(docSource: CompendiumSource): docSource is ItemSour
 export class CompendiumPack {
     name: string;
     packDir: string;
-    entityClass: string;
+    documentName: string;
     systemId: string;
     data: CompendiumSource[];
 
@@ -55,7 +55,7 @@ export class CompendiumPack {
         }
         this.systemId = metadata.system;
         this.name = metadata.name;
-        this.entityClass = metadata.entity;
+        this.documentName = metadata.documentName;
 
         if (!this.isPackData(parsedData)) {
             throw PackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
