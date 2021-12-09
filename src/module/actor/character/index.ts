@@ -54,7 +54,7 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { BulkItem, toBulkItem, calculateBulk, formatBulk, weightToBulk } from "@item/physical/bulk";
+import { BulkItem, calculateBulk } from "@item/physical/bulk";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 
 export class CharacterPF2e extends CreaturePF2e {
@@ -941,7 +941,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Bulk
-        const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size).contents;
+        const bulkItems: BulkItem[] = this.physicalItems.prepareItems(this.size);
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now

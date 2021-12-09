@@ -82,7 +82,7 @@
             </div>
         {{/if}}
         <div class="container-held-items">
-            {{#each item.containerData.heldItems}}
+            {{#each item.contents}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.html" item=this editable=@root.editable user=@root.user lootsheet=@root.lootsheet owner=@root.owner}}
             {{/each}}
         </div>

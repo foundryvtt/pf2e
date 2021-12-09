@@ -1,5 +1,5 @@
 import { ContainerPF2e, PhysicalItemPF2e } from "@item";
-import { BulkItem, calculateBulk, formatBulk, toBulkItem, weightToBulk } from "@item/physical/bulk";
+import { Bulk, BulkItem, calculateBulk, formatBulk, toBulkItem, weightToBulk } from "@item/physical/bulk";
 import { Size } from "@module/data";
 
 /**
@@ -19,22 +19,20 @@ export class PhysicalItems extends Collection<Embedded<PhysicalItemPF2e>> {
      * @param size
      * @returns The collection as BulkItems
      */
-    prepareItems(size: Size): Collection<BulkItem> {
+    prepareItems(size: Size): BulkItem[] {
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
         };
-        const bulkItems = new Collection<BulkItem>();
+        const bulkItems: BulkItem[] = [];
         for (const item of this) {
-            const bulkItem: BulkItem = bulkItems.get(item.id) ?? toBulkItem(item.data);
-            if (!bulkItems.has(item.id)) {
-                bulkItems.set(item.id, bulkItem);
-            }
+            const bulkItem: BulkItem = toBulkItem(item.data);
+            let nestedExtraDimensionalContainer: boolean | undefined = false;
             if (item instanceof ContainerPF2e) {
+                const extraDimensional = item.data.data.traits.value.includes('extradimensional');
+                nestedExtraDimensionalContainer = extraDimensional && item.isInContainer && item.container?.data.data.traits.value.includes('extradimensional');
+                const useNegateBulk = extraDimensional ? !nestedExtraDimensionalContainer : item.data.data.negateBulk && item.data.data.equipped;
                 for (const containedItem of item.contents) {
-                    const containedBulkItem = bulkItems.get(containedItem.id) ?? toBulkItem(containedItem.data);
-                    if (!bulkItems.has(containedItem.id)) {
-                        bulkItems.set(containedItem.id, containedBulkItem);
-                    }
+                    const containedBulkItem = toBulkItem(containedItem.data);
                     bulkItem.holdsItems.push(containedBulkItem);
                 }
                 [item.data.data.containedItemBulk] = calculateBulk({
@@ -49,10 +47,20 @@ export class PhysicalItems extends Collection<Embedded<PhysicalItemPF2e>> {
             }
             const [approximatedBulk] = calculateBulk({
                 items: bulkItem === undefined ? [] : [bulkItem],
+                nestedExtraDimensionalContainer: nestedExtraDimensionalContainer,
                 bulkConfig: bulkConfig,
                 actorSize: size,
             });
+            if(nestedExtraDimensionalContainer){
+                console.log("nested");
+                console.log(bulkItem);
+                console.log(item);
+                console.log(approximatedBulk);
+            }
             item.data.totalWeight = formatBulk(approximatedBulk);
+            if (!item.isInContainer) {
+                bulkItems.push(bulkItem);
+            }
         }
         return bulkItems;
     }
