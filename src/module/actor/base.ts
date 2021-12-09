@@ -168,7 +168,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     static override async createDocuments<A extends ConstructorOf<ActorPF2e>>(
         this: A,
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
-        context: DocumentModificationContext = {}
+        context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
         for (const datum of data) {
             // Set wounds, advantage, and display name visibility
