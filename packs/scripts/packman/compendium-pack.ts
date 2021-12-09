@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
@@ -10,7 +10,7 @@ export interface PackMetadata {
     system: string;
     name: string;
     path: string;
-    documentName: string;
+    type: string;
 }
 
 export const PackError = (message: string) => {
@@ -35,7 +35,7 @@ export function isItemSource(docSource: CompendiumSource): docSource is ItemSour
 export class CompendiumPack {
     name: string;
     packDir: string;
-    documentName: string;
+    documentType: string;
     systemId: string;
     data: CompendiumSource[];
 
@@ -55,10 +55,10 @@ export class CompendiumPack {
         }
         this.systemId = metadata.system;
         this.name = metadata.name;
-        this.documentName = metadata.documentName;
+        this.documentType = metadata.type;
 
         if (!this.isPackData(parsedData)) {
-            throw PackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
+            throw PackError(`Data supplied for ${this.name} does not resemble Foundry document source data.`);
         }
 
         this.packDir = packDir;
@@ -87,11 +87,11 @@ export class CompendiumPack {
                 const imgPaths: string[] = [docSource.img ?? ""].concat(
                     isActorSource(docSource) ? docSource.items.map((itemData) => itemData.img ?? "") : []
                 );
-                const entityName = docSource.name;
+                const documentName = docSource.name;
                 for (const imgPath of imgPaths) {
                     if (imgPath.startsWith("data:image")) {
                         const imgData = imgPath.slice(0, 64);
-                        const msg = `${entityName} (${this.name}) has base64-encoded image data: ${imgData}...`;
+                        const msg = `${documentName} (${this.name}) has base64-encoded image data: ${imgData}...`;
                         throw PackError(msg);
                     }
 
@@ -101,10 +101,10 @@ export class CompendiumPack {
                         decodeURIComponent(imgPath).replace("systems/pf2e/", "")
                     );
                     if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
-                        throw PackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
+                        throw PackError(`${documentName} (${this.name}) has a broken image link: ${imgPath}`);
                     }
                     if (!(imgPath === "" || imgPath.match(/\.(?:svg|webp)$/))) {
-                        throw PackError(`${entityName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`);
+                        throw PackError(`${documentName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`);
                     }
                 }
             }
@@ -124,7 +124,7 @@ export class CompendiumPack {
         const filePaths = filenames.map((filename) => path.resolve(dirPath, filename));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-            const entityData: CompendiumSource = (() => {
+            const packSource: CompendiumSource = (() => {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
@@ -134,17 +134,17 @@ export class CompendiumPack {
                 }
             })();
 
-            const entityName = entityData?.name;
-            if (entityName === undefined) {
-                throw PackError(`Entity contained in ${filePath} has no name.`);
+            const documentName = packSource?.name;
+            if (documentName === undefined) {
+                throw PackError(`Document contained in ${filePath} has no name.`);
             }
 
-            const filenameForm = sluggify(entityName).concat(".json");
+            const filenameForm = sluggify(documentName).concat(".json");
             if (path.basename(filePath) !== filenameForm) {
-                throw PackError(`Filename at ${filePath} does not reflect entity name (should be ${filenameForm}).`);
+                throw PackError(`Filename at ${filePath} does not reflect document name (should be ${filenameForm}).`);
             }
 
-            return entityData;
+            return packSource;
         });
 
         const dbFilename = path.basename(dirPath);
@@ -176,8 +176,8 @@ export class CompendiumPack {
         }
 
         return JSON.stringify(docSource).replace(
-            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
-            (match, packName: string, entityName: string) => {
+            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<documentName>[^\]]+)\]\{?/g,
+            (match, packName: string, documentName: string) => {
                 const namesToIds = CompendiumPack.namesToIds.get(packName);
                 const link = match.replace(/\{$/, "");
                 if (namesToIds === undefined) {
@@ -187,18 +187,20 @@ export class CompendiumPack {
                     throw PackError(`${docSource.name} (${this.name}) has a link with no label: ${link}`);
                 }
 
-                const entityId: string | undefined = namesToIds.get(entityName);
-                if (entityId === undefined) {
-                    throw PackError(`${docSource.name} (${this.name}) has broken link to ${entityName} (${packName}).`);
+                const documentId: string | undefined = namesToIds.get(documentName);
+                if (documentId === undefined) {
+                    throw PackError(
+                        `${docSource.name} (${this.name}) has broken link to ${documentName} (${packName}).`
+                    );
                 }
 
-                return `@Compendium[pf2e.${packName}.${entityId}]{`;
+                return `@Compendium[pf2e.${packName}.${documentId}]{`;
             }
         );
     }
 
-    private sourceIdOf(entityId: string) {
-        return `Compendium.${this.systemId}.${this.name}.${entityId}`;
+    private sourceIdOf(documentId: string) {
+        return `Compendium.${this.systemId}.${this.name}.${documentId}`;
     }
 
     save(): number {
@@ -214,7 +216,8 @@ export class CompendiumPack {
         return this.data.length;
     }
 
-    private isDocumentSource(entityData: {}): entityData is CompendiumSource {
+    private isDocumentSource(maybeDocSource: unknown): maybeDocSource is CompendiumSource {
+        if (!isObject(maybeDocSource)) return false;
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === "string",
             flags: (data: unknown) => typeof data === "object" && data !== null && "flags" in data,
@@ -227,17 +230,19 @@ export class CompendiumPack {
         });
 
         const failedChecks = checks
-            .map(([key, check]) => (check(entityData) ? null : key))
+            .map(([key, check]) => (check(maybeDocSource) ? null : key))
             .filter((key) => key !== null);
 
         if (failedChecks.length > 0) {
-            throw PackError(`entityData in (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`);
+            throw PackError(
+                `Document source in (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
+            );
         }
 
         return true;
     }
 
     private isPackData(packData: unknown[]): packData is CompendiumSource[] {
-        return packData.every((entityData: any) => this.isDocumentSource(entityData));
+        return packData.every((maybeDocSource: unknown) => this.isDocumentSource(maybeDocSource));
     }
 }
