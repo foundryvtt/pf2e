@@ -15,16 +15,16 @@
                 "value": 56
             },
             "stealth": {
-                "details": "+0 or Detect Magic",
+                "details": "<p>or Detect Magic</p>",
                 "value": 0
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
-            "description": "A 10-foot-tall wooden pole topped by a wooden carving of Dahak's head. Each dragon pillar's head has been treated with something to give it a distinct color, as indicated in the specific encounter, but regardless of color, plumes of smoke waft up from the mouth.",
-            "disable": "Athletics DC 26 (expert) to push the pillar over, or Thievery DC 26 (expert) on the pillar to erase the magic runes that power it, or dispel magic (4th level; counteract DC 22) to dispel the pillar's magic.",
-            "isComplex": false,
+            "description": "<p>A 10-foot-tall wooden pole topped by a wooden carving of Dahak's head. Each dragon pillar's head has been treated with something to give it a distinct color, as indicated in the specific encounter, but regardless of color, plumes of smoke waft up from the mouth.</p>",
+            "disable": "<p><span data-pf2-check=\"athletics\" data-pf2-traits=\"complex,magical,trap,hazard\" data-pf2-label=\"Push the Pillar Over DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Athletics</span> (expert) to push the pillar over, or <span data-pf2-check=\"thievery\" data-pf2-traits=\"complex,magical,trap,hazard\" data-pf2-label=\"Erase Magic Runes DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) on the pillar to erase the magic runes that power it, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (4th level; counteract DC 22) to dispel the pillar's magic.</p>",
+            "isComplex": true,
             "level": {
                 "value": 6
             },
@@ -70,9 +70,10 @@
                 "value": "med"
             },
             "traits": {
-                "custom": "Rare",
+                "custom": "",
                 "value": [
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -85,7 +86,7 @@
             "_id": "HSs8knjTJuMzsAQr",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -130,7 +131,7 @@
             "_id": "jZsVGuNQlvV5TkQ9",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -139,7 +140,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>+16 Perception, Darkvision (60 feet)</p>"
+                    "value": "<p><strong>Perception</strong> [[/br 1d20+16 #Perception]]{+16}, darkvision 60 feet</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -175,7 +176,7 @@
             "_id": "i7B8yhwnUu48ZFdz",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -184,7 +185,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong>: The dragon pillar sees a creature within 120 feet who isn't a recognized Cinderclaw or Cinderclaw ally.</p>\n<p><strong>Effect</strong>: The dragon pillar makes an eye beam @Compendium[pf2e.actionspf2e.Strike]{Strike} against the triggering creature, then rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong>: The dragon pillar sees a creature within 120 feet who isn't a recognized Cinderclaw or Cinderclaw ally.</p>\n<p><strong>Effect</strong>: The dragon pillar makes an eye beam Strike against the triggering creature, then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -220,7 +221,7 @@
             "_id": "HPLwJZH8RwLW9c13",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -229,7 +230,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Black Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 24 hours.</p>"
+                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,hazard,trap\" data-pf2-label=\"Black Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is blinded for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 24 hours.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -272,16 +273,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "black-eye-beam",
-                        "blue-eye-beam",
-                        "green-eye-beam",
-                        "indigo-eye-beam",
-                        "orange-eye-beam",
-                        "red-eye-beam",
-                        "violet-eye-beam",
-                        "yellow-eye-beam"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -321,7 +313,7 @@
             "_id": "Od7nphkGvQM8Iv5L",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -330,7 +322,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Blue Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 hour.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.</p>"
+                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,trap,hazard\" data-pf2-label=\"Blue Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong> The target is petrified for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is petrified permanently.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,7 +370,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,poison,custom,damaging-effect\" data-pf2-label=\"Green Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,poison,custom,damaging-effect,hazard,trap\" data-pf2-label=\"Green Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,7 +409,7 @@
             "_id": "jI9GCbJaB0b3F4Kw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -426,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"divination,evocation,incapacitation,custom\" data-pf2-label=\"Indigo Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is @Compendium[pf2e.conditionitems.Controlled]{Controlled}, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead @Compendium[pf2e.conditionitems.Confused]{Confused} for [[/r1d4+1]] rounds. A @Compendium[pf2e.conditionitems.Controlled]{Controlled} creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>"
+                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"divination,evocation,incapacitation,hazard,trap\" data-pf2-label=\"Indigo Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is controlled by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is controlled, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead confused for [[/br 1d4+1 #Confused Rounds]]{1d4+1} rounds. A controlled creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -465,7 +457,7 @@
             "_id": "Ari4IpvWQTIYV64K",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -474,7 +466,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,electricity,evocation,custom,damaging-effect\" data-pf2-label=\"Yellow Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,electricity,evocation,custom,damaging-effect,hazard,trap\" data-pf2-label=\"Yellow Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -513,7 +505,7 @@
             "_id": "sXWZxvJlU7LZrpHC",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -522,7 +514,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"acid,divine,evocation,custom,damaging-effect\" data-pf2-label=\"Orange Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"acid,divine,evocation,custom,damaging-effect,hazard,trap\" data-pf2-label=\"Orange Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -561,7 +553,7 @@
             "_id": "jNcUglLORusRcA4f",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -570,7 +562,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,fire,custom,damaging-effect\" data-pf2-label=\"Red Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,fire,custom,damaging-effect,hazard,trap\" data-pf2-label=\"Red Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -609,7 +601,7 @@
             "_id": "w5Yk889pfRGklcLm",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -618,7 +610,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Violet Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success:</strong> The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>"
+                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"divine,evocation,incapacitation,hazard,trap\" data-pf2-label=\"Violet Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
