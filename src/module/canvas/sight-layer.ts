@@ -21,9 +21,4 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
         canvas.scene?.prepareData();
         await super.initialize();
     }
-
-    override refresh({ forceUpdateFog = false, noUpdateFog = false } = {}): void {
-        super.refresh({ forceUpdateFog, noUpdateFog });
-        canvas.darkvision.refresh();
-    }
 }

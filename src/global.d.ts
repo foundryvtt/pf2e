@@ -38,7 +38,7 @@ import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { remigrate } from "@scripts/system/remigrate";
 import { FolderPF2e } from "@module/folder";
-import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
+import { CanvasPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
@@ -89,14 +89,6 @@ declare global {
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
-        };
-        Canvas: ConfiguredConfig["Canvas"] & {
-            layers: ConfiguredConfig["Canvas"]["layers"] & {
-                darkvision: {
-                    group: "effects";
-                    layerClass: typeof DarkvisionLayerPF2e;
-                };
-            };
         };
     }
 
