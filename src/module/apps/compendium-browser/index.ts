@@ -50,13 +50,13 @@ class PackLoader {
         Item: Record<string, { pack: CompendiumCollection; index: CompendiumIndex } | undefined>;
     } = { Actor: {}, Item: {} };
 
-    async *loadPacks(entityType: "Actor" | "Item", packs: string[], indexFields: string[]) {
-        this.loadedPacks[entityType] ??= {};
+    async *loadPacks(documentType: "Actor" | "Item", packs: string[], indexFields: string[]) {
+        this.loadedPacks[documentType] ??= {};
         const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
 
         const progress = new Progress({ steps: packs.length });
         for await (const packId of packs) {
-            let data = this.loadedPacks[entityType][packId];
+            let data = this.loadedPacks[documentType][packId];
             if (!data) {
                 const pack = game.packs.get(packId);
                 if (!pack) {
@@ -64,13 +64,13 @@ class PackLoader {
                     continue;
                 }
                 progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
-                if (pack.metadata.entity === entityType) {
+                if (pack.metadata.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult = index.contents[0] ?? {};
                     // Every result should have the 'data' property otherwise the indexFields were wrong for that pack
                     if (firstResult.data) {
                         data = { pack, index };
-                        this.loadedPacks[entityType][packId] = data;
+                        this.loadedPacks[documentType][packId] = data;
                     } else {
                         continue;
                     }
