@@ -5,7 +5,6 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import {
     AmbientLightPF2e,
-    DarkvisionLayerPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     SightLayerPF2e,
@@ -75,10 +74,6 @@ export const Init = {
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
-            CONFIG.Canvas.layers.darkvision = {
-                group: "effects",
-                layerClass: DarkvisionLayerPF2e,
-            };
 
             // Make darkness visibility a little more appropriate for basic map use
             CONFIG.Canvas.lightLevels.dim = 0.25;

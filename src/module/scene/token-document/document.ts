@@ -212,7 +212,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
-        canvas.darkvision.refresh({ drawMask: true });
 
         if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
             ui.combat.render();

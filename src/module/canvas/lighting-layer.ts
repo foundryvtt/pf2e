@@ -60,9 +60,4 @@ export class LightingLayerPF2e<
             }
         }
     }
-
-    protected override _onDarknessChange(darkness: number, prior: number): void {
-        super._onDarknessChange(darkness, prior);
-        canvas.darkvision.refresh({ darkness });
-    }
 }
