@@ -1087,33 +1087,27 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Designated Prey]{Effect: Designated Prey}</p>"
+                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "origin:effect:effect-designated-prey"
-                            ]
-                        },
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 1
+                        "key": "ToggleProperty",
+                        "label": "Designated Prey attacks the Duskwalker",
+                        "property": "flags.pf2e.rollOptions.all.hunt-prey-attack"
                     },
                     {
                         "key": "ToggleProperty",
-                        "label": "Duskwalker rolls checks against his designated prey",
-                        "property": "flags.pf2e.rollOptions.all.hunt-prey"
+                        "label": "Duskwalker rolls checks against his Designated Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunt-prey-checks"
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey",
+                                "hunt-prey-checks",
                                 "action:seek"
                             ]
                         },
@@ -1125,7 +1119,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey",
+                                "hunt-prey-checks",
                                 "action:track"
                             ]
                         },
@@ -1137,7 +1131,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey"
+                                "hunt-prey-checks"
                             ]
                         },
                         "selector": "deception",
@@ -1148,7 +1142,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey"
+                                "hunt-prey-checks"
                             ]
                         },
                         "selector": "intimidation",
@@ -1159,12 +1153,23 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey"
+                                "hunt-prey-checks"
                             ]
                         },
                         "selector": "stealth",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-attack"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
                     }
                 ],
                 "slug": null,
