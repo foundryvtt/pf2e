@@ -15,27 +15,26 @@ export interface EffectData extends Omit<EffectSource, "effects" | "flags"> {
 }
 
 interface EffectSystemSource extends ItemSystemData, ItemLevelData {
-    expired: boolean;
-    remaining: string;
-    start?: {
-        value: number;
-        initiative: number | null;
-    };
-    tokenIcon: {
-        show: boolean;
-    };
-    target?: string;
-}
-
-export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
-    duration: {
-        value: number;
-        unit: string;
-        sustained: boolean;
-        expiry: "turn-start" | "turn-end";
-    };
     start: {
         value: number;
         initiative: number | null;
     };
+    duration: {
+        value: number;
+        unit: "rounds" | "minutes" | "hours" | "days" | "encounter" | "unlimited";
+        sustained: boolean;
+        expiry: EffectExpiryType | null;
+    };
+    tokenIcon: {
+        show: boolean;
+    };
+    target: string | null;
+    expired?: boolean;
+}
+
+export type EffectExpiryType = "turn-start" | "turn-end";
+
+export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
+    expired: boolean;
+    remaining: string;
 }
