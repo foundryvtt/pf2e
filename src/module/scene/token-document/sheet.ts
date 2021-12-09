@@ -76,7 +76,7 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
                         game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
                     );
                     $input.replaceWith($managedBy);
-                    $managedBy.closest(".form-group").addClass("managed-by-rbv");
+                    $managedBy.closest(".form-group").addClass("managed-by-rbv").find(".form-fields label").remove();
 
                     $managedBy.find("a").on("click", () => {
                         const menu = game.settings.menus.get("pf2e.automation");
