@@ -164,6 +164,8 @@ declare global {
     }
 
     interface TokenDocument {
+        readonly data: foundry.data.TokenData<this>;
+
         readonly parent: Scene | null;
 
         get uuid(): TokenDocumentUUID;
