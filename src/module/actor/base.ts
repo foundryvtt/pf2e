@@ -1000,10 +1000,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const importData = JSON.parse(json);
-        const systemModel = deepClone(game.system.model.Actor[importData.type]);
-        const data: ActorSourcePF2e = mergeObject({ data: systemModel }, importData);
-        this.data.update(game.actors.prepareForImport(data), { recursive: false });
+        const source = this.collection.fromCompendium(JSON.parse(json));
+        source._id = this.id;
+        const data = new ActorPF2e.schema(source);
+        this.data.update(data.toObject(), { recursive: false });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
