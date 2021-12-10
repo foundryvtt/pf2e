@@ -91,15 +91,12 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: DeepPartial<T["data"]["_source"]> | undefined,
+                    data: DocumentUpdateData<this> | undefined,
                     options: { save: true; keepId?: boolean }
                 ): Promise<T>;
+                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
                 clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
-                    options?: { save?: false; keepId?: boolean }
-                ): T;
-                clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
+                    data?: DocumentUpdateData<this>,
                     options?: { save?: boolean; keepId?: boolean }
                 ): T | Promise<T>;
 
