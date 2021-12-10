@@ -171,6 +171,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
         for (const datum of data) {
+            // Temporary workaround for bug in V9.235
+            if (!context.parent && !context.keepId) {
+                delete datum._id;
+                context.keepId = true;
+            }
+
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
