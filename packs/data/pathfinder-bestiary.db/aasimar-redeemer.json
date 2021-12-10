@@ -23,11 +23,11 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "(25 with shield raised)",
                 "value": 23
             },
             "allSaves": {
-                "value": "+1 status to all saves vs. disease"
+                "value": "+1 status to all saves vs. disease (against diseases, critical failures become failures)"
             },
             "hp": {
                 "details": "",
@@ -49,6 +49,7 @@
                 "value": 20
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -128,7 +129,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8LQvNxSDsn8DnBqa",
+            "_id": "bthV65bmBiFxafJ6",
             "data": {
                 "ability": {
                     "value": "cha"
@@ -149,10 +150,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -225,7 +226,6 @@
                 },
                 "spelldc": {
                     "dc": 20,
-                    "item": 0,
                     "mod": 0,
                     "value": 12
                 },
@@ -248,7 +248,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "dYMPR5XWAczoZnqu",
+            "_id": "HPknnMADVjl3vadK",
             "data": {
                 "ability": {
                     "value": "cha"
@@ -272,7 +272,7 @@
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -294,9 +294,9 @@
                         "value": 0
                     },
                     "slot11": {
-                        "max": "1",
+                        "max": 0,
                         "prepared": [],
-                        "value": "1"
+                        "value": 0
                     },
                     "slot2": {
                         "max": 0,
@@ -345,7 +345,6 @@
                 },
                 "spelldc": {
                     "dc": 20,
-                    "item": 0,
                     "mod": 0,
                     "value": 12
                 },
@@ -368,14 +367,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "P9ZTnuTqw3IYAfKU",
+            "_id": "tRnTQnTcF5F4xbQy",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": ""
+                    "value": null
                 },
                 "areasize": {
                     "value": ""
@@ -419,7 +418,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "dYMPR5XWAczoZnqu"
+                    "value": "HPknnMADVjl3vadK"
                 },
                 "materials": {
                     "value": ""
@@ -455,7 +454,7 @@
                 },
                 "slug": "lay-on-hands",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -496,7 +495,135 @@
             "type": "spell"
         },
         {
-            "_id": "UCV6DZ92QiTOcUja",
+            "_id": "l9yhRiDjFD7OKAxQ",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "positive"
+                            },
+                            "value": "1d6"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch.</p>\n<p>If you use lay on hands on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round.</p>\n<p>Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "HPknnMADVjl3vadK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "lay-on-hands-vs-undead",
+                "source": {
+                    "value": "Pathfinder Secrets of Magic"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 undead creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "champion",
+                        "healing",
+                        "positive"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IxyD7YdRbSSucxZp"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+            "name": "Lay on Hands (Vs. Undead)",
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "U59fpo1i5VNRYsAw",
             "data": {
                 "ability": {
                     "value": ""
@@ -539,7 +666,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "8LQvNxSDsn8DnBqa"
+                    "value": "bthV65bmBiFxafJ6"
                 },
                 "materials": {
                     "value": ""
@@ -569,7 +696,7 @@
                 },
                 "slug": "light",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -611,7 +738,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 400000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -650,7 +777,7 @@
                     "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -777,7 +904,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
-            "sort": 500000,
+            "sort": 600000,
             "type": "weapon"
         },
         {
@@ -816,7 +943,7 @@
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -945,7 +1072,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "Longsword",
-            "sort": 600000,
+            "sort": 700000,
             "type": "weapon"
         },
         {
@@ -978,7 +1105,7 @@
                     "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": "3"
@@ -1085,7 +1212,7 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/halfplate.webp",
             "name": "Half Plate",
-            "sort": 700000,
+            "sort": 800000,
             "type": "armor"
         },
         {
@@ -1225,7 +1352,7 @@
             },
             "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Steel Shield",
-            "sort": 800000,
+            "sort": 900000,
             "type": "armor"
         },
         {
@@ -1376,7 +1503,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "consumable"
         },
         {
@@ -1386,6 +1513,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1422,7 +1550,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "melee"
         },
         {
@@ -1432,6 +1560,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1469,7 +1598,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -1517,7 +1646,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1538,7 +1667,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.saving-throw.divine-grace"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "divine-grace"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1561,7 +1706,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Divine Grace",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1605,7 +1750,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Glimpse of Redemption",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1653,7 +1798,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1688,8 +1833,24 @@
                     },
                     {
                         "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "disease"
+                            ]
+                        },
                         "selector": "saving-throw",
-                        "text": "<p class='compact-text'>When the Aasimar Redeemer rolls a critical failure against a disease, it gets a failure instead.</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>When the Aasimar Redeemer rolls a critical failure against a disease, it gets a failure instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": {
+                            "all": [
+                                "disease"
+                            ]
+                        }
                     }
                 ],
                 "slug": null,
@@ -1714,7 +1875,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus to Saves vs. Diseases",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1749,7 +1910,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1784,7 +1945,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1819,7 +1980,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1854,7 +2015,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1889,7 +2050,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],
