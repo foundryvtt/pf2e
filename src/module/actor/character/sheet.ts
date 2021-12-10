@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { formatBulk, } from "@item/physical/bulk";
+import { formatBulk } from "@item/physical/bulk";
 import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
