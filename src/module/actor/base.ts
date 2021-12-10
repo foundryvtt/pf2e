@@ -155,10 +155,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        const flags: this["data"]["_source"]["flags"] = { pf2e: { rollOptions: { all: rollOptionsAll } } };
-        const overrideData: DeepPartial<this["data"]["_source"]> = { flags };
-
-        return this.clone(overrideData);
+        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
     }
 
     /**
