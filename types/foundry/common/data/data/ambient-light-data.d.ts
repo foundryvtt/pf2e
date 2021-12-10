@@ -3,20 +3,15 @@ declare module foundry {
         /**
          * The data schema for a AmbientLight embedded document.
          *
-         * @property _id                   The _id which uniquely identifies this BaseAmbientLight embedded document
-         * @property [t=l]                 The source type in CONST.SOURCE_TYPES which defines the behavior of this light
-         * @property [x=0]                 The x-coordinate position of the origin of the light
-         * @property [y=0]                 The y-coordinate position of the origin of the light
-         * @property [rotation=0]          The angle of rotation for the tile between 0 and 360
-         * @property [dim=0]               The radius of dim light emitted in distance units, negative values produce darkness
-         * @property [bright=0]            The radius of bright light emitted in distance units, negative values produce blackness
-         * @property [angle=360]           The angle of emission of the light source in degrees
-         * @property [tintColor]           An optional color string which applies coloration to the resulting light source
-         * @property [tintAlpha=0.5]       The intensity of coloration applied to this light source, a number between 0 and 1
-         * @property [lightAnimation]      A data object which configures token light animation settings, if one is applied
-         * @property [darknessThreshold=0] A value of the Scene darkness level, above which this light source will be active
-         * @property [hidden=false]        Is the light source currently hidden?
-         * @property [flags={}]            An object of optional key/value flags
+         * @property _id            The _id which uniquely identifies this BaseAmbientLight embedded document
+         * @property [x=0]          The x-coordinate position of the origin of the light
+         * @property [y=0]          The y-coordinate position of the origin of the light
+         * @property [rotation=0]   The angle of rotation for the tile between 0 and 360
+         * @property [walls=true]   Whether or not this light source is constrained by Walls
+         * @property [vision=false] Whether or not this light source provides a source of vision
+         * @property config         Light configuration data
+         * @property [hidden=false] Is the light source currently hidden?
+         * @property [flags={}]     An object of optional key/value flags
          */
         interface AmbientLightSource {
             _id: string;
@@ -24,14 +19,9 @@ declare module foundry {
             x: number;
             y: number;
             rotation: number;
-            dim: number;
-            bright: number;
-            angle: number;
-            tintColor: HexColorString;
-            tintAlpha: number;
-            lightAnimation: AnimationSource;
-            darknessThreshold: number;
-            darkness: DarknessActivationSource;
+            walls: boolean;
+            vision: boolean;
+            config: LightSource;
             hidden: boolean;
             flags: Record<string, unknown>;
         }
@@ -46,8 +36,10 @@ declare module foundry {
             darkness: DarknessActivation;
         }
 
-        interface AmbientLightData extends Omit<AmbientLightSource, "lightAnimation" | "darknessActivation"> {
+        interface AmbientLightData extends Omit<AmbientLightSource, "config"> {
             readonly _source: AmbientLightSource;
+
+            config: LightData<NonNullable<this["document"]>>;
         }
     }
 }

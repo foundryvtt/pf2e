@@ -93,18 +93,6 @@ declare class SightLayer<
 
     override tearDown(): Promise<void>;
 
-    /**
-     * Initialize the Sight Layer. Initialization has the following hierarchical workflow:
-     *
-     * Initialize Layer (reset entire layer)
-     *  InitializeLights (used to reset all lights)
-     *    UpdateLight (update a single light)
-     *  InitializeTokens (reset all tokens)
-     *    UpdateToken (update a single token)
-     *  Initialize Fog (reset FOW state)
-     */
-    initialize(): Promise<void>;
-
     /** Initialize fog of war - resetting it when switching scenes or re-drawing the canvas */
     initializeFog(): Promise<void>;
 

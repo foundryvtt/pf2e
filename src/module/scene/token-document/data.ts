@@ -1,6 +1,6 @@
 import { TokenDocumentPF2e } from "@scene";
 
-export interface TokenDataPF2e<T extends TokenDocumentPF2e> extends foundry.data.TokenData<T> {
+export interface TokenDataPF2e<T extends TokenDocumentPF2e = TokenDocumentPF2e> extends foundry.data.TokenData<T> {
     flags: {
         pf2e: {
             [key: string]: unknown;

@@ -1,15 +1,13 @@
-import { VisionLevels } from "@actor/creature/data";
 import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e } from "@module/encounter";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
-    private initialized: true | undefined;
+    private initialized?: true;
 
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
@@ -28,12 +26,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
+        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
     /** Is this token's dimensions linked to its actor's size category? */
@@ -51,10 +49,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            if (this.object.isControlled) {
-                canvas.lighting.setPerceivedLightLevel({ defer: false });
-            }
-
             this.object.redraw();
         }
     }
@@ -68,7 +62,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
 
-        if (!canvas.sight?.rulesBasedVision) return;
+        if (!this.scene?.rulesBasedVision) return;
         this.data.brightSight = 0;
         this.data.dimSight = 0;
         this.data.sightAngle = 360;
@@ -76,7 +70,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!(this.initialized && this.actor && canvas.scene)) return;
+        if (!(this.initialized && this.actor && this.scene)) return;
 
         // Temporary token image
         mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
@@ -84,17 +78,13 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         // Token dimensions from actor size
         this.prepareSize();
 
-        if (!canvas.sight.rulesBasedVision) return;
-
-        const lightLevel = canvas.scene.lightLevel;
-        const hasDarkvision = this.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
-        const perceivedBrightness = {
-            [VisionLevels.BLINDED]: 0,
-            [VisionLevels.NORMAL]: lightLevel,
-            [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
-            [VisionLevels.DARKVISION]: 1,
-        }[this.actor.visionLevel];
-        this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
+        // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
+        // Setting vision radii is less performant but necessary if multiple tokens are controlled
+        if (this.scene.rulesBasedVision) {
+            const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
+            const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
+            this.data.brightSight = this.data._source.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
+        }
     }
 
     /** Set this token's dimensions from actor data */
