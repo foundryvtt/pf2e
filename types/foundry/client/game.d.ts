@@ -108,8 +108,8 @@ declare global {
         ready: boolean;
 
         /* -------------------------------------------- */
-        /*  Entities
-    /* -------------------------------------------- */
+        /*  Entities                                    */
+        /* -------------------------------------------- */
 
         users: Users<TUser>;
         messages: Messages<TChatMessage>;
@@ -125,6 +125,9 @@ declare global {
         packs: Collection<CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>>;
 
         constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);
+
+        /** Returns the current version of the Release, usable for comparisons using isNewerVersion */
+        get version(): string;
 
         /**
          * Fetch World data and return a Game instance

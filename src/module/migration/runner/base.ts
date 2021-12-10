@@ -123,7 +123,7 @@ export class MigrationRunnerBase {
             datetime: DateTime.now().toISO(),
             version: {
                 schema: fromVersion,
-                foundry: "game" in globalThis ? game.data.version : undefined,
+                foundry: "game" in globalThis ? game.version : undefined,
                 system: "game" in globalThis ? game.system.data.version : undefined,
             },
         };
