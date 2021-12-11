@@ -67,8 +67,12 @@ declare global {
                  */
                 get schema(): DocumentSchema;
 
+                /* ---------------------------------------- */
+                /*  Data Initialization and Validation      */
+                /* ---------------------------------------- */
+
                 /** Initialize the source data object in-place */
-                protected _initializeSource(data: object): DocumentSource;
+                protected _initializeSource(data: object): this["_source"];
 
                 /**
                  * Get the default value for a schema field, conditional on the provided data

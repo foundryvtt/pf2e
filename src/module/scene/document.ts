@@ -8,20 +8,38 @@ export class ScenePF2e extends Scene<
     TileDocumentPF2e,
     TokenDocumentPF2e
 > {
-    /** Toggle Unrestricted Global Vision according to scene darkness level */
-    override prepareBaseData() {
-        super.prepareBaseData();
-        if (canvas.sight?.rulesBasedVision) {
-            this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
-            this.data.globalLight = true;
-        }
-
-        this.data.flags.pf2e ??= { syncDarkness: "default" };
-        this.data.flags.pf2e.syncDarkness ??= "default";
+    /** Is the rules-based vision setting enabled? */
+    get rulesBasedVision(): boolean {
+        const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
+        return this.data.tokenVision && settingEnabled;
     }
 
     get lightLevel(): number {
         return 1 - this.data.darkness;
+    }
+
+    get isBright(): boolean {
+        return this.lightLevel >= LightLevels.BRIGHT_LIGHT;
+    }
+
+    get isDimlyLit(): boolean {
+        return !this.isBright && !this.isDark;
+    }
+
+    get isDark(): boolean {
+        return this.lightLevel <= LightLevels.DARKNESS;
+    }
+
+    /** Toggle Unrestricted Global Vision according to scene darkness level */
+    override prepareBaseData() {
+        super.prepareBaseData();
+        if (this.rulesBasedVision) {
+            this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
+            this.data.hasGlobalThreshold = true;
+        }
+
+        this.data.flags.pf2e ??= { syncDarkness: "default" };
+        this.data.flags.pf2e.syncDarkness ??= "default";
     }
 }
 
