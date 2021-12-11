@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -97,7 +98,11 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "fire",
+                    "paralyzed",
+                    "sleep"
+                ]
             },
             "dr": [],
             "dv": [],
@@ -135,7 +140,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LB0V0eJcKuQh9vdo",
+            "_id": "QPPzshzEbERB3TmQ",
             "data": {
                 "ability": {
                     "value": "wis"
@@ -146,7 +151,12 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
+                "displayLevels": {
+                    "0": false,
+                    "1": false,
+                    "2": false,
+                    "3": false
+                },
                 "prepared": {
                     "flexible": false,
                     "value": "prepared"
@@ -156,7 +166,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -169,16 +179,16 @@
                         "max": 4,
                         "prepared": {
                             "0": {
-                                "id": "jTuCXIoaV8DHK8TT"
+                                "id": "pRvLgpTADAB34pEt"
                             },
                             "1": {
-                                "id": "orVfeXAXYpKHNoIX"
+                                "id": "EOiGKuyn39UhHpx9"
                             },
                             "2": {
-                                "id": "gzxlOoZtJsTSCCkA"
+                                "id": "4jEZ9fgbJjk0FBL5"
                             },
                             "3": {
-                                "id": "zStdewuiTF30aHsF"
+                                "id": "Z48J1Ucu5K7Aaots"
                             }
                         },
                         "value": 0
@@ -187,13 +197,13 @@
                         "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "g9jvha8oOA2b4anL"
+                                "id": "00K7lSDQXzyyVVFr"
                             },
                             "1": {
-                                "id": "ojW2tAlRqABR6230"
+                                "id": "00K7lSDQXzyyVVFr"
                             },
                             "2": {
-                                "id": "8kFgxIbx2vBhuCYM"
+                                "id": "NBJ3QYu9oXHhJnYs"
                             }
                         },
                         "value": 0
@@ -212,10 +222,10 @@
                         "max": 2,
                         "prepared": {
                             "0": {
-                                "id": "s8IQdRhFuW3YKuCQ"
+                                "id": "e9opoYM21BTSRXZk"
                             },
                             "1": {
-                                "id": "fk6EVnuhsI6gdXIB"
+                                "id": "8cxMM8BUvBKIUuF6"
                             }
                         },
                         "value": 0
@@ -224,10 +234,10 @@
                         "max": 2,
                         "prepared": {
                             "0": {
-                                "id": "TDpp3NDRVy0gg0FO"
+                                "id": "dxWoZnzZt7yiF76m"
                             },
                             "1": {
-                                "id": "ecu96hy7s2xPIryp"
+                                "id": "l4tkv0o2hkVk8ThS"
                             }
                         },
                         "value": 0
@@ -286,19 +296,22 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "name": "Prepared Divine Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "TDpp3NDRVy0gg0FO",
+            "_id": "dxWoZnzZt7yiF76m",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -318,8 +331,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "6d6"
@@ -327,7 +342,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -339,12 +354,15 @@
                     "value": 3
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -364,9 +382,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fireball",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=119"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -397,14 +421,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fireball.webp",
             "name": "Fireball",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "ecu96hy7s2xPIryp",
+            "_id": "l4tkv0o2hkVk8ThS",
             "data": {
                 "ability": {
                     "value": ""
@@ -412,6 +440,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -440,7 +471,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -452,12 +483,15 @@
                     "value": 3
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -468,12 +502,24 @@
                     "basic": "basic",
                     "value": "fortitude"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vampiric-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=354"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -506,21 +552,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "s8IQdRhFuW3YKuCQ",
+            "_id": "e9opoYM21BTSRXZk",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": "5-foot square"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -549,7 +602,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Area</strong> 1 5-foot square</p>\n<hr />\n<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, the first time you Sustain this Spell, you can leave the sphere in its square or roll it to another square within range. It deals 3d6 fire damage (basic Reflex save) to each creature in that square.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -561,12 +614,15 @@
                     "value": 2
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -577,12 +633,24 @@
                     "basic": "",
                     "value": "reflex"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "flaming-sphere",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=121"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -613,14 +681,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2ZdHjnpEQJuqOYSG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/flaming-sphere.webp",
             "name": "Flaming Sphere",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "g9jvha8oOA2b4anL",
+            "_id": "00K7lSDQXzyyVVFr",
             "data": {
                 "ability": {
                     "value": ""
@@ -628,6 +700,9 @@
                 "area": {
                     "areaType": "cone",
                     "value": 15
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -656,7 +731,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -668,12 +743,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -684,12 +762,24 @@
                     "basic": "basic",
                     "value": "reflex"
                 },
-                "school": {
-                    "value": "conjuration"
+                "scaling": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
                 },
-                "slug": null,
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "burning-hands",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=30"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -720,121 +810,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
+                }
+            },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "ojW2tAlRqABR6230",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "cone",
-                    "value": 15
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "fire"
-                            },
-                            "value": "2d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "school": {
-                    "value": "conjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=30"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/burning-hands.webp",
-            "name": "Burning Hands",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "jTuCXIoaV8DHK8TT",
+            "_id": "pRvLgpTADAB34pEt",
             "data": {
                 "ability": {
                     "value": ""
@@ -843,6 +830,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -859,10 +849,19 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -874,7 +873,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
@@ -882,12 +881,15 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "will"
                 },
                 "scaling": {
@@ -899,9 +901,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -935,14 +943,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 700000,
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "orVfeXAXYpKHNoIX",
+            "_id": "EOiGKuyn39UhHpx9",
             "data": {
                 "ability": {
                     "value": ""
@@ -950,6 +962,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -979,7 +994,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash a beam of divine energy. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or if your deity is true neutral. Make a ranged spell attack roll against the target's AC. On a hit, the target takes damage of the chosen alignment type equal to 1d4 + your spellcasting ability modifier (double damage on a critical hit). The spell gains the trait of the alignment you chose.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>You unleash a beam of divine energy. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or if your deity is true neutral. Make a ranged spell attack roll against the target's AC. On a hit, the target takes damage of the chosen alignment type equal to 1d4 + your spellcasting ability modifier (double damage on a critical hit). The spell gains the trait of the alignment you chose.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -991,12 +1006,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1016,9 +1034,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "divine-lance",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=84"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1049,14 +1073,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwZBXN6zBoB9BHXE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/divine-lance.webp",
             "name": "Divine Lance",
-            "sort": 800000,
+            "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "fk6EVnuhsI6gdXIB",
+            "_id": "8cxMM8BUvBKIUuF6",
             "data": {
                 "ability": {
                     "value": ""
@@ -1064,6 +1092,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "varies"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1092,7 +1123,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1101,16 +1132,18 @@
                     "value": false
                 },
                 "level": {
-                    "preparedValue": 2,
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1121,12 +1154,24 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -1138,7 +1183,7 @@
                     "value": "1 willing living creature or 1 undead"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "custom": "",
@@ -1159,14 +1204,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 900000,
+            "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "zStdewuiTF30aHsF",
+            "_id": "4jEZ9fgbJjk0FBL5",
             "data": {
                 "ability": {
                     "value": ""
@@ -1174,6 +1223,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1203,7 +1255,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1215,12 +1267,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1240,9 +1295,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "produce-flame",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1254,7 +1315,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -1276,14 +1337,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.O9w7r4BKgPogYDDe"
+                }
+            },
             "img": "systems/pf2e/icons/spells/produce-flame.webp",
             "name": "Produce Flame",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "8kFgxIbx2vBhuCYM",
+            "_id": "NBJ3QYu9oXHhJnYs",
             "data": {
                 "ability": {
                     "value": ""
@@ -1291,6 +1356,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1311,7 +1379,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1323,12 +1391,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1337,14 +1408,20 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1376,14 +1453,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "gzxlOoZtJsTSCCkA",
+            "_id": "Z48J1Ucu5K7Aaots",
             "data": {
                 "ability": {
                     "value": ""
@@ -1391,6 +1472,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1411,7 +1495,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<hr />\n<p><strong>Heightened</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -1423,12 +1507,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "LB0V0eJcKuQh9vdo"
+                    "value": "QPPzshzEbERB3TmQ"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1442,9 +1529,15 @@
                 "school": {
                     "value": "abjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "shield",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=280"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1477,35 +1570,59 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TVKNbcgTee19PXZR"
+                }
+            },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "mOXSOF5IF6iqxq6C",
+            "_id": "ZqyK0k31aaaiua44",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
+                },
+                "description": {
+                    "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1539,59 +1656,114 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "longsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "leather armor",
-            "sort": 1300000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "Longsword",
+            "sort": 1200000,
+            "type": "weapon"
         },
         {
-            "_id": "d6gGVyjmcoeeGixI",
+            "_id": "yoj3v80wl82gA1Ij",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "category": "light",
+                "check": {
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -1600,19 +1772,23 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": 4
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
                 },
+                "group": "leather",
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -1634,10 +1810,14 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1646,21 +1826,42 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 10
                 },
                 "traits": {
                     "custom": "",
@@ -1670,18 +1871,22 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "+1 striking longsword",
-            "sort": 1400000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
+            "sort": 1300000,
+            "type": "armor"
         },
         {
             "_id": "LbVTFpHTRiZGGVE9",
@@ -1727,7 +1932,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -1775,7 +1980,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bite",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "melee"
         },
         {
@@ -1821,7 +2026,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "melee"
         },
         {
@@ -1867,7 +2072,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "melee"
         },
         {
@@ -1902,7 +2107,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly d6",
+                        "deadly-d6",
                         "thrown-20"
                     ]
                 },
@@ -1914,8 +2119,160 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Thrown Rock",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "melee"
+        },
+        {
+            "_id": "197Q2S7Pdx8jKLm7",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "Hh8TSJGN8yL5SyKZ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "OC3Cenu8w3vfySOp",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within reach of the priest's tail uses a move action or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The priest makes a tail Strike at the creature with a -2 penalty. If it hits, it disrupts the creature's action.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.twistingTail"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "twistingTail"
+                            ]
+                        },
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Twisting Tail",
+            "sort": 2100000,
+            "type": "action"
         },
         {
             "_id": "P54JJ58qynLo2URI",
@@ -1930,7 +2287,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The priest breathes fire that deals [[/r {7d6}[fire]]]{7d6 fire damage} in a 30-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"23\" data-pf2-traits=\"divine,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The priest breathes fire that deals [[/r {7d6}[fire]]]{7d6 fire damage} in a @Template[type:cone|distance:30] (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine,evocation,fire\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1962,7 +2319,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 2000000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -1978,7 +2335,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The charau-ka's turn begins. <strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> The charau-ka is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of its turn, and can use the extra action to Stride or Strike. While in the frenzy, the charau-ka can't speak and automatically critically fails Stealth checks, due to its loud wailing.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> The charau-ka's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n</div>\n<p><strong>Effect</strong> The charau-ka dragon priest is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of its turn, and can use the extra action to Stride or Strike. While in the frenzy, the dragon priest can't speak and automatically critically fails Stealth checks, due to its loud wailing.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2009,7 +2366,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Shrieking Frenzy",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2025,7 +2382,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any weapon a charau-ka throws gains the deadly d6 weapon trait. Furthermore, when a charau-ka throws an improvised weapon, it does not take the -2 penalty for doing so, nor does it take a penalty for using a thrown improvised weapon with the nonlethal trait to make a lethal attack.</p>"
+                    "value": "<p>Any weapon a charau-ka dragon priest throws gains the deadly d6 weapon trait. Furthermore, when a dragon priest throws an improvised weapon, it does not take the -2 penalty for doing so, nor does it take a penalty for using a thrown improvised weapon with the nonlethal trait to make a lethal attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2041,7 +2398,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly d6",
                         "nonlethal"
                     ]
                 },
@@ -2056,7 +2412,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Thrown Weapon Mastery",
-            "sort": 2200000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2072,7 +2428,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The priest is standing on the ground.</p>\n<p><strong>Effect</strong> The priest slams his fists into the ground, causing fire to erupt from the earth. Each non-worshipper of Dahak standing on the ground in a 15-foot emanation must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"25\" data-pf2-traits=\"divine,evocation,fire,damaging-effect\" data-pf2-label=\"Volcanic Eruption DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or fall prone and take [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} and [[/r {2d6}[fire]]]{2d6 fire damage}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The priest is standing on the ground.</p>\n<p><strong>Effect</strong> The priest slams his fists into the ground, causing fire to erupt from the earth. Each non-worshipper of Dahak standing on the ground in a @Template[type:emanation|distance:15] must succeed at a <span data-pf2-check=\"reflex\" data-pf2-traits=\"divine,evocation,fire,damaging-effect\" data-pf2-label=\"Volcanic Eruption DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Reflex</span> save or fall @Compendium[pf2e.conditionitems.Prone]{Prone} and take [[/r {1d6}[bludgeoning] + {2d6}[fire]]]{1d6 bludgeoning damage and 2d6 fire damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2104,7 +2460,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Volcanic Eruption",
-            "sort": 2300000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2139,7 +2495,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2400000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2174,7 +2530,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2500000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2209,7 +2565,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2600000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2244,7 +2600,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2700000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2279,7 +2635,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2800000,
+            "sort": 3000000,
             "type": "lore"
         }
     ],
