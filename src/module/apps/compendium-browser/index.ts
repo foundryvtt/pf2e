@@ -64,7 +64,7 @@ class PackLoader {
                     continue;
                 }
                 progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
-                if (pack.metadata.documentName === documentType) {
+                if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult = index.contents[0] ?? {};
                     // Every result should have the 'data' property otherwise the indexFields were wrong for that pack
