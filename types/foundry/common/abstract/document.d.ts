@@ -91,15 +91,12 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: DeepPartial<T["data"]["_source"]> | undefined,
+                    data: DocumentUpdateData<this> | undefined,
                     options: { save: true; keepId?: boolean }
                 ): Promise<T>;
+                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
                 clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
-                    options?: { save?: false; keepId?: boolean }
-                ): T;
-                clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
+                    data?: DocumentUpdateData<this>,
                     options?: { save?: boolean; keepId?: boolean }
                 ): T | Promise<T>;
 
@@ -589,8 +586,8 @@ declare global {
      * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
      * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
      */
-    interface DocumentModificationContext {
-        parent?: foundry.abstract.Document | null;
+    interface DocumentModificationContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
+        parent?: T["parent"];
         pack?: string;
         noHook?: boolean;
         index?: boolean;

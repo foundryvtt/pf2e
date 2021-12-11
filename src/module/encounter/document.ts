@@ -138,6 +138,7 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
 
         if (this.started) {
             Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
+            game.pf2e.effectTracker.onEncounterEnd(this);
         }
 
         // Disable the initiative button if this was the only encounter

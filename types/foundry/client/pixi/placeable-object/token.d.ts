@@ -134,18 +134,41 @@ declare global {
 
         /**
          * Update the light and vision source objects associated with this Token
-         * @param [defer]       Defer refreshing the SightLayer to manually call that refresh later.
-         * @param [deleted]     Indicate that this light source has been deleted.
-         * @param [noUpdateFog] Never update the Fog exploration progress for this update.
+         * @param [defer]         Defer refreshing the SightLayer to manually call that refresh later.
+         * @param [deleted]       Indicate that this light source has been deleted.
+         * @param [skipUpdateFog] Never update the Fog exploration progress for this update.
          */
         updateSource({
             defer,
             deleted,
-            noUpdateFog,
+            skipUpdateFog,
         }?: {
             defer?: boolean;
             deleted?: boolean;
-            noUpdateFog?: boolean;
+            skipUpdateFog?: boolean;
+        }): void;
+
+        /**
+         * Update an emitted light source associated with this Token.
+         * @param [defer]   Defer refreshing the LightingLayer to manually call that refresh later.
+         * @param [deleted] Indicate that this light source has been deleted.
+         */
+        updateLightSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
+
+        /**
+         * Update an Token vision source associated for this token.
+         * @param [defer]         Defer refreshing the LightingLayer to manually call that refresh later.
+         * @param [deleted]       Indicate that this vision source has been deleted.
+         * @param [skipUpdateFog] Never update the Fog exploration progress for this update.
+         */
+        updateVisionSource({
+            defer,
+            deleted,
+            skipUpdateFog,
+        }?: {
+            defer?: boolean;
+            deleted?: boolean;
+            skipUpdateFog?: boolean;
         }): void;
 
         /** Test whether this Token is a viable vision source for the current User */

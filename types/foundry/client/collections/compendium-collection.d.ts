@@ -43,7 +43,21 @@ declare global {
         /** Access the compendium configuration data for this pack */
         get config(): Record<string, unknown>;
 
-        override get documentName(): string;
+        override get documentName(): TDocument extends Actor
+            ? "Actor"
+            : TDocument extends Item
+            ? "Item"
+            : TDocument extends JournalEntry
+            ? "JournalEntry"
+            : TDocument extends Macro
+            ? "Macro"
+            : TDocument extends Playlist
+            ? "Playlist"
+            : TDocument extends RollTable
+            ? "RollTable"
+            : TDocument extends Scene
+            ? "Scene"
+            : CompendiumDocumentType;
 
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;
@@ -164,7 +178,7 @@ declare global {
     function fromUuid(uuid: string): Promise<ClientDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
-        readonly entity: T extends Actor
+        readonly type: T extends Actor
             ? "Actor"
             : T extends Item
             ? "Item"

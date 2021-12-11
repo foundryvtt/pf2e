@@ -22,6 +22,7 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -146,10 +147,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
     }
 
-    /** Ensure the presence of the pf2e flag scope */
+    /** Ensure the presence of the pf2e flag scope with default properties and values */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { rulesSelections: {} });
+        this.data.flags.pf2e.grantedBy ??= null;
+        this.data.flags.pf2e.itemGrants ??= [];
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
@@ -329,43 +333,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollSpellcastingEntryCheck(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        // Prepare roll data
-        const itemData: ItemDataPF2e = this.data;
-        if (itemData.type !== "spellcastingEntry") throw new Error("Wrong item type!");
-        if (!this.actor) throw new Error("Attempted a spellcasting check without an actor!");
-
-        const rollData = duplicate(this.actor.data.data);
-        const modifier = itemData.data.spelldc.value;
-        const parts = [modifier];
-        const title = `${this.name} - Spellcasting Check`;
-
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === "elite")) {
-            parts.push(2);
-        } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(-2);
-        }
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: rollData,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
      * Roll Counteract check
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
@@ -522,8 +489,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         data: { folder?: string } = {},
         options: Partial<FormApplicationOptions> = {}
     ): Promise<ItemPF2e | undefined> {
-        const original = game.system.entityTypes.Item;
-        game.system.entityTypes.Item = original.filter(
+        const original = game.system.documentTypes.Item;
+        game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !(
                     ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
@@ -531,16 +498,16 @@ class ItemPF2e extends Item<ActorPF2e> {
                 )
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
-        game.system.entityTypes.Item = original;
+        game.system.documentTypes.Item = original;
         return newItem;
     }
 
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const importData = JSON.parse(json);
-        const systemModel = deepClone(game.system.model.Item[importData.type]);
-        const data: ItemSourcePF2e = mergeObject({ data: systemModel }, importData);
-        this.data.update(game.items.prepareForImport(data), { recursive: false });
+        const source = this.collection.fromCompendium(JSON.parse(json));
+        source._id = this.id;
+        const data = new ItemPF2e.schema(source);
+        this.data.update(data.toObject(), { recursive: false });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
@@ -549,6 +516,45 @@ class ItemPF2e extends Item<ActorPF2e> {
         );
 
         return this.update(this.toObject(), { diff: false, recursive: false });
+    }
+
+    static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
+        this: T,
+        data: PreCreate<InstanceType<T>["data"]["_source"]>[] = [],
+        context: DocumentModificationContext<InstanceType<T>> = {}
+    ): Promise<InstanceType<T>[]> {
+        if (context.parent) {
+            for await (const itemSource of [...data]) {
+                if (!itemSource.data?.rules) continue;
+                const item = new ItemPF2e(itemSource, { parent: context.parent }) as Embedded<ItemPF2e>;
+                const rules = item.prepareRuleElements();
+                for await (const rule of rules) {
+                    const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
+                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
+                }
+            }
+        }
+
+        return super.createDocuments(data, context) as Promise<InstanceType<T>[]>;
+    }
+
+    static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
+        this: T,
+        ids: string[] = [],
+        context: DocumentModificationContext<InstanceType<T>> = {}
+    ): Promise<InstanceType<T>[]> {
+        ids = Array.from(new Set(ids));
+        const actor = context.parent;
+        if (actor) {
+            const items = ids.flatMap((id) => actor.items.get(id) ?? []);
+            for (const item of items) {
+                for await (const rule of item.rules) {
+                    await rule.preDelete?.({ pendingItems: items, context });
+                }
+            }
+            ids = Array.from(new Set(items.map((i) => i.id)));
+        }
+        return super.deleteDocuments(ids, context) as Promise<InstanceType<T>[]>;
     }
 
     /* -------------------------------------------- */
@@ -562,14 +568,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
 
-        if (this.actor) {
-            // Run pre-create operations on rule elements
-            const rules = RuleElements.fromOwnedItem(this as Embedded<this>);
-            for await (const rule of rules) {
-                const source = this.data._source.data.rules[rules.indexOf(rule)];
-                await rule.preCreate?.(source);
-            }
-        } else {
+        if (!this.actor) {
             // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
         }

@@ -1,41 +1,48 @@
 import { AmbientLightPF2e } from "./ambient-light";
-import type { BlurFilter } from "@pixi/filter-blur";
+import { TokenPF2e } from "./token";
 
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
-    /** A light-blending filter to apply to the coloration container */
-    blendFilter!: BlurFilter;
-
     /** Temporarilly disable the refreshLighting hook */
     noRefreshHooks = false;
 
-    /** Fix bug in 0.8 core method */
-    override hasGlobalIllumination(): boolean {
-        if (!canvas.scene) return false;
-        const { globalLight, globalLightThreshold } = canvas.scene.data;
-        return globalLight && (globalLightThreshold === null || this.darknessLevel < globalLightThreshold);
+    get lightingLevel(): number {
+        return 1 - this.darknessLevel;
     }
 
-    setPerceivedLightLevel({ defer = true } = {}): void {
-        if (!canvas.sight.rulesBasedVision) return;
+    setPerceivedLightLevel({ hasLowLightVision = false } = {}): void {
+        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
 
         const lightEmitters = [
-            ...canvas.tokens.placeables.filter((token) => token.visible && token.emitsLight),
+            ...canvas.tokens.placeables.filter((token) => token.visible && token.brightRadius && token.emitsLight),
             ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
         ];
-        for (const emitter of lightEmitters) emitter.updateSource({ defer: true });
-
-        if (!defer) {
-            canvas.perception.update({
-                lighting: { refresh: true },
-                sight: { initialize: true, refresh: true },
-            });
+        for (const emitter of lightEmitters) {
+            this.updateLight(emitter, hasLowLightVision);
         }
+        canvas.perception.schedule({
+            sight: { initialize: true, refresh: true, forceUpdateFog: true },
+            lighting: { refresh: true },
+            sounds: { refresh: true },
+            foreground: { refresh: true },
+        });
+    }
+
+    private updateLight(emitter: TokenPF2e | AmbientLightPF2e, hasLowLightVision: boolean): void {
+        const lightConfig = emitter instanceof TokenPF2e ? emitter.data.light : emitter.data.config;
+        const { bright, dim } = lightConfig;
+        if (hasLowLightVision) {
+            lightConfig.bright = Math.max(lightConfig.bright, lightConfig.dim);
+            lightConfig.dim = 0;
+        }
+        emitter.updateSource({ defer: false });
+        lightConfig.bright = bright;
+        lightConfig.dim = dim;
     }
 
     /** Set the perceived brightness of sourced lighting */
-    override refresh(darkness?: number | null, { noHooks = false } = {}): void {
+    override refresh(options: { darkness?: number | null; backgroundColor?: string; noHooks?: boolean } = {}): void {
         if (canvas.sight.hasLowLightVision) {
             for (const source of this.sources) {
                 if (source.isDarkness) continue;
@@ -46,23 +53,8 @@ export class LightingLayerPF2e<
         }
 
         // Since upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
-        this.noRefreshHooks = noHooks;
-        super.refresh(darkness);
+        this.noRefreshHooks = !!options.noHooks;
+        super.refresh(options);
         this.noRefreshHooks = false;
-
-        if (canvas.sight.rulesBasedVision) {
-            if (!this.blendFilter) {
-                this.blendFilter = new PIXI.filters.BlurFilter(canvas.blurDistance * 2);
-                this.blendFilter.blendMode = PIXI.BLEND_MODES.SCREEN;
-            }
-            for (const color of canvas.lighting.coloration?.children ?? []) {
-                color.filters ??= [this.blendFilter];
-            }
-        }
-    }
-
-    protected override _onDarknessChange(darkness: number, prior: number): void {
-        super._onDarknessChange(darkness, prior);
-        canvas.darkvision.refresh({ darkness });
     }
 }

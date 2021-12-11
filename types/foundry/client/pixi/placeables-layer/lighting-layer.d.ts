@@ -102,9 +102,11 @@ declare global {
         /**
          * Refresh the active display of the LightingLayer.
          * Update the scene background color, light sources, and darkness sources
-         * @param darkness
+         * @param [options]
+         * @param [options.darkness]        An override darkness level to which the layer should be temporarily rendered.
+         * @param [options.backgroundColor] An override canvas background color.
          */
-        refresh(darkness?: number | null): void;
+        refresh(options?: { darkness?: number | null; backgroundColor?: string }): void;
 
         override tearDown(): Promise<void>;
 

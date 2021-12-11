@@ -96,7 +96,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const newFolder = new PackFolderPF2e([], {
             id: folderID,
             name: folderName,
-            type: metadata.entity,
+            type: metadata.type,
             parent,
             expanded: game.user.getFlag("pf2e", flagKey),
         });

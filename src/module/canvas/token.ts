@@ -30,19 +30,19 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
-    override updateSource({ defer = false, deleted = false, noUpdateFog = false } = {}): void {
-        if (!canvas.sight.hasLowLightVision) {
-            return super.updateSource({ defer, deleted, noUpdateFog });
+    override updateSource({ defer = false, deleted = false, skipUpdateFog = false } = {}): void {
+        if (this.actor?.type === "npc" || !(canvas.sight.hasLowLightVision || canvas.sight.hasDarkvision)) {
+            return super.updateSource({ defer, deleted, skipUpdateFog });
         }
 
-        const original = { dim: this.data.dimLight, bright: this.data.brightLight };
-        this.data.brightLight = Math.max(this.data.dimLight, this.data.brightLight);
-        this.data.dimLight = 0;
+        const original = { dim: this.data.light.dim, bright: this.data.light.bright };
+        this.data.light.bright = Math.max(original.dim, original.bright);
+        this.data.light.dim = 0;
 
-        super.updateSource({ defer, deleted, noUpdateFog });
+        super.updateSource({ defer, deleted, skipUpdateFog });
 
-        this.data.dimLight = original.dim;
-        this.data.brightLight = original.bright;
+        this.data.light.bright = original.bright;
+        this.data.light.dim = original.dim;
     }
 
     /** Refresh this token's image and size (usually after an actor update or override) */
@@ -73,39 +73,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return icon;
     }
 
-    /** Prevent refresh before icon is set */
-    override refresh(): this {
-        if (this.icon?.transform) {
-            return super.refresh();
-        } else {
-            const visible = this.visible;
-            this.draw().then(() => {
-                this.visible = visible;
-                super.refresh();
-            });
-            return this;
-        }
-    }
-
+    /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
         const partyVisionEnabled =
             !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.partyVision");
         return partyVisionEnabled || super._isVisionSource();
-    }
-
-    /** Prevent premature redraw of resource bar */
-    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
-        if (bar.geometry) super._drawBar(number, bar, data);
-    }
-
-    /** Prevent premature redraw of border */
-    protected override _refreshBorder(): void {
-        if (this.border?.geometry) super._refreshBorder();
-    }
-
-    /** Prevent premature redraw of targeting reticle */
-    protected override _refreshTarget(): void {
-        if (this.target?.geometry) super._refreshTarget();
     }
 
     /** Include actor overrides in the clone if it is a preview */
@@ -120,26 +92,22 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
-    override async animateMovement(ray: Ray) {
-        await super.animateMovement(ray);
-        canvas.darkvision.refresh({ drawMask: true });
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /** Refresh vision and the `EffectPanel` */
-    protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
+    protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel({ defer: false });
         super._onControl(options);
+        canvas.lighting.setPerceivedLightLevel(this);
     }
 
     /** Refresh vision and the `EffectPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
-        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
+
+        canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
     }
 }

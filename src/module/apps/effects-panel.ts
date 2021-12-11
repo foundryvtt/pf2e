@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor/base";
 import { EffectData } from "@item/data";
 import { ConditionPF2e, EffectPF2e } from "@item";
 import { ConditionReference, FlattenedCondition } from "../system/conditions";
+import { EffectExpiryType } from "@item/effect/data";
 
 interface EffectsPanelData {
     conditions: FlattenedCondition[];
@@ -41,8 +42,15 @@ export class EffectsPanel extends Application {
             const duration = effect.totalDuration;
             const effectData = effect.clone({}, { keepId: true }).data;
             if (duration === Infinity) {
-                effectData.data.expired = false;
-                effectData.data.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+                const systemData = effectData.data;
+                if (systemData.duration.unit === "encounter") {
+                    effectData.data.remaining = effectData.data.expired
+                        ? game.i18n.localize("PF2E.EffectPanel.Expired")
+                        : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
+                } else {
+                    effectData.data.expired = false;
+                    effectData.data.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+                }
             } else {
                 const duration = effect.remainingDuration;
                 effectData.data.expired = duration.expired;
@@ -103,7 +111,7 @@ export class EffectsPanel extends Application {
     private static getRemainingDurationLabel(
         remaining: number,
         initiative: number,
-        expiry: "turn-start" | "turn-end"
+        expiry: EffectExpiryType | null
     ): string {
         if (remaining >= 63_072_000) {
             // two years

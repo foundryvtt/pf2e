@@ -221,16 +221,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
         });
 
-        // for spellcasting checks
-        html.find(".spellcasting.rollable").on("click", (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (item) {
-                item.rollSpellcastingEntryCheck(event);
-            }
-        });
-
         // Casting spells and consuming slots
         html.find(".cast-spell-button").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");

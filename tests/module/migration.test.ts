@@ -92,10 +92,10 @@ describe("test migration runner", () => {
         }
     }
 
-    class ChangeSizeMigration extends MigrationBase {
+    class ChangeAlignmentMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: ActorSourcePF2e) {
-            actor.data.traits.size.value = "sm";
+        async updateActor(actor: CharacterSource) {
+            actor.data.details.alignment.value = "CG";
         }
     }
 
@@ -160,9 +160,9 @@ describe("test migration runner", () => {
     test("expect update actor deep property", async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
 
-        const migrationRunner = new MigrationRunner([new ChangeSizeMigration()]);
+        const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.data.traits.size.value).toEqual("sm");
+        expect(game.actors.contents[0]._data.data.details.alignment.value).toEqual("CG");
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {

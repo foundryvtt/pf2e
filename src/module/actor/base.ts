@@ -155,10 +155,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        const flags: this["data"]["_source"]["flags"] = { pf2e: { rollOptions: { all: rollOptionsAll } } };
-        const overrideData: DeepPartial<this["data"]["_source"]> = { flags };
-
-        return this.clone(overrideData);
+        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
     }
 
     /**
@@ -168,9 +165,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     static override async createDocuments<A extends ConstructorOf<ActorPF2e>>(
         this: A,
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
-        context: DocumentModificationContext = {}
+        context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
         for (const datum of data) {
+            // Temporary workaround for bug in V9.235
+            if (!context.parent && !context.keepId) {
+                delete datum._id;
+                context.keepId = true;
+            }
+
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
@@ -246,8 +249,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
-    override prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e
         );
@@ -1000,10 +1003,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const importData = JSON.parse(json);
-        const systemModel = deepClone(game.system.model.Actor[importData.type]);
-        const data: ActorSourcePF2e = mergeObject({ data: systemModel }, importData);
-        this.data.update(game.actors.prepareForImport(data), { recursive: false });
+        const source = this.collection.fromCompendium(JSON.parse(json));
+        source._id = this.id;
+        const data = new ActorPF2e.schema(source);
+        this.data.update(data.toObject(), { recursive: false });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
