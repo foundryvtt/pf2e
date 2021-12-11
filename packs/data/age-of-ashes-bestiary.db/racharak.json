@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -62,7 +63,7 @@
             "alignment": {
                 "value": "CE"
             },
-            "blurb": "",
+            "blurb": "Female charau-ka guardian",
             "creatureType": "Humanoid",
             "level": {
                 "value": 8
@@ -304,7 +305,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly d6",
+                        "deadly-d6",
                         "thrown-20"
                     ]
                 },
@@ -318,6 +319,102 @@
             "name": "Thrown Rock",
             "sort": 400000,
             "type": "melee"
+        },
+        {
+            "_id": "2nAk1Aknjdxt219t",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "O4Vu0lAef9YMzn23",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 600000,
+            "type": "action"
         },
         {
             "_id": "UDRLkUU6I38waiLi",
@@ -337,7 +434,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.tailSwipe"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "tailSwipe"
+                            ]
+                        },
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -360,7 +472,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Tail Swipe",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -376,7 +488,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Racharak breathes flames that deals [[/r {9d6}[fire]]]{9d6 fire damage} to all creatures in a 30-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"divine,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). She can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}</p>"
+                    "value": "<p>Racharak breathes flames that deals [[/r {9d6}[fire]]]{9d6 fire damage} to all creatures in a @Template[type:cone|distance:30] (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"divine,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). She can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -408,7 +520,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -452,7 +564,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -468,7 +580,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The charau-ka's turn begins. <strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> The charau-ka is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of its turn, and can use the extra action to Stride or Strike. While in the frenzy, the charau-ka can't speak and automatically critically fails Stealth checks, due to its loud wailing.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> Racharak's turn begins.</p>\n<p><strong>Frequency</strong> once per hour</p>\n</div>\n<p><strong>Effect</strong> Racharak is @Compendium[pf2e.conditionitems.Quickened]{Quickened} until the end of her turn, and can use the extra action to Stride or Strike. While in the frenzy, Racharak can't speak and automatically critically fails Stealth checks, due to her loud wailing.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -499,7 +611,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Shrieking Frenzy",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -515,7 +627,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a charau-ka throws a weapon, the weapon gains the deadly d6 weapon trait. When it throws an improvised weapon, it doesn't take the -2 penalty for using an improvised weapon, nor does it take the penalty for using that weapon to make a lethal attack instead of a nonlethal attack.</p>"
+                    "value": "<p>When Racharak throws a weapon, the weapon gains the deadly d6 weapon trait. When she throws an improvised weapon, she doesn't take the -2 penalty for using an improvised weapon, nor does she take the penalty for using that weapon to make a lethal attack instead of a nonlethal attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -545,7 +657,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Thrown Weapon Mastery",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -580,7 +692,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -615,7 +727,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -650,7 +762,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -685,7 +797,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -720,7 +832,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -755,7 +867,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -790,7 +902,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         }
     ],
