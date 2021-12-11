@@ -333,43 +333,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollSpellcastingEntryCheck(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        // Prepare roll data
-        const itemData: ItemDataPF2e = this.data;
-        if (itemData.type !== "spellcastingEntry") throw new Error("Wrong item type!");
-        if (!this.actor) throw new Error("Attempted a spellcasting check without an actor!");
-
-        const rollData = duplicate(this.actor.data.data);
-        const modifier = itemData.data.spelldc.value;
-        const parts = [modifier];
-        const title = `${this.name} - Spellcasting Check`;
-
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === "elite")) {
-            parts.push(2);
-        } else if (traits.some((trait) => trait === "weak")) {
-            parts.push(-2);
-        }
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: rollData,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
      * Roll Counteract check
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
