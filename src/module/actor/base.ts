@@ -167,12 +167,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
+        // Workaround for insane V9 change
+        const keepItemIds = !context.parent && !context.keepId;
+        if (keepItemIds) context.keepId = true;
+
         for (const datum of data) {
-            // Temporary workaround for bug in V9.235
-            if (!context.parent && !context.keepId) {
-                delete datum._id;
-                context.keepId = true;
-            }
+            if (keepItemIds) delete datum._id;
 
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
