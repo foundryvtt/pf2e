@@ -41,6 +41,7 @@ declare module foundry {
             fogReset: string;
             globalLight: boolean;
             globalLightThreshold: number;
+            hasGlobalThreshold: boolean;
             darkness: number;
 
             // Embedded Collections
