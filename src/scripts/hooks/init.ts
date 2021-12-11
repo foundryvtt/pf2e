@@ -50,11 +50,11 @@ export const Init = {
             CONFIG.Combatant.documentClass = CombatantPF2e;
             CONFIG.FogExploration.documentClass = FogExplorationPF2e;
             CONFIG.Folder.documentClass = FolderPF2e;
-            CONFIG.JournalEntry.sheetClass = JournalSheetPF2e;
+            DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, { makeDefault: true });
             CONFIG.Macro.documentClass = MacroPF2e;
 
             CONFIG.Scene.documentClass = ScenePF2e;
-            CONFIG.Scene.sheetClass = SceneConfigPF2e;
+            DocumentSheetConfig.registerSheet(Scene, "pf2e", SceneConfigPF2e, { makeDefault: true });
 
             CONFIG.User.documentClass = UserPF2e;
 
@@ -69,7 +69,7 @@ export const Init = {
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
-            CONFIG.Token.sheetClass = TokenConfigPF2e;
+            DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
