@@ -63,7 +63,7 @@ export interface ItemLevelData {
 
 export interface ItemSystemData {
     description: {
-        value: string;
+        value: string | null;
     };
     source: {
         value: string;

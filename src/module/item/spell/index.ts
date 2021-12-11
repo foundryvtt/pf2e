@@ -221,7 +221,10 @@ export class SpellPF2e extends ItemPF2e {
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
-        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
+        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value ?? "", {
+            ...htmlOptions,
+            rollData,
+        });
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
