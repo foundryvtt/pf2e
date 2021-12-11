@@ -4,7 +4,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -22,6 +22,7 @@ import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -1003,9 +1004,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const source = this.collection.fromCompendium(JSON.parse(json));
-        source._id = this.id;
-        const data = new ActorPF2e.schema(source);
+        const source: unknown = JSON.parse(json);
+        if (!this.canImportJSON(source)) return this;
+
+        const processed = this.collection.fromCompendium(source, { addFlags: false });
+        processed._id = this.id;
+        const data = new ActorPF2e.schema(processed);
         this.data.update(data.toObject(), { recursive: false });
 
         await MigrationRunner.ensureSchemaVersion(
@@ -1014,7 +1018,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             { preCreate: false }
         );
 
-        return this.update(this.toObject(), { diff: false, recursive: false });
+        return this.update(this.toObject(), { diff: false, recursive: false, keepId: true });
+    }
+
+    /** Determine whether a requested JSON import can be performed */
+    canImportJSON(source: unknown): source is ActorSourcePF2e {
+        // The import came from
+        if (!(isObject<ActorSourcePF2e>(source) && isObject(source.data))) return false;
+
+        const sourceSchemaVersion = source.data?.schema?.version ?? null;
+        const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
+        if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
+            // Refuse to import if the schema version on the document is higher than the system schema verson;
+            ui.notifications.error(
+                game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
+                    sourceName: game.i18n.localize("DOCUMENT.Actor"),
+                    sourceSchemaVersion,
+                    worldSchemaVersion,
+                })
+            );
+            return false;
+        }
+
+        return true;
     }
 
     /* -------------------------------------------- */
