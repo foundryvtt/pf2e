@@ -21,11 +21,16 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
 
-        // Hide names in the tracker of combatants with tokens that have unviewable nameplates
-        if (game.settings.get("pf2e", "metagame.tokenSetsNameVisibility")) {
-            for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
-                const combatantId = row.dataset.combatantId ?? "";
-                const combatant = encounter.combatants.get(combatantId, { strict: true });
+        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+        for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+            const combatantId = row.dataset.combatantId ?? "";
+            const combatant = encounter.combatants.get(combatantId, { strict: true });
+
+            // Set each combatant's initiative as a data attribute for use in drag/drop feature
+            row.setAttribute("data-initiative", String(combatant.initiative));
+
+            // Hide names in the tracker of combatants with tokens that have unviewable nameplates
+            if (tokenSetsNameVisibility) {
                 const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
                 if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) nameElement.innerText = "";
 
@@ -57,7 +62,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 ghostClass: "drag-gap",
                 onUpdate: (event) => this.onDropCombatant(event),
-                onEnd: () => this.saveNewOrder(),
+                onEnd: (event) => this.adjustFinalOrder(event),
             });
         }
 
@@ -154,10 +159,33 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     }
 
     /** Save the new order, or reset the viewed order if no change was made */
-    private async saveNewOrder(newOrder = this.getCombatantsFromDOM()): Promise<void> {
+    private async saveNewOrder(newOrder: RolledCombatant[]): Promise<void> {
         await this.viewed?.setMultipleInitiatives(
             newOrder.map((c) => ({ id: c.id, value: c.initiative, overridePriority: c.overridePriority(c.initiative) }))
         );
+    }
+
+    /** Adjust the final order of combatants if necessary, keeping unrolled combatants at the bottom */
+    private adjustFinalOrder(event: SortableEvent): void {
+        const row = event.item;
+        const tracker = this.element[0].querySelector<HTMLOListElement>("#combat-tracker");
+        if (!tracker) throw ErrorPF2e("Unexpected failure to retriever tracker DOM element");
+        const rows = Array.from(tracker.querySelectorAll<HTMLElement>("li.combatant"));
+
+        const [oldIndex, newIndex] = [event.oldIndex ?? 0, event.newIndex ?? 0];
+        const firstRowWithNoRoll = rows.find((row) => Number.isNaN(Number(row.dataset.initiative)));
+
+        if (Number.isNaN(Number(row.dataset.initiative))) {
+            // Undo drag/drop of unrolled combatant
+            if (newIndex > oldIndex) {
+                tracker.insertBefore(row, rows[oldIndex]);
+            } else {
+                tracker.insertBefore(row, rows[oldIndex + 1]);
+            }
+        } else if (firstRowWithNoRoll && rows.indexOf(firstRowWithNoRoll) < newIndex) {
+            // Always place a rolled combatant before all other unrolled combatants
+            tracker.insertBefore(row, firstRowWithNoRoll);
+        }
     }
 
     private validateDrop(event: SortableEvent): void {
