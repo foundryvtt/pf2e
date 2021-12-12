@@ -440,9 +440,9 @@ declare global {
                  * @param options Additional options which modify the update request
                  * @param user    The User requesting the document update
                  */
-                protected _preUpdate<T extends Document>(
-                    data: DocumentUpdateData<T>,
-                    options: DocumentModificationContext,
+                protected _preUpdate(
+                    changed: DeepPartial<this["data"]["_source"]>,
+                    options: DocumentModificationContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
 

@@ -155,8 +155,8 @@ declare global {
         getHTML(): Promise<JQuery>;
 
         protected override _preUpdate(
-            data: Partial<foundry.data.ChatMessageSource>,
-            options: DocumentModificationContext,
+            changed: DeepPartial<foundry.data.ChatMessageSource>,
+            options: DocumentModificationContext<this>,
             user: User
         ): Promise<void>;
 

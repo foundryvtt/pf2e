@@ -82,7 +82,7 @@ export class EffectPF2e extends ItemPF2e {
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         if (this.isOwned && user.id === game.userId) {
@@ -98,11 +98,11 @@ export class EffectPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const duration = data.data?.duration;
+        const duration = changed.data?.duration;
         if (duration?.unit === "unlimited") {
             duration.expiry = null;
         } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
@@ -110,7 +110,7 @@ export class EffectPF2e extends ItemPF2e {
             if (duration.value === -1) duration.value = 1;
         }
 
-        return super._preUpdate(data, options, user);
+        return super._preUpdate(changed, options, user);
     }
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {

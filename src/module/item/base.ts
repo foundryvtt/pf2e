@@ -563,7 +563,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -575,7 +575,11 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Call onDelete rule-element hooks, refresh effects panel */
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(
+        data: ItemSourcePF2e,
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
