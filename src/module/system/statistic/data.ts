@@ -13,17 +13,21 @@ export interface StatisticRollParameters extends RollParameters {
 }
 
 export interface StatisticCheckData {
+    type: CheckType;
     adjustments?: DegreeOfSuccessAdjustment[];
     label?: string;
     modifiers?: ModifierPF2e[];
     penalties?: MultipleAttackPenaltyPF2e[];
-    type: CheckType;
+    /** Additional domains for fetching actor roll options */
+    domains?: string[];
 }
 
 export interface StatisticDifficultyClassData {
     base?: number;
     labelKey?: string;
     modifiers?: ModifierPF2e[];
+    /** Additional domains for fetching actor roll options */
+    domains?: string[];
 }
 
 /**
@@ -37,6 +41,8 @@ export interface BaseStatisticData {
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];
     notes?: RollNotePF2e[];
+    /** Base domains for fetching actor roll options */
+    domains?: string[];
 }
 
 export type StatisticDataWithCheck = BaseStatisticData & { check: StatisticCheckData };
