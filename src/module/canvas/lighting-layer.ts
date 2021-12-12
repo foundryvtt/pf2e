@@ -15,13 +15,13 @@ export class LightingLayerPF2e<
         if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
 
         const lightEmitters = [
-            ...canvas.tokens.placeables.filter((token) => token.visible && token.brightRadius && token.emitsLight),
+            ...canvas.tokens.placeables.filter((token) => token.emitsLight && !token.light.isDarkness),
             ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
         ];
         for (const emitter of lightEmitters) {
-            this.updateLight(emitter, hasLowLightVision);
+            this.adjustLightRadii(emitter, hasLowLightVision);
         }
-        canvas.perception.schedule({
+        canvas.perception.update({
             sight: { initialize: true, refresh: true, forceUpdateFog: true },
             lighting: { refresh: true },
             sounds: { refresh: true },
@@ -29,30 +29,30 @@ export class LightingLayerPF2e<
         });
     }
 
-    private updateLight(emitter: TokenPF2e | AmbientLightPF2e, hasLowLightVision: boolean): void {
+    private adjustLightRadii(emitter: TokenPF2e | AmbientLightPF2e, hasLowLightVision: boolean): void {
         const lightConfig = emitter instanceof TokenPF2e ? emitter.data.light : emitter.data.config;
         const { bright, dim } = lightConfig;
         if (hasLowLightVision) {
             lightConfig.bright = Math.max(lightConfig.bright, lightConfig.dim);
             lightConfig.dim = 0;
+            if ("brightLight" in emitter.data) {
+                emitter.data.brightLight = lightConfig.bright;
+                emitter.data.dimLight = lightConfig.dim;
+            }
         }
-        emitter.updateSource({ defer: false });
+        if (emitter instanceof TokenPF2e) {
+            emitter.updateLightSource({ defer: true });
+            emitter.data.brightLight = bright;
+            emitter.data.dimLight = dim;
+        } else {
+            emitter.updateSource({ defer: true });
+        }
         lightConfig.bright = bright;
         lightConfig.dim = dim;
     }
 
-    /** Set the perceived brightness of sourced lighting */
+    // Add a refresh option toSince upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
     override refresh(options: { darkness?: number | null; backgroundColor?: string; noHooks?: boolean } = {}): void {
-        if (canvas.sight.hasLowLightVision) {
-            for (const source of this.sources) {
-                if (source.isDarkness) continue;
-                source.bright = Math.max(source.dim, source.bright);
-                source.dim = 0;
-                source.ratio = 1;
-            }
-        }
-
-        // Since upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
         this.noRefreshHooks = !!options.noHooks;
         super.refresh(options);
         this.noRefreshHooks = false;
