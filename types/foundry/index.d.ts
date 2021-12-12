@@ -76,7 +76,7 @@ import "./client/core/searchfilter";
 import "./client/core/settings";
 import "./client/core/socket";
 import "./client/core/sorting";
-import "./client/core/texteditor";
+import "./client/core/text-editor";
 import "./client/core/video";
 import "./client/documents";
 import "./client/game";
