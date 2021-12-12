@@ -183,7 +183,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             name: this.name,
             img: this.img,
             data: {
-                description: { value: this.description },
+                description: { value: this.description ?? "" },
             },
         };
 
@@ -233,7 +233,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             img,
             data: {
                 description: {
-                    value: description,
+                    value: description ?? "",
                 },
             },
         };

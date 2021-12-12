@@ -849,14 +849,14 @@ export class NPCPF2e extends CreaturePF2e {
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
-                note.text = formatNoteText(formatItemName(item), item.description);
+                note.text = formatNoteText(formatItemName(item), item.description ?? "");
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ "data.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    note.text = formatNoteText(formatItemName(packItem), packItem.description);
+                    note.text = formatNoteText(formatItemName(packItem), packItem.description ?? "");
                     notes.push(note);
                 }
             }

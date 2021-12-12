@@ -73,7 +73,7 @@ export class CraftingFormula implements CraftingFormulaData {
     }
 
     get description(): string {
-        return this.item.description;
+        return this.item.description ?? "";
     }
 }
 

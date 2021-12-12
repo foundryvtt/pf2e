@@ -488,7 +488,7 @@ export class ConditionManager {
                 active: condition.isActive,
                 name,
                 value: condition.value,
-                description: condition.description,
+                description: condition.description ?? "",
                 img: condition.img,
                 references: false,
                 locked: false,

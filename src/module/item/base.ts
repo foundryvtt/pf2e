@@ -65,7 +65,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     get description(): string {
-        return this.data.data.description.value;
+        return this.data.data.description.value ?? "";
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -175,7 +175,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
+            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value ?? "", {
                 ...htmlOptions,
                 rollData: htmlOptions.rollData ?? this.getRollData(),
             });
