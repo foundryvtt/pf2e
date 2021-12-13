@@ -1,7 +1,6 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { PredicatePF2e } from "@system/predication";
 import { BaseStatisticData, CheckType, StatisticChatData, StatisticData, StatisticRollParameters } from "./data";
 import { ItemPF2e } from "@item";
 
@@ -50,6 +49,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             return undefined as CheckValue<T>;
         }
 
+        const domains = (data.domains ?? []).concat(check.domains ?? []);
         const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
         const stat = new StatisticModifier(data.name, modifiers);
         const name = game.i18n.localize(check.label ?? data.name);
@@ -72,15 +72,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             },
             roll: (args: StatisticRollParameters = {}) => {
                 const actor = this.actor;
+                const item = args.item ?? null;
 
                 // This is required to determine the AC for attack dialogs
                 const rollContext = (() => {
                     const isCreature = actor instanceof CreaturePF2e;
                     if (isCreature && ["attack-roll", "spell-attack-roll"].includes(check.type)) {
-                        const domains = [];
-                        if (check.type === "spell-attack-roll") {
-                            domains.push("spell-attack-roll");
-                        }
                         return actor.createAttackRollContext({ domains });
                     }
 
@@ -93,14 +90,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 }
 
                 const extraModifiers = [...(args?.modifiers ?? [])];
+                const options = this.actor.getRollOptions(domains).concat(args.options ?? []);
 
                 // Include multiple attack penalty to extra modifiers if given
                 if (args.attackNumber && args.attackNumber > 1) {
-                    const item = args.item;
                     if (!item) {
                         console.warn("Missing item argument while calculating MAP during check");
                     } else {
-                        const map = checkObject.calculateMap({ item, options: args.options });
+                        const map = checkObject.calculateMap({ item, options });
                         const mapValue = Math.min(3, args.attackNumber);
                         const penalty = (mapValue - 1) * map.penalty;
                         extraModifiers.push(new ModifierPF2e(map.label, penalty, "untyped"));
@@ -111,19 +108,18 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     actor,
                     dc: args.dc ?? rollContext?.dc,
                     notes: data.notes,
-                    options: args.options,
-                    item: args.item ?? null,
+                    options,
+                    item,
                     type: check.type,
                 };
                 CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, args.event, args.callback);
             },
-            withOptions: (options?: { options?: string[] }) => {
+            withOptions: (options: { options?: string[] } = {}) => {
                 const check = new CheckModifier(name, stat);
 
                 // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-                check.modifiers.forEach((modifier) => {
-                    modifier.ignored = !PredicatePF2e.test(modifier.predicate, options?.options ?? []);
-                });
+                const rollOptions = this.actor.getRollOptions(domains).concat(options.options ?? []);
+                check.modifiers.forEach((modifier) => modifier.test(rollOptions));
                 check.applyStackingRules();
 
                 return {
@@ -149,18 +145,19 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
     dc(options?: { options?: string[] }): T["dc"] extends object ? StatisticDifficultyClass : undefined;
 
-    dc(options?: { options?: string[] }): StatisticDifficultyClass | undefined {
+    dc(options: { options?: string[] } = {}): StatisticDifficultyClass | undefined {
         const data = this.data;
         if (!data.dc) {
             return undefined;
         }
 
-        const modifiers = (data.modifiers ?? []).concat(data.dc.modifiers ?? []).map((modifier) => duplicate(modifier));
+        const domains = (data.domains ?? []).concat(data.dc.domains ?? []);
+        const rollOptions = this.actor.getRollOptions(domains).concat(options.options ?? []);
 
         // toggle modifiers based on the specified options
-        modifiers.forEach((modifier) => {
-            modifier.ignored = !PredicatePF2e.test(modifier.predicate, options?.options ?? []);
-        });
+        const modifiers = (data.modifiers ?? [])
+            .concat(data.dc.modifiers ?? [])
+            .map((modifier) => modifier.clone({ test: rollOptions }));
 
         return {
             labelKey: data.dc.labelKey ?? `PF2E.CreatureStatisticDC.${data.name}`,
