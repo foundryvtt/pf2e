@@ -130,10 +130,7 @@
                 "custom": "",
                 "value": [
                     "mummy",
-                    "undead",
-                    "male",
-                    "mummy",
-                    "ritualist"
+                    "undead"
                 ]
             }
         }
@@ -3508,7 +3505,6 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "mce_13": "",
             "name": "Fist",
             "sort": 2800000,
             "type": "melee"
@@ -3639,7 +3635,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. Living creatures are frightened 1 while in Chafkhem's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave it. When a creature first enters the area, it must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"aura,divine,emotion,enchantment,fear,incapacitation,mental\" data-pf2-label=\"Despair DC\" data-pf2-show-dc=\"gm\">Will</span> save (after taking the penalty from being frightened) or be paralyzed for 1 round. The creature is then temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Living creatures are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} while in Chafkhem's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave it. When a creature first enters the area, it must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"aura,divine,emotion,enchantment,fear,incapacitation,mental\" data-pf2-label=\"Despair DC\" data-pf2-show-dc=\"gm\">Will</span> save (after taking the penalty from being frightened) or be @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p>The creature is then temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3673,7 +3669,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Despair",
             "sort": 3100000,
             "type": "action"
@@ -3691,7 +3687,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Chafkhem is destroyed, necromantic energies rebuild his body in the magic circle in his room over [[/br 1d10 #days]]{1d10 days}. If the re-forming body is destroyed during that time, the process starts anew. Chafkhem can be destroyed for good with a consecrate ritual, or if the magic circle is destroyed.</p>"
+                    "value": "<p>When Chafkhem is destroyed, necromantic energies rebuild his body in the magic circle in his room over [[/br 1d10 #days]]{1d10 days}. If the re-forming body is destroyed during that time, the process starts anew. Chafkhem can be destroyed for good with a <em>@Compendium[pf2e.spells-srd.Consecrate]{Consecrate}</em> ritual, or if the magic circle is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3738,7 +3734,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature Chafkhem can see makes a melee Strike against Chafkhem;</p>\n<p><strong>Effect</strong> Chafkhem traces a magical glyph in the air that glows and fades. The triggering creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"abjuration,arcane,manipulation\" data-pf2-label=\"Warding Script DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is blinded until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 1 minute.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature Chafkhem can see makes a melee Strike against Chafkhem</p>\n<p><strong>Effect</strong> Chafkhem traces a magical glyph in the air that glows and fades. The triggering creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"abjuration,arcane,manipulation\" data-pf2-label=\"Warding Script DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 1 minute.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -3846,7 +3842,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-level resurrect ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"curse,disease,divine,necromancy,negative\" data-pf2-label=\"Mummy Rot DC\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute);</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[negative]]]{6d6 negative damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day)</p>\n</div>"
+                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-level <em>@Compendium[pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"curse,disease,divine,necromancy,negative\" data-pf2-label=\"Mummy Rot DC\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[negative]]]{6d6 negative damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
