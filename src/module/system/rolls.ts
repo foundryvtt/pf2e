@@ -14,7 +14,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
-import { ChatMessageDataPF2e } from "@module/chat-message/data";
+import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "@module/chat-message/data";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -328,10 +328,23 @@ export class CheckPF2e {
                 rollMode: ctx.rollMode ?? "roll",
                 create: ctx.createMessage === undefined ? true : ctx.createMessage,
             }
-        )) as ChatMessagePF2e | ChatMessageDataPF2e;
+        )) as ChatMessagePF2e | ChatMessageSourcePF2e;
 
         if (callback) {
-            await callback(roll, ctx.outcome, message);
+            // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData instance in v9
+            const isChatMessageSource = (
+                message: ChatMessagePF2e | ChatMessageSourcePF2e
+            ): message is ChatMessageSourcePF2e => {
+                return (message as ChatMessagePF2e).id === undefined;
+            };
+
+            if (isChatMessageSource(message)) {
+                const cls = CONFIG.ChatMessage.documentClass;
+                const msg = new cls(message).data;
+                await callback(roll, ctx.outcome, msg);
+            } else {
+                await callback(roll, ctx.outcome, message);
+            }
         }
 
         return roll;
