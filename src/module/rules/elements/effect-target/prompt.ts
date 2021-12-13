@@ -45,7 +45,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
     }
 
     protected getSelection(event: JQuery.ClickEvent): PromptChoice<Embedded<ItemPF2e>> | null {
-        const itemId = $(event.currentTarget).attr("data-choice");
+        const itemId = event.currentTarget.value;
         return this.choices.find((choice) => choice.value.id === itemId) ?? null;
     }
 }
