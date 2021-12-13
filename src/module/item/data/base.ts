@@ -16,7 +16,6 @@ export interface BaseItemSourcePF2e<
     data: TSystemData;
     flags: DeepPartial<ItemFlagsPF2e>;
 }
-
 export abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extends foundry.data.ItemData<
     TItem,
     ActiveEffectPF2e

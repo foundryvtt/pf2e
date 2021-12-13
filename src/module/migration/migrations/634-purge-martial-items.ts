@@ -1,6 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { WeaponSource } from "@item/data";
-import { MartialSource } from "@item/deprecated";
 import { WeaponCategory, WeaponSystemSource } from "@item/weapon/data";
 import { MigrationBase } from "../base";
 
@@ -8,9 +7,7 @@ export class Migration634PurgeMartialItems extends MigrationBase {
     static override version = 0.634;
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
-        const martialItems = actorData.items.filter(
-            (itemData): itemData is MartialSource => itemData.type === "martial"
-        );
+        const martialItems = actorData.items.filter((itemData: { type: string }) => itemData.type === "martial");
         const martialIds = martialItems.map((itemData) => itemData._id);
         const martialItemWeapons = actorData.items.filter(
             (itemData): itemData is WeaponSource & { data: MaybeOldWeaponSource } => {
@@ -24,7 +21,7 @@ export class Migration634PurgeMartialItems extends MigrationBase {
             weaponData.data.category = "simple";
         }
 
-        actorData.items = actorData.items.filter((itemData) => itemData.type !== "martial");
+        actorData.items = actorData.items.filter((itemData: { type: string }) => itemData.type !== "martial");
     }
 }
 

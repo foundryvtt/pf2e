@@ -344,7 +344,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
                 : this.toObject();
-        if (itemData.type !== "spell") throw new Error("Wrong item type!");
+        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
         const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
         if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
@@ -411,7 +411,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
                 : this.toObject();
-        if (itemData.type !== "spell") throw new Error("Wrong item type!");
+        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
         const templateConversion: Record<string, string> = {
             burst: "circle",
@@ -493,7 +493,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !(
-                    ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
+                    ["condition", "spellcastingEntry"].includes(itemType) ||
                     (["book", "deity"].includes(itemType) && BUILD_MODE === "production")
                 )
         );
