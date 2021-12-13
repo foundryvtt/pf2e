@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor/base";
-import ChatMessageData = foundry.data.ChatMessageData;
 import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from "@module/modifiers";
@@ -56,7 +55,7 @@ export interface SkillActionOptions extends ActionDefaultOptions {
 
 export interface CheckResultCallback {
     actor: ActorPF2e;
-    message?: ChatMessage | ChatMessageData;
+    message?: ChatMessage;
     outcome?: typeof DegreeOfSuccessText[number];
     roll: Rolled<Roll>;
 }
