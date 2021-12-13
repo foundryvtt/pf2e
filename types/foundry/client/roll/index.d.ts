@@ -164,7 +164,25 @@ declare global {
          * Alias for evaluate.
          * @see {Roll#evaluate}
          */
-        roll(options?: Record<string, unknown>): Rolled<this>;
+        roll({ minimize, maximize, async }?: { minimize?: boolean; maximize?: boolean; async?: false }): Rolled<this>;
+        roll({
+            minimize,
+            maximize,
+            async,
+        }: {
+            minimize?: boolean;
+            maximize?: boolean;
+            async: true;
+        }): Promise<Rolled<this>>;
+        roll({
+            minimize,
+            maximize,
+            async,
+        }?: {
+            minimize?: boolean;
+            maximize?: boolean;
+            async?: boolean;
+        }): Rolled<this> | Promise<Rolled<this>>;
 
         /**
          * Create a new Roll object using the original provided formula and data.
