@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -376,13 +377,13 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "lion tamer's outfit",
+            "name": "Lion Tamer's Outfit",
             "sort": 200000,
             "type": "equipment"
         },
@@ -476,13 +477,13 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "short stool",
+            "name": "Short Stool",
             "sort": 300000,
             "type": "equipment"
         },
@@ -505,7 +506,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(disarm, finesse, nonlethal, reach, trip)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -555,7 +556,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(disarm)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -595,7 +596,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Danika targets a single minion creature within reach of her whip to spur its ferocity. That creature gains 5 temporary Hit Points. The target is temporarily immune to Sting of the Lash for 24 hours.</p>"
+                    "value": "<p>Danika targets a single minion creature within reach of her whip to spur its ferocity. That creature gains 5 temporary Hit Points. The target is temporarily immune to Sting of the Lash for 24 hours.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sting of the Lash]{Effect: Sting of the Lash}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -627,13 +628,10 @@
             "type": "action"
         },
         {
-            "_id": "wxrQNmFQn3CIuEFT",
+            "_id": "ZXW62ilDNKxEYwX1",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 6
@@ -641,7 +639,18 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -652,12 +661,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 to Disarm",
+                        "options": "action:disarm"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+7 to Disarm)",
+            "name": "Athletics",
             "sort": 700000,
             "type": "lore"
         },

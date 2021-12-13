@@ -27,7 +27,7 @@
                 "value": 20
             },
             "allSaves": {
-                "value": "+2 circumstance to Fortitude and Reflex vs. Shove or Trip"
+                "value": "+2  circumstance  to  Fortitude and Reflex vs. Shove or Trip"
             },
             "hp": {
                 "details": "",
@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -339,6 +340,54 @@
             "type": "melee"
         },
         {
+            "_id": "1x1JjlN10VDIIVb3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "q4Nwd5vpZrD2cK4B",
             "data": {
                 "actionCategory": {
@@ -351,12 +400,28 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"press\" data-pf2-label=\"Haymaker DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is stunned 1.</p>\n<p><strong>Failure</strong> The target is stunned 3.</p>\n<p><strong>Critical Failure</strong> The target is knocked prone and stunned 5.</p>"
+                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"press\" data-pf2-label=\"Haymaker DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to resist the staggering force of the blow.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is stunned 3.</p>\n<p><strong>Critical Failure</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and stunned 5.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.haymaker"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "haymaker"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -381,7 +446,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Haymaker",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "o5oVycGSBlCtwNU9",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2  Circumstance  to  Fortitude and Reflex vs. Shove or Trip",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -416,7 +522,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Abberton Lore",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -451,7 +557,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -486,7 +592,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -521,7 +627,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {

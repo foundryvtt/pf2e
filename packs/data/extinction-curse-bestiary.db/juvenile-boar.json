@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -102,20 +103,9 @@
             "rarity": {
                 "value": "common"
             },
-            "senses": [
-                {
-                    "exceptions": "",
-                    "label": "Low-Light Vision",
-                    "type": "lowLightVision",
-                    "value": ""
-                },
-                {
-                    "exceptions": "",
-                    "label": "Scent",
-                    "type": "scent",
-                    "value": "(imprecise) 30 feet"
-                }
-            ],
+            "senses": {
+                "value": "low-light vision, scent (imprecise) 30 feet"
+            },
             "size": {
                 "value": "sm"
             },
@@ -176,6 +166,102 @@
             "type": "melee"
         },
         {
+            "_id": "5pSRrtmYXSwMkm8e",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "kXtQUn28pNXI8ZAF",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "SCKlnkL7dnu4xdwW",
             "data": {
                 "actionCategory": {
@@ -188,7 +274,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its wounded value increases by 1. When it is wounded 3, it can no longer use this ability.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -216,7 +302,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ferocity",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -237,7 +323,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.boar-charge"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "boar-charge"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -260,7 +362,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Boar Charge",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -295,7 +397,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -330,7 +432,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
