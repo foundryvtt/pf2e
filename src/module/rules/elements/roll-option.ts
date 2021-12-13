@@ -17,7 +17,7 @@ class RollOptionRuleElement extends AELikeRuleElement {
     }
 
     private validate(data: RollOptionConstructionData, key: "domain" | "option") {
-        const paramValue = data[key];
+        const paramValue = this.resolveInjectedProperties(String(data[key]));
         if (!(typeof paramValue === "string" && /^[-:a-z0-9]+$/.test(paramValue) && /[a-z]/.test(paramValue))) {
             const item = this.item;
             console.warn(
