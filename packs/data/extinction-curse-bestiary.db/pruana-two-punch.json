@@ -58,7 +58,7 @@
             "alignment": {
                 "value": "NE"
             },
-            "blurb": "",
+            "blurb": "Female dwarf brawler",
             "creatureType": "",
             "level": {
                 "value": 3
@@ -123,12 +123,12 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TnOPqObZuHJO2soc",
+            "_id": "8YwRYUhGMq6FFebD",
             "data": {
                 "armor": {
                     "value": 4
                 },
-                "baseItem": null,
+                "baseItem": "chain-mail",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -152,7 +152,7 @@
                     "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": "2"
@@ -202,36 +202,6 @@
                 "price": {
                     "value": "6 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -254,9 +224,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "chain-mail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -5
@@ -278,14 +248,18 @@
                     ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "3"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Kf4eJEXnFPuAsseP"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/chainmail.webp",
             "name": "Chain Mail",
             "sort": 100000,
@@ -467,7 +441,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:shove",
+                                "action:trip"
+                            ]
+                        },
+                        "selector": "fortitude",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:shove",
+                                "action:trip"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -662,7 +661,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
