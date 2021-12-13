@@ -362,72 +362,10 @@
             "type": "action"
         },
         {
-            "_id": "q4Nwd5vpZrD2cK4B",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"press\" data-pf2-label=\"Haymaker DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to resist the staggering force of the blow.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 5}.</p>\n</div>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.haymaker"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "haymaker"
-                            ]
-                        },
-                        "selector": "damage",
-                        "type": "circumstance",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "press"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Haymaker",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "o5oVycGSBlCtwNU9",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -486,6 +424,68 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Circumstance to Fortitude and Reflex vs. Shove or Trip",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "q4Nwd5vpZrD2cK4B",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Pruana makes a fist Strike against a target she has previously attacked this turn. If she hits, she gains a +3 circumstance bonus to the damage, and the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"press\" data-pf2-label=\"Haymaker DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to resist the staggering force of the blow.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 5}.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.haymaker"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "haymaker"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "press"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Haymaker",
             "sort": 500000,
             "type": "action"
         },
