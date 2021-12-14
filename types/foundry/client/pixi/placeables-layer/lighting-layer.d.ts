@@ -1,20 +1,6 @@
 export {};
 
 declare global {
-    interface LightChannel {
-        hex: number;
-        rgb: number[];
-    }
-
-    interface LightChannels {
-        black: LightChannel;
-        dark: LightChannel;
-        dim: LightChannel;
-        bright: LightChannel;
-        canvas: LightChannel;
-        background: LightChannel;
-    }
-
     /**
      * The Lighting Layer which displays darkness and light within the rendered Scene.
      * Lighting Layer (Container)
@@ -73,8 +59,15 @@ declare global {
             zIndex: 200;
         };
 
-        /** Configure the lighting channels which are inputs to the ShadowMap */
-        protected _configureChannels(darkness?: number | null): LightChannels;
+        /**
+         * TODO: Significant portions of this method may no longer be needed
+         * Configure the lighting channels which are inputs to the ShadowMap
+         * @param {object} [options]
+         * @param {number} [options.darkness]         Darkness level override.
+         * @param {number} [options.backgroundColor]  Canvas background color override.
+         * @returns {{black: object, dark: object, dim: object, bright: object}}
+         */
+        protected _configureChannels(options?: { darkness?: number; backgroundColor?: number }): LightChannels;
 
         /* -------------------------------------------- */
         /*  Rendering                                   */
@@ -155,5 +148,19 @@ declare global {
         background: PIXI.Graphics;
         filter: InstanceType<typeof PIXI.filters.AlphaFilter> | InstanceType<typeof PIXI.filters.BlurFilter>;
         lights: PIXI.Container;
+    }
+
+    interface LightChannel {
+        hex: number;
+        rgb: number[];
+    }
+
+    interface LightChannels {
+        black: LightChannel;
+        dark: LightChannel;
+        dim: LightChannel;
+        bright: LightChannel;
+        canvas: LightChannel;
+        background: LightChannel;
     }
 }
