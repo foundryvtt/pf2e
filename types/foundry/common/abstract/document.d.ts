@@ -605,7 +605,7 @@ declare global {
     };
 
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
-        ? DeepPartial<T & { name: string; type: T["type"] }>
+        ? DeepPartial<T> & { name: string; type: T["type"] }
         : DeepPartial<T>;
 
     type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, "_id"> & { _id: null };

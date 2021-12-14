@@ -44,8 +44,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.rules = [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Item.documentClasses[data.type!](data, { ...ready, ...context });
+            mergeObject(context, { pf2e: { ready: true } });
+            const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
+            return ItemConstructor ? new ItemConstructor(data, context) : new ItemPF2e(data, context);
         }
     }
 
