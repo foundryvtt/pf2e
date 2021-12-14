@@ -40,15 +40,15 @@ export class ActionPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<ActionPF2e["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
-    ) {
-        const actionCount = data.data?.actions;
+    ): Promise<void> {
+        const actionCount = changed.data?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 
