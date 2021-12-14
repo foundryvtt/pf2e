@@ -64,19 +64,19 @@ export class VehiclePF2e extends ActorPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<VehicleSource>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<VehicleSource>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
         if (this.data.token.flags?.pf2e?.linkToActorSize) {
             const { space } = this.data.data.details;
             const spaceUpdates = {
-                width: data.data?.details?.space?.wide ?? space.wide,
-                length: data.data?.details?.space?.long ?? space.long,
+                width: changed.data?.details?.space?.wide ?? space.wide,
+                length: changed.data?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
-            mergeObject(data, { token: tokenDimensions });
+            mergeObject(changed, { token: tokenDimensions });
 
             if (canvas.scene) {
                 const updates = this.getActiveTokens()

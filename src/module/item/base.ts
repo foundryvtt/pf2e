@@ -564,7 +564,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -575,8 +575,24 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
+    /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        if (changed.data?.description?.value === null) {
+            changed.data.description.value = "";
+        }
+        await super._preUpdate(changed, options, user);
+    }
+
     /** Call onDelete rule-element hooks, refresh effects panel */
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(
+        data: ItemSourcePF2e,
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
