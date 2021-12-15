@@ -21,7 +21,7 @@ declare global {
         targeted: Set<User>;
 
         /** A reference to the PointSource object which defines this vision source area of effect */
-        vision: PointSource<this>;
+        vision: VisionSource<this>;
 
         /** A reference to the PointSource object which defines this light source area of effect */
         light: LightSource<this>;
@@ -57,7 +57,7 @@ declare global {
         get hasActiveHUD(): boolean;
 
         /** Convenience access to the token's nameplate string */
-        get name(): string;
+        readonly name: string;
 
         /* -------------------------------------------- */
         /*  Rendering Attributes                        */
