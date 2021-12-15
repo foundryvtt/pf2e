@@ -55,8 +55,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Actor.documentClasses[data.type!](data, { ...ready, ...context });
+            mergeObject(context, { pf2e: { ready: true } });
+            const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
+            return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
         }
     }
 
@@ -273,23 +274,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
-    }
-
-    /** Prevent character importers from creating martial items */
-    override createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const includesMartialItems = data.some(
-            (datum: PreCreate<foundry.data.ActiveEffectSource> | PreCreate<ItemSourcePF2e>) =>
-                "type" in datum && datum.type === "martial"
-        );
-        if (includesMartialItems) {
-            throw ErrorPF2e("Martial items are pending removal from the system and may no longer be created.");
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 
     /** Set defaults for this actor's prototype token */
@@ -676,7 +660,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         containerId?: string
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
-            return Promise.reject(new Error("Only physical items (with quantities) can be transfered between actors"));
+            throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
         const container = targetActor.physicalItems.get(containerId ?? "");
         if (!(!container || container instanceof ContainerPF2e)) {

@@ -1336,8 +1336,8 @@ export class CharacterPF2e extends CreaturePF2e {
     /* -------------------------------------------- */
 
     protected override async _preUpdate(
-        data: DeepPartial<CharacterSource>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<CharacterSource>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         const characterData = this.data.data;
@@ -1345,18 +1345,18 @@ export class CharacterPF2e extends CreaturePF2e {
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
-            if (data.data?.attributes?.sp) {
-                data.data.attributes.sp.value = Math.clamped(
-                    data.data?.attributes?.sp?.value || 0,
+            if (changed.data?.attributes?.sp) {
+                changed.data.attributes.sp.value = Math.clamped(
+                    changed.data?.attributes?.sp?.value || 0,
                     0,
                     characterData.attributes.sp.max
                 );
             }
 
             // Do not allow resolve to go over max
-            if (data.data?.attributes?.resolve) {
-                data.data.attributes.resolve.value = Math.clamped(
-                    data.data?.attributes?.resolve?.value || 0,
+            if (changed.data?.attributes?.resolve) {
+                changed.data.attributes.resolve.value = Math.clamped(
+                    changed.data?.attributes?.resolve?.value || 0,
                     0,
                     characterData.attributes.resolve.max
                 );
@@ -1364,12 +1364,12 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Add or remove class features as necessary
-        const newLevel = data.data?.details?.level?.value ?? this.level;
+        const newLevel = changed.data?.details?.level?.value ?? this.level;
         if (newLevel !== this.level) {
             await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
         }
 
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 

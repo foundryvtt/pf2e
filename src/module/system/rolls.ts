@@ -14,7 +14,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
-import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -100,7 +100,7 @@ export class CheckPF2e {
         callback?: (
             roll: Rolled<Roll>,
             outcome: typeof DegreeOfSuccessText[number] | undefined,
-            message: ChatMessagePF2e | ChatMessageDataPF2e
+            message: ChatMessagePF2e
         ) => Promise<void> | void
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         if (context.options?.length && !context.isReroll) {
@@ -332,19 +332,8 @@ export class CheckPF2e {
 
         if (callback) {
             // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData instance in v9
-            const isChatMessageSource = (
-                message: ChatMessagePF2e | ChatMessageSourcePF2e
-            ): message is ChatMessageSourcePF2e => {
-                return (message as ChatMessagePF2e).id === undefined;
-            };
-
-            if (isChatMessageSource(message)) {
-                const cls = CONFIG.ChatMessage.documentClass;
-                const msg = new cls(message).data;
-                await callback(roll, ctx.outcome, msg);
-            } else {
-                await callback(roll, ctx.outcome, message);
-            }
+            const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
+            await callback(roll, ctx.outcome, msg);
         }
 
         return roll;
@@ -415,8 +404,7 @@ export class CheckPF2e {
                 rerollIcon.setAttribute("title", rerollFlavor);
 
                 await message.delete({ render: false });
-                const newFlavor =
-                    (newMessage instanceof ChatMessagePF2e ? newMessage.data.flavor : newMessage.flavor) ?? "";
+                const newFlavor = newMessage.data.flavor ?? "";
                 await keepRoll.toMessage(
                     {
                         content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,

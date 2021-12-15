@@ -24,7 +24,7 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
         dc: dc,
         event: event,
         options: options,
-        callback: (roll) => {
+        callback: async (roll) => {
             let healFormula, successLabel;
             const magicHands = CheckFeat("magic-hands");
             const bonusString = bonus > 0 ? `+ ${bonus}` : "";
@@ -45,12 +45,12 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
                     user: game.user.id,
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>Damage Roll: Risky Surgery</strong>`,
-                    roll: new Roll("{1d8}[slashing]").roll(),
+                    roll: await new Roll("{1d8}[slashing]").roll({ async: true }),
                     speaker: ChatMessage.getSpeaker(),
                 });
             }
             if (healFormula !== undefined) {
-                const healRoll = new Roll(`{${healFormula}}[healing]`).roll();
+                const healRoll = await new Roll(`{${healFormula}}[healing]`).roll({ async: true });
                 const rollType = roll.data.degreeOfSuccess > 1 ? "Healing" : "Damage";
                 ChatMessage.create({
                     user: game.user.id,
