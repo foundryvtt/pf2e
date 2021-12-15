@@ -43,6 +43,17 @@ export class FeatPF2e extends ItemPF2e {
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 
+    /** Generate a list of strings for use in predication */
+    override getItemRollOptions(prefix = "feat"): string[] {
+        prefix =
+            prefix === "feat" && ["classfeature", "ancestryfeature"].includes(this.featType.value) ? "feature" : "feat";
+        return super.getItemRollOptions(prefix);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
