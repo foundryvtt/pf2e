@@ -1038,8 +1038,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (options.parent) return;
-        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        if (!options.parent) {
+            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1050,7 +1051,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onDelete(options, userId);
     }
 
-    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */
+    /** Work around bug in Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
     protected override _onCreateEmbeddedDocuments(
         embeddedName: "Item" | "ActiveEffect",
         documents: ActiveEffect[] | Item<ActorPF2e>[],
@@ -1063,7 +1064,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents */
+    /** Work around bug from Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
     protected override _onDeleteEmbeddedDocuments(
         embeddedName: "Item" | "ActiveEffect",
         documents: ActiveEffect[] | Item<ActorPF2e>[],
