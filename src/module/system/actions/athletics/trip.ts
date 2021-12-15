@@ -14,7 +14,7 @@ export function trip(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
-        difficultyClassStatistic: (target) => target.reflex,
+        difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Trip", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.Trip", "success"),

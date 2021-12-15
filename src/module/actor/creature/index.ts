@@ -104,16 +104,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
-    get fortitude(): Statistic {
-        return this.buildSavingThrowStatistic("fortitude");
-    }
-
-    get reflex(): Statistic {
-        return this.buildSavingThrowStatistic("reflex");
-    }
-
-    get will(): Statistic {
-        return this.buildSavingThrowStatistic("will");
+    get saves() {
+        return {
+            fortitude: this.buildSavingThrowStatistic("fortitude"),
+            reflex: this.buildSavingThrowStatistic("reflex"),
+            will: this.buildSavingThrowStatistic("will"),
+        };
     }
 
     get deception(): Statistic {

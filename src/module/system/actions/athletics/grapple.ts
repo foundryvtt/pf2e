@@ -14,7 +14,7 @@ export function grapple(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
-        difficultyClassStatistic: (target) => target.fortitude,
+        difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Grapple", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.Grapple", "success"),
