@@ -65,11 +65,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get hasDarkvision(): boolean {
-        return this.visionLevel === VisionLevels.DARKVISION;
+        return this.visionLevel === VisionLevels.DARKVISION && !this.hasCondition("blinded");
     }
 
     get hasLowLightVision(): boolean {
-        return this.visionLevel >= VisionLevels.LOWLIGHT;
+        return this.visionLevel >= VisionLevels.LOWLIGHT && !this.hasCondition("blinded");
     }
 
     override get canSee(): boolean {

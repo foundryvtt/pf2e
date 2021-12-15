@@ -99,15 +99,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
-    /**
-     * Avoid triggering Foundry 0.8.8 bug in which a speaker with no alias and a deleted actor can cause and unhandled
-     * exception to be thrown
-     */
-    override get alias(): string {
-        const speaker = this.data.speaker;
-        return speaker.alias ?? game.actors.get(speaker.actor ?? "")?.name ?? this.user?.name ?? "";
-    }
-
     /** Get the token of the speaker if possible */
     get token(): TokenDocumentPF2e | null {
         if (!game.scenes) return null;
