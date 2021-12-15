@@ -31,14 +31,14 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
             throw ErrorPF2e("Weaknesses cannot be saved to familiar data");
         }
 
-        const choices: Record<string, { label: string; selected: boolean; value: number }> = {};
+        const choices: Record<string, { label: string; selected: boolean; value: number | undefined }> = {};
         const weaknesses = actorSource.data.traits.dv;
         Object.entries(this.choices).forEach(([type, label]) => {
             const current = weaknesses.find((weakness) => weakness.type === type);
             choices[type] = {
                 label,
                 selected: !!current,
-                value: current?.value ?? 0,
+                value: current?.value,
             };
         });
         data.choices = choices;

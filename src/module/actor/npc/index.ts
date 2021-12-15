@@ -16,6 +16,7 @@ import { Attitude, VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
 import { LocalizePF2e } from "@system/localize";
+import { extractModifiers, extractNotes } from "@module/rules/util";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -724,43 +725,47 @@ export class NPCPF2e extends CreaturePF2e {
                 itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
                 itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
 
-                // Determine NPC modifiers. Since NPCs checks can differ from dcs, we need to fully recalculate the mod list separately
-                const baseRollOptions = [`${ability}-based`, "all", "spell-attack-dc"];
-                const baseNotes = baseRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
-                const baseModifiers = [
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...baseRollOptions.flatMap((key) => statisticsModifiers[key] || []),
+                const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+                const attackSelectors = [
+                    `${tradition}-spell-attack`,
+                    "spell-attack",
+                    "spell-attack-roll",
+                    "attack",
+                    "attack-roll",
                 ];
+                const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
                 // Check Modifiers, calculate using the user configured value
                 const baseMod = Number(itemData.data?.spelldc?.value ?? 0);
-                const attackRollOptions = [`${tradition}-spell-attack`, "spell-attack", "attack", "attack-roll"];
-                const attackNotes = attackRollOptions.flatMap((option) => duplicate(rollNotes[option] ?? []));
                 const attackModifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    ...baseModifiers,
-                    ...attackRollOptions.flatMap((key) => statisticsModifiers[key] || []),
-                ].map((modifier) => modifier.clone({ test: this.getRollOptions(attackRollOptions) }));
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                    ...extractModifiers(statisticsModifiers, baseSelectors),
+                    ...extractModifiers(statisticsModifiers, attackSelectors),
+                ];
 
-                // Save Modifiers, calculate using the user configured value - 10
+                // Save Modifiers, reverse engineer using the user configured value - 10
                 const baseDC = Number(itemData.data?.spelldc?.dc ?? 0);
-                const saveRollOptions = [`${tradition}-spell-dc`, "spell-dc"];
                 const saveModifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    ...baseModifiers,
-                    ...saveRollOptions.flatMap((key) => statisticsModifiers[key] || []),
-                ].map((modifier) => modifier.clone({ test: this.getRollOptions(saveRollOptions) }));
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                    ...extractModifiers(statisticsModifiers, baseSelectors),
+                    ...extractModifiers(statisticsModifiers, saveSelectors),
+                ];
 
                 // Assign statistic data to the spellcasting entry
                 itemData.data.statisticData = {
                     name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
-                    notes: [...baseNotes, ...attackNotes],
+                    notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
+                    domains: baseSelectors,
                     check: {
                         type: "spell-attack-roll",
                         modifiers: attackModifiers,
+                        domains: attackSelectors,
                     },
                     dc: {
                         modifiers: saveModifiers,
+                        domains: saveSelectors,
                     },
                 };
 

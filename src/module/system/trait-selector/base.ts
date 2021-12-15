@@ -37,6 +37,13 @@ export abstract class TagSelectorBase<
 
     protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        super.activateListeners($html);
+        $html.find<HTMLInputElement>('input[type="text"], input[type="number"]').on("focusin", (event) => {
+            event.currentTarget.select();
+        });
+    }
+
     /**
      * Builds an object of all keys of this.configTypes from CONFIG.PF2E
      * @returns An object of all key and translated value pairs sorted by key

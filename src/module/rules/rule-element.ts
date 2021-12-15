@@ -63,7 +63,7 @@ abstract class RuleElementPF2e {
         if (invalidActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
-            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            ui.notifications?.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
             data.ignored = true;
         }
         if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;

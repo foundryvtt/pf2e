@@ -4,7 +4,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -22,6 +22,7 @@ import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -54,8 +55,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.rules ??= [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Actor.documentClasses[data.type!](data, { ...ready, ...context });
+            mergeObject(context, { pf2e: { ready: true } });
+            const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
+            return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
         }
     }
 
@@ -167,12 +169,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
+        // Workaround for insane V9 change
+        const keepItemIds = !context.parent && !context.keepId;
+        if (keepItemIds) context.keepId = true;
+
         for (const datum of data) {
-            // Temporary workaround for bug in V9.235
-            if (!context.parent && !context.keepId) {
-                delete datum._id;
-                context.keepId = true;
-            }
+            if (keepItemIds) delete datum._id;
 
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
@@ -272,23 +274,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
-    }
-
-    /** Prevent character importers from creating martial items */
-    override createEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const includesMartialItems = data.some(
-            (datum: PreCreate<foundry.data.ActiveEffectSource> | PreCreate<ItemSourcePF2e>) =>
-                "type" in datum && datum.type === "martial"
-        );
-        if (includesMartialItems) {
-            throw ErrorPF2e("Martial items are pending removal from the system and may no longer be created.");
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 
     /** Set defaults for this actor's prototype token */
@@ -675,7 +660,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         containerId?: string
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
-            return Promise.reject(new Error("Only physical items (with quantities) can be transfered between actors"));
+            throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
         const container = targetActor.physicalItems.get(containerId ?? "");
         if (!(!container || container instanceof ContainerPF2e)) {
@@ -1003,9 +988,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** If necessary, migrate this actor before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const source = this.collection.fromCompendium(JSON.parse(json));
-        source._id = this.id;
-        const data = new ActorPF2e.schema(source);
+        const source: unknown = JSON.parse(json);
+        if (!this.canImportJSON(source)) return this;
+
+        const processed = this.collection.fromCompendium(source, { addFlags: false });
+        processed._id = this.id;
+        const data = new ActorPF2e.schema(processed);
         this.data.update(data.toObject(), { recursive: false });
 
         await MigrationRunner.ensureSchemaVersion(
@@ -1014,7 +1002,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             { preCreate: false }
         );
 
-        return this.update(this.toObject(), { diff: false, recursive: false });
+        return this.update(this.toObject(), { diff: false, recursive: false, keepId: true });
+    }
+
+    /** Determine whether a requested JSON import can be performed */
+    canImportJSON(source: unknown): source is ActorSourcePF2e {
+        // The import came from
+        if (!(isObject<ActorSourcePF2e>(source) && isObject(source.data))) return false;
+
+        const sourceSchemaVersion = source.data?.schema?.version ?? null;
+        const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
+        if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
+            // Refuse to import if the schema version on the document is higher than the system schema verson;
+            ui.notifications.error(
+                game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
+                    sourceName: game.i18n.localize("DOCUMENT.Actor"),
+                    sourceSchemaVersion,
+                    worldSchemaVersion,
+                })
+            );
+            return false;
+        }
+
+        return true;
     }
 
     /* -------------------------------------------- */
@@ -1028,8 +1038,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (options.parent) return;
-        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        if (!options.parent) {
+            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1040,7 +1051,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onDelete(options, userId);
     }
 
-    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */
+    /** Work around bug in Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
     protected override _onCreateEmbeddedDocuments(
         embeddedName: "Item" | "ActiveEffect",
         documents: ActiveEffect[] | Item<ActorPF2e>[],
@@ -1053,7 +1064,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents */
+    /** Work around bug from Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
     protected override _onDeleteEmbeddedDocuments(
         embeddedName: "Item" | "ActiveEffect",
         documents: ActiveEffect[] | Item<ActorPF2e>[],

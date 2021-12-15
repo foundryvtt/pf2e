@@ -65,11 +65,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get hasDarkvision(): boolean {
-        return this.visionLevel === VisionLevels.DARKVISION;
+        return this.visionLevel === VisionLevels.DARKVISION && !this.hasCondition("blinded");
     }
 
     get hasLowLightVision(): boolean {
-        return this.visionLevel >= VisionLevels.LOWLIGHT;
+        return this.visionLevel >= VisionLevels.LOWLIGHT && !this.hasCondition("blinded");
     }
 
     override get canSee(): boolean {
@@ -717,12 +717,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
-    ) {
+    ): Promise<void> {
         // Clamp focus points
-        const focus = data.data && "resources" in data.data ? data.data?.resources?.focus ?? null : null;
+        const focus = changed.data && "resources" in changed.data ? changed.data?.resources?.focus ?? null : null;
         if (focus && "resources" in this.data.data) {
             if (typeof focus.max === "number") {
                 focus.max = Math.clamped(focus.max, 0, 3);
@@ -734,12 +734,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Clamp HP
-        const hitPoints = data.data?.attributes?.hp;
+        const hitPoints = changed.data?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
             hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
         }
 
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 

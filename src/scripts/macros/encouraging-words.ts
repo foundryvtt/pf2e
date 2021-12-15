@@ -25,7 +25,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: (roll: any) => {
+            callback: async (roll: any) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : "";
@@ -42,7 +42,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                     successLabel = translations.CritFailure;
                 }
                 if (healFormula !== undefined) {
-                    const healRoll = new Roll(healFormula).roll();
+                    const healRoll = await new Roll(healFormula).roll({ async: true });
                     const rollType = roll.data.degreeOfSuccess > 1 ? translations.Recovery : translations.Damage;
                     ChatMessage.create({
                         user: game.user.id,

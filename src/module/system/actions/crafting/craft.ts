@@ -2,8 +2,8 @@ import { ActionsPF2e, SkillActionOptions } from "@system/actions/actions";
 import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/check-degree-of-success";
-import ChatMessageData = foundry.data.ChatMessageData;
 import { renderCraftingInline } from "@module/crafting/helpers";
+import { ChatMessagePF2e } from "@module/chat-message";
 
 interface CraftActionOptions extends SkillActionOptions {
     dc?: CheckDC;
@@ -132,7 +132,8 @@ export async function craft(options: CraftActionOptions) {
         createMessage: false,
         callback: async (result) => {
             // react to check result, creating the item in the actor's inventory on a success
-            if (result.message instanceof ChatMessageData) {
+            if (result.message instanceof ChatMessagePF2e) {
+                const messageData = result.message.data;
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
                         return await renderCraftingInline(item, result.roll, quantity, result.actor);
@@ -140,9 +141,9 @@ export async function craft(options: CraftActionOptions) {
                     return "";
                 })();
                 if (flavor) {
-                    result.message.update({ flavor: result.message.flavor + flavor });
+                    messageData.update({ flavor: messageData.flavor + flavor });
                 }
-                ChatMessage.create(result.message);
+                ChatMessage.create(messageData);
             } else {
                 console.error("PF2E | Unable to amend chat message with craft result.", result.message);
             }

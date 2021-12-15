@@ -301,7 +301,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);

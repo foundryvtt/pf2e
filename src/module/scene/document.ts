@@ -34,8 +34,9 @@ export class ScenePF2e extends Scene<
     override prepareBaseData() {
         super.prepareBaseData();
         if (this.rulesBasedVision) {
-            this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
+            this.data.globalLight = true;
             this.data.hasGlobalThreshold = true;
+            this.data.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.05);
         }
 
         this.data.flags.pf2e ??= { syncDarkness: "default" };

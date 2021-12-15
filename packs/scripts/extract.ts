@@ -130,6 +130,12 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         if (key === "_id") {
             topLevel = docSource;
             delete docSource.folder;
+
+            docSource.img &&= docSource.img.replace(
+                "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
+                "systems/pf2e/"
+            ) as ImagePath;
+
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
@@ -196,11 +202,6 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             delete entityData.flags[flagScope];
         }
     }
-
-    entityData.img &&= entityData.img.replace(
-        "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-        "systems/pf2e/"
-    ) as ImagePath;
 
     if (!isEmbedded) {
         entityData.permission = { default: entityData.permission?.default ?? 0 };
