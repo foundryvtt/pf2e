@@ -84,8 +84,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     override getItemRollOptions(prefix = "weapon"): string[] {
         const actorSize = this.actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
 
-        return super.getItemRollOptions(prefix).concat(
+        return [
+            super.getItemRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
@@ -99,11 +101,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
-                    const separatedPrefix = prefix ? `${prefix}:` : "";
-                    return `${separatedPrefix}${key}`;
+                    return `${delimitedPrefix}${key}`;
                 }),
-            ...this.data.data.traits.otherTags.map((tag) => `${prefix}tag:${tag}`)
-        );
+            this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
+        ].flat();
     }
 
     override prepareBaseData(): void {
