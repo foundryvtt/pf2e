@@ -26,6 +26,7 @@ import { NPCSystemData } from "@actor/npc/data";
 import { isActorSource, isItemSource } from "./packman/compendium-pack";
 import { isPhysicalData } from "@item/data/helpers";
 import { IdentificationData } from "@item/physical/data";
+import { ActorSourcePF2e } from "@actor/data";
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -123,6 +124,9 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
     }
 }
 
+/** The last actor inspected in `pruneTree` */
+let lastActor: ActorSourcePF2e | undefined;
+
 /** Walk object tree and make appropriate deletions */
 function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
     type DocumentKey = keyof PackEntry;
@@ -138,6 +142,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
+                    lastActor = docSource;
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
@@ -174,6 +179,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                             },
                             misidentified: {},
                         };
+                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
+                        delete (docSource.data as { ability?: unknown }).ability;
                     }
                 }
                 if (docSource.type !== "script") {
