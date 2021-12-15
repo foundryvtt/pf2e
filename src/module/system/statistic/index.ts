@@ -28,6 +28,10 @@ type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? Stati
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
+    get name() {
+        return this.data.name;
+    }
+
     constructor(private actor: ActorPF2e, public readonly data: T) {}
 
     /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
@@ -184,6 +188,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const map1 = mapData?.penalty ?? -5;
 
         return {
+            name: this.name,
             check: check ? { ...check, map1, map2: map1 * 2 } : undefined,
             dc: dcData
                 ? {
