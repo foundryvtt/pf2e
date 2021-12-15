@@ -86,8 +86,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
-                    const separatedPrefix = prefix ? `${prefix}:` : "";
-                    return `${separatedPrefix}${key}`;
+                    const delimitedPrefix = prefix ? `${prefix}:` : "";
+                    return `${delimitedPrefix}${key}`;
                 })
         );
     }
