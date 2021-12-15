@@ -23,6 +23,7 @@ import { Migration696FlatAbilityModifiers } from "@module/migration/migrations/6
 import { Migration697WeaponReachTrait } from "@module/migration/migrations/697-weapon-reach-trait";
 import { Migration698RemoveDerivedActorTraits } from "@module/migration/migrations/698-remove-derived-actor-traits";
 import { Migration699ItemDescriptionEmptyString } from "@module/migration/migrations/699-item-description-empty-string";
+import { Migration700SingleAlertnessFeature } from "@module/migration/migrations/700-single-alertness-feature";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -42,6 +43,7 @@ const migrations: MigrationBase[] = [
     new Migration697WeaponReachTrait(),
     new Migration698RemoveDerivedActorTraits(),
     new Migration699ItemDescriptionEmptyString(),
+    new Migration700SingleAlertnessFeature(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
