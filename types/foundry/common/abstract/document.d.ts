@@ -440,9 +440,9 @@ declare global {
                  * @param options Additional options which modify the update request
                  * @param user    The User requesting the document update
                  */
-                protected _preUpdate<T extends Document>(
-                    data: DocumentUpdateData<T>,
-                    options: DocumentModificationContext,
+                protected _preUpdate(
+                    changed: DeepPartial<this["data"]["_source"]>,
+                    options: DocumentModificationContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
 
@@ -605,7 +605,7 @@ declare global {
     };
 
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
-        ? DeepPartial<T & { name: string; type: T["type"] }>
+        ? Omit<DeepPartial<T>, "name" | "type"> & { name: string; type: T["type"] }
         : DeepPartial<T>;
 
     type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, "_id"> & { _id: null };

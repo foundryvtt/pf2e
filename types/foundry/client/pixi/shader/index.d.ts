@@ -1,0 +1,11 @@
+import "./base";
+import "./adaptive-background-shader";
+import "./adaptive-coloration-shader";
+import "./adaptive-illumination-shader";
+import "./adaptive-lighting-shader";
+import "./pulse-coloration-shader";
+import "./pulse-illumination-shader";
+import "./standard-coloration-shader";
+import "./standard-illumination-shader";
+import "./torch-coloration-shader";
+import "./torch-illumination-shader";

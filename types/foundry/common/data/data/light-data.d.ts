@@ -25,7 +25,7 @@ declare module foundry {
             animation: object;
             angle: number;
             bright: number;
-            color: number;
+            color: string;
             coloration: number;
             contrast: number;
             darkness: { min: number; max: number };

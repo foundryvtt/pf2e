@@ -816,6 +816,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return [item];
         }
 
+        // mystify the item if the alt key was pressed
+        if (event.altKey && isPhysicalData(itemData)) {
+            itemData.data.identification.unidentified = (item as PhysicalItemPF2e).getMystifiedData("unidentified");
+            itemData.data.identification.status = "unidentified";
+        }
+
         // get the item type of the drop target
         const $itemEl = $(event.target).closest(".item");
         const $containerEl = $(event.target).closest(".item-container");

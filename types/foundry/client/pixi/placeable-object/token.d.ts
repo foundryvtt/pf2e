@@ -1,11 +1,9 @@
 export {};
 
 declare global {
-    /**
-     * A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas.
-     */
+    /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
     class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
-        constructor(tokenData: foundry.data.TokenData, scene: Scene);
+        constructor(document: TDocument);
 
         /** A Ray which represents the Token's current movement path */
         protected _movement: Ray | null;
@@ -26,12 +24,15 @@ declare global {
         vision: PointSource<this>;
 
         /** A reference to the PointSource object which defines this light source area of effect */
-        light: PointSource<this>;
+        light: LightSource<this>;
 
         /** Load token texture */
         texture: PIXI.Texture;
 
         static embeddedName: "Token";
+
+        /** A linked ObjectHUD element which is synchronized with the location and visibility of this Token */
+        hud: ObjectHUD<this>;
 
         /**
          * Establish an initial velocity of the token based on it's direction of facing.
@@ -56,7 +57,7 @@ declare global {
         get hasActiveHUD(): boolean;
 
         /** Convenience access to the token's nameplate string */
-        readonly name: string;
+        get name(): string;
 
         /* -------------------------------------------- */
         /*  Rendering Attributes                        */
@@ -70,18 +71,22 @@ declare global {
         effects?: PIXI.Container;
         target?: PIXI.Graphics;
 
-        /**
-         * Translate the token's grid width into a pixel width based on the canvas size
-         */
+        override get bounds(): NormalizedRectangle;
+
+        /** Translate the token's grid width into a pixel width based on the canvas size */
         get w(): number;
 
-        /**
-         * Translate the token's grid height into a pixel height based on the canvas size
-         */
+        /** Translate the token's grid height into a pixel height based on the canvas size */
         get h(): number;
 
         /** The Token's current central position */
         override get center(): PIXI.Point;
+
+        /** The HTML source element for the primary Tile texture */
+        get sourceElement(): HTMLImageElement | HTMLVideoElement;
+
+        /** Does this Tile depict an animated video texture? */
+        get isVideo(): boolean;
 
         /* -------------------------------------------- */
         /*  State Attributes                            */
@@ -98,11 +103,17 @@ declare global {
 
         /**
          * Determine whether the Token is visible to the calling user's perspective.
-         * If the user is a GM, all tokens are visible
-         * If the user is a player, owned tokens which are not hidden are visible
-         * Otherwise only tokens whose corner or center are within the vision polygon are visible.
+         * Hidden Tokens are only displayed to GM Users.
+         * Non-hidden Tokens are always visible if Token Vision is not required.
+         * Controlled tokens are always visible.
+         * All Tokens are visible to a GM user if no Token is controlled.
+         *
+         * @see {SightLayer#testVisibility}
          */
         get isVisible(): boolean;
+
+        /** The animation name used for Token movement */
+        get movementAnimationName(): string;
 
         /* -------------------------------------------- */
         /*  Lighting and Vision Attributes              */
@@ -178,7 +189,14 @@ declare global {
         /* Rendering                                    */
         /* -------------------------------------------- */
 
+        override clear(): this;
+
         override draw(): Promise<this>;
+
+        /** Draw the HUD container which provides an interface for managing this Token */
+        protected _drawHUD(): ObjectHUD<this>;
+
+        override destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Apply initial sanitizations to the provided input data to ensure that a Token has valid required attributes. */
         protected _cleanData(): void;
@@ -188,6 +206,22 @@ declare global {
 
         /** Draw the Sprite icon for the Token */
         protected _drawIcon(): Promise<PIXI.Sprite>;
+
+        /**
+         * Play video for this Token (if applicable).
+         * @param [playing]    Should the Token video be playing?
+         * @param [options={}] Additional options for modifying video playback
+         * @param [options.loop]   Should the video loop?
+         * @param [options.offset] A specific timestamp between 0 and the video duration to begin playback
+         * @param [options.volume] Desired volume level of the video's audio channel (if any)
+         */
+        play(playing?: boolean, { loop, offset, volume }?: { loop?: boolean; offset?: number; volume?: number }): void;
+
+        /**
+         * Unlink the playback of this video token from the playback of other tokens which are using the same base texture.
+         * @param source The video element source
+         */
+        protected _unlinkVideoPlayback(source: HTMLVideoElement): Promise<void>;
 
         /** Update display of the Token, pulling latest data and re-rendering the display of Token components */
         refresh(): this;
@@ -201,6 +235,9 @@ declare global {
          */
         protected _getBorderColor(): number | null;
 
+        /** Refresh the display of the Token HUD interface. */
+        refreshHUD(): void;
+
         /**
          * Refresh the target indicators for the Token.
          * Draw both target arrows for the primary User as well as indicator pips for other Users targeting the same Token.
@@ -211,7 +248,7 @@ declare global {
          * Refresh the display of Token attribute bars, rendering latest resource data
          * If the bar attribute is valid (has a value and max), draw the bar. Otherwise hide it.
          */
-        protected drawBars(): PIXI.Container;
+        protected drawBars(): void;
 
         /**
          * Draw a single resource bar, given provided data
@@ -228,7 +265,7 @@ declare global {
         protected _drawNameplate(): PIXI.Text;
 
         /** Draw a text tooltip for the token which can be used to display Elevation or a resource value */
-        drawTooltip(): void;
+        protected _drawTooltip(): void;
 
         /** Return the text which should be displayed in a token's tooltip field */
         protected _getTooltipText(): string;
@@ -353,14 +390,7 @@ declare global {
             { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
-        /** A helper function to toggle a status effect which includes an Active Effect template */
-        protected _toggleActiveEffect(
-            effectData: ActiveEffect | ImagePath,
-            { overlay }?: { overlay?: boolean }
-        ): Promise<boolean>;
-
-        /** A helper function to toggle the overlay status icon on the Token
-         */
+        /** A helper function to toggle the overlay status icon on the Token */
         protected _toggleOverlayEffect(texture: ImagePath, { active }: { active: boolean }): Promise<this>;
 
         /**
@@ -385,6 +415,10 @@ declare global {
 
         override rotate(angle: number, snap: number): void;
 
+        /* -------------------------------------------- */
+        /*  Event Listeners and Handlers                */
+        /* -------------------------------------------- */
+
         protected override _onCreate(
             data: this["document"]["data"]["_source"],
             options: DocumentModificationContext,
@@ -396,10 +430,6 @@ declare global {
             options: DocumentModificationContext,
             userId: string
         ): void;
-
-        /* -------------------------------------------- */
-        /*  Event Listeners and Handlers                */
-        /* -------------------------------------------- */
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;

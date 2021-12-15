@@ -328,10 +328,7 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            const options = this.actor
-                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
-                .concat(...this.traits);
-            statistic.check.roll({ event, item: this, options, attackNumber });
+            statistic.check.roll({ event, item: this, options: [...this.traits], attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

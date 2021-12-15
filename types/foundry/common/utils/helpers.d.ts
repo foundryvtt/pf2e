@@ -251,7 +251,7 @@ declare global {
              * @param v1
              * @return
              */
-            function isNewerVersion(v1: number | string, v0: number | string): boolean;
+            function isNewerVersion(v1: number | string | null, v0: number | string): boolean;
 
             /**
              * Generate a random ID

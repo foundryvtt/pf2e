@@ -4,7 +4,7 @@ declare class AmbientLight<
     constructor(document: TDocument);
 
     /** A reference to the PointSource object which defines this light source area of effect */
-    source: PointSource<this>;
+    source: LightSource<this>;
 
     /** A reference to the ControlIcon used to configure this light */
     controlIcon: ControlIcon;
@@ -12,6 +12,9 @@ declare class AmbientLight<
     static override embeddedName: "AmbientLight";
 
     override get bounds(): NormalizedRectangle;
+
+    /** A convenience accessor to the LightData configuration object */
+    get config(): foundry.data.LightData;
 
     /** Test whether a specific AmbientLight source provides global illumination */
     get global(): boolean;
