@@ -33,7 +33,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             classes: ["default", "sheet", "actor", "pc"],
             width: 750,
             height: 800,
-            tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }],
+            tabs: [
+                { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
+                { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+            ],
             showUnpreparedSpells: false,
         });
     }
@@ -653,20 +656,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 "showUnreadyStrikes",
                 !this.actor.getFlag(game.system.id, "showUnreadyStrikes")
             );
-        });
-
-        // handle sub-tab navigation on the actions tab
-        html.find(".actions-nav").on("click", ".tab:not(.tab-active)", (event) => {
-            const target = $(event.currentTarget);
-            const nav = target.parents(".actions-nav");
-            // deselect current tab and panel
-            nav.children(".tab-active").removeClass("tab-active");
-            nav.siblings(".actions-panels").children(".actions-panel.active").removeClass("active");
-            // select new tab and panel
-            target.addClass("tab-active");
-            nav.siblings(".actions-panels")
-                .children(`#${target.data("panel")}`)
-                .addClass("active");
         });
 
         html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
