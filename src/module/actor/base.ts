@@ -139,6 +139,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
+    /** Returns a Set of condition types to which this actor is immune */
+    get conditionImmunities(): Set<ConditionType> {
+        const immuneTo: ConditionType[] = [];
+
+        // Inanimate objects and hazards are immune to [...] the doomed, drained, fatigued, paralyzed, sickened, and unconscious conditions.
+        if (this.data.data.traits.di.value.includes("object-immunities")) {
+            const objectImmunities: ConditionType[] = ["doomed", "drained", "fatigued", "paralyzed", "sickened"];
+            immuneTo.push(...objectImmunities);
+        }
+
+        return new Set(immuneTo);
+    }
+
     /** Get roll options from this actor's traits an other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const { itemTypes } = this;
