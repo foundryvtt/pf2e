@@ -188,6 +188,8 @@ export class FamiliarPF2e extends CreaturePF2e {
             data.saves[saveName] = stat;
         }
 
+        this.buildSavingThrowStatistics();
+
         // Senses
         this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);
 
