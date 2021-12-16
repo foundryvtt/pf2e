@@ -1,5 +1,5 @@
 {
-    "_id": "JQAujUXjczVnYDEI",
+    "_id": "L5D0NwFXdLiVSnk5",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,13 +11,13 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've steeled your mind with resolve. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.</p>"
+            "value": "<p>Your ability to elude danger is matchless. Your proficiency rank for Reflex saves increases to legendary. When you roll a critical failure on a Reflex save, you get a failure instead. When you roll a failure on a Reflex save against a damaging effect, you take half damage.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": 7
+            "value": 13
         },
         "location": "",
         "prerequisites": {
@@ -26,22 +26,22 @@
         "rules": [
             {
                 "key": "Note",
-                "selector": "will",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+                "selector": "reflex",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure on a Reflex save, you get a failure instead. When you fail a Reflex save against a damaging effect, you take half damage.</p>"
             },
             {
                 "adjustment": {
-                    "success": "one-degree-better"
+                    "criticalFailure": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "selector": "will",
+                "selector": "reflex",
                 "type": "save"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.saves.will.rank",
-                "value": 3
+                "path": "data.saves.reflex.rank",
+                "value": 4
             }
         ],
         "source": {
@@ -52,14 +52,12 @@
             "rarity": {
                 "value": "common"
             },
-            "value": [
-                "oracle"
-            ]
+            "value": []
         }
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/resolve.webp",
-    "name": "Resolve (Level 7)",
+    "img": "systems/pf2e/icons/features/classes/improved-evasion.webp",
+    "name": "Improved Evasion",
     "type": "feat"
 }
