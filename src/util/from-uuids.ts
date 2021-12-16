@@ -101,3 +101,15 @@ export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ActorPF2e[] | It
     }
     return actors.length > 0 ? actors : items;
 }
+
+export function isItemUUID(uuid: unknown): uuid is ItemUUID {
+    if (typeof uuid !== "string") return false;
+    if (uuid.startsWith("Item.")) return true;
+
+    const [type, scope, packId, id]: (string | undefined)[] = uuid.split(".");
+    if (type !== "Compendium") return false;
+    if (!(scope && packId && id)) throw ErrorPF2e(`Unable to parse UUID: ${uuid}`);
+
+    const pack = game.packs.get(`${scope}.${packId}`);
+    return pack?.documentName === "Item";
+}

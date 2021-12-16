@@ -19,28 +19,36 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
 
-    override async preCreate({ itemSource, pendingItems, context }: REPreCreateParameters): Promise<void> {
+    override async preCreate(args: REPreCreateParameters): Promise<void> {
         if (this.ignored) return;
 
+        const { itemSource, pendingItems, context } = args;
+
         const grantedItem: ClientDocument | null = await (async () => {
+            const uuid = this.resolveInjectedProperties(this.data.uuid);
             try {
-                return fromUuid(this.data.uuid);
+                return fromUuid(uuid);
             } catch (error) {
                 console.error(error);
                 return null;
             }
         })();
-        if (!(grantedItem instanceof ItemPF2e)) {
-            return;
-        }
+        if (!(grantedItem instanceof ItemPF2e)) return;
 
         // Set ids and flags on the granting and granted items
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
+        // Create a temporary embedded version of the item to rule its pre-create REs
+        const tempEmbed = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
 
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
             delete grantedSource._id;
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
+
+            // Run the granted item's preCreate callbacks
+            for await (const rule of tempEmbed.prepareRuleElements()) {
+                await rule.preCreate?.(args);
+            }
             return;
         }
 
@@ -60,6 +68,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedFlags.pf2e.grantedBy = itemSource._id;
 
         pendingItems.push(grantedSource);
+
+        // Run the granted item's preCreate callbacks
+        for await (const rule of tempEmbed.prepareRuleElements()) {
+            await rule.preCreate?.(args);
+        }
     }
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
