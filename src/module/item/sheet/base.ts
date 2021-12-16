@@ -303,14 +303,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
             });
         });
-        html.find(".rules").on("click", ".remove-rule-element", async (event) => {
+        html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rules = duplicate((this.item.data.data as any).rules ?? []) as any[];
-            const index = event.currentTarget.dataset.ruleIndex;
-            if (rules && rules.length > Number(index)) {
+            const rules = this.item.toObject().data.rules;
+            const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN");
+            if (rules && Number.isInteger(index) && rules.length > index) {
                 rules.splice(index, 1);
                 this.item.update({ "data.rules": rules });
             }
@@ -324,7 +324,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
-        html.find(".skill-variants").on("click", ".remove-skill-variant", (event) => {
+        html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
