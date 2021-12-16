@@ -366,6 +366,11 @@ export class ConditionManager {
         );
         if (exists) return null;
 
+        if (actor.conditionImmunities.has(source.data.slug)) {
+            ui.notifications.warn(game.i18n.format("PF2E.Condition.ImmunityWarning", { conditionName: source.name }));
+            return null;
+        }
+
         source._id = randomID(16);
         const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
         await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
