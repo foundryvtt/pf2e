@@ -85,7 +85,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [`${delimitedPrefix}${slug}`, ...traits.map((t) => `${delimitedPrefix}${t}`)];
         if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
-        if (["item", ""].includes(prefix)) options.unshift(`${delimitedPrefix}type:${this.type}`);
+        if (["item", ""].includes(prefix)) {
+            const itemType =
+                this.data.type === "feat" && ["classfeature", "ancestryfeature"].includes(this.data.data.featType.value)
+                    ? "feature"
+                    : this.data.type;
+            options.unshift(`${delimitedPrefix}type:${itemType}`);
+        }
 
         return options;
     }
