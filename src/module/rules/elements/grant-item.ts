@@ -22,6 +22,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
     override async preCreate(args: REPreCreateParameters): Promise<void> {
         if (this.ignored) return;
 
+        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions(["all"]))) {
+            return;
+        }
+
         const { itemSource, pendingItems, context } = args;
 
         const grantedItem: ClientDocument | null = await (async () => {
