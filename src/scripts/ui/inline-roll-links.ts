@@ -149,7 +149,7 @@ export const InlineRollsLinks = {
                 case "fortitude":
                 case "reflex": {
                     actors.forEach((actor) => {
-                        const savingThrow = actor.data.data.saves[pf2Check ?? ""] as Rollable | undefined;
+                        const savingThrow = actor.saves?.[pf2Check ?? ""];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
@@ -162,7 +162,7 @@ export const InlineRollsLinks = {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            savingThrow.roll({ event, options, dc });
+                            savingThrow.check.roll({ event, options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
                         }

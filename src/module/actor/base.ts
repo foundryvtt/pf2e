@@ -1,8 +1,7 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import type { CreaturePF2e } from "./creature";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
@@ -14,7 +13,7 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
-import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
+import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { isCreatureData } from "./data/helpers";
@@ -24,6 +23,7 @@ import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { Statistic } from "@system/statistic";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -48,6 +48,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
 
+    saves?: Record<SaveType, Statistic>;
+
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
@@ -60,13 +62,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
             return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
         }
-    }
-
-    /** Is this an actor of a certain type? **/
-    isA<T extends ActorType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]>;
-    isA(type: "creature"): this is CreaturePF2e;
-    isA(type: ActorType | "creature"): boolean {
-        return type === "creature" ? ["character", "familiar", "npc"].includes(this.type) : this.type === type;
     }
 
     /** The compendium source ID of the actor **/
@@ -471,51 +466,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
         }
         return true;
-    }
-
-    /**
-     * Apply rolled dice damage to the token or tokens which are currently controlled.
-     * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     */
-    static async rollSave(ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> {
-        if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr("data-save") as SaveType;
-            const dc = Number($(ev.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits?.value ?? [];
-            for (const t of canvas.tokens.controlled) {
-                const actor = t.actor;
-                if (!actor) return;
-                if (actor.isA("creature")) {
-                    const rollOptions = [
-                        ...actor.getRollOptions(["all", "saving-throw", save]),
-                        ...actor.getSelfRollOptions(),
-                        ...item.actor.getSelfRollOptions("origin"),
-                    ];
-
-                    if (item instanceof SpellPF2e) {
-                        rollOptions.push("magical", "spell");
-                        if (Object.keys(item.data.data.damage.value).length > 0) {
-                            rollOptions.push("damaging-effect");
-                        }
-                    }
-
-                    if (itemTraits) {
-                        rollOptions.push(...itemTraits);
-                        rollOptions.push(...itemTraits.map((trait) => `trait:${trait}`));
-                    }
-
-                    actor.saves[save].check.roll({
-                        event: ev,
-                        dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options: Array.from(new Set(rollOptions)),
-                    });
-                } else {
-                    actor.rollSave(ev, save);
-                }
-            }
-        } else {
-            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-        }
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
