@@ -43,16 +43,27 @@ export class FeatPF2e extends ItemPF2e {
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 
+    /** Generate a list of strings for use in predication */
+    override getItemRollOptions(prefix = "feat"): string[] {
+        prefix =
+            prefix === "feat" && ["classfeature", "ancestryfeature"].includes(this.featType.value) ? "feature" : prefix;
+        return super.getItemRollOptions(prefix);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     protected override async _preUpdate(
-        data: DeepPartial<FeatPF2e["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
-    ) {
-        const actionCount = data.data?.actions;
+    ): Promise<void> {
+        const actionCount = changed.data?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 

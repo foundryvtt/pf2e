@@ -1,7 +1,7 @@
 import { ModifierPF2e } from "@module/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionData, ConditionSource } from "@item/condition/data";
-import { ConditionPF2e, ItemPF2e } from "@item";
+import { ConditionPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
@@ -366,13 +366,9 @@ export class ConditionManager {
         );
         if (exists) return null;
 
-        // Work around Foundry bug in which `keepId` is ignored when creating embedded documents on synethic actors
-        // https://gitlab.com/foundrynet/foundryvtt/-/issues/5826
         source._id = randomID(16);
         const sources = [source, ...this.createAdditionallyAppliedConditions(source)];
-        actor.isToken
-            ? await actor.update({ items: [...actor.toObject().items, ...sources] }, { keepId: true })
-            : await ItemPF2e.createDocuments(sources, { parent: actor, keepId: true });
+        await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
         return actor.itemTypes.condition.find((condition) => condition.id === source._id) ?? null;
     }
 

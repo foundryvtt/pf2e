@@ -315,72 +315,72 @@ declare global {
             lightAnimations: {
                 torch: {
                     label: "LIGHT.AnimationTorch";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
                     illuminationShader: typeof TorchIlluminationShader;
                     colorationShader: typeof TorchColorationShader;
                 };
                 pulse: {
                     label: "LIGHT.AnimationPulse";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
                     illuminationShader: typeof PulseIlluminationShader;
                     colorationShader: typeof PulseColorationShader;
                 };
                 chroma: {
                     label: "LIGHT.AnimationChroma";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 wave: {
                     label: "LIGHT.AnimationWave";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 fog: {
                     label: "LIGHT.AnimationFog";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 sunburst: {
                     label: "LIGHT.AnimationSunburst";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 dome: {
                     label: "LIGHT.AnimationLightDome";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 emanation: {
                     label: "LIGHT.AnimationEmanation";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 hexa: {
                     label: "LIGHT.AnimationHexaDome";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 ghost: {
                     label: "LIGHT.AnimationGhostLight";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 energy: {
                     label: "LIGHT.AnimationEnergyField";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 roiling: {
                     label: "LIGHT.AnimationRoilingMass";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                 };
                 hole: {
                     label: "LIGHT.AnimationBlackHole";
-                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                 };
             };

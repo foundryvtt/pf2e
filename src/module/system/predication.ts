@@ -10,7 +10,7 @@ interface RawPredicate {
     all?: PredicateStatement[];
     any?: PredicateStatement[];
     not?: PredicateStatement[];
-    test?: (options?: string[]) => boolean;
+    label?: string;
 }
 
 /**
@@ -26,6 +26,8 @@ class PredicatePF2e implements RawPredicate {
     any: PredicateStatement[];
     /** None of the statements in the array are true */
     not: PredicateStatement[];
+    /** A label for this predicate, to be displayed in certain (currently limited) contexts */
+    label?: string;
     /** Is the predicate data structurally valid? */
     isValid: boolean;
 
@@ -40,6 +42,7 @@ class PredicatePF2e implements RawPredicate {
         this.all = deepClone(param.all ?? []);
         this.any = deepClone(param.any ?? []);
         this.not = deepClone(param.not ?? []);
+        this.label = param.label;
         this.isValid = this.validate();
     }
 

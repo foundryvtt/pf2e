@@ -437,15 +437,15 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
-    ) {
+    ): Promise<void> {
         // Clamp slot updates
-        if (data.data?.slots) {
+        if (changed.data?.slots) {
             for (const key of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const) {
                 const slotKey = `slot${key}` as const;
-                const slotData = data.data.slots[slotKey];
+                const slotData = changed.data.slots[slotKey];
                 if (!slotData) continue;
 
                 if ("max" in slotData) {
@@ -458,7 +458,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             }
         }
 
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 

@@ -44,8 +44,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.rules = [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
-            return new CONFIG.PF2E.Item.documentClasses[data.type!](data, { ...ready, ...context });
+            mergeObject(context, { pf2e: { ready: true } });
+            const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
+            return ItemConstructor ? new ItemConstructor(data, context) : new ItemPF2e(data, context);
         }
     }
 
@@ -75,6 +76,24 @@ class ItemPF2e extends Item<ActorPF2e> {
             return this;
         }
         return super.delete(context);
+    }
+
+    /** Generate a list of strings for use in predication */
+    getItemRollOptions(prefix = this.type): string[] {
+        const slug = this.slug ?? sluggify(this.name);
+        const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const options = [`${delimitedPrefix}${slug}`, ...traits.map((t) => `${delimitedPrefix}${t}`)];
+        if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
+        if (["item", ""].includes(prefix)) {
+            const itemType =
+                this.data.type === "feat" && ["classfeature", "ancestryfeature"].includes(this.data.data.featType.value)
+                    ? "feature"
+                    : this.data.type;
+            options.unshift(`${delimitedPrefix}type:${itemType}`);
+        }
+
+        return options;
     }
 
     override getRollData(): Record<string, unknown> {
@@ -344,7 +363,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
                 : this.toObject();
-        if (itemData.type !== "spell") throw new Error("Wrong item type!");
+        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
         const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
         if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
@@ -411,7 +430,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
                 : this.toObject();
-        if (itemData.type !== "spell") throw new Error("Wrong item type!");
+        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
         const templateConversion: Record<string, string> = {
             burst: "circle",
@@ -493,7 +512,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !(
-                    ["condition", "formula", "martial", "spellcastingEntry"].includes(itemType) ||
+                    ["condition", "spellcastingEntry"].includes(itemType) ||
                     (["book", "deity"].includes(itemType) && BUILD_MODE === "production")
                 )
         );
@@ -563,7 +582,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -574,8 +593,24 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
+    /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        if (changed.data?.description?.value === null) {
+            changed.data.description.value = "";
+        }
+        await super._preUpdate(changed, options, user);
+    }
+
     /** Call onDelete rule-element hooks, refresh effects panel */
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(
+        data: ItemSourcePF2e,
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;

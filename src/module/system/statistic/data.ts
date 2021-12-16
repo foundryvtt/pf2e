@@ -52,6 +52,7 @@ export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
 
 /** Defines view data for chat message and sheet rendering */
 export interface StatisticChatData<T extends BaseStatisticData = StatisticData> {
+    name: string;
     check: T["check"] extends object
         ? {
               value: number;

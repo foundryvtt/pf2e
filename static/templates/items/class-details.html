@@ -302,10 +302,10 @@
         <div class="name">
             {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
         </div>
-        <div class="level">{{item.level}}</div>
-        <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-        <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype="String">
-        <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype="String">
+        <input type="number" class="level" value="{{item.level}}" name="data.items.{{i}}.level" />
+        <input value="{{item.name}}" name="data.items.{{i}}.name" type="hidden" data-dtype="String" />
+        <input value="{{item.pack}}" name="data.items.{{i}}.pack" type="hidden" data-dtype="String" />
+        <input value="{{item.id}}" name="data.items.{{i}}.id" type="hidden" data-dtype="String" />
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}

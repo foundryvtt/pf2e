@@ -62,7 +62,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
 
-        if (!this.scene?.rulesBasedVision) return;
+        if (!this.scene?.rulesBasedVision || this.actor.type === "npc") return;
         this.data.brightSight = 0;
         this.data.dimSight = 0;
         this.data.sightAngle = 360;
@@ -80,7 +80,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
         // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
         // Setting vision radii is less performant but necessary if multiple tokens are controlled
-        if (this.scene.rulesBasedVision) {
+        if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
             const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
             const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
             this.data.brightSight = this.data._source.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
@@ -153,28 +153,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
                 },
             ]);
         }
-    }
-
-    /**
-     * Foundry (at least as of 0.8.9) has a security exploit allowing any user, regardless of permissions, to update
-     * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
-     * `TokenDocument` updates.
-     */
-    static override async updateDocuments<T extends ConstructorOf<TokenDocumentPF2e>>(
-        this: T,
-        updates: DocumentUpdateData<InstanceType<T>>[] = [],
-        context: DocumentModificationContext = {}
-    ): Promise<InstanceType<T>[]> {
-        const scene = context.parent;
-        if (scene instanceof ScenePF2e) {
-            updates = updates.filter((data) => {
-                if (game.user.isGM || typeof data["_id"] !== "string") return true;
-                const tokenDoc = scene.tokens.get(data["_id"]);
-                return !!tokenDoc?.actor?.isOwner;
-            });
-        }
-
-        return super.updateDocuments(updates, context) as Promise<InstanceType<T>[]>;
     }
 
     /* -------------------------------------------- */
