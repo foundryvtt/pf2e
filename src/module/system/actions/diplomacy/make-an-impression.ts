@@ -14,7 +14,7 @@ export function makeAnImpression(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "exploration", "linguistic", "mental"],
         checkType,
         event: options.event,
-        difficultyClassStatistic: (target) => target.will,
+        difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "failure"),
