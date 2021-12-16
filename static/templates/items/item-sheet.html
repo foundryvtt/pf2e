@@ -30,9 +30,9 @@
             <h4 class="sheet-tabs tabs" data-tab-container="primary">
                 {{#if detailsActive}}
                     <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
-                    <a class="list-row active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                    <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                 {{else}}
-                    <a class="list-row active" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+                    <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                     {{#if hasDetails}}
                         <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                     {{/if}}
@@ -51,7 +51,7 @@
             </h4>
 
             <!-- Item Description -->
-            <div class="tab item-description active" data-tab="description">
+            <div class="tab item-description" data-tab="description">
                 {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
             </div>
 
