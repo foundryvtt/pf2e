@@ -2,7 +2,7 @@
     "_id": "PwcmmJOLY8C9JHau",
     "data": {
         "actionCategory": {
-            "value": ""
+            "value": "offensive"
         },
         "actionType": {
             "value": "action"
@@ -26,15 +26,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Double Shot",
                 "predicate": {
                     "all": [
                         "ranged",
                         "double-shot"
+                    ],
+                    "not": [
+                        "stance-multishot-stance"
                     ]
                 },
                 "selector": "attack",
                 "value": -2
+            },
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.attack-roll.double-shot"
             }
         ],
         "source": {
