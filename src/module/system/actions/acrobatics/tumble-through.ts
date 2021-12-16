@@ -14,7 +14,7 @@ export function tumbleThrough(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
-        difficultyClassStatistic: (target) => target.reflex,
+        difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.TumbleThrough", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.TumbleThrough", "failure"),

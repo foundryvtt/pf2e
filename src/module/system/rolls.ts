@@ -24,7 +24,7 @@ export interface RollDataPF2e extends RollData {
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
     /** The triggering event */
-    event?: JQuery.TriggeredEvent;
+    event?: JQuery.Event;
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
