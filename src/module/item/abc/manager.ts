@@ -65,7 +65,7 @@ export class AncestryBackgroundClassManager {
             await actor.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
         } else if (newLevel < actor.level) {
             const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
-            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete);
+            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
         }
     }
 
@@ -92,15 +92,15 @@ export class AncestryBackgroundClassManager {
         minLevel: number,
         actorLevel: number
     ): Promise<FeatSource[]> {
-        const classFeatsToAdd = item instanceof ClassPF2e ? item.data.data.items : item.data.items;
-        const itemId = item instanceof ClassPF2e ? item.id : item._id;
-
         if (minLevel >= actorLevel) {
             // no need to do anything, since we've seen it all
             return [];
         }
 
-        const featuresToAdd = Object.values(classFeatsToAdd).filter(
+        const classSource = item instanceof ClassPF2e ? item.toObject() : item;
+        const itemId = classSource._id;
+        const featureEntries = classSource.data.items;
+        const featuresToAdd = Object.values(featureEntries).filter(
             (entryData) => actorLevel >= entryData.level && entryData.level > minLevel
         );
 
@@ -120,10 +120,6 @@ export class AncestryBackgroundClassManager {
                             const featSource = feat.toObject();
                             featSource._id = randomID(16);
                             featSource.data.location = locationId;
-                            // There are some classes (e.g. Investigator) where multiple active effects have the same id
-                            featSource.effects.forEach((effect) => {
-                                effect._id = randomID(16);
-                            });
                             return featSource;
                         } else {
                             throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
@@ -156,12 +152,20 @@ export class AncestryBackgroundClassManager {
         for await (const pack of packs) {
             // Only fetch feats that are in this pack
             const entryIds = entries.filter((entry) => entry.pack === pack).map((entry) => entry.id);
-            feats.push(
-                ...(await game.packs
-                    .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
-                    // Use NeDB query to fetch all needed feats in one transaction
-                    .getDocuments({ _id: { $in: entryIds } }))
-            );
+            const features = await game.packs
+                .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
+                // Use NeDB query to fetch all needed feats in one transaction
+                .getDocuments({ _id: { $in: entryIds } });
+            // For class features, set the level to the one prescribed in the class item
+            for (const feature of features) {
+                const entry = entries.find((e) => e.id === feature.id);
+                if (entry && feature.featType.value === "classfeature") {
+                    feature.data._source.data.level.value = entry.level;
+                    feature.prepareData();
+                }
+            }
+
+            feats.push(...features);
         }
         return feats;
     }

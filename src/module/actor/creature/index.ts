@@ -18,6 +18,7 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
+    AlignmentTrait,
     AttackRollContext,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -64,11 +65,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get hasDarkvision(): boolean {
-        return this.visionLevel === VisionLevels.DARKVISION;
+        return this.visionLevel === VisionLevels.DARKVISION && !this.hasCondition("blinded");
     }
 
     get hasLowLightVision(): boolean {
-        return this.visionLevel >= VisionLevels.LOWLIGHT;
+        return this.visionLevel >= VisionLevels.LOWLIGHT && !this.hasCondition("blinded");
     }
 
     override get canSee(): boolean {
@@ -163,19 +164,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Add alignment traits and other creature properties self roll options */
     override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const options = super.getSelfRollOptions(prefix);
-
-        const { alignment } = this;
-        const alignmentTraits = [
-            ...new Set([
-                ...(["LG", "NG", "CG"].includes(alignment) ? (["good"] as const) : []),
-                ...(["LE", "NE", "CE"].includes(alignment) ? (["evil"] as const) : []),
-                ...(["LG", "LN", "LE"].includes(alignment) ? (["lawful"] as const) : []),
-                ...(["CG", "CN", "CE"].includes(alignment) ? (["chaotic"] as const) : []),
-            ]),
-        ].map((trait) => `${prefix}:trait:${trait}`);
-
-        for (const trait of alignmentTraits) options.add(trait);
-
         const { itemTypes } = this;
         const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
         if (targetIsSpellcaster) options.add(`${prefix}:caster`);
@@ -217,8 +205,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
-    override prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
 
         /** Set initial roll options for AE-like predicates */
         for (const option of this.getSelfRollOptions()) {
@@ -234,9 +222,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    // Set whether this actor is wearing armor
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        // Add alignment traits from the creature's alignment
+        const alignmentTraits = ((): AlignmentTrait[] => {
+            const { alignment } = this;
+            return [
+                ["LG", "NG", "CG"].includes(alignment) ? ("good" as const) : [],
+                ["LE", "NE", "CE"].includes(alignment) ? ("evil" as const) : [],
+                ["LG", "LN", "LE"].includes(alignment) ? ("lawful" as const) : [],
+                ["CG", "CN", "CE"].includes(alignment) ? ("chaotic" as const) : [],
+            ].flat();
+        })();
+        for (const trait of alignmentTraits) {
+            this.data.data.traits.traits.value.push(trait);
+        }
+
+        // Set whether this actor is wearing armor
         this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
     }
 
@@ -503,6 +506,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 (otherSpeed) => otherSpeed.type === movementType
             );
             if (!speed) throw ErrorPF2e("Unexpected missing speed");
+
+            speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
             const base = Number(speed.value ?? 0);
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
@@ -712,12 +717,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected override async _preUpdate(
-        data: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
-    ) {
+    ): Promise<void> {
         // Clamp focus points
-        const focus = data.data && "resources" in data.data ? data.data?.resources?.focus ?? null : null;
+        const focus = changed.data && "resources" in changed.data ? changed.data?.resources?.focus ?? null : null;
         if (focus && "resources" in this.data.data) {
             if (typeof focus.max === "number") {
                 focus.max = Math.clamped(focus.max, 0, 3);
@@ -729,12 +734,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Clamp HP
-        const hitPoints = data.data?.attributes?.hp;
+        const hitPoints = changed.data?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
             hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
         }
 
-        await super._preUpdate(data, options, user);
+        await super._preUpdate(changed, options, user);
     }
 }
 

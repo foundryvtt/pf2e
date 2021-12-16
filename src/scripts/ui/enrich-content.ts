@@ -32,8 +32,8 @@ export const EnrichContent = {
 
         // Enrich @inline commands: Localize, Template
         // Localize calls the function again in order to enrich data contained in there
-        const entityTypes: String[] = ["Localize", "Template"];
-        const rgx = new RegExp(`@(${entityTypes.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
+        const types: String[] = ["Localize", "Template"];
+        const rgx = new RegExp(`@(${types.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
 
         return data.replace(rgx, (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
             switch (inlineType) {
@@ -75,12 +75,6 @@ export const EnrichContent = {
                 }
                 params.traits = traits;
             }
-        }
-
-        // Add damaging-effect if param damaging = true and not already included
-        if (params.damaging === "true") {
-            if (params.traits.search("damaging-effect") === -1)
-                params.traits = params.traits.concat(",damaging-effect").replace(/^,/, "");
         }
 
         // Add the html elements used for the inline buttons

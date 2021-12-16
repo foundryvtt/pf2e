@@ -21,7 +21,7 @@ export class EffectPF2e extends ItemPF2e {
 
     get totalDuration(): number {
         const { duration } = this.data.data;
-        if (duration.unit === "unlimited") {
+        if (["unlimited", "encounter"].includes(duration.unit)) {
             return Infinity;
         } else {
             return duration.value * (EffectPF2e.DURATION_UNITS[duration.unit] ?? 0);
@@ -29,17 +29,16 @@ export class EffectPF2e extends ItemPF2e {
     }
 
     get remainingDuration(): { expired: boolean; remaining: number } {
-        const result = {
-            expired: true,
-            remaining: 0,
-        };
         const duration = this.totalDuration;
-        if (duration === Infinity) {
-            result.expired = false;
+        if (this.data.data.duration.unit === "encounter") {
+            const isExpired = this.data.data.expired;
+            return { expired: isExpired, remaining: isExpired ? 0 : Infinity };
+        } else if (duration === Infinity) {
+            return { expired: false, remaining: Infinity };
         } else {
             const start = this.data.data.start?.value ?? 0;
-            result.remaining = start + duration - game.time.worldTime;
-            result.expired = result.remaining <= 0;
+            const remaining = start + duration - game.time.worldTime;
+            const result = { remaining, expired: remaining <= 0 };
             if (
                 result.remaining === 0 &&
                 ui.combat !== undefined &&
@@ -54,8 +53,17 @@ export class EffectPF2e extends ItemPF2e {
                     result.expired = initiative < (this.data.data.start.initiative ?? 0);
                 }
             }
+            return result;
         }
-        return result;
+    }
+
+    override prepareBaseData(): void {
+        const { duration } = this.data.data;
+        if (["unlimited", "encounter"].includes(duration.unit)) {
+            duration.expiry = null;
+        } else {
+            duration.expiry ||= "turn-start";
+        }
     }
 
     override prepareActorData(this: Embedded<EffectPF2e>): void {
@@ -74,7 +82,7 @@ export class EffectPF2e extends ItemPF2e {
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         if (this.isOwned && user.id === game.userId) {
@@ -87,6 +95,22 @@ export class EffectPF2e extends ItemPF2e {
             });
         }
         await super._preCreate(data, options, user);
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const duration = changed.data?.duration;
+        if (duration?.unit === "unlimited") {
+            duration.expiry = null;
+        } else if (typeof duration?.unit === "string" && !["unlimited", "encounter"].includes(duration.unit)) {
+            duration.expiry ||= "turn-start";
+            if (duration.value === -1) duration.value = 1;
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {

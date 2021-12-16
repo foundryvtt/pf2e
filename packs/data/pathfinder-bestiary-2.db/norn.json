@@ -146,9 +146,6 @@
         {
             "_id": "hw7F7aaLP2U1MYZy",
             "data": {
-                "ability": {
-                    "value": ""
-                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -265,9 +262,6 @@
         {
             "_id": "N6kFu0cV0Nb2o5Tu",
             "data": {
-                "ability": {
-                    "value": ""
-                },
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -1804,7 +1798,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes [[/r 2d12 #persistent force]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Force Damage}. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is 4d12.</p>"
+                    "value": "<p>You cause any spells cast on the target to spill out their energy in harmful surges. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Whenever the target becomes affected by a spell with a duration, the target takes [[/r {2d12}[persistent,force]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Force Damage}. Each time it takes persistent force damage from spellwrack, it reduces the remaining duration of spells affecting it by 1 round. Only a successful Arcana check against your spell DC can help the target recover from the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}; the curse and the Persistent Damage end after 1 minute.</p>\n<p><strong>Failure</strong> As success, but the curse and Persistent Damage do not end on their own.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent force damage is 4d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2035,7 +2029,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2534,10 +2528,10 @@
                         "predicate": {
                             "any": [
                                 "magical",
-                                "trait:arcane",
-                                "trait:primal",
-                                "trait:occult",
-                                "trait:divine"
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
                             ]
                         },
                         "selector": "saving-throw",
@@ -2724,7 +2718,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 120 feet attempts a saving throw; <strong>Effect</strong> The creature rolls the saving throw twice, and then the norn decides which result applies. If the norn chooses the lower roll, this is a misfortune effect; if she chooses the higher roll, it's a fortune effect; if they're the same, she decides which trait to apply.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 120 feet attempts a saving throw</p>\n<p><strong>Effect</strong> The creature rolls the saving throw twice, and then the norn decides which result applies. If the norn chooses the lower roll, this is a misfortune effect; if she chooses the higher roll, it's a fortune effect; if they're the same, she decides which trait to apply.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2773,7 +2767,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day; <strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes [[/r {100}[negative]]]{100 negative damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"42\" data-pf2-traits=\"death,manipulate,necromancy,occult,damaging-effect\" data-pf2-label=\"Snip Thread DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@Compendium[pf2e.spells-srd.Miracle]{Miracle}</em>, <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Effect</strong> The norn produces a golden thread linked to the fate of a creature within 100 feet of her, then snips it short with her shears. The target takes [[/r {100}[negative]]]{100 negative damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"42\" data-pf2-traits=\"death,manipulate,necromancy,occult,damaging-effect\" data-pf2-label=\"Snip Thread DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). If the target is reduced to 0 Hit Points from this damage, the thread is completely severed and the creature dies immediately. A creature slain by Snip Thread can't be restored to life except by <em>@Compendium[pf2e.spells-srd.Miracle]{Miracle}</em>, <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em>, or similarly powerful magic; or by divine intervention. Regardless of the outcome of their saving throw, a creature targeted by Snip Thread then becomes temporarily immune for 24 hours. The norn can't use Snip Thread again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

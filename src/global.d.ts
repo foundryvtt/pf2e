@@ -38,7 +38,7 @@ import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { remigrate } from "@scripts/system/remigrate";
 import { FolderPF2e } from "@module/folder";
-import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
+import { CanvasPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
@@ -90,11 +90,6 @@ declare global {
         time: {
             roundTime: number;
         };
-        Canvas: ConfiguredConfig["Canvas"] & {
-            layers: ConfiguredConfig["Canvas"]["layers"] & {
-                darkvision: typeof DarkvisionLayerPF2e;
-            };
-        };
     }
 
     const CONFIG: ConfigPF2e;
@@ -116,6 +111,7 @@ declare global {
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
+        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";

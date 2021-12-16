@@ -1,8 +1,9 @@
 import { DamageDicePF2e, ModifierPF2e } from "../modifiers";
 import { RollNotePF2e } from "../notes";
-import { WeaponPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
+import { ItemSourcePF2e } from "@item/data";
 
 export type RuleElementSource = {
     key: string;
@@ -61,6 +62,24 @@ export interface MultipleAttackPenaltyPF2e {
     label: string;
     penalty: number;
     predicate?: PredicatePF2e;
+}
+
+export interface REPreCreateParameters<T extends RuleElementSource = RuleElementSource> {
+    /** The source partial of the rule element's parent item to be created */
+    itemSource: PreCreate<ItemSourcePF2e>;
+    /** The source of the rule in `itemSource`'s `data.rules` array */
+    ruleSource: T;
+    /** All items pending creation in a `ItemPF2e.createDocuments` call */
+    pendingItems: PreCreate<ItemSourcePF2e>[];
+    /** The context object from the `ItemPF2e.createDocuments` call */
+    context: DocumentModificationContext<ItemPF2e>;
+}
+
+export interface REPreDeleteParameters {
+    /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
+    pendingItems: ItemPF2e[];
+    /** The context object from the `ItemPF2e.deleteDocuments` call */
+    context: DocumentModificationContext<ItemPF2e>;
 }
 
 export interface RuleElementSynthetics {

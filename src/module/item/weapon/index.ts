@@ -82,24 +82,29 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a list of strings for use in predication */
     override getItemRollOptions(prefix = "weapon"): string[] {
-        return super.getItemRollOptions(prefix).concat(
+        const actorSize = this.actor?.data.data.traits.size;
+        const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+
+        return [
+            super.getItemRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
+                oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 magical: this.isMagical,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
-                    const separatedPrefix = prefix ? `${prefix}:` : "";
-                    return `${separatedPrefix}${key}`;
+                    return `${delimitedPrefix}${key}`;
                 }),
-            ...this.data.data.traits.otherTags.map((tag) => `tag:${tag}`)
-        );
+            this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
+        ].flat();
     }
 
     override prepareBaseData(): void {

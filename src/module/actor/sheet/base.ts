@@ -156,7 +156,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             di: CONFIG.PF2E.immunityTypes,
             dv: CONFIG.PF2E.weaknessTypes,
             ci: CONFIG.PF2E.immunityTypes,
-            traits: CONFIG.PF2E.creatureTraits,
+            traits: { ...CONFIG.PF2E.creatureTraits, ...CONFIG.PF2E.alignmentTraits },
         };
 
         for (const [t, choices] of Object.entries(map)) {
@@ -240,18 +240,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
-        // Roll Attribute Checks
         html.find(".roll-init").on("click", (event) => {
             const $target = $(event.currentTarget);
-            if (
-                !$target.hasClass("disabled") &&
-                "initiative" in this.actor.data.data.attributes &&
-                "roll" in this.actor.data.data.attributes.initiative
-            ) {
-                this.actor.data.data.attributes.initiative.roll({ event });
+            const { attributes } = this.actor.data.data;
+            if (!$target.hasClass("disabled") && "initiative" in attributes) {
+                attributes.initiative.roll?.({ event });
             }
         });
 
+        // Roll Attribute Checks
         html.find(".attribute-name").on("click", (event) => {
             event.preventDefault();
             const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
@@ -817,6 +814,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 sourceItemId
             );
             return [item];
+        }
+
+        // mystify the item if the alt key was pressed
+        if (event.altKey && isPhysicalData(itemData)) {
+            itemData.data.identification.unidentified = (item as PhysicalItemPF2e).getMystifiedData("unidentified");
+            itemData.data.identification.status = "unidentified";
         }
 
         // get the item type of the drop target

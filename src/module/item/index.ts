@@ -16,7 +16,6 @@ export { EquipmentPF2e } from "./equipment";
 export { FeatPF2e } from "./feat";
 export { KitPF2e } from "./kit";
 export { LorePF2e } from "./lore";
-export { FormulaPF2e, MartialPF2e } from "./deprecated";
 export { MeleePF2e } from "./melee";
 export { SpellPF2e } from "./spell";
 export { SpellcastingEntryPF2e } from "./spellcasting-entry";

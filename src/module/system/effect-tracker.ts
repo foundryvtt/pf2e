@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor/creature";
 import type { EffectPF2e } from "@item/index";
+import { EncounterPF2e } from "@module/encounter";
 
 export class EffectTracker {
     private trackedEffects: Embedded<EffectPF2e>[] = [];
@@ -37,23 +38,30 @@ export class EffectTracker {
 
     register(effect: Embedded<EffectPF2e>): void {
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
-        if (effect.data.data.duration.unit === "unlimited") {
-            effect.data.data.expired = false;
-            if (index >= 0 && index < this.trackedEffects.length) {
-                this.trackedEffects.splice(index, 1);
+        const systemData = effect.data.data;
+        const duration = systemData.duration.unit;
+        switch (duration) {
+            case "unlimited":
+            case "encounter": {
+                if (duration === "unlimited") systemData.expired = false;
+                if (index >= 0 && index < this.trackedEffects.length) {
+                    this.trackedEffects.splice(index, 1);
+                }
+                return;
             }
-            return;
-        }
-        const duration = effect.remainingDuration;
-        effect.data.data.expired = duration.expired;
-        if (this.trackedEffects.length === 0 || index < 0) {
-            this.insert(effect, duration);
-        } else {
-            const existing = this.trackedEffects[index];
-            // compare duration and update if different
-            if (duration.remaining !== existing.remainingDuration.remaining) {
-                this.trackedEffects.splice(index, 1);
-                this.insert(effect, duration);
+            default: {
+                const duration = effect.remainingDuration;
+                effect.data.data.expired = duration.expired;
+                if (this.trackedEffects.length === 0 || index < 0) {
+                    this.insert(effect, duration);
+                } else {
+                    const existing = this.trackedEffects[index];
+                    // compare duration and update if different
+                    if (duration.remaining !== existing.remainingDuration.remaining) {
+                        this.trackedEffects.splice(index, 1);
+                        this.insert(effect, duration);
+                    }
+                }
             }
         }
     }
@@ -113,6 +121,22 @@ export class EffectTracker {
                 "Item",
                 expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
             );
+        }
+    }
+
+    async onEncounterEnd(encounter: EncounterPF2e): Promise<void> {
+        const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
+        for await (const actor of actors) {
+            const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
+            if (expiresNow.length > 0) {
+                actor.updateEmbeddedDocuments(
+                    "Item",
+                    expiresNow.map((e) => ({ _id: e.id, "data.expired": true }))
+                );
+                for (const effect of expiresNow) {
+                    this.unregister(effect);
+                }
+            }
         }
     }
 }

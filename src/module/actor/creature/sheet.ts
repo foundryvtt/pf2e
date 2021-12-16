@@ -127,17 +127,16 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = getProperty(this.actor.data._source, propertyPath);
+            const baseValue: number = getProperty(this.actor.data._source, propertyPath);
             $input.val(baseValue).attr({ name: propertyPath });
-            event.target.select();
         });
 
         html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = getProperty(this.actor.data, propertyPath);
-            $input.val(preparedValue);
+            const preparedValue: number = getProperty(this.actor.data, propertyPath);
+            $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
         });
 
         // General handler for embedded item updates
@@ -219,16 +218,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const entry = this.actor.spellcasting.get(index);
             if (entry) {
                 entry.statistic.check.roll({ event });
-            }
-        });
-
-        // for spellcasting checks
-        html.find(".spellcasting.rollable").on("click", (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const item = this.actor.items.get(itemId);
-            if (item) {
-                item.rollSpellcastingEntryCheck(event);
             }
         });
 

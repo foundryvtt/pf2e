@@ -30,8 +30,7 @@ export interface SceneDataPF2e<T extends ScenePF2e>
 
 export enum LightLevels {
     DARKNESS = 1 / 4,
-    DIM_LIGHT = 3 / 4,
-    BRIGHT_LIGHT = 1,
+    BRIGHT_LIGHT = 3 / 4,
 }
 
 export type LightLevel = ZeroToTwo;

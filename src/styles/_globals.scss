@@ -450,7 +450,7 @@ a.inline-roll, a.entity-link {
 /* ----------------------------------------- */
 /* PF2E GM Visibility Elements               */
 /* ----------------------------------------- */
-[data-visibility="gm"]:is(div, em, p, span, strong) {
+[data-visibility="gm"]:is(div, em, h4, p, span, strong) {
     box-sizing: border-box;
     border: 1px dotted;
     background: #e8e8ef;
@@ -461,6 +461,10 @@ a.inline-roll, a.entity-link {
         border: none;
         padding: 0;
         margin-bottom: 0;
+    }
+
+    &.message-sender {
+        max-width: fit-content;
     }
 }
 

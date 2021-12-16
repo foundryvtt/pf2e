@@ -99,18 +99,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
-    /**
-     * Avoid triggering Foundry 0.8.8 bug in which a speaker with no alias and a deleted actor can cause and unhandled
-     * exception to be thrown
-     */
-    override get alias(): string {
-        const speaker = this.data.speaker;
-        return speaker.alias ?? game.actors.get(speaker.actor ?? "")?.name ?? this.user?.name ?? "";
-    }
-
     /** Get the token of the speaker if possible */
     get token(): TokenDocumentPF2e | null {
-        if (!canvas.ready) return null;
+        if (!game.scenes) return null;
         const sceneId = this.data.speaker.scene ?? "";
         const tokenId = this.data.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
@@ -120,7 +111,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibility.process($html, { actor: this.actor });
+        UserVisibility.process($html, { message: this, actor: this.actor });
 
         if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
@@ -163,7 +154,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     private onHoverOut(): void {
-        this.token?.object.emitHoverOut();
+        this.token?.object?.emitHoverOut();
     }
 
     private onClick(event: JQuery.ClickEvent): void {

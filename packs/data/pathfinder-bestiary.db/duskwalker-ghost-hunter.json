@@ -23,7 +23,7 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "(22 against prey; see Hunt Prey)",
                 "value": 21
             },
             "allSaves": {
@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -63,7 +64,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>Duskwalkers are infused with the same energies as psychopomps. These ashen scions are reborn on the Material Plane to serve as guardians of the cycle of life and death.</p>",
+            "publicNotes": "<p>Duskwalkers are infused with the same energies as psychopomps. These ashen scions are reborn on the Material Plane to serve as guardians of the cycle of life and death.</p>\n<hr />\n<p>Many immortals dwell upon the other planes of the Great Beyond. Some are benevolent and kindly, like angels. Others are cruel and destructive, like demons. And some fit roles outside of morality, like psychopomps. It's far from unheard of that mortals and immortals alike become entangled romantically, and the children of such engagements carry a supernatural element in their bloodlines for generations to follow. After the first generation, this otherworldly influence usually lies dormant, but now and then, the influence can manifest strongly in descendants many years later. These inheritors of extraplanar legacies are known collectively as planar scions.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -88,14 +89,14 @@
             "di": {
                 "custom": "effects that would transform their body or soul to an undead",
                 "value": [
-                    "custom"
+                    "death-effects"
                 ]
             },
             "dr": [
                 {
-                    "label": "Negative Energy",
-                    "type": "negative energy",
-                    "value": "2"
+                    "exceptions": "",
+                    "type": "negative",
+                    "value": 2
                 }
             ],
             "dv": [],
@@ -131,28 +132,48 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "moRyGuExHXEAMSZp",
+            "_id": "XrQgBdoM7hXVsCpP",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "composite-longbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bow",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -186,6 +207,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -193,20 +217,59 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "20 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": 100,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "composite-longbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -214,45 +277,73 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-one-plus-hands"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "composite longbow",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "name": "Composite Longbow",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "2il2qBcz9Z5KxH5J",
+            "_id": "uixAwUOcMRrtLVvt",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "hatchet",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>(2)</p>"
+                    "value": "<p>This small axe can be used in close combat or thrown.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "axe",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -286,27 +377,69 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "4 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 2
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "hatchet",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -314,31 +447,46 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "sweep",
+                        "thrown-10"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "hatchet (2)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LGgvev6AV0So8tP9"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/hatchet.webp",
+            "name": "Hatchet",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "9yzsQKeMNxSsKze9",
+            "_id": "0gT1zhmopHJTXCXI",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "category": "light",
+                "check": {
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -347,7 +495,169 @@
                     "value": ""
                 },
                 "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": 4
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": "1"
+                },
+                "group": "leather",
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
                     "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "leather-armor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "speed": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": 10
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
+            "sort": 300000,
+            "type": "armor"
+        },
+        {
+            "_id": "ErcuN6gReLSAgHuA",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -374,9 +684,6 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 0
                 },
@@ -393,21 +700,35 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 20
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
-                    "value": ""
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -419,16 +740,27 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "leather armor",
-            "sort": 300000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 400000,
+            "type": "consumable"
         },
         {
             "_id": "ZTtP9ifJTYHBXH8d",
@@ -437,6 +769,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -474,7 +807,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
-            "sort": 400000,
+            "sort": 500000,
             "type": "melee"
         },
         {
@@ -484,6 +817,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -524,7 +858,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 500000,
+            "sort": 600000,
             "type": "melee"
         },
         {
@@ -534,6 +868,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -572,8 +907,116 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hatchet",
-            "sort": 600000,
+            "sort": 700000,
             "type": "melee"
+        },
+        {
+            "_id": "H64oYdSbWbITvHiH",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "rh2quedjlo5wYnpP",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "death"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Death Effects",
+            "sort": 900000,
+            "type": "action"
         },
         {
             "_id": "NUQlBj6YHAwX4fEr",
@@ -588,12 +1031,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The duskwalker's weapons have the benefits of the @Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune on attacks against incorporeal undead.</p>"
+                    "value": "<p>The duskwalker's weapons have the benefits of the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "target:trait:undead",
+                                "target:trait:incorporeal"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> The duskwalker's weapons have the benefits of the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -616,7 +1071,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghost Hunter",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -632,12 +1087,91 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it Seeks its prey and a +2 circumstance bonus to Survival checks when it Tracks its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>"
+                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Designated Prey attacks the Duskwalker",
+                        "property": "flags.pf2e.rollOptions.all.hunt-prey-attack"
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Duskwalker rolls checks against his Designated Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunt-prey-checks"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-checks",
+                                "action:seek"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-checks",
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-checks"
+                            ]
+                        },
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-checks"
+                            ]
+                        },
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-checks"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunt-prey-attack"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -660,7 +1194,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunt Prey",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -676,7 +1210,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per round; <strong>Effect</strong> The duskwalker makes two longbow Strikes against its hunted prey. If both Strikes hit, combine their damage for the purpose of resistances and weaknesses.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> Once per round</p>\n<p><strong>Effect</strong> The duskwalker makes two longbow Strikes against its hunted prey. If both Strikes hit, combine their damage for the purpose of resistances and weaknesses.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -704,7 +1238,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hunted Shot",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -739,7 +1273,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -774,7 +1308,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -809,7 +1343,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -844,7 +1378,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -879,7 +1413,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -914,7 +1448,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -949,7 +1483,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],

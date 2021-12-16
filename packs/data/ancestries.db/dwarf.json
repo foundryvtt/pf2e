@@ -55,7 +55,34 @@
             ]
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.equipment-srd.kJJvKm80KwWXPukV"
+                    },
+                    {
+                        "value": "Compendium.pf2e.equipment-srd.BtncTx8EfxTsHqQI"
+                    }
+                ],
+                "flag": "clanWeapon",
+                "key": "ChoiceSet",
+                "label": "Clan Weapon",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:dwarf",
+                        "weapon:level:0"
+                    ],
+                    "label": "level-0 dwarf weapon"
+                },
+                "prompt": "Select a clan weapon."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.clanWeapon}"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"

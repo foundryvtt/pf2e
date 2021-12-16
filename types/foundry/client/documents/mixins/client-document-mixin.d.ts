@@ -132,7 +132,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     prepareBaseData(): void;
 
     /** Prepare all embedded Document instances which exist within this primary Document. */
-    prepareEmbeddedEntities(): void;
+    prepareEmbeddedDocuments(): void;
 
     /**
      * Apply transformations or derivations to the values of the source data object.

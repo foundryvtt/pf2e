@@ -24,7 +24,6 @@ export const CanvasReady = {
                 for (const token of tokens) {
                     token.redraw();
                 }
-                canvas.darkvision.draw();
             }
         });
     },

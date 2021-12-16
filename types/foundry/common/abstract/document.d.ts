@@ -91,15 +91,12 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: DeepPartial<T["data"]["_source"]> | undefined,
+                    data: DocumentUpdateData<this> | undefined,
                     options: { save: true; keepId?: boolean }
                 ): Promise<T>;
+                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
                 clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
-                    options?: { save?: false; keepId?: boolean }
-                ): T;
-                clone<T extends this>(
-                    data?: DeepPartial<T["data"]["_source"]>,
+                    data?: DocumentUpdateData<this>,
                     options?: { save?: boolean; keepId?: boolean }
                 ): T | Promise<T>;
 
@@ -162,6 +159,7 @@ declare global {
                  * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
                  * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
                  */
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 static createDocuments<T extends ConstructorOf<any>>(
                     this: T,
                     data?: PreCreate<InstanceType<T>["data"]["_source"]>[],
@@ -193,10 +191,11 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                static updateDocuments(
-                    updates?: DocumentUpdateData<Document>[],
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                static updateDocuments<T extends ConstructorOf<any>>(
+                    updates?: DocumentUpdateData<InstanceType<T>>[],
                     context?: DocumentModificationContext
-                ): Promise<Document[]>;
+                ): Promise<InstanceType<T>[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.
@@ -225,11 +224,12 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const deleted = await Actor.deleteDocuments([actor.id], {pack: "mymodule.mypack"});
                  */
-                static deleteDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                static deleteDocuments<T extends ConstructorOf<any>>(
+                    this: T,
                     ids?: string[],
                     context?: DocumentModificationContext
-                ): Promise<T[]>;
+                ): Promise<InstanceType<T>[]>;
 
                 /**
                  * Create a new Document using provided input data, saving it to the database.
@@ -440,9 +440,9 @@ declare global {
                  * @param options Additional options which modify the update request
                  * @param user    The User requesting the document update
                  */
-                protected _preUpdate<T extends Document>(
-                    data: DocumentUpdateData<T>,
-                    options: DocumentModificationContext,
+                protected _preUpdate(
+                    changed: DeepPartial<this["data"]["_source"]>,
+                    options: DocumentModificationContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
 
@@ -586,8 +586,8 @@ declare global {
      * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
      * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
      */
-    interface DocumentModificationContext {
-        parent?: foundry.abstract.Document | null;
+    interface DocumentModificationContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
+        parent?: T["parent"];
         pack?: string;
         noHook?: boolean;
         index?: boolean;
@@ -605,7 +605,7 @@ declare global {
     };
 
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
-        ? DeepPartial<T & { name: string; type: T["type"] }>
+        ? Omit<DeepPartial<T>, "name" | "type"> & { name: string; type: T["type"] }
         : DeepPartial<T>;
 
     type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, "_id"> & { _id: null };

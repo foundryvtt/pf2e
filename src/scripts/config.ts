@@ -15,12 +15,10 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    MartialPF2e,
     SpellPF2e,
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
-    FormulaPF2e,
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionType } from "@item/condition/data";
@@ -37,6 +35,7 @@ import { ActorType } from "@actor/data";
 import { BaseWeaponType, MeleeWeaponGroup, RangedWeaponGroup, WeaponGroup } from "@item/weapon/data";
 import enJSON from "../../static/lang/en.json";
 import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { AlignmentTrait } from "@actor/creature/data";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -170,7 +169,7 @@ const damageCategories: Record<DamageCategory, string> = {
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
-const alignmentTraits = {
+const alignmentTraits: Record<AlignmentTrait, string> = {
     chaotic: "PF2E.TraitChaotic",
     evil: "PF2E.TraitEvil",
     good: "PF2E.TraitGood",
@@ -719,7 +718,6 @@ const traitsDescriptions = {
 };
 
 const creatureTraits = {
-    ...alignmentTraits,
     ...ancestryItemTraits,
     ...elementalTraits,
     ...energyDamageTypes,
@@ -890,7 +888,7 @@ const spellOtherTraits = {
     nonlethal: "PF2E.TraitNonlethal",
     olfactory: "PF2E.TraitOlfactory",
     plant: "PF2E.TraitPlant",
-    poison: "PF2e.TraitPoison",
+    poison: "PF2E.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
     possession: "PF2E.TraitPossession",
     prediction: "PF2E.TraitPrediction",
@@ -1766,16 +1764,19 @@ export const PF2ECONFIG = {
 
     consumableTypes: {
         ammo: "PF2E.ConsumableTypeAmmo",
-        potion: "PF2E.ConsumableTypePotion",
-        oil: "PF2E.ConsumableTypeOil",
-        scroll: "PF2E.ConsumableTypeScroll",
-        talisman: "PF2E.ConsumableTypeTalisman",
-        snare: "PF2E.ConsumableTypeSnare",
+        catalyst: "PF2E.TraitCatalyst",
         drug: "PF2E.ConsumableTypeDrug",
         elixir: "PF2E.ConsumableTypeElixir",
-        mutagen: "PF2E.ConsumableTypeMutagen",
+        fulu: "PF2E.TraitFulu",
+        gadget: "PF2E.TraitGadget",
+        oil: "PF2E.ConsumableTypeOil",
         other: "PF2E.ConsumableTypeOther",
+        mutagen: "PF2E.ConsumableTypeMutagen",
         poison: "PF2E.ConsumableTypePoison",
+        potion: "PF2E.ConsumableTypePotion",
+        scroll: "PF2E.ConsumableTypeScroll",
+        snare: "PF2E.ConsumableTypeSnare",
+        talisman: "PF2E.ConsumableTypeTalisman",
         tool: "PF2E.ConsumableTypeTool",
         wand: "PF2E.ConsumableTypeWand",
     },
@@ -1823,6 +1824,8 @@ export const PF2ECONFIG = {
         NE: "PF2E.AlignmentNE",
         CE: "PF2E.AlignmentCE",
     },
+
+    alignmentTraits,
 
     attitude: {
         hostile: "PF2E.Attitudes.Hostile",
@@ -2422,6 +2425,14 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
                 hint: "PF2E.SETTINGS.Automation.EffectExpiration.Hint",
             },
+            actorsDeadAtZero: {
+                name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
+                hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
+                neither: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither",
+                npcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly",
+                pcsOnly: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.PCsOnly",
+                both: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both",
+            },
             lootableNPCs: {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
@@ -2530,7 +2541,6 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             backpack: ContainerPF2e,
-            formula: FormulaPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
             armor: ArmorPF2e,
@@ -2546,7 +2556,6 @@ export const PF2ECONFIG = {
             class: ClassPF2e,
             feat: FeatPF2e,
             lore: LorePF2e,
-            martial: MartialPF2e,
             action: ActionPF2e,
             spell: SpellPF2e,
             spellcastingEntry: SpellcastingEntryPF2e,

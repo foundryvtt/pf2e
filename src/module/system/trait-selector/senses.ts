@@ -71,7 +71,7 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
         return Object.entries(formData)
             .filter(
                 (entry): entry is [string, [true, string, string?] | true] =>
-                    entry[1] === true || (Array.isArray(entry[1]) && entry[1][0] === true)
+                    entry[1] === true || (Array.isArray(entry[1]) && entry[1].length === 3)
             )
             .map(([type, values]) => {
                 if (values === true) {

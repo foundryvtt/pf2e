@@ -5,7 +5,6 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import {
     AmbientLightPF2e,
-    DarkvisionLayerPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     SightLayerPF2e,
@@ -51,11 +50,11 @@ export const Init = {
             CONFIG.Combatant.documentClass = CombatantPF2e;
             CONFIG.FogExploration.documentClass = FogExplorationPF2e;
             CONFIG.Folder.documentClass = FolderPF2e;
-            CONFIG.JournalEntry.sheetClass = JournalSheetPF2e;
+            DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, { makeDefault: true });
             CONFIG.Macro.documentClass = MacroPF2e;
 
             CONFIG.Scene.documentClass = ScenePF2e;
-            CONFIG.Scene.sheetClass = SceneConfigPF2e;
+            DocumentSheetConfig.registerSheet(Scene, "pf2e", SceneConfigPF2e, { makeDefault: true });
 
             CONFIG.User.documentClass = UserPF2e;
 
@@ -70,12 +69,11 @@ export const Init = {
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
-            CONFIG.Token.sheetClass = TokenConfigPF2e;
+            DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
-            CONFIG.Canvas.layers.darkvision = DarkvisionLayerPF2e;
-            CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
-            CONFIG.Canvas.layers.sight = SightLayerPF2e;
-            CONFIG.Canvas.layers.templates = TemplateLayerPF2e;
+            CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
+            CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
+            CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
 
             // Make darkness visibility a little more appropriate for basic map use
             CONFIG.Canvas.lightLevels.dim = 0.25;
@@ -153,6 +151,10 @@ export const Init = {
                     },
                 ],
             });
+
+            // Soft-set system-preferred core settings until they've been explicitly set by the GM
+            const schema = foundry.data.TokenData.schema;
+            schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             PlayerConfigPF2e.hookOnRenderSettings();
             MystifiedTraits.compile();

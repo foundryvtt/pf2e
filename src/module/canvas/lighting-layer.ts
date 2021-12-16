@@ -1,62 +1,60 @@
 import { AmbientLightPF2e } from "./ambient-light";
-import type { BlurFilter } from "@pixi/filter-blur";
+import { TokenPF2e } from "./token";
 
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
-    /** A light-blending filter to apply to the coloration container */
-    blendFilter!: BlurFilter;
+    /** Temporarilly disable the refreshLighting hook */
+    noRefreshHooks = false;
 
-    /** Fix bug in 0.8 core method */
-    override hasGlobalIllumination(): boolean {
-        if (!canvas.scene) return false;
-        const { globalLight, globalLightThreshold } = canvas.scene.data;
-        return globalLight && (globalLightThreshold === null || this.darknessLevel < globalLightThreshold);
+    get lightingLevel(): number {
+        return 1 - this.darknessLevel;
     }
 
-    setPerceivedLightLevel({ defer = true } = {}): void {
-        if (!canvas.sight.rulesBasedVision) return;
+    setPerceivedLightLevel({ hasLowLightVision = false } = {}): void {
+        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
 
         const lightEmitters = [
-            ...canvas.tokens.placeables.filter((token) => token.visible && token.emitsLight),
+            ...canvas.tokens.placeables.filter((token) => token.emitsLight && !token.light.isDarkness),
             ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
         ];
-        for (const emitter of lightEmitters) emitter.updateSource({ defer: true });
-
-        if (!defer) {
-            canvas.perception.update({
-                lighting: { refresh: true },
-                sight: { initialize: true, refresh: true },
-            });
+        for (const emitter of lightEmitters) {
+            this.adjustLightRadii(emitter, hasLowLightVision);
         }
+        canvas.perception.update({
+            sight: { initialize: true, refresh: true, forceUpdateFog: true },
+            lighting: { refresh: true },
+            sounds: { refresh: true },
+            foreground: { refresh: true },
+        });
     }
 
-    /** Set the perceived brightness of sourced lighting */
-    override refresh(darkness?: number | null): void {
-        if (canvas.sight.hasLowLightVision) {
-            for (const source of this.sources) {
-                if (source.isDarkness) continue;
-                source.bright = Math.max(source.dim, source.bright);
-                source.dim = 0;
-                source.ratio = 1;
+    private adjustLightRadii(emitter: TokenPF2e | AmbientLightPF2e, hasLowLightVision: boolean): void {
+        const lightConfig = emitter instanceof TokenPF2e ? emitter.data.light : emitter.data.config;
+        const { bright, dim } = lightConfig;
+        if (hasLowLightVision) {
+            lightConfig.bright = Math.max(lightConfig.bright, lightConfig.dim);
+            lightConfig.dim = 0;
+            if ("brightLight" in emitter.data) {
+                emitter.data.brightLight = lightConfig.bright;
+                emitter.data.dimLight = lightConfig.dim;
             }
         }
-
-        super.refresh(darkness);
-
-        if (canvas.sight.rulesBasedVision) {
-            if (!this.blendFilter) {
-                this.blendFilter = new PIXI.filters.BlurFilter(canvas.blurDistance * 2);
-                this.blendFilter.blendMode = PIXI.BLEND_MODES.SCREEN;
-            }
-            for (const color of canvas.lighting.coloration?.children ?? []) {
-                color.filters ??= [this.blendFilter];
-            }
+        if (emitter instanceof TokenPF2e) {
+            emitter.updateLightSource({ defer: true });
+            emitter.data.brightLight = bright;
+            emitter.data.dimLight = dim;
+        } else {
+            emitter.updateSource({ defer: true });
         }
+        lightConfig.bright = bright;
+        lightConfig.dim = dim;
     }
 
-    protected override _onDarknessChange(darkness: number, prior: number): void {
-        super._onDarknessChange(darkness, prior);
-        canvas.darkvision.refresh({ darkness });
+    // Add a refresh option toSince upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
+    override refresh(options: { darkness?: number | null; backgroundColor?: string; noHooks?: boolean } = {}): void {
+        this.noRefreshHooks = !!options.noHooks;
+        super.refresh(options);
+        this.noRefreshHooks = false;
     }
 }

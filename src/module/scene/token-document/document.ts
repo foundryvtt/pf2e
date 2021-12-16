@@ -1,15 +1,13 @@
-import { VisionLevels } from "@actor/creature/data";
 import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
-import { LightLevels } from "../data";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e } from "@module/encounter";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
-    private initialized: true | undefined;
+    private initialized?: true;
 
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
@@ -28,12 +26,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
+        return !!this.scene?.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
     /** Is this token's dimensions linked to its actor's size category? */
@@ -41,14 +39,16 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         return this.data.flags.pf2e.linkToActorSize;
     }
 
+    get playersCanSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.data.displayName ?? 0;
+        return anyoneCanSee.includes(nameDisplayMode) || !!this.actor?.hasPlayerOwner;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            if (this.object.isControlled) {
-                canvas.lighting.setPerceivedLightLevel({ defer: false });
-            }
-
             this.object.redraw();
         }
     }
@@ -62,7 +62,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
 
-        if (!canvas.sight?.rulesBasedVision) return;
+        if (!this.scene?.rulesBasedVision || this.actor.type === "npc") return;
         this.data.brightSight = 0;
         this.data.dimSight = 0;
         this.data.sightAngle = 360;
@@ -70,7 +70,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!(this.initialized && this.actor && canvas.scene)) return;
+        if (!(this.initialized && this.actor && this.scene)) return;
 
         // Temporary token image
         mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
@@ -78,17 +78,13 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         // Token dimensions from actor size
         this.prepareSize();
 
-        if (!canvas.sight.rulesBasedVision) return;
-
-        const lightLevel = canvas.scene.lightLevel;
-        const hasDarkvision = this.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
-        const perceivedBrightness = {
-            [VisionLevels.BLINDED]: 0,
-            [VisionLevels.NORMAL]: lightLevel,
-            [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
-            [VisionLevels.DARKVISION]: 1,
-        }[this.actor.visionLevel];
-        this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
+        // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
+        // Setting vision radii is less performant but necessary if multiple tokens are controlled
+        if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
+            const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
+            const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
+            this.data.brightSight = this.data._source.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
+        }
     }
 
     /** Set this token's dimensions from actor data */
@@ -159,27 +155,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         }
     }
 
-    /**
-     * Foundry (at least as of 0.8.9) has a security exploit allowing any user, regardless of permissions, to update
-     * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
-     * `TokenDocument` updates.
-     */
-    static override async updateDocuments(
-        updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
-        context: DocumentModificationContext = {}
-    ): Promise<TokenDocumentPF2e[]> {
-        const scene = context.parent;
-        if (scene instanceof ScenePF2e) {
-            updates = updates.filter((data) => {
-                if (game.user.isGM || typeof data["_id"] !== "string") return true;
-                const tokenDoc = scene.tokens.get(data["_id"]);
-                return !!tokenDoc?.actor?.isOwner;
-            });
-        }
-
-        return super.updateDocuments(updates, context) as Promise<TokenDocumentPF2e[]>;
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -205,7 +180,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
-        canvas.darkvision.refresh({ drawMask: true });
 
         if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
             ui.combat.render();

@@ -4,7 +4,7 @@ export const RenderSceneControls = {
     listen: (): void => {
         Hooks.on("renderSceneControls", (controls) => {
             const adjuster = SceneDarknessAdjuster.instance;
-            if (controls.activeTool === "darkness-adjuster") {
+            if (controls.activeTool === "darkness-adjuster" && !adjuster.rendered) {
                 // Open the adjuster application when its tool button is clicked
                 adjuster.render(true, { scene: canvas.scene }).then(() => {
                     $("#darkness-adjuster").hide().fadeIn();

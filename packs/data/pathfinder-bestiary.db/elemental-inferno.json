@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "explosion",
                 "max": 210,
                 "temp": 0,
                 "value": 210
@@ -64,7 +64,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>Walking conflagrations of unimaginably hot fire, elemental infernos are harbingers of destruction and heedless chaos.</p>",
+            "publicNotes": "<p>Walking conflagrations of unimaginably hot fire, elemental infernos are harbingers of destruction and heedless chaos.</p>\n<hr />\n<p>Fire elementals are destructive manifestations of the scorching Plane of Fire.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -152,7 +152,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 3d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r {3d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -239,7 +239,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The elemental inferno ignores the concealed condition from smoke.</p>"
+                    "value": "<p>The elemental inferno ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -331,7 +331,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the elemental inferno dies, it explodes, dealing [[/r {7d6}[fire]]]{7d6 fire damage} to each creature in a 10-foot emanation (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>When the elemental inferno dies, it explodes, dealing [[/r {7d6}[fire]]]{7d6 fire damage} to each creature in a @Template[type:emanation|distance:10|traits:fire,damaging-effect] (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -377,7 +377,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet, [[/r {7d6}[fire]]]{7d6 fire damage}, <span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"aura,fire,damaging-effect\" data-pf2-label=\"Intense Heat DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} [[/r {7d6}[fire]]]{7d6 fire damage} <span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"aura,fire,damaging-effect\" data-pf2-label=\"Intense Heat DC\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -424,7 +424,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by 3d6 until the start of its next turn.</p>"
+                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by [[/r {3d6}[fire]]]{3d6} until the start of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -468,7 +468,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The elemental inferno jumps horizontally and vertically with a maximum height and distance each equal to its Speed. Its intense heat is suppressed until the end of the jump. At any point during the jump, flames explode from the elemental in a 30-foot emanation, dealing [[/r {12d6}[fire]]]{12d6 fire damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Inferno Leap DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The elemental inferno can't Inferno Leap again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The elemental inferno jumps horizontally and vertically with a maximum height and distance each equal to its Speed. Its intense heat is suppressed until the end of the jump. At any point during the jump, flames explode from the elemental in a @Template[type:emanation|distance:30], dealing [[/r {12d6}[fire]]]{12d6 fire damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Inferno Leap DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The elemental inferno can't Inferno Leap again for [[/br 1d4 #Recharge Inferno Leap]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

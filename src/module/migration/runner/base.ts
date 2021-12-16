@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.695;
+    static LATEST_SCHEMA_VERSION = 0.699;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -75,14 +75,10 @@ export class MigrationRunnerBase {
         const current = deepClone(item);
 
         for await (const migration of migrations) {
-            try {
-                await migration.updateItem(current);
-                // Handle embedded spells
-                if (current.type === "consumable" && current.data.spell.data) {
-                    await migration.updateItem(current.data.spell.data);
-                }
-            } catch (err) {
-                console.error(err);
+            await migration.updateItem(current);
+            // Handle embedded spells
+            if (current.type === "consumable" && current.data.spell.data) {
+                await migration.updateItem(current.data.spell.data);
             }
         }
         if (migrations.length > 0) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
@@ -94,17 +90,13 @@ export class MigrationRunnerBase {
         const currentActor = deepClone(actor);
 
         for await (const migration of migrations) {
-            try {
-                await migration.updateActor(currentActor);
-                for await (const currentItem of currentActor.items) {
-                    await migration.updateItem(currentItem, currentActor);
-                    // Handle embedded spells
-                    if (currentItem.type === "consumable" && currentItem.data.spell.data) {
-                        await migration.updateItem(currentItem.data.spell.data, currentActor);
-                    }
+            await migration.updateActor(currentActor);
+            for await (const currentItem of currentActor.items) {
+                await migration.updateItem(currentItem, currentActor);
+                // Handle embedded spells
+                if (currentItem.type === "consumable" && currentItem.data.spell.data) {
+                    await migration.updateItem(currentItem.data.spell.data, currentActor);
                 }
-            } catch (err) {
-                console.error(err);
             }
         }
 
@@ -131,7 +123,7 @@ export class MigrationRunnerBase {
             datetime: DateTime.now().toISO(),
             version: {
                 schema: fromVersion,
-                foundry: "game" in globalThis ? game.data.version : undefined,
+                foundry: "game" in globalThis ? game.version : undefined,
                 system: "game" in globalThis ? game.system.data.version : undefined,
             },
         };
@@ -173,12 +165,8 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
         const current = token.toObject();
-        for (const migration of migrations) {
-            try {
-                await migration.updateToken?.(current, token.actor, token.scene);
-            } catch (err) {
-                console.error(err);
-            }
+        for await (const migration of migrations) {
+            await migration.updateToken?.(current, token.actor, token.scene);
         }
 
         return current;

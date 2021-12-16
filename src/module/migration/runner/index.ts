@@ -50,21 +50,16 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actor or item documents in batches of 50 */
     private async migrateWorldDocuments<TDocument extends ActorPF2e | ItemPF2e>(
         collection: WorldCollection<TDocument>,
-        DocumentClass: {
-            updateDocuments(
-                updates?: DocumentUpdateData<TDocument>[],
-                context?: DocumentModificationContext
-            ): Promise<TDocument[]>;
-        },
         migrations: MigrationBase[]
     ): Promise<void> {
+        const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
         const updateGroup: TDocument["data"]["_source"][] = [];
         for await (const document of collection) {
             if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
                 } catch (error) {
-                    console.error(error);
+                    console.warn(error);
                 } finally {
                     updateGroup.length = 0;
                 }
@@ -79,7 +74,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             try {
                 await DocumentClass.updateDocuments(updateGroup, { noHook: true });
             } catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
     }
@@ -215,18 +210,27 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocumentPF2e): Promise<void> {
-        if (!migrations.some((migration) => !!migration.updateToken)) return;
+    private async migrateSceneToken(
+        migrations: MigrationBase[],
+        token: TokenDocumentPF2e
+    ): Promise<foundry.data.TokenSource | null> {
+        if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes, { noHook: true });
+                try {
+                    await token.update(changes, { noHook: true });
+                } catch (error) {
+                    console.warn(error);
+                }
             }
+            return updatedToken;
         } catch (error) {
             console.error(error);
+            return null;
         }
     }
 
@@ -249,10 +253,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         if (migrations.length === 0) return;
 
         // Migrate World Actors
-        await this.migrateWorldDocuments(game.actors, CONFIG.Actor.documentClass, migrations);
+        await this.migrateWorldDocuments(game.actors, migrations);
 
         // Migrate World Items
-        await this.migrateWorldDocuments(game.items, CONFIG.Item.documentClass, migrations);
+        await this.migrateWorldDocuments(game.items, migrations);
 
         const promises: Promise<unknown>[] = [];
         // Migrate World Macros
@@ -287,12 +291,13 @@ export class MigrationRunner extends MigrationRunnerBase {
             await pack.configure({ locked: true });
         }
 
-        // Migrate Scene Actors
+        // Migrate tokens and synthetic actors
         for await (const scene of game.scenes.contents) {
             for await (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
-                    await this.migrateSceneToken(migrations, token);
+                    const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
+                    if (!wasSuccessful) continue;
 
                     if (actor.isToken) {
                         const updated = await this.migrateWorldActor(migrations, actor);

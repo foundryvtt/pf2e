@@ -18,8 +18,8 @@ declare global {
                 type: object;
                 required: boolean;
                 nullable?: boolean;
-                default?: ((value: any) => string | number | object | null) | string | number | object | null;
-                clean?: (data: unknown) => void;
+                default?: unknown;
+                clean?: Function;
                 validate?: (data: any) => boolean;
                 validationError?: string;
                 isCollection?: boolean;
@@ -59,7 +59,7 @@ declare global {
                 /** Define the data schema for documents of this type. */
                 static get schema(): DocumentSchema;
 
-                _schema?: DocumentSchema;
+                static _schema?: DocumentSchema;
 
                 /**
                  * Define the data schema for this document instance.
@@ -67,8 +67,12 @@ declare global {
                  */
                 get schema(): DocumentSchema;
 
+                /* ---------------------------------------- */
+                /*  Data Initialization and Validation      */
+                /* ---------------------------------------- */
+
                 /** Initialize the source data object in-place */
-                protected _initializeSource(data: object): DocumentSource;
+                protected _initializeSource(data: object): this["_source"];
 
                 /**
                  * Get the default value for a schema field, conditional on the provided data

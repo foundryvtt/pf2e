@@ -19,6 +19,11 @@ import { Migration690InitiativeTiebreakItems } from "@module/migration/migration
 import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
 import { Migration693ArmorCategoryGroup } from "@module/migration/migrations/693-armor-category-group";
 import { Migration695SummonToSummoned } from "@module/migration/migrations/695-summon-to-summoned";
+import { Migration696FlatAbilityModifiers } from "@module/migration/migrations/696-flat-ability-modifiers";
+import { Migration697WeaponReachTrait } from "@module/migration/migrations/697-weapon-reach-trait";
+import { Migration698RemoveDerivedActorTraits } from "@module/migration/migrations/698-remove-derived-actor-traits";
+import { Migration699ItemDescriptionEmptyString } from "@module/migration/migrations/699-item-description-empty-string";
+import { Migration700SingleAlertnessFeature } from "@module/migration/migrations/700-single-alertness-feature";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -34,6 +39,11 @@ const migrations: MigrationBase[] = [
     new Migration691WeaponRangeAbilityCategoryGroup(),
     new Migration693ArmorCategoryGroup(),
     new Migration695SummonToSummoned(),
+    new Migration696FlatAbilityModifiers(),
+    new Migration697WeaponReachTrait(),
+    new Migration698RemoveDerivedActorTraits(),
+    new Migration699ItemDescriptionEmptyString(),
+    new Migration700SingleAlertnessFeature(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
