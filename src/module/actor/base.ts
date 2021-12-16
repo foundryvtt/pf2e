@@ -347,7 +347,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /**
      * Roll a Save Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
+     * Will be removed once non-creature saves are implemented properly.
      */
     rollSave(event: JQuery.Event, saveName: SaveType) {
         const save: SaveData = this.data.data.saves[saveName];
@@ -484,26 +485,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
-                if (actor.data.data.saves[save]?.roll) {
-                    const options = [
+                if (actor.isA("creature")) {
+                    const rollOptions = [
                         ...actor.getRollOptions(["all", "saving-throw", save]),
                         ...actor.getSelfRollOptions(),
                         ...item.actor.getSelfRollOptions("origin"),
                     ];
+
                     if (item instanceof SpellPF2e) {
-                        options.push("magical", "spell");
+                        rollOptions.push("magical", "spell");
                         if (Object.keys(item.data.data.damage.value).length > 0) {
-                            options.push("damaging-effect");
+                            rollOptions.push("damaging-effect");
                         }
                     }
+
                     if (itemTraits) {
-                        options.push(...itemTraits);
-                        options.push(...itemTraits.map((trait) => `trait:${trait}`));
+                        rollOptions.push(...itemTraits);
+                        rollOptions.push(...itemTraits.map((trait) => `trait:${trait}`));
                     }
-                    actor.data.data.saves[save].roll({
+
+                    actor.saves[save].check.roll({
                         event: ev,
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options: Array.from(new Set(options)),
+                        options: Array.from(new Set(rollOptions)),
                     });
                 } else {
                     actor.rollSave(ev, save);
