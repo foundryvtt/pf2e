@@ -3,13 +3,13 @@
 
         <div class="actions-tabs-wrapper">
 
-            <ol class="actions-nav">
-                <li class="tab tab-active" id="en-tab" data-panel="encounter">{{localize "PF2E.TabActionsEncounterLabel"}}</li>
-                <li class="tab" id="ex-tab" data-panel="exploration">{{localize "PF2E.TabActionsExplorationLabel"}}</li>
-                <li class="tab" id="do-tab"  data-panel="downtime">{{localize "PF2E.TabActionsDowntimeLabel"}}</li>
-            </ol>
-            <div class="actions-panels">
-                <div id="encounter" class="actions-panel active">
+            <nav class="actions-nav" data-group="actions-tabs">
+                <a class="tab" data-tab="encounter" data-group="actions-tabs">{{localize "PF2E.TabActionsEncounterLabel"}}</a>
+                <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
+                <a class="tab" data-tab="downtime" data-group="actions-tabs">{{localize "PF2E.TabActionsDowntimeLabel"}}</a>
+            </nav>
+            <section class="actions-panels">
+                <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
                     <div class="actions-options item-list">
                         {{#each data.toggles.actions as |toggle idx|}}
                             <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
@@ -117,7 +117,7 @@
                         {{/each}}
                     </ol>
                 </div>
-                <div id="exploration" class="actions-panel">
+                <div class="actions-panel" data-tab="exploration" data-group="actions-tabs">
                     <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
@@ -150,7 +150,7 @@
                         {{/each}}
                     </ol>
                 </div>
-                <div id="downtime" class="actions-panel">
+                <div class="actions-panel" data-tab="downtime" data-group="actions-tabs">
                     <ol class="actions-list item-list inventory-list directory-list">
                         <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
@@ -183,7 +183,7 @@
                         {{/each}}
                     </ol>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
