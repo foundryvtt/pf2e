@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Potency (Bomber)]{Perpetual Potency (Bomber)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Potency (Chirurgeon)]{Perpetual Potency (Chirurgeon)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Potency (Mutagenist)]{Perpetual Potency (Mutagenist)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Potency (Toxicologist)]{Perpetual Potency (Toxicologist)}</p>"
+            "value": "<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,9 +23,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.8rEVg03QJ71ic3PP"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.VS5vkqUQu4n7E28Y"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.mZFqRLYOQEqKA8ri"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.JOdbVu14phvdjhaY"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": {
+                    "all": [
+                        "feature:trait:alchemist",
+                        "feature:level:11"
+                    ],
+                    "label": "level 11 Alchemist class feature"
+                },
+                "prompt": "Select your Perpetual Potency."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.perpetualPotency}"
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",

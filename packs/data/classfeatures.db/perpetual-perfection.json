@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You have perfected your perpetual infusions, allowing you to use @Compendium[pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Perfection (Bomber)]{Perpetual Perfection (Bomber)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Perfection (Chirurgeon)]{Perpetual Perfection (Chirurgeon)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Perfection (Mutagenist)]{Perpetual Perfection (Mutagenist)}</p>\n<p>@Compendium[pf2e.classfeatures.Perpetual Perfection (Toxicologist)]{Perpetual Perfection (Toxicologist)}</p>"
+            "value": "<p>You have perfected your perpetual infusions, allowing you to use @Compendium[pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,9 +23,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.xO90iBD8XNGyaCkz"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.YByJ9O7oe8wxfbqs"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.CGetAmSbv06fW7GT"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.3R19zS7gERhEX87F"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": {
+                    "all": [
+                        "feature:trait:alchemist",
+                        "feature:level:17"
+                    ],
+                    "label": "level 17 Alchemist class feature"
+                },
+                "prompt": "Select your Perpetual Perfection."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.perpetualPerfection}"
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
