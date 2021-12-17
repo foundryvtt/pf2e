@@ -15,15 +15,15 @@
                 "value": 0
             },
             "stealth": {
-                "details": "+0 or Detect Magic",
+                "details": "<p>or <em>@Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}</em></p>",
                 "value": 0
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
-            "description": "A ring of eight dragon pillar replicas mark the border of a dome of magical prismatic energy that entirely contains the Fortress of Sorrow.",
-            "disable": "Each dragon pillar that is destroyed removes the corresponding color's effect from Dahak's shell; as long as even one color remains active, the pillars marking the shell's border cannot be damaged themselves, but a successful DC 32 Thievery (master) check or a successful dispel magic (6th level; counteract DC 30) against one of the eight pillars can cause a randomly determined active color in the shell defense (below) to become deactivated for [[/br 1d4 #rounds]]{1d4 rounds}.",
+            "description": "<p>A ring of eight dragon pillar replicas mark the border of a dome of magical prismatic energy that entirely contains the Fortress of Sorrow.</p>",
+            "disable": "<p>Each dragon pillar that is destroyed removes the corresponding color's effect from Dahak's shell; as long as even one color remains active, the pillars marking the shell's border cannot be damaged themselves, but a successful <span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap,hazard\" data-pf2-label=\"Disable Color DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">Thievery</span> (master) check or a successful <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 30) against one of the eight pillars can cause a randomly determined active color in the shell defense (below) to become deactivated for [[/br 1d4 #rounds]]{1d4 rounds}.</p>",
             "isComplex": false,
             "level": {
                 "value": 12
@@ -46,7 +46,7 @@
             }
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder #146: Cult of Cinders"
         },
         "statusEffects": [],
         "traits": {
@@ -59,15 +59,16 @@
             "dr": [],
             "dv": [],
             "rarity": {
-                "value": "common"
+                "value": "unique"
             },
             "size": {
                 "value": "med"
             },
             "traits": {
-                "custom": "Unique",
+                "custom": "",
                 "value": [
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -77,54 +78,6 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "HPLwJZH8RwLW9c13",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Black Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 24 hours.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation",
-                        "incapacitation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Black Eye Beam",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
             "_id": "uapfpdQSjUz13nBn",
             "data": {
                 "attack": {
@@ -132,23 +85,14 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "black-eye-beam",
-                        "blue-eye-beam",
-                        "green-eye-beam",
-                        "indigo-eye-beam",
-                        "orange-eye-beam",
-                        "red-eye-beam",
-                        "violet-eye-beam",
-                        "yellow-eye-beam"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p><strong>Range</strong>: 120 feet.</p>\n<p><strong>Effect</strong>: The target is subjected to an effect determined by the pillar's color and summarized in the passive actions. On a critical hit, the target's save result is one degree worse.</p>"
+                    "value": "<p>The target suffers an effect corresponding to the eye beam's color. On a critical hit, the target's save result is one degree worse.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -161,9 +105,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "divine",
-                        "evocation",
-                        "range-increment-120"
+                        "range-120"
                     ]
                 },
                 "weaponType": {
@@ -178,355 +120,19 @@
             "type": "melee"
         },
         {
-            "_id": "Od7nphkGvQM8Iv5L",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Blue Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 hour.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation",
-                        "incapacitation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blue Eye Beam",
-            "sort": 1500000,
-            "type": "action"
-        },
-        {
-            "_id": "SHZi101TqFOYWlIL",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,evocation,poison,custom,damaging-effect\" data-pf2-label=\"Green Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation",
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Green Eye Beam",
-            "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "jI9GCbJaB0b3F4Kw",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divination,evocation,incapacitation,custom\" data-pf2-label=\"Indigo Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is @Compendium[pf2e.conditionitems.Controlled]{Controlled}, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead @Compendium[pf2e.conditionitems.Confused]{Confused} for [[/r1d4+1]] rounds. A @Compendium[pf2e.conditionitems.Controlled]{Controlled} creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination",
-                        "evocation",
-                        "incapacitation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Indigo Eye Beam",
-            "sort": 1700000,
-            "type": "action"
-        },
-        {
-            "_id": "Ari4IpvWQTIYV64K",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,electricity,evocation,custom,damaging-effect\" data-pf2-label=\"Yellow Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "electricity",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Yellow Eye Beam",
-            "sort": 1800000,
-            "type": "action"
-        },
-        {
-            "_id": "sXWZxvJlU7LZrpHC",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"acid,divine,evocation,custom,damaging-effect\" data-pf2-label=\"Orange Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "acid",
-                        "divine",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Orange Eye Beam",
-            "sort": 1900000,
-            "type": "action"
-        },
-        {
-            "_id": "jNcUglLORusRcA4f",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage}.</p>\n<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,evocation,fire,custom,damaging-effect\" data-pf2-label=\"Red Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation",
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Red Eye Beam",
-            "sort": 2000000,
-            "type": "action"
-        },
-        {
-            "_id": "w5Yk889pfRGklcLm",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,evocation,incapacitation,custom\" data-pf2-label=\"Violet Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success:</strong> The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation",
-                        "incapacitation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Violet Eye Beam",
-            "sort": 2100000,
-            "type": "action"
-        },
-        {
             "_id": "wXqVDCpWmbgHRsvv",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong>: a creature attempts and fails to disable one of the shell colors via Thievery or dispel magic;</p>\n<p><strong>Effect</strong>: Dahak's shell @Compendium[pf2e.actionspf2e.Strike]{Strikes} the triggering creature with a random eye beam. Roll [[/r 1d8]] to determine the color:</p>\n<ol>\n<li>Red</li>\n<li>Orange</li>\n<li>Yellow</li>\n<li>Green</li>\n<li>Blue</li>\n<li>Indigo</li>\n<li>Violet</li>\n<li>Black</li>\n</ol>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> a creature attempts and fails to disable one of the shell colors via Thievery or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em></p>\n<p><strong>Effect</strong> Dahak's shell Strikes the triggering creature with a random eye beam. Roll [[/r 1d8 #Eye Beam]] to determine the color:</p>\n<ol>\n<li>Red</li>\n<li>Orange</li>\n<li>Yellow</li>\n<li>Green</li>\n<li>Blue</li>\n<li>Indigo</li>\n<li>Violet</li>\n<li>Black</li>\n</ol>"
                 },
                 "requirements": {
                     "value": ""
@@ -542,7 +148,11 @@
                         "value": "common"
                     },
                     "selected": {},
-                    "value": []
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "light"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -553,7 +163,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Prismatic Beam",
             "sort": 2200000,
             "type": "action"
@@ -571,7 +181,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature physically passes through the shell, the creature is affected simultaneously by all colors of energy currently active in the shell; apply these effects in the following order: red, orange, yellow, green, blue, indigo, violet, black. These effects are the same as that of the eye beams, but with a save DC of 32. Each effect requires its own save.</p>"
+                    "value": "<p>When a creature physically passes through the shell, the creature is affected simultaneously by all colors of energy currently active in the shell; apply these effects in the following order: red, orange, yellow, green, blue, indigo, violet, black. These effects are the same as that of the eye beams. Each effect requires its own save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -604,6 +214,398 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shell Defense",
             "sort": 2400000,
+            "type": "action"
+        },
+        {
+            "_id": "iVZygV9OkEH28o2Q",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Black Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is blinded for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 24 hours.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "incapacitation",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Black Eye Beam",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "YsvmoSYwOoP0KhQx",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,trap,hazard,light\" data-pf2-label=\"Blue Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong> The target is petrified for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is petrified permanently.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "incapacitation",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blue Eye Beam",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "9uKEXs9NLIvxXisk",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,poison,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Green Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "light",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Green Eye Beam",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "oDodI8lhFK3QYtHx",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divination,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Indigo Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is controlled by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is controlled, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead confused for [[/br 1d4+1 #Confused Rounds]]{1d4+1} rounds. A controlled creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divination",
+                        "incapacitation",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Indigo Eye Beam",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "Sohj5I5HF2aiJ17e",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,evocation,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Yellow Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "electricity",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Yellow Eye Beam",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "8OAdLpknHQWsmvmE",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,acid,abjuration,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Orange Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "acid",
+                        "divine",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Orange Eye Beam",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "lfmWRoj9CXxKLkCs",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,fire,abjuration,damaging-effect,hazard,trap,light\" data-pf2-label=\"Red Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "fire",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Red Eye Beam",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "sjs5I4Em4t7kFOwK",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Violet Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration",
+                        "divine",
+                        "incapacitation",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Violet Eye Beam",
+            "sort": 2100000,
             "type": "action"
         }
     ],
