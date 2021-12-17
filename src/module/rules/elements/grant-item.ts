@@ -12,7 +12,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>) {
         super(data, item);
 
-        if (!this.actor.data.token.actorLink) {
+        if (this.actor.isToken) {
             console.warn("The GrantItem rules element is not supported on synthetic actors");
             this.ignored = true;
         }
@@ -46,7 +46,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
-            delete grantedSource._id;
+            grantedSource._id = randomID();
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
 
             // Run the granted item's preCreate callbacks
