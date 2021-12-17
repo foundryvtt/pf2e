@@ -303,6 +303,8 @@ export class NPCPF2e extends CreaturePF2e {
             data.saves[saveName] = stat;
         }
 
+        this.buildSavingThrowStatistics();
+
         // Perception
         {
             const base = data.attributes.perception.value;

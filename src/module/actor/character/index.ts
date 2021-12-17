@@ -449,6 +449,8 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.saves[saveType] = stat;
         }
 
+        this.buildSavingThrowStatistics();
+
         // Attack and defense proficiencies
         const combatProficiencies = Object.values(systemData.martial);
         for (const proficiency of combatProficiencies) {

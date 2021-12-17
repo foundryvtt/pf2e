@@ -1,5 +1,5 @@
 {
-    "_id": "Z7HX6TeFsaup7Dx9",
+    "_id": "pZYkb12t5DSwtts7",
     "data": {
         "actionCategory": {
             "value": ""
@@ -11,19 +11,32 @@
             "value": null
         },
         "description": {
-            "value": "<p>The weapons you've mastered become truly fearsome in your hands. Your damage from weapon specialization increases to 4 with weapons and unarmed attacks in which you're an expert, 6 if you're a master, and 8 if you're legendary.</p>"
+            "value": "<p>You've learned how to dodge while wearing light or no armor. Your proficiency ranks for light armor and unarmored defense increase to expert.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": 15
+            "value": 13
         },
         "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmored.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -33,14 +46,9 @@
                 "value": "common"
             },
             "value": [
-                "champion",
-                "fighter",
-                "gunslinger",
-                "inventor",
+                "bard",
                 "investigator",
-                "magus",
-                "monk",
-                "ranger",
+                "oracle",
                 "rogue",
                 "swashbuckler"
             ]
@@ -48,7 +56,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
-    "name": "Greater Weapon Specialization (Level 15)",
+    "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+    "name": "Light Armor Expertise",
     "type": "feat"
 }
