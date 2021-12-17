@@ -101,6 +101,7 @@ import { Migration696FlatAbilityModifiers } from "./migrations/696-flat-ability-
 import { Migration697WeaponReachTrait } from "./migrations/697-weapon-reach-trait";
 import { Migration698RemoveDerivedActorTraits } from "./migrations/698-remove-derived-actor-traits";
 import { Migration699ItemDescriptionEmptyString } from "./migrations/699-item-description-empty-string";
+import { Migration700SingleClassFeatures } from "./migrations/700-single-class-features";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -206,6 +207,7 @@ export class Migrations {
         Migration697WeaponReachTrait,
         Migration698RemoveDerivedActorTraits,
         Migration699ItemDescriptionEmptyString,
+        Migration700SingleClassFeatures,
     ];
 
     static get latestVersion(): number {
