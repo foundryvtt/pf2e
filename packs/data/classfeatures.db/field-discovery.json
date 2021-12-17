@@ -25,34 +25,44 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.V4Jt7eDnJBLv5bDj"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.6zo2PJGYoig7nFpR"
-                    }
-                ],
-                "key": "ChoiceSet",
+                "key": "GrantItem",
                 "predicate": {
                     "all": [
-                        "feature:trait:alchemist",
-                        "feature:level:5"
-                    ],
-                    "label": "level 5 Alchemist class feature"
+                        "self:feature:bomber"
+                    ]
                 },
-                "prompt": "Select your Field Discovery."
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw"
             },
             {
                 "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.fieldDiscovery}"
+                "predicate": {
+                    "all": [
+                        "self:feature:chirurgeon"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:mutagenist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.V4Jt7eDnJBLv5bDj"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:toxicologist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.6zo2PJGYoig7nFpR"
             }
         ],
         "source": {

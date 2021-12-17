@@ -25,34 +25,44 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.xO90iBD8XNGyaCkz"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.YByJ9O7oe8wxfbqs"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.CGetAmSbv06fW7GT"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.3R19zS7gERhEX87F"
-                    }
-                ],
-                "key": "ChoiceSet",
+                "key": "GrantItem",
                 "predicate": {
                     "all": [
-                        "feature:trait:alchemist",
-                        "feature:level:17"
-                    ],
-                    "label": "level 17 Alchemist class feature"
+                        "self:feature:bomber"
+                    ]
                 },
-                "prompt": "Select your Perpetual Perfection."
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.xO90iBD8XNGyaCkz"
             },
             {
                 "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.perpetualPerfection}"
+                "predicate": {
+                    "all": [
+                        "self:feature:chirurgeon"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.YByJ9O7oe8wxfbqs"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:mutagenist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.CGetAmSbv06fW7GT"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:toxicologist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.3R19zS7gERhEX87F"
             }
         ],
         "source": {

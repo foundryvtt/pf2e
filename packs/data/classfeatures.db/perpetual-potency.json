@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>"
+            "value": "<p>Your perpetual infusions improve, allowing you to use @Compendium[pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -25,34 +25,44 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.8rEVg03QJ71ic3PP"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.VS5vkqUQu4n7E28Y"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.mZFqRLYOQEqKA8ri"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.JOdbVu14phvdjhaY"
-                    }
-                ],
-                "key": "ChoiceSet",
+                "key": "GrantItem",
                 "predicate": {
                     "all": [
-                        "feature:trait:alchemist",
-                        "feature:level:11"
-                    ],
-                    "label": "level 11 Alchemist class feature"
+                        "self:feature:bomber"
+                    ]
                 },
-                "prompt": "Select your Perpetual Potency."
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.8rEVg03QJ71ic3PP"
             },
             {
                 "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.perpetualPotency}"
+                "predicate": {
+                    "all": [
+                        "self:feature:chirurgeon"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.VS5vkqUQu4n7E28Y"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:mutagenist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.mZFqRLYOQEqKA8ri"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:toxicologist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.JOdbVu14phvdjhaY"
             }
         ],
         "source": {

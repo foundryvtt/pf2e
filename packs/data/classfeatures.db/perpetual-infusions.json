@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items.</p>"
+            "value": "<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items.</p>\n<p>You gain the ability to create two 1st-level alchemical items using @Compendium[pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} without spending a batch of infused reagents. The items you can select depend on your research field and must be in your formula book.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -25,34 +25,44 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.DFQDtT1Van4fFEHi"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.fzvIe6FwwCuIdnjX"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Dug1oaVYejLmYEFt"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.LlZ5R50z9j8jysZL"
-                    }
-                ],
-                "key": "ChoiceSet",
+                "key": "GrantItem",
                 "predicate": {
                     "all": [
-                        "feature:trait:alchemist",
-                        "feature:level:7"
-                    ],
-                    "label": "level 7 Alchemist class feature"
+                        "self:feature:bomber"
+                    ]
                 },
-                "prompt": "Select your Perpetual Infusions."
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.DFQDtT1Van4fFEHi"
             },
             {
                 "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.perpetualInfusions}"
+                "predicate": {
+                    "all": [
+                        "self:feature:chirurgeon"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.fzvIe6FwwCuIdnjX"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:mutagenist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.Dug1oaVYejLmYEFt"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:feature:toxicologist"
+                    ]
+                },
+                "replaceSelf": true,
+                "uuid": "Compendium.pf2e.classfeatures.LlZ5R50z9j8jysZL"
             }
         ],
         "source": {
