@@ -1735,6 +1735,7 @@
 
             > * {
                 flex: 1;
+                display: flex;
             }
 
             .item-name, .melee-name {
@@ -1797,20 +1798,21 @@
             }
 
             .item-sell-value, .item-quantity {
-                flex: 0 0 64px;
+                flex: 0 0 60px;
                 font-size: 12px;
                 color: #666;
                 text-align: center;
-                border-right: 1px solid var(--secondary-background);
+                border-left: 1px solid var(--secondary-background);
+                justify-content: flex-end;
             }
 
             .item-weight {
-                flex: 0 0 64px;
+                flex: 0 0 42px;
                 font-size: 12px;
                 color: #666;
                 text-align: center;
-                border-right: 1px solid var(--secondary-background);
-                flex: 0 0 42px;
+                border-left: 1px solid var(--secondary-background);
+                justify-content: center;
             }
         }
     }
@@ -1824,7 +1826,6 @@
     .inventory-list .list-row {
         .item-quantity {
             flex: 0 0 64px;
-            display: flex;
             justify-content: space-around;
             margin-left: 5px;
             padding: 0 5px;
@@ -1840,16 +1841,14 @@
         }
 
         .item-controls {
-            flex: 0 0 60px;
+            flex: 0 0 64px;
+            justify-content: flex-end;
+            border-left: 1px solid var(--secondary-background);
 
             a {
-                padding-left: 1px;
                 font-size: 10px;
-                text-align: center;
                 color: #666;
-                &:first-child {
-                    padding-left: 8px;
-                }
+                margin-right: 4px;
             }
         }
     }
@@ -1899,7 +1898,6 @@
     }
 
     .inventory-header .item-controls a.inventory-browse {
-        width: 100%;
         color: #fff;
         background: var(--primary-background);
     }
@@ -1928,7 +1926,6 @@
 
         .item-controls a {
             &.item-create {
-                width: 100%;
                 color: white;
             }
 
