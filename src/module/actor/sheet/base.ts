@@ -40,6 +40,7 @@ import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -235,7 +236,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const save = this.actor.saves?.[saveType];
             if (save) {
                 const options = this.actor.getRollOptions(["all", "saving-throw", saveType]);
-                save.check.roll({ event, options });
+                save.check.roll({ ...eventToRollParams(event), options });
             } else {
                 this.actor.rollSave(event, saveType);
             }

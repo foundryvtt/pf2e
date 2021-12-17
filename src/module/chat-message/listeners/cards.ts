@@ -11,6 +11,7 @@ import { LocalizePF2e } from "@system/localize";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@module/crafting/helpers";
 import { SaveType } from "@actor/data";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -231,7 +232,7 @@ export const ChatCards = {
                     }
 
                     actor.saves[save].check.roll({
-                        event: ev,
+                        ...eventToRollParams(ev),
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
                         options: Array.from(new Set(rollOptions)),
                     });

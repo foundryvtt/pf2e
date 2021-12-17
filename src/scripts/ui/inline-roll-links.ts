@@ -5,6 +5,7 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { Statistic } from "@system/statistic";
 import { calculateDC } from "@module/dc";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -92,6 +93,8 @@ export const InlineRollsLinks = {
                 return;
             }
 
+            const eventRollParams = eventToRollParams(event);
+
             switch (pf2Check) {
                 case "perception": {
                     actors.forEach((actor) => {
@@ -137,7 +140,7 @@ export const InlineRollsLinks = {
                                         .filter((trait) => !!trait);
                                     options.push(...traits);
                                 }
-                                flatCheck.check.roll({ event, options, dc, modifiers: [] });
+                                flatCheck.check.roll({ ...eventRollParams, options, dc });
                             } else {
                                 console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
                             }
@@ -162,7 +165,7 @@ export const InlineRollsLinks = {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            savingThrow.check.roll({ event, options, dc });
+                            savingThrow.check.roll({ ...eventToRollParams(event), options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
                         }
@@ -294,41 +297,6 @@ export const InlineRollsLinks = {
             }
         });
 
-        $links.filter("[data-pf2-flat-check]").on("click", (event) => {
-            console.debug(
-                `Deprecation warning | data-pf2-flat-check is deprecated, use data-pf2-check="flat" instead.`
-            );
-            const actors = resolveActors();
-            if (actors.length) {
-                const { pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
-                actors.forEach((actor) => {
-                    if (actor instanceof CreaturePF2e) {
-                        const flatCheck = new Statistic(actor, {
-                            name: "",
-                            modifiers: [],
-                            check: { type: "flat-check" },
-                        });
-                        if (flatCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                                : undefined;
-                            const options = actor.getRollOptions(["all", "flat-check"]);
-                            if (pf2Traits) {
-                                const traits = pf2Traits
-                                    .split(",")
-                                    .map((trait) => trait.trim())
-                                    .filter((trait) => !!trait);
-                                options.push(...traits);
-                            }
-                            flatCheck.check.roll({ event, options, dc, modifiers: [] });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
-                        }
-                    }
-                });
-            }
-        });
-
         $links.filter("[data-pf2-effect-area]").on("click", (event) => {
             const {
                 pf2EffectArea,
@@ -392,7 +360,6 @@ export const InlineRollsLinks = {
                 '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *'
             ) ||
             target?.matches("[data-pf2-perception-check], [data-pf2-perception-check] *") ||
-            target?.matches("[data-pf2-flat-check], [data-pf2-flat-check] *") ||
             target?.matches("[data-pf2-check], [data-pf2-check] *")
         ) {
             const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
