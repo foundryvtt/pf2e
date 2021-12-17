@@ -29,6 +29,8 @@ abstract class IWRRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(): void {
         if (this.ignored) return;
 
+        this.data.type = this.resolveInjectedProperties(this.data.type);
+
         const value: unknown = this.resolveValue();
         if (!(this.validate(value) && typeof this.data.type === "string" && this.data.type in this.dictionary)) {
             this.ignored = true;
