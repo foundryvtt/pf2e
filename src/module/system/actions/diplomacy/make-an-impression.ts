@@ -16,8 +16,8 @@ export function makeAnImpression(options: SkillActionOptions) {
         event: options.event,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
+            ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "failure"),
             ActionsPF2e.note(selector, "PF2E.Actions.MakeAnImpression", "criticalFailure"),
         ],
     });
