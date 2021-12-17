@@ -9,6 +9,7 @@ import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -328,7 +329,7 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            statistic.check.roll({ event, item: this, options: [...this.traits], attackNumber });
+            statistic.check.roll({ ...eventToRollParams(event), item: this, options: [...this.traits], attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

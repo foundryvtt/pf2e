@@ -1,10 +1,30 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { BaseStatisticData, CheckType, StatisticChatData, StatisticData, StatisticRollParameters } from "./data";
+import { BaseStatisticData, CheckType, StatisticChatData, StatisticData } from "./data";
 import { ItemPF2e } from "@item";
+import { CheckDC } from "@system/check-degree-of-success";
 
 export * from "./data";
+
+export interface StatisticRollParameters {
+    /** Which attack this is (for the purposes of multiple attack penalty) */
+    attackNumber?: number;
+    /** Optional DC data for the roll */
+    dc?: CheckDC | null;
+    /** Any options which should be used in the roll. */
+    options?: string[];
+    /** Additional modifiers */
+    modifiers?: ModifierPF2e[];
+    /** The originating item of this attack, if any */
+    item?: Embedded<ItemPF2e> | null;
+    /** Is this a secret roll? */
+    secret?: boolean;
+    /** Should the dialog be skipped */
+    skipDialog?: boolean;
+    /** Callback called when the roll occurs. */
+    callback?: (roll: Rolled<Roll>) => void;
+}
 
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
@@ -108,15 +128,19 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     }
                 }
 
+                // Create parameters for the check roll function
                 const context = {
                     actor,
+                    item,
                     dc: args.dc ?? rollContext?.dc,
                     notes: data.notes,
                     options,
-                    item,
                     type: check.type,
+                    secret: args.secret,
+                    skipDialog: args.skipDialog,
                 };
-                CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, args.event, args.callback);
+
+                CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, null, args.callback);
             },
             withOptions: (options: { options?: string[] } = {}) => {
                 const check = new CheckModifier(name, stat);
