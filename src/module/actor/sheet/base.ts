@@ -235,8 +235,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const saveType = $(event.currentTarget).parents("[data-save]")[0].getAttribute("data-save") as SaveType;
             const save = this.actor.saves?.[saveType];
             if (save) {
-                const options = this.actor.getRollOptions(["all", "saving-throw", saveType]);
-                save.check.roll({ ...eventToRollParams(event), options });
+                save.check.roll(eventToRollParams(event));
             } else {
                 this.actor.rollSave(event, saveType);
             }

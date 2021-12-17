@@ -12,8 +12,8 @@ export interface StatisticRollParameters {
     attackNumber?: number;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
-    /** Any options which should be used in the roll. */
-    options?: string[];
+    /** Any additional options which should be used in the roll. */
+    extraRollOptions?: string[];
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
@@ -26,11 +26,16 @@ export interface StatisticRollParameters {
     callback?: (roll: Rolled<Roll>) => void;
 }
 
+interface RollOptionParameters {
+    extraRollOptions?: string[];
+    item?: ItemPF2e | null;
+}
+
 export interface StatisticCheck {
     modifiers: ModifierPF2e[];
-    calculateMap(options: { item: ItemPF2e; options?: string[] }): { penalty: number; label: string };
+    calculateMap(options: { item: ItemPF2e }): { penalty: number; label: string };
     roll: (args?: StatisticRollParameters) => void;
-    withOptions: (options?: { options?: string[] }) => {
+    withOptions: (options?: RollOptionParameters) => {
         value: number;
         breakdown: string;
     };
@@ -55,14 +60,51 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     constructor(private actor: ActorPF2e, public readonly data: T) {}
 
     /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
-    static from(actor: ActorPF2e, stat: StatisticModifier, name: string, label: string, type: CheckType) {
+    static from(
+        actor: ActorPF2e,
+        stat: StatisticModifier,
+        name: string,
+        label: string,
+        type: CheckType,
+        domains?: string[]
+    ) {
         return new Statistic(actor, {
             name: name,
+            domains,
             check: { adjustments: stat.adjustments, label, type },
             dc: {},
             modifiers: [...stat.modifiers],
             notes: stat.notes,
         });
+    }
+
+    private createRollOptions(domains: string[], args: RollOptionParameters): string[] {
+        const { item, extraRollOptions } = args;
+
+        const rollOptions: string[] = [];
+        if (domains && domains.length) {
+            rollOptions.push(...this.actor.getRollOptions(domains), ...this.actor.getSelfRollOptions());
+        }
+
+        if (item) {
+            rollOptions.push(...item.getItemRollOptions("item"));
+            if (item.actor && item.actor.id !== this.actor.id) {
+                rollOptions.push(...item.actor.getSelfRollOptions("origin"));
+            }
+
+            // Special cases, traits that modify the action itself universally
+            // This might change once we've better decided how derivative traits will work
+            const traits: string[] = item.data.data.traits?.value ?? [];
+            if (traits.includes("attack")) {
+                rollOptions.push("trait:attack");
+            }
+        }
+
+        if (extraRollOptions) {
+            rollOptions.push(...extraRollOptions);
+        }
+
+        return [...new Set(rollOptions)];
     }
 
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
@@ -80,7 +122,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         const checkObject: StatisticCheck = {
             modifiers: modifiers,
-            calculateMap: (options: { item: ItemPF2e; options: string[] }) => {
+            calculateMap: (options: { item: ItemPF2e }) => {
                 const baseMap = options.item.calculateMap();
                 const penalties = [...(check.penalties ?? [])];
                 penalties.push({
@@ -114,14 +156,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 }
 
                 const extraModifiers = [...(args?.modifiers ?? [])];
-                const options = this.actor.getRollOptions(domains).concat(args.options ?? []);
+                const options = this.createRollOptions(domains, args);
 
                 // Include multiple attack penalty to extra modifiers if given
                 if (args.attackNumber && args.attackNumber > 1) {
                     if (!item) {
                         console.warn("Missing item argument while calculating MAP during check");
                     } else {
-                        const map = checkObject.calculateMap({ item, options });
+                        const map = checkObject.calculateMap({ item });
                         const mapValue = Math.min(3, args.attackNumber);
                         const penalty = (mapValue - 1) * map.penalty;
                         extraModifiers.push(new ModifierPF2e(map.label, penalty, "untyped"));
@@ -142,11 +184,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
                 CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, null, args.callback);
             },
-            withOptions: (options: { options?: string[] } = {}) => {
+            withOptions: (options: RollOptionParameters = {}) => {
                 const check = new CheckModifier(name, stat);
 
                 // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-                const rollOptions = this.actor.getRollOptions(domains).concat(options.options ?? []);
+                const rollOptions = this.createRollOptions(domains, options);
                 check.modifiers.forEach((modifier) => modifier.test(rollOptions));
                 check.applyStackingRules();
 
@@ -171,16 +213,16 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
-    dc(options?: { options?: string[] }): T["dc"] extends object ? StatisticDifficultyClass : undefined;
+    dc(options?: RollOptionParameters): T["dc"] extends object ? StatisticDifficultyClass : undefined;
 
-    dc(options: { options?: string[] } = {}): StatisticDifficultyClass | undefined {
+    dc(options: RollOptionParameters = {}): StatisticDifficultyClass | undefined {
         const data = this.data;
         if (!data.dc) {
             return undefined;
         }
 
         const domains = (data.domains ?? []).concat(data.dc.domains ?? []);
-        const rollOptions = this.actor.getRollOptions(domains).concat(options.options ?? []);
+        const rollOptions = this.createRollOptions(domains, options);
 
         // toggle modifiers based on the specified options
         const modifiers = (data.modifiers ?? [])
@@ -203,12 +245,12 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     /** Creates view data for sheets and chat messages */
-    getChatData(options: { item?: ItemPF2e; options?: string[] } = {}): StatisticChatData<T> {
+    getChatData(options: RollOptionParameters = {}): StatisticChatData<T> {
         const checkObject = this.check;
-        const check = checkObject?.withOptions({ options: options.options });
-        const dcData = this.dc({ options: options.options });
+        const check = checkObject?.withOptions(options);
+        const dcData = this.dc(options);
 
-        const mapData = options.item && checkObject?.calculateMap({ item: options.item, options: options.options });
+        const mapData = options.item && checkObject?.calculateMap({ item: options.item });
         const map1 = mapData?.penalty ?? -5;
 
         return {

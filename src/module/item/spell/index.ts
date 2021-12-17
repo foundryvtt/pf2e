@@ -241,7 +241,8 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const statisticChatData = statistic.getChatData({ item: this, options: [...this.traits] });
+        const extraRollOptions = [...this.traits];
+        const statisticChatData = statistic.getChatData({ item: this, extraRollOptions });
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -329,7 +330,8 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            statistic.check.roll({ ...eventToRollParams(event), item: this, options: [...this.traits], attackNumber });
+            const extraRollOptions = [...this.traits];
+            statistic.check.roll({ ...eventToRollParams(event), item: this, extraRollOptions, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
