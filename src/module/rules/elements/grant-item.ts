@@ -27,6 +27,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
 
         const { itemSource, pendingItems, context } = args;
+        const reassignItemId = args.reassignItemId ?? true;
 
         const grantedItem: ClientDocument | null = await (async () => {
             const uuid = this.resolveInjectedProperties(this.data.uuid);
@@ -40,42 +41,41 @@ class GrantItemRuleElement extends RuleElementPF2e {
         if (!(grantedItem instanceof ItemPF2e)) return;
 
         // Set ids and flags on the granting and granted items
+        if (reassignItemId) itemSource._id = randomID();
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
-        // Create a temporary embedded version of the item to rule its pre-create REs
-        const tempEmbed = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
+        grantedSource._id = randomID();
+
+        // Create a temporary embedded version of the item to run its pre-create REs
+        const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
 
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
-            grantedSource._id = randomID();
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
 
             // Run the granted item's preCreate callbacks
-            for await (const rule of tempEmbed.prepareRuleElements()) {
-                await rule.preCreate?.(args);
+            for await (const rule of tempGranted.prepareRuleElements()) {
+                await rule.preCreate?.({ ...args, reassignItemId: false, itemSource: grantedSource });
             }
             return;
         }
 
         context.keepId = true;
 
-        grantedSource._id = randomID();
-        itemSource._id = randomID();
-        itemSource.flags ??= {};
         // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
+        itemSource.flags ??= {};
         const flags = mergeObject(itemSource.flags, { pf2e: {} });
-        const grants = (flags.pf2e.itemGrants ??= []);
-        grants.push(grantedSource._id);
+        flags.pf2e.itemGrants ??= [];
+        flags.pf2e.itemGrants.push(grantedSource._id);
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
-        grantedSource.flags ??= {};
-        const grantedFlags = mergeObject(grantedSource.flags, { pf2e: {} });
+        const grantedFlags = mergeObject(grantedSource.flags ?? {}, { pf2e: {} });
         grantedFlags.pf2e.grantedBy = itemSource._id;
 
         pendingItems.push(grantedSource);
 
         // Run the granted item's preCreate callbacks
-        for await (const rule of tempEmbed.prepareRuleElements()) {
-            await rule.preCreate?.(args);
+        for await (const rule of tempGranted.prepareRuleElements()) {
+            await rule.preCreate?.({ ...args, reassignItemId: false, itemSource: grantedSource });
         }
     }
 
