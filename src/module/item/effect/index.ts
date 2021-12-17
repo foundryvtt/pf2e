@@ -58,6 +58,7 @@ export class EffectPF2e extends ItemPF2e {
     }
 
     override prepareBaseData(): void {
+        super.prepareBaseData();
         const { duration } = this.data.data;
         if (["unlimited", "encounter"].includes(duration.unit)) {
             duration.expiry = null;
