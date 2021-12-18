@@ -213,12 +213,7 @@ export const ChatCards = {
                 const actor = t.actor;
                 if (!actor) return;
                 if (actor.saves) {
-                    const rollOptions = [
-                        ...actor.getRollOptions(["all", "saving-throw", save]),
-                        ...actor.getSelfRollOptions(),
-                        ...item.actor.getSelfRollOptions("origin"),
-                    ];
-
+                    const rollOptions: string[] = [];
                     if (item instanceof SpellPF2e) {
                         rollOptions.push("magical", "spell");
                         if (Object.keys(item.data.data.damage.value).length > 0) {
@@ -234,7 +229,8 @@ export const ChatCards = {
                     actor.saves[save].check.roll({
                         ...eventToRollParams(ev),
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options: Array.from(new Set(rollOptions)),
+                        item,
+                        extraRollOptions: rollOptions,
                     });
                 } else {
                     actor.rollSave(ev, save);

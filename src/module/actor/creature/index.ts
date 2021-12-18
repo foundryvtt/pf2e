@@ -601,7 +601,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const label = game.i18n.format("PF2E.SavingThrowWithName", {
                 saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
             });
-            return Statistic.from(this, this.data.data.saves[saveType], saveType, label, "saving-throw");
+            const saveData = this.data.data.saves[saveType];
+            const domains = ["all", "saving-throw", saveType];
+            return Statistic.from(this, saveData, saveType, label, "saving-throw", domains);
         };
 
         this.saves = {
