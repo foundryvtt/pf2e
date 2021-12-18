@@ -199,11 +199,22 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         };
 
         // Feats
+        interface GrantedFeat {
+            feat: FeatPF2e;
+            grants: GrantedFeat[];
+        }
+        interface SlottedFeat {
+            feat?: FeatData;
+            id: string;
+            level: number | string;
+            grants: GrantedFeat[];
+        }
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: number | string; feat?: FeatData; grants: FeatPF2e[] }[];
-            bonusFeats: { data: FeatData; grants: FeatPF2e[] }[];
+            feats: SlottedFeat[];
+            bonusFeats: { data: FeatData; grants: GrantedFeat[] }[];
         }
+
         const tempFeats: FeatData[] = [];
         const featSlots: Record<string, FeatSlot> = {
             ancestryfeature: { label: "PF2E.FeaturesAncestryHeader", feats: [], bonusFeats: [] },
@@ -379,8 +390,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             // class
             else if (itemData.type === "class") {
                 const classItem: ClassData = itemData;
-                type SheetFeatList = { id: string; level: number; grants: FeatPF2e[] }[];
-                const mapFeatLevels = (featLevels: number[], prefix: string): SheetFeatList => {
+                const mapFeatLevels = (featLevels: number[], prefix: string): SlottedFeat[] => {
                     if (!featLevels) {
                         return [];
                     }
@@ -433,13 +443,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 slotIndex = -1;
             }
 
+            const getGrants = (grantedIds: string[]): GrantedFeat[] => {
+                return grantedIds.flatMap((grantedId: string) => {
+                    const item = this.actor.items.get(grantedId);
+                    return item instanceof FeatPF2e
+                        ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
+                        : [];
+                });
+            };
+
             if (slotIndex !== -1) {
                 const slot = allFeatSlots[slotIndex];
                 slot.feat = featData;
-                for (const grantedId of featData.flags.pf2e.itemGrants) {
-                    const item = this.actor.items.get(grantedId);
-                    if (item instanceof FeatPF2e) slot.grants.push(item);
-                }
+                slot.grants = getGrants(featData.flags.pf2e.itemGrants);
             } else {
                 let featType = featData.data.featType.value || "bonus";
 
@@ -459,9 +475,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         const slots = featSlots[featType];
                         const bonusFeat = {
                             data: featData,
-                            grants: featData.flags.pf2e.itemGrants
-                                .map((i) => this.actor.items.get(i))
-                                .filter((i): i is Embedded<FeatPF2e> => i instanceof FeatPF2e),
+                            grants: getGrants(featData.flags.pf2e.itemGrants),
                         };
                         slots.bonusFeats.push(bonusFeat);
                     }
