@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import { RawModifier } from "@module/modifiers";
+import { BaseRawModifier } from "@module/modifiers";
 import { PredicatePF2e } from "@system/predication";
 import {
     BracketedValue,
@@ -324,7 +324,7 @@ interface RuleElementPF2e {
     onDelete?(actorUpdates: Record<string, unknown>): void;
 
     /** An optional method for excluding damage modifiers and extra dice */
-    applyDamageExclusion?(modifiers: RawModifier[]): void;
+    applyDamageExclusion?(modifiers: BaseRawModifier[]): void;
 }
 
 export { RuleElementPF2e };
