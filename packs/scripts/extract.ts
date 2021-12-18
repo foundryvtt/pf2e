@@ -149,7 +149,10 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: docSource.token.disposition,
                         height: docSource.token.height,
-                        img: docSource.token.img,
+                        img: docSource.token.img.replace(
+                            "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
+                            "systems/pf2e/"
+                        ),
                         name: docSource.token.name,
                         width: docSource.token.width,
                     };
