@@ -41,6 +41,18 @@ export class ContainerPF2e extends PhysicalItemPF2e {
         return true;
     }
 
+    get extraDimensional(): boolean {
+        return this.data.data.traits.value.includes("extradimensional");
+    }
+
+    get inExtraDimensionalContainer(): boolean {
+        if (this.container) {
+            return this.container.extraDimensional || this.container.inExtraDimensionalContainer;
+        } else {
+            return false;
+        }
+    }
+
     get containedItemBulk(): Bulk {
         return this.data.data.containedItemBulk ?? new Bulk();
     }

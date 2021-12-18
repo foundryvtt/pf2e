@@ -58,10 +58,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
-        const inventory: Record<
-            Exclude<PhysicalItemType, "book">,
-            { label: string; items: (PhysicalItemData & { totalWeight?: string })[] }
-        > = {
+        const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
@@ -105,7 +102,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
                 items: bulkItem === undefined ? [] : [bulkItem],
                 bulkConfig,
             });
-            itemData.totalWeight = formatBulk(approximatedBulk);
+            itemData.formattedBulk = formatBulk(approximatedBulk);
             if (itemData.type === "book") {
                 inventory.equipment.items.push(itemData);
             } else {

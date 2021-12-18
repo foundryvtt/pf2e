@@ -252,6 +252,8 @@ export class BulkItem {
 
     holdsItems: BulkItem[];
 
+    heldItemBulk?: Bulk;
+
     negateBulk: Bulk;
 
     extraDimensionalContainer: boolean;
@@ -475,12 +477,13 @@ function calculateCombinedBulk({
         .map((child) =>
             calculateCombinedBulk({
                 item: child,
-                nestedExtraDimensionalContainer: item.extraDimensionalContainer,
+                nestedExtraDimensionalContainer: item.extraDimensionalContainer || nestedExtraDimensionalContainer,
                 bulkConfig,
                 actorSize,
             })
         )
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
+    item.heldItemBulk = childBulk;
 
     // combine item overflow and child overflow
     const combinedOverflow = combineObjects(mainOverflow, calculateChildOverflow(childOverflow, item), add);
@@ -513,20 +516,29 @@ export function calculateBulk({
     actorSize = "med",
     bulkConfig = defaultBulkConfig,
 }: {
-    items?: BulkItem[];
+    items?: BulkItem[] | BulkItem;
     nestedExtraDimensionalContainer?: boolean;
     actorSize?: Size;
     bulkConfig?: BulkConfig;
 } = {}): BulkAndOverflow {
-    const inventory = new BulkItem({
-        holdsItems: items,
-    });
-    return calculateCombinedBulk({
-        item: inventory,
-        nestedExtraDimensionalContainer,
-        bulkConfig,
-        actorSize,
-    });
+    if (Array.isArray(items)) {
+        const inventory = new BulkItem({
+            holdsItems: items,
+        });
+        return calculateCombinedBulk({
+            item: inventory,
+            nestedExtraDimensionalContainer,
+            bulkConfig,
+            actorSize,
+        });
+    } else {
+        return calculateCombinedBulk({
+            item: items,
+            nestedExtraDimensionalContainer,
+            bulkConfig,
+            actorSize,
+        });
+    }
 }
 
 const lightBulkRegex = /^(\d*)l$/i;
