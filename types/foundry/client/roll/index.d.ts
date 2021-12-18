@@ -4,7 +4,7 @@ declare global {
     type RollMode = typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
 
     /**
-     * This class provides an interface and API for conducting dice rolls.
+     * An interface and API for constructing and evaluating dice rolls.
      * The basic structure for a dice roll is a string formula and an object of data against which to parse it.
      *
      * @param formula The string formula to parse
@@ -83,6 +83,9 @@ declare global {
         /** Return the total result of the Roll expression if it has been evaluated. */
         get total(): number | undefined;
 
+        /** Whether this Roll contains entirely deterministic terms or whether there is some randomness. */
+        get isDeterministic(): boolean;
+
         /* -------------------------------------------- */
         /*  Roll Instance Methods                       */
         /* -------------------------------------------- */
@@ -104,7 +107,7 @@ declare global {
          * @param [options={}] Options which inform how the Roll is evaluated
          * @param [options.minimize=false] Minimize the result, obtaining the smallest possible value.
          * @param [options.maximize=false] Maximize the result, obtaining the largest possible value.
-         * @param [options.async=false]    Evaluate the roll asynchronously, receiving a Promise as the returned value.
+         * @param [options.async=true]     Evaluate the roll asynchronously, receiving a Promise as the returned value.
          *                                 This will become the default behavior in version 10.x
          * @returns The evaluated Roll instance
          *
@@ -190,7 +193,15 @@ declare global {
          * @param [options={}] Evaluation options passed to Roll#evaluate
          * @return A new Roll object, rolled using the same formula and data
          */
-        reroll(options?: Record<string, unknown>): this;
+        reroll({
+            minimize,
+            maximize,
+            async,
+        }?: {
+            minimize?: boolean;
+            maximize?: boolean;
+            async?: boolean;
+        }): ReturnType<this["roll"]>;
 
         /* -------------------------------------------- */
         /*  Static Class Methods                        */
