@@ -4348,7 +4348,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4359,6 +4371,12 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Climb",
+                        "options": "action:climb"
+                    }
                 }
             },
             "effects": [],
