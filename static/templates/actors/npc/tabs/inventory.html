@@ -13,20 +13,7 @@
     {{/if}}
     <div class="items inventory-section">
         {{#if @root.owner}}
-            <ol class="currency">
-                {{#each totalCoinage as |value denomination|}}
-                    <li class="denomination {{denomination}}">
-                        <div class="currency-image" title="{{localize value.label}}"></div>
-                        <span>{{value.value}}</span>
-                    </li>
-                {{/each}}
-                <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
-                    <button type="button"><i class="fas fa-plus"></i></button>
-                </li>
-                <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
-                    <button type="button"><i class="fas fa-minus"></i></button>
-                </li>
-            </ol>
+            {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}
         {{/if}}
         <div class="header">
             <div></div>
