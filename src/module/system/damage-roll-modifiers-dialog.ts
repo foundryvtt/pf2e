@@ -1,6 +1,6 @@
 import { DegreeOfSuccessString } from "@system/check-degree-of-success";
 import { RollNotePF2e } from "@module/notes";
-import { DiceModifierPF2e, ModifierPF2e, RawModifier } from "@module/modifiers";
+import { ModifierPF2e } from "@module/modifiers";
 import { DamageTemplate } from "@system/damage/weapon";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorPF2e } from "@actor/index";
@@ -80,11 +80,11 @@ export class DamageRollModifiersDialog extends Application {
         const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize("Base")} ${
             damage.base.diceNumber
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
-        const modifierBreakdown = ([] as RawModifier[])
-            .concat(damage.diceModifiers.filter((m: DiceModifierPF2e) => m.diceNumber !== 0))
-            .concat(damage.numericModifiers)
-            .filter((m) => m.enabled)
-            .filter((m) => !m.critical || outcome === "criticalSuccess")
+        const modifierBreakdown = [
+            ...damage.diceModifiers.filter((m) => m.diceNumber !== 0),
+            ...damage.numericModifiers,
+        ]
+            .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
