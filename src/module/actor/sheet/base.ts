@@ -341,9 +341,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             sellTreasure(this.actor, itemId);
         });
 
-        // Update Inventory Item
+        // Update an embedded item
         html.find(".item-edit").on("click", (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemId ?? "");
             if (item) {
                 item.sheet.render(true);
