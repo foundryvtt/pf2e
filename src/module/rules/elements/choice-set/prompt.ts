@@ -26,7 +26,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string> {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            id: "choice-set-prompt",
+            classes: ["choice-set-prompt"],
             width: 250,
             dragDrop: [{ dropSelector: ".drop-zone" }],
         };
@@ -36,9 +36,9 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string> {
         return "systems/pf2e/templates/system/rules-elements/choice-set-prompt.html";
     }
 
-    override async getData(): Promise<ChoiceSetTemplateData> {
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<ChoiceSetTemplateData> {
         return {
-            ...(await super.getData()),
+            ...(await super.getData(options)),
             prompt: this.prompt,
             containsUUIDs: this.containsUUIDs,
         };

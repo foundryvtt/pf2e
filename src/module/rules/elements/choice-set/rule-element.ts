@@ -56,9 +56,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         if (selection) {
             ruleSource.selection = selection.value;
-            const effectName = this.item.data._source.name;
-            const label = game.i18n.localize(selection.label);
-            if (this.data.adjustName) this.item.data._source.name = `${effectName} (${label})`;
+
+            if (this.data.adjustName) {
+                const effectName = this.item.data._source.name;
+                const label = game.i18n.localize(selection.label);
+                this.item.data._source.name = `${effectName} (${label})`;
+            }
+
             // Set the item flag in case other preCreate REs need it
             this.item.data.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 

@@ -45,17 +45,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
-        // Create a temporary embedded version of the item to run its pre-create REs
-        const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
-
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
-
-            // Run the granted item's preCreate callbacks
-            for await (const rule of tempGranted.prepareRuleElements()) {
-                await rule.preCreate?.({ ...args, reassignItemId: false, itemSource: grantedSource });
-            }
+            await this.runGrantedItemPreCreates(args, grantedSource);
             return;
         }
 
@@ -74,15 +67,34 @@ class GrantItemRuleElement extends RuleElementPF2e {
         pendingItems.push(grantedSource);
 
         // Run the granted item's preCreate callbacks
-        for await (const rule of tempGranted.prepareRuleElements()) {
-            await rule.preCreate?.({ ...args, reassignItemId: false, itemSource: grantedSource });
-        }
+        await this.runGrantedItemPreCreates(args, grantedSource);
     }
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
         const grantIds = this.item.data.flags.pf2e.itemGrants ?? [];
         const grantedItems = grantIds.flatMap((id) => this.actor.items.get(id) ?? []);
         pendingItems.push(...grantedItems);
+    }
+
+    /** Run the preCreate callbacks of REs from the granted item */
+    private async runGrantedItemPreCreates(
+        originalArgs: REPreCreateParameters,
+        grantedSource: PreCreate<ItemSourcePF2e>
+    ): Promise<void> {
+        // Create a temporary embedded version of the item to run its pre-create REs
+        if (grantedSource.data?.rules) {
+            const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
+            const grantedItemRules = tempGranted.prepareRuleElements();
+            for await (const rule of grantedItemRules) {
+                const ruleSource = grantedSource.data.rules[grantedItemRules.indexOf(rule)] as RuleElementSource;
+                await rule.preCreate?.({
+                    ...originalArgs,
+                    reassignItemId: false,
+                    itemSource: grantedSource,
+                    ruleSource,
+                });
+            }
+        }
     }
 }
 
