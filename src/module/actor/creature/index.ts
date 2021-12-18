@@ -178,7 +178,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         Object.values(customModifiers).forEach((modifiers: RawModifier[]) => {
             [...modifiers].forEach((modifier: RawModifier) => {
                 const index = modifiers.indexOf(modifier);
-                modifiers[index] = ModifierPF2e.fromObject(modifier);
+                modifiers[index] = new ModifierPF2e(modifier);
             });
         });
 

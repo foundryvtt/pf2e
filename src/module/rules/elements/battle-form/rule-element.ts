@@ -4,7 +4,7 @@ import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { DiceModifierPF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RuleElementData, RuleElementSynthetics } from "@module/rules/rules-data-definitions";
@@ -401,7 +401,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override applyDamageExclusion(modifiers: RawModifier[]): void {
+    override applyDamageExclusion(modifiers: BaseRawModifier[]): void {
         if (this.data.ownUnarmed) return;
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
