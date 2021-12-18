@@ -1,5 +1,5 @@
-import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { CharacterPF2e, NPCPF2e } from "@actor";
 import { StatisticModifier } from "@module/modifiers";
 import {
     attemptToRemoveCoinsByValue,
@@ -10,6 +10,8 @@ import {
 import { LocalizePF2e } from "@system/localize";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@module/crafting/helpers";
+import { SaveType } from "@actor/data";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -98,7 +100,7 @@ export const ChatCards = {
                         }
                     }
                 } else if (action === "save") {
-                    ActorPF2e.rollSave(event, item);
+                    ChatCards.rollActorSaves(event, item);
                 }
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
                 const strikeIndex = card.attr("data-strike-index");
@@ -196,5 +198,46 @@ export const ChatCards = {
                 }
             }
         });
+    },
+
+    /**
+     * Apply rolled dice damage to the token or tokens which are currently controlled.
+     * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+     */
+    rollActorSaves: async (ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> => {
+        if (canvas.tokens.controlled.length > 0) {
+            const save = $(ev.currentTarget).attr("data-save") as SaveType;
+            const dc = Number($(ev.currentTarget).attr("data-dc"));
+            const itemTraits = item.data.data.traits?.value ?? [];
+            for (const t of canvas.tokens.controlled) {
+                const actor = t.actor;
+                if (!actor) return;
+                if (actor.saves) {
+                    const rollOptions: string[] = [];
+                    if (item instanceof SpellPF2e) {
+                        rollOptions.push("magical", "spell");
+                        if (Object.keys(item.data.data.damage.value).length > 0) {
+                            rollOptions.push("damaging-effect");
+                        }
+                    }
+
+                    if (itemTraits) {
+                        rollOptions.push(...itemTraits);
+                        rollOptions.push(...itemTraits.map((trait) => `trait:${trait}`));
+                    }
+
+                    actor.saves[save].check.roll({
+                        ...eventToRollParams(ev),
+                        dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
+                        item,
+                        extraRollOptions: rollOptions,
+                    });
+                } else {
+                    actor.rollSave(ev, save);
+                }
+            }
+        } else {
+            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+        }
     },
 };

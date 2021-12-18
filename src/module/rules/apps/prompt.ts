@@ -8,7 +8,7 @@ export abstract class RulesElementPrompt<T> extends Application {
 
     private resolve?: (value: PromptChoice<T> | null) => void;
 
-    private selection: PromptChoice<T> | null = null;
+    protected selection: PromptChoice<T> | null = null;
 
     protected choices: PromptChoice<T>[] = [];
 
@@ -18,19 +18,12 @@ export abstract class RulesElementPrompt<T> extends Application {
         super();
         this.item = data.item;
         this.predicate = data.predicate ?? new PredicatePF2e();
-        this.options.title = this.item.name;
+        this.options.title = data.title ?? this.item.name;
     }
 
     get actor(): ActorPF2e {
         return this.item.actor;
     }
-
-    /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
-    protected getChoices(): PromptChoice<T>[] {
-        return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
-    }
-
-    protected abstract getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null;
 
     static override get defaultOptions(): ApplicationOptions {
         const options = super.defaultOptions;
@@ -39,6 +32,13 @@ export abstract class RulesElementPrompt<T> extends Application {
         options.height = "auto";
         return options;
     }
+
+    /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
+    protected getChoices(): PromptChoice<T>[] {
+        return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
+    }
+
+    protected abstract getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null;
 
     abstract override get template(): string;
 
@@ -58,12 +58,12 @@ export abstract class RulesElementPrompt<T> extends Application {
         });
     }
 
-    override getData(): { choices: PromptChoice<T>[] } {
-        return { choices: this.choices };
+    override async getData(): Promise<{ choices: PromptChoice<T>[] }> {
+        return { choices: deepClone(this.choices) };
     }
 
     override activateListeners($html: JQuery): void {
-        $html.find("a[data-choice], button[data-choice]").on("click", (event) => {
+        $html.find("a[data-choice], button").on("click", (event) => {
             this.selection = this.getSelection(event) ?? null;
             this.close();
         });
@@ -91,6 +91,8 @@ export abstract class RulesElementPrompt<T> extends Application {
 }
 
 export interface RulesElementPromptData<T> {
+    title?: string;
+    prompt?: string;
     choices?: PromptChoice<T>[];
     item: Embedded<ItemPF2e>;
     predicate?: PredicatePF2e;
@@ -99,5 +101,6 @@ export interface RulesElementPromptData<T> {
 export interface PromptChoice<T> {
     value: T;
     label: string;
+    img?: string;
     domain?: string[];
 }

@@ -78,6 +78,24 @@ class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
+    /** Generate a list of strings for use in predication */
+    getItemRollOptions(prefix = this.type): string[] {
+        const slug = this.slug ?? sluggify(this.name);
+        const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const options = [`${delimitedPrefix}${slug}`, ...traits.map((t) => `${delimitedPrefix}${t}`)];
+        if ("level" in this.data.data) options.push(`${delimitedPrefix}level:${this.data.data.level.value}`);
+        if (["item", ""].includes(prefix)) {
+            const itemType =
+                this.data.type === "feat" && ["classfeature", "ancestryfeature"].includes(this.data.data.featType.value)
+                    ? "feature"
+                    : this.data.type;
+            options.unshift(`${delimitedPrefix}type:${itemType}`);
+        }
+
+        return options;
+    }
+
     override getRollData(): Record<string, unknown> {
         const item = { name: this.name, ...this.toObject(false).data };
         if (!this.actor) return { item };

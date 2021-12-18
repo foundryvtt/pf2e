@@ -12,6 +12,7 @@ import { Rollable } from "@actor/data/base";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 /**
  * Base class for NPC and character sheets
@@ -217,7 +218,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
             const entry = this.actor.spellcasting.get(index);
             if (entry) {
-                entry.statistic.check.roll({ event });
+                entry.statistic.check.roll(eventToRollParams(event));
             }
         });
 

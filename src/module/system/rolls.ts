@@ -15,6 +15,7 @@ import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -24,7 +25,7 @@ export interface RollDataPF2e extends RollData {
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
     /** The triggering event */
-    event?: JQuery.TriggeredEvent;
+    event?: JQuery.Event;
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
@@ -35,8 +36,6 @@ export interface RollParameters {
     getFormula?: true;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
-    /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
 }
 
 export type FateString = "none" | "fortune" | "misfortune";
@@ -96,7 +95,7 @@ export class CheckPF2e {
     static async roll(
         check: StatisticModifier,
         context: CheckModifiersContext = {},
-        event?: JQuery.Event,
+        event?: JQuery.Event | null,
         callback?: (
             roll: Rolled<Roll>,
             outcome: typeof DegreeOfSuccessText[number] | undefined,
@@ -138,20 +137,18 @@ export class CheckPF2e {
             }
         }
 
-        // if control (or meta) is held, set roll mode to blind GM roll
-        if (event?.ctrlKey || event?.metaKey) {
-            context.secret = true;
+        // If event is supplied, merge into context
+        // Eventually the event parameter will go away entirely
+        if (event) {
+            mergeObject(context, eventToRollParams(event));
         }
 
-        const userSettingQuickD20Roll = !game.user.getFlag("pf2e", "settings.showRollDialogs");
-        if (userSettingQuickD20Roll === event?.shiftKey) {
-            if (!context.skipDialog) {
-                const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
-                    new CheckModifiersDialog(check, resolve, context).render(true);
-                });
-                const rolled = await dialogClosed;
-                if (!rolled) return null;
-            }
+        if (!context.skipDialog) {
+            const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
+                new CheckModifiersDialog(check, resolve, context).render(true);
+            });
+            const rolled = await dialogClosed;
+            if (!rolled) return null;
         }
 
         const options: string[] = [];

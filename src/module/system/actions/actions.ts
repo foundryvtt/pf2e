@@ -227,7 +227,7 @@ export class ActionsPF2e {
 
                         // try to resolve target's defense stat and calculate DC
                         const dc = options.difficultyClassStatistic?.(target.actor)?.dc({
-                            options: finalOptions.concat(targetOptions),
+                            extraRollOptions: finalOptions.concat(targetOptions),
                         });
                         if (dc) {
                             return {

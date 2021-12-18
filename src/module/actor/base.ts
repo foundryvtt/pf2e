@@ -1,7 +1,7 @@
 import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
@@ -23,6 +23,7 @@ import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { Statistic } from "@system/statistic";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -46,6 +47,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
+
+    saves?: Record<SaveType, Statistic>;
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
@@ -131,12 +134,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
-    /** Get roll options from this actor's traits an other properties */
+    /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const { itemTypes } = this;
         const effects = itemTypes.effect
             .flatMap((e) => (e.isExpired ? [] : e.slug ?? sluggify(e.name)))
-            .map((slug) => `${prefix}:effect:${slug}`);
+            .map((slug) => {
+                const reducedSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
+                return `${prefix}:effect:${reducedSlug}`;
+            });
         const conditions = itemTypes.condition
             .flatMap((c) => (c.fromSystem && c.isActive ? c.slug ?? sluggify(c.name) : []))
             .map((slug) => `${prefix}:condition:${slug}`);
@@ -169,13 +175,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
-        // Workaround for insane V9 change
-        const keepItemIds = !context.parent && !context.keepId;
-        if (keepItemIds) context.keepId = true;
-
         for (const datum of data) {
-            if (keepItemIds) delete datum._id;
-
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
@@ -339,7 +339,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /**
      * Roll a Save Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
+     * Will be removed once non-creature saves are implemented properly.
      */
     rollSave(event: JQuery.Event, saveName: SaveType) {
         const save: SaveData = this.data.data.saves[saveName];
@@ -462,48 +463,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
         }
         return true;
-    }
-
-    /**
-     * Apply rolled dice damage to the token or tokens which are currently controlled.
-     * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     */
-    static async rollSave(ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> {
-        if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr("data-save") as SaveType;
-            const dc = Number($(ev.currentTarget).attr("data-dc"));
-            const itemTraits = item.data.data.traits?.value ?? [];
-            for (const t of canvas.tokens.controlled) {
-                const actor = t.actor;
-                if (!actor) return;
-                if (actor.data.data.saves[save]?.roll) {
-                    const options = [
-                        ...actor.getRollOptions(["all", "saving-throw", save]),
-                        ...actor.getSelfRollOptions(),
-                        ...item.actor.getSelfRollOptions("origin"),
-                    ];
-                    if (item instanceof SpellPF2e) {
-                        options.push("magical", "spell");
-                        if (Object.keys(item.data.data.damage.value).length > 0) {
-                            options.push("damaging-effect");
-                        }
-                    }
-                    if (itemTraits) {
-                        options.push(...itemTraits);
-                        options.push(...itemTraits.map((trait) => `trait:${trait}`));
-                    }
-                    actor.data.data.saves[save].roll({
-                        event: ev,
-                        dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
-                        options: Array.from(new Set(options)),
-                    });
-                } else {
-                    actor.rollSave(ev, save);
-                }
-            }
-        } else {
-            ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-        }
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
@@ -1049,32 +1008,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             game.pf2e.effectTracker.unregister(effect);
         }
         super._onDelete(options, userId);
-    }
-
-    /** Work around bug in Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
-    protected override _onCreateEmbeddedDocuments(
-        embeddedName: "Item" | "ActiveEffect",
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string
-    ) {
-        if (options.render !== false) {
-            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
-    /** Work around bug from Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
-    protected override _onDeleteEmbeddedDocuments(
-        embeddedName: "Item" | "ActiveEffect",
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string
-    ) {
-        if (options.render !== false) {
-            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
     }
 }
 

@@ -2,15 +2,9 @@ import { ModifierPF2e } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rules-data-definitions";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
-import { RollParameters } from "@system/rolls";
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
 export type CheckType = "skill-check" | "perception-check" | "saving-throw" | "flat-check" | AttackCheck;
-
-export interface StatisticRollParameters extends RollParameters {
-    /** Which attack this is (for the purposes of multiple attack penalty) */
-    attackNumber?: number;
-}
 
 export interface StatisticCheckData {
     type: CheckType;
@@ -52,6 +46,7 @@ export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
 
 /** Defines view data for chat message and sheet rendering */
 export interface StatisticChatData<T extends BaseStatisticData = StatisticData> {
+    name: string;
     check: T["check"] extends object
         ? {
               value: number;

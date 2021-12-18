@@ -1,17 +1,28 @@
-<h3>{{localize "PF2E.UI.RuleElements.ChoiceSet.Prompt"}}</h3>
-<div class="choices">
-    {{#if (gt choices.length 5)}}
-        <select data-choice="">
-            <option value=""></option>
-            {{#each choices as |choice|}}
-                <option value="{{choice.value}}">{{choice.label}}</option>
-            {{/each}}
-        </select>
+<div class="content">
+    <h3>{{localize prompt}}</h3>
+    <div class="choices">
+        {{#if (and (gt choices.length 8) (not containsUUIDs))}}
+            <select data-choice="">
+                <option value=""></option>
+                {{#each choices as |choice|}}
+                    <option value="{{choice.value}}">{{choice.label}}</option>
+                {{/each}}
+            </select>
 
-        <button type="button" data-choice="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
+            <button type="button" value="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
     {{else}}
-        {{#each choices as |choice|}}
-            <button type="button" data-choice="{{choice.value}}">{{choice.label}}</button>
-        {{/each}}
-    {{/if}}
+            {{#each choices as |choice|}}
+                <button type="button" value="{{choice.value}}"{{#if choice.img}} class="with-image"{{/if}}>
+                    {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
+                    <span>{{choice.label}}</span>
+                </button>
+            {{/each}}
+            {{#if containsUUIDs}}
+                <div class="drop-zone with-image">
+                    <i class="fas fa-info-circle" title="{{localize "PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem"}}"></i>
+                    <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.HomebrewItem"}}</span>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
 </div>

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { CreatureData } from "@actor/data";
+import { CreatureData, SaveType } from "@actor/data";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -104,17 +104,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
-    get fortitude(): Statistic {
-        return this.buildSavingThrowStatistic("fortitude");
-    }
-
-    get reflex(): Statistic {
-        return this.buildSavingThrowStatistic("reflex");
-    }
-
-    get will(): Statistic {
-        return this.buildSavingThrowStatistic("will");
-    }
+    override saves!: Record<SaveType, Statistic>;
 
     get deception(): Statistic {
         const stat = this.data.data.skills.dec as StatisticModifier;
@@ -605,11 +595,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
     }
 
-    private buildSavingThrowStatistic(savingThrow: "fortitude" | "reflex" | "will"): Statistic {
-        const label = game.i18n.format("PF2E.SavingThrowWithName", {
-            saveName: game.i18n.localize(CONFIG.PF2E.saves[savingThrow]),
-        });
-        return Statistic.from(this, this.data.data.saves[savingThrow], savingThrow, label, "saving-throw");
+    /** Holdover function to create save statistics. Will be removed when saves are fully statistics. */
+    protected buildSavingThrowStatistics(): void {
+        const build = (saveType: SaveType) => {
+            const label = game.i18n.format("PF2E.SavingThrowWithName", {
+                saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+            });
+            const saveData = this.data.data.saves[saveType];
+            const domains = ["all", "saving-throw", saveType];
+            return Statistic.from(this, saveData, saveType, label, "saving-throw", domains);
+        };
+
+        this.saves = {
+            fortitude: build("fortitude"),
+            reflex: build("reflex"),
+            will: build("will"),
+        };
     }
 
     /**
