@@ -44,7 +44,7 @@ export const MODIFIER_TYPES = [
 
 export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
-export interface RawModifier {
+export interface BaseRawModifier {
     /** The name of this modifier; should generally be a localization key (see en.json). */
     name: string;
     /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
@@ -52,17 +52,17 @@ export interface RawModifier {
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier?: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
-    type?: ModifierType;
+    type?: string;
     /** If the type is "ability", this should be set to a particular ability */
     ability?: AbilityString;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
-    enabled: boolean;
+    enabled?: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
-    ignored: boolean;
+    ignored?: boolean;
     /** The source from which this modifier originates, if any. */
     source?: string;
     /** If true, this modifier is a custom player-provided modifier. */
-    custom: boolean;
+    custom?: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: string;
     /** The damage category */
@@ -77,10 +77,11 @@ export interface RawModifier {
     traits?: string[];
 }
 
-/**
- * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
- * @category PF2
- */
+export interface RawModifier extends BaseRawModifier {
+    modifier: number;
+}
+
+/** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 export class ModifierPF2e implements RawModifier {
     name: string;
     label?: string;
@@ -93,13 +94,14 @@ export class ModifierPF2e implements RawModifier {
     custom: boolean;
     damageType?: string;
     damageCategory?: string;
-    predicate = new PredicatePF2e();
+    predicate: PredicatePF2e;
     critical?: boolean;
     traits?: string[];
     notes?: string;
 
     /**
      * Create a new modifier.
+     * Legacy parameters:
      * @param name The name for the modifier; should generally be a localization key.
      * @param modifier The actual numeric benefit/penalty that this modifier provides.
      * @param type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
@@ -107,74 +109,42 @@ export class ModifierPF2e implements RawModifier {
      * @param source The source from which this modifier originates, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(
-        name: string,
-        modifier: number,
-        type: string,
-        enabled = true,
-        ignored = false,
-        source?: string,
-        notes?: string
-    ) {
-        const isValidModifierType = (type: string): type is ModifierType =>
-            Object.values(MODIFIER_TYPE).some((modifierType) => type === modifierType);
+    constructor(args: RawModifier);
+    constructor(...args: ModifierLegacyParams);
+    constructor(...args: [RawModifier] | ModifierLegacyParams) {
+        const isLegacyParams = (args: [RawModifier] | ModifierLegacyParams): args is ModifierLegacyParams =>
+            typeof args[0] === "string";
+        const params: RawModifier = isLegacyParams(args)
+            ? {
+                  name: args[0],
+                  modifier: args[1],
+                  type: args[2] ?? "untyped",
+                  enabled: args[3],
+                  ignored: args[4],
+                  source: args[5],
+                  notes: args[6],
+              }
+            : args[0];
 
-        this.name = name;
-        this.modifier = modifier;
-        this.type = isValidModifierType(type) ? type : "untyped";
-        this.enabled = enabled;
-        this.ignored = ignored;
-        this.custom = false;
-        this.source = source;
-        this.notes = notes;
-    }
+        const isValidModifierType = (type: unknown): type is ModifierType =>
+            (Object.values(MODIFIER_TYPE) as unknown[]).includes(type);
 
-    /** Create a ModifierPF2e instance from a RawModifier */
-    static fromObject(data: RawModifier): ModifierPF2e {
-        if (data instanceof ModifierPF2e) return data.clone();
-
-        const modifier = new ModifierPF2e(
-            data.name,
-            data.modifier ?? 0,
-            data.type ?? "untyped",
-            data.enabled,
-            data.ignored,
-            data.source,
-            data.notes
-        );
-
-        modifier.custom = data.custom ?? false;
-        modifier.predicate =
-            data.predicate instanceof PredicatePF2e ? Object.create(data.predicate) : new PredicatePF2e(data.predicate);
-        if (data.damageCategory) modifier.damageCategory = data.damageCategory;
-        if (data.damageType) modifier.damageType = data.damageType;
-
-        return modifier;
+        this.name = params.name;
+        this.modifier = params.modifier;
+        this.type = isValidModifierType(params.type) ? params.type : "untyped";
+        this.enabled = params.enabled ?? true;
+        this.ignored = params.ignored ?? false;
+        this.custom = params.custom ?? false;
+        this.source = params.source;
+        this.predicate = new PredicatePF2e(params.predicate);
+        this.notes = params.notes;
+        this.traits = deepClone(params.traits ?? []);
     }
 
     /** Return a copy of this ModifierPF2e instance */
     clone(options: { test?: string[] } = {}): ModifierPF2e {
-        const clone = new ModifierPF2e(
-            this.name,
-            this.modifier,
-            this.type,
-            this.enabled,
-            this.ignored,
-            this.source,
-            this.notes
-        );
-        clone.predicate = deepClone(this.predicate);
-        clone.custom = this.custom;
-        clone.ignored = this.ignored;
-        clone.damageType = this.damageType;
-        clone.damageCategory = this.damageCategory;
-        clone.critical = this.critical;
-        clone.traits = deepClone(this.traits);
-
-        if (options.test) {
-            clone.test(options.test);
-        }
-
+        const clone = new ModifierPF2e(this);
+        if (options.test) clone.test(options.test);
         return clone;
     }
 
@@ -183,6 +153,16 @@ export class ModifierPF2e implements RawModifier {
         this.ignored = !this.predicate.test(options);
     }
 }
+
+type ModifierLegacyParams = [
+    name: string,
+    modifier: number,
+    type?: string,
+    enabled?: boolean,
+    ignored?: boolean,
+    source?: string,
+    notes?: string
+];
 
 export type MinimalModifier = Pick<ModifierPF2e, "name" | "type" | "modifier">;
 
@@ -472,7 +452,7 @@ interface DamageDiceOverride {
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class DiceModifierPF2e implements RawModifier {
+export class DiceModifierPF2e implements BaseRawModifier {
     name: string;
     label?: string;
     /** The number of dice to add. */

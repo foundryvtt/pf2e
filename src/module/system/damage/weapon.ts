@@ -2,12 +2,12 @@ import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { WeaponData } from "@item/data";
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from "@item/runes";
 import {
+    BaseRawModifier,
     DamageDicePF2e,
     DiceModifierPF2e,
     ModifierPF2e,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
-    RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
@@ -816,7 +816,7 @@ export class WeaponDamagePF2e {
      * Retrieve exclusion terms from rule elements. Any term is not in the `any` or `all` predicate,
      * it is added to the `not` predicate
      */
-    private static excludeDamage(actor: ActorPF2e, modifiers: RawModifier[], options: string[]): void {
+    private static excludeDamage(actor: ActorPF2e, modifiers: BaseRawModifier[], options: string[]): void {
         const notIgnored = modifiers.filter((modifier) => !modifier.ignored);
         for (const rule of actor.rules) {
             rule.applyDamageExclusion?.(notIgnored);
