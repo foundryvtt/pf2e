@@ -140,7 +140,7 @@ export const InlineRollsLinks = {
                                         .filter((trait) => !!trait);
                                     options.push(...traits);
                                 }
-                                flatCheck.check.roll({ ...eventRollParams, options, dc });
+                                flatCheck.check.roll({ ...eventRollParams, extraRollOptions: options, dc });
                             } else {
                                 console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
                             }
@@ -165,7 +165,7 @@ export const InlineRollsLinks = {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            savingThrow.check.roll({ ...eventToRollParams(event), options, dc });
+                            savingThrow.check.roll({ ...eventToRollParams(event), extraRollOptions: options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
                         }
