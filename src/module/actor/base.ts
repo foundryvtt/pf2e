@@ -175,13 +175,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext<InstanceType<A>> = {}
     ): Promise<InstanceType<A>[]> {
-        // Workaround for insane V9 change
-        const keepItemIds = !context.parent && !context.keepId;
-        if (keepItemIds) context.keepId = true;
-
         for (const datum of data) {
-            if (keepItemIds) delete datum._id;
-
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
                 permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
@@ -1014,32 +1008,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             game.pf2e.effectTracker.unregister(effect);
         }
         super._onDelete(options, userId);
-    }
-
-    /** Work around bug in Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
-    protected override _onCreateEmbeddedDocuments(
-        embeddedName: "Item" | "ActiveEffect",
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string
-    ) {
-        if (options.render !== false) {
-            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
-    /** Work around bug from Foundry 0.8 (still present in 9.235) where `render: false` is ignored */
-    protected override _onDeleteEmbeddedDocuments(
-        embeddedName: "Item" | "ActiveEffect",
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string
-    ) {
-        if (options.render !== false) {
-            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
     }
 }
 
