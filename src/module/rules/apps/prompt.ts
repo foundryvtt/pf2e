@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
+import { sluggify } from "@util";
 
 /** Prompt the user for the target of the effect they just added to an actor */
 export abstract class RulesElementPrompt<T> extends Application {
@@ -58,7 +59,8 @@ export abstract class RulesElementPrompt<T> extends Application {
         });
     }
 
-    override async getData(): Promise<{ choices: PromptChoice<T>[] }> {
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PromptChoice<T>[] }> {
+        options.id = `choice-set-${this.item.slug ?? sluggify(this.item.name)}`;
         return { choices: deepClone(this.choices) };
     }
 
