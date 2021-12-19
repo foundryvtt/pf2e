@@ -26,7 +26,7 @@
             <ol class="directory-list item-list formula-list">
                 <!-- Add section for each formula level -->
                 {{#each crafting.knownFormulas as |section lvl|}}
-                    <li class="inventory-header formula-level-header formula-header" data-item-type="formulaLevel"
+                    <li class="formula-level-header formula-header" data-item-type="formulaLevel"
                         data-level="{{lvl}}">
                         <div class="level-name flexrow">
                             <h3>{{localize "PF2E.LevelN" level=lvl}}</h3>
@@ -75,7 +75,7 @@
                     {{/each}}
                 {{else}}
                     {{#if @root.owner}}
-                        <li class="inventory-header formula-header empty">
+                        <li class="formula-header empty">
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
                             <a class="item-control inventory-browse" title="{{localize 'PF2E.OpenInventoryBrowser'}}"
                                 data-type="equipment" data-location="{{entry._id}}">
