@@ -102,6 +102,12 @@ export class CheckPF2e {
             message: ChatMessagePF2e
         ) => Promise<void> | void
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
+        // If event is supplied, merge into context
+        // Eventually the event parameter will go away entirely
+        if (event) {
+            mergeObject(context, eventToRollParams(event));
+        }
+
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -111,7 +117,7 @@ export class CheckPF2e {
             check.applyStackingRules();
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o) => o.toLowerCase()).includes("secret")) {
+            if (context.options.includes("secret")) {
                 context.secret = true;
             }
         }
@@ -135,12 +141,6 @@ export class CheckPF2e {
                     });
                 }
             }
-        }
-
-        // If event is supplied, merge into context
-        // Eventually the event parameter will go away entirely
-        if (event) {
-            mergeObject(context, eventToRollParams(event));
         }
 
         if (!context.skipDialog) {
