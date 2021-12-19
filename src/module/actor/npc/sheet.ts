@@ -27,6 +27,7 @@ import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
 import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 interface ActionsDetails {
     label: string;
@@ -673,27 +674,18 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         skill.roll({ event, options: opts });
     }
 
-    rollSave(event: JQuery.ClickEvent, saveId: SaveType) {
-        const save = this.actor.data.data.saves[saveId];
-
-        if (save?.roll) {
-            const options = this.actor.getRollOptions(["all", "saving-throw", saveId]);
-            save.roll({ event, options });
-        } else {
-            this.actor.rollSave(event, saveId);
-        }
-    }
-
     private onClickRollable(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $label = $(event.currentTarget).closest(".rollable");
 
         const ability = $label.parent().attr("data-attribute") as "perception" | AbilityString;
         const skill = $label.parent().attr("data-skill") as SkillAbbreviation;
-        const save = $label.parent().attr("data-save") as SaveType;
+        const save = $label.parent().attr("data-save");
         const action = $label.parent().parent().attr("data-action");
         const item = $label.parent().parent().attr("data-item");
         const spell = $label.parent().parent().attr("data-spell");
+
+        const rollParams = eventToRollParams(event);
 
         if (ability) {
             switch (ability) {
@@ -705,8 +697,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
         } else if (skill) {
             this.rollSkill(event, skill);
-        } else if (save) {
-            this.rollSave(event, save);
+        } else if (objectHasKey(this.actor.saves, save)) {
+            this.actor.saves[save].check.roll(rollParams);
         } else if (action || item || spell) {
             this.onClickExpandable(event);
         }
