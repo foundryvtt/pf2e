@@ -93,6 +93,7 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
                 return combatant.actor.data.data.attributes.initiative.roll({
                     options: rollOptions,
                     updateTracker: false,
+                    skipDialog: !!options.skipDialog,
                 });
             })
         );

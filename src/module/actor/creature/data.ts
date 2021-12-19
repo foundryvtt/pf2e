@@ -158,6 +158,7 @@ export interface CreatureHitPoints extends HitPointsData {
 export interface InitiativeRollParams extends RollParameters {
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
+    skipDialog: boolean;
 }
 
 export interface InitiativeRollResult {
