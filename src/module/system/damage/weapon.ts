@@ -68,15 +68,6 @@ export type DamagePool = Record<
     }
 >;
 
-/** Return true if the given damage type is non-null and not physical; false otherwise. */
-function isNonPhysicalDamage(damageType?: string): boolean {
-    return (
-        damageType !== undefined &&
-        damageType !== "" &&
-        DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
-    );
-}
-
 /**
  * @category PF2
  */
@@ -301,7 +292,6 @@ export class WeaponDamagePF2e {
                     diceNumber: normalDice,
                     dieSize: weapon.data?.property1?.die as DamageDieSize,
                     damageType: damageType,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
                 })
             );
         }
@@ -315,7 +305,6 @@ export class WeaponDamagePF2e {
                     dieSize: weapon.data.property1.critDie as DamageDieSize,
                     damageType: damageType,
                     critical: true,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
                 })
             );
         }
@@ -349,7 +338,6 @@ export class WeaponDamagePF2e {
                     new DiceModifierPF2e({
                         name: s.label,
                         diceNumber: s.bonus,
-                        traits: ["magical"],
                     })
                 );
             }
@@ -362,7 +350,6 @@ export class WeaponDamagePF2e {
             diceModifiers.push(
                 new DiceModifierPF2e({
                     name: "PF2E.WeaponPropertyRuneGhostTouch",
-                    traits: ["ghostTouch"],
                 })
             );
         }
@@ -604,29 +591,14 @@ export class WeaponDamagePF2e {
                             dm.diceNumber
                         );
                     }
-                    (dm.traits ?? []).forEach((t) => {
-                        if (!damage.traits.includes(t)) {
-                            damage.traits.push(t);
-                        }
-                    });
-                } else if (!dm.critical) {
-                    // regular pool
-                    if (dm.diceNumber) {
-                        this.addDice(
-                            dicePool,
-                            dm.damageType ?? base.damageType,
-                            dm.category,
-                            dm.dieSize ?? base.dieSize,
-                            dm.diceNumber
-                        );
-                    }
-                    (dm.traits ?? []).forEach((t) => {
-                        if (!damage.traits.includes(t)) {
-                            damage.traits.push(t);
-                        }
-                    });
-                } else {
-                    // skip
+                } else if (!dm.critical && dm.diceNumber) {
+                    this.addDice(
+                        dicePool,
+                        dm.damageType ?? base.damageType,
+                        dm.category,
+                        dm.dieSize ?? base.dieSize,
+                        dm.diceNumber
+                    );
                 }
             });
 

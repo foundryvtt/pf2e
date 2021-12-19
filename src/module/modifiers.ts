@@ -467,7 +467,6 @@ export class DiceModifierPF2e implements BaseRawModifier {
     /** The damage category of these dice. */
     category?: string;
     damageType?: string;
-    traits: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
     override?: DamageDiceOverride;
     ignored: boolean;
@@ -488,7 +487,6 @@ export class DiceModifierPF2e implements BaseRawModifier {
         this.critical = param.critical;
         this.damageType = param.damageType;
         this.category = param.category;
-        this.traits = param.traits ?? [];
         this.override = param.override;
         this.custom = param.custom ?? false;
 
