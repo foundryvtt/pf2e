@@ -1,6 +1,11 @@
 import { CombatConstructor } from "./constructors";
 
 declare global {
+    /**
+     * The Combat model definition which defines common behavior of an Combat document between both client and server.
+     * Each Combat document contains CombatData which defines its data schema.
+     * @param [data={}] Initial data provided to construct the Combat document
+     */
     class Combat<TCombatant extends Combatant = Combatant> extends CombatConstructor {
         constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<Combat>);
 
@@ -23,9 +28,6 @@ declare global {
             combatantId: string | null;
         };
 
-        /** Track whether a sound notification is currently being played to avoid double-dipping */
-        protected _soundPlaying: boolean;
-
         /** The configuration setting used to record Combat preferences */
         static CONFIG_SETTING: "combatTrackerConfig";
 
@@ -40,7 +42,7 @@ declare global {
         get round(): number;
 
         /** A reference to the Scene document within which this Combat encounter occurs */
-        get scene(): Scene;
+        get scene(): Scene | undefined;
 
         /** Return the object of settings which modify the Combat Tracker behavior */
         get settings(): Record<string, unknown>;
@@ -51,7 +53,10 @@ declare global {
         /** The numeric turn of the combat round in the Combat encounter */
         get turn(): number;
 
-        override get visible(): boolean;
+        override get visible(): true;
+
+        /** Is this combat active in the current scene? */
+        get isActive(): boolean;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -61,7 +66,7 @@ declare global {
          * Set the current Combat encounter as active within the Scene.
          * Deactivate all other Combat encounters within the viewed Scene and set this one as active
          */
-        activate(): Promise<this>;
+        activate(): Promise<[this]>;
 
         /** Display a dialog querying the GM whether they wish to end the combat encounter and empty the tracker */
         endCombat(): Promise<this>;
@@ -71,6 +76,12 @@ declare global {
          * @param tokenId The id of the Token for which to acquire the combatant
          */
         getCombatantByToken(tokenId: string): Embedded<TCombatant> | undefined;
+
+        /**
+         * Get a Combatant using its Actor id
+         * @param actorId The id of the Actor for which to acquire the combatant
+         */
+        getCombatantByActor(actorId: string): Combatant | undefined;
 
         /** Advance the combat to the next round */
         nextRound(): Promise<this>;
@@ -85,6 +96,9 @@ declare global {
 
         /** Rewind the combat to the previous turn */
         previousTurn(): Promise<this>;
+
+        /** Toggle whether this combat is linked to the scene or globally available. */
+        toggleSceneLink(): Promise<this>;
 
         /** Reset all combatant initiative scores, setting the turn back to zero */
         resetAll(): Promise<this>;
