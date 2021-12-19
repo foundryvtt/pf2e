@@ -1,5 +1,6 @@
 import { ItemLevelData, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { DamageType } from "@module/damage-calculation";
 import { EffectPF2e } from ".";
 
 export type EffectSource = BaseNonPhysicalItemSource<"effect", EffectSystemSource>;
@@ -30,9 +31,19 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     };
     target: string | null;
     expired?: boolean;
+    badge: EffectBadge | null;
+}
+
+export interface EffectBadge {
+    value: number | DiceExpression;
+    tickRule: EffectTickType;
 }
 
 export type EffectExpiryType = "turn-start" | "turn-end";
+
+export type EffectTickType = "turn-start";
+
+export type DiceExpression = `${number}d${number} ${DamageType}`;
 
 export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
     expired: boolean;
