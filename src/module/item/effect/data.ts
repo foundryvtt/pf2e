@@ -35,7 +35,7 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
 }
 
 export interface EffectBadge {
-    value: number | DiceExpression;
+    value: number | DiceExpression[];
     tickRule: EffectTickType;
 }
 
