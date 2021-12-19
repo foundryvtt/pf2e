@@ -25,7 +25,7 @@ export interface RollDataPF2e extends RollData {
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
     /** The triggering event */
-    event?: JQuery.Event;
+    event?: JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
@@ -95,7 +95,7 @@ export class CheckPF2e {
     static async roll(
         check: StatisticModifier,
         context: CheckModifiersContext = {},
-        event?: JQuery.Event | null,
+        event: JQuery.TriggeredEvent | null = null,
         callback?: (
             roll: Rolled<Roll>,
             outcome: typeof DegreeOfSuccessText[number] | undefined,

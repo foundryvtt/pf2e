@@ -302,7 +302,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, systemData.attributes.initiative, args.modifiers),
-                    { actor: this, type: "initiative", options, notes, dc: args.dc },
+                    { actor: this, type: "initiative", options, notes, dc: args.dc, skipDialog: args.skipDialog },
                     args.event
                 );
                 if (!roll) return null;
