@@ -391,6 +391,10 @@ export class StatisticModifier {
         this.applyStackingRules();
     }
 
+    get totalDC(): number {
+        return this.totalModifier + 10;
+    }
+
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
         return Object.freeze([...this._modifiers]);
