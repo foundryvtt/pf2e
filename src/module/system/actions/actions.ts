@@ -43,7 +43,7 @@ type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-r
 export type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
 export interface ActionDefaultOptions {
-    event: JQuery.Event;
+    event: JQuery.TriggeredEvent;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];
@@ -71,7 +71,7 @@ interface SimpleRollActionCheckOptions {
     extraOptions: string[];
     traits: string[];
     checkType: CheckType;
-    event: JQuery.Event;
+    event: JQuery.TriggeredEvent;
     difficultyClass?: CheckDC;
     difficultyClassStatistic?: (creature: CreaturePF2e) => Statistic<StatisticDataWithDC>;
     extraNotes?: (selector: string) => RollNotePF2e[];
