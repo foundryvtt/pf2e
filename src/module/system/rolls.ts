@@ -182,10 +182,7 @@ export class CheckPF2e {
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
-            .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
-            })
+            .map((m) => `<span class="tag tag_alt">${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`)
             .join("");
 
         const optionBreakdown = options

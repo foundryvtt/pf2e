@@ -80,7 +80,8 @@ function toModifiers(rune: string, dice: RuneDiceModifier[]): DiceModifierPF2e[]
     dice = deepClone(dice);
     return dice.map((die) => {
         return new DiceModifierPF2e({
-            name: CONFIG.PF2E.runes.weapon.property[rune]?.name,
+            slug: rune,
+            label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
             diceNumber: die.diceNumber ?? 1,
             dieSize: die.dieSize ?? "d6",
             damageType: die.damageType,

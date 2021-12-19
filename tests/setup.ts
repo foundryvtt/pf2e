@@ -64,6 +64,9 @@ global.game = Object.freeze({
         },
     }),
     user: {},
+    i18n: {
+        localize: (path: string) => path,
+    },
 });
 
 function getType(token: Token | null) {
