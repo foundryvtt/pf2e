@@ -118,6 +118,8 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    allSaveDetails?: string;
+    hasAllSaveDetails?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
@@ -313,6 +315,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
+        sheetData.allSaveDetails = this.actor.data.data.attributes.allSaves.value;
+        sheetData.hasAllSaveDetails = sheetData.allSaveDetails ? true : false;
+
         // Return data for rendering
         return sheetData;
     }
@@ -361,6 +366,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
+
+        html.find(".saves-edit").on("click", () => this.onClickAddAllSaves());
     }
 
     // TRAITS MANAGEMENT
@@ -800,6 +807,40 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         systemData.slots[slot].value = systemData.slots[slot].max;
 
         await item.update({ "data.slots": systemData.slots });
+    }
+
+    private async onClickAddAllSaves() {
+        new Dialog({
+            title: game.i18n.localize("PF2E.AllSavesLabel"),
+            content: `<form>
+                <div class="form-group">
+                    <label>${game.i18n.localize("PF2E.AllSavesLabel")}</label>
+                    <input type="text" name="allSaves" value="${
+                        this.actor.data.data.attributes.allSaves.value
+                    }" placeholder="Enter saves modifier">
+                </div>
+                <div>
+                    <p>${game.i18n.localize("PF2E.AllSavesEntryHint")}</p>
+                </div>
+                </form>
+                <script type="text/javascript">
+                $(function () {
+                    $(".form-group input").focus();
+                });
+                </script>`,
+            buttons: {
+                ok: {
+                    label: "Ok",
+                    callback: async (dialogHtml: JQuery) => {
+                        await this.actor.update({
+                            "data.attributes.allSaves.value": String(dialogHtml.find('[name="allSaves"]').val()).trim(),
+                        });
+                    },
+                },
+            },
+            default: "ok",
+            close: () => {},
+        }).render(true);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
