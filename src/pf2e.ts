@@ -7,7 +7,7 @@ import "./styles/main.scss";
 HooksPF2e.listen();
 
 // Trigger a keyup event with the ALT key when focusing so that token highlighting from ALT-TABbing out is toggled off
-window.addEventListener("focus", () => {
+window.addEventListener("blur", () => {
     const altKeyUp = new KeyboardEvent("keyup", { key: "Alt", code: "AltLeft", altKey: true });
     window.dispatchEvent(altKeyUp);
 });
