@@ -17,10 +17,10 @@ export class Migration701ModifierNameToSlug extends MigrationBase {
                     rule.label = rule.name;
                 } else {
                     rule.slug = sluggify(rule.name);
-                    if (rule.label === "Rage") rule.label = "PF2E.TraitRage";
                 }
                 delete rule.name;
             }
+            if (rule.label === "Rage") rule.label = "PF2E.TraitRage";
         }
     }
 }
