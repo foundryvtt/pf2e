@@ -31,8 +31,8 @@ declare global {
         static documentName: string | null;
 
         /**
-         * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet been
-         * created.
+         * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet
+         * been created.
          */
         get directory(): SidebarDirectory<TDocument> | null;
 
@@ -76,19 +76,12 @@ declare global {
             document: TDocument | TDocument["data"]["_source"],
             options?: FromCompendiumOptions
         ): TDocument["data"]["_source"];
-
-        /**
-         * Prepare a document from an outside source for import into this collection.
-         * @param data The data to be prepared.
-         * @return The prepared data.
-         */
-        prepareForImport(data: TDocument["data"]["_source"]): TDocument["data"]["_source"];
     }
-}
 
-interface FromCompendiumOptions {
-    addFlags?: boolean;
-    clearSort?: boolean;
-    clearPermissions?: boolean;
-    keepId?: boolean;
+    interface FromCompendiumOptions {
+        addFlags?: boolean;
+        clearSort?: boolean;
+        clearPermissions?: boolean;
+        keepId?: boolean;
+    }
 }
