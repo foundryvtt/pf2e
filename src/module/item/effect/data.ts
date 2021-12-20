@@ -1,6 +1,5 @@
 import { ItemLevelData, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
-import { DamageType } from "@module/damage-calculation";
 import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
