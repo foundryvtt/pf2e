@@ -57,7 +57,7 @@ export class FixedProficiencyRuleElement extends RuleElementPF2e {
                 if (itemOrUntyped.includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== this.label) {
+                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.slug !== this.label) {
                     modifier.ignored = true;
                 }
             }
