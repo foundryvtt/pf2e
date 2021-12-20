@@ -9,11 +9,7 @@
         {{#each check.modifiers as |modifier idx|}}
             <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
                 <span class="type tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
-                {{#if modifier.label}}
-                    <span class="mod">{{localize modifier.label}}</span>
-                {{else}}
-                    <span class="mod">{{localize modifier.name}}</span>
-                {{/if}}
+                <span class="mod">{{modifier.label}}</span>
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                 <label class="exclude toggle">
                     <input type="checkbox" id="{{../appId}}-modifier-{{idx}}" data-modifier-index="{{idx}}" {{checked modifier.ignored}} />
