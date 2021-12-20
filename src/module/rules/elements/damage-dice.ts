@@ -22,7 +22,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         value.label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
         value.slug = this.data.slug;
 
-        if (selector && value.slug && value) {
+        if (selector) {
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
