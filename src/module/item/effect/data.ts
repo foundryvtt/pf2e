@@ -1,6 +1,7 @@
 import { ItemLevelData, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { DamageType } from "@module/damage-calculation";
+import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
 export type EffectSource = BaseNonPhysicalItemSource<"effect", EffectSystemSource>;
@@ -43,7 +44,8 @@ export type EffectExpiryType = "turn-start" | "turn-end";
 
 export type EffectTickType = "turn-start";
 
-export type DiceExpression = `${number}d${number} ${DamageType}`;
+type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
+export type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 
 export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
     expired: boolean;
