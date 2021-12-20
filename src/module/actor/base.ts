@@ -362,8 +362,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             event,
             parts,
             data: {
-                mod: save.value - (save.item ?? 0),
-                itemBonus: save.item ?? 0,
+                mod: save.value,
             },
             title: flavor,
             speaker: ChatMessage.getSpeaker({ actor: this }),

@@ -17,7 +17,6 @@ import {
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
-    RawStatistic,
     AbilityBasedStatistic,
     StrikeData,
 } from "@actor/data/base";
@@ -179,7 +178,11 @@ interface CharacterSaveData extends SaveData {
 }
 export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
-export interface CharacterProficiency extends RawStatistic {
+export interface CharacterProficiency {
+    /** The actual modifier for this martial type. */
+    value: number;
+    /** Describes how the value was computed. */
+    breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
     label?: string;

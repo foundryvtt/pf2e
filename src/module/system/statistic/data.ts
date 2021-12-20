@@ -62,3 +62,18 @@ export interface StatisticChatData<T extends BaseStatisticData = StatisticData> 
           }
         : undefined;
 }
+
+export interface StatisticCompatData {
+    name: string;
+    totalModifier: number;
+    value: number;
+    breakdown: string;
+    _modifiers: {
+        slug: string;
+        label: string;
+        modifier: number;
+        type: string;
+        enabled: boolean;
+        custom: boolean;
+    }[];
+}

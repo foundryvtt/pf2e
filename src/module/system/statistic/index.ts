@@ -1,7 +1,14 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { BaseStatisticData, CheckType, StatisticChatData, StatisticData } from "./data";
+import {
+    BaseStatisticData,
+    CheckType,
+    StatisticChatData,
+    StatisticCompatData,
+    StatisticData,
+    StatisticDataWithCheck,
+} from "./data";
 import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/check-degree-of-success";
 
@@ -55,6 +62,10 @@ type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? Stati
 export class Statistic<T extends BaseStatisticData = StatisticData> {
     get name() {
         return this.data.name;
+    }
+
+    get modifiers() {
+        return this.data.modifiers ?? [];
     }
 
     constructor(private actor: ActorPF2e, public readonly data: T) {}
@@ -263,5 +274,26 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                   }
                 : undefined,
         } as StatisticChatData<T>;
+    }
+
+    /** Chat output data for checks only that is compatible with the older sheet styles. */
+    getCompatData(this: Statistic<StatisticDataWithCheck>, options: RollOptionParameters = {}): StatisticCompatData {
+        const checkObject = this.check;
+        const check = checkObject.withOptions(options);
+
+        return {
+            name: this.name,
+            value: check.value ?? 0,
+            totalModifier: check.value ?? 0,
+            breakdown: check.breakdown ?? "",
+            _modifiers: checkObject.modifiers.map((mod) => ({
+                slug: mod.slug,
+                label: mod.label,
+                modifier: mod.modifier,
+                type: mod.type,
+                enabled: mod.enabled,
+                custom: mod.custom ?? false,
+            })),
+        };
     }
 }
