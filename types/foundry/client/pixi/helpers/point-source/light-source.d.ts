@@ -105,18 +105,19 @@ declare global {
          * Draw the display of this source for background container.
          * @return The rendered light container
          */
-        drawBackground(): PIXI.Mesh;
+        drawBackground(): PIXI.Mesh | null;
 
         /**
          * Draw the display of this source for the darkness/light container of the SightLayer.
          * @return The rendered light container
          */
-        drawLight(): PIXI.Mesh;
+        drawLight(): PIXI.Mesh | null;
+
         /**
          * Draw and return a container used to depict the visible color tint of the light source on the LightingLayer
          * @return An updated color container for the source
          */
-        drawColor(): PIXI.Mesh;
+        drawColor(): PIXI.Mesh | null;
 
         /* -------------------------------------------- */
         /*  Shader Management                           */

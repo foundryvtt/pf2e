@@ -5,8 +5,8 @@ declare global {
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of vision sources.
      * @param object The Token object that generates this vision source
      */
-    class VisionSource<T extends Token> extends PointSource<T> {
-        constructor(object: T);
+    class VisionSource<TObject extends Token> extends PointSource<TObject> {
+        constructor(object: TObject);
 
         /** The current vision mesh for this source */
         illumination: PIXI.Mesh;
@@ -14,7 +14,7 @@ declare global {
         static sourceType: "vision";
 
         /** Keys in the VisionSourceData structure which, when modified, change the appearance of the source */
-        protected static _appearanceKeys: ["dim", "bright"];
+        protected static _appearanceKeys: string[];
 
         /* -------------------------------------------- */
         /*  Vision Source Attributes                    */
@@ -54,7 +54,7 @@ declare global {
          * @param data Initial data provided to the vision source
          * @returns The changes compared to the prior data
          */
-        _initializeData(data: VisionSourceData): Partial<VisionSourceData>;
+        protected _initializeData(data: Partial<VisionSourceData>): void;
 
         /* -------------------------------------------- */
         /*  Vision Source Rendering                     */
