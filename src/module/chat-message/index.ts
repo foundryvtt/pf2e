@@ -147,6 +147,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     private onHoverIn(): void {
+        if (!canvas.ready) return;
         const token = this.token?.object;
         if (token?.isVisible && !token.isControlled) {
             token.emitHoverIn();
@@ -154,7 +155,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     private onHoverOut(): void {
-        this.token?.object?.emitHoverOut();
+        if (canvas.ready) this.token?.object?.emitHoverOut();
     }
 
     private onClick(event: JQuery.ClickEvent): void {
