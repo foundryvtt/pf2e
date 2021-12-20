@@ -1,8 +1,11 @@
 export const UpdateWorldTime = {
     listen: (): void => {
         Hooks.on("updateWorldTime", async (_total, diff) => {
-            await game.pf2e.effectTracker.refresh();
-            game.pf2e.effectPanel.refresh();
+            /** Handle effect-tracking by encounter turns when an encounter is active */
+            if (!game.combat?.active) {
+                await game.pf2e.effectTracker.refresh();
+                game.pf2e.effectPanel.refresh();
+            }
 
             // Add micro-delay due to the Calendar/Weather module waiting until the JQuery $(document).ready event fires
             // to set its hook.
