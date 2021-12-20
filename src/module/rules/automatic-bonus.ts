@@ -18,31 +18,34 @@ export class AutomaticBonusProgression {
             synthetics.statisticsModifiers["saving-throw"] = (
                 synthetics.statisticsModifiers["saving-throw"] || []
             ).concat(
-                new ModifierPF2e(
-                    game.i18n.localize("PF2E.AutomaticBonusProgression.savePotency"),
-                    save,
-                    MODIFIER_TYPE.POTENCY
-                )
+                new ModifierPF2e({
+                    slug: "save-potency",
+                    label: "PF2E.AutomaticBonusProgression.savePotency",
+                    modifier: save,
+                    type: MODIFIER_TYPE.POTENCY,
+                })
             );
         }
 
         if (ac > 0) {
             synthetics.statisticsModifiers["ac"] = (synthetics.statisticsModifiers["ac"] || []).concat(
-                new ModifierPF2e(
-                    game.i18n.localize("PF2E.AutomaticBonusProgression.defensePotency"),
-                    ac,
-                    MODIFIER_TYPE.POTENCY
-                )
+                new ModifierPF2e({
+                    slug: "defense-potency",
+                    label: "PF2E.AutomaticBonusProgression.defensePotency",
+                    modifier: ac,
+                    type: MODIFIER_TYPE.POTENCY,
+                })
             );
         }
 
         if (perception > 0) {
             synthetics.statisticsModifiers["perception"] = (synthetics.statisticsModifiers["perception"] || []).concat(
-                new ModifierPF2e(
-                    game.i18n.localize("PF2E.AutomaticBonusProgression.perceptionPotency"),
-                    perception,
-                    MODIFIER_TYPE.POTENCY
-                )
+                new ModifierPF2e({
+                    slug: "perception-potency",
+                    label: "PF2E.AutomaticBonusProgression.perceptionPotency",
+                    modifier: perception,
+                    type: MODIFIER_TYPE.POTENCY,
+                })
             );
         }
 
@@ -54,18 +57,20 @@ export class AutomaticBonusProgression {
                 synthetics.statisticsModifiers["mundane-attack"] = (
                     synthetics.statisticsModifiers["mundane-attack"] || []
                 ).concat(
-                    new ModifierPF2e(
-                        game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
-                        attack,
-                        MODIFIER_TYPE.POTENCY
-                    )
+                    new ModifierPF2e({
+                        slug: "attack-potency",
+                        label: "PF2E.AutomaticBonusProgression.attackPotency",
+                        modifier: attack,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
                 );
             }
 
             if (damage > 0) {
                 synthetics.damageDice["damage"] = (synthetics.damageDice["damage"] || []).concat(
                     new DamageDicePF2e({
-                        name: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
+                        slug: "devasting-attacks",
+                        label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                         selector: "damage",
                         diceNumber: damage,
                     })
