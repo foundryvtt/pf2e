@@ -413,7 +413,7 @@ declare global {
 
         protected override _getShiftedPosition(dx: number, dy: number): Point;
 
-        override rotate(angle: number, snap: number): void;
+        override rotate(angle: number, snap: number): Promise<this | undefined>;
 
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
