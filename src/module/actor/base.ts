@@ -1,4 +1,3 @@
-import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
@@ -16,7 +15,6 @@ import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base"
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
-import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
@@ -788,45 +786,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 imageUrl: "systems/pf2e/icons/actions/Empty.webp",
                 actionGlyph: "",
             };
-        }
-    }
-
-    /** Adds custom damage dice. */
-    async addDamageDice(param: DamageDicePF2e) {
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom damage dice only work for characters, NPCs, and familiars");
-        }
-
-        const damageDice = duplicate(this.data.data.damageDice ?? {});
-        if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
-            // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
-            param.selector = param?.selector ?? "damage";
-            param.custom = true;
-
-            // The damage dice constructor performs some basic validations for us, like checking that the
-            // name and selector are both defined.
-            const dice = new DamageDicePF2e(param);
-
-            damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
-            await this.update({ "data.damageDice": damageDice });
-        }
-    }
-
-    /** Removes damage dice by name. */
-    async removeDamageDice(selector: string, dice: number | string) {
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom damage dice only work for characters, NPCs, and familiars");
-        }
-
-        const damageDice = duplicate(this.data.data.damageDice ?? {});
-        if (typeof dice === "number" && damageDice[selector] && damageDice[selector].length > dice) {
-            damageDice[selector].splice(dice, 1);
-            await this.update({ "data.damageDice": damageDice });
-        } else if (typeof dice === "string" && damageDice[selector]) {
-            damageDice[selector] = damageDice[selector].filter((d) => d.name !== dice);
-            await this.update({ "data.damageDice": damageDice });
-        } else {
-            throw Error("Dice can only be removed by name (string) or index (number)");
         }
     }
 

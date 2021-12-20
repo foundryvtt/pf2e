@@ -29,7 +29,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 );
                 return;
             }
-            this.data.name = CONFIG.PF2E.abilities[this.data.ability];
+            this.data.label = CONFIG.PF2E.abilities[this.data.ability];
             this.data.value = `@abilities.${this.data.ability}.mod`;
         }
     }
@@ -41,26 +41,22 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
         if (selector && value) {
-            const modifier = new ModifierPF2e(this.data.name ?? this.label, value, this.data.type);
-            modifier.label = this.label;
-            if (this.data.type === "ability") {
-                modifier.ability = this.data.ability;
-            }
-            if (this.data.damageType) {
-                modifier.damageType = this.resolveInjectedProperties(this.data.damageType);
-            }
-            if (this.data.damageCategory) {
-                modifier.damageCategory = this.data.damageCategory;
-            }
-            if (this.data.predicate) {
-                modifier.predicate = this.data.predicate;
-            }
+            const modifier = new ModifierPF2e({
+                slug: this.data.slug,
+                label: this.label,
+                modifier: value,
+                type: this.data.type,
+                ability: this.data.type === "ability" ? this.data.ability : null,
+                predicate: this.data.predicate,
+                damageType: this.resolveInjectedProperties(this.data.damageType),
+                damageCategory: this.data.damageCategory,
+            });
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {
             // omit modifiers with a value of zero
         } else if (CONFIG.debug.ruleElement) {
             console.warn(
-                "PF2E | Flat modifier requires at least a selector field, a label field or item name, and a value field",
+                "PF2E | Flat modifier requires selector and value properties",
                 this.data,
                 this.item,
                 this.actor.data
@@ -74,7 +70,6 @@ interface FlatModifierRuleElement {
 }
 
 interface FlatModifierSource extends RuleElementSource {
-    name?: unknown;
     min?: unknown;
     max?: unknown;
     type?: unknown;
@@ -86,7 +81,7 @@ interface FlatModifierSource extends RuleElementSource {
 type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;
 
 interface BaseFlatModifierData extends RuleElementData {
-    name?: string;
+    slug?: string;
     min?: number;
     max?: number;
     type: ModifierType;

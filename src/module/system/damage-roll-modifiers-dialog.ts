@@ -86,10 +86,9 @@ export class DamageRollModifiersDialog extends Application {
         ]
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
             .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
                 const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : "";
-                return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
+                return `<span class="damage-tag damage-tag-modifier">${m.label} ${modifier}${damageType}</span>`;
             })
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;

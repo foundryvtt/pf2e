@@ -247,7 +247,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                         landSpeed.modifiers
                             .filter((m) => m.enabled)
                             .map((modifier) => {
-                                const speedName = game.i18n.localize(modifier.name);
+                                const speedName = game.i18n.localize(modifier.slug);
                                 const sign = modifier.modifier < 0 ? "" : "+";
                                 const value = modifier.modifier;
                                 return `${speedName} ${sign}${value}`;
