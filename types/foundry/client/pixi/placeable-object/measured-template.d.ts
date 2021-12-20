@@ -22,21 +22,53 @@ declare class MeasuredTemplate<
     /** The template shape used for testing point intersection */
     shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
 
+    /** The tiling texture used for this template, if any */
+    texture: PIXI.Texture | undefined;
+
+    /** The template graphics */
+    template: PIXI.Graphics;
+
+    /** The UI frame container which depicts Token metadata and status, displayed in the ControlsLayer. */
+    hud: ObjectHUD<this>;
+
+    /** Internal property used to configure the control border thickness */
+    protected _borderThickness: number;
+
+    static override embeddedName: "MeasuredTemplate";
+
+    /* -------------------------------------------- */
+    /*  Properties                                  */
+    /* -------------------------------------------- */
+
+    override get bounds(): NormalizedRectangle;
+
     /** A convenience accessor for the border color as a numeric hex code */
     get borderColor(): number;
 
     /** A convenience accessor for the fill color as a numeric hex code */
     get fillColor(): number;
 
+    /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
+    get owner(): boolean;
+
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */
+
+    override draw(): Promise<this>;
+
+    override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+
+    /** Draw the HUD container which provides an interface for managing this template */
+    protected _drawHUD(): ObjectHUD<this>;
 
     /** Draw the ControlIcon for the MeasuredTemplate */
     protected _drawControlIcon(): ControlIcon;
 
     /** Draw the Text label used for the MeasuredTemplate */
     protected _drawRulerText(): PIXI.Text;
+
+    override refresh(): this;
 
     /** Get a Circular area of effect given a radius of effect */
     protected _getCircleShape(distance: number): PIXI.Circle;
@@ -62,6 +94,8 @@ declare class MeasuredTemplate<
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
+
+    override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
 
     /* -------------------------------------------- */
     /*  Interactivity                               */

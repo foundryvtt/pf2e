@@ -6,6 +6,12 @@ declare module foundry {
 
             static override get metadata(): MeasuredTemplateMetadata;
 
+            override testUserPermission(
+                user: documents.BaseUser,
+                permission: DocumentPermission | UserAction,
+                { exact }?: { exact?: boolean }
+            ): boolean;
+
             /** Is a user able to update or delete an existing MeasuredTemplate? */
             protected static _canModify(
                 user: BaseUser,

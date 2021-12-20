@@ -1,7 +1,16 @@
 export {};
 
 declare global {
-    class Tile extends PlaceableObject<TileDocument> {
+    /**
+     * A Tile is an implementation of PlaceableObject which represents a static piece of artwork or prop within the Scene.
+     * Tiles are drawn inside a {@link BackgroundLayer} container.
+     *
+     * @see {@link TileDocument}
+     * @see {@link BackgroundLayer}
+     * @see {@link TileSheet}
+     * @see {@link TileHUD}
+     */
+    class Tile<TDocument extends TileDocument = TileDocument> extends PlaceableObject<TDocument> {
         /* -------------------------------------------- */
         /*  Attributes                                  */
         /* -------------------------------------------- */
@@ -16,6 +25,9 @@ declare global {
 
         /** The Tile image sprite */
         tile: PIXI.Sprite;
+
+        /** The occlusion image sprite */
+        occlusionTile: PIXI.Sprite;
 
         /** A Tile background which is displayed if no valid image texture is present */
         bg: PIXI.Graphics;
@@ -35,13 +47,35 @@ declare global {
 
         static override embeddedName: "Tile";
 
-        /**
-         * Get the native aspect ratio of the base texture for the Tile sprite
-         */
+        /** Get the native aspect ratio of the base texture for the Tile sprite */
         get aspectRatio(): number;
+
+        override get bounds(): NormalizedRectangle;
+
+        /** The HTML source element for the primary Tile texture */
+        get sourceElement(): HTMLImageElement | HTMLVideoElement;
+
+        /** Does this Tile depict an animated video texture? */
+        get isVideo(): boolean;
+
+        /** Is this tile a roof */
+        get isRoof(): boolean;
+
+        /* -------------------------------------------- */
+        /*  Rendering                                   */
+        /* -------------------------------------------- */
+
+        override draw(): Promise<this>;
+
+        override destroy(options: object): void;
+
+        /**
+         * @param [refreshPerception=false]  Also refresh the perception layer.
+         */
+        override refresh({ refreshPerception }?: { refreshPerception?: boolean }): this;
     }
 
-    interface Tile extends PlaceableObject<TileDocument> {
+    interface Tile<TDocument extends TileDocument = TileDocument> extends PlaceableObject<TDocument> {
         get layer(): TilesLayer<this>;
     }
 }
