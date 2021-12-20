@@ -489,13 +489,12 @@ export class DiceModifierPF2e implements BaseRawModifier {
     predicate: PredicatePF2e;
 
     constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
-        this.slug = sluggify(param.slug ?? param.name ?? "");
+        this.label = game.i18n.localize(param.label ?? param.name ?? "");
+        this.slug = sluggify(param.slug ?? this.label);
         if (!this.slug) {
             throw ErrorPF2e("A DiceModifier must have a slug");
         }
 
-        this.label = game.i18n.localize(param.label ?? param.name ?? "");
-        this.slug = sluggify(param.slug ?? this.label);
         this.diceNumber = param.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = param.dieSize;
         this.critical = param.critical;
