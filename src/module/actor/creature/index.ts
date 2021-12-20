@@ -408,17 +408,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    /** Removes a custom modifier by name */
+    /** Removes a custom modifier by slug */
     async removeCustomModifier(stat: string, modifier: number | string) {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);
             await this.update({ "data.customModifiers": customModifiers });
         } else if (typeof modifier === "string" && customModifiers[stat]) {
-            customModifiers[stat] = customModifiers[stat].filter((m) => m.label !== modifier);
+            customModifiers[stat] = customModifiers[stat].filter((m) => m.slug !== modifier);
             await this.update({ "data.customModifiers": customModifiers });
         } else {
-            throw Error("Custom modifiers can only be removed by name (string) or index (number)");
+            throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }
     }
 
