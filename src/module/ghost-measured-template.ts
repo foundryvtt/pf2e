@@ -30,6 +30,7 @@ export class GhostTemplate extends MeasuredTemplate {
         if (canvas.scene) {
             canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
         }
+        this.destroy();
     };
 
     override _onMouseWheel = (event: WheelEvent) => {
