@@ -14,7 +14,7 @@ import {
     WeaponTrait,
 } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -251,13 +251,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a weapon name base on precious-material composition and runes */
     generateMagicName(): string {
-        const sluggifiedName = sluggify(this.data._source.name);
-        if (this.isSpecific || sluggifiedName !== this.baseType) return this.data.name;
+        const translations = LocalizePF2e.translations.PF2E;
+        const baseWeapons = translations.Weapon.Base;
+
+        const storedName = this.data._source.name;
+        if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.data.name;
 
         const systemData = this.data.data;
-        const translations = LocalizePF2e.translations.PF2E;
 
-        const baseWeapons = translations.Weapon.Base;
         const potencyRune = systemData.potencyRune.value;
         const strikingRune = systemData.strikingRune.value;
         const propertyRunes = {
