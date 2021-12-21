@@ -962,24 +962,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
-        user: UserPF2e
-    ): Promise<void> {
-        await super._preUpdate(changed, options, user);
-        const hpChange = Number(changed.data?.attributes?.hp?.value ?? 0) - this.data.data.attributes.hp.value;
-        const levelChanged = "level" in (changed.data?.details ?? {});
-        const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
-        if (!(hpChange === 0 || levelChanged || hideFromUser)) {
-            const tokens = super.getActiveTokens();
-            for (const token of tokens) {
-                token.showFloatyText(hpChange);
-            }
-        }
-    }
-
-    /** Unregister all effects possessed by this actor */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
