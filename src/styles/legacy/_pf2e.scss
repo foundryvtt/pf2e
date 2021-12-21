@@ -1640,60 +1640,17 @@
             list-style: none;
             margin: 0;
             padding: 0;
-
-            .list-row {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                line-height: 24px;
-                padding: 0;
-                border-bottom: 1px solid var(--secondary-background);
-
-                > * {
-                    flex: 1;
-                }
-
-                .item-name, .melee-name, .npc-skill-name {
-                    /* display: flex;
-                     */
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    cursor: pointer;
-                }
-
-                .item-name > *, .melee-name > *, .npc-skill-name > * {
-                    flex: 1;
-                }
-
-                .item-name h4, .melee-name h4, .npc-skill-name h4 {
-                    flex: 2;
-                    margin: 0;
-                }
-
-                .item-controls {
-                    flex: 0 0 44px;
-                }
-            }
         }
 
         .action-header .item-controls {
             flex: 0 0 44px;
         }
 
-        .inventory-header .list-row .item-controls a, .action-header .item-controls a {
+        .action-header .item-controls a {
             display: block;
             float: left;
             width: 44px;
             font-size: 14px;
-            text-align: center;
-        }
-
-        .inventory-header .action-header h3 {
-            font-size: 24px;
-            margin: 0;
-            padding-left: 32px;
             text-align: center;
         }
 
@@ -1904,11 +1861,6 @@
         }
     }
 
-    .inventory-header .item-controls a.inventory-browse {
-        color: #fff;
-        background: var(--primary-background);
-    }
-
     .inventory-list .inventory-header {
         font-weight: 700;
         line-height: 20px;
@@ -1925,10 +1877,6 @@
             margin: 0;
             padding-left: 5px;
             font-weight: bold;
-        }
-
-        .item-sell-value, .item-quantity, .item-weight {
-            color: white;
         }
 
         .item-controls a {
