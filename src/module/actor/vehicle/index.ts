@@ -29,6 +29,9 @@ export class VehiclePF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        // Vehicles never have negative healing
+        this.data.data.attributes.hp.negativeHealing = false;
+
         // Set the dimensions of this vehicle in its size object
         const { size } = this.data.data.traits;
         const { dimensions } = this;

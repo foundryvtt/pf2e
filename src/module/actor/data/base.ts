@@ -41,7 +41,7 @@ export interface BaseActorDataPF2e
 
 export interface ActorSystemSource {
     attributes: {
-        hp: ValueAndMax;
+        hp?: ValueAndMax;
     };
     traits?: BaseTraitsSource;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
@@ -74,7 +74,7 @@ export interface BaseHitPointsData {
     /** The current amount of hitpoints the character has. */
     value: number;
     /** The maximum number of hitpoints this character has. */
-    max: number;
+    max?: number;
     /** If defined, the amount of temporary hitpoints this character has. */
     temp: number;
     /** Any details about hit points. */
@@ -82,12 +82,12 @@ export interface BaseHitPointsData {
 }
 
 export interface BaseActorAttributes {
-    hp: BaseHitPointsData;
+    hp?: Required<BaseHitPointsData>;
 }
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
-export type HitPointsData = StatisticModifier & BaseHitPointsData;
+export type HitPointsData = StatisticModifier & Required<BaseHitPointsData>;
 
 export type ImmunityType = SetElement<typeof IMMUNITY_TYPES>;
 export type WeaknessType = SetElement<typeof WEAKNESS_TYPES>;

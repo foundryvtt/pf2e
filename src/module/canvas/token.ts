@@ -92,8 +92,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
-    showFloatyText(quantity: number) {
-        if (!quantity) return;
+    showFloatyText(quantity: number): void {
+        if (!(quantity && this.actor?.data.data.attributes.hp)) return;
         const percent = Math.clamped(Math.abs(quantity) / this.actor!.data.data.attributes.hp.max, 0, 1);
         const textColors = {
             damage: 16711680, // reddish

@@ -18,6 +18,7 @@ export class HazardPF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
+        this.data.data.attributes.hp.negativeHealing = false;
     }
 }
 

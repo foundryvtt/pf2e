@@ -24,6 +24,9 @@ export interface LootData extends Omit<LootSource, "effects" | "flags" | "items"
 
 /** The system-level data of loot actors. */
 export interface LootSystemSource extends ActorSystemSource {
+    attributes: {
+        hp?: never;
+    };
     details: {
         description: {
             value: string;
@@ -37,7 +40,7 @@ export interface LootSystemSource extends ActorSystemSource {
     traits: BaseTraitsSource;
 }
 
-export interface LootSystemData extends ActorSystemData, Omit<LootSystemSource, "attributes" | "traits"> {
+export interface LootSystemData extends Omit<ActorSystemData, "attributes">, LootSystemSource {
     traits: BaseTraitsData;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;

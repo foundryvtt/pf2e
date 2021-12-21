@@ -369,6 +369,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         const attribute = this.data.data.attributes[attributeName];
+        if (!attribute) return;
         const parts = ["@mod", "@itemBonus"];
         const configAttributes = CONFIG.PF2E.attributes;
         if (objectHasKey(configAttributes, attributeName)) {
@@ -408,7 +409,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const messageSender = roll.find(".message-sender").text();
         const flavorText = roll.find(".flavor-text").text();
         for (const token of tokens) {
-            const actor = token.actor!;
+            const { actor } = token;
+            if (!actor?.data.data.attributes.hp) continue;
             const shield =
                 attribute === "attributes.shield"
                     ? shieldID
@@ -559,6 +561,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
             if (attribute === "attributes.hp" && "hp" in this.data.data.attributes) {
                 const { hp } = this.data.data.attributes;
+                if (!hp) return this;
                 const sp = "sp" in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
