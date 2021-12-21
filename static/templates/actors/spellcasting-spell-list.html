@@ -3,7 +3,7 @@
     <!-- Add section for each level -->
     {{#each entry.levels as |section|}}
         {{#if (or (gt section.active.length 0) entry.data.showSlotlessLevels.value)}}
-            <li class="item inventory-header spell-level-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
+            <li class="item spell-level-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                 <div class="item-name flexrow">
                     {{#if entry.isPrepared}}
                     {{#if entry.data.showUnpreparedSpells.value}}
@@ -181,7 +181,7 @@
     {{/each}}
     {{#unless entry.levels}}
     {{#if @root.owner}}
-        <li class="inventory-header spellbook-header spellbook-empty">
+        <li class="spellbook-header spellbook-empty">
             <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
             <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry._id}}">
                 <i class="fas fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
