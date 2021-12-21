@@ -5,7 +5,7 @@ import { MigrationRunner } from "@module/migration/runner";
 import { Migrations } from "@module/migration";
 import { ActionsPF2e } from "@system/actions/actions";
 import { setWorldSchemaVersion } from "@module/migration/set-world-schema-version";
-import { WorldClock } from "@module/system/world-clock";
+import { WorldClock } from "@module/apps/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { LicenseViewer } from "@module/apps/license-viewer";
