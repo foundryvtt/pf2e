@@ -1,7 +1,7 @@
+import { LocalizePF2e } from "@system/localize";
+import { ordinal } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
-import { LocalizePF2e } from "../localize";
-import { ordinal } from "@util";
 
 interface WorldClockData {
     date: string;
