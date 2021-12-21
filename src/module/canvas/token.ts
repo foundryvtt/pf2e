@@ -92,6 +92,23 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
+    showFloatyText(quantity: number) {
+        if (!quantity) return;
+        const percent = Math.clamped(Math.abs(quantity) / this.actor!.data.data.attributes.hp.max, 0, 1);
+        const textColors = {
+            damage: 16711680, // reddish
+            healing: 65280, // greenish
+        };
+        this.hud?.createScrollingText(quantity.signedString(), {
+            anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+            jitter: 0.25,
+            fill: textColors[quantity < 0 ? "damage" : "healing"],
+            fontSize: 16 + 32 * percent, // Range between [16, 48]
+            strokeThickness: 4,
+            stroke: 0x000000,
+        });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

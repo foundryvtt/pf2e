@@ -952,12 +952,30 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+        }
+    }
+
+    /** Unregister all effects possessed by this actor */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preUpdate(changed, options, user);
+        const hpChange = Number(changed.data?.attributes?.hp?.value ?? 0) - this.data.data.attributes.hp.value;
+        const levelChanged = "level" in (changed.data?.details ?? {});
+        const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
+        if (!(hpChange === 0 || levelChanged || hideFromUser)) {
+            const tokens = super.getActiveTokens();
+            for (const token of tokens) {
+                token.showFloatyText(hpChange);
+            }
         }
     }
 
