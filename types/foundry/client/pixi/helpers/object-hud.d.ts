@@ -31,7 +31,7 @@ declare global {
          */
         createScrollingText(
             content: string,
-            { anchor, direction, duration, jitter, textStyle }?: ScrollingTextOptions
+            { anchor, direction, duration, jitter, ...textStyle }?: ScrollingTextOptions
         ): Promise<PreciseText | null>;
 
         /**
@@ -45,10 +45,9 @@ declare global {
     }
 }
 
-interface ScrollingTextOptions {
+interface ScrollingTextOptions extends Partial<PIXI.ITextStyle> {
     anchor?: number;
     direction?: number;
     duration?: number;
     jitter?: number;
-    textStyle?: Partial<PIXI.ITextStyle>;
 }
