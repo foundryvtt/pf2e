@@ -3,11 +3,7 @@
         <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" alt="Pathfinder Second Edition"/>
 
         <div class="sidebar">
-            <div class="profile-img" style="background-image: url('{{actor.img}}');">
-                <div class="health-bar">
-                    <div class="bar" style="width: {{percentage data.attributes.hp.value data.attributes.hp.max}}%;"></div>
-                </div>
-            </div>
+            <div class="profile-img" style="background-image: url('{{actor.img}}');"></div>
             <h4 class="plaque">{{localize "PF2E.SidebarAppearanceLabel"}}</h4>
             <ul class="stats">
                 {{#if data.details.ethnicity.value}}<li>{{data.details.ethnicity.value}}</li>{{/if}}
