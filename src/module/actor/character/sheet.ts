@@ -1,8 +1,6 @@
 import { ItemPF2e } from "@item/base";
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
-import { getContainerMap } from "@item/container/helpers";
+import { formatBulk } from "@item/physical/bulk";
 import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
-import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
@@ -11,7 +9,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { FeatPF2e, LorePF2e } from "@item";
+import { ContainerPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency, CombatProficiencies } from "./data";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -264,31 +262,27 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const lores: LoreData[] = [];
 
         // Iterate through items, allocating to containers
-        const bulkConfig = {
-            ignoreCoinBulk: game.settings.get("pf2e", "ignoreCoinBulk"),
-        };
-
-        const bulkItems = itemsFromActorData(actorData);
-        const bulkItemsById = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
-            bulkItemsById,
-            bulkConfig,
-            actorSize: this.actor.size,
-        });
-
         let investedCount = 0; // Tracking invested items
         const investedMax = actorData.data.resources.investiture.max;
+
+        const ItemMap = new Map(sheetData.items.map((itemData: ItemDataPF2e) => [itemData._id, itemData]));
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
             if (physicalData.isPhysical) {
+                //get actor item to use class properties
+                const actorItem = this.actor.physicalItems.get(itemData._id);
+                itemData.isInContainer = actorItem?.isInContainer;
+                //pull item class properties to itemData
+                if (actorItem instanceof ContainerPF2e) {
+                    itemData.contents = actorItem?.contents.map((item) => ItemMap.get(item.data._id));
+                    itemData.isOverLoaded = actorItem.isOverLoaded;
+                    itemData.fullPercentageMax100 = Math.min(actorItem.fullPercentage, 100);
+                    itemData.formattedHeldItemBulk = formatBulk(actorItem.containedItemBulk);
+                }
                 itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
-                const containerData = containers.get(itemData._id)!;
-                itemData.containerData = containerData;
-                itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable =
                     physicalData.isEquipped && physicalData.isIdentified && physicalData.isInvested !== null;
 
@@ -303,7 +297,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.hasEquipment = true;
                 }
 
-                itemData.canBeEquipped = !containerData.isInContainer;
+                itemData.canBeEquipped = !itemData.isInContainer;
                 itemData.isSellableTreasure =
                     itemData.showEdit &&
                     physicalData.type === "treasure" &&
@@ -316,13 +310,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (Object.keys(inventory).includes(itemData.type)) {
                     itemData.data.quantity.value = physicalData.data.quantity.value || 0;
                     itemData.data.weight.value = physicalData.data.weight.value || 0;
-                    const bulkItem = bulkItemsById.get(physicalData._id);
-                    const [approximatedBulk] = calculateBulk({
-                        items: bulkItem === undefined ? [] : [bulkItem],
-                        bulkConfig: bulkConfig,
-                        actorSize: this.actor.data.data.traits.size.value,
-                    });
-                    itemData.totalWeight = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
                     if (physicalData.type === "weapon") {
                         itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
@@ -530,21 +517,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             actorData.data.attributes.shieldBroken =
                 equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
-
-        const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
-        const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
-        const [bulk] = calculateBulk({
-            items: bulkItems,
-            bulkConfig: bulkConfig,
-            actorSize: this.actor.data.data.traits.size.value,
-        });
-        actorData.data.attributes.encumbrance = calculateEncumbrance(
-            actorData.data.abilities.str.mod,
-            bonusEncumbranceBulk,
-            bonusLimitBulk,
-            bulk,
-            actorData.data?.traits?.size?.value ?? "med"
-        );
     }
 
     protected prepareSpellcasting(sheetData: CharacterSheetData) {

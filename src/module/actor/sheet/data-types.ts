@@ -15,7 +15,6 @@ export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
     isInContainer: boolean;
     isSellableTreasure?: boolean;
     showEdit: boolean;
-    totalWeight: string;
     data: D["data"] & {
         identification: IdentificationData & {
             identified: MystifiedData;

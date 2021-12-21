@@ -119,7 +119,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                         bulkConfig: bulkConfig,
                         actorSize: this.actor.data.data.traits.size.value,
                     });
-                    itemData.totalWeight = formatBulk(approximatedBulk);
+                    itemData.formattedBulk = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
                     if (physicalData.type === "weapon") {
                         itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
