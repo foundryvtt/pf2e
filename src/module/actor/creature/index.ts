@@ -39,6 +39,7 @@ import { UserPF2e } from "@module/user";
 import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
+import { HitPointsSummary } from "@actor/base";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -85,14 +86,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const tokens = this.getActiveTokens();
         const hasDeathOverlay = tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === deathIcon);
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
-    }
-
-    get hitPoints(): { value: number; max: number; negativeHealing: boolean } {
-        return {
-            value: this.data.data.attributes.hp.value,
-            max: this.data.data.attributes.hp.max,
-            negativeHealing: this.data.data.attributes.hp.negativeHealing,
-        };
     }
 
     get attributes(): this["data"]["data"]["attributes"] {
@@ -719,6 +712,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Clamp hit points
+        const hitPoints = changed.data?.attributes?.hp;
+        if (typeof hitPoints?.value === "number") {
+            hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
+        }
+
         // Clamp focus points
         const focus = changed.data && "resources" in changed.data ? changed.data?.resources?.focus ?? null : null;
         if (focus && "resources" in this.data.data) {
@@ -731,29 +730,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
             focus.value = Math.clamped(currentPoints, 0, currentMax);
         }
 
-        const hitPoints = changed.data?.attributes?.hp;
-        if (typeof hitPoints?.value === "number") {
-            // Clamp HP
-            const newValue = (hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max));
-
-            // Show floaty text if HP have changed
-            const hpChange = newValue - this.hitPoints.value;
-            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
-            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
-            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
-                const tokens = super.getActiveTokens();
-                for (const token of tokens) {
-                    token.showFloatyText(hpChange);
-                }
-            }
-        }
-
         await super._preUpdate(changed, options, user);
     }
 }
 
 export interface CreaturePF2e {
     readonly data: CreatureData;
+
+    get hitPoints(): HitPointsSummary;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
