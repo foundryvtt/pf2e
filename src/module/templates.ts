@@ -37,6 +37,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/character/tabs/crafting.html",
 
         // Actor Sheet Partials (General)
+        "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
