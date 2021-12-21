@@ -514,6 +514,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
             event.currentTarget.select();
         });
+
+        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs thus emulating input[type="number"]
+        html.find("input[data-allow-delta]").on("input", (event) => {
+            const target = <HTMLInputElement>event.target;
+            const match = target.value.match(/[+-]?\d*/);
+            if (match) target.value = match[0];
+            else target.value = "";
+        });
     }
 
     async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
@@ -1246,5 +1254,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return this.itemRenderer.saveAndRestoreState(() => {
             return super._renderInner(data, options);
         });
+    }
+
+    protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown> {
+        const data = super._getSubmitData(updateData);
+
+        // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
+        for (const el of Array.from(this.form.elements)) {
+            if (el instanceof HTMLInputElement && el.dataset.allowDelta !== undefined) {
+                const strValue = el.value.trim();
+                const value = Number(strValue);
+                if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
+                    data[el.name] = getProperty(this.actor.data, el.name) + value;
+            }
+        }
+
+        return data;
     }
 }
