@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
-import { ActorPF2e } from "../base";
+import { ActorPF2e, HitPointsSummary } from "../base";
 import { TokenDimensions, VehicleData, VehicleDimensions, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
@@ -93,6 +93,8 @@ export class VehiclePF2e extends ActorPF2e {
 
 export interface VehiclePF2e {
     readonly data: VehicleData;
+
+    get hitPoints(): HitPointsSummary;
 
     createEmbeddedDocuments(
         embeddedName: "ActiveEffect",

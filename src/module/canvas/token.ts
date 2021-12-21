@@ -93,8 +93,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     showFloatyText(quantity: number): void {
-        if (!(quantity && this.actor?.data.data.attributes.hp)) return;
-        const percent = Math.clamped(Math.abs(quantity) / this.actor!.data.data.attributes.hp.max, 0, 1);
+        const maxHP = this.actor?.hitPoints?.max;
+        if (!(quantity && typeof maxHP === "number")) return;
+        const percent = Math.clamped(Math.abs(quantity) / maxHP, 0, 1);
         const textColors = {
             damage: 16711680, // reddish
             healing: 65280, // greenish
@@ -104,8 +105,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             jitter: 0.25,
             fill: textColors[quantity < 0 ? "damage" : "healing"],
             fontSize: 16 + 32 * percent, // Range between [16, 48]
-            strokeThickness: 4,
             stroke: 0x000000,
+            strokeThickness: 4,
         });
     }
 

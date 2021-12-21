@@ -72,6 +72,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return Number(this.data.data.schema?.version) || null;
     }
 
+    get hitPoints(): HitPointsSummary | null {
+        const { hp } = this.data.data.attributes;
+        if (!hp) return null;
+
+        return {
+            value: hp.value,
+            max: hp.max,
+            temp: hp.temp,
+            negativeHealing: hp.negativeHealing,
+        };
+    }
+
     get traits(): Set<string> {
         return new Set(this.data.data.traits.traits.value);
     }
@@ -964,6 +976,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Show floaty text when applying damage or healing */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const changedHP = changed.data?.attributes?.hp;
+        const currentHP = this.hitPoints;
+        if (typeof changedHP?.value === "number" && currentHP) {
+            const hpChange = changedHP.value - currentHP.value;
+            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
+            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
+            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
+                const tokens = super.getActiveTokens();
+                for (const token of tokens) {
+                    token.showFloatyText(hpChange);
+                }
+            }
+        }
+
+        await super._preUpdate(changed, options, user);
+    }
+
     /** Unregister all effects possessed by this actor */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         for (const effect of this.itemTypes.effect) {
@@ -1028,6 +1063,13 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: string, key: string): any;
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
+}
+
+export interface HitPointsSummary {
+    value: number;
+    max: number;
+    temp: number;
+    negativeHealing: boolean;
 }
 
 export { ActorPF2e };
