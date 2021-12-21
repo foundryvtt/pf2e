@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { objectHasKey } from "@util";
 
 export const UserVisibility = {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
@@ -26,6 +27,22 @@ export const UserVisibility = {
                     elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
                 }
             });
+
+            // Hide DC for explicit save buttons (such as in spell cards)
+            const dcSetting = game.settings.get("pf2e", "metagame.showDC");
+            if (
+                (dcSetting === "owner" && !hasOwnership) ||
+                (dcSetting === "gm" && !game.user.isGM) ||
+                dcSetting === "none"
+            ) {
+                $html.find('button[data-action="save"]').each((_idx, elem) => {
+                    const saveType = elem.dataset.save;
+                    if (objectHasKey(CONFIG.PF2E.saves, saveType)) {
+                        const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+                        elem.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
+                    }
+                });
+            }
 
             $html.find("[data-owner-title]").each((_idx, elem) => {
                 if (hasOwnership) {
