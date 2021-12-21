@@ -1,4 +1,4 @@
-import { WorldClock } from ".";
+import { WorldClock } from "./app";
 import { DateTime, Duration, Interval } from "luxon";
 
 interface DarknessTransition {

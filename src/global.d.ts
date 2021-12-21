@@ -15,7 +15,7 @@ import { calculateXP } from "@scripts/macros/xp";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
-import { WorldClock } from "@system/world-clock";
+import { WorldClock } from "@module/apps/world-clock";
 import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 import {
