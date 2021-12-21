@@ -121,10 +121,11 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const source = master.data.data.attributes.ac.modifiers.filter(
+            const masterModifiers = master.data.data.attributes.ac.modifiers.filter(
                 (modifier) => !["status", "circumstance"].includes(modifier.type)
             );
-            const base = 10 + new StatisticModifier("base", source).totalModifier;
+            const masterAC = new StatisticModifier("Master AC", masterModifiers);
+
             const modifiers: ModifierPF2e[] = [];
             ["ac", "dex-based", "all"].forEach((key) =>
                 (statisticsModifiers[key] || [])
@@ -132,13 +133,15 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .map((m) => m.clone())
                     .forEach((m) => modifiers.push(m))
             );
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
-                overwrite: false,
-            });
-            stat.value = base + stat.totalModifier;
-            stat.breakdown = [game.i18n.format("PF2E.MasterArmorClass", { base })]
+            const stat = mergeObject(
+                new StatisticModifier("ac", modifiers.concat(masterModifiers)),
+                data.attributes.ac,
+                { overwrite: false }
+            );
+            stat.value = stat.totalDC;
+            stat.breakdown = [game.i18n.format("PF2E.MasterArmorClass", { base: masterAC.totalDC })]
                 .concat(
-                    stat.modifiers
+                    modifiers
                         .filter((m) => m.enabled)
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )

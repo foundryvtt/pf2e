@@ -59,7 +59,7 @@ export interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles"
 }
 
 interface FamiliarAttributes extends CreatureAttributes {
-    ac: { value: number; breakdown: string; check?: number };
+    ac: StatisticModifier & { value: number; breakdown: string; check?: number };
     perception: FamiliarPerception;
 }
 

@@ -156,12 +156,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
-    getContextualClone(rollOptions: string[]): this {
+    getContextualClone(rollOptions: string[], extraItems: ItemSourcePF2e[]): this {
         const rollOptionsAll = rollOptions.reduce(
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
+        return this.clone({
+            flags: { pf2e: { rollOptions: { all: rollOptionsAll } } },
+            items: this.items.toObject().concat(extraItems),
+        });
     }
 
     /**

@@ -7,7 +7,7 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ItemPF2e, ArmorPF2e } from "@item";
+import { ArmorPF2e, ItemPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { RollNotePF2e } from "@module/notes";
@@ -625,11 +625,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
             // Target roll options
             ctx.options.push(...ctx.target.actor.getSelfRollOptions("target"));
 
+            const extraItems = [];
+            if (this.getFlag("pf2e", "rollOptions.all.target:flatFooted")) {
+                extraItems.push(game.pf2e.ConditionManager.getCondition("flat-footed").toObject());
+            }
+
             // Clone the actor to recalculate its AC with contextual roll options
-            const contextActor = ctx.target.actor.getContextualClone([
-                ...this.getSelfRollOptions("origin"),
-                ...attackTraits.map((trait) => `trait:${trait}`),
-            ]);
+            const contextActor = ctx.target.actor.getContextualClone(
+                [...this.getSelfRollOptions("origin"), ...attackTraits.map((trait) => `trait:${trait}`)],
+                extraItems
+            );
 
             dc = {
                 label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
