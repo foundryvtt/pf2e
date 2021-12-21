@@ -141,6 +141,7 @@ declare global {
 
     interface ClientSettingsMap {
         get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
+        get(key: "core.chatBubblesPan"): ClientSettingsData & { default: boolean };
     }
 
     const BUILD_MODE: "development" | "production";

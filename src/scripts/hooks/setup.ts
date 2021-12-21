@@ -84,6 +84,9 @@ export const Setup = {
             const homebrew = new HomebrewElements();
             homebrew.refreshTags();
             homebrew.registerModuleTags();
+
+            // Forced panning is intrinsicly annoying, so set default to false
+            game.settings.settings.get("core.chatBubblesPan").default = false;
         });
     },
 };
