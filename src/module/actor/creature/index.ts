@@ -731,10 +731,21 @@ export abstract class CreaturePF2e extends ActorPF2e {
             focus.value = Math.clamped(currentPoints, 0, currentMax);
         }
 
-        // Clamp HP
         const hitPoints = changed.data?.attributes?.hp;
         if (typeof hitPoints?.value === "number") {
-            hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max);
+            // Clamp HP
+            const newValue = (hitPoints.value = Math.clamped(hitPoints.value, 0, this.hitPoints.max));
+
+            // Show floaty text if HP have changed
+            const hpChange = newValue - this.hitPoints.value;
+            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
+            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
+            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
+                const tokens = super.getActiveTokens();
+                for (const token of tokens) {
+                    token.showFloatyText(hpChange);
+                }
+            }
         }
 
         await super._preUpdate(changed, options, user);
