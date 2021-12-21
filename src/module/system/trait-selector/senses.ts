@@ -1,4 +1,4 @@
-import { SenseData } from "@actor/creature/data";
+import { CreatureSensePF2e } from "@actor/creature/sense";
 import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { TagSelectorBase } from "./base";
 import { SelectableTagField } from "./index";
@@ -25,7 +25,7 @@ export class SenseSelector extends TagSelectorBase<ActorPF2e> {
         }
 
         const choices: Record<string, Record<string, unknown>> = {};
-        const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
+        const senses: CreatureSensePF2e[] = getProperty(this.object.data, this.objectProperty);
         Object.entries(this.choices).forEach(([type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
             choices[type] = {

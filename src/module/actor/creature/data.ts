@@ -17,7 +17,7 @@ import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModi
 import { LabeledValue, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
+import { CreatureSensePF2e } from "./sense";
 import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
@@ -83,13 +83,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
-
-export interface SenseData {
-    type: SenseType;
-    acuity?: SenseAcuity;
-    value: string;
-    source?: string;
-}
 
 /** Data describing the value & modifier for a base ability score. */
 export interface AbilityData {

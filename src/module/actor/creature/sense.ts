@@ -1,7 +1,5 @@
-import { SenseData } from "./data";
-
 export class CreatureSensePF2e implements SenseData {
-    /** low-light vision, darkvision, scent, etc. */
+    /** Low-light vision, darkvision, scent, etc. */
     type: SenseType;
     /** One of "precise", "imprecise", or "vague" */
     acuity: SenseAcuity;
@@ -14,7 +12,7 @@ export class CreatureSensePF2e implements SenseData {
         return Number(this.value) || Infinity;
     }
 
-    constructor(data: Omit<SenseData, "value"> & { value?: string }) {
+    constructor(data: Omit<SenseData, "type"> & { type: SenseType }) {
         this.type = data.type;
         this.acuity = data.acuity ?? "precise";
         this.value = data.value ?? "";
@@ -59,6 +57,13 @@ export class CreatureSensePF2e implements SenseData {
     hasLongerRangeThan(sense: { value: string }): boolean {
         return this.range > Number(sense.value);
     }
+}
+
+interface SenseData {
+    type?: SenseType;
+    acuity?: SenseAcuity;
+    value?: string;
+    source?: string;
 }
 
 export type SenseAcuity = typeof SENSE_ACUITIES[number];
