@@ -1,8 +1,8 @@
-<section class="sheet-body content sheet-content-loot">
+<section class="sheet-body content sheet-content-loot inventory">
     {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=owner}}
     <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
         {{#each actor.inventory as |section sid|}}
-            <li class="list-row inventory-header">
+            <li class="inventory-header">
                 <h3 class="item-name">{{section.label}}</h3>
                 <span class="item-sell-value">{{localize "PF2E.UnitPriceLabel"}}</span>
                 <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
@@ -14,11 +14,13 @@
                     </div>
                 {{/if}}
             </li>
-            {{#each section.items as |item itemId|}}
-                {{#if (not item.isInContainer)}}
-                    {{> "systems/pf2e/templates/actors/partials/item-line.html" item=item editable=@root.editable owner=@root.owner user=@root.user lootsheet=true}}
-                {{/if}}
-            {{/each}}
+            <ol class="item-list">
+                {{#each section.items as |item itemId|}}
+                    {{#if (not item.isInContainer)}}
+                        {{> "systems/pf2e/templates/actors/partials/item-line.html" item=item editable=@root.editable owner=@root.owner user=@root.user lootsheet=true}}
+                    {{/if}}
+                {{/each}}
+            </ol>
         {{/each}}
     </ol>
     {{#with data.attributes.encumbrance}}
