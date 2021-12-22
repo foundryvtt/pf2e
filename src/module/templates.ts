@@ -13,6 +13,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/character/partials/background.html",
         "systems/pf2e/templates/actors/character/partials/abilities.html",
         "systems/pf2e/templates/actors/character/partials/header.html",
+        "systems/pf2e/templates/actors/character/partials/granted-feat.html",
 
         // Actor Sheets Partials (CRB-Syle Sidebar)
         "systems/pf2e/templates/actors/character/sidebar/armor-class.html",
@@ -39,7 +40,6 @@ export function loadPF2ETemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
-        "systems/pf2e/templates/actors/partials/granted-feat.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
