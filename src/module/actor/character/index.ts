@@ -8,6 +8,7 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
+    PROFICIENCY_RANK_OPTION,
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
@@ -44,7 +45,7 @@ import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
-import { CharacterSource } from "@actor/data";
+import { CharacterSource, SaveType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CraftingFormula } from "@module/crafting/formula";
@@ -55,6 +56,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
+import { Statistic } from "@system/statistic";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -385,72 +387,7 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.hp = stat;
         }
 
-        // Saves
-        const { wornArmor } = this;
-        for (const saveType of SAVE_TYPES) {
-            const save = systemData.saves[saveType];
-            // Base modifiers from ability scores & level/proficiency rank.
-            const abilityModifier = AbilityModifier.fromScore(save.ability, systemData.abilities[save.ability].value);
-            const modifiers = [abilityModifier, ProficiencyModifier.fromLevelAndRank(this.level, save.rank)];
-
-            // Add resilient bonuses for wearing armor with a resilient rune.
-            if (wornArmor?.data.data.resiliencyRune.value) {
-                const resilientBonus = getResiliencyBonus(wornArmor.data.data);
-                if (resilientBonus > 0 && wornArmor.isInvested) {
-                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
-                }
-            }
-
-            if (saveType === "reflex" && wornArmor?.traits.has("bulwark")) {
-                const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
-                bulwarkModifier.predicate = new PredicatePF2e({
-                    all: ["damaging-effect"],
-                    not: ["self:armor:bulwark-all"],
-                });
-                modifiers.push(bulwarkModifier);
-                abilityModifier.predicate.not.push(
-                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
-                    "self:armor:bulwark-all"
-                );
-            }
-
-            // Add custom modifiers and roll notes relevant to this save.
-            const rollOptions = [saveType, `${save.ability}-based`, "saving-throw", "all"];
-            modifiers.push(...rollOptions.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()));
-            for (const modifier of modifiers) {
-                modifier.test(this.getRollOptions(rollOptions));
-            }
-
-            // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
-            // overwrite potentially changed fields.
-            const stat = mergeObject(new StatisticModifier(saveType, modifiers), save, { overwrite: false });
-            stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
-            stat.value = stat.totalModifier;
-            stat.breakdown = (stat.modifiers as ModifierPF2e[])
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.roll = (args: RollParameters) => {
-                const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-                });
-                const options = args.options ?? [];
-                ensureProficiencyOption(options, save.rank);
-                if (args.dc && stat.adjustments) {
-                    args.dc.adjustments = stat.adjustments;
-                }
-                CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: "saving-throw", options, dc: args.dc, notes: stat.notes },
-                    args.event,
-                    args.callback
-                );
-            };
-
-            systemData.saves[saveType] = stat;
-        }
-
-        this.buildSavingThrowStatistics();
+        this.prepareSaves(synthetics);
 
         // Attack and defense proficiencies
         const combatProficiencies = Object.values(systemData.martial);
@@ -550,6 +487,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Armor Class
+        const { wornArmor } = this;
         {
             const modifiers = [...systemData.attributes.ac.modifiers];
             const dexCapSources = systemData.attributes.dexCap;
@@ -937,6 +875,69 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+    }
+
+    prepareSaves(synthetics: RuleElementSynthetics) {
+        const systemData = this.data.data;
+        const { wornArmor } = this;
+        const { rollNotes, statisticsModifiers } = synthetics;
+
+        // Saves
+        const saves: Partial<Record<SaveType, Statistic>> = {};
+        for (const saveType of SAVE_TYPES) {
+            const save = systemData.saves[saveType];
+            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+
+            // Add proficiency rank option to the source
+            const baseOptions = (this.rollOptions[saveType] ??= {});
+            baseOptions[PROFICIENCY_RANK_OPTION[save.rank]] = true;
+
+            // Base modifiers from ability scores & level/proficiency rank.
+            const abilityModifier = AbilityModifier.fromScore(save.ability, systemData.abilities[save.ability].value);
+            const modifiers = [abilityModifier, ProficiencyModifier.fromLevelAndRank(this.level, save.rank)];
+
+            // Add resilient bonuses for wearing armor with a resilient rune.
+            if (wornArmor?.data.data.resiliencyRune.value) {
+                const resilientBonus = getResiliencyBonus(wornArmor.data.data);
+                if (resilientBonus > 0 && wornArmor.isInvested) {
+                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
+                }
+            }
+
+            if (saveType === "reflex" && wornArmor?.traits.has("bulwark")) {
+                const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
+                bulwarkModifier.predicate = new PredicatePF2e({
+                    all: ["damaging-effect"],
+                    not: ["self:armor:bulwark-all"],
+                });
+                modifiers.push(bulwarkModifier);
+                abilityModifier.predicate.not.push(
+                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
+                    "self:armor:bulwark-all"
+                );
+            }
+
+            // Add custom modifiers and roll notes relevant to this save.
+            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
+            modifiers.push(...extractModifiers(statisticsModifiers, selectors));
+
+            const stat = new Statistic(this, {
+                name: saveType,
+                notes: extractNotes(rollNotes, selectors),
+                modifiers,
+                domains: selectors,
+                check: {
+                    type: "saving-throw",
+                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
+                },
+                dc: {},
+            });
+
+            saves[saveType] = stat;
+            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+        }
+
+        this.saves = saves as Record<SaveType, Statistic>;
     }
 
     override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;

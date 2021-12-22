@@ -17,6 +17,9 @@ import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
 import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
+import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { Statistic } from "@system/statistic";
+import { SaveType } from "@actor/data";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -263,47 +266,7 @@ export class NPCPF2e extends CreaturePF2e {
             }
         }
 
-        // Saving Throws
-        for (const saveName of SAVE_TYPES) {
-            const save = data.saves[saveName];
-            const base = save.value;
-            const ability = save.ability;
-
-            const rollOptions = [saveName, `${ability}-based`, "saving-throw", "all"];
-            const modifiers = [
-                new ModifierPF2e("PF2E.BaseModifier", base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
-                new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
-            ];
-
-            const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, {
-                overwrite: false,
-            });
-            stat.base = base;
-            stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            stat.roll = (args: RollParameters) => {
-                const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
-                });
-                CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: "saving-throw", options: args.options, dc: args.dc, notes: stat.notes },
-                    args.event,
-                    args.callback
-                );
-            };
-
-            data.saves[saveName] = stat;
-        }
-
-        this.buildSavingThrowStatistics();
+        this.prepareSaves(synthetics);
 
         // Perception
         {
@@ -794,6 +757,43 @@ export class NPCPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+    }
+
+    prepareSaves(synthetics: RuleElementSynthetics) {
+        const data = this.data.data;
+        const { rollNotes, statisticsModifiers } = synthetics;
+
+        // Saving Throws
+        const saves: Partial<Record<SaveType, Statistic>> = {};
+        for (const saveType of SAVE_TYPES) {
+            const save = data.saves[saveType];
+            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const base = save.value;
+            const ability = save.ability;
+            const abilityMod = data.abilities[ability].mod;
+
+            const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
+            const stat = new Statistic(this, {
+                name: saveType,
+                notes: extractNotes(rollNotes, selectors),
+                domains: selectors,
+                modifiers: [
+                    new ModifierPF2e("PF2E.BaseModifier", base - abilityMod, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                    ...extractModifiers(statisticsModifiers, selectors),
+                ],
+                check: {
+                    type: "saving-throw",
+                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
+                },
+                dc: {},
+            });
+
+            saves[saveType] = stat;
+            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+        }
+
+        this.saves = saves as Record<SaveType, Statistic>;
     }
 
     private async updateTokenAttitude(attitude: string): Promise<void> {
