@@ -41,7 +41,7 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { HideTabsPopup } from "./popups/hide-tabs-popup";
+import { ManageTabsPopup } from "./popups/manage-tabs-popup";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1166,7 +1166,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private onHideTabsPopup(event: JQuery.ClickEvent) {
         event.preventDefault();
-        new HideTabsPopup(this.actor, {}).render(true);
+        new ManageTabsPopup(this.actor, {}).render(true);
     }
 
     private onSellAllTreasure(event: JQuery.ClickEvent) {
