@@ -1,0 +1,39 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <div class="form-group">
+        <label>{{localize "PF2E.TabCharacterLabel"}}:</label>
+        <input type="checkbox" name="characterTab" {{#if result.characterTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabActionsLabel"}}:</label>
+        <input type="checkbox" name="actionsTab" {{#if result.actionsTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabInventoryLabel"}}:</label>
+        <input type="checkbox" name="inventoryTab" {{#if result.inventoryTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabSpellbookLabel"}}:</label>
+        <input type="checkbox" name="spellsTab" {{#if result.spellsTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabCraftingLabel"}}:</label>
+        <input type="checkbox" name="craftingTab" {{#if result.craftingTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabSkillsLabel"}}:</label>
+        <input type="checkbox" name="proficienciesTab" {{#if result.proficienciesTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabFeatsLabel"}}:</label>
+        <input type="checkbox" name="featsTab" {{#if result.featsTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.TabEffectsLabel"}}:</label>
+        <input type="checkbox" name="effectsTab" {{#if result.effectsTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Biography"}}:</label>
+        <input type="checkbox" name="biographyTab" {{#if result.biographyTab}} checked {{/if}} data-dtype="Boolean"/>
+    </div>
+    <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.HideSelectedLabel"}}</button>
+</form>
