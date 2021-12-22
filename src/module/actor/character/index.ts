@@ -54,6 +54,7 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
+import { HitPointsSummary } from "@actor/base";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -62,7 +63,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
-    override get hitPoints(): { value: number; max: number; negativeHealing: boolean; recoveryMultiplier: number } {
+    override get hitPoints(): CharacterHitPointsSummary {
         return {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
@@ -1392,4 +1393,8 @@ export interface CharacterPF2e {
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+}
+
+interface CharacterHitPointsSummary extends HitPointsSummary {
+    recoveryMultiplier: number;
 }
