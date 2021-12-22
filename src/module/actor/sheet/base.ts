@@ -41,6 +41,7 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { HideTabsPopup } from "./popups/hide-tabs-popup";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -307,6 +308,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find(".remove-coins-popup button").on("click", (event) => this.onRemoveCoinsPopup(event));
 
         html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
+
+        html.find(".hide-tabs").on("click", (event) => this.onHideTabsPopup(event));
 
         // Feat Browser
         html.find(".feat-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("feat"));
@@ -1159,6 +1162,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onRemoveCoinsPopup(event: JQuery.ClickEvent) {
         event.preventDefault();
         new RemoveCoinsPopup(this.actor, {}).render(true);
+    }
+
+    private onHideTabsPopup(event: JQuery.ClickEvent) {
+        event.preventDefault();
+        new HideTabsPopup(this.actor, {}).render(true);
     }
 
     private onSellAllTreasure(event: JQuery.ClickEvent) {
