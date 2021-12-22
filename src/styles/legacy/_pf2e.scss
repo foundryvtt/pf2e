@@ -1640,60 +1640,17 @@
             list-style: none;
             margin: 0;
             padding: 0;
-
-            .list-row {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                line-height: 24px;
-                padding: 0;
-                border-bottom: 1px solid var(--secondary-background);
-
-                > * {
-                    flex: 1;
-                }
-
-                .item-name, .melee-name, .npc-skill-name {
-                    /* display: flex;
-                     */
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    cursor: pointer;
-                }
-
-                .item-name > *, .melee-name > *, .npc-skill-name > * {
-                    flex: 1;
-                }
-
-                .item-name h4, .melee-name h4, .npc-skill-name h4 {
-                    flex: 2;
-                    margin: 0;
-                }
-
-                .item-controls {
-                    flex: 0 0 44px;
-                }
-            }
         }
 
         .action-header .item-controls {
             flex: 0 0 44px;
         }
 
-        .inventory-header .list-row .item-controls a, .action-header .item-controls a {
+        .action-header .item-controls a {
             display: block;
             float: left;
             width: 44px;
             font-size: 14px;
-            text-align: center;
-        }
-
-        .inventory-header .action-header h3 {
-            font-size: 24px;
-            margin: 0;
-            padding-left: 32px;
             text-align: center;
         }
 
@@ -1762,13 +1719,6 @@
                 }
             }
 
-            .feat-name {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                cursor: pointer;
-            }
-
             .item-name .item-image, .melee-name .item-image {
                 flex: 0 0 24px;
                 margin-right: 4px;
@@ -1802,24 +1752,6 @@
                     background-image: url("../../../icons/svg/d20-black.svg") !important;
                 }
             }
-
-            .item-sell-value, .item-quantity {
-                flex: 0 0 60px;
-                font-size: 12px;
-                color: #666;
-                text-align: center;
-                border-left: 1px solid var(--secondary-background);
-                justify-content: flex-end;
-            }
-
-            .item-weight {
-                flex: 0 0 42px;
-                font-size: 12px;
-                color: #666;
-                text-align: center;
-                border-left: 1px solid var(--secondary-background);
-                justify-content: center;
-            }
         }
     }
 }
@@ -1830,22 +1762,6 @@
 
 .pf2e.actor {
     .inventory-list .list-row {
-        .item-quantity {
-            flex: 0 0 64px;
-            justify-content: space-around;
-            margin-left: 5px;
-            padding: 0 5px;
-
-            * {
-                display: inline;
-            }
-
-            a {
-                flex: 0.25;
-                font-weight: bold;
-            }
-        }
-
         .item-controls {
             flex: 0 0 64px;
             justify-content: flex-end;
@@ -1869,25 +1785,6 @@
     }
 
     .inventory-list {
-        .list-row {
-            .item-controls a.item-toggle-equip {
-                color: #aaa;
-
-                &.active {
-                    color: #666;
-                }
-            }
-
-            .item-summary {
-                flex: 0 0 100%;
-                flex-direction: column;
-                font-size: 12px;
-                line-height: 16px;
-                padding: 0.25em 0.5em;
-                border-top: 1px solid var(--secondary-background);
-            }
-        }
-
         .action-header h3 {
             font-size: 24px;
             margin: 0;
@@ -1902,11 +1799,6 @@
             color: #fff;
             background: var(--primary-background);
         }
-    }
-
-    .inventory-header .item-controls a.inventory-browse {
-        color: #fff;
-        background: var(--primary-background);
     }
 
     .inventory-list .inventory-header {
@@ -1927,10 +1819,6 @@
             font-weight: bold;
         }
 
-        .item-sell-value, .item-quantity, .item-weight {
-            color: white;
-        }
-
         .item-controls a {
             &.item-create {
                 color: white;
@@ -1944,10 +1832,6 @@
         > * {
             color: white;
         }
-    }
-
-    &.character-sheet .inventory-list {
-        height: calc(100% - 42px);
     }
 
     .container-capacity {
@@ -2051,77 +1935,6 @@
 
             .arrow-down {
                 border-top: 4px solid #000;
-            }
-        }
-    }
-
-    .spellbook {
-        .spellcasting-ability {
-            margin: 0;
-            padding: 3px 3px 0;
-            border-bottom: 1px solid var(--secondary-background);
-            font-size: 12px;
-
-            label {
-                line-height: 20px;
-            }
-
-            select {
-                flex: 1;
-            }
-        }
-
-        .inventory-list .list-row {
-            .spell-school-header, .spell-action-header {
-                color: white;
-                flex: 1;
-                font-size: 12px;
-                text-align: center;
-                border-right: 1px solid var(--secondary-background);
-            }
-        }
-
-        .prepared-toggle,
-        .slotless-level-toggle {
-            flex: 0 0 20px;
-            line-height: 24px;
-            background: var(--primary-background);
-            padding-left: 5px;
-        }
-
-        .level-prepared-toggle {
-            flex: 0 0 25px;
-            line-height: 19px;
-            background: var(--secondary-background);
-            padding-left: 5px;
-            font-size: 0.8em;
-        }
-
-        .level-prepared-header {
-            @include serif-condensed;
-            letter-spacing: 2px;
-            font-weight: 400;
-            font-size: 20px;
-            opacity: 0.8;
-        }
-
-        .spellbook-item {
-            font-style: oblique;
-            opacity: 0.8;
-        }
-
-        .inventory-list {
-            .spellbook-item h4 {
-                margin-left: 30px;
-            }
-
-            height: calc(100% - 96px);
-        }
-
-        .list-row {
-            .item-name, .melee-name {
-                flex: 2;
-                border-right: 1px solid var(--secondary-background);
             }
         }
     }
