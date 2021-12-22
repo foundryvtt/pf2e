@@ -23,8 +23,9 @@ export interface VehicleData extends Omit<VehicleSource, "effects" | "flags" | "
     readonly _source: VehicleSource;
 }
 
-interface VehicleHitPointsData extends BaseHitPointsData {
+interface VehicleHitPointsData extends Required<BaseHitPointsData> {
     brokenThreshold: number;
+    negativeHealing: false;
 }
 
 interface VehicleAttributes extends BaseActorAttributes {
