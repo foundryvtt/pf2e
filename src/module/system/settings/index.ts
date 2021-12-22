@@ -182,14 +182,6 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    game.settings.register("pf2e", "seenUnionAnnouncement", {
-        name: "PF2E.UnitedPaizoWorkers.Title",
-        scope: "client",
-        config: false,
-        default: false,
-        type: Boolean,
-    });
-
     game.settings.registerMenu("pf2e", "automation", {
         name: "PF2E.SETTINGS.Automation.Name",
         label: "PF2E.SETTINGS.Automation.Label",

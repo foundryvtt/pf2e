@@ -13,7 +13,7 @@ export const RenderSettings = {
                     label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Guide"),
                 },
                 changelog: {
-                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release-0.8.x/CHANGELOG.md",
+                    url: "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release-v9/CHANGELOG.md",
                     label: game.i18n.localize("PF2E.SETTINGS.Sidebar.Changelog"),
                 },
                 discord: {

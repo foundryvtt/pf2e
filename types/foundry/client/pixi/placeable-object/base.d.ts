@@ -18,7 +18,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * Track the field of vision for the placeable object.
      * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
      */
-    vision: PointSource<this>;
+    vision: { fov: unknown; los: unknown };
 
     /** A control icon for interacting with the object */
     controlIcon: ControlIcon;
@@ -124,21 +124,16 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      */
     clone(): this;
 
-    /**
-     * Draw the placeable object into its parent container
-     */
-    draw(): Promise<this>;
+    override destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
-    /**
-     * Draw the primary Sprite for the PlaceableObject
-     */
-    protected _drawPrimarySprite(texture?: PIXI.Sprite): PIXI.Sprite;
+    /** Draw the placeable object into its parent container */
+    abstract draw(): Promise<this>;
 
     /**
      * Refresh the current display state of the Placeable Object
      * @return The refreshed object
      */
-    refresh(): this;
+    abstract refresh(): this;
 
     /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
     protected _onCreate(
@@ -185,7 +180,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * Additional events which trigger once control of the object is released
      * @param options   Options which modify the releasing workflow
      */
-    protected _onRelease(options?: Record<string, unknown>): void;
+    protected _onRelease(options?: object): void;
 
     /**
      * Rotate the PlaceableObject to a certain angle of facing
@@ -193,7 +188,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * @param snap  Snap the angle of rotation to a certain target degree increment
      * @return The rotated object
      */
-    rotate(angle: number, snap: number): Promise<this> | void;
+    rotate(angle: number, snap: number): Promise<this | TDocument | undefined>;
 
     /**
      * Determine a new angle of rotation for a PlaceableObject either from an explicit angle or from a delta offset.

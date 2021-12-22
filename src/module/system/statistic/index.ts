@@ -196,7 +196,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     value: check.totalModifier,
                     breakdown: check.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                         .join(", "),
                 };
             },
@@ -204,7 +204,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             get breakdown() {
                 return modifiers
                     .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
             },
         };
@@ -237,7 +237,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     .concat(
                         modifiers
                             .filter((m) => m.enabled)
-                            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                            .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     )
                     .join(", ");
             },

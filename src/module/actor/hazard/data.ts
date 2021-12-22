@@ -1,6 +1,13 @@
 import { SaveData } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
-import { ActorSystemData, BaseActorDataPF2e, BaseActorSourcePF2e, BaseTraitsData } from "@actor/data/base";
+import {
+    ActorSystemData,
+    BaseActorAttributes,
+    BaseActorDataPF2e,
+    BaseActorSourcePF2e,
+    BaseHitPointsData,
+    BaseTraitsData,
+} from "@actor/data/base";
 import { ZeroToTwo } from "@module/data";
 import { HazardPF2e } from ".";
 
@@ -18,17 +25,12 @@ export interface HazardData extends Omit<HazardSource, "effects" | "flags" | "it
     readonly _source: HazardSource;
 }
 
-interface HazardAttributes {
+interface HazardAttributes extends BaseActorAttributes {
     ac: {
         value: number;
     };
     hasHealth: boolean;
-    hp: {
-        value: number;
-        max: number;
-        temp: number;
-        details: string;
-    };
+    hp: HazardHitPoints;
     hardness: number;
     initiative: {
         roll?: undefined;
@@ -38,6 +40,10 @@ interface HazardAttributes {
         value: number;
         details: string;
     };
+}
+
+interface HazardHitPoints extends Required<BaseHitPointsData> {
+    negativeHealing: boolean;
 }
 
 /** The raw information contained within the actor data object for hazards. */

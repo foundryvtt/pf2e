@@ -1,25 +1,5 @@
 <section class="sheet-body content sheet-content-loot">
-    <ol class="currency">
-        {{#each totalCoinage as |coins denomination|}}
-            <li class="denomination {{denomination}}">
-                <div class="currency-image"></div>
-                <span>{{coins.value}}</span>
-            </li>
-        {{/each}}
-        {{#if owner}}
-            <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
-                <button type="button"><i class="fas fa-plus"></i></button>
-            </li>
-            <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
-                <button type="button"><i class="fas fa-minus"></i></button>
-            </li>
-            {{#if isLoot}}
-                <li class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
-                    <button type="button"><i class="fas fa-coins"></i></button>
-                </li>
-            {{/if}}
-        {{/if}}
-    </ol>
+    {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=owner}}
     <ol class="inventory-list directory-list inventory-pane item-container item-list" data-container-type="actorInventory">
         {{#each actor.inventory as |section sid|}}
             <li class="list-row inventory-header">

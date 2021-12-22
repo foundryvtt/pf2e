@@ -3,6 +3,7 @@ import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { UserPF2e } from "@module/user";
+import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";
 import { CombatantPF2e, RolledCombatant } from "./combatant";
 
@@ -92,6 +93,7 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
                 return combatant.actor.data.data.attributes.initiative.roll({
                     options: rollOptions,
                     updateTracker: false,
+                    skipDialog: !!options.skipDialog,
                 });
             })
         );
@@ -213,6 +215,8 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
 
 export interface EncounterPF2e {
     readonly data: foundry.data.CombatData<this, CombatantPF2e>;
+
+    get scene(): ScenePF2e | undefined;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
 }

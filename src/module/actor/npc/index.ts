@@ -185,7 +185,7 @@ export class NPCPF2e extends CreaturePF2e {
                 game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
                 ...stat.modifiers
                     .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
             ].join(", ");
 
             data.attributes.hp = stat;
@@ -220,7 +220,7 @@ export class NPCPF2e extends CreaturePF2e {
                 .concat(
                     stat.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
 
@@ -286,7 +286,7 @@ export class NPCPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format("PF2E.SavingThrowWithName", {
@@ -325,7 +325,7 @@ export class NPCPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
@@ -377,7 +377,7 @@ export class NPCPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             data.skills[shortform] = stat;
         }
@@ -423,7 +423,7 @@ export class NPCPF2e extends CreaturePF2e {
                 stat.visible = true;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
                 stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
@@ -507,7 +507,7 @@ export class NPCPF2e extends CreaturePF2e {
                     itemData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee";
                 action.breakdown = action.modifiers
                     .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
                 const attackTrait: StrikeTrait = {

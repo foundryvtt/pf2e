@@ -756,7 +756,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         {
             // Add and remove combat proficiencies
             const $tab = html.find(".tab.skills");
-            const $header = $tab.find("ol.inventory-header.combat-proficiencies");
+            const $header = $tab.find("ol.combat-proficiencies");
             $header.find("a.add").on("click", (event) => {
                 ManageCombatProficiencies.add(this.actor, event);
             });
@@ -1040,18 +1040,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     private onRemoveCustomModifier(event: JQuery.ClickEvent) {
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
-        const name = $(event.currentTarget).attr("data-name") ?? "";
+        const slug = $(event.currentTarget).attr("data-slug") ?? "";
         const errors: string[] = [];
         if (!stat.trim()) {
             errors.push("Statistic is required.");
         }
-        if (!name.trim()) {
-            errors.push("Name is required.");
+        if (!slug.trim()) {
+            errors.push("Slug is required.");
         }
         if (errors.length > 0) {
             ui.notifications.error(errors.join(" "));
         } else {
-            this.actor.removeCustomModifier(stat, name);
+            this.actor.removeCustomModifier(stat, slug);
         }
     }
 

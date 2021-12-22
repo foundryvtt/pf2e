@@ -68,15 +68,6 @@ export type DamagePool = Record<
     }
 >;
 
-/** Return true if the given damage type is non-null and not physical; false otherwise. */
-function isNonPhysicalDamage(damageType?: string): boolean {
-    return (
-        damageType !== undefined &&
-        damageType !== "" &&
-        DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
-    );
-}
-
 /**
  * @category PF2
  */
@@ -158,7 +149,7 @@ export class WeaponDamagePF2e {
                 // amend numeric modifiers with any flat modifier
                 if (modifier) {
                     const modifiers = statisticsModifiers.damage ?? [];
-                    const dm = new ModifierPF2e("Base", modifier, "untyped");
+                    const dm = new ModifierPF2e({ label: "Base", modifier });
                     dm.damageType = dmg.damageType;
                     modifiers.push(dm);
                     statisticsModifiers.damage = modifiers;
@@ -236,7 +227,12 @@ export class WeaponDamagePF2e {
                 : null;
 
             if (typeof modifierValue === "number") {
-                const strModifier = new ModifierPF2e(CONFIG.PF2E.abilities.str, modifierValue, MODIFIER_TYPE.ABILITY);
+                const strModifier = new ModifierPF2e({
+                    label: CONFIG.PF2E.abilities.str,
+                    ability: "str",
+                    modifier: modifierValue,
+                    type: MODIFIER_TYPE.ABILITY,
+                });
                 strModifier.ability = "str";
                 numericModifiers.push(strModifier);
             }
@@ -262,7 +258,7 @@ export class WeaponDamagePF2e {
         if (traits.some((trait) => trait.name === "kickback")) {
             // For NPCs, subtract from the base damage and add back as an untype bonus
             if (actor instanceof NPCPF2e) weapon.data.damage.modifier -= 1;
-            numericModifiers.push(new ModifierPF2e(CONFIG.PF2E.weaponTraits.kickback, 1, MODIFIER_TYPE.UNTYPED));
+            numericModifiers.push(new ModifierPF2e({ label: CONFIG.PF2E.weaponTraits.kickback, modifier: 1 }));
         }
 
         // Two-Hand trait
@@ -297,11 +293,10 @@ export class WeaponDamagePF2e {
             const damageType = weapon.data.property1?.damageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
-                    name: "PF2E.WeaponCustomDamageLabel",
+                    label: "PF2E.WeaponCustomDamageLabel",
                     diceNumber: normalDice,
                     dieSize: weapon.data?.property1?.die as DamageDieSize,
                     damageType: damageType,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
                 })
             );
         }
@@ -310,12 +305,11 @@ export class WeaponDamagePF2e {
             const damageType = weapon.data.property1.critDamageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
-                    name: "PF2E.WeaponCustomDamageLabel",
+                    label: "PF2E.WeaponCustomDamageLabel",
                     diceNumber: critDice,
                     dieSize: weapon.data.property1.critDie as DamageDieSize,
                     damageType: damageType,
                     critical: true,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
                 })
             );
         }
@@ -347,9 +341,8 @@ export class WeaponDamagePF2e {
                 strikingDice = s.bonus;
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        name: s.label,
+                        label: s.label,
                         diceNumber: s.bonus,
-                        traits: ["magical"],
                     })
                 );
             }
@@ -359,21 +352,15 @@ export class WeaponDamagePF2e {
 
         // Ghost touch
         if (hasGhostTouchRune(weapon)) {
-            diceModifiers.push(
-                new DiceModifierPF2e({
-                    name: "PF2E.WeaponPropertyRuneGhostTouch",
-                    traits: ["ghostTouch"],
-                })
-            );
+            diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
         }
 
         // Backstabber trait
         if (traits.some((t) => t.name === "backstabber") && options.includes("target:flatFooted")) {
-            const modifier = new ModifierPF2e(
-                CONFIG.PF2E.weaponTraits.backstabber,
-                potency > 2 ? 2 : 1,
-                MODIFIER_TYPE.UNTYPED
-            );
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.backstabber,
+                modifier: potency > 2 ? 2 : 1,
+            });
             modifier.damageCategory = "precision";
             numericModifiers.push(modifier);
         }
@@ -393,7 +380,7 @@ export class WeaponDamagePF2e {
                 })();
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        name: weaponTraits[t.name],
+                        label: weaponTraits[t.name],
                         diceNumber,
                         dieSize: deadly.substring(deadly.indexOf("d")) as DamageDieSize,
                         critical: true,
@@ -408,7 +395,7 @@ export class WeaponDamagePF2e {
                 const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        name: weaponTraits[t.name],
+                        label: weaponTraits[t.name],
                         diceNumber: 1,
                         dieSize,
                         critical: true,
@@ -427,15 +414,17 @@ export class WeaponDamagePF2e {
                 );
             if (has("greater-weapon-specialization", "Greater Weapon Specialization")) {
                 numericModifiers.push(
-                    new ModifierPF2e(
-                        "PF2E.GreaterWeaponSpecialization",
-                        weaponSpecializationDamage * 2,
-                        MODIFIER_TYPE.UNTYPED
-                    )
+                    new ModifierPF2e({
+                        label: "PF2E.GreaterWeaponSpecialization",
+                        modifier: weaponSpecializationDamage * 2,
+                    })
                 );
             } else if (has("weapon-specialization", "Weapon Specialization")) {
                 numericModifiers.push(
-                    new ModifierPF2e("PF2E.WeaponSpecialization", weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED)
+                    new ModifierPF2e({
+                        label: "PF2E.WeaponSpecialization",
+                        modifier: weaponSpecializationDamage,
+                    })
                 );
             }
         }
@@ -443,7 +432,10 @@ export class WeaponDamagePF2e {
         // add splash damage
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
-            const modifier = new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED);
+            const modifier = new ModifierPF2e({
+                label: "PF2E.WeaponSplashDamageLabel",
+                modifier: splashDamage,
+            });
             modifier.damageCategory = "splash";
             modifier.damageType = weapon.data.damage.damageType;
             numericModifiers.push(modifier);
@@ -452,7 +444,12 @@ export class WeaponDamagePF2e {
         // add bonus damage
         const bonusDamage = Number(weapon.data.bonusDamage?.value) || 0;
         if (bonusDamage > 0) {
-            numericModifiers.push(new ModifierPF2e("PF2E.WeaponBonusDamageLabel", bonusDamage, MODIFIER_TYPE.UNTYPED));
+            numericModifiers.push(
+                new ModifierPF2e({
+                    label: "PF2E.WeaponBonusDamageLabel",
+                    modifier: bonusDamage,
+                })
+            );
         }
 
         // conditions, custom modifiers, and roll notes
@@ -521,22 +518,21 @@ export class WeaponDamagePF2e {
 
         // include dice number and size in damage tag
         diceModifiers.forEach((d) => {
-            d.name = game.i18n.localize(d.name);
+            d.label = game.i18n.localize(d.label ?? d.slug);
             if (d.diceNumber > 0 && d.dieSize) {
-                d.name += ` +${d.diceNumber}${d.dieSize}`;
+                d.label += ` +${d.diceNumber}${d.dieSize}`;
             } else if (d.diceNumber > 0) {
-                d.name += ` +${d.diceNumber}${damage.base.dieSize}`;
+                d.label += ` +${d.diceNumber}${damage.base.dieSize}`;
             } else if (d.dieSize) {
-                d.name += ` ${d.dieSize}`;
+                d.label += ` ${d.dieSize}`;
             }
             if (
                 d.category &&
                 (d.diceNumber > 0 || d.dieSize) &&
                 (!d.damageType || (d.damageType === damage.base.damageType && d.category !== damage.base.category))
             ) {
-                d.name += ` ${d.category}`;
+                d.label += ` ${d.category}`;
             }
-            d.label = d.name;
             d.enabled = new PredicatePF2e(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
@@ -604,29 +600,14 @@ export class WeaponDamagePF2e {
                             dm.diceNumber
                         );
                     }
-                    (dm.traits ?? []).forEach((t) => {
-                        if (!damage.traits.includes(t)) {
-                            damage.traits.push(t);
-                        }
-                    });
-                } else if (!dm.critical) {
-                    // regular pool
-                    if (dm.diceNumber) {
-                        this.addDice(
-                            dicePool,
-                            dm.damageType ?? base.damageType,
-                            dm.category,
-                            dm.dieSize ?? base.dieSize,
-                            dm.diceNumber
-                        );
-                    }
-                    (dm.traits ?? []).forEach((t) => {
-                        if (!damage.traits.includes(t)) {
-                            damage.traits.push(t);
-                        }
-                    });
-                } else {
-                    // skip
+                } else if (!dm.critical && dm.diceNumber) {
+                    this.addDice(
+                        dicePool,
+                        dm.damageType ?? base.damageType,
+                        dm.category,
+                        dm.dieSize ?? base.dieSize,
+                        dm.diceNumber
+                    );
                 }
             });
 

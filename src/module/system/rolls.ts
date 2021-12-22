@@ -25,7 +25,7 @@ export interface RollDataPF2e extends RollData {
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
     /** The triggering event */
-    event?: JQuery.Event;
+    event?: JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
@@ -95,13 +95,19 @@ export class CheckPF2e {
     static async roll(
         check: StatisticModifier,
         context: CheckModifiersContext = {},
-        event?: JQuery.Event | null,
+        event: JQuery.TriggeredEvent | null = null,
         callback?: (
             roll: Rolled<Roll>,
             outcome: typeof DegreeOfSuccessText[number] | undefined,
             message: ChatMessagePF2e
         ) => Promise<void> | void
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
+        // If event is supplied, merge into context
+        // Eventually the event parameter will go away entirely
+        if (event) {
+            mergeObject(context, eventToRollParams(event));
+        }
+
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -111,7 +117,7 @@ export class CheckPF2e {
             check.applyStackingRules();
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o) => o.toLowerCase()).includes("secret")) {
+            if (context.options.includes("secret")) {
                 context.secret = true;
             }
         }
@@ -135,12 +141,6 @@ export class CheckPF2e {
                     });
                 }
             }
-        }
-
-        // If event is supplied, merge into context
-        // Eventually the event parameter will go away entirely
-        if (event) {
-            mergeObject(context, eventToRollParams(event));
         }
 
         if (!context.skipDialog) {
@@ -182,10 +182,7 @@ export class CheckPF2e {
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
-            .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`;
-            })
+            .map((m) => `<span class="tag tag_alt">${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`)
             .join("");
 
         const optionBreakdown = options

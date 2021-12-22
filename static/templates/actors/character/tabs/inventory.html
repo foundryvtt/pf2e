@@ -1,21 +1,5 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
-    <ol class="currency">
-        <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
-        {{#each totalCoinage as |value denomination|}}
-            <li class="denomination {{denomination}}">
-                <div class="currency-image" title="{{localize value.label}}"></div>
-                <span>{{value.value}}</span>
-            </li>
-        {{/each}}
-        {{#if @root.owner}}
-            <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
-                <button type="button">+</button>
-            </li>
-            <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
-                <button type="button">-</button>
-            </li>
-        {{/if}}
-    </ol>
+    {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}
     <div class="wealth">
         <div class="wealth-label inventory-header">
             <h3 class="item-name">

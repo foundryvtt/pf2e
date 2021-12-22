@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -63,7 +64,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "<p>Lions are cooperative hunters, ambushing dangerous prey in groups of lionesses that work in tandem to trap and kill their prey. Male lions are typically larger, with long manes, and when they hunt, they tend to do so on their own.</p>",
+            "publicNotes": "<p>Lions are cooperative hunters, ambushing dangerous prey in groups of lionesses that work in tandem to trap and kill their prey. Male lions are typically larger, with long manes, and when they hunt, they tend to do so on their own.</p>\n<hr />\n<p>Few predators of the natural world can match the cat's talent for stalking and stealth.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -320,12 +321,28 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The lion deals [[/r {1d4}]]{1d4 extra damage} to any creature that's within reach of at least two of the lion's allies</p>"
+                    "value": "<p>The lion deals [[/r {1d4}]]{1d4 extra damage} to any creature that's within reach of at least two of the lion's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.pack-attack"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -364,7 +381,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The lion Strides and makes a Strike at the end of that movement. If the lion began this action hidden, it remains hidden until after this ability's Strike.</p>"
+                    "value": "<p>The lion Strides and makes a Strike at the end of that movement. If the lion began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after this ability's Strike.</p>"
                 },
                 "requirements": {
                     "value": ""

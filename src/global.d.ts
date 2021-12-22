@@ -15,7 +15,7 @@ import { calculateXP } from "@scripts/macros/xp";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
-import { WorldClock } from "@system/world-clock";
+import { WorldClock } from "@module/apps/world-clock";
 import { EncounterPF2e, CombatantPF2e } from "./module/encounter";
 import { ConditionManager } from "./module/system/conditions";
 import {
@@ -41,7 +41,6 @@ import { FolderPF2e } from "@module/folder";
 import { CanvasPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
-import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
 import { TextEditorPF2e } from "@system/text-editor";
 
 declare global {
@@ -113,6 +112,7 @@ declare global {
 
         get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
+        get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
         get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
 
@@ -137,11 +137,11 @@ declare global {
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
-        get(module: "pf2e", setting: "seenUnionAnnouncement"): boolean;
     }
 
     interface ClientSettingsMap {
         get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
+        get(key: "core.chatBubblesPan"): ClientSettingsData & { default: boolean };
     }
 
     const BUILD_MODE: "development" | "production";

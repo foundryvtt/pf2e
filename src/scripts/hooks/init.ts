@@ -153,7 +153,7 @@ export const Init = {
             });
 
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
-            const schema = foundry.data.TokenData.schema;
+            const schema = foundry.data.PrototypeTokenData.schema;
             schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             PlayerConfigPF2e.hookOnRenderSettings();
