@@ -1,5 +1,36 @@
 # Changelog
 
+## Version 3.0.1
+
+### New Feature
+* (stwlam) Tokens now show hovering text of hit point changes when their corresponding actors receive damage or healing
+
+### Bugfixes
+* (In3luki) Fix GhostTemplate preview persisting on the canvas
+* (SoldierC4) Remove HP bar from the limited PC sheet
+* (stwlam) Fix circumstantial off-by-one error of world clock weekday
+* (stwlam) Fix Magic weapon name generation in non-English languages
+* (stwlam) Fix soft setting of prototype token data defaults
+* (stwlam) Refresh the effect tracker every turn of an encounter
+* (stwlam) Fix rolling initiative from encounter tracker
+
+### Core System Improvements
+* (Abaddon) Create localized default label and error messages for @Template
+* (SoldierC4) Cleanup loot sheet formatting
+* (stwlam) Set default of "Pan to Speaker Token" setting to false
+
+### Data Updates
+* (Abaddon) Brushup several animal and fiends from Bestiary 1
+* (Abaddon) Add gold dragon spellcaster variants
+* (cepvep) Add choice prompting to Rogue, Oracle, Ranger, and Swashbuckler, Wizard, and Witch class features
+* (stwlam) Correct traits on Balise Angelic Form's scimitar attack
+* (SpartanCPA) Update sources for Azarketi ancestry
+* (SpartanCPA) Correct NPC sources for Lost Omens: Mwangi Expanse
+* (SpartanCPA) Ensure splash damage is properly typed
+* (TMun) add errata from Lost Omens Ancestry Guide
+* (Tikael) Add Quest for the Frozen Flame Backgrounds
+
+
 ## Version 3.0.0 (beta release)
 
 ### New Feature
