@@ -45,16 +45,21 @@ export const MODIFIER_TYPES = [
 export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
 export interface BaseRawModifier {
-    /** The name of this modifier; should generally be a localization key (see en.json). */
-    name: string;
-    /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
-    label?: string;
+    /** An identifier for this modifier; should generally be a localization key (see en.json). */
+    slug?: string;
+    /**
+     * Both a slug and a label
+     * @deprecated
+     */
+    name?: string;
+    /** The display name of this modifier; can be a localization key (see en.json). */
+    label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier?: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: string;
     /** If the type is "ability", this should be set to a particular ability */
-    ability?: AbilityString;
+    ability?: AbilityString | null;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled?: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
@@ -83,11 +88,11 @@ export interface RawModifier extends BaseRawModifier {
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 export class ModifierPF2e implements RawModifier {
-    name: string;
-    label?: string;
+    slug: string;
+    label: string;
     modifier: number;
     type: ModifierType;
-    ability?: AbilityString;
+    ability: AbilityString | null = null;
     enabled: boolean;
     ignored: boolean;
     source?: string;
@@ -110,13 +115,13 @@ export class ModifierPF2e implements RawModifier {
      * @param notes Any notes about this modifier.
      */
     constructor(args: RawModifier);
-    constructor(...args: ModifierLegacyParams);
-    constructor(...args: [RawModifier] | ModifierLegacyParams) {
-        const isLegacyParams = (args: [RawModifier] | ModifierLegacyParams): args is ModifierLegacyParams =>
+    constructor(...args: ModifierOrderedParams);
+    constructor(...args: [RawModifier] | ModifierOrderedParams) {
+        const isLegacyParams = (args: [RawModifier] | ModifierOrderedParams): args is ModifierOrderedParams =>
             typeof args[0] === "string";
         const params: RawModifier = isLegacyParams(args)
             ? {
-                  name: args[0],
+                  label: args[0],
                   modifier: args[1],
                   type: args[2] ?? "untyped",
                   enabled: args[3],
@@ -129,7 +134,8 @@ export class ModifierPF2e implements RawModifier {
         const isValidModifierType = (type: unknown): type is ModifierType =>
             (Object.values(MODIFIER_TYPE) as unknown[]).includes(type);
 
-        this.name = params.name;
+        this.label = game.i18n.localize(params.label ?? params.name);
+        this.slug = sluggify(params.slug ?? this.label);
         this.modifier = params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.enabled = params.enabled ?? true;
@@ -152,10 +158,14 @@ export class ModifierPF2e implements RawModifier {
     test(options: string[]) {
         this.ignored = !this.predicate.test(options);
     }
+
+    toString() {
+        return this.label;
+    }
 }
 
-type ModifierLegacyParams = [
-    name: string,
+type ModifierOrderedParams = [
+    slug: string,
     modifier: number,
     type?: string,
     enabled?: boolean,
@@ -164,7 +174,7 @@ type ModifierLegacyParams = [
     notes?: string
 ];
 
-export type MinimalModifier = Pick<ModifierPF2e, "name" | "type" | "modifier">;
+export type MinimalModifier = Pick<ModifierPF2e, "slug" | "type" | "modifier">;
 
 // Ability scores
 export const AbilityModifier = {
@@ -175,13 +185,12 @@ export const AbilityModifier = {
      * @returns The modifier provided by the given ability score.
      */
     fromScore: (ability: AbilityString, score: number) => {
-        const modifier = new ModifierPF2e(
-            `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
-            Math.floor((score - 10) / 2),
-            MODIFIER_TYPE.ABILITY
-        );
-        modifier.ability = ability;
-        return modifier;
+        return new ModifierPF2e({
+            label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+            modifier: Math.floor((score - 10) / 2),
+            type: MODIFIER_TYPE.ABILITY,
+            ability,
+        });
     },
 };
 
@@ -373,7 +382,7 @@ export class StatisticModifier {
             // de-duplication
             const seen: ModifierPF2e[] = [];
             this._modifiers.filter((m) => {
-                const found = seen.find((o) => o.name === m.name) !== undefined;
+                const found = seen.find((o) => o.slug === m.slug) !== undefined;
                 if (!found || m.type === "ability") seen.push(m);
                 return found;
             });
@@ -390,7 +399,7 @@ export class StatisticModifier {
     /** Add a modifier to the end of this collection. */
     push(modifier: ModifierPF2e): number {
         // de-duplication
-        if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
+        if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.push(modifier);
             this.applyStackingRules();
         }
@@ -400,7 +409,7 @@ export class StatisticModifier {
     /** Add a modifier to the beginning of this collection. */
     unshift(modifier: ModifierPF2e): number {
         // de-duplication
-        if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
+        if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.unshift(modifier);
             this.applyStackingRules();
         }
@@ -412,7 +421,7 @@ export class StatisticModifier {
         const toDelete =
             typeof modifierName === "object"
                 ? modifierName
-                : this._modifiers.find((modifier) => modifier.name === modifierName);
+                : this._modifiers.find((modifier) => modifier.slug === modifierName);
         const wasDeleted =
             toDelete && this._modifiers.includes(toDelete)
                 ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
@@ -453,8 +462,13 @@ interface DamageDiceOverride {
  * @category PF2
  */
 export class DiceModifierPF2e implements BaseRawModifier {
-    name: string;
-    label?: string;
+    slug: string;
+    /**
+     * Formerly both a slug and label; should prefer separately set slugs and labels
+     * @deprecated
+     */
+    name?: string;
+    label: string;
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
@@ -467,7 +481,6 @@ export class DiceModifierPF2e implements BaseRawModifier {
     /** The damage category of these dice. */
     category?: string;
     damageType?: string;
-    traits: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
     override?: DamageDiceOverride;
     ignored: boolean;
@@ -475,20 +488,18 @@ export class DiceModifierPF2e implements BaseRawModifier {
     custom: boolean;
     predicate: PredicatePF2e;
 
-    constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { name: string; predicate?: RawPredicate }) {
-        if (param.name) {
-            this.name = param.name;
-        } else {
-            throw ErrorPF2e("Name is mandatory");
+    constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
+        this.label = game.i18n.localize(param.label ?? param.name ?? "");
+        this.slug = sluggify(param.slug ?? this.label);
+        if (!this.slug) {
+            throw ErrorPF2e("A DiceModifier must have a slug");
         }
 
-        this.label = param.label;
         this.diceNumber = param.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = param.dieSize;
         this.critical = param.critical;
         this.damageType = param.damageType;
         this.category = param.category;
-        this.traits = param.traits ?? [];
         this.override = param.override;
         this.custom = param.custom ?? false;
 
@@ -502,7 +513,7 @@ export class DiceModifierPF2e implements BaseRawModifier {
     }
 }
 
-type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "name">;
+type PartialParameters = Partial<Omit<DamageDicePF2e, "predicate">> & Pick<DamageDicePF2e, "selector" | "slug">;
 export interface DamageDiceParameters extends PartialParameters {
     predicate?: RawPredicate;
 }

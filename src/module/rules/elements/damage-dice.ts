@@ -19,14 +19,14 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         // In English (and in other languages when the same general form is used), labels patterned as
         // "Title: Subtitle (Parenthetical)" will be reduced to "Subtitle"
         // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
-        value.name = (this.data.name ?? this.label).replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
-        value.label = this.label;
+        value.label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        value.slug = this.data.slug;
 
-        if (selector && value.name && value) {
+        if (selector) {
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
-            console.warn("PF2E | Damage dice requires at least a selector field, and a label field or item name");
+            console.warn("PF2E | Damage Dice requires a selector");
         }
     }
 }

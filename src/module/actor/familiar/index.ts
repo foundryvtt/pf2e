@@ -114,7 +114,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             stat.value = Math.min(stat.value, stat.max);
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             data.attributes.hp = stat;
         }
@@ -140,7 +140,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 .concat(
                     stat.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
             data.attributes.ac = stat;
@@ -183,7 +183,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             data.saves[saveName] = stat;
         }
@@ -215,7 +215,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             data.attack = stat;
         }
@@ -242,7 +242,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
@@ -295,7 +295,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             data.skills[shortForm] = stat;
         }

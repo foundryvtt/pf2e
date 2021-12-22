@@ -54,6 +54,7 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
+import { HitPointsSummary } from "@actor/base";
 
 export class CharacterPF2e extends CreaturePF2e {
     proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
@@ -62,7 +63,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
-    override get hitPoints(): { value: number; max: number; negativeHealing: boolean; recoveryMultiplier: number } {
+    override get hitPoints(): CharacterHitPointsSummary {
         return {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
@@ -378,7 +379,7 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
 
             systemData.attributes.hp = stat;
@@ -427,7 +428,7 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.breakdown = (stat.modifiers as ModifierPF2e[])
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format("PF2E.SavingThrowWithName", {
@@ -457,9 +458,8 @@ export class CharacterPF2e extends CreaturePF2e {
             if ("predicate" in proficiency) continue;
             const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
             proficiency.value = proficiencyBonus.modifier;
-            const label = game.i18n.localize(proficiencyBonus.name);
             const sign = proficiencyBonus.modifier < 0 ? "" : "+";
-            proficiency.breakdown = `${label} ${sign}${proficiencyBonus.modifier}`;
+            proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
         }
 
         const linkedProficiencies = combatProficiencies.filter((p): p is LinkedProficiency => "predicate" in p);
@@ -493,7 +493,7 @@ export class CharacterPF2e extends CreaturePF2e {
             });
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
             stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.value = stat.totalModifier;
@@ -542,7 +542,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .concat(
                     stat.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
 
@@ -600,7 +600,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .concat(
                     stat.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
 
@@ -684,7 +684,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((modifier) => modifier.enabled)
                 .map((modifier) => {
                     const prefix = modifier.modifier < 0 ? "" : "+";
-                    return `${game.i18n.localize(modifier.name)} ${prefix}${modifier.modifier}`;
+                    return `${modifier.label} ${prefix}${modifier.modifier}`;
                 })
                 .join(", ");
             stat.value = stat.totalModifier;
@@ -740,7 +740,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 stat.lore = true;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
-                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
                 stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
@@ -1207,7 +1207,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
-            .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+            .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
             .join(", ");
 
         const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
@@ -1393,4 +1393,8 @@ export interface CharacterPF2e {
         dataId: string[],
         context?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+}
+
+interface CharacterHitPointsSummary extends HitPointsSummary {
+    recoveryMultiplier: number;
 }

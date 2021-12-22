@@ -20,6 +20,7 @@ export type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 export interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
     secret?: boolean;
+    skipDialog?: boolean;
 }
 
 export {

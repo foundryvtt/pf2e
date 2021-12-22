@@ -2,6 +2,7 @@ import { EncounterPF2e, RolledCombatant } from "@module/encounter";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     sortable!: Sortable;
@@ -78,9 +79,10 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         event: JQuery.ClickEvent<HTMLElement, HTMLElement, HTMLElement>
     ): Promise<void> {
         const control = event.currentTarget.dataset.control;
-        if ((control === "rollNPC" || control === "rollAll") && this.viewed && event.ctrlKey) {
+        if ((control === "rollNPC" || control === "rollAll") && this.viewed) {
             event.stopPropagation();
-            await this.viewed[control]({ secret: true });
+            const { skipDialog, secret } = eventToRollParams(event);
+            await this.viewed[control]({ secret, skipDialog });
         } else {
             await super._onCombatControl(event);
         }
@@ -97,8 +99,8 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const li = event.currentTarget.closest<HTMLLIElement>(".combatant");
         const combatant = this.viewed.combatants.get(li?.dataset.combatantId ?? "", { strict: true });
 
-        if (control === "rollInitiative" && event.ctrlKey) {
-            await this.viewed.rollInitiative([combatant.id], { secret: true });
+        if (control === "rollInitiative") {
+            await this.viewed.rollInitiative([combatant.id], eventToRollParams(event));
         } else if (control === "toggle-name-visibility") {
             await combatant.toggleNameVisibility();
         } else {

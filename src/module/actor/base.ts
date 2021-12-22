@@ -1,4 +1,3 @@
-import { DamageDicePF2e } from "../modifiers";
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
@@ -16,7 +15,6 @@ import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base"
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
-import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { Size } from "@module/data";
@@ -72,6 +70,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** The recorded schema version of this actor, updated after each data migration */
     get schemaVersion(): number | null {
         return Number(this.data.data.schema?.version) || null;
+    }
+
+    get hitPoints(): HitPointsSummary | null {
+        const { hp } = this.data.data.attributes;
+        if (!hp) return null;
+
+        return {
+            value: hp.value,
+            max: hp.max,
+            temp: hp.temp,
+            negativeHealing: hp.negativeHealing,
+        };
     }
 
     get traits(): Set<string> {
@@ -371,6 +381,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         const attribute = this.data.data.attributes[attributeName];
+        if (!attribute) return;
         const parts = ["@mod", "@itemBonus"];
         const configAttributes = CONFIG.PF2E.attributes;
         if (objectHasKey(configAttributes, attributeName)) {
@@ -410,7 +421,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const messageSender = roll.find(".message-sender").text();
         const flavorText = roll.find(".flavor-text").text();
         for (const token of tokens) {
-            const actor = token.actor!;
+            const { actor } = token;
+            if (!actor?.data.data.attributes.hp) continue;
             const shield =
                 attribute === "attributes.shield"
                     ? shieldID
@@ -561,6 +573,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
             if (attribute === "attributes.hp" && "hp" in this.data.data.attributes) {
                 const { hp } = this.data.data.attributes;
+                if (!hp) return this;
                 const sp = "sp" in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
@@ -791,45 +804,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Adds custom damage dice. */
-    async addDamageDice(param: DamageDicePF2e) {
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom damage dice only work for characters, NPCs, and familiars");
-        }
-
-        const damageDice = duplicate(this.data.data.damageDice ?? {});
-        if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
-            // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
-            param.selector = param?.selector ?? "damage";
-            param.custom = true;
-
-            // The damage dice constructor performs some basic validations for us, like checking that the
-            // name and selector are both defined.
-            const dice = new DamageDicePF2e(param);
-
-            damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
-            await this.update({ "data.damageDice": damageDice });
-        }
-    }
-
-    /** Removes damage dice by name. */
-    async removeDamageDice(selector: string, dice: number | string) {
-        if (!isCreatureData(this.data)) {
-            throw Error("Custom damage dice only work for characters, NPCs, and familiars");
-        }
-
-        const damageDice = duplicate(this.data.data.damageDice ?? {});
-        if (typeof dice === "number" && damageDice[selector] && damageDice[selector].length > dice) {
-            damageDice[selector].splice(dice, 1);
-            await this.update({ "data.damageDice": damageDice });
-        } else if (typeof dice === "string" && damageDice[selector]) {
-            damageDice[selector] = damageDice[selector].filter((d) => d.name !== dice);
-            await this.update({ "data.damageDice": damageDice });
-        } else {
-            throw Error("Dice can only be removed by name (string) or index (number)");
-        }
-    }
-
     /**
      * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
      * Roll option in this case is a predication property used for filtering.
@@ -993,13 +967,36 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
         }
+    }
+
+    /** Show floaty text when applying damage or healing */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const changedHP = changed.data?.attributes?.hp;
+        const currentHP = this.hitPoints;
+        if (typeof changedHP?.value === "number" && currentHP) {
+            const hpChange = changedHP.value - currentHP.value;
+            const levelChanged = !!changed.data?.details && "level" in changed.data.details;
+            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
+            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
+                const tokens = super.getActiveTokens();
+                for (const token of tokens) {
+                    token.showFloatyText(hpChange);
+                }
+            }
+        }
+
+        await super._preUpdate(changed, options, user);
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1066,6 +1063,13 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: string, key: string): any;
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
+}
+
+export interface HitPointsSummary {
+    value: number;
+    max: number;
+    temp: number;
+    negativeHealing: boolean;
 }
 
 export { ActorPF2e };

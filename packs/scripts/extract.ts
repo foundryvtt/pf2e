@@ -162,6 +162,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         source.author = source.author?.trim() || undefined;
                     }
                 }
+
                 if (isItemSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
@@ -184,6 +185,14 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         };
                     } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
                         delete (docSource.data as { ability?: unknown }).ability;
+                    } else if (
+                        docSource.type === "feat" &&
+                        ["ancestry", "archetype", "bonus", "class", "general", "skill"].includes(
+                            docSource.data.featType.value
+                        ) &&
+                        docSource.img === "systems/pf2e/icons/default-icons/feat.svg"
+                    ) {
+                        docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
                     }
                 }
                 if (docSource.type !== "script") {

@@ -8,10 +8,10 @@
                 <span class="tag-legacy">
                     {{localize (add "PF2E.ModifierType." modifier.type)}}
                 </span>
-                <span class="label">{{localize modifier.name}}</span>
+                <span class="label">{{modifier.label}}</span>
                 <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                 {{#if modifier.custom}}
-                    <i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
+                    <i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
                 {{/if}}
             </li>
         {{/each}}

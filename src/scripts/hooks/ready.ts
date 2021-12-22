@@ -5,12 +5,11 @@ import { MigrationRunner } from "@module/migration/runner";
 import { Migrations } from "@module/migration";
 import { ActionsPF2e } from "@system/actions/actions";
 import { setWorldSchemaVersion } from "@module/migration/set-world-schema-version";
-import { WorldClock } from "@module/system/world-clock";
+import { WorldClock } from "@module/apps/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { MigrationSummary } from "@module/apps/migration-summary";
-import { UnitedPaizoWorkers } from "@module/apps/united-paizo-workers/app";
 
 export const Ready = {
     listen: (): void => {
@@ -70,14 +69,6 @@ export const Ready = {
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
-
-            // Present the UPW announcement if not seen already
-            game.pf2e.upwViewer = new UnitedPaizoWorkers();
-            if (!game.settings.get("pf2e", "seenUnionAnnouncement")) {
-                game.settings.set("pf2e", "seenUnionAnnouncement", true).then(() => {
-                    game.pf2e.upwViewer.render(true);
-                });
-            }
 
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");
