@@ -156,8 +156,11 @@ declare global {
             userId: string
         ): void;
 
-        /** Refresh the display of active Tokens for this Actor if ActiveEffects were changed */
-        protected _refreshTokens(): void;
+        /**
+         * Perform various actions on active tokens if embedded documents were changed.
+         * @param embeddedName The type of embedded document that was modified.
+         */
+        protected _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void;
     }
 
     interface Actor<TParent extends TokenDocument = TokenDocument> {

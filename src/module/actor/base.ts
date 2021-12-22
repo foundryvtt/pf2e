@@ -1005,6 +1005,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
         super._onDelete(options, userId);
     }
+
+    /** As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors */
+    protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
+        super._onEmbeddedDocumentChange(embeddedName);
+        this.token?.object?.drawEffects();
+    }
 }
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e> {
