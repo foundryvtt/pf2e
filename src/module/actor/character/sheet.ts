@@ -23,6 +23,7 @@ import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
+import { ManageTabsPopup } from "@actor/sheet/popups/manage-tabs-popup";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -909,6 +910,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
+
+        html.find(".hide-tabs").on("click", (event) => this.onHideTabsPopup(event));
+    }
+
+    private onHideTabsPopup(event: JQuery.ClickEvent) {
+        event.preventDefault();
+        new ManageTabsPopup(this.actor, {}).render(true);
     }
 
     /** Handle changing of proficiency-rank via dropdown */
