@@ -280,7 +280,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Rule elements
-        this.rules = this.items.contents
+        this.rules = this.prepareRuleElements();
+    }
+
+    protected prepareRuleElements(): RuleElementPF2e[] {
+        return this.items.contents
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);

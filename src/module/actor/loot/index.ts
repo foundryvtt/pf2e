@@ -9,6 +9,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
+import { RuleElementPF2e } from "@module/rules/rule-element";
 
 export class LootPF2e extends ActorPF2e {
     static override get schema(): typeof LootData {
@@ -39,6 +40,11 @@ export class LootPF2e extends ActorPF2e {
     /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    }
+
+    /** Loot actors never benefit from rule elements */
+    protected override prepareRuleElements(): RuleElementPF2e[] {
+        return [];
     }
 
     override async transferItemToActor(
