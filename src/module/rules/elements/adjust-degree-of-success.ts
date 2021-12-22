@@ -26,28 +26,28 @@ export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             }
 
             const skill = this.skillAbbreviationFromString(selector);
-            const save = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
+            const saveType = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
             const actorData = this.actor.data;
-            if (selector === "saving-throw" || save) {
-                if (selector === "saving-throw") {
-                    SAVE_TYPES.forEach((save) => {
-                        actorData.data.saves[save].adjustments ??= [];
-                        actorData.data.saves[save].adjustments.push(completeAdjustment);
-                    });
-                } else if (save) {
-                    actorData.data.saves[save].adjustments ??= [];
-                    actorData.data.saves[save].adjustments.push(completeAdjustment);
-                }
+            if (selector === "saving-throw") {
+                SAVE_TYPES.forEach((saveType) => {
+                    const save = this.actor.saves[saveType];
+                    const adjustments = (save.data.check.adjustments ??= []);
+                    adjustments.push(completeAdjustment);
+                });
+            } else if (saveType) {
+                const save = this.actor.saves[saveType];
+                const adjustments = (save.data.check.adjustments ??= []);
+                adjustments.push(completeAdjustment);
             } else if (selector === "skill-check" || skill !== undefined) {
                 if (selector === "skill-check") {
                     Object.keys(actorData.data.skills).forEach((key) => {
                         const skill = key as SkillAbbreviation;
-                        actorData.data.skills[skill].adjustments ??= [];
-                        actorData.data.skills[skill].adjustments.push(completeAdjustment);
+                        const adjustments = (actorData.data.skills[skill].adjustments ??= []);
+                        adjustments.push(completeAdjustment);
                     });
                 } else if (skill) {
-                    actorData.data.skills[skill].adjustments ??= [];
-                    actorData.data.skills[skill].adjustments.push(completeAdjustment);
+                    const adjustments = (actorData.data.skills[skill].adjustments ??= []);
+                    adjustments.push(completeAdjustment);
                 }
             } else if (selector === "perception-check") {
                 actorData.data.attributes.perception.adjustments ??= [];
@@ -79,14 +79,7 @@ export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     isAdjustmentData(adjustment: CheckDCModifiers): boolean {
         const adjusts = ["criticalFailure", "failure", "success", "criticalSuccess", "all"];
         const modifiers = ["one-degree-better", "one-degree-worse"];
-
-        for (const [key, value] of Object.entries(adjustment)) {
-            if (!adjusts.includes(key) || !modifiers.includes(value)) {
-                return false;
-            }
-        }
-
-        return true;
+        return Object.entries(adjustment).every(([key, value]) => adjusts.includes(key) && modifiers.includes(value));
     }
 }
 

@@ -71,7 +71,7 @@ interface NPCSystemSheetData extends NPCSystemData {
         };
     };
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
-    saves: Record<SaveType, NPCSaveData & WithAdjustments>;
+    saves: Record<SaveType, NPCSaveData & WithAdjustments & { labelShort?: string }>;
     traits: CreatureTraitsData & {
         size: {
             localizedName?: string;

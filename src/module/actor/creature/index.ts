@@ -97,6 +97,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
+    /** Save data for the creature, always built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
     get deception(): Statistic {
@@ -583,24 +584,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         promises.then(() => {
             this.redrawingTokenEffects = false;
         });
-    }
-
-    /** Holdover function to create save statistics. Will be removed when saves are fully statistics. */
-    protected buildSavingThrowStatistics(): void {
-        const build = (saveType: SaveType) => {
-            const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-            });
-            const saveData = this.data.data.saves[saveType];
-            const domains = ["all", "saving-throw", saveType];
-            return Statistic.from(this, saveData, saveType, label, "saving-throw", domains);
-        };
-
-        this.saves = {
-            fortitude: build("fortitude"),
-            reflex: build("reflex"),
-            will: build("will"),
-        };
     }
 
     /**

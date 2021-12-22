@@ -7,7 +7,6 @@ import {
     CreatureSystemSource,
     CreatureTraitsData,
 } from "@actor/creature/data";
-import { SaveType } from "@actor/data";
 import { AbilityString, Rollable } from "@actor/data/base";
 import { StatisticModifier } from "@module/modifiers";
 import type { FamiliarPF2e } from ".";
@@ -49,7 +48,6 @@ export interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles"
     actions?: undefined;
     attack: StatisticModifier & Rollable;
     attributes: FamiliarAttributes;
-    saves: FamiliarSaves;
     skills: FamiliarSkills;
     master: {
         id: string | null;
@@ -64,7 +62,5 @@ interface FamiliarAttributes extends CreatureAttributes {
 }
 
 type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
-type FamiliarSave = StatisticModifier & Rollable & { value: number };
-type FamiliarSaves = Record<SaveType, FamiliarSave>;
 type FamiliarSkill = StatisticModifier & Rollable & { value: number };
 type FamiliarSkills = Record<SkillAbbreviation, FamiliarSkill>;
