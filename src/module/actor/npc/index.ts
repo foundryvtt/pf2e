@@ -720,11 +720,12 @@ export class NPCPF2e extends CreaturePF2e {
 
                 // Assign statistic data to the spellcasting entry
                 itemData.data.statisticData = {
-                    name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+                    slug: sluggify(itemData.name),
                     notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                     domains: baseSelectors,
                     check: {
                         type: "spell-attack-roll",
+                        label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                         modifiers: attackModifiers,
                         domains: attackSelectors,
                     },
@@ -774,7 +775,7 @@ export class NPCPF2e extends CreaturePF2e {
 
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
-                name: saveType,
+                slug: saveType,
                 notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [

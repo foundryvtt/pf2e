@@ -43,9 +43,10 @@ export class TrickMagicItemEntry {
         ];
 
         this.statistic = new Statistic(actor, {
-            name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+            slug: `trick-${tradition}`,
             modifiers: baseModifiers,
             check: {
+                label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                 type: "spell-attack-roll",
             },
             dc: {},

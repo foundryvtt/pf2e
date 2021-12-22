@@ -226,12 +226,13 @@ export class ActionsPF2e {
                         targetOptions.push(...targetTraits);
 
                         // try to resolve target's defense stat and calculate DC
-                        const dc = options.difficultyClassStatistic?.(target.actor)?.dc({
-                            extraRollOptions: finalOptions.concat(targetOptions),
-                        });
-                        if (dc) {
+                        const dcStat = options.difficultyClassStatistic?.(target.actor);
+                        if (dcStat) {
+                            const extraRollOptions = finalOptions.concat(targetOptions);
+                            const dc = dcStat.dc({ extraRollOptions });
+                            const labelKey = `PF2E.CreatureStatisticDC.${dcStat.slug}`;
                             return {
-                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: "{dc}" }),
+                                label: game.i18n.format(labelKey, { creature: target.name, dc: "{dc}" }),
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
                             };
