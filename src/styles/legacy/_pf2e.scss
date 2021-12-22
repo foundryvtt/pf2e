@@ -2193,139 +2193,33 @@
 }
 
 /* ----------------------------------------- */
-/* Item Card Structure                       */
+/* Item Buttons
 /* ----------------------------------------- */
 
-.pf2e {
-    &.chat-card {
-        font-style: normal;
-
-        .card-header {
-            padding: 2px 0;
-            border-top: 2px groove #fff;
-            border-bottom: 2px groove #fff;
-            align-items: center;
-            min-height: 36px;
-
-            img {
-                flex: 0 0 36px;
-                margin-right: 5px;
-                height: 36px;
-                width: 36px;
-            }
-
-            h3 {
-                flex: 1;
-                margin: 0;
-            }
-
-            h4 {
-                flex: 0;
-                margin: 0 5px 0 0;
-                white-space: nowrap;
-            }
+.pf2e.sheet {
+    .item-buttons {
+        button {
+            font-size: 10px;
+            line-height: 12px;
+            margin: 0;
         }
 
-        .tags {
-            margin: 3px 0 0;
-        }
-
-        .card-content {
-            margin: 4px 0;
-
-            p {
-                margin: 4px 0;
-            }
-        }
-
-        .card-buttons {
-            margin: 5px 0;
-
-            span {
-                display: block;
-                line-height: 28px;
-                text-align: center;
-                border: 1px solid var(--secondary-background);
-            }
-
-            button {
-                margin: 2px 0;
-            }
-
-            .spell-attack-buttons {
-                display: flex;
-                flex-direction: row;
-
-                * {
-                    flex-grow: 1;
-                    flex-basis: 0;
-                }
-
-                :first-child {
-                    flex-grow: 2;
-                }
-            }
-        }
-
-        .card-footer {
-            padding: 3px 0 0;
-            border-top: 2px groove #fff;
-
-            span {
-                border-right: 2px groove #fff;
-                padding: 0 5px 0 0;
-                font-size: 12px;
-
-                &:last-child {
-                    border-right: none;
-                    padding-right: 0;
-                }
-            }
-        }
-
-        .card-buttons-multiattack {
-            display: grid;
-            grid-template-columns: auto 40px 40px;
-            grid-column-gap: 4px;
-        }
-
-        .card-buttons-two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-column-gap: 4px;
+        span {
+            padding: 0;
         }
     }
 
-
-    /* ----------------------------------------- */
-    /* Item Buttons
-    /* ----------------------------------------- */
-
-    &.sheet {
-        .item-buttons {
-            button {
-                font-size: 10px;
-                line-height: 12px;
-                margin: 0;
-            }
-
-            span {
-                padding: 0;
-            }
+    .melee-buttons {
+        button {
+            font-size: 10px;
+            line-height: 12px;
+            margin: 0;
+            border: 1px groove darkgray;
         }
 
-        .melee-buttons {
-            button {
-                font-size: 10px;
-                line-height: 12px;
-                margin: 0;
-                border: 1px groove darkgray;
-            }
-
-            span {
-                padding: 0;
-                margin-top: 3px;
-            }
+        span {
+            padding: 0;
+            margin-top: 3px;
         }
     }
 }
