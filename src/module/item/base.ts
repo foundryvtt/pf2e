@@ -97,10 +97,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     override getRollData(): Record<string, unknown> {
-        const item = { name: this.name, ...this.toObject(false).data };
-        if (!this.actor) return { item };
-        const actor = this.actor.toObject(false).data;
-        return { ...actor, actor, item };
+        return { actor: this.actor, item: this };
     }
 
     /**
