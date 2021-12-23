@@ -1,5 +1,6 @@
+import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
-import { isObject, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 
 export const EnrichContent = {
     // Get the different parameters of the @inline command
@@ -21,14 +22,7 @@ export const EnrichContent = {
     },
 
     enrichString: (data: string, options?: EnrichHTMLOptions): string => {
-        // Get itemData from options if available
-        const itemData = (() => {
-            if (options?.rollData && isObject(options.rollData)) {
-                const rollData = options.rollData as Record<string, unknown>;
-                return isObject<ItemSystemData>(rollData.item) ? rollData.item : undefined;
-            }
-            return undefined;
-        })();
+        const item = options?.rollData?.item instanceof ItemPF2e ? options.rollData.item : undefined;
 
         // Enrich @inline commands: Localize, Template
         // Localize calls the function again in order to enrich data contained in there
@@ -40,14 +34,14 @@ export const EnrichContent = {
                 case "Localize":
                     return EnrichContent.enrichString(game.i18n.localize(paramString), options);
                 case "Template":
-                    return EnrichContent.createTemplate(paramString, buttonLabel, itemData);
+                    return EnrichContent.createTemplate(paramString, buttonLabel, item?.data.data);
             }
             return match;
         });
     },
 
     // Create inline template button from @template command
-    createTemplate(paramString: string, label?: string, itemData?: DeepPartial<ItemSystemData>): string {
+    createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): string {
         // Get parameters from data
         const rawParams = EnrichContent.getParams(paramString);
 
