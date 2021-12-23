@@ -27,6 +27,7 @@ import { Migration700SingleClassFeatures } from "@module/migration/migrations/70
 import { Migration701ModifierNameToSlug } from "@module/migration/migrations/701-modifier-name-to-slug";
 import { Migration702REFormulasAtInstanceLevel } from "@module/migration/migrations/702-re-formulas-at-instance-level";
 import { Migration703FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/703-formulas-at-instance-level-everything-else";
+import { Migration704MartialProficiencyRE } from "@module/migration/migrations/704-martial-proficiency-re";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -50,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration701ModifierNameToSlug(),
     new Migration702REFormulasAtInstanceLevel(),
     new Migration703FormulasAtInstanceLevelEverythingElse(),
+    new Migration704MartialProficiencyRE(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

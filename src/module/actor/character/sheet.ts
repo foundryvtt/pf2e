@@ -13,8 +13,8 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CombatProficiencies } from "./data";
-import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { CharacterProficiency, MartialProficiencies } from "./data";
+import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
@@ -24,6 +24,7 @@ import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { ManageTabsPopup } from "@actor/sheet/popups/manage-tabs-popup";
+import { LocalizePF2e } from "@system/localize";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -60,6 +61,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData: CharacterSheetData = await super.getData(options);
+
+        // Martial Proficiencies
+        const proficiencies = Object.entries(sheetData.data.martial);
+        for (const [key, proficiency] of proficiencies) {
+            const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
+            const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
+            const label = ((): string => {
+                if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
+                    return CONFIG.PF2E.martialSkills[key];
+                }
+                if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
+                    return CONFIG.PF2E.weaponCategories[key];
+                }
+                if (Array.isArray(groupMatch)) {
+                    const weaponGroup = groupMatch[1] as WeaponGroup;
+                    return CONFIG.PF2E.weaponGroups[weaponGroup];
+                }
+                if (Array.isArray(baseWeaponMatch)) {
+                    const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
+                    return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
+                }
+                return proficiency.label ?? key;
+            })();
+
+            // proficiency.icon = this.getProficiencyIcon(proficiency.rank);
+            // proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
+            proficiency.label = game.i18n.localize(label);
+            proficiency.value = ProficiencyModifier.fromLevelAndRank(
+                sheetData.data.details.level.value,
+                proficiency.rank || 0
+            ).modifier;
+        }
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -162,7 +195,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     [key]: proficiency,
                 }),
                 {}
-            ) as CombatProficiencies;
+            ) as MartialProficiencies;
 
         // show hints for some things being modified
         const baseData = this.actor.toObject();
