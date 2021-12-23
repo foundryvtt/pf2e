@@ -148,6 +148,9 @@ function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attrib
                         modifier = 0;
                     }
                     if (modifier !== undefined) {
+                        // In case of healing, multipler will have negative sign. The user will expect that positive
+                        // modifier would increase healing value, while negative would decrease.
+                        modifier *= Math.sign(multiplier);
                         await ActorPF2e.applyDamage(html, multiplier, attributePassed, modifier);
                     }
                 },
