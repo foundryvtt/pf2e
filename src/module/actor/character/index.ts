@@ -840,7 +840,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // assign statistic data to the spellcasting entry
             entryData.data.statisticData = {
-                name: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+                slug: sluggify(entry.name),
                 modifiers: [
                     AbilityModifier.fromScore(ability, systemData.abilities[ability].value),
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
@@ -850,6 +850,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 domains: baseSelectors,
                 check: {
                     type: "spell-attack-roll",
+                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                     modifiers: extractModifiers(statisticsModifiers, attackSelectors),
                     domains: attackSelectors,
                 },
@@ -927,7 +928,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(...extractModifiers(statisticsModifiers, selectors));
 
             const stat = new Statistic(this, {
-                name: saveType,
+                slug: saveType,
                 notes: extractNotes(rollNotes, selectors),
                 modifiers,
                 domains: selectors,
