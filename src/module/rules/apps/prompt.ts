@@ -105,4 +105,5 @@ export interface PromptChoice<T> {
     label: string;
     img?: string;
     domain?: string[];
+    predicate?: PredicatePF2e;
 }

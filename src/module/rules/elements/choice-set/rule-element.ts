@@ -1,11 +1,11 @@
-import { ItemPF2e } from "@item";
+import { FeatPF2e, ItemPF2e } from "@item";
 import { PromptChoice } from "@module/rules/apps/prompt";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import { REPreCreateParameters } from "@module/rules/rules-data-definitions";
 import { PredicatePF2e } from "@system/predication";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
-import { ChoiceSetData, ChoiceSetSource } from "./data";
+import { ChoiceSetData, ChoiceSetFeatQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
 
 /**
@@ -43,14 +43,18 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
+        const selfDomain = Array.from(this.actor.getSelfRollOptions());
+        if (this.data.predicate && !this.data.predicate.test(selfDomain)) return;
+
         this.setDefaultFlag(ruleSource);
+
         const selection = await new ChoiceSetPrompt({
             // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
             allowedDrops: this.data.allowedDrops,
             prompt: this.data.prompt,
             item: this.item,
             title: this.label,
-            choices: await this.inflateChoices(),
+            choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
             containsUUIDs: this.data.containsUUIDs,
         }).resolveSelection();
 
@@ -86,13 +90,19 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     private async inflateChoices(): Promise<PromptChoice<string>[]> {
         const choices: PromptChoice<string>[] = Array.isArray(this.data.choices)
             ? this.data.choices
+            : typeof this.data.choices === "object"
+            ? await this.queryFeats(this.data.choices)
             : Object.entries(getProperty(CONFIG.PF2E, this.data.choices)).map(([value, label]) => ({
                   value,
                   label: typeof label === "string" ? label : "",
               }));
 
+        interface ItemChoice extends PromptChoice<string> {
+            value: ItemUUID;
+        }
+
         // If every choice is an item UUID, get the label and images from those items
-        if (choices.every((c): c is { value: ItemUUID; label: string; img?: ImagePath } => isItemUUID(c.value))) {
+        if (choices.every((c): c is ItemChoice => isItemUUID(c.value))) {
             const itemChoices = await fromUUIDs(choices.map((c) => c.value));
             for (let i = 0; i < choices.length; i++) {
                 const item = itemChoices[i];
@@ -108,9 +118,62 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         try {
             return choices
-                .map((choice) => ({ value: choice.value, label: game.i18n.localize(choice.label), img: choice.img }))
+                .map((c) => ({
+                    value: c.value,
+                    label: game.i18n.localize(c.label),
+                    img: c.img,
+                    predicate: c.predicate ? new PredicatePF2e(c.predicate) : undefined,
+                }))
                 .sort((a, b) => a.label.localeCompare(b.label));
         } catch {
+            return [];
+        }
+    }
+
+    /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
+    private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PromptChoice<ItemUUID>[]> {
+        if (this.actor.type !== "character") {
+            this.failValidation("Only characters can use a ChoiceSet feat query");
+            return [];
+        }
+
+        const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
+        if (choices.filter) choices.filter = new PredicatePF2e(choices.filter);
+
+        try {
+            // Resolve any injected properties in the query
+            const resolveProperties = (obj: Record<string, unknown>): Record<string, unknown> => {
+                for (const [key, value] of Object.entries(obj)) {
+                    if (typeof value === "string") {
+                        obj[key] = this.resolveInjectedProperties(value);
+                    } else if (Array.isArray(value)) {
+                        obj[key] = value.map((e: unknown) =>
+                            typeof e === "string" ? this.resolveInjectedProperties(e) : e
+                        );
+                    } else if (isObject<Record<string, unknown>>(value)) {
+                        obj[key] = resolveProperties(value);
+                    }
+                }
+                return obj;
+            };
+
+            // Get the query return and ensure they're all feats
+            const query: Record<string, unknown> = resolveProperties(JSON.parse(choices.query));
+            query.type = "feat";
+            const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
+
+            // Apply the followup predication filter if there is one
+            const filtered = choices.filter
+                ? feats.filter((f) => choices.filter!.test(f.getItemRollOptions("item")))
+                : feats;
+
+            // Exclude any feat the character already has and return final list
+            const existing = new Set(this.actor.itemTypes.feat.flatMap((f) => f.sourceId ?? []));
+            return filtered
+                .filter((f) => !existing.has(f.sourceId!))
+                .map((f) => ({ value: f.uuid, label: f.name, img: f.img }));
+        } catch (error) {
+            this.failValidation(`Error thrown (${error}) while attempting NeDB query`);
             return [];
         }
     }

@@ -142,6 +142,16 @@ export interface CharacterSystemData extends CreatureSystemData {
             /** The current level of this character. */
             value: number;
         };
+
+        /** Convenience information for easy access when the class instance isn't available */
+        class: {
+            name: string;
+            trait: string;
+        };
+        ancestry: {
+            name: string;
+            trait: string;
+        };
     };
 
     attributes: CharacterAttributes;
