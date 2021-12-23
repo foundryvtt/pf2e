@@ -138,6 +138,8 @@ export class ModifierPF2e implements RawModifier {
         this.slug = sluggify(params.slug ?? this.label);
         this.modifier = params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
+        this.damageType = params.damageType;
+        this.damageCategory = params.damageCategory;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
