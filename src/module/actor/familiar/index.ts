@@ -154,12 +154,11 @@ export class FamiliarPF2e extends CreaturePF2e {
         for (const saveType of SAVE_TYPES) {
             const save = master.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-            const ability = master.data.data.saves[saveType].ability;
             const source = save.modifiers.filter((modifier) => !["status", "circumstance"].includes(modifier.type));
             const totalMod = applyStackingRules(source);
-            const selectors = [save.name, `${ability}-based`, "saving-throw", "all"];
+            const selectors = save.data.domains ?? [];
             const stat = new Statistic(this, {
-                name: saveType,
+                slug: saveType,
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
