@@ -23,7 +23,41 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:armored",
+                        "self:effect:arcane-cascade"
+                    ]
+                },
+                "selector": "speed",
+                "slug": "laughing-shadow-armored-movement",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:effect:arcane-cascade"
+                    ],
+                    "not": [
+                        "self:armored"
+                    ]
+                },
+                "selector": "speed",
+                "slug": "laughing-shadow-unarmored-movement",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Enable arcane cascade damage from laughing shadow",
+                "property": "flags.pf2e.rollOptions.all.self:feature:laughing-shadow:damage"
+            }
+        ],
         "source": {
             "value": ""
         },
