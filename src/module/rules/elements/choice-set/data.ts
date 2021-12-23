@@ -15,7 +15,7 @@ export interface ChoiceSetData extends RuleElementData {
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
      * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
      */
-    choices: string | PromptChoice<string>[];
+    choices: string | PromptChoice<string>[] | ChoiceSetFeatQuery;
     /** The user's selection from among the options in `choices` */
     selection?: string;
     /** Should the parent item's name be adjusted to reflect the choice made? */
@@ -32,4 +32,10 @@ export interface ChoiceSetSource extends RuleElementSource {
     selection?: unknown;
     adjustName?: unknown;
     allowedDrops?: unknown;
+}
+
+export interface ChoiceSetFeatQuery {
+    filter?: PredicatePF2e;
+    pack?: string;
+    query: string;
 }
