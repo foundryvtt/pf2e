@@ -20,7 +20,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.data.allowedDrops = new PredicatePF2e(this.data.allowedDrops);
 
         if (
-            !(typeof this.data.flag === "string" && (!this.data.selection || typeof this.data.selection === "string"))
+            !(
+                typeof this.data.flag === "string" &&
+                (!this.data.selection || ["string", "number"].includes(typeof this.data.selection))
+            )
         ) {
             this.ignored = true;
             return;
@@ -28,7 +31,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item.
-        if (typeof this.data.selection === "string") {
+        if (typeof this.data.selection === "string" || typeof this.data.selection === "number") {
             item.data.flags.pf2e.rulesSelections[this.data.flag] = this.data.selection;
         } else {
             // If no selection has been made, disable this and all other rule elements on the item.
@@ -87,8 +90,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    private async inflateChoices(): Promise<PromptChoice<string>[]> {
-        const choices: PromptChoice<string>[] = Array.isArray(this.data.choices)
+    private async inflateChoices(): Promise<PromptChoice<string | number>[]> {
+        const choices: PromptChoice<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices
             : typeof this.data.choices === "object"
             ? await this.queryFeats(this.data.choices)
@@ -122,6 +125,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                     value: c.value,
                     label: game.i18n.localize(c.label),
                     img: c.img,
+                    sort: c.sort,
                     predicate: c.predicate ? new PredicatePF2e(c.predicate) : undefined,
                 }))
                 .sort((a, b) => a.label.localeCompare(b.label));
