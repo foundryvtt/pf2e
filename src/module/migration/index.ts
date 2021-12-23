@@ -104,6 +104,7 @@ import { Migration699ItemDescriptionEmptyString } from "./migrations/699-item-de
 import { Migration700SingleClassFeatures } from "./migrations/700-single-class-features";
 import { Migration701ModifierNameToSlug } from "./migrations/701-modifier-name-to-slug";
 import { Migration702REFormulasAtInstanceLevel } from "./migrations/702-re-formulas-at-instance-level";
+import { Migration703FormulasAtInstanceLevelEverythingElse } from "./migrations/703-formulas-at-instance-level-everything-else";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -212,6 +213,7 @@ export class Migrations {
         Migration700SingleClassFeatures,
         Migration701ModifierNameToSlug,
         Migration702REFormulasAtInstanceLevel,
+        Migration703FormulasAtInstanceLevelEverythingElse,
     ];
 
     static get latestVersion(): number {

@@ -7,10 +7,13 @@ import { MigrationBase } from "../base";
 export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
     static override version = 0.702;
 
-    private raiseToInstanceLevel(value: string): string {
+    protected raiseToInstanceLevel(value: string): string {
         return value.replace(/@[a-z.]+/gi, (match) => {
+            if (["@mod", "@castLevel", "@heighten"].includes(match)) return match;
             if (match === "@details.level.value") return "@actor.level";
+            if (match === "@actor.details.level.value") return "@actor.level";
             if (match.startsWith("@abilities.")) return match.replace(/\babilities\b/, "actor.abilities");
+            if (match.startsWith("@attributes.")) return match.replace(/\battributes\b/, "actor.attributes");
             if (match === "@item.level.value") return "@item.level";
             if (/^@item\.[a-z]+$/.test(match)) return match;
             return match
