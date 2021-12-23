@@ -30,6 +30,11 @@ export class NPCPF2e extends CreaturePF2e {
         return this.data.data.traits.rarity.value;
     }
 
+    /** This NPC's ability scores */
+    get abilities() {
+        return deepClone(this.data.data.abilities);
+    }
+
     /** Does this NPC have the Elite adjustment? */
     get isElite(): boolean {
         return this.traits.has("elite");
