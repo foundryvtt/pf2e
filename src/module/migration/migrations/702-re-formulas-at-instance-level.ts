@@ -9,9 +9,10 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
 
     protected raiseToInstanceLevel(value: string): string {
         return value.replace(/@[a-z.]+/gi, (match) => {
-            if (["@mod", "@castLevel", "@heighten"].includes(match)) return match;
+            if (["@mod", "@castLevel", "@heighten", "@item.badge.value"].includes(match)) return match;
             if (match === "@details.level.value") return "@actor.level";
             if (match === "@actor.details.level.value") return "@actor.level";
+            if (match === "@item.value.value") return "@item.badge.value";
             if (match.startsWith("@abilities.")) return match.replace(/\babilities\b/, "actor.abilities");
             if (match.startsWith("@attributes.")) return match.replace(/\battributes\b/, "actor.attributes");
             if (match === "@item.level.value") return "@item.level";
