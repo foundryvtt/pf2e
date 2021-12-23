@@ -240,7 +240,7 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item }))
             : value;
     }
 
