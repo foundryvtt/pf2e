@@ -17,13 +17,13 @@
             {
                 "key": "BaseSpeed",
                 "selector": "fly",
-                "value": "@attributes.speed.value"
+                "value": "@actor.attributes.speed.value"
             },
             {
                 "except": "force and ghost touch",
                 "key": "Resistance",
                 "type": "all",
-                "value": "10 + 5*floor((@item.level.value -6)/2)"
+                "value": "10 + 5*floor((@item.level -6)/2)"
             }
         ],
         "source": {
