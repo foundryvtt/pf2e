@@ -103,6 +103,7 @@ import { Migration698RemoveDerivedActorTraits } from "./migrations/698-remove-de
 import { Migration699ItemDescriptionEmptyString } from "./migrations/699-item-description-empty-string";
 import { Migration700SingleClassFeatures } from "./migrations/700-single-class-features";
 import { Migration701ModifierNameToSlug } from "./migrations/701-modifier-name-to-slug";
+import { Migration702REFormulasAtInstanceLevel } from "./migrations/702-re-formulas-at-instance-level";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -210,6 +211,7 @@ export class Migrations {
         Migration699ItemDescriptionEmptyString,
         Migration700SingleClassFeatures,
         Migration701ModifierNameToSlug,
+        Migration702REFormulasAtInstanceLevel,
     ];
 
     static get latestVersion(): number {

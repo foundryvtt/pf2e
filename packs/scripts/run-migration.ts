@@ -25,6 +25,7 @@ import { Migration698RemoveDerivedActorTraits } from "@module/migration/migratio
 import { Migration699ItemDescriptionEmptyString } from "@module/migration/migrations/699-item-description-empty-string";
 import { Migration700SingleClassFeatures } from "@module/migration/migrations/700-single-class-features";
 import { Migration701ModifierNameToSlug } from "@module/migration/migrations/701-modifier-name-to-slug";
+import { Migration702REFormulasAtInstanceLevel } from "@module/migration/migrations/702-re-formulas-at-instance-level";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -46,6 +47,7 @@ const migrations: MigrationBase[] = [
     new Migration699ItemDescriptionEmptyString(),
     new Migration700SingleClassFeatures(),
     new Migration701ModifierNameToSlug(),
+    new Migration702REFormulasAtInstanceLevel(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

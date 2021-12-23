@@ -65,13 +65,6 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
-    override get hitPoints(): CharacterHitPointsSummary {
-        return {
-            ...super.hitPoints,
-            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
-        };
-    }
-
     get ancestry(): Embedded<AncestryPF2e> | null {
         return this.itemTypes.ancestry[0] ?? null;
     }
@@ -90,6 +83,18 @@ export class CharacterPF2e extends CreaturePF2e {
 
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || "str";
+    }
+
+    /** This PC's ability scores */
+    get abilities() {
+        return deepClone(this.data.data.abilities);
+    }
+
+    override get hitPoints(): CharacterHitPointsSummary {
+        return {
+            ...super.hitPoints,
+            recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
+        };
     }
 
     get heroPoints(): { value: number; max: number } {
