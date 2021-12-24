@@ -584,7 +584,53 @@
                     ]
                 },
                 "perception": 2,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:simple"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.SimpleFirearmsCrossbows",
+                        "slug": "simple-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:martial"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.MartialFirearmsCrossbows",
+                        "slug": "martial-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:advanced"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.AdvancedFirearmsCrossbows",
+                        "slug": "advanced-firearms-crossbows",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 2,
                     "reflex": 2,
@@ -1246,24 +1292,26 @@
                         "value": 1
                     },
                     {
-                        "key": "LinkedProficiency",
-                        "predicate": {
+                        "definition": {
                             "all": [
                                 "weapon:trait:elf",
                                 "weapon:category:advanced"
                             ]
                         },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedElfWeapons",
                         "sameAs": "martial",
                         "slug": "advanced-elf-weapons"
                     },
                     {
-                        "key": "LinkedProficiency",
-                        "predicate": {
+                        "definition": {
                             "all": [
                                 "weapon:trait:elf",
                                 "weapon:category:martial"
                             ]
                         },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialElfWeapons",
                         "sameAs": "simple",
                         "slug": "martial-elf-weapons"
                     }

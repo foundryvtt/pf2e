@@ -4,6 +4,7 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { ItemSourcePF2e } from "@item/data";
+import { MartialProficiency } from "@actor/character/data";
 
 export type RuleElementSource = {
     key: string;
@@ -86,6 +87,7 @@ export interface REPreDeleteParameters {
 
 export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
+    martialProficiencies: Record<string, MartialProficiency>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     senses: SenseSynthetic[];
