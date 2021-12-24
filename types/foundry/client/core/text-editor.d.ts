@@ -175,6 +175,6 @@ declare global {
         documents?: boolean;
         links?: boolean;
         rolls?: boolean;
-        rollData?: object;
+        rollData?: Record<string, unknown>;
     }
 }
