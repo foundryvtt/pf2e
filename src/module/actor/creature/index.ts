@@ -661,7 +661,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Work around bug in which creating embedded items via actor.update doesn't trigger _onCreateEmbeddedDocuments */
-    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this> {
+    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
         await super.update(data, options);
 
         const hasItemInserts =
@@ -681,7 +681,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Re-prepare familiars when their masters are updated */
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<this>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -693,7 +693,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points

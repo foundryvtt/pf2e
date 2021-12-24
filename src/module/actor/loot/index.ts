@@ -93,14 +93,14 @@ export class LootPF2e extends ActorPF2e {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(data: LootSource, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(data: LootSource, options: DocumentModificationContext<this>, userId: string): void {
         this.toggleTokenHiding();
         super._onCreate(data, options, userId);
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<this>,
         userId: string
     ): void {
         if (changed.data?.hiddenWhenEmpty !== undefined) {
