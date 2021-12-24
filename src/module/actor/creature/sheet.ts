@@ -1,10 +1,7 @@
-import { ProficiencyModifier } from "@module/modifiers";
 import { ActorSheetPF2e } from "../sheet/base";
-import { LocalizePF2e } from "@module/system/localize";
 import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, objectHasKey } from "@util";
-import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
+import { ErrorPF2e } from "@util";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
@@ -23,39 +20,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
     override getData(options?: ActorSheetOptions) {
         const sheetData: any = super.getData(options);
-        // Update martial-proficiency labels
-        if (sheetData.data.martial) {
-            const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
-            for (const [key, proficiency] of proficiencies) {
-                const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
-                const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
-                const label = ((): string => {
-                    if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
-                        return CONFIG.PF2E.martialSkills[key];
-                    }
-                    if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
-                        return CONFIG.PF2E.weaponCategories[key];
-                    }
-                    if (Array.isArray(groupMatch)) {
-                        const weaponGroup = groupMatch[1] as WeaponGroup;
-                        return CONFIG.PF2E.weaponGroups[weaponGroup];
-                    }
-                    if (Array.isArray(baseWeaponMatch)) {
-                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
-                        return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
-                    }
-                    return key;
-                })();
-
-                proficiency.icon = this.getProficiencyIcon(proficiency.rank);
-                proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
-                proficiency.label = game.i18n.localize(label);
-                proficiency.value = ProficiencyModifier.fromLevelAndRank(
-                    sheetData.data.details.level.value,
-                    proficiency.rank || 0
-                ).modifier;
-            }
-        }
 
         // Update save labels
         if (sheetData.data.saves) {

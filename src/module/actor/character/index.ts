@@ -22,11 +22,10 @@ import {
     CharacterSaves,
     CharacterStrike,
     CharacterSystemData,
-    CombatProficiencies,
-    CombatProficiencyKey,
+    MartialProficiencies,
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
-    LinkedProficiency,
+    MartialProficiency,
 } from "./data";
 import {
     MultipleAttackPenaltyPF2e,
@@ -59,8 +58,6 @@ import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 
 export class CharacterPF2e extends CreaturePF2e {
-    proficiencies!: Record<string, { name: string; rank: ZeroToFour } | undefined>;
-
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -266,7 +263,7 @@ export class CharacterPF2e extends CreaturePF2e {
         this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
 
         // Weapon and Armor category proficiencies
-        const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
+        const martial: DeepPartial<MartialProficiencies> = this.data.data.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiency> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
@@ -394,26 +391,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         this.prepareSaves(synthetics);
 
-        // Attack and defense proficiencies
-        const combatProficiencies = Object.values(systemData.martial);
-        for (const proficiency of combatProficiencies) {
-            if ("predicate" in proficiency) continue;
-            const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
-            proficiency.value = proficiencyBonus.modifier;
-            const sign = proficiencyBonus.modifier < 0 ? "" : "+";
-            proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
-        }
-
-        const linkedProficiencies = combatProficiencies.filter((p): p is LinkedProficiency => "predicate" in p);
-        for (const proficiency of linkedProficiencies) {
-            const category = systemData.martial[proficiency.sameAs];
-            proficiency.rank = ((): ZeroToFour => {
-                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                return Math.min(category.rank, maxRankIndex) as ZeroToFour;
-            })();
-            proficiency.value = category.value;
-            proficiency.breakdown = category.breakdown;
-        }
+        this.prepareMartialProficiencies(synthetics.martialProficiencies);
 
         // Perception
         {
@@ -712,70 +690,6 @@ export class CharacterPF2e extends CreaturePF2e {
         // Automatic Actions
         systemData.actions = [];
 
-        // Strikes
-        type ProficienciesBrief = Record<string, { rank: ZeroToFour; name: string }>;
-        // Collect offensive combat proficiencies
-        const getProficiencies = (
-            translationMap: Record<string, string>,
-            combatProficiencies: CombatProficiencies,
-            prefix: string
-        ): ProficienciesBrief => {
-            const keys = Object.keys(combatProficiencies) as CombatProficiencyKey[];
-            return keys
-                .filter((key) => key.startsWith(prefix) && key.replace(prefix, "") in translationMap)
-                .map((key) => ({ key, data: combatProficiencies[key] }))
-                .reduce((accumulated: ProficienciesBrief, proficiency) => {
-                    if (proficiency.data?.rank === undefined) {
-                        return accumulated;
-                    }
-                    return {
-                        ...accumulated,
-                        [proficiency.key]: {
-                            rank: proficiency.data.rank,
-                            name: game.i18n.localize(translationMap[proficiency.key.replace(prefix, "")]),
-                        },
-                    };
-                }, {});
-        };
-        const weaponMap = LocalizePF2e.translations.PF2E.Weapon.Base;
-        const weaponProficiencies = getProficiencies(weaponMap, systemData.martial, "weapon-base-");
-        const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, systemData.martial, "weapon-group-");
-
-        // Add any homebrew categories
-        const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
-        const homebrewProficiencies = homebrewCategoryTags.reduce(
-            (categories: Partial<Record<WeaponCategory, { name: string; rank: ZeroToFour }>>, category) =>
-                mergeObject(categories, {
-                    [category.id]: {
-                        name: category.value,
-                        rank: systemData.martial[category.id]?.rank ?? 0,
-                    },
-                }),
-            {}
-        );
-
-        this.proficiencies = {
-            simple: {
-                name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
-                rank: systemData.martial.simple.rank ?? 0,
-            },
-            martial: {
-                name: game.i18n.localize(CONFIG.PF2E.martialSkills.martial),
-                rank: systemData.martial.martial.rank ?? 0,
-            },
-            advanced: {
-                name: game.i18n.localize(CONFIG.PF2E.martialSkills.advanced),
-                rank: systemData.martial.advanced.rank ?? 0,
-            },
-            unarmed: {
-                name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
-                rank: systemData.martial.unarmed.rank ?? 0,
-            },
-            ...homebrewProficiencies,
-            ...weaponProficiencies,
-            ...groupProficiencies,
-        };
-
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
@@ -815,6 +729,7 @@ export class CharacterPF2e extends CreaturePF2e {
         synthetics.strikes.unshift(unarmed);
 
         const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
+        const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
         const weapons = [itemTypes.weapon, strikes].flat().filter((weapon) => weapon.quantity > 0);
         systemData.actions = weapons.map((weapon) =>
@@ -1007,18 +922,18 @@ export class CharacterPF2e extends CreaturePF2e {
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
         const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
-        const groupRank = this.proficiencies[`weapon-group-${weapon.group}`]?.rank ?? 0;
+        const groupRank = systemData.martial[`weapon-group-${weapon.group}`]?.rank ?? 0;
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        const baseWeaponRank = this.proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-        const linkedRank = ((): number => {
-            const linkedProficiency = Object.values(systemData.martial)
-                .filter((p): p is LinkedProficiency => "sameAs" in p)
-                .find((proficiency) => proficiency.predicate.test(weaponRollOptions));
-            return linkedProficiency?.rank ?? 0;
+        const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+        const syntheticRank = ((): number => {
+            const synthetic = Object.values(systemData.martial)
+                .filter((p): p is MartialProficiency => "definition" in p)
+                .find((proficiency) => proficiency.definition.test(weaponRollOptions));
+            return synthetic?.rank ?? 0;
         })();
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, linkedRank);
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, syntheticRank);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
         const defaultOptions = this.getRollOptions(["all", "attack-roll"])
@@ -1298,6 +1213,31 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
+    }
+
+    /** Prepare stored and synthetic martial proficiencies */
+    prepareMartialProficiencies(syntheticProficiencies: Record<string, MartialProficiency>): void {
+        const systemData = this.data.data;
+        for (const [slug, proficiency] of Object.entries(deepClone(syntheticProficiencies))) {
+            if (proficiency.sameAs) {
+                // A linked proficiency
+                const category = systemData.martial[proficiency.sameAs ?? ""];
+                proficiency.rank = ((): ZeroToFour => {
+                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                    return Math.min(category.rank, maxRankIndex) as ZeroToFour;
+                })();
+            }
+            systemData.martial[slug] = proficiency;
+        }
+
+        // Set proficiency bonuses to all
+        const allProficiencies = Object.values(systemData.martial);
+        for (const proficiency of allProficiencies) {
+            const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
+            proficiency.value = proficiencyBonus.modifier;
+            const sign = proficiencyBonus.modifier < 0 ? "" : "+";
+            proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
+        }
     }
 
     /** Toggle the invested state of an owned magical item */
