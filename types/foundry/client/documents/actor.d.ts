@@ -122,13 +122,13 @@ declare global {
 
         protected override _preCreate(
             data: PreDocumentId<this["data"]["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             user: User
         ): Promise<void>;
 
         protected override _onUpdate(
             changed: DeepPartial<this["data"]["_source"]>,
-            options: DocumentModificationContext,
+            options: DocumentUpdateContext<this>,
             userId: string
         ): void;
 

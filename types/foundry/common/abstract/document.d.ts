@@ -442,7 +442,7 @@ declare global {
                  */
                 protected _preUpdate(
                     changed: DeepPartial<this["data"]["_source"]>,
-                    options: DocumentModificationContext<this>,
+                    options: DocumentUpdateContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
 
@@ -452,7 +452,10 @@ declare global {
                  * @param options Additional options which modify the deletion request
                  * @param user    The User requesting the document deletion
                  */
-                protected _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
+                protected _preDelete(
+                    options: DocumentModificationContext<this>,
+                    user: documents.BaseUser
+                ): Promise<void>;
 
                 /**
                  * Perform follow-up operations after a Document of this type is created.
@@ -462,7 +465,7 @@ declare global {
                  */
                 protected _onCreate(
                     data: this["data"]["_source"],
-                    options: DocumentModificationContext,
+                    options: DocumentModificationContext<this>,
                     userId: string
                 ): void;
 
@@ -475,7 +478,7 @@ declare global {
                  */
                 protected _onUpdate(
                     changed: DeepPartial<this["data"]["_source"]>,
-                    options: DocumentModificationContext,
+                    options: DocumentUpdateContext<this>,
                     userId: string
                 ): void;
 
@@ -485,7 +488,7 @@ declare global {
                  * @param options Additional options which modify the deletion request
                  * @param userId The ID of the User requesting the document deletion
                  */
-                protected _onDelete(options: DocumentModificationContext, userId: string): void;
+                protected _onDelete(options: DocumentModificationContext<this>, userId: string): void;
 
                 /**
                  * Perform follow-up operations when a set of Documents of this type are created.
@@ -599,6 +602,11 @@ declare global {
         /** Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation. */
         deleteAll?: boolean;
     }
+
+    type DocumentUpdateContext<T extends foundry.abstract.Document> = Omit<
+        DocumentModificationContext<T>,
+        "deleteAll" | "index" | "keepId" | "keepEmbeddedIds" | "temporary"
+    >;
 
     type Embedded<T extends foundry.abstract.Document> = T & {
         readonly parent: NonNullable<T["parent"]>;

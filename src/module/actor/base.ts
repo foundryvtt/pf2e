@@ -982,7 +982,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Show floaty text when applying damage or healing */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         const changedHP = changed.data?.attributes?.hp;
@@ -990,16 +990,26 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.data?.details && "level" in changed.data.details;
-            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
-            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
-                const tokens = super.getActiveTokens();
-                for (const token of tokens) {
-                    token.showFloatyText(hpChange);
-                }
-            }
+            if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
         }
 
         await super._preUpdate(changed, options, user);
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ActorUpdateContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        const hideFromUser =
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretDamage");
+        if (options.damageTaken && !hideFromUser) {
+            const tokens = super.getActiveTokens();
+            for (const token of tokens) {
+                token.showFloatyText(options.damageTaken);
+            }
+        }
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1079,6 +1089,10 @@ export interface HitPointsSummary {
     max: number;
     temp: number;
     negativeHealing: boolean;
+}
+
+export interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<T> {
+    damageTaken?: number;
 }
 
 export { ActorPF2e };

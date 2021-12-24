@@ -20,6 +20,7 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
+import { ActorUpdateContext } from "@actor/base";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -907,7 +908,7 @@ export class NPCPF2e extends CreaturePF2e {
 
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: ActorUpdateContext<this>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
