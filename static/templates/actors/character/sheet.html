@@ -42,67 +42,47 @@
     <!-- SHEET NAVIGATION -->
     <nav class="sheet-navigation" data-group="primary">
         <span class="navigation-title">{{localize "PF2E.TabCharacterLabel"}}</span>
-        {{#unless actor.flags.pf2e.hiddenTabs.characterTab}}
-        <a class="item" data-tab="character" data-tab-title="{{localize 'PF2E.TabCharacterLabel'}}">
+        <a class="item{{#unless tabVisibility.character}} hidden{{/unless}}" data-tab="character" data-tab-title="{{localize "PF2E.TabCharacterLabel"}}">
             <i class="fas fa-address-card"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.actionsTab}}
-        <a class="item" data-tab="actions" data-tab-title="{{localize 'PF2E.TabActionsLabel'}}">
+        <a class="item{{#unless tabVisibility.actions}} hidden{{/unless}}" data-tab="actions" data-tab-title="{{localize "PF2E.TabActionsLabel"}}">
             <span class="activity-icon" style="font-size: 23px;">A</span>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.inventoryTab}}
-        <a class="item" data-tab="inventory" data-tab-title="{{localize 'PF2E.TabInventoryLabel'}}">
+        <a class="item{{#unless tabVisibility.inventory}} hidden{{/unless}}" data-tab="inventory" data-tab-title="{{localize "PF2E.TabInventoryLabel"}}">
             <i class="fas fa-box-open"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.spellsTab}}
-        <a class="item" data-tab="spellbook" data-tab-title="{{localize 'PF2E.TabSpellbookLabel'}}">
+        <a class="item{{#unless tabVisibility.spellcasting}} hidden{{/unless}}" data-tab="spellcasting" data-tab-title="{{localize "PF2E.TabSpellbookLabel"}}">
             <i class="fas fa-magic"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.craftingTab}}
-        <a class="item" data-tab="crafting" data-tab-title="{{localize 'PF2E.TabCraftingLabel'}}">
+        <a class="item{{#unless tabVisibility.crafting}} hidden{{/unless}}" data-tab="crafting" data-tab-title="{{localize "PF2E.TabCraftingLabel"}}">
             <i class="fas fa-hammer"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.proficienciesTab}}
-        <a class="item" data-tab="skills" data-tab-title="{{localize 'PF2E.TabSkillsLabel'}}">
+        <a class="item{{#unless tabVisibility.proficiencies}} hidden{{/unless}}" data-tab="proficiencies" data-tab-title="{{localize "PF2E.TabSkillsLabel"}}">
             <i class="fas fa-hand-paper"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.featsTab}}
-        <a class="item" data-tab="feats" data-tab-title="{{localize "PF2E.TabFeatsLabel"}}">
+        <a class="item{{#unless tabVisibility.feats}} hidden{{/unless}}" data-tab="feats" data-tab-title="{{localize "PF2E.TabFeatsLabel"}}">
             <i class="fas fa-medal"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.effectsTab}}
-        <a class="item" data-tab="effects" data-tab-title="{{localize 'PF2E.TabEffectsLabel'}}">
+        <a class="item{{#unless tabVisibility.effects}} hidden{{/unless}}" data-tab="effects" data-tab-title="{{localize "PF2E.TabEffectsLabel"}}">
             <i class="fas fa-star"></i>
         </a>
-        {{/unless}}
 
-        {{#unless actor.flags.pf2e.hiddenTabs.biographyTab}}
-        <a class="item" data-tab="biography" data-tab-title="{{localize 'PF2E.Biography'}}">
+        <a class="item{{#unless tabVisibility.biography}} hidden{{/unless}}" data-tab="biography" data-tab-title="{{localize "PF2E.Biography"}}">
             <i class="fas fa-book-reader"></i>
         </a>
-        {{/unless}}
 
-        {{#if showPFSTab}}
-            <a class="item" data-tab="pfs" data-tab-title="{{localize 'PF2E.TabPathfinderSociety'}}">
-                <img class="pfs-icon" alt="Pathfinder Society">
-            </a>
-        {{/if}}
+        <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" data-tab-title="{{localize "PF2E.TabPathfinderSociety"}}">
+            <img class="pfs-icon" alt="Pathfinder Society">
+        </a>
 
-        <a class="item hide-tabs" data-tab-title="{{localize 'PF2E.TabManageTabsLabel'}}">
+        <a class="item manage-tabs" data-action="manage-tabs" data-tab-title="{{localize "PF2E.TabManageTabsLabel"}}">
             <i class="fas fa-ellipsis-v"></i>
         </a>
     </nav>
