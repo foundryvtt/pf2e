@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import { ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import {
@@ -7,6 +7,7 @@ import {
     RuleElementData,
     RuleElementSource,
 } from "@module/rules/rules-data-definitions";
+import { sluggify } from "@util";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>) {
@@ -46,9 +47,12 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource._id = randomID();
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
-        if (["class", "feat"].includes(grantedItem.type)) {
-            const rollOption = grantedItem.getItemRollOptions()[0]; // "class:[slug]" or "feat(ure):[slug]"
-            this.actor.rollOptions.all[`self:${rollOption}`] = true;
+        for (const item of [this.item, grantedItem]) {
+            if (item instanceof ClassPF2e || item instanceof FeatPF2e) {
+                const prefix = item instanceof ClassPF2e || !item.isFeature ? item.type : "feature";
+                const slug = item.slug ?? sluggify(item.name);
+                this.actor.rollOptions.all[`self:${prefix}:${slug}`] = true;
+            }
         }
 
         // If the granted item is replacing the granting item, swap it out and return early
