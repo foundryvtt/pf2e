@@ -8,11 +8,8 @@ export class FeatPF2e extends ItemPF2e {
         return FeatData;
     }
 
-    get featType(): { value: FeatType; label: string } {
-        return {
-            value: this.data.data.featType.value,
-            label: game.i18n.localize(CONFIG.PF2E.featTypes[this.data.data.featType.value]),
-        };
+    get featType(): FeatType {
+        return this.data.data.featType.value;
     }
 
     get level(): number {
@@ -33,6 +30,10 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
+    get isFeature(): boolean {
+        return ["classfeature", "ancestryfeature"].includes(this.featType);
+    }
+
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const properties = [
@@ -45,8 +46,7 @@ export class FeatPF2e extends ItemPF2e {
 
     /** Generate a list of strings for use in predication */
     override getItemRollOptions(prefix = "feat"): string[] {
-        prefix =
-            prefix === "feat" && ["classfeature", "ancestryfeature"].includes(this.featType.value) ? "feature" : prefix;
+        prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
         return super.getItemRollOptions(prefix);
     }
 
