@@ -75,7 +75,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     get heritage(): Embedded<FeatPF2e> | null {
-        return this.itemTypes.feat.find((feat) => feat.featType.value === "heritage") ?? null;
+        return this.itemTypes.feat.find((feat) => feat.featType === "heritage") ?? null;
     }
 
     get keyAbility(): AbilityString {
@@ -112,9 +112,9 @@ export class CharacterPF2e extends CreaturePF2e {
         // Feats and features
         const featTypes = new Set(["ancestry", "archetype", "class", "general", "skill"]);
         for (const feat of itemTypes.feat) {
-            if (["ancestryfeature", "classfeature"].includes(feat.featType.value)) {
+            if (feat.isFeature) {
                 options.add(`${prefix}:feature:${feat.slug ?? sluggify(feat.name)}`);
-            } else if (featTypes.has(feat.featType.value)) {
+            } else if (featTypes.has(feat.featType)) {
                 options.add(`${prefix}:feat:${feat.slug ?? sluggify(feat.name)}`);
             }
         }

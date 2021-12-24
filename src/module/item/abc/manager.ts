@@ -55,7 +55,7 @@ export class AncestryBackgroundClassManager {
         const actorClass = actor.class;
         if (!actorClass) return;
 
-        const current = actor.itemTypes.feat.filter((feat) => feat.featType.value === "classfeature");
+        const current = actor.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
         if (newLevel > actor.level) {
             const classFeaturesToCreate = (
                 await this.getClassFeaturesForLevel(actorClass, actor.level, newLevel)
@@ -159,7 +159,7 @@ export class AncestryBackgroundClassManager {
             // For class features, set the level to the one prescribed in the class item
             for (const feature of features) {
                 const entry = entries.find((e) => e.id === feature.id);
-                if (entry && feature.featType.value === "classfeature") {
+                if (entry && feature.featType === "classfeature") {
                     feature.data._source.data.level.value = entry.level;
                     feature.prepareData();
                 }
