@@ -16,7 +16,7 @@ import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { ConditionType } from "@item/condition/data";
-import { MigrationRunner, Migrations } from "@module/migration";
+import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
@@ -934,7 +934,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         await MigrationRunner.ensureSchemaVersion(
             this,
-            Migrations.constructFromVersion(this.schemaVersion ?? undefined),
+            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
             { preCreate: false }
         );
 
@@ -975,7 +975,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
     }
 
