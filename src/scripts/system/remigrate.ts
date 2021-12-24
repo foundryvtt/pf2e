@@ -1,5 +1,5 @@
 import { MigrationRunner } from "@module/migration/runner";
-import { Migrations } from "@module/migration";
+import { MigrationList } from "@module/migration";
 import { LocalizePF2e } from "@module/system/localize";
 
 /** For use in worlds to rerun select migrations */
@@ -14,7 +14,7 @@ export async function remigrate(schemaVersions: number | { from: number; to?: nu
         return;
     }
     const range = typeof schemaVersions === "number" ? { from: schemaVersions, to: schemaVersions } : schemaVersions;
-    const migrations = Migrations.constructRange(range.from, range.to);
+    const migrations = MigrationList.constructRange(range.from, range.to);
     if (migrations.length === 0 || range.from < MigrationRunner.RECOMMENDED_SAFE_VERSION) {
         ui.notifications.error(
             game.i18n.format(translations.OutsideSchemaRange, {

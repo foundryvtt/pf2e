@@ -28,6 +28,7 @@ import { Migration701ModifierNameToSlug } from "@module/migration/migrations/701
 import { Migration702REFormulasAtInstanceLevel } from "@module/migration/migrations/702-re-formulas-at-instance-level";
 import { Migration703FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/703-formulas-at-instance-level-everything-else";
 import { Migration704MartialProficiencyRE } from "@module/migration/migrations/704-martial-proficiency-re";
+import { Migration705GunslingerCatchUp } from "@module/migration/migrations/705-gunslinger-catch-up";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration702REFormulasAtInstanceLevel(),
     new Migration703FormulasAtInstanceLevelEverythingElse(),
     new Migration704MartialProficiencyRE(),
+    new Migration705GunslingerCatchUp(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

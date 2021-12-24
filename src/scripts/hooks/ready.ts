@@ -2,7 +2,7 @@ import { activateSocketListener } from "@scripts/socket";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { MigrationRunner } from "@module/migration/runner";
-import { Migrations } from "@module/migration";
+import { MigrationList } from "@module/migration";
 import { ActionsPF2e } from "@system/actions/actions";
 import { setWorldSchemaVersion } from "@module/migration/set-world-schema-version";
 import { WorldClock } from "@module/apps/world-clock";
@@ -32,7 +32,7 @@ export const Ready = {
                 // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
                 if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
                     // Perform the migration
-                    const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
+                    const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));
                     if (migrationRunner.needsMigration()) {
                         if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                             ui.notifications.error(
