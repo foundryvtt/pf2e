@@ -48,7 +48,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
 
-    protected override async _updateObject(event: Event, formData: any): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // update shield hp
         const heldShield = this.actor.heldShield;
         if (heldShield) {
@@ -181,7 +181,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
         const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
-            .filter((entries): entries is [string, CharacterProficiency] => !(entries[1] && "sameAs" in entries[1]))
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
                     ? -1
