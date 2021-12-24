@@ -45,7 +45,8 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number> {
     }
 
     protected override getChoices(): PromptChoice<string | number>[] {
-        return this.choices;
+        const rollOptions = this.actor.getRollOptions(["all"]);
+        return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 
     protected getSelection(event: JQuery.ClickEvent): PromptChoice<string | number> | null {
