@@ -33,7 +33,10 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
             // Hide names in the tracker of combatants with tokens that have unviewable nameplates
             if (tokenSetsNameVisibility) {
                 const nameElement = row.querySelector<HTMLHRElement>(".token-name h4");
-                if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) nameElement.innerText = "";
+                if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) {
+                    nameElement.innerText = "";
+                    row.querySelector<HTMLImageElement>("img.token-image")?.removeAttribute("title");
+                }
 
                 if (game.user.isGM && !combatant.actor?.hasPlayerOwner) {
                     const toggleNameVisibility = document.createElement("a");
