@@ -182,6 +182,7 @@ abstract class RuleElementPF2e {
         { evaluate = true } = {}
     ): any {
         let value: RuleValue = valueData ?? defaultValue ?? null;
+        if (typeof value === "string") value = this.resolveInjectedProperties(value);
 
         if (this.isBracketedValue(valueData)) {
             const bracketNumber = ((): number => {

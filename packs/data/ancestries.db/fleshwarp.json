@@ -58,7 +58,30 @@
             ]
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": "sm"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": "med"
+                    }
+                ],
+                "flag": "fleshwarpSize",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.FleshwarpSize.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.traits.size.value",
+                "value": "{item|flags.pf2e.rulesSelections.fleshwarpSize}"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
