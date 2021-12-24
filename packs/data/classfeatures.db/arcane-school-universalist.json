@@ -25,10 +25,21 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": {
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.prerequisites.value\":[],\"data.traits.value\":{\"$elemMatch\":\"wizard\"}}"
+                },
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.arcaneSchoolUniversalist}"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.resources.focus.max",
-                "priority": 10,
+                "priority": 9,
                 "value": 1
             }
         ],
