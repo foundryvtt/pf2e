@@ -45,6 +45,12 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
+        // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
+        if (["class", "feat"].includes(grantedItem.type)) {
+            const rollOption = grantedItem.getItemRollOptions()[0]; // "class:[slug]" or "feat(ure):[slug]"
+            this.actor.rollOptions.all[`self:${rollOption}`] = true;
+        }
+
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
