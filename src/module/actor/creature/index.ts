@@ -320,6 +320,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const actorData = this.data;
         const synthetics: RuleElementSynthetics = {
             damageDice: {},
+            martialProficiencies: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],

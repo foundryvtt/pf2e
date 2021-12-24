@@ -32,7 +32,7 @@ import { EffectTargetRuleElement } from "./elements/effect-target/rule-element";
 import { CraftingFormulaRuleElement } from "@module/rules/elements/crafting/crafting-formula";
 import { CraftingEntryRuleElement } from "./elements/crafting/crafting-entry";
 import { ChoiceSetRuleElement } from "./elements/choice-set/rule-element";
-import { LinkedProficiencyRuleElement } from "./elements/linked-proficiency";
+import { MartialProficiencyRuleElement } from "./elements/martial-proficiency";
 import { GrantItemRuleElement } from "./elements/grant-item";
 
 /**
@@ -56,7 +56,7 @@ export class RuleElements {
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,
         Immunity: ImmunityRuleElement,
-        LinkedProficiency: LinkedProficiencyRuleElement,
+        MartialProficiency: MartialProficiencyRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
         MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
