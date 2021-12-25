@@ -1693,6 +1693,7 @@ export const PF2ECONFIG = {
         mechanical: "PF2E.TraitMechanical",
         steam: "PF2E.TraitSteam",
         summoned: "PF2E.TraitSummoned",
+        technological: "PF2E.TraitTechnological",
         teleportation: "PF2E.TraitTeleportation",
         trap: "PF2E.TraitTrap",
         virulent: "PF2E.TraitVirulent",
