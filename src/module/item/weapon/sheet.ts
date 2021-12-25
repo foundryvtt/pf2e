@@ -79,6 +79,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const preciousMaterials: Partial<MaterialSheetData> = deepClone(MATERIAL_VALUATION_DATA);
         delete preciousMaterials[""];
         delete preciousMaterials["dragonhide"];
+        delete preciousMaterials["grisantian-pelt"];
         for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
             const materialData = preciousMaterials[materialKey];
             if (materialData) {
