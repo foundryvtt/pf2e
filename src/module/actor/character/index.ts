@@ -26,6 +26,7 @@ import {
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
     MartialProficiency,
+    CharacterSheetTabVisibility,
 } from "./data";
 import {
     MultipleAttackPenaltyPF2e,
@@ -56,6 +57,7 @@ import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
+import { CHARACTER_SHEET_TABS } from "./data/values";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -193,7 +195,18 @@ export class CharacterPF2e extends CreaturePF2e {
         const systemData: DeepPartial<CharacterSystemData> = this.data.data;
 
         // Flags
-        this.data.flags.pf2e.freeCrafting ??= false;
+        const { flags } = this.data;
+        flags.pf2e.freeCrafting ??= false;
+        flags.pf2e.sheetTabs = mergeObject(
+            CHARACTER_SHEET_TABS.reduce(
+                (tabs, tab) => ({
+                    ...tabs,
+                    [tab]: true,
+                }),
+                {} as CharacterSheetTabVisibility
+            ),
+            flags.pf2e.sheetTabs ?? {}
+        );
 
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
