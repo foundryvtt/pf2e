@@ -979,6 +979,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     darkwood: "PF2E.PreciousMaterialDarkwood",
     dragonhide: "PF2E.PreciousMaterialDragonhide",
     mithral: "PF2E.PreciousMaterialMithral",
+    "grisantian-pelt": "PF2E.PreciousMaterialGrisantianPelt",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
     silver: "PF2E.PreciousMaterialSilver",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",

@@ -35,6 +35,7 @@ export const PRECIOUS_MATERIAL_TYPES = [
     "coldIron",
     "darkwood",
     "dragonhide",
+    "grisantian-pelt",
     "mithral",
     "orichalcum",
     "silver",
