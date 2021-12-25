@@ -240,8 +240,8 @@
                             }
 
                             .add-modifier-submit {
-                                grid-area: btn;
                                 @include micro;
+                                grid-area: btn;
                                 white-space: nowrap;
                                 line-height: 1.5;
                                 background-color: black;
@@ -258,6 +258,24 @@
                         }
                         .label {
                             text-decoration: line-through;
+                        }
+                    }
+                }
+
+                &.manage-tabs {
+                    ul {
+                        li {
+                            display: flex;
+
+                            label {
+                                color: var(--tertiary);
+                                flex-basis: 100%;
+                            }
+
+                            input {
+                                display: flex;
+                                min-width: 2em;
+                            }
                         }
                     }
                 }

@@ -23,8 +23,8 @@ import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { ManageTabsPopup } from "@actor/sheet/popups/manage-tabs-popup";
 import { LocalizePF2e } from "@system/localize";
+import { PCSheetTabManager } from "./tab-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -155,8 +155,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
             this.actor.itemTypes.condition
         );
-        // Show the PFS tab only if the setting for it is enabled.
-        sheetData.showPFSTab = game.settings.get("pf2e", "pfsSheetTab");
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
@@ -202,6 +200,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
         sheetData.adjustedBonusLimitBulk =
             this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
+
+        sheetData.tabVisibility = deepClone(this.actor.data.flags.pf2e.sheetTabs);
 
         // Return data for rendering
         return sheetData;
@@ -800,8 +800,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         html.find(".hover").tooltipster({
-            animation: "fade",
-            delay: 200,
             trigger: "click",
             arrow: false,
             contentAsHTML: true,
@@ -943,12 +941,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
-        html.find(".hide-tabs").on("click", (event) => this.onHideTabsPopup(event));
-    }
-
-    private onHideTabsPopup(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        new ManageTabsPopup(this.actor, {}).render(true);
+        PCSheetTabManager.initialize(this.actor, html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
     }
 
     /** Handle changing of proficiency-rank via dropdown */

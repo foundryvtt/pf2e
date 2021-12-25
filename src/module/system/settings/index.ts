@@ -70,22 +70,6 @@ export function registerSettings() {
         },
     });
 
-    game.settings.register("pf2e", "pfsSheetTab", {
-        name: "PF2E.SETTINGS.PFSSheetTab.Name",
-        hint: "PF2E.SETTINGS.PFSSheetTab.Hint",
-        scope: "world",
-        config: true,
-        default: true,
-        type: Boolean,
-        onChange: () => {
-            const actors = game.actors.filter((actor) => actor.type === "character");
-            const sheets = actors.flatMap((actor) => Object.values(actor.apps));
-            for (const sheet of sheets) {
-                sheet.render();
-            }
-        },
-    });
-
     game.settings.register("pf2e", "journalEntryTheme", {
         name: "PF2E.SETTINGS.JournalEntryTheme.Name",
         hint: "PF2E.SETTINGS.JournalEntryTheme.Hint",

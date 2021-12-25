@@ -69,4 +69,27 @@
     }
 }
 
-@import "character", "actions", "effects", "spellbook", "skills", "feats", "bio", "inventory", "pfs", "crafting";
+nav.sheet-navigation {
+    a.item {
+        &.to-hide {
+            opacity: 45%;
+        }
+        &.hidden {
+            display: none;
+        }
+
+        &.manage-tabs {
+            color: white;
+            background: none;
+            box-shadow: none;
+            width: 0.8em;
+
+            &:hover {
+                margin-left: 6px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+@import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "bio", "inventory", "pfs", "crafting";
