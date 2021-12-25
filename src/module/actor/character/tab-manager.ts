@@ -20,7 +20,6 @@ export class PCSheetTabManager {
     }
 
     static initialize(actor: CharacterPF2e, link: HTMLAnchorElement): void {
-        console.debug(link);
         new this(actor, link);
     }
 
@@ -73,7 +72,6 @@ export class PCSheetTabManager {
 
     /** Hide all tab buttons selected requested be hidden */
     private onClose(): void {
-        console.debug(this.link);
         const tabs = Array.from(this.link.closest("nav")?.querySelectorAll("a.item[data-tab]") ?? []);
         for (const tab of tabs) {
             if (tab.classList.contains("to-hide")) {
