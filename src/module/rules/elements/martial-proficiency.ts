@@ -38,6 +38,16 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
         // If an AE-like has created this proficiency already by upgrading its rank, get the existing rank
         const existingProficiencies = this.actor.data.data.martial;
 
+        // Run the definition through resolveInjectedProperties
+        for (const quantifier of ["all", "any", "not"] as const) {
+            const statements = (this.data.definition[quantifier] ??= []);
+            for (const statement of statements) {
+                if (typeof statement === "string") {
+                    statements[statements.indexOf(statement)] = this.resolveInjectedProperties(statement);
+                }
+            }
+        }
+
         const newProficiency: MartialProficiency = (martialProficiencies[this.data.slug] = {
             definition: new PredicatePF2e(this.data.definition),
             immutable: this.data.immutable ?? true,

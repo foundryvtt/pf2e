@@ -939,14 +939,12 @@ export class CharacterPF2e extends CreaturePF2e {
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-        const syntheticRank = ((): number => {
-            const synthetic = Object.values(systemData.martial)
-                .filter((p): p is MartialProficiency => "definition" in p)
-                .find((proficiency) => proficiency.definition.test(weaponRollOptions));
-            return synthetic?.rank ?? 0;
-        })();
+        const syntheticRanks = Object.values(systemData.martial)
+            .filter((p): p is MartialProficiency => "definition" in p)
+            .filter((p) => p.definition.test(weaponRollOptions))
+            .map((p) => p.rank);
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, syntheticRank);
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
         const defaultOptions = this.getRollOptions(["all", "attack-roll"])
