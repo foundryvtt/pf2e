@@ -112,6 +112,7 @@ export class MigrationList {
         Migrations.Migration703FormulasAtInstanceLevelEverythingElse,
         Migrations.Migration704MartialProficiencyRE,
         Migrations.Migration705GunslingerCatchUp,
+        Migrations.Migration706SpellDamageStructure,
     ];
 
     static get latestVersion(): number {
