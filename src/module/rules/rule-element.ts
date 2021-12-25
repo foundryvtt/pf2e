@@ -72,7 +72,7 @@ abstract class RuleElementPF2e {
             priority: 100,
             ...data,
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
-            label: game.i18n.localize(data.label ?? item.name),
+            label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
             ignored: data.ignored ?? false,
         };
     }
