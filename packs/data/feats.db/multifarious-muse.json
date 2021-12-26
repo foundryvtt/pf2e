@@ -22,7 +22,81 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "all": [
+                        "item:trait:bard",
+                        "item:level:1",
+                        "item:type:feature"
+                    ],
+                    "label": "level 1 Bard feature"
+                },
+                "choices": [
+                    {
+                        "label": "Enigma Muse",
+                        "img": "systems/pf2e/icons/features/classes/enigma.webp",
+                        "value": "enigma",
+                        "predicate": {
+                            "not": [
+                                "self:feature:enigma-muse"
+                            ]
+                        }
+                    },
+                    {
+                        "label": "Maestro Muse",
+                        "img": "systems/pf2e/icons/features/classes/maestro.webp",
+                        "value": "maestro",
+                        "predicate": {
+                            "not": [
+                                "self:feature:maestro-muse"
+                            ]
+                        }
+                    },
+                    {
+                        "label": "Polymath Muse",
+                        "img": "systems/pf2e/icons/features/classes/polymath.webp",
+                        "value": "polymath",
+                        "predicate": {
+                            "not": [
+                                "self:feature:polymath-muse"
+                            ]
+                        }
+                    },
+                    {
+                        "label": "Warrior Muse",
+                        "img": "systems/pf2e/icons/features/classes/warrior.webp",
+                        "value": "warrior",
+                        "predicate": {
+                            "not": [
+                                "self:feature:warrior-muse"
+                            ]
+                        }
+                    }
+                ],
+                "flag": "muse",
+                "key": "ChoiceSet",
+                "prompt": "Select a Muse."
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"bard\"},\"data.prerequisites.value\":{\"$elemMatch\":{\"value\":\"{item|flags.pf2e.rulesSelections.muse} muse\"}}}"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "Select a Feat."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:feature:{item|flags.pf2e.rulesSelections.muse}-muse"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
