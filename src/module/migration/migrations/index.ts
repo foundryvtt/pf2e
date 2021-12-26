@@ -106,3 +106,4 @@ export { Migration703FormulasAtInstanceLevelEverythingElse } from "./703-formula
 export { Migration704MartialProficiencyRE } from "./704-martial-proficiency-re";
 export { Migration705GunslingerCatchUp } from "./705-gunslinger-catch-up";
 export { Migration706SpellDamageStructure } from "./706-spell-damage-structure";
+export { Migration707BracketedFormulasAtInstanceLevel } from "./707-bracketed-formulas-at-instance-level";
