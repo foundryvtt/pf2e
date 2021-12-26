@@ -107,3 +107,4 @@ export { Migration704MartialProficiencyRE } from "./704-martial-proficiency-re";
 export { Migration705GunslingerCatchUp } from "./705-gunslinger-catch-up";
 export { Migration706FormulasAtInstanceLevelEverythingElse } from "./706-formulas-at-instance-level-everything-else";
 export { Migration707BracketedFormulasAtInstanceLevel } from "./707-bracketed-formulas-at-instance-level";
+export { Migration708SpecificRuleLabel } from "./708-specific-rule-label";
