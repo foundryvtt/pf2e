@@ -109,10 +109,10 @@ export class MigrationList {
         Migrations.Migration700SingleClassFeatures,
         Migrations.Migration701ModifierNameToSlug,
         Migrations.Migration702REFormulasAtInstanceLevel,
-        Migrations.Migration703FormulasAtInstanceLevelEverythingElse,
+        Migrations.Migration703SpellDamageStructure,
         Migrations.Migration704MartialProficiencyRE,
         Migrations.Migration705GunslingerCatchUp,
-        Migrations.Migration706SpellDamageStructure,
+        Migrations.Migration706FormulasAtInstanceLevelEverythingElse,
         Migrations.Migration707BracketedFormulasAtInstanceLevel,
     ];
 
