@@ -159,11 +159,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (conditions.includes(`${prefix}:condition:flat-footed`)) conditions.push(`${prefix}:flatFooted`);
 
         const traits = Array.from(this.traits);
+
+        const rollOptions = Object.entries(this.rollOptions.all)
+            .filter(([key, value]) => key.startsWith("self:") && value)
+            .map(([key]) => key.replace(/^self/, prefix));
+
         return new Set([
             ...traits.map((trait) => `${prefix}:${trait}`),
             ...traits.map((trait) => `${prefix}:trait:${trait}`),
             ...effects,
             ...conditions,
+            ...rollOptions,
         ]);
     }
 
