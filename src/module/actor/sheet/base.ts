@@ -315,10 +315,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
 
         // Spell Browser
-        html.find(".spell-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("spell"));
+        html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
 
         // Inventory Browser
-        html.find(".inventory-browse").on("click", (event) => this.onClickBrowseCompendia(event));
+        html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
 
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
@@ -610,10 +610,32 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    private onClickBrowseCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+    private onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>) {
         const filter = $(event.currentTarget).attr("data-filter") ?? null;
         console.debug(`Filtering on: ${filter}`);
         game.pf2e.compendiumBrowser.openTab("equipment", filter);
+    }
+
+    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const levelString = $(event.currentTarget).attr("data-level") ?? null;
+        const traditionString = $(event.currentTarget).attr("data-tradition") ?? null;
+        let filter = "";
+
+        if (levelString) {
+            const level = parseInt(levelString);
+            if (level === 0) {
+                filter = "category-cantrip";
+            } else {
+                filter = "level-".concat(level.toString());
+            }
+        }
+
+        if (traditionString) {
+            filter = filter.concat(",traditions-", traditionString);
+        }
+
+        console.debug(`Filtering on: ${filter}`);
+        game.pf2e.compendiumBrowser.openTab("spell", filter);
     }
 
     protected override _canDragStart(selector: string): boolean {
