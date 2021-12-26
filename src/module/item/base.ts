@@ -568,8 +568,9 @@ class ItemPF2e extends Item<ActorPF2e> {
                     await rule.preDelete?.({ pendingItems: items, context });
                 }
             }
-            ids = Array.from(new Set(items.map((i) => i.id)));
+            ids = Array.from(new Set(items.map((i) => i.id))).filter((id) => actor.items.has(id));
         }
+
         return super.deleteDocuments(ids, context) as Promise<InstanceType<T>[]>;
     }
 
