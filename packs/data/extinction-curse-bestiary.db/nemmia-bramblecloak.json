@@ -2709,7 +2709,23 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Use Staff Two-Handed",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "selector": "{item|_id}-damage",
+                        "traits": [
+                            "twoHanded"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2733,6 +2749,102 @@
             "name": "Staff",
             "sort": 2200000,
             "type": "melee"
+        },
+        {
+            "_id": "H5lFEWzr0REUektR",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2300000,
+            "type": "action"
+        },
+        {
+            "_id": "cKUzL3t8iW7J5EWm",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 2400000,
+            "type": "action"
         },
         {
             "_id": "j7QVtuN08hfCGEUq",
@@ -2814,7 +2926,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Keen Eyes",
-            "sort": 2300000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2858,7 +2970,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Reach Spell",
-            "sort": 2400000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2902,7 +3014,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wildwood Halfling",
-            "sort": 2500000,
+            "sort": 2700000,
             "type": "action"
         },
         {
@@ -2937,7 +3049,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2600000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2972,7 +3084,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Gozreh Lore",
-            "sort": 2700000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -3007,7 +3119,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2800000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -3042,7 +3154,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2900000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -3077,7 +3189,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3000000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -3112,7 +3224,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3100000,
+            "sort": 3300000,
             "type": "lore"
         }
     ],
