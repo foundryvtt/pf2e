@@ -102,7 +102,9 @@ export { Migration699ItemDescriptionEmptyString } from "./699-item-description-e
 export { Migration700SingleClassFeatures } from "./700-single-class-features";
 export { Migration701ModifierNameToSlug } from "./701-modifier-name-to-slug";
 export { Migration702REFormulasAtInstanceLevel } from "./702-re-formulas-at-instance-level";
-export { Migration703FormulasAtInstanceLevelEverythingElse } from "./703-formulas-at-instance-level-everything-else";
+export { Migration703SpellDamageStructure } from "./703-spell-damage-structure";
 export { Migration704MartialProficiencyRE } from "./704-martial-proficiency-re";
 export { Migration705GunslingerCatchUp } from "./705-gunslinger-catch-up";
-export { Migration706SpellDamageStructure } from "./706-spell-damage-structure";
+export { Migration706FormulasAtInstanceLevelEverythingElse } from "./706-formulas-at-instance-level-everything-else";
+export { Migration707BracketedFormulasAtInstanceLevel } from "./707-bracketed-formulas-at-instance-level";
+export { Migration708SpecificRuleLabel } from "./708-specific-rule-label";
