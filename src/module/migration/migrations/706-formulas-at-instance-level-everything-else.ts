@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { Migration702REFormulasAtInstanceLevel } from "./702-re-formulas-at-instance-level";
 
 /** Change RE formula data replacement to operate at actor and item instance levels */
-export class Migration703FormulasAtInstanceLevelEverythingElse extends Migration702REFormulasAtInstanceLevel {
-    static override version = 0.703;
+export class Migration706FormulasAtInstanceLevelEverythingElse extends Migration702REFormulasAtInstanceLevel {
+    static override version = 0.706;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.data.description.value) {

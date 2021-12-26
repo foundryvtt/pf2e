@@ -26,10 +26,10 @@ import { Migration699ItemDescriptionEmptyString } from "@module/migration/migrat
 import { Migration700SingleClassFeatures } from "@module/migration/migrations/700-single-class-features";
 import { Migration701ModifierNameToSlug } from "@module/migration/migrations/701-modifier-name-to-slug";
 import { Migration702REFormulasAtInstanceLevel } from "@module/migration/migrations/702-re-formulas-at-instance-level";
-import { Migration703FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/703-formulas-at-instance-level-everything-else";
+import { Migration703SpellDamageStructure } from "@module/migration/migrations/703-spell-damage-structure";
 import { Migration704MartialProficiencyRE } from "@module/migration/migrations/704-martial-proficiency-re";
 import { Migration705GunslingerCatchUp } from "@module/migration/migrations/705-gunslinger-catch-up";
-import { Migration706SpellDamageStructure } from "@module/migration/migrations/706-spell-damage-structure";
+import { Migration706FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/706-formulas-at-instance-level-everything-else";
 
 const migrations: MigrationBase[] = [
     new Migration680SetWeaponHands(),
@@ -52,10 +52,10 @@ const migrations: MigrationBase[] = [
     new Migration700SingleClassFeatures(),
     new Migration701ModifierNameToSlug(),
     new Migration702REFormulasAtInstanceLevel(),
-    new Migration703FormulasAtInstanceLevelEverythingElse(),
+    new Migration703SpellDamageStructure(),
     new Migration704MartialProficiencyRE(),
     new Migration705GunslingerCatchUp(),
-    new Migration706SpellDamageStructure(),
+    new Migration706FormulasAtInstanceLevelEverythingElse(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
