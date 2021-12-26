@@ -788,7 +788,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // Add and remove combat proficiencies
-            const $tab = html.find(".tab.skills");
+            const $tab = html.find(".tab.proficiencies");
             const $header = $tab.find("ol.combat-proficiencies");
             $header.find("a.add").on("click", (event) => {
                 ManageCombatProficiencies.add(this.actor, event);
