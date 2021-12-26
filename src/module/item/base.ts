@@ -173,7 +173,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     prepareRuleElements(this: Embedded<ItemPF2e>): RuleElementPF2e[] {
-        return (this.rules = this.actor.type === "loot" ? [] : RuleElements.fromOwnedItem(this));
+        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this) : []);
     }
 
     /* -------------------------------------------- */
