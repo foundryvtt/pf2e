@@ -8,8 +8,8 @@ export type CheckType = "skill-check" | "perception-check" | "saving-throw" | "f
 
 export interface StatisticCheckData {
     type: CheckType;
+    label: string;
     adjustments?: DegreeOfSuccessAdjustment[];
-    label?: string;
     modifiers?: ModifierPF2e[];
     penalties?: MultipleAttackPenaltyPF2e[];
     /** Additional domains for fetching actor roll options */
@@ -18,7 +18,6 @@ export interface StatisticCheckData {
 
 export interface StatisticDifficultyClassData {
     base?: number;
-    labelKey?: string;
     modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
@@ -30,7 +29,8 @@ export interface StatisticDifficultyClassData {
  * does not have to be.
  */
 export interface BaseStatisticData {
-    name: string;
+    /** An identifier such as "reflex" or "ac" or "deception" */
+    slug: string;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];
@@ -49,6 +49,7 @@ export interface StatisticChatData<T extends BaseStatisticData = StatisticData> 
     name: string;
     check: T["check"] extends object
         ? {
+              label: string;
               value: number;
               breakdown: string;
               map1: number;
@@ -61,4 +62,20 @@ export interface StatisticChatData<T extends BaseStatisticData = StatisticData> 
               breakdown: string;
           }
         : undefined;
+}
+
+export interface StatisticCompatData {
+    slug: string;
+    name: string;
+    totalModifier: number;
+    value: number;
+    breakdown: string;
+    _modifiers: {
+        slug: string;
+        label: string;
+        modifier: number;
+        type: string;
+        enabled: boolean;
+        custom: boolean;
+    }[];
 }

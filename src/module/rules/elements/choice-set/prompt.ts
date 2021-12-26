@@ -5,7 +5,7 @@ import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e } from "@util";
 
 /** Prompt the user for a selection among a set of options */
-export class ChoiceSetPrompt extends RulesElementPrompt<string> {
+export class ChoiceSetPrompt extends RulesElementPrompt<string | number> {
     /** Does this choice set contain UUIDs? If true, options are always buttons and an item-drop zone is added */
     private containsUUIDs: boolean;
 
@@ -44,13 +44,14 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string> {
         };
     }
 
-    protected override getChoices(): PromptChoice<string>[] {
-        return this.choices;
+    protected override getChoices(): PromptChoice<string | number>[] {
+        const rollOptions = this.actor.getRollOptions(["all"]);
+        return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 
-    protected getSelection(event: JQuery.ClickEvent): PromptChoice<string> | null {
+    protected getSelection(event: JQuery.ClickEvent): PromptChoice<string | number> | null {
         const selection = event.currentTarget.value;
-        return this.choices.find((choice) => choice.value === selection) ?? null;
+        return this.choices.find((choice) => choice.value === selection || choice.value === Number(selection)) ?? null;
     }
 
     override activateListeners($html: JQuery): void {
@@ -112,15 +113,15 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string> {
     }
 }
 
-interface ChoiceSetPromptData extends RulesElementPromptData<string> {
+interface ChoiceSetPromptData extends RulesElementPromptData<string | number> {
     prompt?: string;
-    choices?: PromptChoice<string>[];
+    choices?: PromptChoice<string | number>[];
     containsUUIDs: boolean;
     allowedDrops: PredicatePF2e;
 }
 
 interface ChoiceSetTemplateData {
     prompt: string;
-    choices: PromptChoice<string>[];
+    choices: PromptChoice<string | number>[];
     containsUUIDs: boolean;
 }

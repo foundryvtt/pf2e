@@ -22,6 +22,7 @@ import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
+import { StatisticCompatData } from "@system/statistic";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -122,7 +123,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 export type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
 
 /** The full save data for a character; including its modifiers and other details */
-export type SaveData = SkillData & { saveDetail?: string };
+export type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: string };
 
 type CreatureSaves = Record<SaveType, SaveData>;
 

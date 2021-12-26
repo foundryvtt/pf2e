@@ -59,7 +59,7 @@ export interface WeaponDamage {
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
-export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
+export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
     striking: StrikingRuneType | null;

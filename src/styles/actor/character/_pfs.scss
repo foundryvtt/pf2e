@@ -47,16 +47,19 @@
         &.toggle {
             width: 42px;
             height: 16px;
-            background: var(--secondary);
+            background: rgba(0, 0, 0, 0.5);
             margin: 4px auto;
             position: relative;
             border-radius: 50px;
-            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
-            0px 1px 0px rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+
+            &.enabled {
+                background: var(--secondary);
+            }
 
             &::after {
-                content: 'OFF';
-                color: #000;
+                content: "OFF";
+                color: black;
                 position: absolute;
                 right: 5px;
                 z-index: 0;
@@ -64,7 +67,7 @@
             }
 
             &::before {
-                content: 'ON';
+                content: "ON";
                 color: white;
                 position: absolute;
                 left: 6px;
@@ -83,7 +86,7 @@
                 height: 14px;
                 position: absolute;
                 top: 1px;
-                right: 23px;
+                right: 20px;
                 cursor: pointer;
                 background: #fcfff4;
                 z-index: 1;
@@ -99,7 +102,7 @@
                 transition: all 0.4s ease;
             }
 
-            input[type='checkbox'] {
+            input[type="checkbox"] {
                 visibility: hidden;
 
                 &:checked + label {

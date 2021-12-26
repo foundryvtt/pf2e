@@ -97,7 +97,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Secrets of Magic © 2021, Paizo Inc.; Authors: Amirali Attar Olyaee, Kate Baker, Minty Belmont, Logan Bonner, James Case, Jessica Catalan, John Compton, Katina Davis, Jesse Decker, Chris Eng, Eleanor Ferron, Leo Glass, Joan Hong, Vanessa Hoskins, Jason Keeley, Joshua Kim, Luis Loza, Ron Lundeen, Liane Merciel, David N. Ross, Ianara Natividad, Chesley Oxendine, Stephen Radney‑MacFarland, Shiv Ramdas, Mikhail Rekun, Simone D. Sallé, Michael Sayre, Mark Seifter, Sen H.H.S., Shay Snow, Kendra Leigh Speedling, Tan Shao Han, Calliope Lee Taylor, Mari Tokuda, Jason Tondro, Clark Valentine, Ruvaid Virk, Andrew White, Landon Winkler, Tonya Woldridge, and Isis Wozniakowska.
 
 * Guns and Gears
-    * Pathfinder Guns & Gears © 2021, Paizo Inc.; Authors: Logan Bonner, Jessica Catalan, John Compton, Andrew D. Geels, Steven Hammond, Sen H.H.S., Brent Holtsberry, Jason Keeley, Dustin Knight, Luis Loza, Ron Lundeen, Chris Mastey, Liane Merciel, Jacob W. Michaels, Dave Nelson, Samantha Phelan, Mikhail Rekun, Stephen Radney-MacFarland, Sydney Meeker, Kendra Leigh Speedling, Michael Sayre., Mark Seifter, Andrew Stoeckle, Calliope Lee Taylor, Andrew White, and Scott D. Young. 
+    * Pathfinder Guns & Gears © 2021, Paizo Inc.; Authors: Logan Bonner, Jessica Catalan, John Compton, Andrew D. Geels, Steven Hammond, Sen H.H.S., Brent Holtsberry, Jason Keeley, Dustin Knight, Luis Loza, Ron Lundeen, Chris Mastey, Liane Merciel, Jacob W. Michaels, Dave Nelson, Samantha Phelan, Mikhail Rekun, Stephen Radney-MacFarland, Sydney Meeker, Kendra Leigh Speedling, Michael Sayre., Mark Seifter, Andrew Stoeckle, Calliope Lee Taylor, Andrew White, and Scott D. Young.
 
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
@@ -248,6 +248,19 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
+    *  Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
+    *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
+    *  The Avatar's Handbook © 2003, Green Ronin Publishing; Authors: Jesse Decker and Chris Thomasson.
+    *  Book of the Righteous © 2002, Aaron Loeb.
+    *  Legions of Hell © 2001, Green Ronin Publishing; Author: Chris Pramas.
+    *  The Unholy Warrior’s Handbook © 2003, Green Ronin Publishing; Author: Robert J. Schwalb.
+    *  Dragon, Faerie from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  Grippli from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  Basidirond from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  Demon, Nabasu from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  Froghemoth from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
+    *  Yellow Musk Creeper from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Albie Fiore.
     *  Pathfinder Lost Omens Character Guide (Second Edition) © 2019, Paizo Inc.; Authors: John Compton, Sasha Lindley Hall, Amanda Hamon, Mike Kimmel, Luis Loza, Ron Lundeen, Matt Morris, Patchen Mortimer, Andrew Mullen, Mikhail Rekun, Micheal Sayre, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Gods & Magic (Second Edition) © 2020, Paizo Inc.; Authors: Robert Adducci, Amirali Attar Olyaee, Calder CaDavid, James Case, Adam Daigle, Katina Davis, Leo Glass, Joshua Grinlinton, James Jacobs, Virginia Jordan, Jason Keeley, Jacky Leung, Lyz Liddell, Ron Lundeen, Stephanie Lundeen, Jacob W. Michaels, Matt Morris, Dave Nelson, Samantha Phelan, Jennifer Povey, Jessica Redekop, Nathan Reinecke, Patrick Renie, David N. Ross, Simone D. Sallé, Michael Sayre, David Schwartz, Shahreena Shahrani, Isabelle Thorne, Marc Thuot, Jason Tondro, and Diego Valdez.
     *  Pathfinder Lost Omens World Guide (Second Edition) © 2019, Paizo Inc.; Authors: Tanya DePass, James Jacobs, Lyz Liddell, Ron Lundeen, Liane Merciel, Erik Mona, Mark Seifter, James L. Sutter.
@@ -256,8 +269,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
 	*  Pathfinder Lost Omens The Mwangi Expanse © 2021, Paizo Inc.; Authors: Laura-Shay Adams, Mariam Ahmad, Jahmal Brown, Misha Bushyager, Alexandria Bustion, Duan Byrd, John Compton, Sarah Davis, Mara Lynn Butler, Kent Hamilton, Amanda Hamon, Sasha Laranoa Harving, Gabriel Hicks, TK Johnson, Michelle Jones, Jason Keeley, Joshua Kim, Travis Lionel, Ron Lundeen, Stephanie Lundeen, Hilary Moon Murphy, Lu Pellazar, Mikhail Rekun, Nate Wright, and Jabari Weathers
     * Dragon, Faerie from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
-    * Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     * Pathfinder Lost Omens Grand Bazaar © 2021, Paizo Inc.; Authors: Tineke Bolleman, Logan Bonner, Jessica Catalan, Dominique Dickey, Dana Ebert, Steven Hammond, Sen H.H.S., Dustin Knight, Avi Kool, Aaron Lascano, Carlos Luna, Ron Lundeen, Sydney Meeker, Randal Meyer, Jacob Michaels, Matt Morris, Andrew Mullen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Erin Roberts, David N. Ross, Simone Sallé, Mark Seifter, Shay Snow, Ashton Sperry, Amber Stewart, Andrew Stoeckle, Isabelle Thorne, Jason Tondro, and Scott D. Young.
+    * Pathfinder Lost Omens Absalom, City of Lost Omens © 2021, Paizo Inc.; Authors: Allie Bustion, John Compton, Jeremy Corff, Katina Davis, Vanessa Hoskins, James Jacobs, Virginia Jordan, Erik Mona, Matt Morris, Liane Merciel, Dave Nelson, Samantha Phelan, Jessica Redekop, Mikhail Rekun, Brian Richmond, David N. Ross, Simone D. Sallé, Shahreena Shahrani, Abigail Slater, Chris Spivey, Diego Valdez, and Skylar- James Wall.
+    * Pathfinder Lost Omens Monsters of Myth © 2021, Paizo Inc.; Authors: James Case, John Compton, Dana Ebert, Joshua Kim, Aaron Lascano, Luis Loza, Ron Lundeen, Stephanie Lundeen, Liane Merciel, Andrew Mullen, Michael Sayre, Sen H.H.S., Shay Snow, and Jason Tondro.
 
 *  Free Adventures
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland

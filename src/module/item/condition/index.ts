@@ -6,6 +6,11 @@ export class ConditionPF2e extends ItemPF2e {
         return ConditionData;
     }
 
+    /** Forthcoming universal "effect badge" */
+    get badge(): { value: number } | null {
+        return this.data.data.value.value ? { value: this.data.data.value.value } : null;
+    }
+
     get value(): number | null {
         return this.data.data.value.value;
     }

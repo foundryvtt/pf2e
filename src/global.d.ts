@@ -130,7 +130,6 @@ declare global {
 
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
-        get(module: "pf2e", setting: "pfsSheetTab"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;

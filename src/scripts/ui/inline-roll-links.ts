@@ -124,9 +124,9 @@ export const InlineRollsLinks = {
                     actors.forEach((actor) => {
                         if (actor instanceof CreaturePF2e) {
                             const flatCheck = new Statistic(actor, {
-                                name: "",
+                                slug: "flat-check",
                                 modifiers: [],
-                                check: { type: "flat-check" },
+                                check: { label: "", type: "flat-check" },
                             });
                             if (flatCheck) {
                                 const dc = Number.isInteger(Number(pf2Dc))

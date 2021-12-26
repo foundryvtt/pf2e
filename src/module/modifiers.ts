@@ -4,13 +4,13 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, sluggify } from "../util";
 import { RollNotePF2e } from "./notes";
 
-export const PROFICIENCY_RANK_OPTION = Object.freeze([
+export const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
     "proficiency:trained",
     "proficiency:expert",
     "proficiency:master",
     "proficiency:legendary",
-]);
+] as const;
 
 export function ensureProficiencyOption(options: string[], proficiencyRank: number) {
     if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith("proficiency:"))) {
@@ -138,6 +138,8 @@ export class ModifierPF2e implements RawModifier {
         this.slug = sluggify(params.slug ?? this.label);
         this.modifier = params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
+        this.damageType = params.damageType;
+        this.damageCategory = params.damageCategory;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
@@ -309,7 +311,7 @@ function applyStacking(
  * @param modifiers The list of modifiers to apply stacking rules for.
  * @returns The total modifier provided by the given list of modifiers.
  */
-function applyStackingRules(modifiers: ModifierPF2e[]): number {
+export function applyStackingRules(modifiers: ModifierPF2e[]): number {
     let total = 0;
     const highestBonus: Record<string, ModifierPF2e> = {};
     const lowestPenalty: Record<string, ModifierPF2e> = {};

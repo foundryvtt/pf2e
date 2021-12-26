@@ -1,7 +1,14 @@
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
 import { ActorPF2e, CreaturePF2e } from "@actor";
-import { BaseStatisticData, CheckType, StatisticChatData, StatisticData } from "./data";
+import {
+    BaseStatisticData,
+    CheckType,
+    StatisticChatData,
+    StatisticCompatData,
+    StatisticData,
+    StatisticDataWithCheck,
+} from "./data";
 import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/check-degree-of-success";
 
@@ -32,6 +39,7 @@ interface RollOptionParameters {
 }
 
 export interface StatisticCheck {
+    label: string;
     modifiers: ModifierPF2e[];
     calculateMap(options: { item: ItemPF2e }): { penalty: number; label: string };
     roll: (args?: StatisticRollParameters) => void;
@@ -44,7 +52,6 @@ export interface StatisticCheck {
 }
 
 export interface StatisticDifficultyClass {
-    labelKey: string;
     value: number;
     breakdown: string;
 }
@@ -53,8 +60,12 @@ type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? Stati
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
-    get name() {
-        return this.data.name;
+    get slug() {
+        return this.data.slug;
+    }
+
+    get modifiers() {
+        return this.data.modifiers ?? [];
     }
 
     constructor(private actor: ActorPF2e, public readonly data: T) {}
@@ -63,13 +74,13 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     static from(
         actor: ActorPF2e,
         stat: StatisticModifier,
-        name: string,
+        slug: string,
         label: string,
         type: CheckType,
         domains?: string[]
     ) {
         return new Statistic(actor, {
-            name: name,
+            slug,
             domains,
             check: { adjustments: stat.adjustments, label, type },
             dc: {},
@@ -117,10 +128,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         const domains = (data.domains ?? []).concat(check.domains ?? []);
         const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
-        const stat = new StatisticModifier(data.name, modifiers);
-        const name = game.i18n.localize(check.label ?? data.name);
+        const label = game.i18n.localize(check.label);
+        const stat = new StatisticModifier(label, modifiers);
 
         const checkObject: StatisticCheck = {
+            label,
             modifiers: modifiers,
             calculateMap: (options: { item: ItemPF2e }) => {
                 const baseMap = options.item.calculateMap();
@@ -182,10 +194,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     skipDialog: args.skipDialog,
                 };
 
-                CheckPF2e.roll(new CheckModifier(name, stat, extraModifiers), context, null, args.callback);
+                CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
             },
             withOptions: (options: RollOptionParameters = {}) => {
-                const check = new CheckModifier(name, stat);
+                const check = new CheckModifier(label, stat);
 
                 // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
                 const rollOptions = this.createRollOptions(domains, options);
@@ -230,8 +242,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
         return {
-            labelKey: data.dc.labelKey ?? `PF2E.CreatureStatisticDC.${data.name}`,
-            value: (data.dc.base ?? 10) + new StatisticModifier(data.name, modifiers).totalModifier,
+            value: (data.dc.base ?? 10) + new StatisticModifier("", modifiers).totalModifier,
             get breakdown() {
                 return [game.i18n.localize("PF2E.DCBase")]
                     .concat(
@@ -246,16 +257,16 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     /** Creates view data for sheets and chat messages */
     getChatData(options: RollOptionParameters = {}): StatisticChatData<T> {
-        const checkObject = this.check;
-        const check = checkObject?.withOptions(options);
+        const check = this.check;
+        const checkValues = check?.withOptions(options);
         const dcData = this.dc(options);
 
-        const mapData = options.item && checkObject?.calculateMap({ item: options.item });
+        const mapData = options.item && check?.calculateMap({ item: options.item });
         const map1 = mapData?.penalty ?? -5;
 
         return {
-            name: this.name,
-            check: check ? { ...check, map1, map2: map1 * 2 } : undefined,
+            name: this.slug,
+            check: check && checkValues ? { ...checkValues, label: check.label, map1, map2: map1 * 2 } : undefined,
             dc: dcData
                 ? {
                       value: dcData.value,
@@ -263,5 +274,27 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                   }
                 : undefined,
         } as StatisticChatData<T>;
+    }
+
+    /** Chat output data for checks only that is compatible with the older sheet styles. */
+    getCompatData(this: Statistic<StatisticDataWithCheck>, options: RollOptionParameters = {}): StatisticCompatData {
+        const check = this.check;
+        const checkValues = check.withOptions(options);
+
+        return {
+            slug: this.slug,
+            name: this.slug,
+            value: checkValues.value ?? 0,
+            totalModifier: checkValues.value ?? 0,
+            breakdown: checkValues.breakdown ?? "",
+            _modifiers: check.modifiers.map((mod) => ({
+                slug: mod.slug,
+                label: mod.label,
+                modifier: mod.modifier,
+                type: mod.type,
+                enabled: mod.enabled,
+                custom: mod.custom ?? false,
+            })),
+        };
     }
 }

@@ -19,10 +19,29 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.prerequisites.value\":[],\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
+                },
+                "key": "ChoiceSet",
+                "predicate": {
+                    "any": [
+                        "self:ancestry:human",
+                        "self:feat:adopted-ancestry"
+                    ]
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

@@ -61,7 +61,12 @@ export abstract class RulesElementPrompt<T> extends Application {
 
     override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PromptChoice<T>[] }> {
         options.id = `choice-set-${this.item.slug ?? sluggify(this.item.name)}`;
-        return { choices: deepClone(this.choices) };
+        return {
+            // Sort by the `sort` property, if set, and otherwise `label`
+            choices: deepClone(this.choices).sort((a, b) =>
+                a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label)
+            ),
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -105,4 +110,7 @@ export interface PromptChoice<T> {
     label: string;
     img?: string;
     domain?: string[];
+    predicate?: PredicatePF2e;
+    /** A numeric order by which to sort the choices */
+    sort?: number;
 }

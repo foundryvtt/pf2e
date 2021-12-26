@@ -75,6 +75,19 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    "grisantian-pelt": {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1800,
+            rarity: "rare",
+        },
+        high: {
+            level: 19,
+            price: 33000,
+            rarity: "rare",
+        },
+    },
     mithral: {
         low: null,
         standard: {

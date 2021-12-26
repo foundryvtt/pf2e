@@ -7,11 +7,10 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const data: ItemSheetDataPF2e<FeatPF2e> = await super.getData();
 
         // Features shouldn't show anything in the header, they're not actually feats
-        const isFeature = ["ancestryfeature", "classfeature"].includes(this.item.featType.value);
 
         return {
             ...data,
-            itemType: game.i18n.localize(isFeature ? "PF2E.LevelLabel" : "ITEM.TypeFeat"),
+            itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "ITEM.TypeFeat"),
             featTypes: CONFIG.PF2E.featTypes,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
