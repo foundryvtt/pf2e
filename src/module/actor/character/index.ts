@@ -930,8 +930,6 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(AbilityModifier.fromScore("dex", dexScore));
         }
 
-        const weaponRollOptions = weapon.getItemRollOptions();
-
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
         const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
@@ -939,9 +937,15 @@ export class CharacterPF2e extends CreaturePF2e {
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+
+        const weaponRollOptions = weapon.getItemRollOptions();
+        const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
+            "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
+        );
+        weaponRollOptions.push(...equivalentCategories);
+
         const syntheticRanks = Object.values(systemData.martial)
-            .filter((p): p is MartialProficiency => "definition" in p)
-            .filter((p) => p.definition.test(weaponRollOptions))
+            .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponRollOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
