@@ -934,11 +934,14 @@ export class CharacterPF2e extends CreaturePF2e {
         // certain criteria also count as weapon of different category
         const categoryRank = systemData.martial[weapon.category]?.rank ?? 0;
         const groupRank = systemData.martial[`weapon-group-${weapon.group}`]?.rank ?? 0;
+
+        // Weapons that are interchangeable for all rules purposes (e.g., longbow and composite longbow)
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
         const weaponRollOptions = weapon.getItemRollOptions();
+        // If a weapon matches against a linked proficiency, add the `sameAs` category to the weapon's item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
             "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
         );
