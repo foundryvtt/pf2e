@@ -27,11 +27,13 @@ export abstract class RulesElementPrompt<T> extends Application {
     }
 
     static override get defaultOptions(): ApplicationOptions {
-        const options = super.defaultOptions;
-        options.width = 350;
-        options.resizable = false;
-        options.height = "auto";
-        return options;
+        return {
+            ...super.defaultOptions,
+            classes: ["choice-set-prompt"],
+            width: 350,
+            resizable: false,
+            height: "auto",
+        };
     }
 
     /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
