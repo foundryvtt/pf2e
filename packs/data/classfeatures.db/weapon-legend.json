@@ -25,6 +25,38 @@
         },
         "rules": [
             {
+                "choices": "weaponGroups",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Prompt"
+            },
+            {
+                "key": "MartialProficiency",
+                "slug": "weapon-legend-simple-martial",
+                "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.SimpleMartial.{item|flags.pf2e.rulesSelections.weaponLegend}",
+                "definition": {
+                    "all": [
+                        "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "value": 4
+            },
+            {
+                "key": "MartialProficiency",
+                "slug": "weapon-legend-advanced",
+                "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.weaponLegend}",
+                "definition": {
+                    "all": [
+                        "weapon:category:advanced",
+                        "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
+                    ]
+                },
+                "value": 3
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.martial.simple.rank",

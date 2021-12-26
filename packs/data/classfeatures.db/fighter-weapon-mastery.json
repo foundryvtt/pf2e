@@ -25,6 +25,38 @@
         },
         "rules": [
             {
+                "choices": "weaponGroups",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Prompt"
+            },
+            {
+                "key": "MartialProficiency",
+                "slug": "weapon-mastery-simple-martial",
+                "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.SimpleMartial.{item|flags.pf2e.rulesSelections.fighterWeaponMastery}",
+                "definition": {
+                    "all": [
+                        "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "value": 3
+            },
+            {
+                "key": "MartialProficiency",
+                "slug": "weapon-mastery-advanced",
+                "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.fighterWeaponMastery}",
+                "definition": {
+                    "all": [
+                        "weapon:category:advanced",
+                        "weapon:group:{item|flags.pf2e.rulesSelections.fighterWeaponMastery}"
+                    ]
+                },
+                "value": 2
+            },
+            {
                 "key": "Note",
                 "outcome": [
                     "criticalSuccess"
