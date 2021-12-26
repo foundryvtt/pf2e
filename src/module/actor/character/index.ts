@@ -33,7 +33,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
@@ -1248,9 +1248,24 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.martial[slug] = proficiency;
         }
 
-        // Set proficiency bonuses to all
-        const allProficiencies = Object.values(systemData.martial);
-        for (const proficiency of allProficiencies) {
+        // Deduplicate proficiencies, set proficiency bonuses to all
+        const allProficiencies = Object.entries(systemData.martial);
+        for (const [_key, proficiency] of allProficiencies) {
+            const stringDefinition = "definition" in proficiency ? sortedStringify(proficiency.definition) : null;
+            const duplicates = allProficiencies.flatMap(([k, p]) =>
+                proficiency !== p &&
+                proficiency.rank >= p.rank &&
+                "definition" in proficiency &&
+                "definition" in p &&
+                proficiency.sameAs === p.sameAs &&
+                sortedStringify(p.definition) === stringDefinition
+                    ? k
+                    : []
+            );
+            for (const duplicate of duplicates) {
+                delete systemData.martial[duplicate];
+            }
+
             const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
             proficiency.value = proficiencyBonus.modifier;
             const sign = proficiencyBonus.modifier < 0 ? "" : "+";
