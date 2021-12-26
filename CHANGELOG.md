@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 3.1.1
+
+### Bugfixes
+* (SolderC4) Fix rendering issues on loot-actor sheets
+* (stwlam) Correctly resolve weapon-proficiency combinations (e.g., Dwarven Weapon Familiarity and Fighter Weapon Mastery)
+* (stwlam) Fix equipment summary toggle on NPC sheets
+* (stwlam) Fix migration of bracketed rule-element formulas (as found in, e.g., Untrained Improvisation)
+
+### Data Updates
+* (Abaddon) Brush up Bestiary 1 earth elementals
+* (n1xx1) Add ChoiceSet rule elements for the Bard's Muse class feature and Multifarious Muse feat
+
+
 ## Version 3.1.0
 
 ### New Feature
