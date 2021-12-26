@@ -26,16 +26,15 @@
         "rules": [
             {
                 "key": "ToggleProperty",
-                "label": "Hunter's Aim",
                 "property": "flags.pf2e.rollOptions.attack-roll.hunters-aim"
             },
             {
                 "key": "FlatModifier",
-                "label": "Hunter's Aim",
                 "predicate": {
                     "all": [
                         "hunters-aim",
-                        "hunted-prey"
+                        "hunted-prey",
+                        "ranged"
                     ],
                     "not": [
                         "finesse"
@@ -50,13 +49,12 @@
                 "predicate": {
                     "all": [
                         "hunters-aim",
-                        "hunted-prey"
-                    ],
-                    "not": [
-                        "finesse"
+                        "hunted-prey",
+                        "ranged",
+                        "target:condition:concealed"
                     ]
                 },
-                "selector": "dex-attack",
+                "selector": "attack",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> Ignore your prey's concealed condition.</p>"
             }
         ],
