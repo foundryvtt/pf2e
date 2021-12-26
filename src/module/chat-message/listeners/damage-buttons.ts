@@ -132,7 +132,6 @@ function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attrib
                     <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
                     <input type="number" name="modifier" value="" placeholder="0">
                 </div>
-                <p style="line-height:160%">${game.i18n.localize("PF2E.UI.shiftModifyDamageHint")}</p>
                 </form>
                 <script type="text/javascript">
                 $(function () {
@@ -148,6 +147,9 @@ function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attrib
                         modifier = 0;
                     }
                     if (modifier !== undefined) {
+                        // In case of healing, multipler will have negative sign. The user will expect that positive
+                        // modifier would increase healing value, while negative would decrease.
+                        modifier *= Math.sign(multiplier);
                         await ActorPF2e.applyDamage(html, multiplier, attributePassed, modifier);
                     }
                 },

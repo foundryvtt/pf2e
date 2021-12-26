@@ -1,7 +1,8 @@
 import { ErrorPF2e } from "@util";
-import * as translationsPF2e from "static/lang/en.json";
+import MainTranslations from "static/lang/en.json";
+import RETranslations from "static/lang/re-en.json";
 
-type TranslationsPF2e = Record<string, TranslationDictionaryValue> & typeof translationsPF2e;
+type TranslationsPF2e = Record<string, TranslationDictionaryValue> & typeof MainTranslations & typeof RETranslations;
 
 export class LocalizePF2e {
     static ready = false;

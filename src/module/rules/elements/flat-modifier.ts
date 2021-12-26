@@ -30,7 +30,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 return;
             }
             this.data.label = CONFIG.PF2E.abilities[this.data.ability];
-            this.data.value = `@abilities.${this.data.ability}.mod`;
+            this.data.value = `@actor.abilities.${this.data.ability}.mod`;
         }
     }
 

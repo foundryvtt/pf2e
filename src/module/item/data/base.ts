@@ -47,7 +47,7 @@ export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<
 
 export interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
-        rulesSelections: Record<string, string>;
+        rulesSelections: Record<string, string | number>;
         itemGrants: string[];
         grantedBy: string | null;
         [key: string]: unknown;

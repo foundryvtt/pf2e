@@ -1,6 +1,6 @@
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { CharacterPF2e, NPCPF2e } from "@actor/index";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
+import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
 import { CheckPF2e, RollParameters } from "@system/rolls";
 import { CreaturePF2e } from "../creature";
 import { ItemSourcePF2e } from "@item/data";
@@ -9,6 +9,9 @@ import { ItemPF2e } from "@item/base";
 import { FamiliarData, FamiliarSystemData } from "./data";
 import { LabeledSpeed } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
+import { Statistic } from "@system/statistic";
+import { SaveType } from "@actor/data";
+import { extractModifiers } from "@module/rules/util";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -147,48 +150,32 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
 
         // Saving Throws
-        for (const saveName of SAVE_TYPES) {
-            const save = master.data.data.saves[saveName];
-            const source = save.modifiers.filter(
-                (modifier: ModifierPF2e) => !["status", "circumstance"].includes(modifier.type)
-            );
-            const modifiers = [
-                new ModifierPF2e(
-                    `PF2E.MasterSavingThrow.${saveName}`,
-                    new StatisticModifier("base", source).totalModifier,
-                    MODIFIER_TYPE.UNTYPED
-                ),
-            ];
-            const ability = save.ability;
-            [save.name, `${ability}-based`, "saving-throw", "all"].forEach((key) =>
-                (statisticsModifiers[key] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m))
-            );
-            const stat = mergeObject(new StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers), {
-                roll: (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                        saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
-                    });
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "saving-throw", dc: args.dc, options: args.options },
-                        args.event,
-                        args.callback
-                    );
+        const saves: Partial<Record<SaveType, Statistic>> = {};
+        for (const saveType of SAVE_TYPES) {
+            const save = master.saves[saveType];
+            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const source = save.modifiers.filter((modifier) => !["status", "circumstance"].includes(modifier.type));
+            const totalMod = applyStackingRules(source);
+            const selectors = save.data.domains ?? [];
+            const stat = new Statistic(this, {
+                slug: saveType,
+                domains: selectors,
+                modifiers: [
+                    new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
+                    ...extractModifiers(statisticsModifiers, selectors).filter(filterModifier),
+                ],
+                check: {
+                    type: "saving-throw",
+                    label: game.i18n.format("PF2E.SavingThrowWithName", { saveName }),
                 },
-                value: 0,
+                dc: {},
             });
-            stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                .join(", ");
-            data.saves[saveName] = stat;
+
+            saves[saveType] = stat;
+            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
-        this.buildSavingThrowStatistics();
+        this.saves = saves as Record<SaveType, Statistic>;
 
         // Senses
         this.data.data.traits.senses = this.prepareSenses(this.data.data.traits.senses, synthetics);

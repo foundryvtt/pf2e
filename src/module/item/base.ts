@@ -20,7 +20,7 @@ import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
 import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
-import { MigrationRunner, Migrations } from "@module/migration";
+import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
@@ -97,10 +97,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     override getRollData(): Record<string, unknown> {
-        const item = { name: this.name, ...this.toObject(false).data };
-        if (!this.actor) return { item };
-        const actor = this.actor.toObject(false).data;
-        return { ...actor, actor, item };
+        return { actor: this.actor, item: this };
     }
 
     /**
@@ -530,7 +527,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         await MigrationRunner.ensureSchemaVersion(
             this,
-            Migrations.constructFromVersion(this.schemaVersion ?? undefined),
+            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
             { preCreate: false }
         );
 
@@ -589,7 +586,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         if (!this.actor) {
             // Ensure imported items are current on their schema version
-            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
     }
 

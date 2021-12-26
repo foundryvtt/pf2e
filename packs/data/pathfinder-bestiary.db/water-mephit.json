@@ -73,7 +73,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Water mephits are consummate jokers who are always happy to trade a favor for a good laugh. Just as fire mephits are the ones who cleave closest to evil without fully crossing over into true villainy, water mephits are the friendliest of the mephits and therefore the closest to good. Still, one should take care in making assumptions about a water mephit's benevolence, for no one can reliably count on them to keep their inborn need for pranks and trickery at bay for long. Water mephits have blue-green skin that shimmers in light like fish scales. Though water mephits' wings look more like webbed fins than limbs capable of flight, they can flap their wings to fly through the air as easily as any other mephit. Water mephits prefer to swim, when possible, and they leave the water only when they must.</p>",
+            "publicNotes": "<p>Water mephits are consummate jokers who are always happy to trade a favor for a good laugh. Just as fire mephits are the ones who cleave closest to evil without fully crossing over into true villainy, water mephits are the friendliest of the mephits and therefore the closest to good. Still, one should take care in making assumptions about a water mephit's benevolence, for no one can reliably count on them to keep their inborn need for pranks and trickery at bay for long. Water mephits have blue-green skin that shimmers in light like fish scales. Though water mephits' wings look more like webbed fins than limbs capable of flight, they can flap their wings to fly through the air as easily as any other mephit. Water mephits prefer to swim, when possible, and they leave the water only when they must.</p>\n<hr />\n<p>Mephits-sometimes known as elemental scamps-are little bipedal critters with bat-like wings who serve stronger elementals on the Elemental Planes or neophyte spellcasters who summon them to the Material Plane. All mephits have an inkling of magical power as well as a breath weapon.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -153,7 +153,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Drg0inQcSHeWaO79",
+            "_id": "UWcKX7DmlsSP933a",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -174,7 +174,7 @@
                     "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -269,14 +269,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "GNxRlcYFp5Ghyiwg",
+            "_id": "5gvN9rXKyIvbfVoJ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -305,7 +308,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -313,16 +316,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "Drg0inQcSHeWaO79"
+                    "value": "UWcKX7DmlsSP933a"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -333,12 +342,24 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2
+                },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "acid-arrow",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=2"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -347,7 +368,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -370,7 +391,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 200000,
@@ -408,7 +433,9 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "finesse"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -530,7 +557,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The water mephit breathes acid in a 15-foot cone that deals [[/r {2d6}[acid]]]{2d6 acid damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"acid,arcane,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The water mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The water mephit breathes acid in a @Template[type:cone|distance:15] that deals [[/r {2d6}[acid]]]{2d6 acid damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"acid,arcane,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The water mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -577,7 +604,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The water mephit puts out all fires in a 5-foot emanation. The mephit extinguishes all non-magical fires automatically and attempts to counteract magical fires (+7 counteract modifier).</p>"
+                    "value": "<p>The water mephit puts out all fires in a @Template[type:emanation|distance:5].</p>\n<p data-visibility=\"gm\">The mephit extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+7 #Drench]]{+7} counteract modifier).</p>"
                 },
                 "requirements": {
                     "value": ""

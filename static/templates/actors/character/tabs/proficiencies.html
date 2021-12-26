@@ -1,5 +1,5 @@
-<div class="tab skills skillstab-pane" data-group="primary" data-tab="skills">
-    <ol class="overflow-list skills-pane">
+<div class="tab proficiencies" data-group="primary" data-tab="proficiencies">
+    <ol class="overflow-list proficiencies-pane">
         <h3 class="item-name pf-heading pf-actions core-title">{{localize "PF2E.CoreSkillsHeader"}}</h3>
         <ol class="skills-list">
             <!-- Core Skills -->
@@ -79,7 +79,7 @@
                     <h1 class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
                     <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
-                        <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}">
+                        <select class="skill-proficiency pf-value pf-rank adjust-stat-select{{#if proficiency.immutable}} readonly{{/if}}" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}">
                             {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank}}
                         </select>
                     </div>

@@ -97,6 +97,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
 
+    /** Save data for the creature, always built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
     get deception(): Statistic {
@@ -319,6 +320,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const actorData = this.data;
         const synthetics: RuleElementSynthetics = {
             damageDice: {},
+            martialProficiencies: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],
@@ -585,24 +587,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
     }
 
-    /** Holdover function to create save statistics. Will be removed when saves are fully statistics. */
-    protected buildSavingThrowStatistics(): void {
-        const build = (saveType: SaveType) => {
-            const label = game.i18n.format("PF2E.SavingThrowWithName", {
-                saveName: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-            });
-            const saveData = this.data.data.saves[saveType];
-            const domains = ["all", "saving-throw", saveType];
-            return Statistic.from(this, saveData, saveType, label, "saving-throw", domains);
-        };
-
-        this.saves = {
-            fortitude: build("fortitude"),
-            reflex: build("reflex"),
-            will: build("will"),
-        };
-    }
-
     /**
      * Calculates attack roll target data including the target's DC.
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
@@ -677,7 +661,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Work around bug in which creating embedded items via actor.update doesn't trigger _onCreateEmbeddedDocuments */
-    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this> {
+    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
         await super.update(data, options);
 
         const hasItemInserts =
@@ -697,7 +681,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Re-prepare familiars when their masters are updated */
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<this>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
@@ -709,7 +693,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: DocumentUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         // Clamp hit points

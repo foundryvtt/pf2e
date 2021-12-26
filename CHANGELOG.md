@@ -1,5 +1,39 @@
 # Changelog
 
+## Version 3.1.0
+
+### New Feature
+* (Eddie) Add menu for hiding character sheet tabs
+
+### Bugfixes
+* (stwlam) Fix issue preventing unlinked actors from having their token-effect icons updated
+* (stwlam) Prevent loot actors from constructing their items' rule elements
+* (stwlam) Fix issue causing token vision to not refresh for players without mouse interaction
+* (stwlam) Remove token-image title attribute when names are hidden from the encounter tracker
+
+### Core System Improvements
+* (andriusch) Allow using deltas (with + or - prefix) when inputting XP
+* (SoldierC4) Give text editor on PC sheet buttons a legible fill color
+* (stwlam, Supe) Change dice-formula data replacement to operate at actor and item instance levels
+* (stwlam) Add support for numeric ChoiceSet options, implement with new Cover effect
+* (stwlam) Convert LinkedProficiency RE to a more-general MartialProficiency RE
+* (Supe) Hide Spell Save DC when metagame option is set
+* (TheElderMindseeker) Make shift-modification of heal operative more intuitively
+
+### Data Updates
+* (SoldierC4, Tikael, TMun) Add content from Lost Omens Absalom and Monsters of Myth
+* (Abaddon) Add silver dragon spellcaster variants
+* (Abaddon) Brushup bestiary 1 mephits
+* (stwlam) Add new precious material, Grisantian Pelt
+* (stwlam) Add a ChoiceSet for fleshwarp creature size
+* (stwlam) Add feat grants to Arcane School: Universalist and Natural Ambition
+* (stwlam) Fill out REs on Gunslinger proficiency class features, migrate existing PCs
+* (Telekenunes) Add automation for Laughing Shadow Hybrid Study
+* (TMun) Add missing traits from PFS 1-24
+* (TMun) Add Ranger and Rogue traits to Quick Draw
+* (TMun) Update license file with missing requirements from Lost Omens books
+
+
 ## Version 3.0.1
 
 ### New Feature

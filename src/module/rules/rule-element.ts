@@ -72,7 +72,7 @@ abstract class RuleElementPF2e {
             priority: 100,
             ...data,
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
-            label: game.i18n.localize(data.label ?? item.name),
+            label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
             ignored: data.ignored ?? false,
         };
     }
@@ -182,6 +182,7 @@ abstract class RuleElementPF2e {
         { evaluate = true } = {}
     ): any {
         let value: RuleValue = valueData ?? defaultValue ?? null;
+        if (typeof value === "string") value = this.resolveInjectedProperties(value);
 
         if (this.isBracketedValue(valueData)) {
             const bracketNumber = ((): number => {
@@ -240,7 +241,7 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { ...this.actor.data.data, item: this.item.data.data }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item }))
             : value;
     }
 

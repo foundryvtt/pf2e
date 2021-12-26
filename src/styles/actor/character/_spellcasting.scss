@@ -1,0 +1,240 @@
+.spellcasting {
+    .spellcasting-entry {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        background: none;
+        border: none;
+
+        &.item-container {
+            margin-bottom: 0.5em;
+        }
+
+        &:first-child {
+            .action-header {
+                margin-top: 0;
+            }
+        }
+
+        .action-header {
+            background: var(--primary);
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 0 1em;
+            border-radius: 0.25em;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+            cursor: pointer;
+
+            .prepared-toggle,
+            .slotless-level-toggle {
+                flex-basis: 0;
+                color: white;
+                margin-right: 0.25em;
+                padding-top: 0.25em;
+            }
+
+            .item-controls {
+                color: white;
+                text-transform: uppercase;
+                font-size: 0.7em;
+                letter-spacing: 0.05em;
+                font-family: var(--sans-serif);
+                flex: 1 0 auto;
+
+                a {
+                    padding: 2px;
+                }
+            }
+
+            h3 {
+                justify-self: flex-start;
+
+                input.item-name-input {
+                    color: white;
+                    max-width: 80%;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .skills-list {
+            @include p-reset;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: space-between;
+            margin: 0.5em 0;
+
+            .skill-grid {
+                @include flex-center;
+                gap: 1em;
+                padding-top: 2px;
+
+                .skill-data {
+                    @include flex-center;
+                }
+
+                .rollable {
+                    cursor: pointer;
+                }
+
+                h4.rollable {
+                    margin-right: 1em;
+                }
+
+                .skill-score {
+                    font-family: var(--serif);
+                    font-weight: bold;
+                    font-size: 1rem;
+                    letter-spacing: -1px;
+                    line-height: 1;
+                    color: var(--secondary);
+                }
+
+                .skill-name {
+                    margin: 0 4px;
+                    white-space: nowrap;
+                }
+
+                .skill-container {
+                    display: flex;
+                    flex-direction: column;
+
+                    h4 {
+                        @include micro;
+                        color: var(--secondary);
+                        font-weight: 800;
+                    }
+                    .item-value-input {
+                        input {
+                            width: 20px;
+                            text-align: center;
+                            font-family: var(--serif);
+                            font-weight: 500;
+                            font-size: 18px;
+                        }
+                    }
+
+                    &.skill-proficiency,
+                    &.item-modifier {
+                        margin: 0 4px;
+                        margin-bottom: 3px;
+                    }
+
+                    &.item-modifier {
+                        h4 {
+                            margin-bottom: 1px;
+                        }
+                        input {
+                            font-size: 12px;
+                            height: 18px;
+                            border: 1px solid var(--alt);
+                        }
+                    }
+                }
+            }
+
+            .focus-pool {
+                position: relative;
+                img.pool-size {
+                    border: none;
+                    width: 34px;
+                    height: 32px;
+                }
+
+                .focus-pool-text {
+                    position: absolute;
+                    @include flex-center;
+                    flex-direction: column;
+                    left: 7px;
+                    top: 5px;
+                    h4, span {
+                        color: white;
+                    }
+                    h4 {
+                        font-size: 8px;
+                        line-height: normal;
+                    }
+                    span {
+                        font-weight: 700;
+                        position: relative;
+                        top: -2px;
+                    }
+                }
+            }
+
+            .spell-ability {
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+
+                h4 {
+                    margin-bottom: 2px;
+                }
+
+                .spell-tradition {
+                    font-family: var(--body-serif);
+                    font-weight: 600;
+                }
+
+                .pf-rank {
+                    @include micro;
+                    @include flex-center;
+                    font-weight: 500;
+                    align-items: baseline;
+                    background: #{$rank-untrained};
+                    height: 18px;
+                    border-radius: 2px;
+                    border: 1px solid rgba(black, 0.5);
+                    padding: 4px;
+                    color: white;
+                    box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+                    cursor: pointer;
+
+                    &[value="1"] { background: #{$rank-trained}; }
+                    &[value="2"] { background: #{$rank-expert}; }
+                    &[value="3"] { background: #{$rank-master}; }
+                    &[value="4"] { background: #{$rank-legendary}; }
+
+                    .fas {
+                    display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .spellbook-empty {
+        margin: 8px 0;
+        background: none;
+        border: none;
+    }
+
+    .pf-add-item-row {
+        grid-column: span 4;
+        text-align: center;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+
+        a {
+            background: var(--secondary);
+            border-radius: 2px;
+            padding: 4px 8px;
+            color: white;
+            font-family: var(--serif);
+            font-weight: 500;
+            width: 100%;
+            margin-bottom: 12px;
+            &:hover {
+                text-shadow: 0 0 4px white;
+            }
+            .fas {
+                margin-right: 4px;
+            }
+        }
+    }
+}

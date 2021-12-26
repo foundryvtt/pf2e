@@ -13,8 +13,8 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CombatProficiencies } from "./data";
-import { WEAPON_CATEGORIES } from "@item/weapon/data";
+import { CharacterProficiency, MartialProficiencies } from "./data";
+import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
@@ -23,6 +23,8 @@ import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
+import { LocalizePF2e } from "@system/localize";
+import { PCSheetTabManager } from "./tab-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -46,7 +48,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
 
-    protected override async _updateObject(event: Event, formData: any): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // update shield hp
         const heldShield = this.actor.heldShield;
         if (heldShield) {
@@ -59,6 +61,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData: CharacterSheetData = await super.getData(options);
+
+        // Martial Proficiencies
+        const proficiencies = Object.entries(sheetData.data.martial);
+        for (const [key, proficiency] of proficiencies) {
+            const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
+            const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
+            const label = ((): string => {
+                if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
+                    return CONFIG.PF2E.martialSkills[key];
+                }
+                if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
+                    return CONFIG.PF2E.weaponCategories[key];
+                }
+                if (Array.isArray(groupMatch)) {
+                    const weaponGroup = groupMatch[1] as WeaponGroup;
+                    return CONFIG.PF2E.weaponGroups[weaponGroup];
+                }
+                if (Array.isArray(baseWeaponMatch)) {
+                    const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
+                    return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
+                }
+                return proficiency.label ?? key;
+            })();
+
+            // proficiency.icon = this.getProficiencyIcon(proficiency.rank);
+            // proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
+            proficiency.label = game.i18n.localize(label);
+            proficiency.value = ProficiencyModifier.fromLevelAndRank(
+                sheetData.data.details.level.value,
+                proficiency.rank || 0
+            ).modifier;
+        }
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
@@ -121,8 +155,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
             this.actor.itemTypes.condition
         );
-        // Show the PFS tab only if the setting for it is enabled.
-        sheetData.showPFSTab = game.settings.get("pf2e", "pfsSheetTab");
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
@@ -147,7 +179,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
         const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
-            .filter((entries): entries is [string, CharacterProficiency] => !(entries[1] && "sameAs" in entries[1]))
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
                     ? -1
@@ -161,7 +192,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     [key]: proficiency,
                 }),
                 {}
-            ) as CombatProficiencies;
+            ) as MartialProficiencies;
 
         // show hints for some things being modified
         const baseData = this.actor.toObject();
@@ -169,6 +200,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.attributes.bonusEncumbranceBulk !== baseData.data.attributes.bonusEncumbranceBulk;
         sheetData.adjustedBonusLimitBulk =
             this.actor.attributes.bonusLimitBulk !== baseData.data.attributes.bonusLimitBulk;
+
+        sheetData.tabVisibility = deepClone(this.actor.data.flags.pf2e.sheetTabs);
 
         // Return data for rendering
         return sheetData;
@@ -767,8 +800,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         html.find(".hover").tooltipster({
-            animation: "fade",
-            delay: 200,
             trigger: "click",
             arrow: false,
             contentAsHTML: true,
@@ -909,6 +940,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
+
+        PCSheetTabManager.initialize(this.actor, html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
     }
 
     /** Handle changing of proficiency-rank via dropdown */

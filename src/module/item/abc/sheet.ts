@@ -41,13 +41,13 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
     /** Is the dropped feat or feature valid for the given section? */
     private isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
         const validFeatTypes: FeatType[] = $(event.target).closest(".abc-list").data("valid-drops")?.split(" ") ?? [];
-        if (validFeatTypes.includes(feat.featType.value)) {
+        if (validFeatTypes.includes(feat.featType)) {
             return true;
         }
 
         const goodTypes = validFeatTypes.map((featType) => game.i18n.localize(CONFIG.PF2E.featTypes[featType]));
         if (goodTypes.length === 1) {
-            const badType = feat.featType.label;
+            const badType = game.i18n.localize(CONFIG.PF2E.featTypes[feat.featType]);
             const warning = game.i18n.format(LocalizePF2e.translations.PF2E.Item.ABC.InvalidDrop, {
                 badType,
                 goodType: goodTypes[0],

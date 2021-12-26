@@ -15,8 +15,106 @@
         },
         "rules": [
             {
-                "damageType": "force",
+                "key": "TempHP",
+                "onTurnStart": true,
+                "predicate": {
+                    "all": [
+                        "self:feature:inexorable-iron",
+                        "self:weapon:melee",
+                        "self:weapon:hands:2"
+                    ]
+                },
+                "value": "max(floor(@actor.level / 2), 1)"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "Weapon Damage",
+                        "value": ""
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "value": "chaotic"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "value": "lawful"
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "value": "evil"
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "value": "good"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select extra damage type"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "melee"
+                    ],
+                    "not": [
+                        "self:feature:laughing-shadow:damage"
+                    ]
+                },
                 "selector": "damage",
                 "value": {
                     "brackets": [
@@ -37,16 +135,33 @@
                 }
             },
             {
-                "key": "TempHP",
-                "onTurnStart": true,
+                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
+                "key": "FlatModifier",
+                "label": "Laughing Shadow",
                 "predicate": {
                     "all": [
-                        "self:feature:inexorable-iron",
-                        "self:weapon:melee",
-                        "self:weapon:hands:2"
+                        "melee",
+                        "self:feature:laughing-shadow:damage"
                     ]
                 },
-                "value": "max(floor(@details.level.value / 2), 1)"
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 15,
+                            "value": 7
+                        }
+                    ]
+                }
             }
         ],
         "source": {

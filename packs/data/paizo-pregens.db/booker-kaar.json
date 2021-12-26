@@ -525,6 +525,17 @@
                         "selector": "firearm-weapon-group-damage",
                         "type": "circumstance",
                         "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "selector": "bow-weapon-group-damage",
+                        "type": "circumstance",
+                        "value": 1
                     }
                 ],
                 "slug": "singular-expertise",
@@ -744,7 +755,53 @@
                     ]
                 },
                 "perception": 2,
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:simple"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.SimpleFirearmsCrossbows",
+                        "slug": "simple-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:martial"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.MartialFirearmsCrossbows",
+                        "slug": "martial-firearms-crossbows",
+                        "value": 2
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:category:advanced"
+                            ],
+                            "any": [
+                                "weapon:group:firearm",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRules.MartialProficiency.AdvancedFirearmsCrossbows",
+                        "slug": "advanced-firearms-crossbows",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 2,
                     "reflex": 2,
@@ -2550,7 +2607,7 @@
                     {
                         "key": "FlatModifier",
                         "selector": "hp",
-                        "value": "@details.level.value"
+                        "value": "@actor.level"
                     },
                     {
                         "key": "RecoveryCheckDC"

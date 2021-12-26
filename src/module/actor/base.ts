@@ -16,7 +16,7 @@ import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { ConditionType } from "@item/condition/data";
-import { MigrationRunner, Migrations } from "@module/migration";
+import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
@@ -280,7 +280,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Rule elements
-        this.rules = this.items.contents
+        this.rules = this.prepareRuleElements();
+    }
+
+    protected prepareRuleElements(): RuleElementPF2e[] {
+        return this.items.contents
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
@@ -362,8 +366,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             event,
             parts,
             data: {
-                mod: save.value - (save.item ?? 0),
-                itemBonus: save.item ?? 0,
+                mod: save.value,
             },
             title: flavor,
             speaker: ChatMessage.getSpeaker({ actor: this }),
@@ -931,7 +934,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         await MigrationRunner.ensureSchemaVersion(
             this,
-            Migrations.constructFromVersion(this.schemaVersion ?? undefined),
+            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
             { preCreate: false }
         );
 
@@ -972,14 +975,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
     }
 
     /** Show floaty text when applying damage or healing */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
+        options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
         const changedHP = changed.data?.attributes?.hp;
@@ -987,16 +990,26 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.data?.details && "level" in changed.data.details;
-            const hideFromUser = game.settings.get("pf2e", "metagame.secretDamage") && !game.user.isGM;
-            if (!(hpChange === 0 || levelChanged || hideFromUser)) {
-                const tokens = super.getActiveTokens();
-                for (const token of tokens) {
-                    token.showFloatyText(hpChange);
-                }
-            }
+            if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
         }
 
         await super._preUpdate(changed, options, user);
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ActorUpdateContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        const hideFromUser =
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretDamage");
+        if (options.damageTaken && !hideFromUser) {
+            const tokens = super.getActiveTokens();
+            for (const token of tokens) {
+                token.showFloatyText(options.damageTaken);
+            }
+        }
     }
 
     /** Unregister all effects possessed by this actor */
@@ -1005,6 +1018,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             game.pf2e.effectTracker.unregister(effect);
         }
         super._onDelete(options, userId);
+    }
+
+    /** As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors */
+    protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
+        super._onEmbeddedDocumentChange(embeddedName);
+        this.token?.object?.drawEffects();
     }
 }
 
@@ -1070,6 +1089,10 @@ export interface HitPointsSummary {
     max: number;
     temp: number;
     negativeHealing: boolean;
+}
+
+export interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<T> {
+    damageTaken?: number;
 }
 
 export { ActorPF2e };

@@ -120,18 +120,14 @@ export interface BaseTraitsData extends BaseTraitsSource {
     size: ActorSizePF2e;
 }
 
-/** Base data describing almost any actor statistic */
-export interface RawStatistic {
-    /** The actual modifier for this martial type. */
-    value: number;
-    /** A breakdown describing the how the martial proficiency value is computed. */
-    breakdown: string;
-}
-
 export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
 
 /** Basic skill and save data (not including custom modifiers). */
-export interface AbilityBasedStatistic extends RawStatistic {
+export interface AbilityBasedStatistic {
+    /** The actual modifier for this martial type. */
+    value: number;
+    /** Describes how the value was computed. */
+    breakdown: string;
     /** The ability which this save scales off of. */
     ability?: AbilityString;
 }

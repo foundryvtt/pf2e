@@ -9,6 +9,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
+import { RuleElementPF2e } from "@module/rules/rule-element";
 
 export class LootPF2e extends ActorPF2e {
     static override get schema(): typeof LootData {
@@ -39,6 +40,11 @@ export class LootPF2e extends ActorPF2e {
     /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    }
+
+    /** Loot actors never benefit from rule elements */
+    protected override prepareRuleElements(): RuleElementPF2e[] {
+        return [];
     }
 
     override async transferItemToActor(
@@ -87,14 +93,14 @@ export class LootPF2e extends ActorPF2e {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(data: LootSource, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(data: LootSource, options: DocumentModificationContext<this>, userId: string): void {
         this.toggleTokenHiding();
         super._onCreate(data, options, userId);
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentUpdateContext<this>,
         userId: string
     ): void {
         if (changed.data?.hiddenWhenEmpty !== undefined) {

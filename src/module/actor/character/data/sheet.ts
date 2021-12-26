@@ -7,6 +7,7 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { CraftingFormula } from "@module/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
 import { CharacterSystemData } from ".";
+import { CharacterSheetTabVisibility } from "./types";
 
 interface CharacterSheetOptions extends ActorSheetOptions {
     showUnpreparedSpells: boolean;
@@ -78,4 +79,5 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     showPFSTab: boolean;
     showUnpreparedSpells: boolean;
     spellcastingEntries: SpellcastingSheetData[];
+    tabVisibility: CharacterSheetTabVisibility;
 }

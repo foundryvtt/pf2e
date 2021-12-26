@@ -78,6 +78,8 @@ export class AncestryPF2e extends ABCItemPF2e {
             )
         ).sort();
         systemData.traits.traits.value.push(...traits);
+
+        systemData.details.ancestry = { name: this.name, trait: this.slug ?? sluggify(this.name) };
     }
 }
 

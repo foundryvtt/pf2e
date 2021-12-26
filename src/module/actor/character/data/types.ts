@@ -17,7 +17,6 @@ import {
     ArmorClassData,
     DexterityModifierCapData,
     PerceptionData,
-    RawStatistic,
     AbilityBasedStatistic,
     StrikeData,
 } from "@actor/data/base";
@@ -33,6 +32,7 @@ import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
+import { CHARACTER_SHEET_TABS } from "./values";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -49,10 +49,12 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
     readonly _source: CharacterSource;
 }
 
+export type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         freeCrafting: boolean;
         disableABP?: boolean;
+        sheetTabs: CharacterSheetTabVisibility;
     };
 };
 
@@ -73,7 +75,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     saves: CharacterSaves;
 
     /** Tracks proficiencies for martial (weapon and armor) skills. */
-    martial: CombatProficiencies;
+    martial: MartialProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
     details: {
@@ -143,6 +145,16 @@ export interface CharacterSystemData extends CreatureSystemData {
             /** The current level of this character. */
             value: number;
         };
+
+        /** Convenience information for easy access when the class instance isn't available */
+        class: {
+            name: string;
+            trait: string;
+        };
+        ancestry: {
+            name: string;
+            trait: string;
+        };
     };
 
     attributes: CharacterAttributes;
@@ -179,7 +191,11 @@ interface CharacterSaveData extends SaveData {
 }
 export type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
-export interface CharacterProficiency extends RawStatistic {
+export interface CharacterProficiency {
+    /** The actual modifier for this martial type. */
+    value: number;
+    /** Describes how the value was computed. */
+    breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
     label?: string;
@@ -188,13 +204,19 @@ export interface CharacterProficiency extends RawStatistic {
 }
 
 /** A proficiency with a rank that depends on another proficiency */
-export interface LinkedProficiency extends Omit<CharacterProficiency, "custom"> {
-    /** A predicate to match against weapons */
-    predicate: PredicatePF2e;
+export interface MartialProficiency extends Omit<CharacterProficiency, "custom"> {
+    /** A predicate to match against weapons and unarmed attacks */
+    definition: PredicatePF2e;
+    /** Can this proficiency be edited or deleted? */
+    immutable?: boolean;
     /** The category to which this proficiency is linked */
-    sameAs: WeaponCategory;
+    sameAs?: WeaponCategory;
     /** The maximum rank this proficiency can reach */
     maxRank?: Exclude<ProficiencyRank, "untrained">;
+}
+
+export interface LinkedProficiency extends MartialProficiency {
+    sameAs: WeaponCategory;
 }
 
 export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
@@ -206,14 +228,14 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiency>;
 
-type LinkedProficiencies = Record<string, LinkedProficiency>;
+type LinkedProficiencies = Record<string, MartialProficiency>;
 
-export type CombatProficiencies = CategoryProficiencies &
+export type MartialProficiencies = CategoryProficiencies &
     BaseWeaponProficiencies &
     WeaponGroupProfiencies &
     LinkedProficiencies;
 
-export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
+export type MartialProficiencyKey = keyof Required<MartialProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
 export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
