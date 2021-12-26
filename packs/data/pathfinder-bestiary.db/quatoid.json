@@ -69,7 +69,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>Quatoids are peculiar, mysterious elementals native to the Plane of Water that resemble four-tentacled octopuses with eerily humanoid faces on their mantles.</p>",
+            "publicNotes": "<p>Quatoids are peculiar, mysterious elementals native to the Plane of Water that resemble four-tentacled octopuses with eerily humanoid faces on their mantles.</p>\n<hr />\n<p>Water elementals can be very destructive, but often not intentionally so; just as water can bring life to those in need on the Material Plane, its waves can pound shores and rains can flood cities. Water elementals are similarly difficult to predict.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -150,7 +150,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Cp28qBFAEr0CmNCo",
+            "_id": "2PnyMPtvBpBFJJyw",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -168,10 +168,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -266,14 +266,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ZuhhDMvEfSOSyBFx",
+            "_id": "Zo1gKFEHyKae5EQL",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -293,16 +296,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "value": "untyped"
+                                "subtype": "",
+                                "value": "bludgeoning"
                             },
-                            "value": "6d6"
+                            "value": "3d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d6."
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -310,16 +315,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 2
                 },
+                "level": {
+                    "value": 1
+                },
                 "location": {
-                    "value": "Cp28qBFAEr0CmNCo"
+                    "value": "2PnyMPtvBpBFJJyw"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -330,12 +341,24 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hydraulic-push",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=154"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -344,7 +367,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature or unattended object"
                 },
                 "time": {
                     "value": "2"
@@ -367,9 +390,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jfVCuOpzC6mUrf6f"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
-            "name": "Hydraulic Push",
+            "name": "Hydraulic Push (At Will)",
             "sort": 200000,
             "type": "spell"
         },
@@ -471,6 +498,54 @@
             "type": "action"
         },
         {
+            "_id": "k8k6bZAdPTdhZfDp",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "QphofWAqcVVsApgN",
             "data": {
                 "actionCategory": {
@@ -483,7 +558,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. The aura sheds dim light. Creatures in the emanation gain a +2 circumstance bonus to saving throws against emotion effects. The quatoid can activate or deactivate its calming bioluminescence as a single action, which has the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The aura sheds dim light. Creatures in the emanation gain a +2 circumstance bonus to saving throws against emotion effects. The quatoid can activate or deactivate its calming bioluminescence as a single action, which has the concentrate trait.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Calming Bioluminescence]{Effect: Calming Bioluminescence}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -516,7 +591,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Calming Bioluminescence",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -532,7 +607,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>1d12+6 bludgeoning, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d12+6}[bludgeoning]]]{1d12+6 bludgeoning}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -564,7 +639,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -612,7 +687,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -647,7 +722,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -682,7 +757,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -717,7 +792,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Elemental Lore",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -752,7 +827,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -787,7 +862,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -822,7 +897,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
