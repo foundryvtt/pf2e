@@ -233,7 +233,6 @@ export class WeaponDamagePF2e {
                     modifier: modifierValue,
                     type: MODIFIER_TYPE.ABILITY,
                 });
-                strModifier.ability = "str";
                 numericModifiers.push(strModifier);
             }
         }
@@ -287,10 +286,10 @@ export class WeaponDamagePF2e {
                 dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
         }
 
-        // custom damage
+        // Custom damage
         const normalDice = weapon.data.property1?.dice ?? 0;
         if (normalDice > 0) {
-            const damageType = weapon.data.property1?.damageType ?? baseDamageType;
+            const damageType = weapon.data.property1.damageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
                     label: "PF2E.WeaponCustomDamageLabel",
@@ -360,8 +359,8 @@ export class WeaponDamagePF2e {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 modifier: potency > 2 ? 2 : 1,
+                damageCategory: "precision",
             });
-            modifier.damageCategory = "precision";
             numericModifiers.push(modifier);
         }
 
@@ -435,13 +434,12 @@ export class WeaponDamagePF2e {
             const modifier = new ModifierPF2e({
                 label: "PF2E.WeaponSplashDamageLabel",
                 modifier: splashDamage,
+                damageCategory: "splash",
             });
-            modifier.damageCategory = "splash";
-            modifier.damageType = weapon.data.damage.damageType;
             numericModifiers.push(modifier);
         }
 
-        // add bonus damage
+        // Add bonus damage
         const bonusDamage = Number(weapon.data.bonusDamage?.value) || 0;
         if (bonusDamage > 0) {
             numericModifiers.push(
@@ -452,29 +450,33 @@ export class WeaponDamagePF2e {
             );
         }
 
-        // conditions, custom modifiers, and roll notes
-        const notes: RollNotePF2e[] = [];
-        {
-            selectors.forEach((key) => {
-                const modifiers = (statisticsModifiers[key] ?? []).map(
-                    (modifier) => modifier.clone?.() ?? duplicate(modifier)
-                );
-                for (const modifier of modifiers) {
-                    const predicate =
-                        modifier.predicate instanceof PredicatePF2e
-                            ? modifier.predicate
-                            : new PredicatePF2e(modifier.predicate ?? {});
-                    modifier.ignored = !predicate.test(options);
-                    numericModifiers.push(modifier);
-                }
-                (rollNotes[key] ?? [])
-                    .map((note) => duplicate(note))
-                    .filter((note) => PredicatePF2e.test(note.predicate, options))
-                    .forEach((note) => notes.push(note));
-            });
+        // Synthetic modifiers and notes
+        for (const selector of selectors) {
+            const modifiers = (statisticsModifiers[selector] ?? []).map((m) => m.clone?.() ?? duplicate(m));
+            for (const modifier of modifiers) {
+                const predicate =
+                    modifier.predicate instanceof PredicatePF2e
+                        ? modifier.predicate
+                        : new PredicatePF2e(modifier.predicate ?? {});
+                modifier.ignored = !predicate.test(options);
+                numericModifiers.push(modifier);
+            }
         }
 
-        const damage: any = {
+        // Set base damage type and category to all non-specific numeric modifiers
+        for (const modifier of numericModifiers) {
+            modifier.damageType ??= baseDamageType;
+            modifier.damageCategory ??= DamageCategory.fromDamageType(modifier.damageType);
+        }
+
+        const notes = selectors.flatMap(
+            (s) =>
+                rollNotes[s]
+                    ?.map((note) => duplicate(note))
+                    .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
+        );
+
+        const damage: DamageTemplate = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
@@ -482,7 +484,6 @@ export class WeaponDamagePF2e {
                 modifier: weapon.data.damage.modifier,
                 category: DamageCategory.fromDamageType(baseDamageType),
                 damageType: baseDamageType,
-                traits: [],
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count
@@ -491,9 +492,13 @@ export class WeaponDamagePF2e {
             effectDice,
             diceModifiers,
             numericModifiers,
-            // the below fields are calculated
+            notes,
             traits: (traits ?? []).map((t) => t.name),
-            formula: {},
+            // These are calculated below
+            formula: {
+                success: { data: {}, formula: "", partials: {} },
+                criticalSuccess: { data: {}, formula: "", partials: {} },
+            },
         };
 
         // custom dice
@@ -547,8 +552,6 @@ export class WeaponDamagePF2e {
 
         damage.formula.success = this.getFormula(damage, false);
         damage.formula.criticalSuccess = this.getFormula(damage, true);
-
-        damage.notes = notes;
 
         return damage;
     }
@@ -611,35 +614,35 @@ export class WeaponDamagePF2e {
                 }
             });
 
-        // apply stacking rules here and distribute on dice pools
+        // Apply stacking rules here and distribute on dice pools
         {
-            const modifiers: ModifierPF2e[] = [];
-
-            damage.numericModifiers
+            const modifiers = damage.numericModifiers
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
-                .forEach((nm: ModifierPF2e) => {
+                .flatMap((nm: ModifierPF2e) => {
+                    nm.damageType ??= damage.base.damageType;
                     if (critical && nm.damageCategory === "splash") {
-                        return;
+                        return [];
                     } else if (critical && nm.critical) {
-                        // critical-only stuff
-                        modifiers.push(nm);
+                        // Critical-only damage
+                        return nm;
                     } else if (!nm.critical) {
-                        // regular pool
-                        modifiers.push(nm);
-                    } else {
-                        // skip
+                        // Regular pool
+                        return nm;
                     }
+                    // Skip
+                    return [];
                 });
+
             Object.entries(
                 modifiers.reduce((accumulator: Record<string, ModifierPF2e[]>, current) => {
-                    // split numeric modifiers into separate lists for each damage type
+                    // Split numeric modifiers into separate lists for each damage type
                     const dmg = current.damageType ?? base.damageType;
                     accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
                     return accumulator;
                 }, {})
             )
                 .map(([damageType, damageTypeModifiers]) => {
-                    // apply stacking rules for numeric modifiers of each damage type separately
+                    // Apply stacking rules for numeric modifiers of each damage type separately
                     return new StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
                 })
                 .flatMap((nm) => nm)
