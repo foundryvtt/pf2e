@@ -38,7 +38,7 @@ $unique: #54166e;
         border-right: 1px solid $primary-accent;
         border-bottom: 1px solid $primary-accent;
 
-        .item-list {
+        ul.item-list {
             list-style: none;
             margin: 0px;
             padding: 0px;
@@ -62,34 +62,32 @@ $unique: #54166e;
                 }
             }
 
-            .list-item {
-                padding: 0px 6px;
-                .item-header {
-                    display: grid;
-                    padding: 0px;
-                    grid-template-columns: 26px 3fr 1fr 2fr;
-                    column-gap: 6px;
-                    align-items: center;
-                }
-            }
-
-            .item {
+            li.list-item {
+                display: grid;
+                padding: 0px;
+                grid-template-columns: 26px 3fr 1fr 2fr;
+                column-gap: 6px;
+                align-items: center;
                 padding: 2px 6px;
 
                 &:not(:last-child) {
                     border-bottom: 1px solid $faded-color;
                 }
 
-                .item-header {
-                    .item-icon {
-                        border: 2px solid $faded-color;
-                        border-radius: 3px;
-                        width: 26px;
-                        height: 26px;
-                        background-size: 26px 26px;
-                        &:hover {
-                            cursor: pointer;
-                        }
+                .item-icon {
+                    border: 2px solid $faded-color;
+                    border-radius: 3px;
+                    width: 26px;
+                    height: 26px;
+                    background-size: 26px 26px;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .item-name {
+                    h4 {
+                        margin: 0px;
                     }
 
                     .common {
@@ -111,23 +109,22 @@ $unique: #54166e;
                         border-color: $unique;
                         color: $unique;
                     }
+                }
 
-                    .item-name {
-                        h4 {
-                            margin: 0px;
-                        }
-                    }
+                .item-quantity {
+                    text-align: right;
+                }
 
-                    .item-quantity {
-                        text-align: right;
+                .controls .item-toggle-equip {
+                    color: rgba(black, 0.4);
+                    &.active {
+                        color: rgba(black, 0.75);
                     }
+                }
 
-                    .controls .item-toggle-equip {
-                        color: rgba(black, 0.4);
-                        &.active {
-                            color: rgba(black, 0.75);
-                        }
-                    }
+                .item-summary {
+                    grid-column: 1/-1;
+                    margin-top: 0.5em;
                 }
             }
         }
