@@ -172,8 +172,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         this.data.flags.pf2e.itemGrants ??= [];
     }
 
-    prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
-        return (this.rules = RuleElements.fromOwnedItem(this));
+    prepareRuleElements(this: Embedded<ItemPF2e>): RuleElementPF2e[] {
+        return (this.rules = this.actor.type === "loot" ? [] : RuleElements.fromOwnedItem(this));
     }
 
     /* -------------------------------------------- */
