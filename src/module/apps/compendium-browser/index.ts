@@ -273,7 +273,11 @@ export class CompendiumBrowser extends Application {
     }
 
     async openTab(tab: TabName, filter: string | null = null): Promise<void> {
-        const filterArray = filter?.split(",").map((item) => item.trim()) || [];
+        const filterArray =
+            filter
+                ?.split(",")
+                .map((item) => item.trim())
+                .filter((item) => item.length > 0) || [];
         this.initialFilter = filterArray;
         await this._render(true);
         this.initialFilter = filterArray; // Reapply in case of a double-render (need to track those down)
