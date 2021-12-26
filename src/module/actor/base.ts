@@ -193,7 +193,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         for (const datum of data) {
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
-                permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 token: {
                     flags: {
                         // Sync token dimensions with actor size?
@@ -212,7 +212,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             switch (merged.type) {
                 case "character":
                 case "familiar":
-                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.token.actorLink = true;
                     merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
@@ -221,7 +221,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 case "loot":
                     // Make loot actors linked, interactable and neutral disposition
                     merged.token.actorLink = true;
-                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                     break;
                 case "npc":
