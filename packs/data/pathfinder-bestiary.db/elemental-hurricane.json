@@ -69,7 +69,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>Elemental hurricanes embody the ferocity of violent windstorms.</p>",
+            "publicNotes": "<p>Elemental hurricanes embody the ferocity of violent windstorms.</p>\n<hr />\n<p>Hailing from the Plane of Air, these beings appear in a variety of sizes and shapes.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -150,10 +150,6 @@
                     "ki4wh2w5gzh3meiafk71": {
                         "damage": "2d10+12",
                         "damageType": "bludgeoning"
-                    },
-                    "26mirybr4m5x8xrmgdif": {
-                        "damage": "",
-                        "damageType": "chaotic"
                     }
                 },
                 "description": {
@@ -293,7 +289,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>40 feet. Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,7 +336,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The elemental hurricane takes damage from a hostile action.</p>\n<p><strong>Effect</strong> The elemental hurricane disperses. Until the end of the current turn, it can't be attacked or targeted, doesn't take up space, and any auras or emanations it has are suppressed. At the end of the turn, the elemental hurricane reforms in any space in which it can flt within 100 feet of where it dispersed and any auras or emanations it has are restored as long as their duration didn't run out while it was dispersed.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The elemental hurricane takes damage from a hostile action.</p>\n<p><strong>Effect</strong> The elemental hurricane disperses.</p>\n<p data-visibility=\"gm\">Until the end of the current turn, it can't be attacked or targeted, doesn't take up space, and any auras or emanations it has are suppressed. At the end of the turn, the elemental hurricane reforms in any space in which it can fit within 100 feet of where it dispersed and any auras or emanations it has are restored as long as their duration didn't run out while it was dispersed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -372,56 +368,10 @@
             "type": "action"
         },
         {
-            "_id": "sgKONsx24qNmQXvo",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The elemental breathes a 30-foot cone of air. Creatures in the cone must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"air,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be knocked away from the elemental. A creature knocked into a solid object stops moving and takes [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage}. The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked prone.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "air"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
             "_id": "j6bfMiK3Ghz6Y86o",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -458,6 +408,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swiftness",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "sgKONsx24qNmQXvo",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The elemental breathes a @Template[type:cone|distance:30] of air. Creatures in the cone must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"air,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be knocked away from the elemental.</p>\n<div data-visibility=\"gm\">\n<p>A creature knocked into a solid object stops moving and takes [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage}.</p>\n<p>The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "air"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
             "sort": 700000,
             "type": "action"
         },
@@ -505,7 +501,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push",
+            "name": "Push 10 feet",
             "sort": 800000,
             "type": "action"
         },
