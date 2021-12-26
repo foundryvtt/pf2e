@@ -25,7 +25,12 @@ export class AncestryBackgroundClassManager {
                 return this.addFeatures(source, actor, true, options);
             }
             case "class": {
-                await actor.class?.delete();
+                if (actor.class) {
+                    await actor.deleteEmbeddedDocuments("Item", [
+                        actor.class.id,
+                        ...actor.itemTypes.feat.flatMap((f) => (f.featType === "classfeature" ? f.id : [])),
+                    ]);
+                }
 
                 source._id = randomID(16);
                 source.flags.pf2e ??= {};
