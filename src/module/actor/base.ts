@@ -144,6 +144,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
+    /** Most actor types can host rule elements */
+    get canHostRuleElements(): boolean {
+        return true;
+    }
+
     /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const { itemTypes } = this;
