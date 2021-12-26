@@ -48,8 +48,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 type: this.data.type,
                 ability: this.data.type === "ability" ? this.data.ability : null,
                 predicate: this.data.predicate,
-                damageType: this.resolveInjectedProperties(this.data.damageType),
-                damageCategory: this.data.damageCategory,
+                damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
+                damageCategory: this.data.damageCategory || undefined,
             });
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {
