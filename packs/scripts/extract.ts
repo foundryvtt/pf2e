@@ -663,6 +663,9 @@ async function extractPacks() {
 
     populateIdNameMap();
 
+    // Silly windows users
+    args.packDb = args.packDb.toLowerCase();
+
     const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
         .filter((filename) => filename !== ".gitkeep")
         .map((filename) => path.resolve(packsPath, filename));
