@@ -100,30 +100,6 @@ export class CharacterPF2e extends CreaturePF2e {
         return deepClone(this.data.data.resources.heroPoints);
     }
 
-    /** Add options from ancestry and class */
-    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const options = super.getSelfRollOptions(prefix);
-        const { itemTypes } = this;
-
-        // Ancestry and class
-        const ancestry = this.ancestry;
-        const pcClass = this.class;
-        if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
-        if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
-
-        // Feats and features
-        const featTypes = new Set(["ancestry", "archetype", "class", "general", "skill"]);
-        for (const feat of itemTypes.feat) {
-            if (feat.isFeature) {
-                options.add(`${prefix}:feature:${feat.slug ?? sluggify(feat.name)}`);
-            } else if (featTypes.has(feat.featType)) {
-                options.add(`${prefix}:feat:${feat.slug ?? sluggify(feat.name)}`);
-            }
-        }
-
-        return options;
-    }
-
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));

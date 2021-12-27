@@ -25,12 +25,11 @@ export class AncestryBackgroundClassManager {
                 return this.addFeatures(source, actor, true, options);
             }
             case "class": {
-                if (actor.class) {
-                    await actor.deleteEmbeddedDocuments("Item", [
-                        actor.class.id,
-                        ...actor.itemTypes.feat.flatMap((f) => (f.featType === "classfeature" ? f.id : [])),
-                    ]);
-                }
+                await actor.class?.delete();
+
+                /** Add class self roll option in case it is needed by any features' rule elements */
+                const slug = source.data.slug ?? sluggify(source.name);
+                actor.rollOptions.all[`self:class:${slug}`] = true;
 
                 source._id = randomID(16);
                 source.flags.pf2e ??= {};
