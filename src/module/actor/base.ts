@@ -3,7 +3,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
 import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -151,25 +151,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const { itemTypes } = this;
-        const effects = itemTypes.effect
-            .flatMap((e) => (e.isExpired ? [] : e.slug ?? sluggify(e.name)))
-            .map((slug) => {
-                const reducedSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
-                return `${prefix}:effect:${reducedSlug}`;
-            });
-        const conditions = itemTypes.condition
-            .flatMap((c) => (c.fromSystem && c.isActive ? c.slug ?? sluggify(c.name) : []))
-            .map((slug) => `${prefix}:condition:${slug}`);
-        if (conditions.includes(`${prefix}:condition:flat-footed`)) conditions.push(`${prefix}:flatFooted`);
-
-        const traits = Array.from(this.traits);
-        return new Set([
-            ...traits.map((trait) => `${prefix}:${trait}`),
-            ...traits.map((trait) => `${prefix}:trait:${trait}`),
-            ...effects,
-            ...conditions,
-        ]);
+        const rollOptions = Object.keys(this.rollOptions.all).flatMap((o) =>
+            o.startsWith("self:") ? o.replace(/^self/, prefix) : []
+        );
+        return new Set(rollOptions);
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
@@ -193,7 +178,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         for (const datum of data) {
             // Set wounds, advantage, and display name visibility
             const merged = mergeObject(datum, {
-                permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                permission: datum.permission ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 token: {
                     flags: {
                         // Sync token dimensions with actor size?
@@ -212,7 +197,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             switch (merged.type) {
                 case "character":
                 case "familiar":
-                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.token.actorLink = true;
                     merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
@@ -221,7 +206,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 case "loot":
                     // Make loot actors linked, interactable and neutral disposition
                     merged.token.actorLink = true;
-                    merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                    merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                     break;
                 case "npc":
@@ -293,6 +278,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
+    }
+
+    override prepareDerivedData(): void {
+        // Record stored traits as roll options
+        for (const trait of this.traits) {
+            this.rollOptions.all[`self:${trait}`] = true;
+            this.rollOptions.all[`self:trait:${trait}`] = true;
+        }
     }
 
     /** Set defaults for this actor's prototype token */

@@ -310,3 +310,21 @@ export function isObject<T extends string>(value: unknown): value is { [K in T]?
 export function isObject(value: unknown): boolean {
     return typeof value === "object" && value !== null;
 }
+
+/** JSON.stringify with recursive key sorting */
+function sortObjByKey(value: unknown): unknown {
+    return isObject<Record<string | number, unknown>>(value)
+        ? Array.isArray(value)
+            ? value.map(sortObjByKey)
+            : Object.keys(value)
+                  .sort()
+                  .reduce((o: Record<string, unknown>, key) => {
+                      const v = value[key];
+                      o[key] = sortObjByKey(v);
+                      return o;
+                  }, {})
+        : value;
+}
+export function sortedStringify(obj: object): string {
+    return JSON.stringify(sortObjByKey(obj));
+}

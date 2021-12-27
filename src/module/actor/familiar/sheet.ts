@@ -26,14 +26,8 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
 
     override async getData() {
         const familiar = this.actor;
-        // find all owners, which are the list of all potential masters
-        const owners = Object.entries(familiar.data.permission)
-            .filter(([_id, permission]) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
-            .flatMap(([userID]) => game.users.get(userID) ?? []);
-        const masters = game.actors
-            .filter((actor) => ["character", "npc"].includes(actor.data.type))
-            .filter((actor) => actor.testUserPermission(game.user, "OWNER"))
-            .filter((actor) => owners.some((owner) => actor.testUserPermission(owner, "OWNER")));
+        // Get all potential masters of the familiar
+        const masters = game.actors.filter((a) => a.type === "character" && a.testUserPermission(game.user, "OWNER"));
 
         // list of abilities that can be selected as spellcasting ability
         const abilities = CONFIG.PF2E.abilities;
@@ -64,7 +58,6 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
 
         return {
             ...baseData,
-            owners,
             master: this.actor.master,
             masters,
             abilities,

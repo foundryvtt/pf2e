@@ -145,18 +145,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
-    /** Add alignment traits and other creature properties self roll options */
-    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const options = super.getSelfRollOptions(prefix);
-        const { itemTypes } = this;
-        const targetIsSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
-        if (targetIsSpellcaster) options.add(`${prefix}:caster`);
-
-        if (this.hitPoints.negativeHealing) options.add(`${prefix}:negative-healing`);
-
-        return options;
-    }
-
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -192,11 +180,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        /** Set initial roll options for AE-like predicates */
-        for (const option of this.getSelfRollOptions()) {
-            this.rollOptions.all[option] = true;
-        }
-
         for (const rule of this.rules) {
             rule.onApplyActiveEffects?.();
         }
@@ -219,12 +202,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 ["CG", "CN", "CE"].includes(alignment) ? ("chaotic" as const) : [],
             ].flat();
         })();
+        const { rollOptions } = this;
         for (const trait of alignmentTraits) {
             this.data.data.traits.traits.value.push(trait);
+            rollOptions.all[`self:trait:${trait}`] = true;
         }
 
+        // Other creature-specific self: roll options
+        const { itemTypes } = this;
+        const isSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
+        if (isSpellcaster) rollOptions.all["self:caster"] = true;
+        if (this.hitPoints.negativeHealing) rollOptions.all["self:negative-healing"];
+
         // Set whether this actor is wearing armor
-        this.rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+        rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
     }
 
     protected prepareInitiative(
@@ -646,7 +637,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     private createStrikeRollContext(domains: string[]) {
-        const options = [...this.getRollOptions(domains), ...this.getSelfRollOptions()];
+        const options = Array.from(this.getRollOptions(domains));
 
         const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
             (token) => token.actor instanceof CreaturePF2e

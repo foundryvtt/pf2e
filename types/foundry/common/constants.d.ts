@@ -127,7 +127,7 @@ declare global {
          * Define the allowed permission levels for a non-user Entity.
          * Each level is assigned a value in ascending order. Higher levels grant more permissions.
          */
-        ENTITY_PERMISSIONS: {
+        DOCUMENT_PERMISSION_LEVELS: {
             NONE: 0;
             LIMITED: 1;
             OBSERVER: 2;
@@ -472,9 +472,9 @@ declare global {
     type ImageFileExtension = typeof CONST.IMAGE_FILE_EXTENSIONS[number];
     type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];
-    type DocumentPermission = keyof typeof CONST.ENTITY_PERMISSIONS;
+    type DocumentPermission = keyof typeof CONST.DOCUMENT_PERMISSION_LEVELS;
     type GridType = typeof CONST.GRID_TYPES[keyof typeof CONST.GRID_TYPES];
-    type PermissionLevel = typeof CONST.ENTITY_PERMISSIONS[DocumentPermission];
+    type PermissionLevel = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
     type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
     type UserAction = "create" | "update" | "delete";
     type TileOcclusionMode = typeof CONST.TILE_OCCLUSION_MODES[keyof typeof CONST.TILE_OCCLUSION_MODES];

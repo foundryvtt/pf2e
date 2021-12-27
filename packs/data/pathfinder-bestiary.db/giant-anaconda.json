@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -72,7 +73,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>The monstrous giant anaconda is capable of swallowing whole creatures as big as horses-to say nothing of their riders. Although novice bushwhackers watch out for snakes that might drop on them from the jungle canopy above, giant anacondas are most commonly encountered in ponds and rivers, where they feed on prey including manatees and capybaras.</p>",
+            "publicNotes": "<p>The monstrous giant anaconda is capable of swallowing whole creatures as big as horses-to say nothing of their riders. Although novice bushwhackers watch out for snakes that might drop on them from the jungle canopy above, giant anacondas are most commonly encountered in ponds and rivers, where they feed on prey including manatees and capybaras.</p>\n<hr />\n<p>Snakes come in an array of forms, from jungle-dwelling constrictors that wrap around their prey to venomous vipers with deadly bites. Regardless, all snakes consume their prey whole by unhinging their jaws and using powerful muscles to move the food down their throats and into their stomachs.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -133,6 +134,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -181,7 +183,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
                 },
                 "bonus": {
                     "value": 21
@@ -190,10 +195,6 @@
                     "1aj85bhvtjuqhdescj7j": {
                         "damage": "2d8+7",
                         "damageType": "bludgeoning"
-                    },
-                    "mjq6ca45o5r3xc0lirxd": {
-                        "damage": "",
-                        "damageType": "Push10feet"
                     }
                 },
                 "description": {
@@ -226,6 +227,102 @@
             "type": "melee"
         },
         {
+            "_id": "6JIPvxKV7RTv9wq3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "cyykndggOJBnOeK7",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "UVwLwFSrhe9YIUEC",
             "data": {
                 "actionCategory": {
@@ -238,7 +335,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature grabbed or restrained by the giant anaconda attempts to Escape.</p>\n<p><strong>Effect</strong> The DC of the Escape check is increased by 2.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by the giant anaconda attempts to @Compendium[pf2e.actionspf2e.Escape]{Escape}.</p>\n<p><strong>Effect</strong> The DC of the Escape check is increased by 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -266,99 +363,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Tighten Coils",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "ELAQsWwYjYZLyBIj",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "mAW9ffTGt0uyI4TE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>1d10+7 bludgeoning, DC 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Greater Constrict",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "qV5Wci3TMzCt3WwC",
+            "_id": "plka6anhQ8CltSBM",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -370,13 +379,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                    "value": "<p>[[/r {1d10+7}[bludgeoning]]]{1d10+7 bludgeoning}, <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Greater Constrict DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "greater-constrict",
                 "source": {
                     "value": ""
                 },
@@ -395,9 +404,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.OmV6E3aELvq9CkK1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push",
+            "name": "Greater Constrict",
             "sort": 600000,
             "type": "action"
         },
@@ -414,7 +427,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The giant anaconda Strides, Climbs, or Swims up to half its Speed, pulling any creatures it has grabbed with it.</p>"
+                    "value": "<p>The giant anaconda Strides, Climbs, or Swims up to half its Speed, pulling any creatures it has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -446,7 +459,7 @@
             "type": "action"
         },
         {
-            "_id": "Dldpi3inbLj34jl4",
+            "_id": "4s0p8fCnssqfycUf",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -458,13 +471,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {1d10+7}[bludgeoning]]]{1d10+7 bludgeoning damage}, Rupture 21</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Large, [[/r {1d10+7}[bludgeoning]]]{1d10+7 bludgeoning}, Rupture 21</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -485,7 +498,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
             "sort": 800000,
@@ -504,7 +521,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> A Large or smaller creature is grabbed or restrained in the giant anaconda's jaws.</p>\n<p><strong>Effect</strong> The giant anaconda moves the creature into its coils, freeing its jaws to make attacks, then uses Greater Constrict against the creature. The giant anaconda's coils can hold as many creatures as will fit in its space.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> A Large or smaller creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in the giant anaconda's jaws.</p>\n<p><strong>Effect</strong> The giant anaconda moves the creature into its coils, freeing its jaws to make attacks, then uses Greater Constrict against the creature. The giant anaconda's coils can hold as many creatures as will fit in its space.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -535,6 +552,102 @@
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wrap in Coils",
             "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "kfjRR8MHRHoxgCkF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "eOgrqVcnppzRiPms",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 10 feet",
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -569,7 +682,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -604,7 +717,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -639,7 +752,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -674,7 +787,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],

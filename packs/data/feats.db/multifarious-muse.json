@@ -26,57 +26,57 @@
             {
                 "allowedDrops": {
                     "all": [
-                        "item:trait:bard",
                         "item:level:1",
+                        "item:trait:bard",
                         "item:type:feature"
                     ],
-                    "label": "level 1 Bard feature"
+                    "label": "1st-level Bard class feature"
                 },
                 "choices": [
                     {
-                        "label": "Enigma Muse",
+                        "label": "Enigma",
                         "img": "systems/pf2e/icons/features/classes/enigma.webp",
                         "value": "enigma",
                         "predicate": {
                             "not": [
-                                "self:feature:enigma-muse"
+                                "self:feature:enigma"
                             ]
                         }
                     },
                     {
-                        "label": "Maestro Muse",
+                        "label": "Maestro",
                         "img": "systems/pf2e/icons/features/classes/maestro.webp",
                         "value": "maestro",
                         "predicate": {
                             "not": [
-                                "self:feature:maestro-muse"
+                                "self:feature:maestro"
                             ]
                         }
                     },
                     {
-                        "label": "Polymath Muse",
+                        "label": "Polymath",
                         "img": "systems/pf2e/icons/features/classes/polymath.webp",
                         "value": "polymath",
                         "predicate": {
                             "not": [
-                                "self:feature:polymath-muse"
+                                "self:feature:polymath"
                             ]
                         }
                     },
                     {
-                        "label": "Warrior Muse",
+                        "label": "Warrior",
                         "img": "systems/pf2e/icons/features/classes/warrior.webp",
                         "value": "warrior",
                         "predicate": {
                             "not": [
-                                "self:feature:warrior-muse"
+                                "self:feature:warrior"
                             ]
                         }
                     }
                 ],
                 "flag": "muse",
                 "key": "ChoiceSet",
-                "prompt": "Select a Muse."
+                "prompt": "Select a muse."
             },
             {
                 "adjustName": false,
@@ -94,7 +94,7 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "self:feature:{item|flags.pf2e.rulesSelections.muse}-muse"
+                "option": "self:feature:{item|flags.pf2e.rulesSelections.muse}"
             }
         ],
         "source": {
