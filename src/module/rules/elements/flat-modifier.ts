@@ -41,9 +41,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
         if (selector && value) {
+            // Strip out the title ("Effect:", etc.) of the effect name
+            const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
             const modifier = new ModifierPF2e({
                 slug: this.data.slug,
-                label: this.label,
+                label,
                 modifier: value,
                 type: this.data.type,
                 ability: this.data.type === "ability" ? this.data.ability : null,
