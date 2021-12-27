@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "swim",
@@ -68,7 +69,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Crocodiles can be found basking on riverbanks, lurking in swamps, or floating in lakes. They are usually are indistinguishable from logs when viewed from afar-at least until they attack. Alligators have similar statistics, but because they often live in more temperate climates, they endure cold temperatures better. Unlike alligators, crocodiles can tolerate salt water. Both are formidable predators that are likely to devour careless adventurers who fail to watch where they step.</p>",
+            "publicNotes": "<p>Crocodiles can be found basking on riverbanks, lurking in swamps, or floating in lakes. They are usually are indistinguishable from logs when viewed from afar-at least until they attack. Alligators have similar statistics, but because they often live in more temperate climates, they endure cold temperatures better. Unlike alligators, crocodiles can tolerate salt water. Both are formidable predators that are likely to devour careless adventurers who fail to watch where they step.</p>\n<hr />\n<p>Powerful and primeval in appearance, crocodiles are dangerous natural predators that dwell in marshes, riverbeds, swamps, and other wetlands.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -217,7 +218,7 @@
             "type": "melee"
         },
         {
-            "_id": "fUD3qDDeBsiq5n64",
+            "_id": "AbbMWup6eJg0RC0O",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -265,56 +266,10 @@
             "type": "action"
         },
         {
-            "_id": "WLCM7iPJWfoRusL5",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirement</strong> The crocodile must have a creature grabbed.</p>\n<p><strong>Effect</strong> The crocodile tucks its legs and rolls rapidly, twisting its victim. It makes a jaws Strike with a +2 circumstance bonus to the attack roll against the grabbed creature. If it hits, it also knocks the creature prone. If it fails, it releases the creature.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Death Roll",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "A0HAbzH4Gjn59ZLw",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -351,11 +306,73 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "WLCM7iPJWfoRusL5",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The crocodile must have a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>\n<p><strong>Effect</strong> The crocodile tucks its legs and rolls rapidly, twisting its victim. It makes a jaws Strike with a +2 circumstance bonus to the attack roll against the grabbed creature. If it hits, it also knocks the creature @Compendium[pf2e.conditionitems.Prone]{Prone}. If it fails, it releases the creature.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.death-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "death-roll"
+                            ]
+                        },
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Death Roll",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "bC5V8xKPXi14MlHJ",
+            "_id": "OzGatkJy0uyM9zZJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -403,7 +420,7 @@
             "type": "action"
         },
         {
-            "_id": "IW1XY8VkoLpB7WFm",
+            "_id": "eGGqJI9VH7B5iZnC",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
