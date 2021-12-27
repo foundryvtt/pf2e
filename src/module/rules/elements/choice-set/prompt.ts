@@ -26,7 +26,6 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number> {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            width: 250,
             dragDrop: [{ dropSelector: ".drop-zone" }],
         };
     }
