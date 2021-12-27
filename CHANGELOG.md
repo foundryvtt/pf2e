@@ -1,5 +1,40 @@
 # Changelog
 
+## Version 3.1.2
+
+### Bugfixes
+* (stwlam) Fix listener on button to add weapon proficiencies
+* (stwlam) Fix issue sometimes causing familiars to be unimportable
+* (stwlam) Fix issue sometimes causing multiple ability modifiers to apply to damage
+
+### Core System Improvements
+* (Cerapter) Allow class features and feats to be infinitely nestable
+* (stwlam) Show levels for class features on PC sheet
+
+### Data Updates
+* (Abaddon) Brushup various zoo animals from Bestiary 1
+* (Abaddon) Brushup Bestiary 1 air & water elementals, nosoi, morrigna
+* (Abaddon) Update Abomination Vaults erinys variant and barcumbuk
+* (Abaddon, stwlam, Tikael) Make several labels and other text from rule elements localizable
+* (Carpebiem) Correct Barbed Vest item type and price of Greater Crushing Rune
+* (NullWolf) Correct level of Giant Pirate Skeleton
+* (NullWolf) Correct components of Scorching Ray
+* (rectulo) Fix inline roll formula label in description of Bullet Dancer Burn
+* (stwlam) Add ChoiceSet/GrantItem to Multitalented feat
+* (stwlam) Set correct Weapon Expertise feat for Swashbuckler
+* (stwlam) Add Alchemy feature to Alchemist class, along with grant of Alchemical Crafting
+* (stwlam) Refresh several alchemy-related and a couple other icons
+* (stwlam) Shorten item names of arcane schools/theses, hunter's edges, oracle mysteries, rogue rackets, and swashbuckler styles
+* (stwlam) Fix rendering and choice resolution of EffectTarget rule element
+* (stwlam) Have the Duelist Dedication feat grant Quick Draw
+* (stwlam) Have Alchemist Dedication grant Infused Reagents and Alchemical Crafting
+* (stwlam) Skip deleting granted physical items
+* (stwlam) Implement weapon-group proficiency increases from Fighter Weapon Mastery and Weapon Legend
+* (Tikael) Fix non-functional traits on some NPCs
+* (Tikael) Remove more parenthetical traits in strike descriptions
+* (Timingila) Fix broken strike on PFS creature
+
+
 ## Version 3.1.1
 
 ### Bugfixes

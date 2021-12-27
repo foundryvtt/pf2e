@@ -54,14 +54,14 @@ export class NPCPF2e extends CreaturePF2e {
     /** Users with limited permission can loot a dead NPC */
     override canUserModify(user: User, action: UserAction): boolean {
         if (action === "update" && this.isLootable) {
-            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
 
     /** A user can see an NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
@@ -88,7 +88,7 @@ export class NPCPF2e extends CreaturePF2e {
             return super.testUserPermission(user, permission, options);
         }
         if ([1, "LIMITED"].includes(permission) && !options) {
-            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
         }
         return super.testUserPermission(user, permission, options);
     }

@@ -1,3 +1,4 @@
+import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { ConditionData, ConditionType } from "./data";
 
@@ -39,6 +40,15 @@ export class ConditionPF2e extends ItemPF2e {
         super.prepareBaseData();
         const systemData = this.data.data;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+    }
+
+    /** Set a self roll option for this condition */
+    override prepareActorData(this: Embedded<ConditionPF2e>): void {
+        const slug = this.slug ?? sluggify(this.name);
+        this.actor.rollOptions.all[`${self}:condition:${slug}`] = true;
+        if (this.slug === "flat-footed") {
+            this.actor.rollOptions.all["self:flatFooted"] = true;
+        }
     }
 }
 

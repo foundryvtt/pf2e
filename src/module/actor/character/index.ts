@@ -33,7 +33,7 @@ import {
     RuleElementSynthetics,
     WeaponPotencyPF2e,
 } from "@module/rules/rules-data-definitions";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
@@ -98,30 +98,6 @@ export class CharacterPF2e extends CreaturePF2e {
 
     get heroPoints(): { value: number; max: number } {
         return deepClone(this.data.data.resources.heroPoints);
-    }
-
-    /** Add options from ancestry and class */
-    override getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const options = super.getSelfRollOptions(prefix);
-        const { itemTypes } = this;
-
-        // Ancestry and class
-        const ancestry = this.ancestry;
-        const pcClass = this.class;
-        if (ancestry) options.add(`${prefix}:ancestry:${ancestry.slug ?? sluggify(ancestry.name)}`);
-        if (pcClass) options.add(`${prefix}:class:${pcClass.slug ?? sluggify(pcClass.name)}`);
-
-        // Feats and features
-        const featTypes = new Set(["ancestry", "archetype", "class", "general", "skill"]);
-        for (const feat of itemTypes.feat) {
-            if (feat.isFeature) {
-                options.add(`${prefix}:feature:${feat.slug ?? sluggify(feat.name)}`);
-            } else if (featTypes.has(feat.featType)) {
-                options.add(`${prefix}:feat:${feat.slug ?? sluggify(feat.name)}`);
-            }
-        }
-
-        return options;
     }
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
@@ -1248,9 +1224,24 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.martial[slug] = proficiency;
         }
 
-        // Set proficiency bonuses to all
-        const allProficiencies = Object.values(systemData.martial);
-        for (const proficiency of allProficiencies) {
+        // Deduplicate proficiencies, set proficiency bonuses to all
+        const allProficiencies = Object.entries(systemData.martial);
+        for (const [_key, proficiency] of allProficiencies) {
+            const stringDefinition = "definition" in proficiency ? sortedStringify(proficiency.definition) : null;
+            const duplicates = allProficiencies.flatMap(([k, p]) =>
+                proficiency !== p &&
+                proficiency.rank >= p.rank &&
+                "definition" in proficiency &&
+                "definition" in p &&
+                proficiency.sameAs === p.sameAs &&
+                sortedStringify(p.definition) === stringDefinition
+                    ? k
+                    : []
+            );
+            for (const duplicate of duplicates) {
+                delete systemData.martial[duplicate];
+            }
+
             const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
             proficiency.value = proficiencyBonus.modifier;
             const sign = proficiencyBonus.modifier < 0 ? "" : "+";

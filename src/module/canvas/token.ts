@@ -48,9 +48,10 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh this token's image and size (usually after an actor update or override) */
     async redraw(): Promise<void> {
         const sizeChanged = this.w !== this.hitArea.width;
+        const scaleChanged = this.icon.width / this.w !== this.data.scale;
         const imageChanged = this.icon?.src !== this.data.img;
 
-        if ((sizeChanged || imageChanged) && this.actor?.type !== "vehicle") {
+        if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
             const visible = this.visible;
             await this.draw();

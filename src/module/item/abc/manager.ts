@@ -27,6 +27,10 @@ export class AncestryBackgroundClassManager {
             case "class": {
                 await actor.class?.delete();
 
+                /** Add class self roll option in case it is needed by any features' rule elements */
+                const slug = source.data.slug ?? sluggify(source.name);
+                actor.rollOptions.all[`self:class:${slug}`] = true;
+
                 source._id = randomID(16);
                 source.flags.pf2e ??= {};
                 source.flags.pf2e.insertedClassFeaturesLevel = actor.level;
