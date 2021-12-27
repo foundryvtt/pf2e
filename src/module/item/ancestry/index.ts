@@ -79,7 +79,15 @@ export class AncestryPF2e extends ABCItemPF2e {
         ).sort();
         systemData.traits.traits.value.push(...traits);
 
-        systemData.details.ancestry = { name: this.name, trait: this.slug ?? sluggify(this.name) };
+        const slug = this.slug ?? sluggify(this.name);
+        systemData.details.ancestry = { name: this.name, trait: slug };
+
+        // Set self: roll option for this ancestry and its associated traits
+        this.actor.rollOptions.all[`self:ancestry:${slug}`] = true;
+        for (const trait of this.traits) {
+            this.actor.rollOptions.all[`self:${trait}`] = true;
+            this.actor.rollOptions.all[`self:trait:${trait}`] = true;
+        }
     }
 }
 

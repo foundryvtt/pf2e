@@ -17,7 +17,7 @@ export class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their class */
-    override prepareActorData(this: Embedded<ClassPF2e>) {
+    override prepareActorData(this: Embedded<ClassPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
             console.error("Only a character can have a class");
             return;
@@ -52,7 +52,9 @@ export class ClassPF2e extends ABCItemPF2e {
             this.logAutoChange(`data.saves.${saveType}.rank`, classDetails.savingThrows[saveType]);
         }
 
-        details.class = { name: this.name, trait: this.slug ?? sluggify(this.name) };
+        const slug = this.slug ?? sluggify(this.name);
+        details.class = { name: this.name, trait: slug };
+        this.actor.rollOptions.all[`self:class:${slug}`] = true;
     }
 }
 

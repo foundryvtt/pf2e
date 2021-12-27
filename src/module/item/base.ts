@@ -543,6 +543,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             for await (const itemSource of [...data]) {
                 if (!itemSource.data?.rules) continue;
                 const item = new ItemPF2e(itemSource, { parent: context.parent }) as Embedded<ItemPF2e>;
+                // Pre-load this item's self: roll options for predication by preCreate rule elements
+                item.prepareActorData?.();
+
                 const rules = item.prepareRuleElements();
                 for await (const rule of rules) {
                     const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
