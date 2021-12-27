@@ -2,6 +2,7 @@ import { ItemPF2e } from "../index";
 import { FeatData, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
+import { sluggify } from "@util";
 
 export class FeatPF2e extends ItemPF2e {
     static override get schema(): typeof FeatData {
@@ -32,6 +33,13 @@ export class FeatPF2e extends ItemPF2e {
 
     get isFeature(): boolean {
         return ["classfeature", "ancestryfeature"].includes(this.featType);
+    }
+
+    /** Set a self roll option for this feat(ure) */
+    override prepareActorData(this: Embedded<FeatPF2e>): void {
+        const infix = this.isFeature ? "feature" : "feat";
+        const slug = this.slug ?? sluggify(this.name);
+        this.actor.rollOptions.all[`self:${infix}:${slug}`] = true;
     }
 
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
