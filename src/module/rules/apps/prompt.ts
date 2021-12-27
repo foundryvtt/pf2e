@@ -30,9 +30,9 @@ export abstract class RulesElementPrompt<T> extends Application {
         return {
             ...super.defaultOptions,
             classes: ["choice-set-prompt"],
-            width: 350,
             resizable: false,
             height: "auto",
+            width: "auto",
         };
     }
 
