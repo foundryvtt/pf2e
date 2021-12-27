@@ -48,8 +48,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh this token's image and size (usually after an actor update or override) */
     async redraw(): Promise<void> {
         const sizeChanged = this.w !== this.hitArea.width;
-        const scaleChanged = this.icon.width / this.w !== this.data.scale;
-        const imageChanged = this.icon?.src !== this.data.img;
+        const scaleChanged = !!this.icon && this.icon.width / this.w !== this.data.scale;
+        const imageChanged = !!this.icon && this.icon.src !== this.data.img;
 
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
@@ -136,5 +136,5 @@ interface TokenImage extends PIXI.Sprite {
 }
 
 export interface TokenPF2e extends Token<TokenDocumentPF2e> {
-    icon: TokenImage;
+    icon?: TokenImage;
 }
