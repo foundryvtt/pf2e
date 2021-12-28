@@ -1,6 +1,7 @@
-import { ItemPF2e } from "@item";
+import { SAVE_TYPES } from "@actor/data";
+import { ActionPF2e, ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
-import { objectHasKey } from "@util";
+import { objectHasKey, tupleHasValue } from "@util";
 
 export const EnrichContent = {
     // Get the different parameters of the @inline command
@@ -26,11 +27,13 @@ export const EnrichContent = {
 
         // Enrich @inline commands: Localize, Template
         // Localize calls the function again in order to enrich data contained in there
-        const types: String[] = ["Localize", "Template"];
+        const types: String[] = ["Check", "Localize", "Template"];
         const rgx = new RegExp(`@(${types.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
 
         return data.replace(rgx, (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
             switch (inlineType) {
+                case "Check":
+                    return EnrichContent.createActionCheck(paramString, buttonLabel, item);
                 case "Localize":
                     return EnrichContent.enrichString(game.i18n.localize(paramString), options);
                 case "Template":
@@ -93,5 +96,44 @@ export const EnrichContent = {
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
             return html.outerHTML;
         }
+    },
+
+    createActionCheck(paramString: string, label?: string, item?: ItemPF2e): string {
+        // Get parameters from data
+        const rawParams = EnrichContent.getParams(paramString);
+
+        // Check for correct syntax
+        if (typeof rawParams === "string") return rawParams;
+
+        const params = Object.fromEntries(rawParams);
+
+        if (!params.type) return `[${game.i18n.localize("PF2E.InlineActionCheckErrors.TypeMissing")}]`;
+        if (!(item instanceof ActionPF2e))
+            return `[${game.i18n.format("PF2E.InlineActionCheckErrors.WrongItemType", {
+                type: item?.type ?? "unknown",
+            })}]`;
+
+        if (!params.traits) {
+            const traits = item.data.data.traits;
+            params.traits = traits.value.join(",");
+            if (!(traits.custom === "")) {
+                params.traits = params.traits + `,${traits.custom}`;
+            }
+        }
+
+        const saveType = params.type;
+        if (tupleHasValue(SAVE_TYPES, saveType)) {
+            const check = item.checks![saveType];
+            // Add the html elements used for the inline buttons
+            const html = document.createElement("span");
+            html.innerHTML = label ?? game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            html.setAttribute("data-pf2-check", saveType);
+            html.setAttribute("data-pf2-dc", check.value.toString());
+            if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
+            html.setAttribute("data-pf2-label", item.name);
+            html.setAttribute("data-pf2-show-dc", "gm");
+            return html.outerHTML;
+        }
+        return `[${game.i18n.format("PF2E.InlineActionCheckErrors.WrongCheckType", { type: saveType })}]`;
     },
 };

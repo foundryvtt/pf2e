@@ -1,8 +1,9 @@
 import { ItemPF2e } from "@item/base";
-import { ActionData } from "./data";
+import { ActionCheckData, ActionData } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost } from "@item/data/base";
+import { SaveType, SAVE_TYPES } from "@actor/data";
 
 export class ActionPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {
@@ -19,6 +20,8 @@ export class ActionPF2e extends ItemPF2e {
         };
     }
 
+    checks?: Record<SaveType, ActionCheckData>;
+
     override prepareData() {
         const data = super.prepareData();
 
@@ -28,6 +31,24 @@ export class ActionPF2e extends ItemPF2e {
          **/
 
         return data;
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        if (!this.isOwned) {
+            // Owned items are prepared in their owners' prepareDerivedData method as not all actor data is availabe at this point
+            const checks: Partial<Record<SaveType, ActionCheckData>> = {};
+            for (const saveType of SAVE_TYPES) {
+                const base = this.data.data.checks[saveType]?.value ?? 0;
+                checks[saveType] = {
+                    base,
+                    value: base,
+                    breakdown: game.i18n.localize("PF2E.BaseModifier"),
+                };
+            }
+            this.checks = checks as Record<SaveType, ActionCheckData>;
+        }
     }
 
     override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
