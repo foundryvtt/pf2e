@@ -16,7 +16,7 @@ export const fetchSpell = (name: string) => {
     return null;
 };
 
-//@ts-ignore
+// @ts-ignore
 global.game = Object.freeze({
     settings: Object.freeze({
         get: (_module: string, settingKey: string) => {

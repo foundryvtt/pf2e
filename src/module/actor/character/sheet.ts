@@ -266,7 +266,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level, grants: [] });
             }
         } else {
-            //Use delete so it is in the right place on the sheet
+            // Use delete so it is in the right place on the sheet
             delete featSlots.dualclass;
         }
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {

@@ -17,6 +17,7 @@ module.exports = {
         "prettier/prettier": "error",
         "no-console": "off",
         "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
+        "spaced-comment": "error",
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off",

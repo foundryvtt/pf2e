@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The AmbientSound embedded document model. */
+        /** The AmbientSound embedded document model. */
         class BaseAmbientSound extends abstract.Document {
             static override get schema(): typeof data.AmbientSoundData;
 

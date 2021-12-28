@@ -63,7 +63,6 @@ interface CraftingData {
 /** Additional fields added in sheet data preparation */
 export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     abpEnabled: boolean;
-    //actor:
     ancestry: Embedded<AncestryPF2e> | null;
     background: Embedded<BackgroundPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
@@ -72,7 +71,6 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     crafting: CraftingData;
     data: CharacterSystemSheetData;
     hasStamina: boolean;
-    //items:
     magicTraditions: Record<MagicTradition, string>;
     options: CharacterSheetOptions;
     preparationType: Object;

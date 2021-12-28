@@ -1,4 +1,4 @@
-import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers"; //, DiceModifierPF2e, DamageDicePF2e
+import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers";
 import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "./rules-data-definitions";
 
 export class AutomaticBonusProgression {
