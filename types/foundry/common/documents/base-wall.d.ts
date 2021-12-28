@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The Wall embedded document model. */
+        /** The Wall embedded document model. */
         class BaseWall extends abstract.Document {
             static override get schema(): typeof data.WallData;
 

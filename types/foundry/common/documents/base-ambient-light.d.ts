@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The AmbientLight embedded document model. */
+        /** The AmbientLight embedded document model. */
         class BaseAmbientLight extends abstract.Document {
             static override get schema(): typeof data.AmbientLightData;
 
