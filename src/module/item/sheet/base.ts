@@ -2,7 +2,7 @@ import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import Tagify from "@yaireo/tagify";
 import {
     BasicConstructorOptions,

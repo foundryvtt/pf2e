@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { RawPredicate } from "@system/predication";
 import { MigrationBase } from "../base";
 

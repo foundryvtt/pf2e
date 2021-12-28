@@ -28,16 +28,12 @@ import {
     MartialProficiency,
     CharacterSheetTabVisibility,
 } from "./data";
-import {
-    MultipleAttackPenaltyPF2e,
-    RuleElementSynthetics,
-    WeaponPotencyPF2e,
-} from "@module/rules/rules-data-definitions";
+import { MultipleAttackPenaltyPF2e, RuleElementSynthetics, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
-import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
