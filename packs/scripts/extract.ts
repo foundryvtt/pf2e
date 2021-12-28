@@ -510,13 +510,17 @@ function sortAttacks(entityName: string, attacks: Set<ItemSourcePF2e>): ItemSour
     });
 }
 
-function sortActionsWithOverrides(entityName: string, actions: Array<ActionSource>, overrides: Map<RegExp, string>) : Array<ItemSourcePF2e> {
+function sortActionsWithOverrides(
+    entityName: string,
+    actions: Array<ActionSource>,
+    overrides: Map<RegExp, string>
+): Array<ItemSourcePF2e> {
     const topActions = new Array<ItemSourcePF2e>();
     const middleActions = new Array<ItemSourcePF2e>();
     const bottomActions = new Array<ItemSourcePF2e>();
 
     overrides.forEach((overrideArray, overrideRegex) => {
-        const interaction = actions.find((action) => overrideRegex.exec(action.name) );
+        const interaction = actions.find((action) => overrideRegex.exec(action.name));
         if (interaction) {
             if (overrideArray === "top") {
                 topActions.push(interaction);
@@ -524,7 +528,9 @@ function sortActionsWithOverrides(entityName: string, actions: Array<ActionSourc
                 bottomActions.push(interaction);
             } else {
                 if (args.logWarnings) {
-                    console.log(`Warning in ${entityName}: Override item '${overrideRegex}' has undefined override section '${overrideArray}', should be top or bottom!`);
+                    console.log(
+                        `Warning in ${entityName}: Override item '${overrideRegex}' has undefined override section '${overrideArray}', should be top or bottom!`
+                    );
                 }
             }
         }
@@ -541,10 +547,10 @@ function sortActionsWithOverrides(entityName: string, actions: Array<ActionSourc
 
 function sortSpellcastingEntries(entityName: string, actions: Set<ItemSourcePF2e>): Array<ItemSourcePF2e> {
     const overrides = new Map<RegExp, string>([
-        [ new RegExp("Prepared Spells"), "top" ],
-        [ new RegExp("Spontaneous Spells"), "top" ],
-        [ new RegExp("Innate Spells"), "top" ],
-        [ new RegExp("Ritual Spells"), "top" ],
+        [new RegExp("Prepared Spells"), "top"],
+        [new RegExp("Spontaneous Spells"), "top"],
+        [new RegExp("Innate Spells"), "top"],
+        [new RegExp("Ritual Spells"), "top"],
     ]);
 
     const castActions = new Array<ActionSource>();
@@ -554,14 +560,14 @@ function sortSpellcastingEntries(entityName: string, actions: Set<ItemSourcePF2e
 
 function sortInteractions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
     const overrides = new Map<RegExp, string>([
-        [ new RegExp("Low-Light Vision"), "top" ],
-        [ new RegExp("^Darkvision"), "top" ],
-        [ new RegExp("Greater Darkvision"), "top" ],
-        [ new RegExp("Tremorsense"), "top" ],
-        [ new RegExp("Scent"), "top" ],
-        [ new RegExp("Telepathy"), "top" ],
-        [ new RegExp("At-Will Spells"), "bottom" ],
-        [ new RegExp("Constant Spells"), "bottom" ],
+        [new RegExp("Low-Light Vision"), "top"],
+        [new RegExp("^Darkvision"), "top"],
+        [new RegExp("Greater Darkvision"), "top"],
+        [new RegExp("Tremorsense"), "top"],
+        [new RegExp("Scent"), "top"],
+        [new RegExp("Telepathy"), "top"],
+        [new RegExp("At-Will Spells"), "bottom"],
+        [new RegExp("Constant Spells"), "bottom"],
     ]);
 
     return sortActionsWithOverrides(entityName, actions, overrides);
@@ -569,25 +575,31 @@ function sortInteractions(entityName: string, actions: Array<ActionSource>): Arr
 
 function sortDefensiveActions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
     const overrides = new Map<RegExp, string>([
-        [ new RegExp("All-Around Vision"), "top" ],
-        [ new RegExp("(\\+|\\-)\\d+ (Status|Circumstance) (Bonus )?(to|on) ((All|Fortitude|Reflex|Will) )?Saves", "i"), "top" ],
-        [ new RegExp("Fast Healing"), "top" ],
-        [ new RegExp("Negative Healing"), "top" ],
-        [ new RegExp("Regeneration"), "top" ],
-        [ new RegExp("Swarm Mind"), "top" ],
+        [new RegExp("All-Around Vision"), "top"],
+        [
+            new RegExp(
+                "(\\+|\\-)\\d+ (Status|Circumstance) (Bonus )?(to|on) ((All|Fortitude|Reflex|Will) )?Saves",
+                "i"
+            ),
+            "top",
+        ],
+        [new RegExp("Fast Healing"), "top"],
+        [new RegExp("Negative Healing"), "top"],
+        [new RegExp("Regeneration"), "top"],
+        [new RegExp("Swarm Mind"), "top"],
     ]);
-    
+
     return sortActionsWithOverrides(entityName, actions, overrides);
 }
 
 function sortOffensiveActions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
     const overrides = new Map<RegExp, string>([
-        [ new RegExp("^Grab"), "bottom" ],
-        [ new RegExp("Improved Grab"), "bottom" ],
-        [ new RegExp("^Knockdown"), "bottom" ],
-        [ new RegExp("Improved Knockdown"), "bottom" ],
-        [ new RegExp("^Push"), "bottom" ],
-        [ new RegExp("Improved Push"), "bottom" ],
+        [new RegExp("^Grab"), "bottom"],
+        [new RegExp("Improved Grab"), "bottom"],
+        [new RegExp("^Knockdown"), "bottom"],
+        [new RegExp("Improved Knockdown"), "bottom"],
+        [new RegExp("^Push"), "bottom"],
+        [new RegExp("Improved Push"), "bottom"],
     ]);
 
     return sortActionsWithOverrides(entityName, actions, overrides);
@@ -595,42 +607,48 @@ function sortOffensiveActions(entityName: string, actions: Array<ActionSource>):
 
 function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
     const notActions = new Array<[string, string]>(
-        [ "Innate Spells", "spellcastingEntry" ],
-        [ "Prepared Spells", "spellcastingEntry" ],
-        [ "Ritual Spells", "spellcastingEntry" ],
-        [ "Spontaneous Spells", "spellcastingEntry" ],
+        ["Innate Spells", "spellcastingEntry"],
+        ["Prepared Spells", "spellcastingEntry"],
+        ["Ritual Spells", "spellcastingEntry"],
+        ["Spontaneous Spells", "spellcastingEntry"]
     );
     const actionsMap = new Map<string, Array<ActionSource>>([
-        [ "interaction", new Array<ActionSource>() ],
-        [ "defensive", new Array<ActionSource>() ],
-        [ "offensive", new Array<ActionSource>() ],
-        [ "other", new Array<ActionSource>() ],
+        ["interaction", new Array<ActionSource>()],
+        ["defensive", new Array<ActionSource>()],
+        ["offensive", new Array<ActionSource>()],
+        ["other", new Array<ActionSource>()],
     ]);
 
-    Array.from(actions).sort((a, b) => a.name.localeCompare(b.name)).forEach((action) => {
-        const actionData = action as ActionSource;
-        const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
-        if (notActionMatch) {
-            console.log(`Error in ${entityName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`);
-        }
-        if (!actionData.data.actionCategory?.value) {
-            if (args.logWarnings) {
-                console.log(`Warning in ${entityName}: Action item '${actionData.name}' has no actionCategory defined!`);
+    Array.from(actions)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach((action) => {
+            const actionData = action as ActionSource;
+            const notActionMatch = notActions.find((naName) => actionData.name.match(naName[0]));
+            if (notActionMatch) {
+                console.log(
+                    `Error in ${entityName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
+                );
             }
-            actionsMap.get("other")!.push(actionData);
-        } else {
-            let actionCategory = actionData.data.actionCategory.value;
-            if (!actionsMap.has(actionCategory)) {
-                actionCategory = "other";
+            if (!actionData.data.actionCategory?.value) {
+                if (args.logWarnings) {
+                    console.log(
+                        `Warning in ${entityName}: Action item '${actionData.name}' has no actionCategory defined!`
+                    );
+                }
+                actionsMap.get("other")!.push(actionData);
+            } else {
+                let actionCategory = actionData.data.actionCategory.value;
+                if (!actionsMap.has(actionCategory)) {
+                    actionCategory = "other";
+                }
+                actionsMap.get(actionCategory)!.push(actionData);
             }
-            actionsMap.get(actionCategory)!.push(actionData);
-        }
-    });
+        });
 
     const sortedInteractions = sortInteractions(entityName, actionsMap.get("interaction")!);
     const sortedDefensive = sortDefensiveActions(entityName, actionsMap.get("defensive")!);
     const sortedOffensive = sortOffensiveActions(entityName, actionsMap.get("offensive")!);
-    
+
     return sortedInteractions.concat(sortedDefensive, sortedOffensive, actionsMap.get("other")!);
 }
 
