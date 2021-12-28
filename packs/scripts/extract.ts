@@ -570,7 +570,7 @@ function sortInteractions(entityName: string, actions: Array<ActionSource>): Arr
 function sortDefensiveActions(entityName: string, actions: Array<ActionSource>): Array<ItemSourcePF2e> {
     const overrides = new Map<RegExp, string>([
         [ new RegExp("All-Around Vision"), "top" ],
-        [ new RegExp("(\\+|\\-)\\d+ ([Ss]tatus|[Cc]ircumstance) ([Bb]onus )?(to|on) ([Aa]ll )?[Ss]aves"), "top" ],
+        [ new RegExp("(\\+|\\-)\\d+ (Status|Circumstance) (Bonus )?(to|on) ((All|Fortitude|Reflex|Will) )?Saves", "i"), "top" ],
         [ new RegExp("Fast Healing"), "top" ],
         [ new RegExp("Negative Healing"), "top" ],
         [ new RegExp("Regeneration"), "top" ],
