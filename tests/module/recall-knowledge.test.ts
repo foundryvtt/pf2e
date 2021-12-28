@@ -11,9 +11,7 @@ function createCreature(level: number, rarity: Rarity, traits: string[]): NPCDat
                 },
             },
             traits: {
-                rarity: {
-                    value: rarity,
-                },
+                rarity,
                 traits: {
                     value: traits,
                 },

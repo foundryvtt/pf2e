@@ -69,7 +69,7 @@ export function identifyCreature(
     creature: { data: NPCSystemData },
     { proficiencyWithoutLevel = false }: DCOptions = {}
 ): IdentifyCreatureData {
-    const rarity = creature.data.traits.rarity.value ?? "common";
+    const rarity = creature.data.traits.rarity ?? "common";
     const level = toNumber(creature.data.details.level?.value) ?? 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
 

@@ -46,7 +46,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Weapons have derived level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
-        sheetData.data.traits.rarity.value = baseData.data.traits.rarity.value;
+        sheetData.data.traits.rarity = baseData.data.traits.rarity;
         const hintText = LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
         const adjustedLevelHint =
             this.item.level !== baseData.data.level.value
@@ -148,7 +148,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             adjustedLevelHint,
             adjustedPriceHint,
             baseLevel: baseData.data.level.value,
-            baseRarity: baseData.data.traits.rarity.value,
+            baseRarity: baseData.data.traits.rarity,
             basePrice: baseData.data.price.value,
             categories: CONFIG.PF2E.weaponCategories,
             groups,

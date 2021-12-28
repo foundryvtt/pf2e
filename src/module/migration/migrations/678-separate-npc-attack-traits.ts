@@ -1,13 +1,13 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RARITIES } from "@module/data";
-import { tupleHasValue } from "@util";
+import { isObject, tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 
 /** Remove exclusive NPC attack traits from weapons */
 export class Migration678SeparateNPCAttackTraits extends MigrationBase {
     static override version = 0.678;
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemSource: ItemWithRarityObject): Promise<void> {
         if (itemSource.type === "weapon") {
             const weaponTraits = itemSource.data.traits.value;
             const rangeTraits = weaponTraits.filter((trait) => /^range(?!d)/.test(trait));
@@ -27,10 +27,22 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
         for (const trait of itemTraits) {
             if (tupleHasValue(RARITIES, trait)) {
                 itemTraits.splice(itemTraits.indexOf(trait), 1);
-                if (trait !== "common" && itemSource.data.traits.rarity.value === "common") {
+                if (
+                    trait !== "common" &&
+                    isObject(itemSource.data.traits.rarity) &&
+                    itemSource.data.traits.rarity.value === "common"
+                ) {
                     itemSource.data.traits.rarity.value = trait;
                 }
             }
         }
     }
 }
+
+type ItemWithRarityObject = ItemSourcePF2e & {
+    data: {
+        traits?: {
+            rarity: string | { value: string };
+        };
+    };
+};

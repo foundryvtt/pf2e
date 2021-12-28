@@ -8,7 +8,7 @@ export class HazardPF2e extends ActorPF2e {
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity.value;
+        return this.data.data.traits.rarity;
     }
 
     get isComplex(): boolean {

@@ -7,12 +7,10 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
-    CreatureTraitsData,
     SaveData,
     SkillData,
 } from "@actor/creature/data";
 import { AbilityString, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
-import { Rarity } from "@module/data";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
 
@@ -69,8 +67,6 @@ export interface NPCSystemData extends CreatureSystemData {
     resources: {
         focus?: { value: number; max: number };
     };
-
-    traits: NPCTraitsData;
 }
 
 interface RawNPCStrike extends StrikeData {
@@ -153,8 +149,4 @@ export interface NPCAttributes extends CreatureAttributes {
     /** Textual information about any special benefits that apply to all saves. */
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;
-}
-
-interface NPCTraitsData extends CreatureTraitsData {
-    rarity: { value: Rarity };
 }

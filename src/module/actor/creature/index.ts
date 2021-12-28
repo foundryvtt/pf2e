@@ -40,6 +40,7 @@ import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
+import { Rarity } from "@module/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -49,6 +50,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
         return this.data.data.details.alignment.value;
+    }
+
+    get rarity(): Rarity {
+        return this.data.data.traits.rarity;
     }
 
     override get visionLevel(): VisionLevel {

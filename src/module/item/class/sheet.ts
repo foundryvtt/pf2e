@@ -14,7 +14,7 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
         return {
             ...data,
             items,
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity.value] }),
+            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity] }),
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.data.keyAbility),

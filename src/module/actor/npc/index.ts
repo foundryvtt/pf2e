@@ -9,7 +9,6 @@ import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
 import { sluggify } from "@util";
-import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { VisionLevel, VisionLevels } from "@actor/creature/data";
@@ -24,10 +23,6 @@ import { SaveType } from "@actor/data";
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
         return NPCData;
-    }
-
-    get rarity(): Rarity {
-        return this.data.data.traits.rarity.value;
     }
 
     /** This NPC's ability scores */

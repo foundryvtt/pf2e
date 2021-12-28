@@ -16,17 +16,17 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity.value" data-dtype="String">
-            {{#select data.traits.rarity.value}}
-                {{#each rarity as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
+        <select name="data.traits.rarity" data-dtype="String">
+            {{#select data.traits.rarity}}
+                {{#each rarities as |rarity|}}
+                    <option value="{{rarity.value}}">{{localize rarity.label}}</option>
                 {{/each}}
             {{/select}}
         </select>
     </div>
 
     <ol class="item-tags tags">
-        <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
+        <li class="tag tag_transparent">{{#with (lookup rarities data.traits.rarity) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
         {{#each traits as |trait|}}
             {{#if trait.selected}}
                 <li class="tag tag_transparent">{{localize trait.label}}</li>

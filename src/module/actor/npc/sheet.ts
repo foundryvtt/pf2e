@@ -256,7 +256,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
         sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join("/");
 
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== "common";
+        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
         sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value];
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];

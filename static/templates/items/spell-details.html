@@ -21,11 +21,11 @@
 <ol class="form-list">
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity.value" data-dtype="String">
-            {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+        <select name="data.traits.rarity" data-dtype="String">
+            {{#select data.traits.rarity}}
+                {{#each rarities as |rarity|}}
+                    <option value="{{rarity.value}}">{{localize rarity.label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
