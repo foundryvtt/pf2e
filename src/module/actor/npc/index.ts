@@ -1,5 +1,5 @@
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
-import { ActionPF2e, ConsumablePF2e, ItemPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e } from "@item";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@module/system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
@@ -21,7 +21,6 @@ import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 import { ActorUpdateContext } from "@actor/base";
-import { ActionCheckData } from "@item/action/data";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -750,31 +749,6 @@ export class NPCPF2e extends CreaturePF2e {
                     itemData.data.spelldc.dc -= 2;
                     itemData.data.spelldc.value -= 2;
                 }
-            } else if (itemData.type === "action") {
-                const checks: Partial<Record<SaveType, ActionCheckData>> = {};
-                for (const saveType of SAVE_TYPES) {
-                    const check = itemData.data.checks[saveType];
-                    const base = check.value ?? 0;
-                    const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
-
-                    const selectors = [saveType, `${ability}-based`, "all"];
-                    const stat = new Statistic(this, {
-                        slug: saveType,
-                        notes: extractNotes(rollNotes, selectors),
-                        domains: selectors,
-                        modifiers: [...extractModifiers(statisticsModifiers, selectors)],
-                        dc: {
-                            base,
-                        },
-                    });
-                    const { value, breakdown } = stat.dc();
-                    checks[saveType] = {
-                        base,
-                        value,
-                        breakdown,
-                    };
-                }
-                (item as ActionPF2e).checks = checks as Record<SaveType, ActionCheckData>;
             }
         }
 

@@ -36,10 +36,12 @@ import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SAVE_TYPES, SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
+import { ActionCheckData } from "@item/action/data";
+import { extractNotes, extractModifiers } from "@module/rules/util";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -186,6 +188,38 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
             changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+        }
+
+        const rules = this.rules.filter((rule) => !rule.ignored);
+        const synthetics = this.prepareCustomModifiers(rules);
+        const { statisticsModifiers, rollNotes } = synthetics;
+
+        // Prepare Action item checks
+        for (const action of this.itemTypes.action) {
+            const checks: Partial<Record<SaveType, ActionCheckData>> = {};
+            for (const saveType of SAVE_TYPES) {
+                const check = action.data.data.checks[saveType];
+                const base = check.value ?? 0;
+                const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
+
+                const selectors = [saveType, `${ability}-based`, "all"];
+                const stat = new Statistic(this, {
+                    slug: saveType,
+                    notes: extractNotes(rollNotes, selectors),
+                    domains: selectors,
+                    modifiers: [...extractModifiers(statisticsModifiers, selectors)],
+                    dc: {
+                        base,
+                    },
+                });
+                const { value, breakdown } = stat.dc();
+                checks[saveType] = {
+                    base,
+                    value,
+                    breakdown,
+                };
+            }
+            action.checks = checks as Record<SaveType, ActionCheckData>;
         }
     }
 
