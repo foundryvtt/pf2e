@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The Tile embedded document model. */
+        /** The Tile embedded document model. */
         class BaseTile extends abstract.Document {
             static override get schema(): typeof data.TileData;
 

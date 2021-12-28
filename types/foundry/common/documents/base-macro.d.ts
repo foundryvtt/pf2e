@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The Macro document model. */
+        /** The Macro document model. */
         class BaseMacro extends abstract.Document {
             static override get schema(): typeof data.MacroData;
 
