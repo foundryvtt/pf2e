@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "35"
             }
@@ -63,7 +64,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Riding dogs types include larger dogs, such as mastiffs, wolfhounds, and huskies, and are bred often by halflings and gnomes to serve as mounts. Riding dogs are as loyal and devoted to their masters as guard dogs, and are ferocious in battle, regardless of whether they bear a rider or not. As with guard dogs, these large hounds can be wild or feral in nature, and, in some cases, might rival packs of wolves with regard to the danger they pose to inhabitants of rural areas.</p>",
+            "publicNotes": "<p>Riding dogs types include larger dogs, such as mastiffs, wolfhounds, and huskies, and are bred often by halflings and gnomes to serve as mounts. Riding dogs are as loyal and devoted to their masters as guard dogs, and are ferocious in battle, regardless of whether they bear a rider or not. As with guard dogs, these large hounds can be wild or feral in nature, and, in some cases, might rival packs of wolves with regard to the danger they pose to inhabitants of rural areas.</p>\n<hr />\n<p>Dogs are trusted and loyal companions that serve as guardians, protectors, and hunting companions. Their ability to detect prey or predators via scent and their predilection to accompany humanoids makes them ideal pets for most adventurers. There are hundreds of breeds of dogs in the world-from tiny lapdogs who shower their masters in affection to muscular dogs that stand nearly 4 feet high at the shoulder-and they can be found in nearly any place where people reside. Larger breeds might even be used as mounts for smaller adventurers, and some cultures use dogs as beasts of burden capable of pulling sleds loaded with supplies across the icy tundra. Regardless, many adventurers find value in having a dog.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -124,6 +125,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -253,7 +255,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -323,7 +325,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
