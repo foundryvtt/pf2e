@@ -76,7 +76,7 @@ export class EffectPF2e extends ItemPF2e {
     override prepareActorData(this: Embedded<EffectPF2e>): void {
         const slug = this.slug ?? sluggify(this.name);
         const reducedSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
-        this.actor.rollOptions.all[`${self}:effect:${reducedSlug}`] = true;
+        this.actor.rollOptions.all[`self:effect:${reducedSlug}`] = true;
     }
 
     /* -------------------------------------------- */

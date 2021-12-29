@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The MeasuredTemplate embedded document model. */
+        /** The MeasuredTemplate embedded document model. */
         class BaseMeasuredTemplate extends abstract.Document {
             static override get schema(): typeof data.MeasuredTemplateData;
 

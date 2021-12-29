@@ -40,7 +40,7 @@ declare global {
             cf: "countFailures";
         };
 
-        /**The regular expression pattern used to identify the opening of a dice pool expression. */
+        /** The regular expression pattern used to identify the opening of a dice pool expression. */
         static OPEN_REGEXP: RegExp;
 
         /** A regular expression pattern used to identify the closing of a dice pool expression. */

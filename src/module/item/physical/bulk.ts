@@ -392,7 +392,7 @@ function calculateItemBulk({
     bulkConfig: BulkConfig;
     actorSize: Size;
 }): BulkAndOverflow {
-    //ignore containers that aren't items
+    // ignore containers that aren't items
     if (item.id === "") {
         return [new Bulk(), {}];
     }

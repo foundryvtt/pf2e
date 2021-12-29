@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "swim",
@@ -68,7 +69,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "<p>Prehistoric sharks of incredible size, strength, and ferocity, megalodons scour waters deep and shallow to sate their considerable hunger. The presence of a megalodon undeniably affects the local aquatic ecosystem.</p>",
+            "publicNotes": "<p>Prehistoric sharks of incredible size, strength, and ferocity, megalodons scour waters deep and shallow to sate their considerable hunger. The presence of a megalodon undeniably affects the local aquatic ecosystem.</p>\n<hr />\n<p>Sharks of all shapes and sizes have stalked the oceans, largely unchanged, since primordial times. They are efficient, ruthless predators with multiple rows of razor-sharp teeth capable of rending prey in an instant. Their uncanny ability to smell blood in the water means sharks might show up at any scene of aquatic carnage.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -130,6 +131,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "improved-grab"
                     ]
@@ -178,7 +180,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
                 },
                 "bonus": {
                     "value": 22
@@ -187,10 +192,6 @@
                     "f975a2e7oy5dr9yakw4r": {
                         "damage": "2d8+10",
                         "damageType": "piercing"
-                    },
-                    "9fyvsxk82oy4w72ly7e1": {
-                        "damage": "",
-                        "damageType": "Push15feet"
                     }
                 },
                 "description": {
@@ -267,6 +268,54 @@
             "type": "action"
         },
         {
+            "_id": "rjGVnVgJiMZZR6zk",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 100 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "91Bz1Au1eeA0F5Kc",
             "data": {
                 "actionCategory": {
@@ -279,7 +328,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The megaladon Swims up to its swim Speed, then Leaps vertically out of the water up to 25 feet high, making a Strike against a creature at any point during the jump (this lets it attack a creature within 35 feet of the water's surface or 40 feet with its tail). After the Strike, the megaladon splashes back down into the water.</p>"
+                    "value": "<p>The megalodon Swims up to its swim Speed, then @Compendium[pf2e.actionspf2e.Leap]{Leaps} vertically out of the water up to 25 feet high, making a Strike against a creature at any point during the jump (this lets it attack a creature within 35 feet of the water's surface). After the Strike, the megalodon splashes back down into the water.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -310,95 +359,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Breach",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "rRb6HSrFWAx6rLnK",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
             "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "2YVVxM9WB9RcZwMu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Push",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -414,7 +375,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The megaladon hit with a jaws Strike on its most recent action this turn.</p>\n<p><strong>Effect</strong> The creature the megaladon hit takes [[/r {2d12}[slashing]]]{2d12 slashing damage}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The megalodon hit with a jaws Strike on its most recent action this turn.</p>\n<p><strong>Effect</strong> The creature the megalodon hit takes [[/r {2d12}[slashing]]]{2d12 slashing damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -442,11 +403,59 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Savage",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "E3WrwhsH06axDfAu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "1XC6aV8fLDWFCCll",
+            "_id": "JWS021oC5szbCrAS",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -458,13 +467,61 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {2d8+5}[bludgeoning]]]{2d8+5 bludgeoning damage}, Rupture 20</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "push",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 15 feet",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "gC0TpsGsMQ5RDDau",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Huge, [[/r {2d8+5}[bludgeoning]]]{2d8+5 bludgeoning}, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -485,10 +542,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -523,7 +584,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -558,7 +619,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -593,7 +654,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

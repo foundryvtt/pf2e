@@ -6,14 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration680SetWeaponHands } from "@module/migration/migrations/680-set-weapon-hands";
-import { Migration681GiantLanguageToJotun } from "@module/migration/migrations/681-giant-language-to-jotun";
-import { Migration682BiographyFields } from "@module/migration/migrations/682-biography-fields";
-import { Migration683FlavorTextToPublicNotes } from "@module/migration/migrations/683-flavortext-to-public-notes";
-import { Migration685FixMeleeUsageTraits } from "@module/migration/migrations/685-fix-melee-usage-traits";
-import { Migration686HeroPointsToResources } from "@module/migration/migrations/686-hero-points-to-resources";
-import { Migration687FamiliarityAEsToREs } from "@module/migration/migrations/687-familiarity-aes-to-res";
-import { Migration688ClampSpellLevel } from "@module/migration/migrations/688-clamp-spell-level";
 import { Migration689EncumberanceActiveEffects } from "@module/migration/migrations/689-encumberance-aes";
 import { Migration690InitiativeTiebreakItems } from "@module/migration/migrations/690-tiebreak-items";
 import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
@@ -30,16 +22,11 @@ import { Migration703SpellDamageStructure } from "@module/migration/migrations/7
 import { Migration704MartialProficiencyRE } from "@module/migration/migrations/704-martial-proficiency-re";
 import { Migration705GunslingerCatchUp } from "@module/migration/migrations/705-gunslinger-catch-up";
 import { Migration706FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/706-formulas-at-instance-level-everything-else";
+import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/migrations/707-bracketed-formulas-at-instance-level";
+import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
+import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
 
 const migrations: MigrationBase[] = [
-    new Migration680SetWeaponHands(),
-    new Migration681GiantLanguageToJotun(),
-    new Migration682BiographyFields(),
-    new Migration683FlavorTextToPublicNotes(),
-    new Migration685FixMeleeUsageTraits(),
-    new Migration686HeroPointsToResources(),
-    new Migration687FamiliarityAEsToREs(),
-    new Migration688ClampSpellLevel(),
     new Migration689EncumberanceActiveEffects(),
     new Migration690InitiativeTiebreakItems(),
     new Migration691WeaponRangeAbilityCategoryGroup(),
@@ -56,6 +43,9 @@ const migrations: MigrationBase[] = [
     new Migration704MartialProficiencyRE(),
     new Migration705GunslingerCatchUp(),
     new Migration706FormulasAtInstanceLevelEverythingElse(),
+    new Migration707BracketedFormulasAtInstanceLevel(),
+    new Migration708SpecificRuleLabel(),
+    new Migration709REFormulasAtInstanceLevelRedux(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

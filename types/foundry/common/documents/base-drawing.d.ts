@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The Drawing embedded document model. */
+        /** The Drawing embedded document model. */
         class BaseDrawing extends abstract.Document {
             static override get schema(): typeof data.DrawingData;
 

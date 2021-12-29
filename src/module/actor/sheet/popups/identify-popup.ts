@@ -39,7 +39,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const $button = $(event.delegateTarget);
             this.submit({ updateData: { status: $button.val() } });
         });
-        //add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
+        // add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
         $form.find<HTMLButtonElement>("button.post-skill-checks").on("click", () => {
             const item = this.item;
             const itemImg = item.data.data.identification.unidentified.img;
