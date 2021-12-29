@@ -108,3 +108,4 @@ export { Migration705GunslingerCatchUp } from "./705-gunslinger-catch-up";
 export { Migration706FormulasAtInstanceLevelEverythingElse } from "./706-formulas-at-instance-level-everything-else";
 export { Migration707BracketedFormulasAtInstanceLevel } from "./707-bracketed-formulas-at-instance-level";
 export { Migration708SpecificRuleLabel } from "./708-specific-rule-label";
+export { Migration709REFormulasAtInstanceLevelRedux } from "./709-re-formulas-at-instance-level-redux";
