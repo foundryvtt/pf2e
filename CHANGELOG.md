@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 3.1.3
+
+### Bugfixes
+* (SoldierC4) Fix visibility of loot-sheet inventory when scrolling
+* (stwlam) Fix issue causing alternative ability modifiers to not appear correctly on check dialog
+* (stwlam) Remove non-functional updating NPC attitude from token disposition: will restore (with functionality) in next release
+
+### Data Updates
+* (Abaddon) Brushup even more zoo animals from Bestiary 1
+* (Dooplan) Fixed uniformity issues with some book references
+* (NullWolf) Correct Hunter's Aim rule elements
+* (SpartanCPA) Remove Primal Innate Spells action from Grogrisant
+* (rectulo) Fix formatting and remove a link in the Hot Foot feat of the Pistol Phenom archetype
+* (stwlam) Fix formulas with actor data on BattleForm REs
+* (stwlam) Skip Swashbucklers in Weapon Expertise consolidation
+* (Tikael) Standardize "Cant speak..." text
+
+
 ## Version 3.1.2
 
 ### Bugfixes

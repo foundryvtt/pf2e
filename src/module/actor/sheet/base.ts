@@ -630,11 +630,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected override _onDragStart(event: ElementDragEvent): void {
         const $li = $(event.currentTarget);
 
-        const baseDragData = {
+        const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
             sceneId: canvas.scene?.id ?? null,
             tokenId: this.actor.token?.id ?? null,
         };
+
+        // Owned Items
+        const itemUuid = $li.attr("data-item-id");
+        if (itemUuid) {
+            const item = this.actor.items.get(itemUuid);
+            if (item && "data" in item) {
+                baseDragData.type = "Item";
+                baseDragData.data = item.data;
+            }
+        }
 
         // Dragging ...
         const supplementalData = (() => {
@@ -642,29 +652,35 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const toggleProperty = $li.attr("data-toggle-property");
             const toggleLabel = $li.attr("data-toggle-label");
             const itemType = $li.attr("data-item-type");
-            const itemUuid = $li.attr("data-item-id");
 
             // ... an action?
             if (actionIndex) {
                 return {
-                    type: "Action",
-                    index: Number(actionIndex),
+                    pf2e: {
+                        type: "Action",
+                        index: Number(actionIndex),
+                    },
                 };
             }
+
             // ... a toggle?
             if (toggleProperty) {
                 return {
-                    type: "Toggle",
-                    property: toggleProperty,
-                    label: toggleLabel,
+                    pf2e: {
+                        type: "Toggle",
+                        property: toggleProperty,
+                        label: toggleLabel,
+                    },
                 };
             }
 
             // ... a crafting formula?
             if (itemType === "formula") {
                 return {
-                    type: "CraftingFormula",
-                    itemUuid: itemUuid,
+                    pf2e: {
+                        type: "CraftingFormula",
+                        itemUuid: itemUuid,
+                    },
                 };
             }
 

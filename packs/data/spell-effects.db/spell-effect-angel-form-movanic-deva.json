@@ -56,7 +56,7 @@
                     "weaknesses": [
                         {
                             "type": "evil",
-                            "value": "10+ 5*floor((@item.level.value -7)/2)"
+                            "value": "10+ 5*floor((@item.level -7)/2)"
                         }
                     ]
                 },
@@ -67,7 +67,7 @@
                             "start": 7,
                             "value": {
                                 "armorClass": {
-                                    "modifier": "22 + @details.level.value"
+                                    "modifier": "22 + @actor.level"
                                 },
                                 "size": "med",
                                 "skills": {

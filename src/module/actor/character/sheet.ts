@@ -266,7 +266,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level, grants: [] });
             }
         } else {
-            //Use delete so it is in the right place on the sheet
+            // Use delete so it is in the right place on the sheet
             delete featSlots.dualclass;
         }
         if (game.settings.get("pf2e", "freeArchetypeVariant")) {
@@ -1173,7 +1173,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onDrop(event: ElementDragEvent) {
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = JSON.parse(dataString ?? "");
-        if (dropData.type === "CraftingFormula") {
+        if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
             // Prepare formula if dropped on a crafting entry.
             const $containerEl = $(event.target).closest(".item-container");
             const dropContainerType = $containerEl.attr("data-container-type");
@@ -1184,7 +1184,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (!craftingEntry) return;
 
                 const craftingFormulas = await this.actor.getCraftingFormulas();
-                const formula = craftingFormulas.find((f) => f.uuid === dropData.itemUuid);
+                const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
 
                 if (formula) await craftingEntry.prepareFormula(formula);
                 return;
