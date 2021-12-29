@@ -71,6 +71,7 @@ export class Migration700SingleClassFeatures extends MigrationBase {
             itemRef.level = Number(itemRef.level) || 1;
 
             for (const feature of this.features) {
+                if (itemSource.data.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
                 if (this.itemIds[feature.slug].includes(itemRef.id)) {
                     itemRef.id = this.itemIds[feature.slug][0];
                     itemRef.name = feature.name;
@@ -82,6 +83,7 @@ export class Migration700SingleClassFeatures extends MigrationBase {
     /** Update the name, slug, and traits of each feature */
     private migrateFeature(itemSource: FeatSource): void {
         for (const feature of this.features) {
+            if (itemSource.data.slug === "swashbuckler" && feature.slug === "weapon-expertise") continue;
             if (itemSource.data.slug?.startsWith(`${feature.slug}-level-`)) {
                 itemSource.data.slug = feature.slug;
                 if (itemSource.name.startsWith(`${feature.name} `)) itemSource.name = feature.name;
