@@ -3,6 +3,7 @@
 ## Version 3.1.3
 
 ### Bugfixes
+* (SoldierC4) Fix visibility of loot-sheet inventory when scrolling
 * (stwlam) Fix issue causing alternative ability modifiers to not appear correctly on check dialog
 * (stwlam) Remove non-functional updating NPC attitude from token disposition: will restore (with functionality) in next release
 
