@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -63,7 +64,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Mechanical carnies are constructs manufactured to serve as entertainers, cleaners, and guards at carnivals and circuses. The first of these constructs was created by a gnome inventor who yearned for a tireless companion who could make her laugh and smile. Her invention was so successful that it has spawned countless imitations and knockoffs throughout the Inner Sea, and mechanical carnies of some form or another are a staple throughout metropolitan lands in both Avistan and Garund.</p>",
+            "publicNotes": "<p>&nbsp;</p>\n<p>Mechanical carnies are constructs manufactured to serve as entertainers, cleaners, and guards at carnivals and circuses. The first of these constructs was created by a gnome inventor who yearned for a tireless companion who could make her laugh and smile. Her invention was so successful that it has spawned countless imitations and knockoffs throughout the Inner Sea, and mechanical carnies of some form or another are a staple throughout metropolitan lands in both Avistan and Garund.</p>\n<hr />\n<p><strong>Creating Mechanical Carnies</strong></p>\n<p>Constructing a mechanical carny is a difficult feat and requires the supervision of a specialized (and expensive) tinkerer. A thrifty ringmaster may employ a budget-level tinkerer and mechanical carny, though they get what they pay for; many a cheap troupe leader has found a malfunctioning mechanical carny wreaking havoc in their circus tent.</p>",
             "source": {
                 "value": "Pathfinder #151: The Show Must Go On"
             }
@@ -89,7 +90,7 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "doomed",
                     "drained",
@@ -97,7 +98,7 @@
                     "healing",
                     "mental",
                     "necromancy",
-                    "nonlethal attacks",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
                     "sickened",
@@ -106,10 +107,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "adamantine",
-                    "label": "Physical",
+                    "exceptions": "except adamantine",
                     "type": "physical",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "dv": [
@@ -120,7 +120,7 @@
                 }
             ],
             "languages": {
-                "custom": "",
+                "custom": "Common (Can speak pre-recorded phrases only)",
                 "selected": [],
                 "value": []
             },
@@ -238,6 +238,54 @@
             "type": "melee"
         },
         {
+            "_id": "oeenNOAvMw2BAQWV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "bc9ZTQWLulMjdnJ5",
             "data": {
                 "actionCategory": {
@@ -250,7 +298,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"5\" data-pf2-label=\"Haywire DC\" data-pf2-show-dc=\"gm\">flat check</span> or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus Knockdown. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>"
+                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"5\" data-pf2-label=\"Haywire DC\" data-pf2-show-dc=\"gm\">flat check</span> or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.XaYM6Td0yhx2POau]{Effect: Haywire}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -278,7 +326,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Haywire",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -313,7 +361,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -348,7 +396,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -383,7 +431,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
