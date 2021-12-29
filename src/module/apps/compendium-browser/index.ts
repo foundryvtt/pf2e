@@ -597,7 +597,10 @@ export class CompendiumBrowser extends Application {
                             featData.data.classes = { value: classIntersection };
                         }
 
-                        if (featData.data.featType.value === "ancestry") {
+                        if (
+                            featData.data.featType.value === "ancestry" ||
+                            featData.data.featType.value === "heritage"
+                        ) {
                             const ancestryIntersection = ancestryList.filter((x) =>
                                 featData.data.traits.value.includes(x)
                             );
