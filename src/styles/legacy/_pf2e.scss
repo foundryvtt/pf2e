@@ -1403,22 +1403,6 @@
             grid-auto-rows: 36px;
         }
 
-        .spellbook {
-            .skills-list {
-                margin: 0;
-                padding: 0;
-                display: grid;
-                grid: "skill skill" 36px / 50% 50%;
-                grid-auto-rows: 36px;
-            }
-
-            .skill-grid {
-                grid-area: auto;
-                display: grid;
-                grid: "value name rank item" 100% / 35px auto 46px 46px;
-            }
-        }
-
         .pf-three-grid {
             grid-area: auto;
             display: grid;
@@ -1466,7 +1450,7 @@
             font-size: 12px;
         }
 
-        .skills .skill-container, .spellbook .skill-container {
+        .skills .skill-container {
             display: grid;
             grid: "title" 12px "value" 18px / auto;
             background: var(--secondary-background);
@@ -1474,11 +1458,11 @@
             align-self: center;
         }
 
-        .skills .skill-container .skill-proficiency, .spellbook .skill-container .skill-proficiency {
+        .skills .skill-container .skill-proficiency {
             font-size: 12px;
         }
 
-        .skills .skill-container > *, .spellbook .skill-container > * {
+        .skills .skill-container > * {
             width: 43px;
         }
 
@@ -1488,21 +1472,8 @@
             }
         }
 
-        .spellbook .skill-grid > * {
-            flex: 1;
-        }
-
         .skills .skill-name {
             margin: 0;
-            align-self: center;
-            background: var(--secondary-background);
-            line-height: 32px;
-            color: white;
-        }
-
-        .spellbook .skill-name {
-            margin: 0;
-            text-align: center;
             align-self: center;
             background: var(--secondary-background);
             line-height: 32px;
@@ -1523,11 +1494,7 @@
             }
         }
 
-        .spellbook .skill-proficiency {
-            margin-top: 2px;
-        }
-
-        .skills .skill-item, .spellbook .skill-item {
+        .skills .skill-item {
             margin-top: 2px;
             font-size: 11px;
         }
@@ -1561,15 +1528,6 @@
                 background: var(--secondary-background);
                 color: white;
             }
-        }
-
-        .spellbook .skill-score {
-            @include serif-condensed;
-            font-size: 28px;
-            text-align: center;
-            align-self: center;
-            background: var(--secondary-background);
-            color: white;
         }
 
         &.locked {
@@ -1984,10 +1942,6 @@
 
     .spellbook-empty .item-controls {
         flex: 1;
-    }
-
-    &.character-sheet .spellbook .item-controls {
-        flex: 0 0 44px;
     }
 
     .feats .feats-list {
