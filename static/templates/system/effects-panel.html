@@ -8,6 +8,12 @@
                         <div class="tag tag_secondary">{{condition.breakdown}}</div>
                     </div>
                 {{/if}}
+                {{#if condition.value}}
+                    <div class="instructions">
+                        <p>[Left Click] Increment value</p>
+                        <p>[Right Click] Decrement value</p>
+                    </div>
+                {{/if}}
             </div>
             <div class="icon" data-item-id="{{condition.id}}" data-locked="{{#if condition.locked}}true{{/if}}" style="background-image: url({{condition.img}});">
                 {{#if condition.locked}}
