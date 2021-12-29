@@ -1,0 +1,62 @@
+{
+    "_id": "XaYM6Td0yhx2POau",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "Haywire",
+                "selector": "damage"
+            },
+            {
+                "key": "Note",
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>Effect: Haywire</strong> Attack has @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}</p>"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Haywire",
+    "type": "effect"
+}
