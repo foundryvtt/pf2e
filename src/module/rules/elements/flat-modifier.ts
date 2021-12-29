@@ -3,7 +3,7 @@ import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../ru
 import { ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { tupleHasValue } from "@util";
+import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 
 /**
@@ -44,7 +44,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             // Strip out the title ("Effect:", etc.) of the effect name
             const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
             const modifier = new ModifierPF2e({
-                slug: this.data.slug,
+                slug: this.data.slug ?? sluggify(this.label),
                 label,
                 modifier: value,
                 type: this.data.type,
