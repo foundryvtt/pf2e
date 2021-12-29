@@ -272,15 +272,11 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string | null = null): Promise<void> {
-        const filterArray =
-            filter
-                ?.split(",")
-                .map((item) => item.trim())
-                .filter((item) => item.length > 0) || [];
-        this.initialFilter = filterArray;
+    async openTab(tab: TabName, filter: string[] | null = null): Promise<void> {
+        filter = filter || [];
+        this.initialFilter = filter;
         await this._render(true);
-        this.initialFilter = filterArray; // Reapply in case of a double-render (need to track those down)
+        this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 

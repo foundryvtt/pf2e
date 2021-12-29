@@ -611,7 +611,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     private onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const filter = $(event.currentTarget).attr("data-filter") ?? null;
+        const filter: string[] = [$(event.currentTarget).attr("data-filter")].filter(
+            (element): element is string => !!element
+        );
         console.debug(`Filtering on: ${filter}`);
         game.pf2e.compendiumBrowser.openTab("equipment", filter);
     }
@@ -619,19 +621,36 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
         const levelString = $(event.currentTarget).attr("data-level") ?? null;
         const traditionString = $(event.currentTarget).attr("data-tradition") ?? null;
-        let filter = "";
+        const preparationString = $(event.currentTarget).attr("data-prepared") ?? null;
+
+        const filter: string[] = [];
+
+        if (preparationString === "ritual" || preparationString === "focus") {
+            filter.push("category-".concat(preparationString));
+        }
 
         if (levelString) {
-            const level = parseInt(levelString);
+            let level = parseInt(levelString);
             if (level === 0) {
-                filter = "category-cantrip";
+                filter.push("category-cantrip");
             } else {
-                filter = "level-".concat(level.toString());
+                filter.push("level-".concat(level.toString()));
+
+                if (preparationString !== "prepared") {
+                    while (level > 1) {
+                        level -= 1;
+                        filter.push("level-".concat(level.toString()));
+                    }
+                }
+
+                if (preparationString === "spontaneous" || preparationString === "prepared") {
+                    filter.push("category-spell");
+                }
             }
         }
 
-        if (traditionString) {
-            filter = filter.concat(",traditions-", traditionString);
+        if (traditionString && preparationString !== "focus") {
+            filter.push("traditions-".concat(traditionString));
         }
 
         console.debug(`Filtering on: ${filter}`);
