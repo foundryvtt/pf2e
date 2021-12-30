@@ -3643,20 +3643,20 @@
         "WeaponDamageLabel": "Base Damage",
         "WeaponDescriptionAxe": "Critical Specialization Effect: Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
         "WeaponDescriptionBomb": "Critical Specialization Effect: Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-        "WeaponDescriptionBow": "Critical Specialization Effect: If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is immobilized and must spend an Interact action to attempt a DC 10 Athletics check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
-        "WeaponDescriptionBrawling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be slowed 1 until the end of your next turn.",
+        "WeaponDescriptionBow": "Critical Specialization Effect: If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is immobilized and must spend an Interact action to attempt a <span data-pf2-check=\"athletics\" data-pf2-label=\"Pull the Missile Free DC\" data-pf2-dc=\"10\" data-pf2-show-dc=\"all\">Athletics</span> check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
+        "WeaponDescriptionBrawling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.",
         "WeaponDescriptionClub": "Critical Specialization Effect: You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
-        "WeaponDescriptionDart": "Critical Specialization Effect: The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
-        "WeaponDescriptionFirearm": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be stunned 1.",
-        "WeaponDescriptionFlail": "Critical Specialization Effect: The target is knocked prone.",
-        "WeaponDescriptionHammer": "Critical Specialization Effect: The target is knocked prone.",
-        "WeaponDescriptionKnife": "Critical Specialization Effect: The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+        "WeaponDescriptionDart": "Critical Specialization Effect: The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+        "WeaponDescriptionFirearm": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
+        "WeaponDescriptionFlail": "Critical Specialization Effect: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
+        "WeaponDescriptionHammer": "Critical Specialization Effect: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
+        "WeaponDescriptionKnife": "Critical Specialization Effect: The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
         "WeaponDescriptionPick": "Critical Specialization Effect: The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.",
         "WeaponDescriptionPolearm": "Critical Specialization Effect: The target is moved 5 feet in a direction of your choice. This is forced movement.",
         "WeaponDescriptionShield": "Critical Specialization Effect: You knock the target back from you 5 feet. This is forced movement.",
-        "WeaponDescriptionSling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be stunned 1.",
-        "WeaponDescriptionSpear": "Critical Specialization Effect: The weapon pierces the target, weakening its attacks. The target is clumsy 1 until the start of your next turn.",
-        "WeaponDescriptionSword": "Critical Specialization Effect: The target is made off‑balance by your attack, becoming flat‑footed until the start of your next turn.",
+        "WeaponDescriptionSling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
+        "WeaponDescriptionSpear": "Critical Specialization Effect: The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.",
+        "WeaponDescriptionSword": "Critical Specialization Effect: The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.",
         "WeaponGroups": "Weapon Groups",
         "WeaponGroupAxe": "Axe",
         "WeaponGroupBomb": "Bomb",
@@ -3690,7 +3690,7 @@
             "anarchic": {
                 "Name": "Anarchic Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Anarchic Rune</strong> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
+                    "criticalSuccess": "<strong>Anarchic Rune</strong> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6 #Anarchic Rune]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
                 }
             },
             "ancestralEchoing": {
@@ -3699,7 +3699,7 @@
             "anchoring": {
                 "Name": "Anchoring Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Anchoring Rune</strong> If you critically hit a target with an anchoring weapon, the weapon casts <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Anchoring Rune\" data-pf2-dc=\"27\">Will</span>, counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
+                    "criticalSuccess": "<strong>Anchoring Rune</strong> If you critically hit a target with an anchoring weapon, the weapon casts <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Anchoring Rune DC\" data-pf2-dc=\"27\">Will</span>, counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
                 }
             },
             "axiomatic": {
@@ -3717,13 +3717,13 @@
             "bloodthirsty": {
                 "Name": "Bloodthirsty Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Bloodthirsty Rune</strong> When you critically hit a target that's taking persistent bleed damage, your target becomes @Compendium[pf2e.conditionitems.Drained]{drained 1}."
+                    "criticalSuccess": "<strong>Bloodthirsty Rune</strong> When you critically hit a target that's taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}, your target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}."
                 }
             },
             "brilliant": {
                 "Name": "Brilliant Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Brilliant Rune</strong> On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Brilliant Rune\" data-pf2-dc=\"29\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round."
+                    "criticalSuccess": "<strong>Brilliant Rune</strong> On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Brilliant Rune DC\" data-pf2-dc=\"29\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round."
                 }
             },
             "conducting": {
@@ -3732,13 +3732,13 @@
             "corrosive": {
                 "Name": "Corrosive Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Corrosive Rune</strong> On a critical hit, the target's armor (if any) takes [[/r {3d6}[acid] # Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                    "criticalSuccess": "<strong>Corrosive Rune</strong> On a critical hit, the target's armor (if any) takes [[/r {3d6}[acid] #Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
                 }
             },
             "crushing": {
                 "Name": "Crushing Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Crushing Rune</strong> When you critically hit a target with this weapon, your target becomes @Compendium[pf2e.conditionitems.Clumsy]{clumsy 1} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                    "criticalSuccess": "<strong>Crushing Rune</strong> When you critically hit a target with this weapon, your target becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "cunning": {
@@ -3750,7 +3750,7 @@
             "disrupting": {
                 "Name": "Disrupting Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Disrupting Rune</strong> On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                    "criticalSuccess": "<strong>Disrupting Rune</strong> On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "energizing": {
@@ -3765,19 +3765,19 @@
             "fearsome": {
                 "Name": "Fearsome Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 1}."
+                    "criticalSuccess": "<strong>Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}."
                 }
             },
             "flaming": {
                 "Name": "Flaming Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Flaming Rune</strong> When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire]]] # Flaming Rune]]{1d10 persistent fire} damage."
+                    "criticalSuccess": "<strong>Flaming Rune</strong> When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}."
                 }
             },
             "frost": {
                 "Name": "Frost Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Frost Rune</strong> On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"24\">Fortitude</span> save."
+                    "criticalSuccess": "<strong>Frost Rune</strong> On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune DC\" data-pf2-dc=\"24\">Fortitude</span> save."
                 }
             },
             "ghostTouch": {
@@ -3787,8 +3787,8 @@
             "greaterAnchoring": {
                 "Name": "Greater Anchoring Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Anchoring Rune</strong> When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Greater Anchoring Rune\" data-pf2-dc=\"38\">Will</span>, counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
-                    "success": "<strong>Greater Anchoring Rune</strong> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28})."
+                    "criticalSuccess": "<strong>Greater Anchoring Rune</strong> When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Greater Anchoring Rune DC\" data-pf2-dc=\"38\">Will</span>, counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
+                    "success": "<strong>Greater Anchoring Rune</strong> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28})."
                 }
             },
             "greaterBloodbane": {
@@ -3797,27 +3797,27 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Brilliant Rune\" data-pf2-dc=\"41\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round.",
+                    "criticalSuccess": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Brilliant Rune DC\" data-pf2-dc=\"41\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.",
                     "success": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r {6d6}[acid] # Corrosive Rune]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "criticalSuccess": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r {6d6}[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
                     "success": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
             "greaterCrushing": {
                 "Name": "Greater Crushing Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Crushing Rune</strong> Your critical hits leave the target @Compendium[pf2e.conditionitems.Clumsy]{clumsy 2} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn."
+                    "criticalSuccess": "<strong>Greater Crushing Rune</strong> Your critical hits leave the target @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of your next turn."
                 }
             },
             "greaterDisrupting": {
                 "Name": "Greater Disrupting Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Disrupting Rune</strong> On a critical hit the undead creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Greater Disrupting Rune\" data-pf2-dc=\"34\">Fortitude</span> save with the following effects. This is an incapacitation effect.<br /><br /><strong>Critical Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn.<br /><strong>Failure</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 3} until the end of your next turn.<br /><strong>Critical Failure</strong> It's destroyed."
+                    "criticalSuccess": "<strong>Greater Disrupting Rune</strong> On a critical hit the undead creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Greater Disrupting Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save with the following effects. This is an incapacitation effect.<br /><br /><strong>Critical Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of your next turn.<br /><strong>Failure</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} until the end of your next turn.<br /><strong>Critical Failure</strong> It's destroyed."
                 }
             },
             "greaterExtending": {
@@ -3829,20 +3829,20 @@
             "greaterFearsome": {
                 "Name": "Greater Fearsome Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 2}."
+                    "criticalSuccess": "<strong>Greater Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}."
                 }
             },
             "greaterFlaming": {
                 "Name": "Greater Flaming Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r {2d10}[persistent,fire]]] # Greater Flaming Rune]]{2d10 persistent fire} damage.",
+                    "criticalSuccess": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.",
                     "success": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
             "greaterFrost": {
                 "Name": "Greater Frost Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"34\">Fortitude</span> save.",
+                    "criticalSuccess": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Frost Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save.",
                     "success": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance."
                 }
             },
@@ -3852,7 +3852,7 @@
             "greaterImpactful": {
                 "Name": "Greater Impactful Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Impactful Rune\" data-pf2-dc=\"37\">Fortitude</span> save or be pushed 10 feet away from you."
+                    "criticalSuccess": "<strong>Greater Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Impactful Rune DC\" data-pf2-dc=\"37\">Fortitude</span> save or be pushed 10 feet away from you."
                 }
             },
             "greaterShock": {
@@ -3865,7 +3865,7 @@
             "greaterThundering": {
                 "Name": "Greater Thundering Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Thundering Rune\" data-pf2-dc=\"34\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} permanently.",
+                    "criticalSuccess": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Thundering Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} permanently.",
                     "success": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance."
                 }
             },
@@ -3876,10 +3876,10 @@
                     "Bow": "<strong>Grievous Rune</strong> The Athletics check to pull the missile free is DC 20.",
                     "Brawling": "<strong>Grievous Rune</strong> The target takes a –4 circumstance penalty to its save.",
                     "Club": "<strong>Grievous Rune</strong> You can knock the target up to 15 feet away.",
-                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to 2d6.",
+                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
                     "Flail": "<strong>Grievous Rune</strong> You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "<strong>Grievous Rune</strong> You can also knock the target 5 feet away from you.",
-                    "Knife": "<strong>Grievous Rune</strong> The target takes a –5-foot status penalty to its Speed while it has the persistent bleed damage.",
+                    "Knife": "<strong>Grievous Rune</strong> The target takes a –5-foot status penalty to its Speed while it has the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
                     "Pick": "<strong>Grievous Rune</strong> The extra damage from the critical specialization effect increases to 4 per weapon damage die.",
                     "Polearm": "<strong>Grievous Rune</strong> You can move the target up to 10 feet.",
                     "Shield": "<strong>Grievous Rune</strong> You can knock the target up to 10 feet away.",
@@ -3892,7 +3892,10 @@
                 "Name": "Hauling Rune"
             },
             "holy": {
-                "Name": "Holy Rune"
+                "Name": "Holy Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Holy Rune</strong> (<span class='pf2-icon'>R</span> command; once per day)<br /><br /><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon<br /><br /><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, positive, healing effect."
+                }
             },
             "hopeful": {
                 "Name": "Hopeful Rune",
@@ -3903,7 +3906,7 @@
             "impactful": {
                 "Name": "Impactful Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Impactful Rune\" data-pf2-dc=\"27\">Fortitude</span> save or be pushed 5 feet away from you."
+                    "criticalSuccess": "<strong>Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Impactful Rune DC\" data-pf2-dc=\"27\">Fortitude</span> save or be pushed 5 feet away from you."
                 }
             },
             "keen": {
@@ -3944,20 +3947,26 @@
             "thundering": {
                 "Name": "Thundering Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Thundering Rune</strong> On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Thundering Rune\" data-pf2-dc=\"24\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} for 1 minute (or 1 hour on a critical failure)."
+                    "criticalSuccess": "<strong>Thundering Rune</strong> On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Thundering Rune DC\" data-pf2-dc=\"24\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute (or 1 hour on a critical failure)."
                 }
             },
             "unholy": {
-                "Name": "Unholy Rune"
+                "Name": "Unholy Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Unholy Rune</strong> (<span class='pf2-icon'>R</span> command; once per day)<br /><br /><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon<br /><br /><strong>Effect</strong> The target takes @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} equal to 1d8 per weapon damage die of the etched weapon."
+                }
             },
             "vorpal": {
-                "Name": "Vorpal Rune"
+                "Name": "Vorpal Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Vorpal Rune</strong> (<span class='pf2-icon'>R</span> envision (death, incapacitation))<br /><br /><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon, critically succeed, and deal slashing damage. The target must have a head<br /><br /><strong>Effect</strong> The target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Vorpal Rune DC\" data-pf2-traits=\"death,incapacitation\" data-pf2-dc=\"37\">Fortitude</span> save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                }
             },
             "wounding": {
                 "Name": "Wounding Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Wounding Rune</strong> When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d12}[persistent,bleed] # Wounding Rune]]{1d12 persistent bleed} damage.",
-                    "success": "<strong>Wounding Rune</strong> When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed] # Wounding Rune]]{1d6 persistent bleed} damage."
+                    "criticalSuccess": "<strong>Wounding Rune</strong> When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
+                    "success": "<strong>Wounding Rune</strong> When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}."
                 }
             }
         },
