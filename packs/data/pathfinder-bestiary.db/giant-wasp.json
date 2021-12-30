@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -68,7 +69,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "<p>Giant wasps are much more dangerous but less common than their smaller kin, and-to the relief of those who encounter them-they tend to be solitary.</p>",
+            "publicNotes": "<p>Giant wasps are much more dangerous but less common than their smaller kin, and-to the relief of those who encounter them-they tend to be solitary.</p>\n<hr />\n<p>While the common wasp poses little threat to a hardy adventurer aside from an uncomfortable sting, a large and aggressive swarm of these territorial insects-to say nothing of their oversized kin-can lay low an entire party of heroes. The wasps represented here are of the common variety also known as yellowjackets, but many other sorts of dangerous wasps exist, such as a Garundi variant that swarms in such great numbers that it can decimate entire villages, and the dreaded extraplanar hellwasps, which build their nests within the corpses of their victims.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -129,6 +130,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "giant-wasp-venom"
                     ]
@@ -171,6 +173,54 @@
             "type": "melee"
         },
         {
+            "_id": "1EVHcXa6gUWUY0Cl",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "K56mdzOHeveTvQ5D",
             "data": {
                 "actionCategory": {
@@ -183,7 +233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Giant Wasp Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> no effect (1 round)</p>\n<p><strong>Stage 2</strong> clumsy 2 (1 round)</p>\n<p><strong>Stage 3</strong> paralyzed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Giant Wasp Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> no effect (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -214,7 +264,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Giant Wasp Venom",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -230,7 +280,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The giant wasp lays eggs in an adjacent creature that is paralyzed or unconscious, exposing it to the wasp larva disease.</p>"
+                    "value": "<p>The giant wasp lays eggs in an adjacent creature that is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} or @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, exposing it to the wasp larva disease.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -258,7 +308,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Implant Eggs",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -274,7 +324,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"disease\" data-pf2-label=\"Wasp Larva DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d6 #days]]{1d6 days})</p>\n<p><strong>Stage 2</strong> drained 1 ([[/br 1d3 #days]]{1d3 days})</p>\n<p><strong>Stage 3</strong> [[/r {5d6}]]{5d6 damage}, larva emerges (disease ends)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"disease\" data-pf2-label=\"Wasp Larva DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d6 #days]]{1d6 days})</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} ([[/br 1d3 #days]]{1d3 days})</p>\n<p><strong>Stage 3</strong> [[/r {5d6}]]{5d6 damage}, larva emerges (disease ends)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -304,7 +354,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wasp Larva",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -339,7 +389,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -374,7 +424,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
