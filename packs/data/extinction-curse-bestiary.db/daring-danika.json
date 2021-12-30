@@ -631,7 +631,7 @@
             "_id": "w8UngXIC47fcMU5n",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -645,8 +645,20 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -662,7 +674,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Circumstance vs. Disarm",
             "sort": 700000,
