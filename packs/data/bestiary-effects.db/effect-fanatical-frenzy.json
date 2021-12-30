@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains effects based on the specific creature.</p>"
+            "value": "<p>The creature gains a +1 status bonus to attack rolls and a +2 status bonus to damage rolls, and takes a -2 status penalty to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,14 +16,26 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "flags.pf2e.rollOptions.all.fanatical-frenzy",
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "status",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": -2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Gamemastery Guide"
         },
         "start": {
             "initiative": null,
