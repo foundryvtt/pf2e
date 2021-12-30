@@ -10,6 +10,7 @@ import {
     WeaponSource,
     WeaponTrait,
 } from "@item/weapon/data";
+import { DamageType } from "@module/damage-calculation";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../rules-data-definitions";
 
@@ -56,6 +57,13 @@ class StrikeRuleElement extends RuleElementPF2e {
     }
 
     private constructWeapon(): Embedded<WeaponPF2e> {
+        const damage: DeepPartial<WeaponDamage> = this.data.damage?.base ?? {
+            damageType: "bludgeoning",
+            dice: 1,
+            die: "d4",
+        };
+        damage.damageType = this.resolveInjectedProperties(damage.damageType ?? "bludgeoning") as DamageType;
+
         const source: PreCreate<WeaponSource> = {
             _id: this.item.id,
             name: this.label,
@@ -67,7 +75,7 @@ class StrikeRuleElement extends RuleElementPF2e {
                 category: this.data.category,
                 group: this.data.group,
                 baseItem: this.data.baseType,
-                damage: this.data.damage?.base ?? { damageType: "bludgeoning", dice: 1, die: "d4" },
+                damage,
                 range: this.data.range,
                 traits: { value: this.data.traits, rarity: { value: "common" }, custom: "" },
                 options: { value: this.data.options ?? [] },
