@@ -49,7 +49,6 @@ declare global {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
             licenseViewer: LicenseViewer;
-            upwViewer: UnitedPaizoWorkers;
             worldClock: WorldClock;
             effectPanel: EffectsPanel;
             effectTracker: EffectTracker;
