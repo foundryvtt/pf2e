@@ -27,7 +27,7 @@
                 "value": 17
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 to fortitude vs. grapple or shove"
             },
             "hp": {
                 "details": "",
@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -131,6 +132,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -215,7 +217,7 @@
             "type": "melee"
         },
         {
-            "_id": "pND3CxmL6JhF3Nc8",
+            "_id": "JQxkxEB6JK80gsvb",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -263,7 +265,7 @@
             "type": "action"
         },
         {
-            "_id": "qwiSUeHL4qNV2ABV",
+            "_id": "uLf1dk5gMycZYjBy",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -293,7 +295,7 @@
                         "value": 2
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -312,7 +314,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 to Fortitude vs Grapple or Shove",
             "sort": 400000,
@@ -331,7 +337,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The slurk extrudes a slippery grease from its ventral glands to coat the floor under it and in a 5-foot emanation, turning the affected area into uneven ground for 10 minutes, after which it dries to a putrid crust. The DC to @Compendium[pf2e.actionspf2e.Balance]{Balance} across the slime is 18.</p>"
+                    "value": "<p>The slurk extrudes a slippery grease from its ventral glands to coat the floor under it and in a @Template[type:emanation|distance:5], turning the affected area into uneven ground for 10 minutes, after which it dries to a putrid crust. The DC to @Compendium[pf2e.actionspf2e.Balance]{Balance} across the slime is 18.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -375,7 +381,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by a slurk's slime squirt becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} and takes a -5-foot penalty to Speed for 1 hour or until the slime is removed.</p>\n<p>The slime can be removed with a total of three Interact actions by the entangled creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Entangling Slime]{Effect: Entangling Slime}</p>"
+                    "value": "<p>A creature struck by a slurk's slime squirt becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} and takes a -5-foot penalty to Speed for 1 hour or until the slime is removed.</p>\n<p>The slime can be removed with a total of three Interact actions by the entangled creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Entangling Slime]{Effect: Entangling Slime}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -424,7 +430,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Escape",
+                        "label": "PF2E.SkillVariant.Escape",
                         "predicate": {
                             "all": [
                                 "action:escape"
