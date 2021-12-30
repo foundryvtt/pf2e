@@ -8,12 +8,14 @@
                         <div class="tag tag_secondary">{{condition.breakdown}}</div>
                     </div>
                 {{/if}}
-                {{#if condition.value}}
-                    <div class="instructions">
+                <div class="instructions">
+                    {{#if condition.value}}
                         <p>[Left Click] Increment value</p>
                         <p>[Right Click] Decrement value</p>
-                    </div>
-                {{/if}}
+                    {{else}}
+                        <p>[Right Click] Remove</p>
+                    {{/if}}
+                </div>
             </div>
             <div class="icon" data-item-id="{{condition.id}}" data-locked="{{#if condition.locked}}true{{/if}}" style="background-image: url({{condition.img}});">
                 {{#if condition.locked}}
@@ -35,6 +37,9 @@
                         <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
                     {{/if}}
                     <div class="tag tag_secondary">{{this.data.remaining}}</div>
+                </div>
+                <div class="instructions">
+                    <p>[Right Click] Remove</p>
                 </div>
             </div>
             <div class="icon" data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
