@@ -228,10 +228,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             tokenDoc.prepareData({ fromActor: true });
         }
 
-        const [thisIsAssigned, thisTokenIsControlled] = canvas.ready
-            ? [game.user.character === this, tokenDocs.some((t) => !!t.object?.isControlled)]
-            : [false, false];
-        if (thisIsAssigned || thisTokenIsControlled) game.pf2e.effectPanel.refresh();
+        if (canvas.ready) {
+            const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
+            if (game.user.character === this || thisTokenIsControlled) {
+                game.pf2e.effectPanel.refresh();
+            }
+        }
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
