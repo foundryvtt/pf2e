@@ -4,7 +4,7 @@ import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 
 /** Prompt the user for the target of the effect they just added to an actor */
-export abstract class RulesElementPrompt<T> extends Application {
+abstract class RulesElementPrompt<T> extends Application {
     protected item: Embedded<ItemPF2e>;
 
     private resolve?: (value: PromptChoice<T> | null) => void;
@@ -99,7 +99,7 @@ export abstract class RulesElementPrompt<T> extends Application {
     }
 }
 
-export interface RulesElementPromptData<T> {
+interface RulesElementPromptData<T> {
     title?: string;
     prompt?: string;
     choices?: PromptChoice<T>[];
@@ -107,7 +107,7 @@ export interface RulesElementPromptData<T> {
     predicate?: PredicatePF2e;
 }
 
-export interface PromptChoice<T> {
+interface PromptChoice<T> {
     value: T;
     label: string;
     img?: string;
@@ -116,3 +116,5 @@ export interface PromptChoice<T> {
     /** A numeric order by which to sort the choices */
     sort?: number;
 }
+
+export { RulesElementPrompt, RulesElementPromptData, PromptChoice };

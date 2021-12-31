@@ -1,6 +1,6 @@
 import { ModifierPF2e } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
-import { MultipleAttackPenaltyPF2e } from "@module/rules/rules-data-definitions";
+import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element/data";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
