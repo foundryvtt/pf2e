@@ -1053,68 +1053,6 @@
             "type": "action"
         },
         {
-            "_id": "IrffLfsr4F6AQ70K",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A Zephyr Guard takes no penalty for making nonlethal attacks with a weapon that doesn't have the nonlethal trait. The guard's nonlethal Strikes against a creature that is not wielding a weapon deal an additional [[/r {2d6}]]{2d6 damage}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "diceNumber": 2,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "subduing-strike"
-                            ]
-                        },
-                        "selector": "damage"
-                    },
-                    {
-                        "key": "ToggleProperty",
-                        "label": "Subduing unarmed opponent",
-                        "property": "flags.pf2e.rollOptions.damage-roll.subduing-strike"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Subduing Strikes",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
             "_id": "FwcS5N0auHwePEe8",
             "data": {
                 "actionCategory": {
@@ -1172,7 +1110,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Adroit Disarm",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1232,6 +1170,68 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Hampering Shot",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "IrffLfsr4F6AQ70K",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A Zephyr Guard takes no penalty for making nonlethal attacks with a weapon that doesn't have the nonlethal trait. The guard's nonlethal Strikes against a creature that is not wielding a weapon deal an additional [[/r {2d6}]]{2d6 damage}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "subduing-strike"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Subduing unarmed opponent",
+                        "property": "flags.pf2e.rollOptions.damage-roll.subduing-strike"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Subduing Strikes",
             "sort": 1100000,
             "type": "action"
         },

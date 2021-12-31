@@ -1327,6 +1327,54 @@
             "type": "melee"
         },
         {
+            "_id": "vYOEAucH84uYzG3z",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
             "_id": "vEOKWwRMGGUetHuk",
             "data": {
                 "actionCategory": {
@@ -1375,54 +1423,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
-            "_id": "vYOEAucH84uYzG3z",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
             "sort": 1400000,
             "type": "action"
         },
@@ -1472,111 +1472,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1500000,
-            "type": "action"
-        },
-        {
-            "_id": "oIJ6ppXsMXZMBfSi",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The first time each round that a creature escapes from the slaver demon's Enslave Soul or the slaver demon witnesses a creature being freed from captivity or mental enslavement, the demon takes [[/r {3d6}[mental]]]{3d6 mental damage}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Liberation Vulnerability",
-            "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "n6SPErVyS2S3b3lv",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature misses the slaver demon with a melee weapon Strike.</p>\n<p><strong>Effect</strong> The slaver demon attempts to @Compendium[pf2e.actionspf2e.Disarm]{Disarm} the weapon used in the triggering Strike with a -2 penalty. If it rolls a success, it gets a critical success instead. The demon doesn't need a free hand to use this ability.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.horn-snare"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "horn-snare",
-                                "action:disarm"
-                            ]
-                        },
-                        "selector": "athletics",
-                        "type": "untyped",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Horn Snare",
-            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1640,7 +1535,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 1800000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1688,6 +1583,111 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "n6SPErVyS2S3b3lv",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature misses the slaver demon with a melee weapon Strike.</p>\n<p><strong>Effect</strong> The slaver demon attempts to @Compendium[pf2e.actionspf2e.Disarm]{Disarm} the weapon used in the triggering Strike with a -2 penalty. If it rolls a success, it gets a critical success instead. The demon doesn't need a free hand to use this ability.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.horn-snare"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "horn-snare",
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "untyped",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Horn Snare",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "oIJ6ppXsMXZMBfSi",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The first time each round that a creature escapes from the slaver demon's Enslave Soul or the slaver demon witnesses a creature being freed from captivity or mental enslavement, the demon takes [[/r {3d6}[mental]]]{3d6 mental damage}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Liberation Vulnerability",
             "sort": 1900000,
             "type": "action"
         },
