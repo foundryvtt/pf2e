@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called positive energy or its counterforce, negative energy. When you prepare your spells each day, you can prepare additional <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> or <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only<em>heal</em>spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only<em>harm</em>spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
+            "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called positive energy or its counterforce, negative energy. When you prepare your spells each day, you can prepare additional <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> or <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Healing Font]{Healing Font}</li>\n<li>@Compendium[pf2e.classfeatures.Harmful Font]{Harmful Font}</li>\n</ul>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,7 +23,33 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:cleric",
+                        "item:type:feature"
+                    ],
+                    "label": "1st-level Cleric class feature"
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.TOqRchIOPaUU4HBN"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.S36Hr1fHtwwplPpL"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select a divine font."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineFont}"
+            }
+        ],
         "source": {
             "value": ""
         },
