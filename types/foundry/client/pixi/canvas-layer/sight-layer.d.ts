@@ -30,7 +30,7 @@ declare class SightLayer<
     exploration: TFogExploration;
 
     /** A Collection of vision sources which are currently active within the rendered Scene. */
-    sources: Collection<PointSource<TToken>>;
+    sources: Collection<VisionSource<TToken>>;
 
     /** The canonical line-of-sight polygon which defines current Token visibility. */
     los: PIXI.Graphics;
