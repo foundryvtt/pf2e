@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "powerful jumper",
                 "otherSpeeds": [
                     {
                         "type": "burrow",
@@ -323,12 +324,39 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A bulette gains a [[/r +1 # circumstance bonus to attack and damage]] circumstance bonus to attack and damage rolls with its jaws against a specific type of creature designated as its favorite food. Unless otherwise stated, a bulette's favored prey is halflings. Elves are never a favored prey for bulettes.</p>"
+                    "value": "<p>A bulette gains a +1 circumstance bonus to attack and damage rolls with its jaws against a specific type of creature designated as its favorite food. Unless otherwise stated, a bulette's favored prey is halflings. Elves are never a favored prey for bulettes.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.favored-prey"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "favored-prey"
+                            ]
+                        },
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "favored-prey"
+                            ]
+                        },
+                        "selector": "jaws-damage",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

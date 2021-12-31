@@ -20,7 +20,7 @@
             }
 
             .item-name, .item-controls {
-                margin: 1px 0;
+                margin: 0;
             }
 
             .item-name {
@@ -94,23 +94,28 @@
             ol.nested-items {
                 grid-column: span 2;
                 border-left: 3px dotted $alt-color;
-                margin: 2px 0 0 45px;
+                display: flex;
+                margin: 1px 0 0 45px;
                 padding: 0;
                 flex-basis: 100%;
+                flex-direction: column;
 
                 li {
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
+                    margin: 2px 0;
+                    padding-bottom: 1px;
 
-                    .item-name, .item-controls {
-                        margin-top: 2px;
+                    &:last-child {
+                        padding-bottom: 0;
                     }
 
                     .item-name {
                         .feat-slot-title {
                             width: 0;
                         }
+
                         img {
                             margin-left: 0;
                         }
