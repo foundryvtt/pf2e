@@ -213,21 +213,21 @@ declare global {
              * @param  v       The value
              * @return         The RGB representation
              */
-            function hsvToRgb(h: number, s: number, v: number): Array<number>;
+            function hsvToRgb(h: number, s: number, v: number): [number, number, number];
 
             /**
              * Converts a color as an [R, G, B] array of normalized floats to a hexadecimal number.
              * @param rgb - Array of numbers where all values are normalized floats from 0.0 to 1.0.
              * @return      Number in hexadecimal.
              */
-            function rgbToHex(rgb: Array<number>): number;
+            function rgbToHex(rgb: [number, number, number]): number;
 
             /**
              * Convert a hex color code to an RGB array
              * @param hex    A hex color number
              * @return       An array of [r,g,b] colors normalized on the range of [0,1]
              */
-            function hexToRGB(hex: number): Array<number>;
+            function hexToRGB(hex: number): [number, number, number];
 
             /**
              * Convert a hex color code to an RGBA color string which can be used for CSS styling

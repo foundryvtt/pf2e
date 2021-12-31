@@ -5,19 +5,19 @@ declare global {
      * A specialized subclass of the PointSource abstraction which is used to control the rendering of light sources.
      * @param object The light-emitting object that generates this light source
      */
-    class LightSource<T extends AmbientLight | Token> extends PointSource<T> {
-        constructor(object: T);
+    class LightSource<TObject extends AmbientLight | Token> extends PointSource<TObject> {
+        constructor(object: TObject);
 
         /** The light or darkness container for this source */
-        background: PIXI.Mesh;
+        background: PIXI.Mesh<AdaptiveBackgroundShader>;
 
         /** The light or darkness container for this source */
-        illumination: PIXI.Mesh;
+        illumination: PIXI.Mesh<AdaptiveIlluminationShader>;
 
         /** This visible color container for this source */
-        coloration: PIXI.Mesh;
+        coloration: PIXI.Mesh<AdaptiveColorationShader>;
 
-        static sourceType: "light";
+        static sourceType: string;
 
         /** Strength of the blur for light source edges */
         static BLUR_STRENGTH: number;
@@ -41,7 +41,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** The object of data which configures how the source is rendered */
-        override data: Partial<LightSourceData>;
+        override data: LightSourceData;
 
         /** The animation configuration applied to this source */
         animation: Partial<LightAnimationConfiguration>;
@@ -50,7 +50,7 @@ declare global {
         isDarkness: boolean;
 
         /** The rendered field-of-vision texture for the source for use within shaders. */
-        fovTexture: PIXI.RenderTexture;
+        fovTexture: PIXI.RenderTexture | null;
 
         /** To know if a light source is a preview or not. False by default. */
         preview: boolean;
@@ -59,16 +59,19 @@ declare global {
         ratio: number;
 
         /** Track which uniforms need to be reset */
-        protected _resetUniforms: {
+        _resetUniforms: {
             background: boolean;
             illumination: boolean;
             coloration: boolean;
         };
 
         /** To track if a source is temporarily shutdown to avoid glitches */
-        protected _shutdown: {
+        _shutdown: {
             illumination: boolean;
         };
+
+        /** Undocumented */
+        colorRGB: [number, number, number];
 
         /* -------------------------------------------- */
         /*  Light Source Initialization                 */
@@ -86,38 +89,38 @@ declare global {
          * @param data Initial data provided to the light source
          * @returns The changes compared to the prior data
          */
-        protected _initializeData(data: LightSourceData): Partial<LightSourceData>;
+        _initializeData(data: Partial<LightSourceData>): Partial<LightSourceData>;
 
         /** Initialize the shaders used for this source, swapping to a different shader if the animation has changed. */
         protected _initializeShaders(): void;
 
         /** Initialize the blend mode and vertical sorting of this source relative to others in the container. */
-        protected _initializeBlending(): void;
+        _initializeBlending(): void;
 
         /* -------------------------------------------- */
         /*  Light Source Rendering                      */
         /* -------------------------------------------- */
 
         /** Render the containers used to represent this light source within the LightingLayer */
-        drawMeshes(): { background: PIXI.Mesh; light: PIXI.Mesh; color: PIXI.Mesh };
+        drawMeshes(): LightSourceMeshes;
 
         /**
          * Draw the display of this source for background container.
          * @return The rendered light container
          */
-        drawBackground(): PIXI.Mesh | null;
+        drawBackground(): PIXI.Mesh<AdaptiveBackgroundShader> | null;
 
         /**
          * Draw the display of this source for the darkness/light container of the SightLayer.
          * @return The rendered light container
          */
-        drawLight(): PIXI.Mesh | null;
+        drawLight(): PIXI.Mesh<AdaptiveIlluminationShader> | null;
 
         /**
          * Draw and return a container used to depict the visible color tint of the light source on the LightingLayer
          * @return An updated color container for the source
          */
-        drawColor(): PIXI.Mesh | null;
+        drawColor(): PIXI.Mesh<AdaptiveColorationShader> | null;
 
         /* -------------------------------------------- */
         /*  Shader Management                           */
@@ -132,7 +135,7 @@ declare global {
          * Update shader uniforms by providing data from this PointSource
          * @param shader The shader being updated
          */
-        protected _updateIlluminationUniforms(shader: AdaptiveIlluminationShader): void;
+        _updateIlluminationUniforms(shader: AdaptiveIlluminationShader): void;
 
         /**
          * Update shader uniforms by providing data from this PointSource
@@ -235,7 +238,7 @@ declare global {
         /** The amount of contrast this light applies to the background texture */
         contrast: number;
         /** A darkness range (min and max) for which the source should be active */
-        darkness: object;
+        darkness: { min: number; max: number };
         /** The allowed radius of dim vision or illumination */
         dim: number;
         /** Fade the difference between bright, dim, and dark gradually? */
@@ -252,6 +255,12 @@ declare global {
         vision: boolean;
         /** An integer seed to synchronize (or de-synchronize) animations */
         seed: number;
+    }
+
+    interface LightSourceMeshes {
+        background: PIXI.Mesh<AdaptiveBackgroundShader> | null;
+        light: PIXI.Mesh<AdaptiveIlluminationShader> | null;
+        color: PIXI.Mesh<AdaptiveColorationShader> | null;
     }
 }
 
