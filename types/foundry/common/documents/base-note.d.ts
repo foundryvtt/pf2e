@@ -1,6 +1,6 @@
 declare module foundry {
     module documents {
-        /**The Note embedded document model. */
+        /** The Note embedded document model. */
         class BaseNote extends abstract.Document {
             static override get schema(): typeof data.NoteData;
 

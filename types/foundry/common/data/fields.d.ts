@@ -205,7 +205,7 @@ declare global {
                     type: typeof Object;
                     required: true;
                     nullable: false;
-                    default: { default: typeof CONST.ENTITY_PERMISSIONS.NONE };
+                    default: { default: typeof CONST.DOCUMENT_PERMISSION_LEVELS.NONE };
                     validate: typeof _validatePermissions;
                     validationError: '{name} {field} "{value}" is not a mapping of user IDs and document permission levels';
                 };

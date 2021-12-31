@@ -12,7 +12,7 @@ import { sluggify } from "@util";
 import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
-import { Attitude, VisionLevel, VisionLevels } from "@actor/creature/data";
+import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { NPCLegacySheetPF2e } from "./legacy-sheet";
 import { LocalizePF2e } from "@system/localize";
@@ -20,7 +20,6 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
-import { ActorUpdateContext } from "@actor/base";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -54,14 +53,14 @@ export class NPCPF2e extends CreaturePF2e {
     /** Users with limited permission can loot a dead NPC */
     override canUserModify(user: User, action: UserAction): boolean {
         if (action === "update" && this.isLootable) {
-            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
 
     /** A user can see an NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
@@ -88,7 +87,7 @@ export class NPCPF2e extends CreaturePF2e {
             return super.testUserPermission(user, permission, options);
         }
         if ([1, "LIMITED"].includes(permission) && !options) {
-            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
         }
         return super.testUserPermission(user, permission, options);
     }
@@ -803,38 +802,6 @@ export class NPCPF2e extends CreaturePF2e {
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    private async updateTokenAttitude(attitude: string): Promise<void> {
-        const disposition = NPCPF2e.mapNPCAttitudeToTokenDisposition(attitude);
-        const tokenDocuments = this.getActiveTokens().map((token) => token.document);
-        for await (const tokenDoc of tokenDocuments) {
-            await tokenDoc.update({ disposition });
-        }
-    }
-
-    private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
-        if (attitude === null) {
-            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
-        }
-
-        if (attitude === "hostile") {
-            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
-        } else if (attitude === "unfriendly" || attitude === "indifferent") {
-            return CONST.TOKEN_DISPOSITIONS.NEUTRAL;
-        } else {
-            return CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-        }
-    }
-
-    private static mapTokenDispositionToNPCAttitude(disposition: number): Attitude {
-        if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) {
-            return "friendly";
-        } else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) {
-            return "indifferent";
-        } else {
-            return "hostile";
-        }
-    }
-
     protected async getAttackEffects(sourceItemData: MeleeData): Promise<RollNotePF2e[]> {
         const notes: RollNotePF2e[] = [];
         const description = sourceItemData.data.description.value;
@@ -906,20 +873,6 @@ export class NPCPF2e extends CreaturePF2e {
         return 0;
     }
 
-    protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: ActorUpdateContext<this>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-
-        const attitude = (changed as DeepPartial<NPCData>)?.data?.traits?.attitude?.value;
-
-        if (attitude && userId === game.userId) {
-            this.updateTokenAttitude(attitude);
-        }
-    }
-
     /** Make the NPC elite, weak, or normal */
     async applyAdjustment(adjustment: "elite" | "weak" | "normal"): Promise<void> {
         if (
@@ -989,10 +942,6 @@ export class NPCPF2e extends CreaturePF2e {
         } else {
             return this.level;
         }
-    }
-
-    updateAttitudeFromDisposition(disposition: number) {
-        this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
 }
 

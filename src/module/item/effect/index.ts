@@ -1,4 +1,5 @@
 import { UserPF2e } from "@module/user";
+import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { EffectData } from "./data";
 
@@ -69,6 +70,13 @@ export class EffectPF2e extends ItemPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         if (this.actor) game.pf2e.effectTracker.register(this as Embedded<this>);
+    }
+
+    /** Set a self roll option for this effect */
+    override prepareActorData(this: Embedded<EffectPF2e>): void {
+        const slug = this.slug ?? sluggify(this.name);
+        const reducedSlug = slug.replace(/^(?:[a-z]+-)?(?:effect|stance)-/, "");
+        this.actor.rollOptions.all[`self:effect:${reducedSlug}`] = true;
     }
 
     /* -------------------------------------------- */

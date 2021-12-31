@@ -115,6 +115,7 @@ export class MigrationList {
         Migrations.Migration706FormulasAtInstanceLevelEverythingElse,
         Migrations.Migration707BracketedFormulasAtInstanceLevel,
         Migrations.Migration708SpecificRuleLabel,
+        Migrations.Migration709REFormulasAtInstanceLevelRedux,
     ];
 
     static get latestVersion(): number {

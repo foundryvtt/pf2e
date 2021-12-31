@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
+import { ActorPF2e, CreaturePF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
@@ -49,9 +49,8 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            this.object.redraw().then(() => {
-                canvas.lighting.setPerceivedLightLevel(this);
-            });
+            this.object.redraw();
+            canvas.lighting.setPerceivedLightLevel(this);
         }
     }
 
@@ -164,24 +163,22 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["data"]["_source"],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         userId: string
     ): void {
         super._onCreate(data, options, userId);
         if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
     }
 
-    /** Synchronize actor attitude with token disposition, refresh the EffectPanel, update perceived light */
+    /** Refresh the effects panel and encounter tracker */
     protected override _onUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<this>,
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
-            this.actor.updateAttitudeFromDisposition(changed.disposition);
-        }
+        game.pf2e.effectPanel.refresh();
 
         if (ui.combat.viewed && ui.combat.viewed === this.combatant?.encounter) {
             ui.combat.render();

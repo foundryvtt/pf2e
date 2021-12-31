@@ -142,7 +142,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 11,
-        //name: "PF2E.WeaponPropertyRune.anarchic.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.anarchic.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneAnarchic",
         price: 1_400,
         rarity: "common",
@@ -151,7 +151,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     ancestralEchoing: {
         level: 15,
-        //name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.ancestralEchoing.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneAncestralEchoing",
         price: 9_500,
         rarity: "rare",
@@ -163,7 +163,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.anchoring.Note.criticalSuccess" }],
         },
         level: 10,
-        //name: "PF2E.WeaponPropertyRune.anchoring.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.anchoring.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneAnchoring",
         price: 900,
         rarity: "uncommon",
@@ -184,7 +184,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 11,
-        //name: "PF2E.WeaponPropertyRune.axiomatic.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.axiomatic.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneAxiomatic",
         price: 1_400,
         rarity: "common",
@@ -193,7 +193,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     bane: {
         level: 4,
-        //name: "PF2E.WeaponPropertyRune.bane.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.bane.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneBane",
         price: 100,
         rarity: "uncommon",
@@ -202,7 +202,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     bloodbane: {
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.bloodbane.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.bloodbane.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneBloodbane",
         price: 475,
         rarity: "uncommon",
@@ -216,7 +216,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 16,
-        //name: "PF2E.WeaponPropertyRune.bloodthirsty.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.bloodthirsty.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneBloodthirsty",
         price: 8_500,
         rarity: "uncommon",
@@ -238,7 +238,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.brilliant.Note.criticalSuccess" }],
         },
         level: 12,
-        //name: "PF2E.WeaponPropertyRune.brilliant.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.brilliant.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneBrilliant",
         price: 2_000,
         rarity: "common",
@@ -247,7 +247,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     conducting: {
         level: 7,
-        //name: "PF2E.WeaponPropertyRune.conducting.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.conducting.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneConducting",
         price: 300,
         rarity: "common",
@@ -263,7 +263,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.corrosive.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.corrosive.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneCorrosive",
         price: 500,
         rarity: "common",
@@ -275,7 +275,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.crushing.Note.criticalSuccess" }],
         },
         level: 3,
-        //name: "PF2E.WeaponPropertyRune.crushing.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.crushing.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneCrushing",
         price: 50,
         rarity: "uncommon",
@@ -284,7 +284,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     cunning: {
         level: 5,
-        //name: "PF2E.WeaponPropertyRune.cunning.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.cunning.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneCunning",
         price: 140,
         rarity: "common",
@@ -293,7 +293,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     dancing: {
         level: 13,
-        //name: "PF2E.WeaponPropertyRune.dancing.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.dancing.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneDancing",
         price: 2_700,
         rarity: "uncommon",
@@ -319,7 +319,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 5,
-        //name: "PF2E.WeaponPropertyRune.disrupting.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.disrupting.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneDisrupting",
         price: 150,
         rarity: "common",
@@ -328,7 +328,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     energizing: {
         level: 6,
-        //name: "PF2E.WeaponPropertyRune.energizing.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.energizing.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneEnergizing",
         price: 250,
         rarity: "uncommon",
@@ -337,7 +337,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     extending: {
         level: 7,
-        //name: "PF2E.WeaponPropertyRune.extending.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.extending.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneExtending",
         price: 700,
         rarity: "common",
@@ -346,7 +346,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     fanged: {
         level: 2,
-        //name: "PF2E.WeaponPropertyRune.fanged.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.fanged.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneFanged",
         price: 30,
         rarity: "uncommon",
@@ -358,7 +358,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess" }],
         },
         level: 5,
-        //name: "PF2E.WeaponPropertyRune.fearsome.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.fearsome.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneFearsome",
         price: 160,
         rarity: "common",
@@ -371,7 +371,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess" }],
         },
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.flaming.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.flaming.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneFlaming",
         price: 500,
         rarity: "common",
@@ -384,7 +384,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.frost.Note.criticalSuccess" }],
         },
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.frost.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.frost.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneFrost",
         price: 500,
         rarity: "common",
@@ -398,7 +398,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 4,
-        //name: "PF2E.WeaponPropertyRune.ghostTouch.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.ghostTouch.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGhostTouch",
         price: 75,
         rarity: "common",
@@ -414,7 +414,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 18,
-        //name: "PF2E.WeaponPropertyRune.greaterAnchoring.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterAnchoring.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterAnchoring",
         price: 22_000,
         rarity: "uncommon",
@@ -423,7 +423,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     greaterBloodbane: {
         level: 13,
-        //name: "PF2E.WeaponPropertyRune.greaterBloodbane.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterBloodbane.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterBloodbane",
         price: 2_800,
         rarity: "uncommon",
@@ -448,7 +448,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 18,
-        //name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterBrilliant",
         price: 24_000,
         rarity: "common",
@@ -478,7 +478,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 9,
-        //name: "PF2E.WeaponPropertyRune.greaterCrushing.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterCrushing.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterCrushing",
         price: 650,
         rarity: "uncommon",
@@ -504,7 +504,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 14,
-        //name: "PF2E.WeaponPropertyRune.greaterDisrupting.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterDisrupting.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterDisrupting",
         price: 4_300,
         rarity: "uncommon",
@@ -513,7 +513,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     greaterExtending: {
         level: 13,
-        //name: "PF2E.WeaponPropertyRune.greaterExtending.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterExtending.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterExtending",
         price: 3_000,
         rarity: "common",
@@ -522,7 +522,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     greaterFanged: {
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.greaterFanged.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterFanged.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterFanged",
         price: 425,
         rarity: "uncommon",
@@ -536,7 +536,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 12,
-        //name: "PF2E.WeaponPropertyRune.greaterFearsome.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterFearsome.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterFearsome",
         price: 2_000,
         rarity: "common",
@@ -592,7 +592,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 17,
-        //name: "PF2E.WeaponPropertyRune.greaterImpactful.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterImpactful.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterImpactful",
         price: 15_000,
         rarity: "common",
@@ -627,7 +627,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 15,
-        //name: "PF2E.WeaponPropertyRune.greaterThundering.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.greaterThundering.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterThundering",
         price: 6_500,
         rarity: "common",
@@ -726,7 +726,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             dice: [{ damageType: "good", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:evil"] } }],
         },
         level: 11,
-        //name: "PF2E.WeaponPropertyRune.holy.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.holy.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneHoly",
         price: 1_400,
         rarity: "common",
@@ -738,7 +738,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.hopeful.Note.criticalSuccess" }],
         },
         level: 11,
-        //name: "PF2E.WeaponPropertyRune.hopeful.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.hopeful.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneHopeful",
         price: 1_200,
         rarity: "uncommon",
@@ -751,7 +751,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.impactful.Note.criticalSuccess" }],
         },
         level: 10,
-        //name: "PF2E.WeaponPropertyRune.impactful.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.impactful.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneImpactful",
         price: 1_000,
         rarity: "common",
@@ -763,7 +763,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ text: "PF2E.WeaponPropertyRune.keen.Note" }],
         },
         level: 13,
-        //name: "PF2E.WeaponPropertyRune.keen.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.keen.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneKeen",
         price: 3_000,
         rarity: "uncommon",
@@ -772,7 +772,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     kinWarding: {
         level: 3,
-        //name: "PF2E.WeaponPropertyRune.kinWarding.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.kinWarding.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneKinWarding",
         price: 52,
         rarity: "uncommon",
@@ -781,7 +781,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     majorFanged: {
         level: 15,
-        //name: "PF2E.WeaponPropertyRune.majorFanged.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.majorFanged.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneMajorFanged",
         price: 6_000,
         rarity: "uncommon",
@@ -790,7 +790,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     pacifying: {
         level: 5,
-        //name: "PF2E.WeaponPropertyRune.pacifying.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.pacifying.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRunePacifying",
         price: 150,
         rarity: "uncommon",
@@ -802,7 +802,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ text: "PF2E.WeaponPropertyRune.returning.Note" }],
         },
         level: 3,
-        //name: "PF2E.WeaponPropertyRune.returning.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.returning.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneReturning",
         price: 55,
         rarity: "common",
@@ -815,7 +815,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.serrating.Note.criticalSuccess" }],
         },
         level: 10,
-        //name: "PF2E.WeaponPropertyRune.serrating.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.serrating.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneSerrating",
         price: 1_000,
         rarity: "uncommon",
@@ -824,7 +824,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     shifting: {
         level: 6,
-        //name: "PF2E.WeaponPropertyRune.shifting.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.shifting.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneShifting",
         price: 225,
         rarity: "common",
@@ -837,7 +837,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.shock.Note.criticalSuccess" }],
         },
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.shock.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.shock.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneShock",
         price: 500,
         rarity: "common",
@@ -846,7 +846,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     speed: {
         level: 16,
-        //name: "PF2E.WeaponPropertyRune.speed.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.speed.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneSpeed",
         price: 10_000,
         rarity: "rare",
@@ -855,7 +855,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     spellStoring: {
         level: 13,
-        //name: "PF2E.WeaponPropertyRune.spellStoring.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.spellStoring.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneSpellStoring",
         price: 2_700,
         rarity: "uncommon",
@@ -868,7 +868,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             notes: [{ outcome: ["criticalSuccess"], text: "PF2E.WeaponPropertyRune.thundering.Note.criticalSuccess" }],
         },
         level: 8,
-        //name: "PF2E.WeaponPropertyRune.thundering.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.thundering.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneThundering",
         price: 500,
         rarity: "common",
@@ -880,7 +880,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             dice: [{ damageType: "evil", diceNumber: 1, dieSize: "d6", predicate: { all: ["target:trait:good"] } }],
         },
         level: 11,
-        //name: "PF2E.WeaponPropertyRune.unholy.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.unholy.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneUnholy",
         price: 1_400,
         rarity: "common",
@@ -889,7 +889,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
     vorpal: {
         level: 17,
-        //name: "PF2E.WeaponPropertyRune.vorpal.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.vorpal.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneVorpal",
         price: 15_000,
         rarity: "rare",
@@ -904,7 +904,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
             ],
         },
         level: 7,
-        //name: "PF2E.WeaponPropertyRune.wounding.Name", // wait for translations to catch up
+        // name: "PF2E.WeaponPropertyRune.wounding.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneWounding",
         price: 340,
         rarity: "common",

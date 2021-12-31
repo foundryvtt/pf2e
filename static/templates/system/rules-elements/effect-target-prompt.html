@@ -1,10 +1,11 @@
-<h3>{{localize "PF2E.UI.RuleElements.EffectTarget.Prompt"}}</h3>
-<ul>
-    {{#each choices as |choice|}}
-        <li>
-            <a data-choice="{{choice.value.id}}">
-                <img src="{{choice.value.img}}" /> <span>{{choice.label}}</span>
-            </a>
-        </li>
-    {{/each}}
-</ul>
+<div class="content">
+    <h3>{{localize "PF2E.UI.RuleElements.EffectTarget.Prompt"}}</h3>
+    <div class="choices">
+        {{#each choices as |choice|}}
+            <button type="button" value="{{choice.value.id}}" class="with-image">
+                <img src="{{choice.value.img}}" />
+                <span>{{choice.label}}</span>
+            </button>
+        {{/each}}
+    </ul>
+</div>

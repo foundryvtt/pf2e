@@ -3,7 +3,7 @@ import { RuleElementData, RuleElementSource, RuleElementSynthetics } from "../ru
 import { ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { tupleHasValue } from "@util";
+import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 
 /**
@@ -41,15 +41,17 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
         if (selector && value) {
+            // Strip out the title ("Effect:", etc.) of the effect name
+            const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
             const modifier = new ModifierPF2e({
-                slug: this.data.slug,
-                label: this.label,
+                slug: this.data.slug ?? sluggify(this.label),
+                label,
                 modifier: value,
                 type: this.data.type,
                 ability: this.data.type === "ability" ? this.data.ability : null,
                 predicate: this.data.predicate,
-                damageType: this.resolveInjectedProperties(this.data.damageType),
-                damageCategory: this.data.damageCategory,
+                damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
+                damageCategory: this.data.damageCategory || undefined,
             });
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {

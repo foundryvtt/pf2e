@@ -27,22 +27,16 @@ export class AncestryBackgroundClassManager {
             case "class": {
                 await actor.class?.delete();
 
+                /** Add class self roll option in case it is needed by any features' rule elements */
+                const slug = source.data.slug ?? sluggify(source.name);
+                actor.rollOptions.all[`self:class:${slug}`] = true;
+
                 source._id = randomID(16);
                 source.flags.pf2e ??= {};
                 source.flags.pf2e.insertedClassFeaturesLevel = actor.level;
 
                 const itemsToCreate = await this.getClassFeaturesForLevel(source, 0, actor.level);
-                itemsToCreate.sort((featureA, featureB) => {
-                    const levelA = featureA.data.level.value;
-                    const levelB = featureB.data.level.value;
-                    if (levelA > levelB) {
-                        return 1;
-                    } else if (levelA === levelB) {
-                        return featureA.name > featureB.name ? 1 : -1;
-                    } else {
-                        return -1;
-                    }
-                });
+                this.sortClassFeaturesByLevelAndChoiceSet(itemsToCreate);
                 return actor.createEmbeddedDocuments("Item", [...itemsToCreate, source], { keepId: true });
             }
             default:
@@ -62,11 +56,23 @@ export class AncestryBackgroundClassManager {
             ).filter(
                 (feature) => !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
             );
+            this.sortClassFeaturesByLevelAndChoiceSet(classFeaturesToCreate);
             await actor.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
         } else if (newLevel < actor.level) {
             const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
             await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
         }
+    }
+
+    static sortClassFeaturesByLevelAndChoiceSet(features: FeatSource[]) {
+        const hasChoiceSet = (f: FeatSource) => f.data.rules.some((re) => re.key === "ChoiceSet");
+        return features.sort((a, b) => {
+            const [aLevel, bLevel] = [a.data.level.value, b.data.level.value];
+            if (aLevel !== bLevel) return aLevel - bLevel;
+            const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
+            if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
+            return a.name.localeCompare(b.name, game.i18n.lang);
+        });
     }
 
     static async getItemSource(packName: "pf2e.ancestries", name: string): Promise<AncestrySource>;

@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "swim",
@@ -129,6 +130,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -177,6 +179,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -226,6 +229,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "sea-serpent-algae"
                     ]
@@ -317,6 +321,54 @@
             "type": "action"
         },
         {
+            "_id": "lzmS1xCoWnHVa39l",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "9jVKyOMk9msVj1hz",
             "data": {
                 "actionCategory": {
@@ -359,11 +411,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Capsize",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "UMyHwtcvJpJbfHca",
+            "_id": "Iiw19xLS3nyusjz1",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -375,7 +427,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>1d10+14 bludgeoning, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d10+14}[bludgeoning]]]{1d10+14 bludgeoning}</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">basic Fortitude</span></em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -407,11 +459,11 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "V80Aa8cn7HqqQA0o",
+            "_id": "WQlpCiZyHiNu4LE0",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -423,13 +475,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -448,10 +500,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -467,7 +523,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"34\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Sea Serpent Algae DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, descends until reaching the ground or water below (1 round).</p>"
+                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"34\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Sea Serpent Algae DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>\n<p><strong>Stage 2</strong> confused and, if flying, descends until reaching the ground or water below (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -498,7 +554,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sea Serpent Algae",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -545,11 +601,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spine Rake",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "wZpPmPe3773fPEnJ",
+            "_id": "4tsSsz41K5abcM8D",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -561,13 +617,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {2d10+6}[bludgeoning]]]{2d10+6 bludgeoning damage}, Rupture 20</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Huge, [[/r {2d10+6}[bludgeoning]]]{2d10+6 bludgeoning damage}, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -588,10 +644,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -626,7 +686,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -647,7 +707,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Swim",
+                        "label": "PF2E.SkillVariant.Swim",
                         "predicate": {
                             "all": [
                                 "action:swim"
@@ -679,7 +739,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -714,7 +774,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],

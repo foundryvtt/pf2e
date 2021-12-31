@@ -80,7 +80,7 @@ export interface REPreCreateParameters<T extends RuleElementSource = RuleElement
 
 export interface REPreDeleteParameters {
     /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
-    pendingItems: ItemPF2e[];
+    pendingItems: Embedded<ItemPF2e>[];
     /** The context object from the `ItemPF2e.deleteDocuments` call */
     context: DocumentModificationContext<ItemPF2e>;
 }

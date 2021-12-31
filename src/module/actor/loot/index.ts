@@ -36,14 +36,14 @@ export class LootPF2e extends ActorPF2e {
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === "update") {
-            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
 
     /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     override async transferItemToActor(

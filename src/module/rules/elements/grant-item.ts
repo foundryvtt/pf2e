@@ -1,4 +1,4 @@
-import { ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
+import { ClassPF2e, FeatPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e } from "@module/rules/rule-element";
 import {
@@ -82,7 +82,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
         const grantIds = this.item.data.flags.pf2e.itemGrants ?? [];
-        const grantedItems = grantIds.flatMap((id) => this.actor.items.get(id) ?? []);
+        const grantedItems = grantIds.flatMap((id) => {
+            const item = this.actor.items.get(id);
+            // Skip deleting granted physical items
+            return item && !(item instanceof PhysicalItemPF2e) ? item : [];
+        });
         pendingItems.push(...grantedItems);
     }
 
