@@ -21,8 +21,8 @@
             <div class="top-stats-container">
 
                 <div class="traits-bar">
-                    {{#unless (eq data.traits.rarity.value "common")}}
-                        <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
+                    {{#unless (eq data.traits.rarity "common")}}
+                        <span class="trait {{data.traits.rarity}}">{{localize actorRarity}}</span>
                     {{/unless}}
                     {{#if data.details.isComplex}}<span class="trait">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
                     {{#each actorTraits as |trait id|}}

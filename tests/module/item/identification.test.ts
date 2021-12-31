@@ -37,9 +37,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
             },
             traits: {
                 value: traits,
-                rarity: {
-                    value: rarity,
-                },
+                rarity,
                 custom: "",
             },
             potencyRune: {
@@ -103,7 +101,7 @@ describe("test identification DCs", () => {
                 data: {
                     traits: {
                         value: [],
-                        rarity: { value: "common" },
+                        rarity: "common",
                     },
                 },
             },

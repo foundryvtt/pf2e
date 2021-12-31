@@ -69,7 +69,7 @@ class StrikeRuleElement extends RuleElementPF2e {
                 baseItem: this.data.baseType,
                 damage: this.data.damage?.base ?? { damageType: "bludgeoning", dice: 1, die: "d4" },
                 range: this.data.range,
-                traits: { value: this.data.traits, rarity: { value: "common" }, custom: "" },
+                traits: { value: this.data.traits, rarity: "common", custom: "" },
                 options: { value: this.data.options ?? [] },
                 equipped: { value: true },
             },

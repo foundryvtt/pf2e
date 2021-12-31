@@ -117,7 +117,6 @@ export interface CreatureTraitsData extends BaseTraitsData {
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
     attitude: { value: Attitude };
-    traits: ValuesList;
 }
 
 export type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;

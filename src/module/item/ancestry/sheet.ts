@@ -15,7 +15,7 @@ export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             selectedFlaws: Object.fromEntries(
                 Object.entries(itemData.data.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity.value] }),
+            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity] }),
             sizes: this.prepareOptions(CONFIG.PF2E.actorSizes, { value: [itemData.data.size] }),
             traits: this.prepareOptions(CONFIG.PF2E.creatureTraits, itemData.data.traits),
             languages: this.prepareOptions(CONFIG.PF2E.languages, itemData.data.languages),

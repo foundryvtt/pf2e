@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
-import { IdentificationData, IdentificationStatus, IdentifiedData } from "@item/physical/data";
+import { IdentificationData, IdentificationStatus, IdentifiedData, PhysicalItemTraits } from "@item/physical/data";
 import { isPhysicalData } from "@item/data/helpers";
 
 type MaybeOldData = ItemSourcePF2e & {
@@ -40,7 +40,8 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         if (!isPhysicalData(itemData)) return;
 
         // Items are occasionally lack a `rarity` property due to missing a previous migration
-        itemData.data.traits.rarity ??= { value: "common" };
+        const traits: Omit<PhysicalItemTraits, "rarity"> & { rarity?: unknown } = itemData.data.traits;
+        traits.rarity ??= { value: "common" };
 
         const systemData = itemData.data;
         const hasBadData = systemData.identification && systemData.identification.status === undefined;

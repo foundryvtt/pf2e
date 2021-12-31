@@ -9,7 +9,7 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
 
         return {
             ...data,
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity.value] }),
+            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity] }),
             trainedSkills: this.prepareOptions(CONFIG.PF2E.skills, itemData.data.trainedSkills),
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.data.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
