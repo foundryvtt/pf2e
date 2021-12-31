@@ -8,11 +8,20 @@ declare global {
         /** The object responsible for this source. */
         object: TObject;
 
+        /**
+         * The type of source represented by this data structure.
+         * Each subclass must implement this attribute.
+         */
+        static sourceType: string;
+
+        /** The default Geometry stored in the GPU for all Point Source meshes. */
+        static GEOMETRY: PIXI.Geometry;
+
         /** A flag for whether this source is currently active (rendered) or not */
         active: boolean;
 
         /** The object of data which configures how this source is rendered */
-        data: Partial<LightSourceData>;
+        data: PointSourceData;
 
         /** The maximum radius of emission for this source */
         radius: number;
@@ -27,9 +36,7 @@ declare global {
         limited: boolean;
 
         /** Boolean flags which control whether certain behaviors of the source must be enforced */
-        protected _flags: Record<string, boolean>;
-
-        fov: PIXI.Polygon;
+        protected _flags: Record<string, boolean | undefined>;
 
         /** The x-coordinate of the point source origin. */
         get x(): number;
@@ -94,7 +101,7 @@ declare global {
          * Create a container that should be rendered to the fov texture for this source
          * @returns The drawn container for the render texture
          */
-        protected _drawRenderTextureContainer(): PIXI.Container;
+        _drawRenderTextureContainer(): PIXI.Container;
     }
 
     type PointSourceType = "light" | "sight";

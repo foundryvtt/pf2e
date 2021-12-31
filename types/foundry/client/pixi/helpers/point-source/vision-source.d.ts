@@ -9,7 +9,7 @@ declare global {
         constructor(object: TObject);
 
         /** The current vision mesh for this source */
-        illumination: PIXI.Mesh;
+        illumination: PIXI.Mesh<AdaptiveIlluminationShader>;
 
         static sourceType: "vision";
 
@@ -27,13 +27,16 @@ declare global {
         ratio: number;
 
         /** The rendered field-of-vision texture for the source for use within shaders. */
-        fovTexture: PIXI.RenderTexture;
+        fovTexture: PIXI.RenderTexture | null;
 
         /** Track which uniforms need to be reset */
-        protected _resetUniforms: { illumination: boolean };
+        _resetUniforms: { illumination: boolean };
 
         /** To track if a source is temporarily shutdown to avoid glitches */
-        protected _shutdown: { illumination: boolean };
+        _shutdown: { illumination: boolean };
+
+        // Store the FOV circle
+        fov: PIXI.Circle;
 
         /* -------------------------------------------- */
         /*  Vision Source Initialization                */
@@ -47,14 +50,14 @@ declare global {
         initialize(data?: Partial<VisionSourceData>): this;
 
         /** Initialize the blend mode and vertical sorting of this source relative to others in the container. */
-        protected _initializeBlending(): void;
+        _initializeBlending(): void;
 
         /**
          * Process new input data provided to the LightSource.
          * @param data Initial data provided to the vision source
          * @returns The changes compared to the prior data
          */
-        protected _initializeData(data: Partial<VisionSourceData>): void;
+        _initializeData(data: Partial<VisionSourceData>): void;
 
         /* -------------------------------------------- */
         /*  Vision Source Rendering                     */
@@ -65,7 +68,7 @@ declare global {
          * @see {LightSource#drawLight}
          * @return The rendered light container
          */
-        drawVision(): PIXI.Container;
+        drawVision(): PIXI.Mesh<AdaptiveIlluminationShader> | null;
 
         /** Draw a Container used for exploring the FOV area of Token sight in the SightLayer */
         drawSight(): PIXI.Container;
@@ -74,9 +77,9 @@ declare global {
          * Update shader uniforms by providing data from this PointSource
          * @param shader The shader being updated
          */
-        protected _updateIlluminationUniforms(shader: AdaptiveIlluminationShader): void;
+        _updateIlluminationUniforms(shader: AdaptiveIlluminationShader): void;
 
-        protected override _drawRenderTextureContainer(): PIXI.Container;
+        override _drawRenderTextureContainer(): PIXI.Container;
     }
 
     interface VisionSourceData {
