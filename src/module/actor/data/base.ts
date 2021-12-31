@@ -34,6 +34,7 @@ export interface BaseActorDataPF2e
     extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, "effects" | "items" | "token"> {
     type: BaseActorSourcePF2e["type"];
     data: ActorSystemData;
+    token: PrototypeTokenDataPF2e;
     flags: ActorFlagsPF2e;
 
     readonly _source: BaseActorSourcePF2e;
@@ -240,4 +241,12 @@ export interface RollToggle {
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
     roll: RollFunction;
+}
+
+export interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
+    flags: foundry.data.PrototypeTokenData["flags"] & {
+        pf2e: {
+            linkToActorSize: boolean;
+        };
+    };
 }
