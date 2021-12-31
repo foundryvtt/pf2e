@@ -13,7 +13,6 @@ import { NPCData, NPCStrike } from "./data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
-import { NPCLegacySheetPF2e } from "./legacy-sheet";
 import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
@@ -942,5 +941,5 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     readonly data: NPCData;
-    _sheet: NPCSheetPF2e | NPCLegacySheetPF2e;
+    _sheet: NPCSheetPF2e;
 }
