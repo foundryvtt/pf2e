@@ -290,7 +290,7 @@
             "type": "action"
         },
         {
-            "_id": "4T0hd15HFgEoLTEv",
+            "_id": "HxSPrzqufbKb8gOo",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -302,13 +302,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The ofalth zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -327,9 +334,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slow",
+            "name": "Negative Healing",
             "sort": 400000,
             "type": "action"
         },
@@ -426,7 +437,7 @@
             "type": "action"
         },
         {
-            "_id": "HxSPrzqufbKb8gOo",
+            "_id": "4T0hd15HFgEoLTEv",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -438,20 +449,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>The ofalth zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -470,13 +474,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
+            "name": "Slow",
             "sort": 700000,
             "type": "action"
         },

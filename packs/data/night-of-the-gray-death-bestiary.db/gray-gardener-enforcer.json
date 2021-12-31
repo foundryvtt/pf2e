@@ -706,7 +706,7 @@
             "type": "action"
         },
         {
-            "_id": "0gbex6y5cokj8lhd",
+            "_id": "hx1yYAXXEsBnBk6s",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -718,13 +718,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Gray Gardener enforcer spends 1 hour consuming 1 Bulk of raw meat to reverse their body's putrescence. For 1 hour, the Gray Gardener enforcer appears to be a pale, bloated human. They have an automatic result of 32 on Deception checks and DCs to pass as a non-mortic human. While under the effects of Nourishing Feast, Rotting Flesh ceases to function.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -737,12 +744,19 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Nourishing Feast",
+            "name": "Negative Healing",
             "sort": 700000,
             "type": "action"
         },
@@ -829,47 +843,6 @@
             "type": "action"
         },
         {
-            "_id": "7461tqwfss2gv5o4",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Any creature that hits the Gray Gardener enforcer with an unarmed attack, tries to Grapple them, or otherwise touches the gurgist is covered with rotten flesh and putrid fluids. The creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Rotting Flesh DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rotting Flesh",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
             "_id": "cx1w05nphshxjcgy",
             "data": {
                 "actionCategory": {
@@ -907,11 +880,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gardener's Resolve",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "hx1yYAXXEsBnBk6s",
+            "_id": "0gbex6y5cokj8lhd",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -923,20 +896,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>The Gray Gardener enforcer spends 1 hour consuming 1 Bulk of raw meat to reverse their body's putrescence. For 1 hour, the Gray Gardener enforcer appears to be a pale, bloated human. They have an automatic result of 32 on Deception checks and DCs to pass as a non-mortic human. While under the effects of Nourishing Feast, Rotting Flesh ceases to function.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -949,19 +915,53 @@
                 },
                 "trigger": {
                     "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Nourishing Feast",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "7461tqwfss2gv5o4",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
                 },
-                "weapon": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any creature that hits the Gray Gardener enforcer with an unarmed attack, tries to Grapple them, or otherwise touches the gurgist is covered with rotten flesh and putrid fluids. The creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Rotting Flesh DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
+            "name": "Rotting Flesh",
             "sort": 1200000,
             "type": "action"
         },
@@ -1007,47 +1007,6 @@
             "type": "action"
         },
         {
-            "_id": "uqvrj5m4qmq12a02",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r {3d8+7}[slashing]]]{3d8+7 slashing damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disarm,trip,slashing,damaging-effect\" data-pf2-label=\"Chain Garotte Constrict DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Greater Constrict",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
             "_id": "9ngglw35qsko0dgv",
             "data": {
                 "actionCategory": {
@@ -1088,6 +1047,47 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Death Gasp",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "uqvrj5m4qmq12a02",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>[[/r {3d8+7}[slashing]]]{3d8+7 slashing damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disarm,trip,slashing,damaging-effect\" data-pf2-label=\"Chain Garotte Constrict DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Greater Constrict",
             "sort": 1500000,
             "type": "action"
         },
