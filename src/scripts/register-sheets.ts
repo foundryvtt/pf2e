@@ -1,5 +1,4 @@
 import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { NPCLegacySheetPF2e } from "@actor/npc/legacy-sheet";
 import { ActionSheetPF2e } from "@item/action/sheet";
 import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
@@ -25,7 +24,6 @@ import { ArmorSheetPF2e } from "@item/armor/sheet";
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
-    const sheetLabelOld = translations.SheetLabelOld;
 
     // ACTORS
     Actors.unregisterSheet("core", ActorSheet);
@@ -42,14 +40,7 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    // Register NPC Sheet
-    Actors.registerSheet("pf2e", NPCLegacySheetPF2e, {
-        types: ["npc"],
-        label: game.i18n.format(sheetLabelOld, { type: localizeType("npc") }),
-        makeDefault: false,
-    });
-
-    // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
+    // Regiser NPC Sheet
     Actors.registerSheet("pf2e", NPCSheetPF2e, {
         types: ["npc"],
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
