@@ -34,6 +34,9 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * @category Actor
  */
 class ActorPF2e extends Actor<TokenDocumentPF2e> {
+    /** Has this actor gone through at least one cycle of data preparation? */
+    private initialized?: true;
+
     /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
@@ -218,20 +221,26 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
+    override _initialize(): void {
+        super._initialize();
+        this.initialized = true;
+    }
+
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         super.prepareData();
 
         this.preparePrototypeToken();
-        const tokenDocs = this.getActiveTokens(false, true);
-        for (const tokenDoc of tokenDocs) {
-            tokenDoc.prepareData({ fromActor: true });
-        }
-
-        if (canvas.ready) {
-            const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
-            if (game.user.character === this || thisTokenIsControlled) {
-                game.pf2e.effectPanel.refresh();
+        if (this.initialized) {
+            const tokenDocs = this.getActiveTokens(false, true);
+            for (const tokenDoc of tokenDocs) {
+                tokenDoc.prepareData({ fromActor: true });
+            }
+            if (canvas.ready) {
+                const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
+                if (game.user.character === this || thisTokenIsControlled) {
+                    game.pf2e.effectPanel.refresh();
+                }
             }
         }
     }
