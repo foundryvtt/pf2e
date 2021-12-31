@@ -1358,7 +1358,7 @@
             "type": "action"
         },
         {
-            "_id": "1RMu0owaI3jzGIJA",
+            "_id": "vbSi698j0JxF2fvv",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1370,13 +1370,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The nemhaith is bound to a place or large stationary object and can't venture more than 500 feet from this focus.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -1395,9 +1402,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
+            "name": "Negative Healing",
             "sort": 1300000,
             "type": "action"
         },
@@ -1498,7 +1509,7 @@
             "type": "action"
         },
         {
-            "_id": "vbSi698j0JxF2fvv",
+            "_id": "1RMu0owaI3jzGIJA",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1510,20 +1521,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>The nemhaith is bound to a place or large stationary object and can't venture more than 500 feet from this focus.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1542,13 +1546,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
+            "name": "Site Bound",
             "sort": 1600000,
             "type": "action"
         },

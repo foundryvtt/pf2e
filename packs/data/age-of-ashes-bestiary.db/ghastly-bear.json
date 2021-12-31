@@ -426,25 +426,25 @@
             "type": "action"
         },
         {
-            "_id": "eCRAMtpF3k73LRFd",
+            "_id": "DEoIu6kGyGbwbSn3",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>Any living creature hit by a ghastly bear's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghastly bear is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghastly bear devours a chunk of the corpse and regains [[/r {6d6}[healing]]]{6d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "ghast-paralysis",
+                "slug": "ghast-consume-flesh",
                 "source": {
                     "value": "Pathfinder Bestiary"
                 },
@@ -454,9 +454,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "incapacitation",
-                        "necromancy",
-                        "occult"
+                        "manipulate"
                     ]
                 },
                 "trigger": {
@@ -469,11 +467,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralysis",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Consume Flesh",
             "sort": 700000,
             "type": "action"
         },
@@ -525,56 +523,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghast Fever",
             "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "DEoIu6kGyGbwbSn3",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The ghastly bear is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghastly bear devours a chunk of the corpse and regains [[/r {6d6}[healing]]]{6d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "ghast-consume-flesh",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "manipulate"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume Flesh",
-            "sort": 900000,
             "type": "action"
         },
         {
@@ -632,6 +580,58 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mauler",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "eCRAMtpF3k73LRFd",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Any living creature hit by a ghastly bear's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ghast-paralysis",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
             "sort": 1000000,
             "type": "action"
         },

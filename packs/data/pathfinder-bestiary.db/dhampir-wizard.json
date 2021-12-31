@@ -1918,7 +1918,7 @@
             "type": "action"
         },
         {
-            "_id": "J6pZtpCOYKA1AxsU",
+            "_id": "UQgJlISebp4VjfKp",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1930,13 +1930,25 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The dhampir's penalty and Hit Point reduction from the drained condition are reduced as though the condition value were 1 lower.</p>"
+                    "value": ""
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "disease"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -1955,9 +1967,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood of the Night",
+            "name": "+2 Circumstance to All Saves vs Disease",
             "sort": 1900000,
             "type": "action"
         },
@@ -2017,7 +2033,7 @@
             "type": "action"
         },
         {
-            "_id": "UQgJlISebp4VjfKp",
+            "_id": "J6pZtpCOYKA1AxsU",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2029,25 +2045,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>The dhampir's penalty and Hit Point reduction from the drained condition are reduced as though the condition value were 1 lower.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "disease"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2066,13 +2070,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Circumstance to All Saves vs Disease",
+            "name": "Blood of the Night",
             "sort": 2100000,
             "type": "action"
         },

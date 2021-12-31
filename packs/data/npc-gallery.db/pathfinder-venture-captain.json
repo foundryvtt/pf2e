@@ -1443,6 +1443,61 @@
             "type": "equipment"
         },
         {
+            "_id": "di1EyEzR1QJfS8OE",
+            "data": {
+                "description": {
+                    "value": "<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Raised Shield",
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "effect-raise-a-shield",
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/raise-a-shield.webp",
+            "name": "Effect: Raise a Shield",
+            "sort": 1100000,
+            "type": "effect"
+        },
+        {
             "_id": "SvKEuXIi5eUaqkLA",
             "data": {
                 "attack": {
@@ -1486,7 +1541,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Warhammer",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -1535,8 +1590,56 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "melee"
+        },
+        {
+            "_id": "i3KBgRUcT11VAT2c",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1400000,
+            "type": "action"
         },
         {
             "_id": "f9317vgvLL2FaL7N",
@@ -1589,98 +1692,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fortitude Saves",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
-            "_id": "VfIDgw7C87841Ehg",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Anytime the venture-captain gains the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition, reduce its value by 1.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unshakable",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "i3KBgRUcT11VAT2c",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
             "sort": 1500000,
             "type": "action"
         },
@@ -1733,6 +1744,95 @@
             "type": "action"
         },
         {
+            "_id": "VfIDgw7C87841Ehg",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Anytime the venture-captain gains the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition, reduce its value by 1.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unshakable",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "vmjC8rwYO5CA0CjY",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The venture-captain can @Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge} on any topic using their Bardic Lore skill.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bardic Lore",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
             "_id": "78xUeN4lAiJy7HB8",
             "data": {
                 "actionCategory": {
@@ -1775,7 +1875,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Paragon's Guard",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1830,52 +1930,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weapon Mastery (Hammer)",
-            "sort": 1800000,
-            "type": "action"
-        },
-        {
-            "_id": "vmjC8rwYO5CA0CjY",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The venture-captain can @Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge} on any topic using their Bardic Lore skill.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bardic Lore",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1910,7 +1965,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Alcohol Lore",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1945,7 +2000,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Bardic Lore",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1980,7 +2035,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2015,7 +2070,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2050,63 +2105,8 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 2400000,
-            "type": "lore"
-        },
-        {
-            "_id": "di1EyEzR1QJfS8OE",
-            "data": {
-                "description": {
-                    "value": "<p>You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "level": {
-                    "value": 1
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Raised Shield",
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "effect-raise-a-shield",
-                "source": {
-                    "value": ""
-                },
-                "start": {
-                    "initiative": null,
-                    "value": 0
-                },
-                "target": null,
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/raise-a-shield.webp",
-            "name": "Effect: Raise a Shield",
             "sort": 2500000,
-            "type": "effect"
+            "type": "lore"
         }
     ],
     "name": "Pathfinder Venture-Captain",
