@@ -272,8 +272,7 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string[] | null = null): Promise<void> {
-        filter = filter || [];
+    async openTab(tab: TabName, filter: string[] = []): Promise<void> {
         this.initialFilter = filter;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)

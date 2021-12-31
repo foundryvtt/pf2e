@@ -620,37 +620,40 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
         const levelString = $(event.currentTarget).attr("data-level") ?? null;
-        const traditionString = $(event.currentTarget).attr("data-tradition") ?? null;
-        const preparationString = $(event.currentTarget).attr("data-prepared") ?? null;
+
+        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
+        const entry = this.actor.spellcasting.get(spellcastingIndex);
+
+        if (entry === undefined) {
+            return;
+        }
 
         const filter: string[] = [];
 
-        if (preparationString === "ritual" || preparationString === "focus") {
-            filter.push("category-".concat(preparationString));
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.push("category-".concat(entry.data.data.prepared.value));
         }
 
         if (levelString) {
             let level = parseInt(levelString);
-            if (level === 0) {
-                filter.push("category-cantrip");
-            } else {
-                filter.push("level-".concat(level.toString()));
+            filter.push(level ? `level-${level}` : "category-cantrip");
 
-                if (preparationString !== "prepared") {
+            if (level) {
+                if (!entry.isPrepared) {
                     while (level > 1) {
                         level -= 1;
                         filter.push("level-".concat(level.toString()));
                     }
                 }
 
-                if (preparationString === "spontaneous" || preparationString === "prepared") {
+                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
                     filter.push("category-spell");
                 }
             }
         }
 
-        if (traditionString && preparationString !== "focus") {
-            filter.push("traditions-".concat(traditionString));
+        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+            filter.push("traditions-".concat(entry.data.data.tradition.value));
         }
 
         console.debug(`Filtering on: ${filter}`);
