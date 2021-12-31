@@ -330,7 +330,7 @@
             "type": "action"
         },
         {
-            "_id": "5wlVfCVGmDq3fRKw",
+            "_id": "TnKoM2xO55NqfEqC",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -342,12 +342,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,conjuration,curse,magical,olfactory\" data-pf2-label=\"Malodorous Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
+                    "value": ""
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "curse"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -357,13 +369,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "aura",
-                        "conjuration",
-                        "curse",
-                        "magical",
-                        "olfactory"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -375,7 +381,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Malodorous Smoke",
+            "name": "+2 Status Bonus on Saves vs Curses",
             "sort": 500000,
             "type": "action"
         },
@@ -435,7 +441,7 @@
             "type": "action"
         },
         {
-            "_id": "TnKoM2xO55NqfEqC",
+            "_id": "5wlVfCVGmDq3fRKw",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -447,24 +453,12 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,conjuration,curse,magical,olfactory\" data-pf2-label=\"Malodorous Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "curse"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -474,7 +468,13 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "curse",
+                        "magical",
+                        "olfactory"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -486,7 +486,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status Bonus on Saves vs Curses",
+            "name": "Malodorous Smoke",
             "sort": 700000,
             "type": "action"
         },

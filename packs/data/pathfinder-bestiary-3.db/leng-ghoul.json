@@ -824,7 +824,7 @@
             "type": "action"
         },
         {
-            "_id": "YGMkhOIOrpQ8AZbt",
+            "_id": "dRvlYR5tSwnpG9he",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -836,12 +836,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Leng ghouls can cast arcane, divine, and occult spells from scrolls, with a spell DC of 28 and a spell attack roll of +20.</p>"
+                    "value": ""
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "positive"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -863,7 +875,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Erudite",
+            "name": "+1 Status Bonus on Saves vs Positive",
             "sort": 600000,
             "type": "action"
         },
@@ -923,7 +935,7 @@
             "type": "action"
         },
         {
-            "_id": "dRvlYR5tSwnpG9he",
+            "_id": "YGMkhOIOrpQ8AZbt",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -935,24 +947,12 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Leng ghouls can cast arcane, divine, and occult spells from scrolls, with a spell DC of 28 and a spell attack roll of +20.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "positive"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -974,7 +974,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Positive",
+            "name": "Erudite",
             "sort": 800000,
             "type": "action"
         },

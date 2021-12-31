@@ -337,69 +337,6 @@
             "type": "action"
         },
         {
-            "_id": "5fuz5dej9owm5ap2",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> A creature within 30 feet of the sun-spire begins to Cast a Spell that has the fire or light trait</div>\n<hr />\n<p><strong>Effect</strong> The sun-spire attempts to redirect the energy from the triggering effect into its sunlight stores. The sun-spire attempts to counteract the triggering spell with a [[/r {1d20+22} #counteract]]{+22} counteract bonus. If it successfully counteracts the spell, the sun-spire's sunlight stores are empowered. While empowered, the sun-spire deals an additional [[/r {2d8}[fire]]]{2d8 fire damage} with all of its attacks and abilities. The sun-spire remains empowered until the end of its next turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ToggleProperty",
-                        "label": "Empowered by Steal the Sun",
-                        "property": "flags.pf2e.rollOptions.damage-roll.steal-the-sun"
-                    },
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 2,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "Empowered by Steal the Sun",
-                        "predicate": {
-                            "all": [
-                                "steal-the-sun"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Steal the Sun",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
             "_id": "Dclgkrm4gUdHKKtf",
             "data": {
                 "actionCategory": {
@@ -444,7 +381,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 600000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -504,6 +441,69 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Construct Armor (Hardness 14)",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "5fuz5dej9owm5ap2",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> A creature within 30 feet of the sun-spire begins to Cast a Spell that has the fire or light trait</div>\n<hr />\n<p><strong>Effect</strong> The sun-spire attempts to redirect the energy from the triggering effect into its sunlight stores. The sun-spire attempts to counteract the triggering spell with a [[/r {1d20+22} #counteract]]{+22} counteract bonus. If it successfully counteracts the spell, the sun-spire's sunlight stores are empowered. While empowered, the sun-spire deals an additional [[/r {2d8}[fire]]]{2d8 fire damage} with all of its attacks and abilities. The sun-spire remains empowered until the end of its next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Empowered by Steal the Sun",
+                        "property": "flags.pf2e.rollOptions.damage-roll.steal-the-sun"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "label": "Empowered by Steal the Sun",
+                        "predicate": {
+                            "all": [
+                                "steal-the-sun"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Steal the Sun",
             "sort": 700000,
             "type": "action"
         },
@@ -553,54 +553,6 @@
             "type": "action"
         },
         {
-            "_id": "xoNIkmyOwHBW1jwQ",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
             "_id": "IzwPCaLeOkVAsVeM",
             "data": {
                 "actionCategory": {
@@ -645,6 +597,54 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "xoNIkmyOwHBW1jwQ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 1000000,
             "type": "action"
         },

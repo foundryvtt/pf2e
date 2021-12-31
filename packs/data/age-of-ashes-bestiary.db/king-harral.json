@@ -4300,7 +4300,7 @@
             "type": "action"
         },
         {
-            "_id": "SH5975wJdafMupdy",
+            "_id": "py7MzheoXU7EEjNA",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -4312,13 +4312,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>24 hours after King Harral is destroyed, his body rebuilds itself on his throne (or, if the throne is destroyed, on the site where the throne once sat), similarly to how a lich's body is restored via its phylactery. If all of Saggorak's buildings are destroyed, or if heroes perform a great service in saving Saggorak, King Harral loses this ability.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
-                    "value": "Pathfinder Bestiary"
+                    "value": ""
                 },
-                "rules": [],
-                "slug": "lich-rejuvenation",
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -4327,10 +4334,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "arcane",
-                        "necromancy"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -4342,12 +4346,53 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.a7A4xY3NeWI2Ya4Z"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Rejuvenation",
+            "name": "Negative Healing",
             "sort": 3600000,
+            "type": "action"
+        },
+        {
+            "_id": "EPvcNjklx5lHjwSK",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature casts a spell King Harral has prepared.</p>\n<hr />\n<p><strong>Effect</strong> The king expends a prepared spell to counter the triggering creature's casting of that same spell. He can then attempt to dispel the triggering spell.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Counterspell",
+            "sort": 3700000,
             "type": "action"
         },
         {
@@ -4400,11 +4445,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 3700000,
+            "sort": 3800000,
             "type": "action"
         },
         {
-            "_id": "py7MzheoXU7EEjNA",
+            "_id": "SH5975wJdafMupdy",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -4416,20 +4461,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>24 hours after King Harral is destroyed, his body rebuilds itself on his throne (or, if the throne is destroyed, on the site where the throne once sat), similarly to how a lich's body is restored via its phylactery. If all of Saggorak's buildings are destroyed, or if heroes perform a great service in saving Saggorak, King Harral loses this ability.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": "lich-rejuvenation",
                 "source": {
                     "value": ""
                 },
@@ -4438,7 +4476,10 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "arcane",
+                        "necromancy"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -4450,52 +4491,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.a7A4xY3NeWI2Ya4Z"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 3800000,
-            "type": "action"
-        },
-        {
-            "_id": "EPvcNjklx5lHjwSK",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature casts a spell King Harral has prepared.</p>\n<hr />\n<p><strong>Effect</strong> The king expends a prepared spell to counter the triggering creature's casting of that same spell. He can then attempt to dispel the triggering spell.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Counterspell",
+            "name": "Rejuvenation",
             "sort": 3900000,
             "type": "action"
         },

@@ -844,7 +844,7 @@
             "type": "action"
         },
         {
-            "_id": "gb6rtm7tl445foxn",
+            "_id": "SshSkn9TPrLZOPCQ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -856,13 +856,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Fog and mist don't impair a cloud dragon's vision; Ixamè ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from fog and mist.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -875,12 +882,19 @@
                 },
                 "trigger": {
                     "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Mist Vision",
+            "name": "Negative Healing",
             "sort": 1100000,
             "type": "action"
         },
@@ -942,61 +956,6 @@
             "type": "action"
         },
         {
-            "_id": "SshSkn9TPrLZOPCQ",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
             "_id": "WyUZRfvKEPtqlCwH",
             "data": {
                 "actionCategory": {
@@ -1046,6 +1005,47 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "gb6rtm7tl445foxn",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Fog and mist don't impair a cloud dragon's vision; Ixamè ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from fog and mist.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Vision",
             "sort": 1400000,
             "type": "action"
         },
