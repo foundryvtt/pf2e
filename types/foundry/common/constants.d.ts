@@ -22,9 +22,14 @@ declare global {
 
         BASE_ENTITY_TYPE: "base";
 
-        /**
-         * Valid Chat Message types
-         */
+        CANVAS_PERFORMANCE_MODES: {
+            LOW: 0;
+            MED: 1;
+            HIGH: 2;
+            MAX: 3;
+        };
+
+        /** Valid Chat Message types */
         CHAT_MESSAGE_TYPES: {
             OTHER: 0;
             OOC: 1;
@@ -469,6 +474,7 @@ declare global {
         AUDIO_FILE_EXTENSIONS: ["flac", "m4a", "mp3", "ogg", "opus", "wav", "webm"];
     };
 
+    type CanvasPerformanceMode = typeof CONST.CANVAS_PERFORMANCE_MODES[keyof typeof CONST.CANVAS_PERFORMANCE_MODES];
     type ImageFileExtension = typeof CONST.IMAGE_FILE_EXTENSIONS[number];
     type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];

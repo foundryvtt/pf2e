@@ -50,27 +50,7 @@ declare global {
                     padding,
                     shiftX,
                     shiftY,
-                }?: {
-                    width: number;
-                    height: number;
-                    size: number;
-                    gridDistance: number;
-                    padding: number;
-                    shiftX: number;
-                    shiftY: number;
-                }): {
-                    sceneWidth: number;
-                    sceneHeight: number;
-                    size: number;
-                    distance: number;
-                    shiftX: number;
-                    shiftY: number;
-                    ratio: number;
-                    paddingX: number;
-                    width: number;
-                    paddingY: number;
-                    height: number;
-                };
+                }: GetDimensionsParams): SceneDimensions;
             }
 
             interface BaseScene {
@@ -103,5 +83,29 @@ declare global {
      */
     interface SceneEmbeddedModificationContext extends DocumentModificationContext {
         isUndo?: boolean;
+    }
+
+    interface GetDimensionsParams {
+        gridDistance: number;
+        height: number;
+        padding: number;
+        shiftX: number;
+        shiftY: number;
+        size: number;
+        width: number;
+    }
+
+    interface SceneDimensions {
+        distance: number;
+        height: number;
+        paddingX: number;
+        paddingY: number;
+        ratio: number;
+        sceneHeight: number;
+        sceneWidth: number;
+        shiftX: number;
+        shiftY: number;
+        size: number;
+        width: number;
     }
 }
