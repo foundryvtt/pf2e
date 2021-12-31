@@ -3,10 +3,9 @@ import { ActorPF2e } from "@actor/index";
 import { Rarity } from "@module/data";
 import { SaveType, SAVE_TYPES } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
-import { RuleElementPF2e } from "@module/rules/rules";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
+import { RuleElementPF2e, RuleElementSynthetics } from "@module/rules";
 
 export class HazardPF2e extends ActorPF2e {
     static override get schema(): typeof HazardData {

@@ -15,7 +15,7 @@ import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
+import { RuleElementSynthetics } from "@module/rules";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 

@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 

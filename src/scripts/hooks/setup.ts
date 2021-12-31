@@ -18,7 +18,7 @@ import {
     StatisticModifier,
 } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
-import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { ConditionManager } from "@system/conditions";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { EffectsPanel } from "@module/apps/effects-panel";
