@@ -72,6 +72,9 @@ export class MetagameSettings extends SettingsMenuPF2e {
                 hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
                 default: false,
                 type: Boolean,
+                onChange: () => {
+                    window.location.reload();
+                },
             },
         };
     }
