@@ -268,6 +268,42 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
+    /** Pull the latest system data from the source compendium and replace the item's with it */
+    private async refreshItemFromCompendium(): Promise<void> {
+        if (!this.item.isOwned) return ui.notifications.error("This utility may only be used on owned items");
+
+        const currentSource = this.item.toObject();
+        const latestSource = (await fromUuid<this["item"]>(this.item.sourceId ?? ""))?.toObject();
+        if (latestSource?.type === this.item.data.type) {
+            const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
+            const updates: DocumentUpdateData<this["item"]> = { img: updatedImage, data: latestSource.data };
+
+            // Preserve precious material and runes
+            if (currentSource.type === "weapon" || currentSource.type === "armor") {
+                const materialAndRunes: Record<string, unknown> = {
+                    "data.preciousMaterial": currentSource.data.preciousMaterial,
+                    "data.preciousMaterialGrade": currentSource.data.preciousMaterialGrade,
+                    "data.potencyRune": currentSource.data.potencyRune,
+                    "data.propertyRune1": currentSource.data.propertyRune1,
+                    "data.propertyRune2": currentSource.data.propertyRune2,
+                    "data.propertyRune3": currentSource.data.propertyRune3,
+                    "data.propertyRune4": currentSource.data.propertyRune4,
+                };
+                if (currentSource.type === "weapon") {
+                    materialAndRunes["data.strikingRune"] = currentSource.data.strikingRune;
+                } else {
+                    materialAndRunes["data.resiliencyRune"] = currentSource.data.resiliencyRune;
+                }
+                mergeObject(updates, expandObject(materialAndRunes));
+            }
+
+            await this.item.update(updates, { diff: false, recursive: false });
+            ui.notifications.info("The item has been refreshed.");
+        } else {
+            ui.notifications.error("The compendium item is of a different type than what is present on this actor");
+        }
+    }
+
     protected override _canDragDrop(_selector: string): boolean {
         return this.item.isOwner;
     }
@@ -356,6 +392,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sheetButton = buttons.find((button) => button.class === "configure-sheet");
         if (!hasMultipleSheets && sheetButton) {
             buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        // Convenenience utility for data entry; may make available to general users in the future
+        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+            buttons.unshift({
+                label: "Refresh",
+                class: "refresh-from-compendium",
+                icon: "fas fa-sync-alt",
+                onclick: () => this.refreshItemFromCompendium(),
+            });
         }
         return buttons;
     }
