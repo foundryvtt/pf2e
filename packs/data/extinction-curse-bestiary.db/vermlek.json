@@ -23,7 +23,7 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "(19 while inhabiting a body)",
                 "value": 16
             },
             "allSaves": {
@@ -103,14 +103,16 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "5"
+                    "value": 5
+                },
+                {
+                    "type": "sonic",
+                    "value": 5
                 }
             ],
             "languages": {
@@ -163,7 +165,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -240,7 +242,7 @@
                 "spelldc": {
                     "dc": 19,
                     "mod": 0,
-                    "value": 9
+                    "value": 11
                 },
                 "tradition": {
                     "value": "divine"
@@ -261,7 +263,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ze0baTsW4ysBZbFD",
+            "_id": "JEyKz1i0fdKEqqap",
             "data": {
                 "ability": {
                     "value": ""
@@ -269,6 +271,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -289,7 +294,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -297,8 +302,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 3
+                },
+                "level": {
+                    "value": 1
                 },
                 "location": {
                     "value": "RqsjlbJfjDXjttuD"
@@ -307,6 +315,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -320,9 +331,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -357,21 +374,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "FZoGvcKLG5L80iwm",
+            "_id": "GtilemDApMBiK7Tt",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "varies"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -400,7 +424,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -408,8 +432,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 3
+                },
+                "level": {
+                    "value": 1
                 },
                 "location": {
                     "value": "RqsjlbJfjDXjttuD"
@@ -420,23 +447,38 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "varies"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "fortitude"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
@@ -445,7 +487,7 @@
                     "value": "1 living creature or 1 willing undead creature"
                 },
                 "time": {
-                    "value": "1"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "value": [
@@ -463,7 +505,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
             "sort": 300000,
@@ -523,7 +569,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 14
+                    "value": 12
                 },
                 "damageRolls": {
                     "geatkrzyyo6k1glugoxm": {
@@ -606,6 +652,106 @@
             "type": "melee"
         },
         {
+            "_id": "Yj0Sq5ehsOc1b6S1",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "aNQI6UJBZemWiBCa",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
             "_id": "38UzCSLYydGU7NfZ",
             "data": {
                 "actionCategory": {
@@ -618,7 +764,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Worm demons can't stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the worm demon has its dying condition removed, the worm demon takes [[/r {1d6}[mental]]]{1d6 mental damage}.</p>"
+                    "value": "<p>Worm demons can't stand the sight of a good meal presented and then swiftly taken away. Whenever a @Compendium[pf2e.conditionitems.Dying]{Dying} creature within sight of the worm demon has its dying condition removed, the worm demon takes [[/r {1d6}[mental]]]{1d6 mental damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -646,7 +792,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Recoil from Wasted Opportunities",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -662,7 +808,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The worm demon is Inhabiting a Body</p>\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 10 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The worm demon is Inhabiting a Body</p>\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 10 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -692,7 +838,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Abandon Body",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -708,12 +854,28 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity. As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to Deception checks to Impersonate the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
+                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to <span data-pf2-action=\"impersonate\">Deception</span> checks to @Compendium[pf2e.actionspf2e.Impersonate]{Impersonate} the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.inhabitBody"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "inhabitBody"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -738,7 +900,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Inhabit Body",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -754,7 +916,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within 30 feet who can see the vermlek must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"emotion,fear,mental,visual\" data-pf2-label=\"Unsettling Movement DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[type:emanation|distance:30]{30 feet} who can see the vermlek must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"emotion,fear,mental,visual\" data-pf2-label=\"Unsettling Movement DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p data-visibility=\"gm\">Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -787,7 +949,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Unsettling Movement",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -822,7 +984,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -857,7 +1019,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -875,7 +1037,21 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Impersonate",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate",
+                                "inhabitBody"
+                            ]
+                        },
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -886,13 +1062,19 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to impersonate while inhabiting a body",
+                        "options": "action:impersonate"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -927,7 +1109,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         }
     ],
