@@ -2,6 +2,7 @@ import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
 import { ActorSourcePF2e } from "@actor/data";
 import { isPhysicalData } from "@item/data/helpers";
+import { ItemTraits } from "@item/data/base";
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
@@ -72,8 +73,9 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
             itemData.data.traits.custom = "";
         }
         // Add rarity trait field
-        if (itemData.data.traits && !itemData.data.traits.rarity) {
-            itemData.data.traits.rarity = { value: "common" };
+        const traits: TraitsWithRarityObject = itemData.data.traits;
+        if (traits && !traits.rarity) {
+            traits.rarity = { value: "common" };
         }
 
         // Add item-identification property
@@ -103,3 +105,9 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 }
+
+type TraitsWithRarityObject =
+    | (Omit<ItemTraits, "rarity"> & {
+          rarity?: string | { value: string };
+      })
+    | undefined;

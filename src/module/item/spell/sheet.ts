@@ -33,7 +33,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
             traits: this.prepareOptions(CONFIG.PF2E.spellTraits, data.data.traits, { selectedOnly: true }),
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity.value] }),
+            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
             spellComponents: this.formatSpellComponents(data.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,

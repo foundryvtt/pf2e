@@ -29,8 +29,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
 
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== "common";
+        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
+        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
 
         // Update broken threshold
         if (sheetData.data.attributes !== undefined) {

@@ -70,8 +70,8 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
 
         // rarity
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== "common";
+        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
+        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
         // size
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
         sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;

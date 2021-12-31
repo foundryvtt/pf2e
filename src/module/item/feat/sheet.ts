@@ -17,7 +17,7 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             categories: CONFIG.PF2E.actionCategories,
             damageTypes: { ...CONFIG.PF2E.damageTypes, ...CONFIG.PF2E.healingTypes },
             prerequisites: JSON.stringify(this.item.data.data.prerequisites?.value ?? []),
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity.value] }),
+            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
             traits: this.prepareOptions(CONFIG.PF2E.featTraits, data.data.traits),
         };
     }

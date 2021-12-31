@@ -42,7 +42,7 @@ export interface ActionCost {
 }
 
 export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
-    rarity: { value: Rarity };
+    rarity: Rarity;
 }
 
 export interface ItemFlagsPF2e extends foundry.data.ItemFlags {

@@ -18,7 +18,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity.value;
+        return this.data.data.traits.rarity;
     }
 
     get traits(): Set<PhysicalItemTrait> {

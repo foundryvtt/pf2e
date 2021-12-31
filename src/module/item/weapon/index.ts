@@ -210,7 +210,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             unique: 3,
         };
         const baseRarity = this.rarity;
-        systemData.traits.rarity.value = runesData
+        systemData.traits.rarity = runesData
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? "common")
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);

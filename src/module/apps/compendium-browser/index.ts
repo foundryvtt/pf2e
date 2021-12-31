@@ -389,7 +389,7 @@ export class CompendiumBrowser extends Application {
                     bestiaryActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actorData.filters.rarity = actorData.data.traits.rarity.value;
+                    actorData.filters.rarity = actorData.data.traits.rarity;
 
                     CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
@@ -414,7 +414,6 @@ export class CompendiumBrowser extends Application {
 
         const hazardActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
-        const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
         const indexFields = this.hazardNPCIndex;
 
         for await (const { pack, index } of packLoader.loadPacks("Actor", this.loadedPacks("hazard"), indexFields)) {
@@ -442,15 +441,7 @@ export class CompendiumBrowser extends Application {
                     hazardActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actorData.filters.rarity = (() => {
-                        if (actorData.data.traits.rarity) return actorData.data.traits.rarity.value; // TODO: only look in one place once data is fixed
-                        if (actorData.data.rarity) return actorData.data.rarity.value;
-                        for (const rarity of rarities) {
-                            const indexOfRarity = actorData.data.traits.traits.value.indexOf(rarity);
-                            if (indexOfRarity >= 0) return actorData.data.traits.traits.value[indexOfRarity];
-                        }
-                        return "common";
-                    })();
+                    actorData.filters.rarity = String(actorData.data.traits.rarity) || "common";
 
                     CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
@@ -507,7 +498,7 @@ export class CompendiumBrowser extends Application {
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
-                    itemData.data.rarity = { value: itemData.data.traits.rarity.value };
+                    itemData.data.rarity = itemData.data.traits.rarity;
                     itemData.filters = [
                         "itemTypes",
                         "rarity",

@@ -101,7 +101,7 @@ export interface LabeledResistance extends LabeledNumber {
 
 export interface BaseTraitsSource {
     /** The rarity of the actor (common, uncommon, etc.) */
-    rarity: { value: Rarity };
+    rarity: Rarity;
     /** The character size (such as 'med'). */
     size: { value: Size };
     /** Actual Pathfinder traits */
