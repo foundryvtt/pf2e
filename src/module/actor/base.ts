@@ -35,7 +35,7 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  */
 class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Has this actor gone through at least one cycle of data preparation? */
-    private initialized: true | undefined;
+    private initialized?: true;
 
     /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
@@ -54,7 +54,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.physicalItems ??= new Collection();
             this.spellcasting ??= new ActorSpellcasting(this);
             this.rules ??= [];
-            this.initialized = true;
         } else {
             mergeObject(context, { pf2e: { ready: true } });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
@@ -183,7 +182,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     flags: {
                         // Sync token dimensions with actor size?
                         pf2e: {
-                            linkToActorSize: !["hazard", "loot"].includes(datum.type!),
+                            linkToActorSize: !["hazard", "loot"].includes(datum.type),
                         },
                     },
                 },
@@ -191,7 +190,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
             // Set default token dimensions for familiars and vehicles
             const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
-            merged.token.height ??= dimensionMap[datum.type!] ?? 1;
+            merged.token.height ??= dimensionMap[datum.type] ?? 1;
             merged.token.width ??= merged.token.height;
 
             switch (merged.type) {
@@ -222,17 +221,27 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
+    override _initialize(): void {
+        super._initialize();
+        this.initialized = true;
+    }
+
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         super.prepareData();
-        const tokens = canvas.ready ? this.getActiveTokens() : [];
+
+        this.preparePrototypeToken();
         if (this.initialized) {
-            for (const token of this.getActiveTokens()) {
-                token.document.prepareData({ fromActor: true });
+            const tokenDocs = this.getActiveTokens(false, true);
+            for (const tokenDoc of tokenDocs) {
+                tokenDoc.prepareData({ fromActor: true });
             }
-        }
-        if (tokens.some((token) => token.isControlled)) {
-            game.pf2e.effectPanel.refresh();
+            if (canvas.ready) {
+                const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
+                if (game.user.character === this || thisTokenIsControlled) {
+                    game.pf2e.effectPanel.refresh();
+                }
+            }
         }
     }
 
@@ -241,7 +250,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
-        this.preparePrototypeToken();
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
@@ -300,10 +308,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Disable manually-configured vision settings on the prototype token
         if (canvas.sight?.rulesBasedVision) {
-            this.data.token.brightSight = 0;
-            this.data.token.dimSight = 0;
-            this.data.token.sightAngle = 360;
+            for (const property of ["brightSight", "dimSight"] as const) {
+                this.data.token[property] = this.data.token._source[property] = 0;
+            }
+            this.data.token.sightAngle = this.data.token._source.sightAngle = 360;
         }
+        this.data.token.flags = mergeObject(
+            { pf2e: { linkToActorSize: !["hazard", "loot"].includes(this.type) } },
+            this.data.token.flags
+        );
+        TokenDocumentPF2e.prepareSize(this.data.token, this);
     }
 
     getStrikeDescription(weapon: WeaponPF2e) {
