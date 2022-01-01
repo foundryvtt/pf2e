@@ -927,12 +927,10 @@ export class CompendiumBrowser extends Application {
         });
 
         // Pre-filter list if requested, filters can be separated with commas
-        if (this.initialFilter.length > 0) {
-            for (const initialFilter of this.initialFilter) {
-                const $activeControlArea = $html.find(".tab.active .control-area");
-                const $filter = $activeControlArea.find(`input[type="checkbox"][name=${initialFilter}]`);
-                $filter.trigger("click");
-            }
+        for (const initialFilter of this.initialFilter) {
+            const $activeControlArea = $html.find(".tab.active .control-area");
+            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${initialFilter}]`);
+            $filter.trigger("click");
         }
     }
 
