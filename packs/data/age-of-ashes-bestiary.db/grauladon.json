@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "swim",
@@ -212,6 +213,98 @@
             "type": "melee"
         },
         {
+            "_id": "QKmae867GS9N8IKK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "EM1Qpnk3JXilo1Qb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "HlgR9oLdO3ZGqCry",
             "data": {
                 "actionCategory": {
@@ -250,7 +343,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Breath",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -266,7 +359,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> More than one enemy is adjacent to the grauladon.</p>\n<p><strong>Effect</strong> The grauladon swings its tail at each adjacent enemy and attempts to Trip each creature adjacent to it. It rolls only a single Athletics check and compares the result to the Fortitude DC of each target.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> More than one enemy is adjacent to the grauladon.</p>\n<p><strong>Effect</strong> The grauladon swings its tail at each adjacent enemy and attempts to @Compendium[pf2e.actionspf2e.Trip]{Trip} each creature adjacent to it. It rolls only a single Athletics check and compares the result to the Fortitude DC of each target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -292,7 +385,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Body Slam",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -334,7 +427,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -350,7 +443,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The grauladon hisses and unleashes a nauseating cloud of halitosis in a @Template[type:cone|distance:15]. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-label=\"Noxious Breath DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw or be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (sickened 2 on a critical failure). The grauladon can't use Noxious Breath or Reactive Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The grauladon hisses and unleashes a nauseating cloud of halitosis in a @Template[type:cone|distance:15]. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Noxious Breath DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw or be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). The grauladon can't use Noxious Breath or Reactive Breath again for [[/br 1d4 #Noxious Breath Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -376,7 +469,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Noxious Breath",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -409,7 +502,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -442,7 +535,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -475,7 +568,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
