@@ -22,7 +22,6 @@ import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
-import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { ConsumablePF2e } from "@item";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
@@ -169,10 +168,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         // Collect all traits from the runes and apply them to the weapon
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
-        const traitsFromRunes = runesData.flatMap((datum: { traits: readonly WeaponTrait[] }) => datum.traits);
-        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
-        const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-        systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+        const magicTraits: "magical"[] = this.data.data.potencyRune.value ? ["magical"] : [];
+        systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
         systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));

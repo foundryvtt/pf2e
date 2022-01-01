@@ -7,7 +7,7 @@ import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
-import { RuleElementPF2e, TokenEffect } from "@module/rules/rule-element";
+import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
@@ -22,6 +22,7 @@ import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Statistic } from "@system/statistic";
+import { TokenEffect } from "./token-effect";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {

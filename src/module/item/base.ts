@@ -9,7 +9,7 @@ import {
 import { ErrorPF2e, sluggify } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { RuleElementPF2e, RuleElements } from "../rules/rules";
+import { RuleElements, RuleElementPF2e, RuleElementSource } from "../rules";
 import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
 import { isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
@@ -22,7 +22,6 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {

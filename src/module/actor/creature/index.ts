@@ -9,9 +9,8 @@ import {
 } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
-import { RuleElementPF2e } from "@module/rules/rule-element";
+import { RuleElementPF2e, RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
-import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";

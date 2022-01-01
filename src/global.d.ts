@@ -4,7 +4,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { MacroPF2e } from "@module/macro";
-import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import { RuleElementPF2e, RuleElements } from "@module/rules";
 import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
