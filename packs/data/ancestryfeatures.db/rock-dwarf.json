@@ -26,7 +26,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "To saving throws against Shove, Trip, or Prone effects",
+                "label": "PF2E.SkillVariant.VsShoveOrTrip",
                 "predicate": {
                     "any": [
                         "origin:action:shove",
@@ -39,7 +39,7 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "To saving throws against Shove, Trip, or Prone effects",
+                "label": "PF2E.SkillVariant.VsShoveOrTrip",
                 "predicate": {
                     "any": [
                         "origin:action:shove",
@@ -47,6 +47,19 @@
                     ]
                 },
                 "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.Prone",
+                "predicate": {
+                    "any": [
+                        "origin:action:shove",
+                        "origin:action:trip"
+                    ]
+                },
+                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
             }
