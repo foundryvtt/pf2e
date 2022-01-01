@@ -109,7 +109,7 @@ export class CompendiumBrowser extends Application {
     private userIsDragging = false;
 
     /** An initial filter to be applied upon loading a tab */
-    private initialFilter: string | null = null;
+    private initialFilter: string[] = [];
 
     npcIndex = [
         "img",
@@ -165,7 +165,7 @@ export class CompendiumBrowser extends Application {
 
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.initialFilter = null;
+        this.initialFilter = [];
         await super.close(options);
     }
 
@@ -272,7 +272,7 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string | null = null): Promise<void> {
+    async openTab(tab: TabName, filter: string[] = []): Promise<void> {
         this.initialFilter = filter;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
@@ -917,10 +917,10 @@ export class CompendiumBrowser extends Application {
             this.render(true);
         });
 
-        // Pre-filter list if requested
-        if (this.initialFilter) {
+        // Pre-filter list if requested, filters can be separated with commas
+        for (const initialFilter of this.initialFilter) {
             const $activeControlArea = $html.find(".tab.active .control-area");
-            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${this.initialFilter}]`);
+            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${initialFilter}]`);
             $filter.trigger("click");
         }
     }
