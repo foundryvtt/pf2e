@@ -51,6 +51,7 @@ export interface WeaponPotencyPF2e {
     label: string;
     bonus: number;
     predicate?: PredicatePF2e;
+    property?: string[];
 }
 
 export interface StrikingPF2e {
