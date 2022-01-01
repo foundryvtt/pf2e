@@ -23,7 +23,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.attributes.ancestryhp",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.VsShoveOrTrip",
+                "predicate": {
+                    "any": [
+                        "origin:action:shove",
+                        "origin:action:trip"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.VsShoveOrTrip",
+                "predicate": {
+                    "any": [
+                        "origin:action:shove",
+                        "origin:action:trip"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
