@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 import { sluggify } from "@util";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 
 /** Remove bulwark armor rule elements */
 export class Migration673RemoveBulwarkREs extends MigrationBase {

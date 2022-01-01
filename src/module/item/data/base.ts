@@ -1,7 +1,7 @@
 import { CreatureTrait } from "@actor/creature/data";
 import type { ItemPF2e } from "@item/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";

@@ -8,7 +8,7 @@ import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
-import { AutoChangeEntry } from "@module/rules/elements/ae-like";
+import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { WeaponPF2e } from "@item";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SkillAbbreviation } from "@actor/creature/data";

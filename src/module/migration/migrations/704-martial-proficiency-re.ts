@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { RawPredicate } from "@system/predication";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
