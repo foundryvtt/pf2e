@@ -23,7 +23,54 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:impersonate"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 1
+                        },
+                        {
+                            "start": 3,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|data.skills.dec.rank"
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:sing"
+                    ]
+                },
+                "selector": "performance",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 1
+                        },
+                        {
+                            "start": 3,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|data.skills.prf.rank"
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
