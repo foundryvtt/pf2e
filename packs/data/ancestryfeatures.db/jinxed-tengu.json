@@ -25,6 +25,17 @@
         },
         "rules": [
             {
+                "key": "AdjustDegreeOfSuccess",
+                "type": "save",
+                "selector": "saving-throw",
+                "predicate": {
+                    "any": ["curse","misfortune"]
+                },
+                "adjustment": {
+                    "success": "one-degree-better"
+                }
+            },
+            {
                 "key": "Note",
                 "selector": "saving-throw",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead.</p>"
