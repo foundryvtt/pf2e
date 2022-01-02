@@ -23,6 +23,7 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
 import { StatisticCompatData } from "@system/statistic";
+import { CreatureTraits } from "@item/ancestry/data";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -111,6 +112,10 @@ export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | Alignme
 export type AlignmentTrait = typeof ALIGNMENT_TRAITS[number];
 
 export interface CreatureTraitsData extends BaseTraitsData {
+    traits: BaseTraitsData["traits"] & {
+        /** Actual Pathfinder traits */
+        traits: CreatureTraits;
+    };
     /** A list of special senses this character has. */
     senses: CreatureSensePF2e[];
     /** Languages which this actor knows and can speak. */

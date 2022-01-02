@@ -10,6 +10,7 @@ export type NonPhysicalItemType =
     | "deity"
     | "effect"
     | "feat"
+    | "heritage"
     | "kit"
     | "lore"
     | "melee"
