@@ -11,6 +11,7 @@ import { DeityData, DeitySource } from "@item/deity/data";
 import type { EffectData, EffectSource } from "@item/effect/data";
 import type { EquipmentData, EquipmentSource } from "@item/equipment/data";
 import type { FeatData, FeatSource } from "@item/feat/data";
+import { HeritageData } from "@item/heritage";
 import type { KitData, KitSource } from "@item/kit/data";
 import type { LoreData, LoreSource } from "@item/lore/data";
 import type { MeleeData, MeleeSource } from "@item/melee/data";
@@ -48,6 +49,7 @@ export type ItemDataPF2e =
     | DeityData
     | EffectData
     | FeatData
+    | HeritageData
     | KitData
     | LoreData
     | MeleeData
