@@ -25,15 +25,18 @@
         },
         "rules": [
             {
-                "key": "AdjustDegreeOfSuccess",
-                "type": "save",
-                "selector": "saving-throw",
-                "predicate": {
-                    "any": ["curse","misfortune"]
-                },
                 "adjustment": {
                     "success": "one-degree-better"
-                }
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "curse",
+                        "misfortune"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
             },
             {
                 "key": "Note",
