@@ -1,7 +1,8 @@
-import { RuleElementPF2e, RuleElementSynthetics, StrikingPF2e } from "./";
+import { RuleElementPF2e, RuleElementSynthetics } from "./";
 import { getStrikingDice } from "@item/runes";
 import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
+import { PredicatePF2e } from "@system/predication";
 
 /**
  * @category RuleElement
@@ -28,4 +29,10 @@ export class StrikingRuleElement extends RuleElementPF2e {
             console.warn("PF2E | Striking requires at least a selector field and a non-empty value field");
         }
     }
+}
+
+export interface StrikingPF2e {
+    label: string;
+    bonus: number;
+    predicate?: PredicatePF2e;
 }

@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { getResiliencyBonus } from "@item/runes";
+import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/runes";
 import {
     AbilityModifier,
     ensureProficiencyOption,
@@ -990,35 +990,42 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(penalty);
         }
 
+        // Get best weapon potency
+        const weaponPotency = (() => {
+            const potency: WeaponPotencyPF2e[] = selectors
+                .flatMap((key) => synthetics.weaponPotency[key] ?? [])
+                .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
+            const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
+            if (potencyRune) {
+                const property = getPropertyRunes(itemData, getPropertySlots(itemData));
+                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, property });
+            }
+            if (potency.length > 0) {
+                return potency.reduce(
+                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
+                    potency[0]
+                );
+            }
+
+            return null;
+        })();
+
+        if (weaponPotency) {
+            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
+            weaponTraits.add("magical");
+        }
+
         // Conditions and Custom modifiers to attack rolls
-        let weaponPotency: { label: string; bonus: number };
         const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
         {
-            const potency: WeaponPotencyPF2e[] = [];
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
             for (const key of selectors) {
                 modifiers.push(
                     ...(statisticsModifiers[key] ?? []).map((m) => m.clone({ test: this.getRollOptions(selectors) }))
                 );
-                (synthetics.weaponPotency[key] ?? [])
-                    .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions))
-                    .forEach((wp) => potency.push(wp));
                 (synthetics.multipleAttackPenalties[key] ?? [])
                     .filter((map) => PredicatePF2e.test(map.predicate, defaultOptions))
                     .forEach((map) => multipleAttackPenalties.push(map));
-            }
-
-            // find best weapon potency
-            const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
-            if (potencyRune) {
-                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune });
-            }
-            if (potency.length > 0) {
-                weaponPotency = potency.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    potency[0]
-                );
-                modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
             }
 
             // find lowest multiple attack penalty

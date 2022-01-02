@@ -913,19 +913,14 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
 };
 
-export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
-    return getPropertyRunes(itemData, getPropertySlots(itemData)).flatMap((rune) => {
+export function getPropertyRuneModifiers(runes: string[]): DiceModifierPF2e[] {
+    return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {
             return runeConfig.damage?.dice ? toModifiers(rune, runeConfig.damage.dice) : [];
         }
         return [];
     });
-}
-
-export function hasGhostTouchRune(itemData: WeaponData): boolean {
-    const runes = new Set(getPropertyRunes(itemData, getPropertySlots(itemData)));
-    return runes.has("ghostTouch");
 }
 
 /* -------------------------------------------- */
