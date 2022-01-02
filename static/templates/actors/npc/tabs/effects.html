@@ -1,8 +1,46 @@
 <div class="tab effects" data-group="primary" data-tab="effects">
     <div class="conditions">
         {{#each conditions as |condition index|}}
-            <div class= "condition">
-                
+            <div class= "effect" data-item-id="{{condition.id}}">
+                <img class="icon" src="{{condition.img}}">
+                <div class="controls">
+                    <i class="fas fa-comment-alt send-to-chat"></i>
+                    {{#if condition.value}}
+                    <i class="fas fa-plus increment"></i>
+                    <i class="fas fa-minus decrement"></i>
+                    {{/if}}
+                    <i class="fas fa-trash delete"></i>
+                </div>
+                <div class="summary">
+                    <div class="description">
+                        {{enrichHTML condition.description}}
+                    </div>
+                    {{#if condition.references}}
+                        <div class="condition-references">
+                            {{#if condition.parents.length}}
+                                <div class="condition-parents">
+                                    <p>Applied From:{{#each condition.parents as |parent|}} <span
+                                            data-item-id="{{parent.id}}">{{{enrichHTML parent.text}}}</span>{{/each}}</p>
+                                </div>
+                            {{/if}}
+                            {{#if condition.children.length}}
+                                <div class="condition-children">
+                                    <p>Also Applied:{{#each condition.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
+                                </div>
+                            {{/if}}
+                            {{#if condition.overrides.length}}
+                                <div class="condition-overriding">
+                                    <p>Overriding:{{#each condition.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                                </div>
+                            {{/if}}
+                            {{#if condition.overriddenBy.length}}
+                                <div class="condition-overridden">
+                                    <p>Overridden by:{{#each condition.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                </div>
             </div>
         {{/each}}
     </div>

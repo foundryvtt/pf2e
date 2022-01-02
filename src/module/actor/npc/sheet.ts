@@ -156,7 +156,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
-            scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.notes"],
+            scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.effects", ".tab.notes"],
         });
         return options;
     }
