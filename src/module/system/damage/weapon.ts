@@ -1,6 +1,6 @@
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { WeaponData } from "@item/data";
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from "@item/runes";
+import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import {
     BaseRawModifier,
     DamageDicePF2e,
@@ -11,7 +11,7 @@ import {
     StatisticModifier,
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
-import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element/data";
+import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { DamageCategory, DamageDieSize } from "./damage";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
@@ -347,10 +347,12 @@ export class WeaponDamagePF2e {
             }
         }
 
-        getPropertyRuneModifiers(weapon).forEach((modifier) => diceModifiers.push(modifier));
+        // Property Runes
+        const propertyRunes = weaponPotency?.property ?? [];
+        getPropertyRuneModifiers(propertyRunes).forEach((modifier) => diceModifiers.push(modifier));
 
         // Ghost touch
-        if (hasGhostTouchRune(weapon)) {
+        if (propertyRunes.includes("ghostTouch")) {
             diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
         }
 
