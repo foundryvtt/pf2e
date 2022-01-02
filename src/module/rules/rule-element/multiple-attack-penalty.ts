@@ -1,4 +1,5 @@
-import { RuleElementPF2e, MultipleAttackPenaltyPF2e, RuleElementSynthetics } from "./";
+import { PredicatePF2e } from "@system/predication";
+import { RuleElementPF2e, RuleElementSynthetics } from "./";
 
 /**
  * @category RuleElement
@@ -20,4 +21,10 @@ export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
             );
         }
     }
+}
+
+export interface MultipleAttackPenaltyPF2e {
+    label: string;
+    penalty: number;
+    predicate?: PredicatePF2e;
 }
