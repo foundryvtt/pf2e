@@ -14,6 +14,7 @@ export { DeityPF2e } from "./deity";
 export { EffectPF2e } from "./effect";
 export { EquipmentPF2e } from "./equipment";
 export { FeatPF2e } from "./feat";
+export { HeritagePF2e } from "./heritage";
 export { KitPF2e } from "./kit";
 export { LorePF2e } from "./lore";
 export { MeleePF2e } from "./melee";

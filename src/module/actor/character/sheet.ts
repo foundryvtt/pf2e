@@ -96,6 +96,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // ABC
         sheetData.ancestry = this.actor.ancestry;
+        sheetData.heritage = this.actor.heritage;
         sheetData.background = this.actor.background;
         sheetData.class = this.actor.class;
 
@@ -492,9 +493,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             } else {
                 let featType = featData.data.featType.value || "bonus";
 
-                if (featType === "heritage") {
-                    featType = "ancestryfeature";
-                }
                 if (featType === "pfsboon") {
                     pfsBoons.push(featData);
                 } else if (["deityboon", "curse"].includes(featType)) {
@@ -1104,7 +1102,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         if (featSlotType === "ancestryfeature") {
-            return ["ancestryfeature", "heritage"].includes(featType);
+            featType = "ancestryfeature";
         }
 
         if (featSlotType === "general") {

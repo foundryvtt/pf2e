@@ -1,5 +1,5 @@
 /** Handlebars template subcomponents */
-export function loadPF2ETemplates() {
+export function registerTemplates() {
     const templatePaths = [
         // effect panel
         "systems/pf2e/templates/system/effects-panel.html",
@@ -87,7 +87,7 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/items/equipment-sidebar.html",
         "systems/pf2e/templates/items/feat-details.html",
         "systems/pf2e/templates/items/feat-sidebar.html",
-        "systems/pf2e/templates/items/formula-sidebar.html",
+        "systems/pf2e/templates/items/heritage-sidebar.html",
         "systems/pf2e/templates/items/kit-details.html",
         "systems/pf2e/templates/items/kit-sidebar.html",
         "systems/pf2e/templates/items/lore-details.html",

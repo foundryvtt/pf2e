@@ -6,8 +6,6 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     override async getData(): Promise<FeatSheetData> {
         const data: ItemSheetDataPF2e<FeatPF2e> = await super.getData();
 
-        // Features shouldn't show anything in the header, they're not actually feats
-
         return {
             ...data,
             itemType: game.i18n.localize(this.item.isFeature ? "PF2E.LevelLabel" : "ITEM.TypeFeat"),

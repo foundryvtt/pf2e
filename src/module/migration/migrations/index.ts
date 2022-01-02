@@ -110,3 +110,4 @@ export { Migration707BracketedFormulasAtInstanceLevel } from "./707-bracketed-fo
 export { Migration708SpecificRuleLabel } from "./708-specific-rule-label";
 export { Migration709REFormulasAtInstanceLevelRedux } from "./709-re-formulas-at-instance-level-redux";
 export { Migration710RarityToString } from "./710-rarity-to-string";
+export { Migration711HeritageItems } from "./711-heritage-items";
