@@ -1,8 +1,9 @@
-import { RuleElementData, RuleElementPF2e, RuleElementSynthetics, WeaponPotencyPF2e } from "./";
+import { RuleElementData, RuleElementPF2e, RuleElementSynthetics } from "./";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
 import { RuleElementSource } from "..";
 import { getPropertyRunes, getPropertySlots } from "@item/runes";
+import { PredicatePF2e } from "@system/predication";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
@@ -49,4 +50,11 @@ interface WeaponPotencyData extends RuleElementData {
     property?: boolean;
 }
 
-export { WeaponPotencyRuleElement };
+interface WeaponPotencyPF2e {
+    label: string;
+    bonus: number;
+    predicate?: PredicatePF2e;
+    property?: string[];
+}
+
+export { WeaponPotencyRuleElement, WeaponPotencyPF2e };

@@ -7,7 +7,7 @@ export {
     REPreCreateParameters,
     REPreDeleteParameters,
     RuleElementSynthetics,
-    MultipleAttackPenaltyPF2e,
-    StrikingPF2e,
-    WeaponPotencyPF2e,
 } from "./data";
+export { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
+export { StrikingPF2e } from "./striking";
+export { WeaponPotencyPF2e } from "./weapon-potency";

@@ -11,7 +11,7 @@ import {
     StatisticModifier,
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
-import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element/data";
+import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { DamageCategory, DamageDieSize } from "./damage";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";

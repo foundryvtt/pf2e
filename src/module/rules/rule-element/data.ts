@@ -5,6 +5,9 @@ import { CreatureSensePF2e } from "@actor/creature/sense";
 import { ItemSourcePF2e } from "@item/data";
 import { MartialProficiency } from "@actor/character/data";
 import { RollNotePF2e } from "@module/notes";
+import { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
+import { StrikingPF2e } from "./striking";
+import { WeaponPotencyPF2e } from "./weapon-potency";
 
 export type RuleElementSource = {
     key: string;
@@ -45,25 +48,6 @@ export interface Bracket<T extends object | number | string> {
 export interface BracketedValue<T extends object | number | string = object | number | string> {
     field?: string;
     brackets: Bracket<T>[];
-}
-
-export interface WeaponPotencyPF2e {
-    label: string;
-    bonus: number;
-    predicate?: PredicatePF2e;
-    property?: string[];
-}
-
-export interface StrikingPF2e {
-    label: string;
-    bonus: number;
-    predicate?: PredicatePF2e;
-}
-
-export interface MultipleAttackPenaltyPF2e {
-    label: string;
-    penalty: number;
-    predicate?: PredicatePF2e;
 }
 
 export interface REPreCreateParameters<T extends RuleElementSource = RuleElementSource> {
