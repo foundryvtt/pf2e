@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -123,12 +124,12 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VpU2eqzGvnRJElTl",
+            "_id": "ToF2jn2M0UCWt8L0",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "orc-knuckle-dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -158,12 +159,12 @@
                     "value": "<p>This stout, metal blade of orc design has a horizontal basket hilt with blades jutting from each end, or sometimes one blade like that of a katar.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": null,
+                "group": "knife",
                 "hands": {
                     "value": ""
                 },
@@ -247,15 +248,15 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "orc-knuckle-dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
                 },
                 "splashDamage": {
-                    "value": 0
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
@@ -276,25 +277,392 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.sAjzLXgA2LnIwpBM"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/orc-knuckle-dagger.webp",
             "name": "Orc Knuckle Dagger",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "k4dzJE9tx5mybMaA",
+            "_id": "LxUEwRv0FfH3s2J5",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "category": "martial",
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "10 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": {
+                    "value": 4
+                },
+                "range": 20,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {2}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*2 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    }
+                ],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "alchemists-fire-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate) [Infused]",
+            "sort": 200000,
+            "type": "weapon"
+        },
+        {
+            "_id": "JNFrahi41GhM8NxE",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "category": "martial",
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "cold",
+                    "dice": 2,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>You gain a +1 item bonus to attack rolls, the bomb deals 2d6 cold damage and 2 cold splash damage, and the target takes a -10-foot penalty.</p>\n<hr />\n<p>@Compendium[pf2e.equipment-effects.Effect: Frost Vial (Moderate)]{Effect: Frost Vial (Moderate)}</p>"
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "10 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": {
+                    "value": 4
+                },
+                "range": 20,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> Target takes a -10-foot penalty to its Speeds.</p>"
+                    }
+                ],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "frost-vial-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "cold",
+                        "consumable",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.nVvH1ZcM7OwIVIs8"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.webp",
+            "name": "Frost Vial (Moderate) [Infused]",
+            "sort": 300000,
+            "type": "weapon"
+        },
+        {
+            "_id": "6c8tkVobe2lDEHrb",
             "data": {
                 "armor": {
                     "value": 2
                 },
-                "baseItem": null,
+                "baseItem": "studded-leather-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
@@ -319,14 +687,14 @@
                     "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
                 },
                 "group": "leather",
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -348,7 +716,7 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
@@ -364,37 +732,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
+                    "value": "3 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -418,9 +756,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -437,21 +775,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": "1"
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "Studded Leather Armor",
-            "sort": 200000,
+            "sort": 400000,
             "type": "armor"
         },
         {
-            "_id": "vkmOK2dr2OzC1Hco",
+            "_id": "lWoFUiKZrVPSa9eu",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -467,10 +809,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This rugged metal eyepiece etched with square patterns is designed to be worn over a single eye. Twisting the lens reveals a faint three-dimensional outline of an item you plan to build or repair, with helpful labels on the component parts. While worn, this eyepiece gives you a +1 item bonus to Crafting checks. When you Repair an item, increase the Hit Points restored by 15 per proficiency rank instead of 10.</p>"
+                    "value": "<p>This rugged metal eyepiece etched with square patterns is designed to be worn over a single eye. Twisting the lens reveals a faint three-dimensional outline of an item you plan to build or repair, with helpful labels on the component parts.</p>\n<p>While worn, this eyepiece gives you a +1 item bonus to Crafting checks. When you Repair an item, increase the Hit Points restored by 15 per proficiency rank instead of 10.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to checks to Crafting checks</li>\n</ul>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -518,13 +860,20 @@
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "crafting",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "crafters-eyepiece",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -532,24 +881,32 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "invested",
+                        "magical",
+                        "transmutation"
+                    ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "worneyepiece"
                 },
                 "weight": {
                     "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/magnifying-glass.webp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.RgNBGpBc9G2yw1C2"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/crafters-eyepiece.webp",
             "name": "Crafter's Eyepiece",
-            "sort": 300000,
+            "sort": 500000,
             "type": "equipment"
         },
         {
-            "_id": "otzYXFmqUVauX7pS",
+            "_id": "c7WtZ1x9pAEBO1o0",
             "data": {
                 "activation": {
                     "condition": "",
@@ -580,7 +937,7 @@
                     "value": false
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -590,7 +947,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This tincture lets you pinpoint your foes. For the next 5 minutes, your alchemical bomb Strikes reduce the circumstance bonus to AC your targets gain from cover. Reduce your targets' circumstance bonus by 1.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This tincture lets you pinpoint your foes. For the next 5 minutes, your alchemical bomb Strikes reduce the circumstance bonus to AC your targets gain from cover by 1.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -651,9 +1008,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "bombers-eye-elixir-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -670,7 +1027,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -687,10 +1048,168 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.T4ouD4mVFHA3EHs6"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.webp",
             "name": "Bomber's Eye Elixir (Lesser)",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "consumable"
+        },
+        {
+            "_id": "HeUROVZxmLflLhcq",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "elixir"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": "3d6+6"
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {3d6+6}[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Lesser)]{Effect: Elixir of Life (Lesser)}</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 5
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "30 gp"
+                },
+                "quantity": {
+                    "value": 2
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "elixir-of-life-lesser",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.TZUskLT7yvP7N2co"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Lesser) [Infused]",
+            "sort": 700000,
             "type": "consumable"
         },
         {
@@ -735,7 +1254,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Orc Knuckledagger",
-            "sort": 500000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -782,11 +1301,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 600000,
+            "sort": 900000,
             "type": "melee"
         },
         {
-            "_id": "TVCoNOyaK0KwCMvF",
+            "_id": "TAU5ivcNMiNlO22I",
             "data": {
                 "attack": {
                     "value": ""
@@ -797,11 +1316,38 @@
                 "bonus": {
                     "value": 12
                 },
-                "damageRolls": {},
-                "description": {
-                    "value": "<p><strong>Damage</strong> varies by bomb</p>"
+                "damageRolls": {
+                    "eedq2mbmp9dyx23sy0vk": {
+                        "damage": "2d8",
+                        "damageType": "fire"
+                    }
                 },
-                "rules": [],
+                "description": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {2}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {2}[splash,fire]]]{2 splash fire damage}</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -821,30 +1367,209 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Alchemical Bomb",
-            "sort": 700000,
+            "name": "Alchemist's Fire",
+            "sort": 1000000,
             "type": "melee"
         },
         {
-            "_id": "HMgGySJOtFff6zZi",
+            "_id": "qy0FT7Uc1pkIw9VL",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "b9vw5ahvi7iz8rar35cd": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<div class='compact-text'><p><strong>Effect</strong> Target takes a -10-foot penalty to its Speeds.</p><hr /><p>@Compendium[pf2e.equipment-effects.Effect: Frost Vial (Moderate)]{Effect: Frost Vial (Moderate)}</p></div>"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {2}[splash,cold]]]{2 splash cold damage}</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frost Vial",
+            "sort": 1100000,
+            "type": "melee"
+        },
+        {
+            "_id": "ybVy82D41OJgh19C",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "ikdu7t5tpij6xsyewugn": {
+                        "damage": "1",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*(1d6) #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1}[splash,acid]]]{1 splash acid damage}</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Acid Flask",
+            "sort": 1200000,
+            "type": "melee"
+        },
+        {
+            "_id": "XaUIXvZNj4MAeDYh",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "wwmsupbp9lr8vkcyle18": {
+                        "damage": "1d6",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> Target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of my next turn.</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1}[splash,electricity]]]{1 splash electricity damage}</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-20",
+                        "splash"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bottled Lightning",
+            "sort": 1300000,
+            "type": "melee"
+        },
+        {
+            "_id": "2ADMoELgbeB05D8E",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its wounded value increases by 1. When it is wounded 3, it can no longer use this ability.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -861,10 +1586,60 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "DJrk5HpcBJ4tOB42",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ferocity",
-            "sort": 800000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -880,7 +1655,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Sculptor has used its alchemy ability to create 4 moderate alchemist's fire, 2 lesser elixirs of life, and 4 moderate frost vials. These are infusions. It can spend an action to create an additional vial of any one of those, lesser bottled lightning, or a lesser acid flask.</p>"
+                    "value": "<p>The Sculptor has used his alchemy ability to create 4 @Compendium[pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Moderate Alchemist's Fire}, 2 @Compendium[pf2e.equipment-srd.Elixir of Life (Lesser)]{Lesser Elixirs of Life}, and 4 @Compendium[pf2e.equipment-srd.Frost Vial (Moderate)]{Moderate Frost Vials}. These are infusions.</p>\n<p>He can spend an action to create an additional vial of any one of those, @Compendium[pf2e.equipment-srd.Bottled Lightning (Lesser)]{Lesser Bottled Lightning}, or a @Compendium[pf2e.equipment-srd.Acid Flask (Lesser)]{Lesser Acid Flask}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -906,7 +1681,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemy",
-            "sort": 900000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -919,7 +1694,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
                     "value": "<p>The Sculptor can use Interact to draw a bomb and then Strike with it.</p>"
@@ -948,7 +1723,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 1000000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -981,7 +1756,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1100000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1014,7 +1789,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1200000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1047,7 +1822,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1300000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1080,7 +1855,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1400000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1113,7 +1888,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],
