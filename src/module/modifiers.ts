@@ -92,7 +92,7 @@ export class ModifierPF2e implements RawModifier {
     label: string;
     modifier: number;
     type: ModifierType;
-    ability: AbilityString | null = null;
+    ability: AbilityString | null;
     enabled: boolean;
     ignored: boolean;
     source?: string;

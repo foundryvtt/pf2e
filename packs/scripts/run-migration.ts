@@ -26,6 +26,7 @@ import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/
 import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
 import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
 import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
+import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
 
 const migrations: MigrationBase[] = [
     new Migration689EncumberanceActiveEffects(),
@@ -48,6 +49,7 @@ const migrations: MigrationBase[] = [
     new Migration708SpecificRuleLabel(),
     new Migration709REFormulasAtInstanceLevelRedux(),
     new Migration710RarityToString(),
+    new Migration711HeritageItems(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
@@ -72,6 +74,13 @@ global.deepClone = function (original: any): any {
     return clone;
 };
 // eslint-enable @typescript-eslint/no-explicit-any
+
+global.randomID = function randomID(length = 16): string {
+    const rnd = () => Math.random().toString(36).substring(2);
+    let id = "";
+    while (id.length < length) id += rnd();
+    return id.substring(0, length);
+};
 
 const packsDataPath = path.resolve(process.cwd(), "packs/data");
 

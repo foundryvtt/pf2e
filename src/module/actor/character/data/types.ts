@@ -78,84 +78,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     martial: MartialProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
-    details: {
-        /** The key ability which class saves (and other class-related things) scale off of. */
-        keyability: { value: AbilityString };
-
-        /** Character alignment (LN, N, NG, etc.) */
-        alignment: { value: Alignment };
-        /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
-        heritage: { value: string };
-        /** The diety that the character worships (and an image of the diety symbol). */
-        deity: { value: string; image: ImagePath };
-        /** How old the character is (user-provided field). */
-        age: { value: string };
-        /** Character height (user-provided field). */
-        height: { value: string };
-        /** Character weight (user-provided field). */
-        weight: { value: string };
-        /** Character gender/pronouns (user-provided field). */
-        gender: { value: string };
-        /** Character ethnicity (user-provided field). */
-        ethnicity: { value: string };
-        /** Character nationality (i.e, what nation they hail from; user-provided field). */
-        nationality: { value: string };
-        /** User-provided biography for their character; value is HTML. */
-        biography: {
-            /** Character appearance (user-provided field). value is HTML */
-            appearance: string;
-            /** Character Backstory (user-provided field). value is HTML */
-            backstory: string;
-            /** Character birthPlace (user-provided field). */
-            birthPlace: string;
-            /** Character attitude (user-provided field). */
-            attitude: string;
-            /** Character beliefs (user-provided field). */
-            beliefs: string;
-            /** Character likes (user-provided field). */
-            likes: string;
-            /** Character dislikes (user-provided field). */
-            dislikes: string;
-            /** Character catchphrases (user-provided field). */
-            catchphrases: string;
-            /** Campaign notes (user-provided field). value is HTML */
-            campaignNotes: string;
-            /** Character allies (user-provided field). value is HTML */
-            allies: string;
-            /** Character enemies (user-provided field). value is HTML */
-            enemies: string;
-            /** Character organaizations (user-provided field). value is HTML */
-            organaizations: string;
-        };
-
-        /** The amount of experience this character has. */
-        xp: {
-            /** The current experience value.  */
-            value: number;
-            /** The minimum amount of experience (almost always '0'). */
-            min: number;
-            /** The maximum amount of experience before level up (usually '1000', but may differ.) */
-            max: number;
-            /** COMPUTED: The percentage completion of the current level (value / max). */
-            pct: number;
-        };
-
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-        };
-
-        /** Convenience information for easy access when the class instance isn't available */
-        class: {
-            name: string;
-            trait: string;
-        };
-        ancestry: {
-            name: string;
-            trait: string;
-        };
-    };
+    details: CharacterDetails;
 
     attributes: CharacterAttributes;
 
@@ -303,6 +226,83 @@ interface CharacterResources {
 interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
+
+export type CharacterDetails = {
+    /** The key ability which class saves (and other class-related things) scale off of. */
+    keyability: { value: AbilityString };
+
+    /** Character alignment (LN, N, NG, etc.) */
+    alignment: { value: Alignment };
+    /** The diety that the character worships (and an image of the diety symbol). */
+    deity: { value: string; image: ImagePath };
+    /** How old the character is (user-provided field). */
+    age: { value: string };
+    /** Character height (user-provided field). */
+    height: { value: string };
+    /** Character weight (user-provided field). */
+    weight: { value: string };
+    /** Character gender/pronouns (user-provided field). */
+    gender: { value: string };
+    /** Character ethnicity (user-provided field). */
+    ethnicity: { value: string };
+    /** Character nationality (i.e, what nation they hail from; user-provided field). */
+    nationality: { value: string };
+    /** User-provided biography for their character; value is HTML. */
+    biography: {
+        /** Character appearance (user-provided field). value is HTML */
+        appearance: string;
+        /** Character Backstory (user-provided field). value is HTML */
+        backstory: string;
+        /** Character birthPlace (user-provided field). */
+        birthPlace: string;
+        /** Character attitude (user-provided field). */
+        attitude: string;
+        /** Character beliefs (user-provided field). */
+        beliefs: string;
+        /** Character likes (user-provided field). */
+        likes: string;
+        /** Character dislikes (user-provided field). */
+        dislikes: string;
+        /** Character catchphrases (user-provided field). */
+        catchphrases: string;
+        /** Campaign notes (user-provided field). value is HTML */
+        campaignNotes: string;
+        /** Character allies (user-provided field). value is HTML */
+        allies: string;
+        /** Character enemies (user-provided field). value is HTML */
+        enemies: string;
+        /** Character organaizations (user-provided field). value is HTML */
+        organaizations: string;
+    };
+
+    /** The amount of experience this character has. */
+    xp: {
+        /** The current experience value.  */
+        value: number;
+        /** The minimum amount of experience (almost always '0'). */
+        min: number;
+        /** The maximum amount of experience before level up (usually '1000', but may differ.) */
+        max: number;
+        /** COMPUTED: The percentage completion of the current level (value / max). */
+        pct: number;
+    };
+
+    /** Information about the current character level. */
+    level: {
+        /** The current level of this character. */
+        value: number;
+    };
+
+    /** Convenience information for easy access when the class instance isn't available */
+    class: {
+        name: string;
+        trait: string;
+    };
+    ancestry: {
+        name: string;
+        trait: string;
+    };
+};
 
 export interface CharacterAttributes extends CreatureAttributes {
     /** The perception skill. */

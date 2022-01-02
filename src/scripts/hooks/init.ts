@@ -27,7 +27,7 @@ import {
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
 import { registerSettings } from "@system/settings";
-import { loadPF2ETemplates } from "@module/templates";
+import { registerTemplates } from "@scripts/register-templates";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
@@ -160,7 +160,7 @@ export const Init = {
             MystifiedTraits.compile();
 
             registerSettings();
-            loadPF2ETemplates();
+            registerTemplates();
             registerHandlebarsHelpers();
         });
     },

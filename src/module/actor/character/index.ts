@@ -30,7 +30,15 @@ import {
 } from "./data";
 import { MultipleAttackPenaltyPF2e, RuleElementSynthetics, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, FeatPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import {
+    AncestryPF2e,
+    BackgroundPF2e,
+    ClassPF2e,
+    ConsumablePF2e,
+    HeritagePF2e,
+    PhysicalItemPF2e,
+    WeaponPF2e,
+} from "@item";
 import { CreaturePF2e } from "../";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
@@ -72,8 +80,8 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.class[0] ?? null;
     }
 
-    get heritage(): Embedded<FeatPF2e> | null {
-        return this.itemTypes.feat.find((feat) => feat.featType === "heritage") ?? null;
+    get heritage(): Embedded<HeritagePF2e> | null {
+        return this.itemTypes.heritage[0] ?? null;
     }
 
     get keyAbility(): AbilityString {
