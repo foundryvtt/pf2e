@@ -148,6 +148,13 @@ export class Migration711HeritageItems extends MigrationBase {
         melixie: "sprite",
         nyktera: "sprite",
         pixie: "sprite",
+        "deep-rat": "ratfolk",
+        "desert-rat": "ratfolk",
+        "longsnout-rat": "ratfolk",
+        "sewer-rat": "ratfolk",
+        "shadow-rat": "ratfolk",
+        "snow-rat": "ratfolk",
+        "tunnel-rat": "ratfolk",
     };
 
     private ancestrySlugs = Object.keys(this.officialAncestries);
