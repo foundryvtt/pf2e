@@ -688,14 +688,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
+        html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
             const title = event.currentTarget.dataset.tabTitle;
             if (title) {
                 $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
             }
         });
 
-        html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
+        html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
             const parent = $(event.currentTarget).parents(".sheet-navigation");
             const title = parent.find(".item.active").data("tabTitle");
             if (title) {
