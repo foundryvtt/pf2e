@@ -206,97 +206,6 @@ export const InlineRollsLinks = {
             }
         });
 
-        $links.filter("[data-pf2-saving-throw]").on("click", (event) => {
-            console.debug(
-                `Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check="savename" instead.`
-            );
-            const actors = resolveActors();
-            if (actors.length) {
-                const { pf2SavingThrow, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset ?? {};
-                actors.forEach((actor) => {
-                    const savingThrow = actor.data.data.saves[pf2SavingThrow ?? ""] as Rollable | undefined;
-                    if (pf2SavingThrow && savingThrow) {
-                        const dc = Number.isInteger(Number(pf2Dc))
-                            ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                            : undefined;
-                        const options = actor.getRollOptions(["all", "saving-throw", pf2SavingThrow]);
-                        if (pf2Traits) {
-                            const traits = pf2Traits
-                                .split(",")
-                                .map((trait) => trait.trim())
-                                .filter((trait) => !!trait);
-                            options.push(...traits);
-                        }
-                        savingThrow.roll({ event, options, dc });
-                    } else {
-                        console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2SavingThrow}'`);
-                    }
-                });
-            }
-        });
-
-        $links.filter("[data-pf2-skill-check]").on("click", (event) => {
-            console.debug(
-                `Deprecation notice | data-pf2-skill-check is deprecated, use data-pf2-check="skillname" instead.`
-            );
-            const actors = resolveActors();
-            if (actors.length) {
-                const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
-                const skill = SKILL_EXPANDED[pf2SkillCheck!]?.shortform ?? pf2SkillCheck!;
-                const skillActors = actors.filter((actor): actor is CreaturePF2e => "skills" in actor.data.data);
-                for (const actor of skillActors) {
-                    const skillCheck = actor.data.data.skills[skill ?? ""] as Rollable | undefined;
-                    if (skill && skillCheck) {
-                        const dc = Number.isInteger(Number(pf2Dc))
-                            ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                            : undefined;
-                        const options = actor.getRollOptions(["all", "skill-check", skill]);
-                        if (pf2Traits) {
-                            const traits = pf2Traits
-                                .split(",")
-                                .map((trait) => trait.trim())
-                                .filter((trait) => !!trait);
-                            options.push(...traits);
-                        }
-                        skillCheck.roll({ event, options, dc });
-                    } else {
-                        console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
-                    }
-                }
-            }
-        });
-
-        $links.filter("[data-pf2-perception-check]").on("click", (event) => {
-            console.debug(
-                `Deprecation warning | data-pf2-perception is deprecated, use data-pf2-check="perception" instead.`
-            );
-            const actors = resolveActors();
-            if (actors.length) {
-                const { pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
-                actors.forEach((actor) => {
-                    if (actor instanceof CreaturePF2e) {
-                        const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
-                        if (perceptionCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                                : undefined;
-                            const options = actor.getRollOptions(["all", "perception"]);
-                            if (pf2Traits) {
-                                const traits = pf2Traits
-                                    .split(",")
-                                    .map((trait) => trait.trim())
-                                    .filter((trait) => !!trait);
-                                options.push(...traits);
-                            }
-                            perceptionCheck.roll({ event, options, dc });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
-                        }
-                    }
-                });
-            }
-        });
-
         $links.filter("[data-pf2-effect-area]").on("click", (event) => {
             const {
                 pf2EffectArea,
@@ -353,13 +262,6 @@ export const InlineRollsLinks = {
             target?.matches(
                 '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *'
             ) ||
-            target?.matches(
-                '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *'
-            ) ||
-            target?.matches(
-                '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *'
-            ) ||
-            target?.matches("[data-pf2-perception-check], [data-pf2-perception-check] *") ||
             target?.matches("[data-pf2-check], [data-pf2-check] *")
         ) {
             const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
