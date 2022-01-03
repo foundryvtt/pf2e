@@ -1885,6 +1885,7 @@ export const PF2ECONFIG = {
         lirgeni: "PF2E.LanguageLirgeni",
         mahwek: "PF2E.LanguageMahwek",
         minaten: "PF2E.LanguageMinaten",
+        minkaian: "PF2E.LanguageMinkaian",
         mwangi: "PF2E.LanguageMwangi",
         mzunu: "PF2E.LanguageMzunu",
         nagaji: "PF2E.LanguageNagaji",
