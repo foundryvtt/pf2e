@@ -17,14 +17,7 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
-const inlineSelector = [
-    "action",
-    "check",
-    "effect-area",
-    "repost",
-]
-    .map((keyword) => `[data-pf2-${keyword}]`)
-    .join(",");
+const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollsLinks = {
     // Conditionally show DCs in the text
