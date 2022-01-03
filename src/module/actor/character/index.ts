@@ -468,11 +468,10 @@ export class CharacterPF2e extends CreaturePF2e {
             const modifiers = [...systemData.attributes.ac.modifiers];
             const dexCapSources = systemData.attributes.dexCap;
             let armorCheckPenalty = 0;
-            let proficiency: ArmorCategory = "unarmored";
+            const proficiency = wornArmor?.category ?? "unarmored";
 
             if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-                proficiency = wornArmor.category;
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
                     if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
