@@ -20,6 +20,7 @@ import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
 import { ArmorSheetPF2e } from "@item/armor/sheet";
+import { HeritageSheetPF2e } from "@item/heritage";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -90,16 +91,17 @@ export function registerSheets() {
     const sheetEntries = [
         ["action", ActionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
+        ["armor", ArmorSheetPF2e],
         ["background", BackgroundSheetPF2e],
         ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
         ["deity", DeitySheetPF2e],
-        ["feat", FeatSheetPF2e],
         ["effect", EffectSheetPF2e],
-        ["spell", SpellSheetPF2e],
+        ["feat", FeatSheetPF2e],
+        ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],
+        ["spell", SpellSheetPF2e],
         ["weapon", WeaponSheetPF2e],
-        ["armor", ArmorSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
         Items.registerSheet("pf2e", Sheet, {

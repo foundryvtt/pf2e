@@ -1,7 +1,7 @@
 import { AbilityString } from "@actor/data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { ItemSourcePF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { sluggify, tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 

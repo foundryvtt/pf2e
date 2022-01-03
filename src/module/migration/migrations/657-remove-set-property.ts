@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import { RuleElementSource, RuleValue } from "@module/rules/rules-data-definitions";
+import { RuleElementSource, RuleValue } from "@module/rules/rule-element";
 import { ActorSourcePF2e } from "@actor/data";
 
 export class Migration657RemoveSetProperty extends MigrationBase {

@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { ModifierType } from "@module/modifiers";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { MigrationBase } from "../base";
 
 /** Convert experimental FlatModifier `ActiveEffect`s to Rule Elements */

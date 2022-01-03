@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your ancestors originated from a land where food was scarce and threats were many. You are trained in Survival. You gain the Forager skill feat as a bonus feat. Your thoroughness when gathering food provides you a +1 circumstance bonus to Survival checks to Subsist.</p>"
+            "value": "<p>Your ancestors originated from a land where food was scarce and threats were many. You are trained in Survival. You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat as a bonus feat. Your thoroughness when gathering food provides you a +1 circumstance bonus to Survival checks to Subsist.</p>"
         },
         "featType": {
             "value": "heritage"
@@ -23,7 +23,29 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.sur.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.8qebBeOJsyRIchcu"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

@@ -23,7 +23,29 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "add": [
+                    "changeling"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "Sense",
+                "label": "PF2E.SensesLowLightVision",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "label": "PF2E.SensesDarkvision",
+                "predicate": {
+                    "all": [
+                        "self:low-light-vision:from-ancestry"
+                    ]
+                },
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
