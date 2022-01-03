@@ -468,7 +468,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
         for (const featData of tempFeats) {
-            if (featData.flags.pf2e.grantedBy) continue;
+            if (featData.flags.pf2e.grantedBy) {
+                const granter = this.actor.items.get(featData.flags.pf2e.grantedBy);
+                if (granter instanceof FeatPF2e) continue;
+            }
 
             let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === featData.data.location);
             const existing = allFeatSlots[slotIndex]?.feat;
