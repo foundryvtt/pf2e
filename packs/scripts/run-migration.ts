@@ -27,6 +27,7 @@ import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-
 import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
 import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
 import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
+import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
 
 const migrations: MigrationBase[] = [
     new Migration689EncumberanceActiveEffects(),
@@ -50,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration709REFormulasAtInstanceLevelRedux(),
     new Migration710RarityToString(),
     new Migration711HeritageItems(),
+    new Migration712ActorShieldStructure(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

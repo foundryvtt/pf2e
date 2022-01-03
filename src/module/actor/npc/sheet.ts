@@ -62,7 +62,6 @@ interface NPCSystemSheetData extends NPCSystemData {
         ac: NPCArmorClass & WithAdjustments;
         hp: HitPointsData & WithAdjustments;
         perception: PerceptionData & WithAdjustments;
-        shieldBroken?: boolean;
     };
     details: NPCSystemData["details"] & {
         level: NPCSystemData["details"]["level"] & WithAdjustments;
@@ -265,15 +264,9 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
         // Shield
-        const shield = this.actor.heldShield;
+        const { heldShield } = this.actor;
         const actorShieldData = sheetData.data.attributes.shield;
-        if (shield) {
-            sheetData.hasShield = true;
-            sheetData.data.attributes.shieldBroken = shield.isBroken;
-        } else if (actorShieldData.max > 0) {
-            sheetData.hasShield = true;
-            sheetData.data.attributes.shieldBroken = actorShieldData.value > actorShieldData.max / 2;
-        }
+        sheetData.hasShield = !!heldShield || actorShieldData.hp.max > 0;
 
         const isElite = this.isElite;
         const isWeak = this.isWeak;

@@ -120,6 +120,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     override prepareActorData(this: Embedded<ArmorPF2e>): void {
+        const { actor } = this;
+        const ownerIsPCOrNPC = actor.data.type === "character" || actor.data.type === "npc";
+
         if (this.isArmor && this.isEquipped) {
             const traits = this.traits;
             for (const [trait, domain] of [
@@ -132,6 +135,16 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
+        } else if (ownerIsPCOrNPC && this.actor.heldShield === this) {
+            actor.data.data.attributes.shield = {
+                ac: this.acBonus,
+                hp: this.hitPoints,
+                hardness: this.hardness,
+                brokenThreshold: this.brokenThreshold,
+                raised: false,
+                broken: this.isBroken,
+                icon: this.img,
+            };
         }
     }
 

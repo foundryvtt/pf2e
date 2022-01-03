@@ -25,15 +25,15 @@
     </div>
 </div>
 {{#if hasShield}}
-    <div class="side-bar-section shield-section{{#if data.attributes.shieldBroken}} broken" title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}">
+    <div class="side-bar-section shield-section{{#if data.attributes.shield.broken}} broken" title="{{localize "PF2E.ShieldBTLabel"}}{{/if}}">
         <div class="side-bar-section-header">
             <div class="side-bar-label shield-label">
-                <i class="fas fa-user-shield{{#if data.attributes.shieldBroken}} broken{{/if}}"></i>
-                <h4> {{localize "PF2E.ShieldLabel"}}</h4>
-                <div class="shield-value">
-                    <input class="shield-current" type="number" name="data.attributes.shield.value" value="{{data.attributes.shield.value}}" placeholder="0" />
-                    <span>/</span>
-                    <label class="shield-max" title="{{localize "PF2E.ShieldMaxTitle"}}">{{data.attributes.shield.max}}</label>
+                <i class="fas fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
+                <h4>{{localize "PF2E.ShieldLabel"}}</h4>
+                <div class="hit-points">
+                    <input type="number" name="data.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" class="current" placeholder="0" />
+                    <span class="slash">/</span>
+                    <label class="max" title="{{localize "PF2E.ShieldMaxTitle"}}">{{data.attributes.shield.hp.max}}</label>
                 </div>
             </div>
         </div>
@@ -53,12 +53,12 @@
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
             <i class="fas fa-heart"></i>
-            <h4> {{localize "PF2E.HitPointsShortLabel"}}</h4>
-            <div class="health-value">
+            <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
+            <div class="hit-points">
                 {{#with data.attributes.hp as |hp|}}
-                    <input type="number" name="data.attributes.hp.value" value="{{hp.value}}" placeholder="0" />
-                    <span>/</span>
-                    <input type="text" class="adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.hp.max" value="{{hp.max}}" data-dtype="Number" placeholder="0"/>
+                    <input type="number" name="data.attributes.hp.value" value="{{hp.value}}" class="current" placeholder="0" />
+                    <span class="slash">/</span>
+                    <input type="text" class="max adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.hp.max" value="{{hp.max}}" data-dtype="Number" placeholder="0"/>
                 {{/with}}
             </div>
         </div>
