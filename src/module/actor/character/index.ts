@@ -488,20 +488,29 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0)
             );
 
-            // Dex modifier limited by the lowest dex cap, for example from armor
+            // DEX modifier is limited by the lowest cap, usually from armor
             const dexterity = AbilityModifier.fromScore("dex", systemData.abilities.dex.value);
-            dexterity.modifier = Math.min(dexterity.modifier, ...dexCapSources.map((cap) => cap.value));
+            const dexCap = dexCapSources.reduce((lowest, candidate) =>
+                lowest.value > candidate.value ? candidate : lowest
+            );
+            dexterity.modifier = Math.min(dexterity.modifier, dexCap.value);
             modifiers.unshift(dexterity);
 
-            // condition and custom modifiers
-            const rollOptions = ["ac", "dex-based", "all"];
-            modifiers.push(
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
-            );
+            // Other modifiers
+            modifiers.push(...(statisticsModifiers["ac"] ?? []).map((m) => m.clone()));
 
-            const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
+            // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
+            // which AC is based
+            const abilityModifier = modifiers
+                .filter((m) => m.type === "ability" && !!m.ability)
+                .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
+            const acAbility = abilityModifier.ability!;
+            modifiers.push(...(statisticsModifiers[`${acAbility}-based`] ?? []).map((m) => m.clone()));
+
+            const rollOptions = this.getRollOptions(["ac", `${acAbility}-based`, "all"]);
+            for (const modifier of modifiers) {
+                modifier.ignored = !modifier.predicate.test(rollOptions);
+            }
 
             const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers), {
                 value: 10,
