@@ -1,0 +1,46 @@
+{
+    "_id": "SqEcb1c3yeoJMxm0",
+    "data": {
+        "ancestry": {
+            "name": "Gnoll",
+            "uuid": "Compendium.pf2e.ancestries.vxbQ1Yw4qwgjTzqo"
+        },
+        "description": {
+            "value": "<p>You're a large, powerful gnoll, with tawny fur and brown spots on your hide. You gain 10 Hit Points from your ancestry instead of 8 and gain a +1 circumstance bonus to Athletics checks to Shove or Trip foes.</p>"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Great Gnoll",
+                "predicate": {
+                    "any": [
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.attributes.ancestryhp",
+                "value": 10
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Great Gnoll",
+    "type": "heritage"
+}

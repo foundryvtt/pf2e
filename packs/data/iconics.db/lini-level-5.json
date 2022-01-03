@@ -113,9 +113,6 @@
             "height": {
                 "value": ""
             },
-            "heritage": {
-                "value": "Sensate Gnome"
-            },
             "keyability": {
                 "value": "str"
             },
@@ -1075,76 +1072,6 @@
             "name": "Herbalism Lore",
             "sort": 1200000,
             "type": "lore"
-        },
-        {
-            "_id": "SYGg1sphzwxcEli8",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You see all colors as brighter, hear all sounds as richer, and especially smell all scents with incredible detail. You gain a special sense: imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine the exact location of a creature. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to Perception checks whenever you're trying to locate an undetected creature that is within the range of your scent.</p>"
-                },
-                "featType": {
-                    "value": "heritage"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Sensate Gnome (locate undetected by smell)",
-                        "predicate": {
-                            "all": [
-                                "target:undetected",
-                                "target:within-30-feet"
-                            ]
-                        },
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "acuity": "imprecise",
-                        "key": "Sense",
-                        "label": "PF2E.SensesScent",
-                        "range": 30,
-                        "selector": "scent"
-                    }
-                ],
-                "slug": "sensate-gnome",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "gnome"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.tXC5Gwn9D5x0ouJh"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/sensate-gnome.webp",
-            "name": "Sensate Gnome",
-            "sort": 1300000,
-            "type": "feat"
         },
         {
             "_id": "mRs2CfiMXTWeKzP2",
@@ -6388,6 +6315,59 @@
             "name": "Rations",
             "sort": 4100000,
             "type": "consumable"
+        },
+        {
+            "_id": "kareeoasrhmp3n8h",
+            "data": {
+                "ancestry": {
+                    "name": "Gnome",
+                    "uuid": "Compendium.pf2e.ancestries.CYlfsYLJcBOgqKtD"
+                },
+                "description": {
+                    "value": "<p>You see all colors as brighter, hear all sounds as richer, and especially smell all scents with incredible detail. You gain a special sense: imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine the exact location of a creature. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to Perception checks whenever you're trying to locate an undetected creature that is within the range of your scent.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Sensate Gnome (locate undetected by smell)",
+                        "predicate": {
+                            "all": [
+                                "target:undetected",
+                                "target:within-30-feet"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "label": "PF2E.SensesScent",
+                        "range": 30,
+                        "selector": "scent"
+                    }
+                ],
+                "slug": "sensate-gnome",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.tXC5Gwn9D5x0ouJh"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/sensate-gnome.webp",
+            "name": "Sensate Gnome",
+            "sort": 1300000,
+            "type": "heritage"
         }
     ],
     "name": "Lini (Level 5)",
