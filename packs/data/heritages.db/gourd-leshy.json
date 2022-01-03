@@ -1,0 +1,43 @@
+{
+    "_id": "wNnsjird4OQe0s6p",
+    "data": {
+        "ancestry": {
+            "name": "Leshy",
+            "uuid": "Compendium.pf2e.ancestries.cdhgByGG1WtuaK73"
+        },
+        "description": {
+            "value": "<p>You have a large gourd for a skull. Your knowledge comes from within your spirit, rather than a physical brain, and you have found a handier use for the space inside your head. You can store a collection of up to 1 Bulk of objects within your head. The DC of checks to @Compendium[pf2e.actionspf2e.Steal]{Steal} objects from inside your head increases by 4. Additionally, if you store only one object within your head, you can draw it effortlessly into your hand as part of another action to use the object. Drawing the item grants this other action the manipulate trait.</p>"
+        },
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Creature stealing from Gourd Leshy's head",
+                "property": "flags.pf2e.rollOptions.perception.gourdLeshy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "gourdLeshy"
+                    ]
+                },
+                "selector": "perception",
+                "type": "untyped",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/ancestry/goudy-leshy.webp",
+    "name": "Gourd Leshy",
+    "type": "heritage"
+}
