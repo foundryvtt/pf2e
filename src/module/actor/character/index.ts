@@ -472,8 +472,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
             if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+                proficiency = wornArmor.category;
                 if (wornArmor.checkPenalty) {
-                    proficiency = wornArmor.category;
                     // armor check penalty
                     if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
                         armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
