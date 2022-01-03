@@ -22,6 +22,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         value.slug = this.data.slug;
 
         if (selector) {
+            value.damageType &&= this.resolveInjectedProperties(value.damageType);
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
@@ -38,4 +39,5 @@ export interface DamageDiceRuleElement {
 
 interface DamageDiceRuleElementData extends RuleElementData {
     name?: string;
+    damageType?: string;
 }
