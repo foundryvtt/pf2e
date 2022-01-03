@@ -57,7 +57,9 @@ declare global {
             ? "RollTable"
             : TDocument extends Scene
             ? "Scene"
-            : CompendiumDocumentType;
+            : TDocument extends CompendiumDocument
+            ? CompendiumDocumentType
+            : never;
 
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;
