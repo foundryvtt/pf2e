@@ -67,17 +67,8 @@ export class AncestryPF2e extends ABCItemPF2e {
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }
 
-        // Add traits from ancestry and heritage
-        const ancestryTraits: Set<string> = this.traits;
-        const heritageTraits: Set<string> = this.actor.heritage?.traits ?? new Set();
-        const traits = Array.from(
-            new Set(
-                [...ancestryTraits, ...heritageTraits].filter(
-                    (trait) => !["common", "versatile heritage"].includes(trait)
-                )
-            )
-        ).sort();
-        systemData.traits.traits.value.push(...traits);
+        // Add traits from this item
+        systemData.traits.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
         systemData.details.ancestry = { name: this.name, trait: slug };

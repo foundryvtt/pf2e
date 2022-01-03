@@ -23,7 +23,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "label": "Enable Observant Halfling Perception DC bonus",
+                "property": "flags.pf2e.rollOptions.perception.observantHalfling"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "observantHalfling"
+                    ]
+                },
+                "selector": "perception",
+                "type": "untyped",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

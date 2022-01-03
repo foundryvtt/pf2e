@@ -315,10 +315,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
 
         // Spell Browser
-        html.find(".spell-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("spell"));
+        html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
 
         // Inventory Browser
-        html.find(".inventory-browse").on("click", (event) => this.onClickBrowseCompendia(event));
+        html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
 
         // Spell Create
         html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
@@ -610,10 +610,54 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    private onClickBrowseCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const filter = $(event.currentTarget).attr("data-filter") ?? null;
+    private onClickBrowseEquipmentCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const filter: string[] = [$(event.currentTarget).attr("data-filter")].filter(
+            (element): element is string => !!element
+        );
         console.debug(`Filtering on: ${filter}`);
         game.pf2e.compendiumBrowser.openTab("equipment", filter);
+    }
+
+    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const levelString = $(event.currentTarget).attr("data-level") ?? null;
+
+        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
+        const entry = this.actor.spellcasting.get(spellcastingIndex);
+
+        if (entry === undefined) {
+            return;
+        }
+
+        const filter: string[] = [];
+
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.push("category-".concat(entry.data.data.prepared.value));
+        }
+
+        if (levelString) {
+            let level = parseInt(levelString);
+            filter.push(level ? `level-${level}` : "category-cantrip");
+
+            if (level) {
+                if (!entry.isPrepared) {
+                    while (level > 1) {
+                        level -= 1;
+                        filter.push("level-".concat(level.toString()));
+                    }
+                }
+
+                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                    filter.push("category-spell");
+                }
+            }
+        }
+
+        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+            filter.push("traditions-".concat(entry.data.data.tradition.value));
+        }
+
+        console.debug(`Filtering on: ${filter}`);
+        game.pf2e.compendiumBrowser.openTab("spell", filter);
     }
 
     protected override _canDragStart(selector: string): boolean {

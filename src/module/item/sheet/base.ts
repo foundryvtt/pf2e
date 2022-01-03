@@ -51,17 +51,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasDetails: [
                 "action",
                 "armor",
+                "backpack",
                 "book",
+                "condition",
                 "consumable",
                 "deity",
                 "equipment",
                 "feat",
+                "lore",
+                "melee",
                 "spell",
                 "weapon",
-                "melee",
-                "backpack",
-                "condition",
-                "lore",
             ].includes(itemData.type),
             detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
         }); // Damage types
@@ -139,7 +139,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetDataPF2e<TItem> {
+    protected getBaseData(options: Partial<DocumentSheetOptions> = {}): ItemSheetDataPF2e<TItem> {
+        options.classes?.push(this.item.type);
+
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
 

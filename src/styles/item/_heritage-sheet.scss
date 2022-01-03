@@ -1,0 +1,53 @@
+article {
+    position: relative;
+
+    .sheet-sidebar {
+        .required-ancestry {
+            flex-wrap: nowrap;
+            width: 100%;
+            white-space: nowrap;
+            max-width: 100%;
+
+            label {
+                flex: 0;
+            }
+
+            .drop-zone {
+                background-color: rgba(0, 0, 0, 0.05);
+                border: 1px dotted var(--alt-dark);
+                border-radius: 2px;
+                display: flex;
+                font-weight: normal;
+                flex: 1;
+                justify-content: center;
+                margin-left: auto;
+                max-width: 8em;
+                padding: 3px;
+                text-overflow: ellipsis;
+
+                &.ancestry-ref-broken {
+                    background-color: rgba(255, 0, 0, 0.15);
+                    border-color: var(--primary);
+                }
+
+                a.remove-ancestry {
+                    display: none;
+                    position: absolute;
+                    margin-left: auto;
+                    left: 210px;
+                    top: 33px;
+
+                    &:hover {
+                        display: flex;
+                    }
+                }
+
+                &:hover {
+                    a.remove-ancestry {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}
