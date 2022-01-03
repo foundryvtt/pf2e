@@ -21,11 +21,7 @@ const inlineSelector = [
     "action",
     "check",
     "effect-area",
-    "flat-check",
-    "perception-check",
     "repost",
-    "saving-throw",
-    "skill-check",
 ]
     .map((keyword) => `[data-pf2-${keyword}]`)
     .join(",");
