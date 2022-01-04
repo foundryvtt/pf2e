@@ -518,7 +518,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 5
                 },
                 "maxHp": {
                     "value": null
@@ -537,7 +537,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": "160 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -689,7 +689,7 @@
                     "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 10
+                    "value": 40
                 },
                 "range": {
                     "long": null,
@@ -997,7 +997,20 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.doubleShot"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "attack",
+                        "value": -2,
+                        "predicate": {
+                            "all": ["doubleShot"]
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
