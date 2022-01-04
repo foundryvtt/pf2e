@@ -32,7 +32,7 @@ export class CheckModifiersDialog extends Application {
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
-            this.context.rollMode = game.settings.get("core", "rollMode") ?? "roll";
+            this.context.rollMode = game.settings.get("core", "rollMode");
         }
     }
 
@@ -121,7 +121,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
-        this.context.rollMode = ($(event.currentTarget).val() ?? "roll") as RollMode;
+        this.context.rollMode = ($(event.currentTarget).val() ?? "publicroll") as RollMode;
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
