@@ -106,7 +106,7 @@ declare global {
          */
         updateActorEmbeddedDocuments(
             embeddedName: "ActiveEffect" | "Item",
-            updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>,
+            updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>[],
             options: DocumentModificationContext
         ): Promise<ActiveEffect[] | Item[]>;
 
