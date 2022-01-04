@@ -297,14 +297,15 @@ export class CheckPF2e {
         }
 
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
+        const coreFlags: Record<string, unknown> = { canPopout: true };
+        if (context.type === "initiative") coreFlags.initiativeRoll = true;
+
         const message = (await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker(speaker),
                 flavor,
                 flags: {
-                    core: {
-                        canPopout: true,
-                    },
+                    core: coreFlags,
                     pf2e: {
                         canReroll: !["fortune", "misfortune"].includes(ctx.fate),
                         context,
