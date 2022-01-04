@@ -47,7 +47,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Refresh this token's image and size (usually after an actor update or override) */
     redraw(): void {
-        const sizeChanged = this.w !== this.hitArea.width;
+        const sizeChanged = !!this.hitArea && this.w !== this.hitArea.width;
         const scaleChanged = !!this.icon && Math.round((this.icon.width / this.w) * 10) / 10 !== this.data.scale;
         const imageChanged = !!this.icon && this.icon.src !== this.data.img;
 
