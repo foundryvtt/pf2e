@@ -40,12 +40,13 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
+import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
+import { ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource, SaveType } from "@actor/data";
@@ -467,12 +468,11 @@ export class CharacterPF2e extends CreaturePF2e {
             const modifiers = [...systemData.attributes.ac.modifiers];
             const dexCapSources = systemData.attributes.dexCap;
             let armorCheckPenalty = 0;
-            let proficiency: ArmorCategory = "unarmored";
+            const proficiency = wornArmor?.category ?? "unarmored";
 
             if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
-                    proficiency = wornArmor.category;
                     // armor check penalty
                     if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
                         armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
@@ -713,6 +713,17 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 },
             };
+
+            // powerful fist
+            const fistFeat = itemTypes.feat.find((feat) =>
+                ["powerful-fist", "martial-artist-dedication"].includes(feat.slug ?? "")
+            );
+            if (fistFeat) {
+                source.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
+                source.data.slug = "fist";
+                source.data.baseItem = "fist";
+                source.data.damage.die = "d6";
+            }
 
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
