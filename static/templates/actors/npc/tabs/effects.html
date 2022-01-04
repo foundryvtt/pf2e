@@ -1,17 +1,22 @@
 <div class="tab effects" data-group="primary" data-tab="effects">
-    <div class="conditions">
+    <ol class="effects item-list">
         {{#each conditions as |condition index|}}
-            <div class= "effect" data-item-id="{{condition.id}}">
-                <img class="icon" src="{{condition.img}}">
-                <div class="controls">
-                    <i class="fas fa-comment-alt send-to-chat"></i>
-                    {{#if condition.value}}
-                    <i class="fas fa-plus increment"></i>
-                    <i class="fas fa-minus decrement"></i>
-                    {{/if}}
-                    <i class="fas fa-trash delete"></i>
+            <li class= "item effect" data-item="{{condition.id}}" data-item-id="{{condition.id}}">
+                <div class="effect-header">
+                    <div class="item-image" style="background-image: url({{condition.img}});"></div>
+                    <div class="effect-name rollable">
+                        <a>{{condition.name}}</a>
+                    </div>
+                    <div class="controls">
+                        <i class="fas fa-comment-alt to-chat"></i>
+                        {{#if condition.value}}
+                        <i class="fas fa-plus increment"></i>
+                        <i class="fas fa-minus decrement"></i>
+                        {{/if}}
+                        <i class="fas fa-trash delete"></i>
+                    </div>
                 </div>
-                <div class="summary">
+                <div class="summary sub-section expandable">
                     <div class="description">
                         {{enrichHTML condition.description}}
                     </div>
@@ -41,7 +46,30 @@
                         </div>
                     {{/if}}
                 </div>
-            </div>
+            </li>
         {{/each}}
-    </div>
+    </ol>
+    <ol class="effects item-list">
+        {{#each effectItems as |effect|}}
+            <li class= "item effect" data-item="{{effect.id}}" data-item-id="{{effect.id}}">
+                <div class="effect-header">
+                    <div class="effect-header">
+                        <div class="item-image" style="background-image: url({{effect.img}});"></div>
+                        <div class="effect-name rollable">
+                            <a>{{effect.name}}</a>
+                        </div>
+                        <div class="controls">
+                            <i class="fas fa-comment-alt to-chat"></i>
+                            <i class="fas fa-trash delete"></i>
+                        </div>
+                    </div>
+                    <div class="summary sub-section expandable">
+                        <div class="description">
+                            {{enrichHTML effect.data.description.value}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {{/each}}
+    </ol>
 </div>

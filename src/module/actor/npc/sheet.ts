@@ -28,6 +28,7 @@ import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
 import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { FlattenedCondition } from "@system/conditions";
 
 interface ActionsDetails {
     label: string;
@@ -85,7 +86,8 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     data: NPCSystemSheetData;
     items: SheetItemData[];
     effectItems: EffectData[];
-    conditions: ConditionData[];
+    //conditions: ConditionData[];
+    conditions: FlattenedCondition[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
@@ -202,9 +204,10 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareActions(sheetData);
         sheetData.inventory = this.prepareInventory(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
-        sheetData.conditions = sheetData.items.filter(
+        /**sheetData.conditions = sheetData.items.filter(
             (data): data is SheetItemData<ConditionData> => data.type === "condition"
-        );
+        );**/
+        sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions( this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is SheetItemData<EffectData> => data.type === "effect"
         );
