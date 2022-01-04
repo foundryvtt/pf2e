@@ -48,24 +48,18 @@ declare global {
         /** The default artwork used for Token images if none is provided */
         DEFAULT_TOKEN: ImagePath;
 
-        /**
-         * The default artwork used for Note placeables if none is provided
-         */
+        /** The default artwork used for Note placeables if none is provided */
         DEFAULT_NOTE_ICON: "icons/svg/book.svg";
 
-        /**
-         * The supported dice roll visibility modes
-         */
+        /** The supported dice roll visibility modes */
         DICE_ROLL_MODES: {
-            PUBLIC: "roll";
+            PUBLIC: "publicroll";
             PRIVATE: "gmroll";
             BLIND: "blindroll";
             SELF: "selfroll";
         };
 
-        /**
-         * The allowed Drawing types which may be saved
-         */
+        /** The allowed Drawing types which may be saved */
         DRAWING_TYPES: {
             RECTANGLE: "r";
             ELLIPSE: "e";
