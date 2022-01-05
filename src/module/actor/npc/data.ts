@@ -7,6 +7,7 @@ import {
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
+    HeldShieldData,
     SaveData,
     SkillData,
 } from "@actor/creature/data";
@@ -134,18 +135,7 @@ export interface NPCAttributes extends CreatureAttributes {
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.
      */
-    shield: {
-        /** The current shield health. */
-        value: number;
-        /** The maximum shield health. */
-        max: number;
-        /** The shield's AC */
-        ac: number;
-        /** The shield's hardness */
-        hardness: number;
-        /** The shield's broken threshold */
-        brokenThreshold: number;
-    };
+    shield: HeldShieldData;
     /** Textual information about any special benefits that apply to all saves. */
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;

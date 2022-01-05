@@ -40,7 +40,6 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
@@ -463,7 +462,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Armor Class
-        const { wornArmor } = this;
+        const { wornArmor, heldShield } = this;
         {
             const modifiers = [...systemData.attributes.ac.modifiers];
             const dexCapSources = systemData.attributes.dexCap;
@@ -481,6 +480,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
+
+            this.addShieldBonus(statisticsModifiers);
 
             // proficiency
             modifiers.unshift(
@@ -529,19 +530,12 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.ac = stat;
         }
 
-        // Shield
-        const { heldShield } = this;
-        if (heldShield) {
-            const { hitPoints } = heldShield;
-            systemData.attributes.shield.value = hitPoints.value;
-            systemData.attributes.shield.max = hitPoints.max;
-
-            if (heldShield.speedPenalty) {
-                const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
-                speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
-                statisticsModifiers.speed ??= [];
-                statisticsModifiers.speed.push(speedPenalty);
-            }
+        // Apply the speed penalty from this character's held shield
+        if (heldShield?.speedPenalty) {
+            const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
+            speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
+            statisticsModifiers.speed ??= [];
+            statisticsModifiers.speed.push(speedPenalty);
         }
 
         // Skill modifiers
@@ -713,17 +707,6 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 },
             };
-
-            // powerful fist
-            const fistFeat = itemTypes.feat.find((feat) =>
-                ["powerful-fist", "martial-artist-dedication"].includes(feat.slug ?? "")
-            );
-            if (fistFeat) {
-                source.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
-                source.data.slug = "fist";
-                source.data.baseItem = "fist";
-                source.data.damage.die = "d6";
-            }
 
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();

@@ -159,6 +159,24 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         }
     }
 
+    /** Fix for Foundry bug: https://gitlab.com/foundrynet/foundryvtt/-/issues/6421 */
+    override async updateActorEmbeddedDocuments(
+        embeddedName: "Item" | "ActiveEffect",
+        updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>[],
+        options: DocumentModificationContext<this>
+    ): Promise<ActiveEffect[] | Item[]> {
+        if (embeddedName === "Item") {
+            for (const update of updates) {
+                if (Object.keys(flattenObject(update)).some((key) => key.includes("-="))) {
+                    // Update the ItemData in the local Collection to remove the properties that should be deleted.
+                    // The super update uses the local Collection as base data so the deletion will be persisted in the database
+                    this.actor!.items.get(update._id, { strict: true }).data.update(update);
+                }
+            }
+        }
+        return await super.updateActorEmbeddedDocuments(embeddedName, updates, options);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
