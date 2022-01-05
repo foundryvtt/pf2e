@@ -48,17 +48,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/character/${template}.html`;
     }
 
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // update shield hp
-        const heldShield = this.actor.heldShield;
-        if (heldShield) {
-            await heldShield.update({
-                "data.hp.value": formData["data.attributes.shield.hp.value"],
-            });
-        }
-        await super._updateObject(event, formData);
-    }
-
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
         const sheetData: CharacterSheetData = await super.getData(options);
 
@@ -537,33 +526,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-
-        // shield
-        const equippedShield = this.actor.heldShield?.data;
-        if (equippedShield === undefined) {
-            actorData.data.attributes.shield = {
-                hp: {
-                    value: 0,
-                },
-                maxHp: {
-                    value: 0,
-                },
-                armor: {
-                    value: 0,
-                },
-                hardness: {
-                    value: 0,
-                },
-                brokenThreshold: {
-                    value: 0,
-                },
-            };
-            actorData.data.attributes.shieldBroken = false;
-        } else {
-            actorData.data.attributes.shield = duplicate(equippedShield.data);
-            actorData.data.attributes.shieldBroken =
-                equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
-        }
 
         const bonusEncumbranceBulk: number = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         const bonusLimitBulk: number = actorData.data.attributes.bonusLimitBulk ?? 0;
@@ -1230,9 +1192,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of dying
-     */
+    /** Get the font-awesome icon used to display a certain level of dying */
     private getDyingIcon(level: number) {
         const maxDying = this.object.data.data.attributes.dying.max || 4;
         const doomed = this.object.data.data.attributes.doomed.value || 0;

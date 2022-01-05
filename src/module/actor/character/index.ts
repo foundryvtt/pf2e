@@ -463,7 +463,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Armor Class
-        const { wornArmor } = this;
+        const { wornArmor, heldShield } = this;
         {
             const modifiers = [...systemData.attributes.ac.modifiers];
             const dexCapSources = systemData.attributes.dexCap;
@@ -481,6 +481,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
+
+            this.addShieldBonus(statisticsModifiers);
 
             // proficiency
             modifiers.unshift(
@@ -529,19 +531,12 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.ac = stat;
         }
 
-        // Shield
-        const { heldShield } = this;
-        if (heldShield) {
-            const { hitPoints } = heldShield;
-            systemData.attributes.shield.value = hitPoints.value;
-            systemData.attributes.shield.max = hitPoints.max;
-
-            if (heldShield.speedPenalty) {
-                const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
-                speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
-                statisticsModifiers.speed ??= [];
-                statisticsModifiers.speed.push(speedPenalty);
-            }
+        // Apply the speed penalty from this character's held shield
+        if (heldShield?.speedPenalty) {
+            const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
+            speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
+            statisticsModifiers.speed ??= [];
+            statisticsModifiers.speed.push(speedPenalty);
         }
 
         // Skill modifiers

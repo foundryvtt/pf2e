@@ -14,7 +14,7 @@ import {
 } from "@actor/data/base";
 import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
-import { LabeledValue, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
+import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
@@ -197,4 +197,22 @@ export interface AttackRollContext {
     targets: Set<TokenPF2e>;
     dc: CheckDC | null;
     distance: number | null;
+}
+
+/** A PC's or NPC's held shield. An NPC's values can be stored directly on the actor or come from a shield item. */
+export interface HeldShieldData {
+    /** The shield's AC */
+    ac: number;
+    /** The shield's hardness */
+    hardness: number;
+    /** The shield's broken threshold */
+    brokenThreshold: number;
+    /** The shield's hit points */
+    hp: ValueAndMax;
+    /** Whether the shield is raised */
+    raised: boolean;
+    /** Whether the shield is broken */
+    broken: boolean;
+    /** An effect icon to use when the shield is raised */
+    icon: ImagePath;
 }

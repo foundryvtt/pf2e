@@ -38,10 +38,12 @@ export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
 export type OneToTen = Exclude<ZeroToTen, 0>;
 export type ZeroToEleven = ZeroToTen | 11;
 
-export interface ValueAndMax {
+export interface ValueAndMaybeMax {
     value: number;
     max?: number;
 }
+
+export type ValueAndMax = Required<ValueAndMaybeMax>;
 
 export function goesToEleven(value: number): value is ZeroToEleven {
     return value >= 0 && value <= 11;

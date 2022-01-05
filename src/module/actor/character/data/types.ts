@@ -10,6 +10,7 @@ import {
     SkillAbbreviation,
     SkillData,
     CreatureInitiative,
+    HeldShieldData,
 } from "@actor/creature/data";
 import {
     AbilityString,
@@ -367,25 +368,10 @@ export interface CharacterAttributes extends CreatureAttributes {
     };
 
     /**
-     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
-     * allow for the shield health to be shown in a token.
+     * Data related to the currently equipped shield. This is copied from the shield data itself and exists to
+     * allow for the shield health to be shown on an actor shield and token.
      */
-    shield: {
-        /** The current shield health. */
-        value: number;
-        /** The maximum shield health. */
-        max: number;
-        /** The shield's AC */
-        ac: number;
-        /** The shield's hardness */
-        hardness: number;
-        /** The shield's broken threshold */
-        brokenThreshold: number;
-        /** The current shield health (added in actor preparation) */
-        hp: {
-            value: number;
-        };
-    };
+    shield: HeldShieldData;
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number; max: number };
