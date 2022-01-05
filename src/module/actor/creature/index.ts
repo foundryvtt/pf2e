@@ -4,6 +4,7 @@ import {
     CheckModifier,
     ensureProficiencyOption,
     ModifierPF2e,
+    MODIFIER_TYPE,
     RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
@@ -167,6 +168,19 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 modifiers[index] = new ModifierPF2e(modifier);
             });
         });
+
+        // Set base actor-shield data for PCs NPCs
+        if (this.data.type === "character" || this.data.type === "npc") {
+            this.data.data.attributes.shield = {
+                ac: 0,
+                hp: { value: 0, max: 0 },
+                brokenThreshold: 0,
+                hardness: 0,
+                raised: false,
+                broken: false,
+                icon: "systems/pf2e/icons/actions/raise-a-shield.webp",
+            };
+        }
 
         // Toggles
         this.data.data.toggles = {
@@ -363,6 +377,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         return synthetics;
+    }
+
+    /** Add a circumstance bonus if this creature has a raised shield */
+    protected addShieldBonus(statisticModifiers: Record<string, ModifierPF2e[]>): void {
+        if (!(this.data.type === "character" || this.data.type === "npc")) return;
+        const { heldShield } = this;
+        const shieldData = this.data.data.attributes.shield;
+        if (heldShield && shieldData.raised && !shieldData.broken) {
+            const modifiers = (statisticModifiers["ac"] ??= []);
+            modifiers.push(
+                new ModifierPF2e({
+                    label: heldShield.name,
+                    type: MODIFIER_TYPE.CIRCUMSTANCE,
+                    modifier: shieldData.ac,
+                })
+            );
+            this.rollOptions.all["self:shield:raised"] = true;
+        }
     }
 
     /**

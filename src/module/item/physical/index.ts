@@ -306,6 +306,18 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         await super._preCreate(data, options, user);
         if (this.isEmbedded) this.data.update({ "data.equipped.value": false });
     }
+
+    /** Clamp hit points to between zero and max */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        if (typeof changed.data?.hp?.value === "number") {
+            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.maxHp.value);
+        }
+        await super._preUpdate(changed, options, user);
+    }
 }
 
 export interface PhysicalItemPF2e {

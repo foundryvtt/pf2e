@@ -111,3 +111,5 @@ export { Migration708SpecificRuleLabel } from "./708-specific-rule-label";
 export { Migration709REFormulasAtInstanceLevelRedux } from "./709-re-formulas-at-instance-level-redux";
 export { Migration710RarityToString } from "./710-rarity-to-string";
 export { Migration711HeritageItems } from "./711-heritage-items";
+export { Migration712ActorShieldStructure } from "./712-actor-shield-structure";
+export { Migration713FistToStrikeRE } from "./713-fist-to-strike-re";

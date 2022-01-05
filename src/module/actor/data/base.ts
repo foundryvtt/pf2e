@@ -1,4 +1,12 @@
-import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValueAndMax, ValuesList } from "@module/data";
+import {
+    DocumentSchemaRecord,
+    LabeledNumber,
+    LabeledValue,
+    Rarity,
+    Size,
+    ValueAndMaybeMax,
+    ValuesList,
+} from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -42,7 +50,7 @@ export interface BaseActorDataPF2e
 
 export interface ActorSystemSource {
     attributes: {
-        hp?: ValueAndMax;
+        hp?: ValueAndMaybeMax;
     };
     traits?: BaseTraitsSource;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */

@@ -178,40 +178,47 @@ $adjusted-lower: #cc3311;
             }
         }
 
-        .shield-section {
-            .shield-label {
-                display: flex;
-                flex: auto;
-                flex-direction: row;
+        .health-section, .shield-section {
+            .side-bar-label {
                 align-items: center;
             }
 
-            .shield-value {
+            .hit-points {
                 display: flex;
-                flex: auto;
                 flex-direction: row;
-                align-items: flex-end;
-                text-align: right;
-                font-weight: bold;
-                color: $value-color;
+                flex: 0;
+                margin-left: auto;
 
-                .shield-current {
-                    flex: 0px;
-                    font-weight: bold;
-                    color: $value-color;
+                input.current {
+                    width: 36px;
                     text-align: right;
-                    width: 50px;
+                    padding-right: 3px;
                 }
 
-                .shield-max {
-                    flex: 0px;
-                    align-self: center;
-                    font-weight: bold;
-                    color: $value-color;
-                    text-align: left;
+                .slash, .max {
+                    align-items: center;
+                    display: flex;
+                }
+
+                .max {
+                    font-weight: 700;
+                    margin-right: 4px;
+                    text-align: center;
+
+                    &.lt10 {
+                        width: 8px;
+                    }
+                    &.lt100 {
+                        width: 24px;
+                    }
+                    &.lt1000 {
+                        width: 36px;
+                    }
                 }
             }
+        }
 
+        .shield-section {
             .shield-details {
                 display: flex;
                 flex: auto;
@@ -252,45 +259,6 @@ $adjusted-lower: #cc3311;
                     .shield-max {
                         color: rgba(black, 0.4);
                     }
-                }
-            }
-        }
-
-        .health-section {
-            .side-bar-label {
-                align-items: center;
-            }
-
-            .health-value {
-                display: flex;
-                flex-direction: row;
-                flex: 0;
-                margin-left: auto;
-
-                input {
-                    &:first-child {
-                        width: 36px;
-                        text-align: right;
-                        padding-right: 3px;
-                    }
-                    &:last-child {
-                        font-weight: 700;
-                        text-align: center;
-                        margin-right: 4px;
-                        &.lt10 {
-                            width: 8px;
-                        }
-                        &.lt100 {
-                            width: 24px;
-                        }
-                        &.lt1000 {
-                            width: 36px;
-                        }
-                    }
-                }
-                span {
-                    display: flex;
-                    text-align: center;
                 }
             }
         }
