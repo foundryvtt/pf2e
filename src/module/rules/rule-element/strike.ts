@@ -32,7 +32,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.data.range ??= null;
         this.data.traits ??= [];
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
-        this.data.replaceBasicUnarmed = !!(this.data.replaceBaseUnarmed ?? false);
+        this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
 
         this.weapon = this.constructWeapon();
     }
