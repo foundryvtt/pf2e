@@ -139,13 +139,13 @@
                     "value": 7
                 },
                 "damageRolls": {
-                    "2du77vscbpy5fdjys0v8": {
-                        "damage": "1",
-                        "damageType": "cold"
-                    },
                     "8n2fepd66r5g0kf7kgw8ii": {
                         "damage": "1d6+1",
                         "damageType": "piercing"
+                    },
+                    "mnvfng46mv9t6mfpjl8z": {
+                        "damage": "1",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -176,10 +176,102 @@
             "type": "melee"
         },
         {
+            "_id": "lFdwJPjnjNCezNol",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "TwALEp43gd3r7Y2I",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "cTX9urPBrScvL3Fx",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -214,7 +306,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Icy Death",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -247,7 +339,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -265,7 +357,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.ClimbOrSwim",
+                        "predicate": {
+                            "any": [
+                                "action:climb",
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -274,46 +379,19 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+5 to Climb or Swim",
+                        "options": "action:climb,action:swim"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
-            "type": "lore"
-        },
-        {
-            "_id": "6ahK0gTG4mEoO4JH",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (Climb or Swim)",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -346,7 +424,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
