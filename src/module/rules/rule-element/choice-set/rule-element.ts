@@ -50,15 +50,17 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         this.setDefaultFlag(ruleSource);
 
-        const selection = await new ChoiceSetPrompt({
-            // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
-            allowedDrops: this.data.allowedDrops,
-            prompt: this.data.prompt,
-            item: this.item,
-            title: this.label,
-            choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
-            containsUUIDs: this.data.containsUUIDs,
-        }).resolveSelection();
+        const selection =
+            this.getPreselection() ??
+            (await new ChoiceSetPrompt({
+                // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
+                allowedDrops: this.data.allowedDrops,
+                prompt: this.data.prompt,
+                item: this.item,
+                title: this.label,
+                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
+                containsUUIDs: this.data.containsUUIDs,
+            }).resolveSelection());
 
         if (selection) {
             ruleSource.selection = selection.value;
@@ -179,6 +181,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             this.failValidation(`Error thrown (${error}) while attempting NeDB query`);
             return [];
         }
+    }
+
+    /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
+    private getPreselection(): PromptChoice<string | number> | null {
+        const { selection } = this.data;
+        const choice = Array.isArray(this.data.choices) ? this.data.choices.find((c) => c.value === selection) : null;
+        return choice ?? null;
     }
 }
 

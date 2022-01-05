@@ -2,6 +2,8 @@ import { ClassPF2e, FeatPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e, REPreCreateParameters, REPreDeleteParameters, RuleElementData, RuleElementSource } from "./";
 import { sluggify } from "@util";
+import { ChoiceSetRuleElement } from "./choice-set/rule-element";
+import { ChoiceSetSource } from "./choice-set/data";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>) {
@@ -11,6 +13,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
             console.warn("The GrantItem rules element is not supported on synthetic actors");
             this.ignored = true;
         }
+        this.data.preselectChoices ??= {};
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
 
@@ -27,7 +30,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedItem: ClientDocument | null = await (async () => {
             const uuid = this.resolveInjectedProperties(this.data.uuid);
             try {
-                return fromUuid(uuid);
+                return await fromUuid(uuid);
             } catch (error) {
                 console.error(error);
                 return null;
@@ -40,8 +43,12 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
+        const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
+        tempGranted.prepareRuleElements();
+        this.applyChoiceSelections(tempGranted);
+
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
-        for (const item of [this.item, grantedItem]) {
+        for (const item of [this.item, tempGranted]) {
             if (item instanceof ClassPF2e || item instanceof FeatPF2e) {
                 const prefix = item instanceof ClassPF2e || !item.isFeature ? item.type : "feature";
                 const slug = item.slug ?? sluggify(item.name);
@@ -52,7 +59,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.data.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
-            await this.runGrantedItemPreCreates(args, grantedSource);
+            await this.runGrantedItemPreCreates(args, tempGranted);
             return;
         }
 
@@ -71,7 +78,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         pendingItems.push(grantedSource);
 
         // Run the granted item's preCreate callbacks
-        await this.runGrantedItemPreCreates(args, grantedSource);
+        await this.runGrantedItemPreCreates(args, tempGranted);
     }
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
@@ -84,17 +91,30 @@ class GrantItemRuleElement extends RuleElementPF2e {
         pendingItems.push(...grantedItems);
     }
 
+    private applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
+        const source = grantedItem.data._source;
+        for (const [flag, selection] of Object.entries(this.data.preselectChoices ?? {})) {
+            const rule = grantedItem.rules.find(
+                (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.data.flag === flag
+            );
+            if (rule) {
+                const ruleSource = source.data.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
+                rule.data.selection = selection;
+                ruleSource.selection = selection;
+            }
+        }
+    }
+
     /** Run the preCreate callbacks of REs from the granted item */
     private async runGrantedItemPreCreates(
         originalArgs: REPreCreateParameters,
-        grantedSource: PreCreate<ItemSourcePF2e>
+        grantedItem: Embedded<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
-        if (grantedSource.data?.rules) {
-            const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
-            const grantedItemRules = tempGranted.prepareRuleElements();
-            for await (const rule of grantedItemRules) {
-                const ruleSource = grantedSource.data.rules[grantedItemRules.indexOf(rule)] as RuleElementSource;
+        if (grantedItem.data.data.rules) {
+            const grantedSource = grantedItem.data._source;
+            for await (const rule of grantedItem.rules) {
+                const ruleSource = grantedSource.data.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
                 await rule.preCreate?.({
                     ...originalArgs,
                     reassignItemId: false,
@@ -113,11 +133,17 @@ interface GrantItemRuleElement extends RuleElementPF2e {
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
     replaceSelf?: unknown;
+    preselectChoices?: unknown;
 }
 
 interface GrantItemData extends RuleElementData {
     uuid: ItemUUID;
     replaceSelf: boolean;
+    /**
+     * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
+     * `ChoiceSet`'s designated `flag` property.
+     */
+    preselectChoices: Record<string, string | number>;
 }
 
 export { GrantItemRuleElement };
