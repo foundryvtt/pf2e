@@ -6,7 +6,8 @@ import { RuleElementPF2e } from "./";
  */
 export class TokenEffectIconRuleElement extends RuleElementPF2e {
     override onAfterPrepareData() {
-        const icon = typeof this.data.value === "string" ? this.data.value.trim() : null;
-        this.actor.data.data.tokenEffects.push(new TokenEffect(icon || this.item.img));
+        const path =
+            typeof this.data.value === "string" ? this.resolveInjectedProperties(this.data.value) : this.item.img;
+        this.actor.data.data.tokenEffects.push(new TokenEffect(path.trim()));
     }
 }

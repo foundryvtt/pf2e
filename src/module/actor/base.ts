@@ -565,11 +565,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     updateActorData["data.attributes.shield.value"] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updatedShieldHp = shieldHitPoints;
-                } else if ("shield" in this.data.data.attributes && this.data.data.attributes.shield.max) {
+                } else if ("shield" in this.data.data.attributes && this.data.data.attributes.shield.hp.max) {
                     // NPC with no shield but pre-existing shield data
                     const shieldData = this.data.data.attributes.shield;
-                    const currentHitPoints = Number(shieldData.value);
-                    const maxHitPoints = Number(shieldData.max);
+                    const currentHitPoints = Number(shieldData.hp.value);
+                    const maxHitPoints = Number(shieldData.hp.max);
                     let shieldHitPoints = currentHitPoints;
                     if (isDelta && value < 0) {
                         // shield block
@@ -581,7 +581,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     } else {
                         shieldHitPoints = Math.clamped(value, 0, maxHitPoints);
                     }
-                    updateActorData["data.attributes.shield.value"] = shieldHitPoints;
+                    updateActorData["data.attributes.shield.hp.value"] = shieldHitPoints;
                 } else if (isDelta) {
                     attribute = "attributes.hp"; // actor has no shield, apply the specified delta value to actor instead
                 }
