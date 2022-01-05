@@ -42,6 +42,7 @@ import { CanvasPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
+import { sluggify } from "@util";
 
 declare global {
     interface Game {
@@ -60,6 +61,7 @@ declare global {
             };
             system: {
                 remigrate: typeof remigrate;
+                sluggify: typeof sluggify;
             };
             importer: {
                 actor: typeof ActorImporter;
