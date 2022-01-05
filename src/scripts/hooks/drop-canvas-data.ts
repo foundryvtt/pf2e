@@ -5,8 +5,8 @@ export const DropCanvasData = {
     listen: (): void => {
         Hooks.on("dropCanvasData", async (canvas, data) => {
             const target = canvas.tokens.placeables.find((token) => {
-                const maximumX = token.x + token.hitArea?.right ?? 0;
-                const maximumY = token.y + token.hitArea?.bottom ?? 0;
+                const maximumX = token.x + (token.hitArea?.right ?? 0);
+                const maximumY = token.y + (token.hitArea?.bottom ?? 0);
                 return data.x >= token.x && data.y >= token.y && data.x <= maximumX && data.y <= maximumY;
             });
 

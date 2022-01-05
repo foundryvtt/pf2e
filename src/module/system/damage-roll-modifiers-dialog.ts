@@ -49,8 +49,7 @@ export class DamageRollModifiersDialog extends Application {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? "success") as DegreeOfSuccessString;
 
-        ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
+        ctx.rollMode ??= (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
         let damageBaseModifier = "";
         if (damage.base.modifier) {
@@ -106,7 +105,7 @@ export class DamageRollModifiersDialog extends Application {
         }
         const rollData: any = {
             outcome,
-            rollMode: ctx.rollMode ?? "roll",
+            rollMode: ctx.rollMode ?? "publicroll",
             traits: damage.traits ?? [],
             types: {},
             total: 0,
@@ -196,7 +195,7 @@ export class DamageRollModifiersDialog extends Application {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? "roll",
+                rollMode: ctx.rollMode ?? "publicroll",
             }
         );
         Hooks.call(`${game.system.id}.damageRoll`, rollData);

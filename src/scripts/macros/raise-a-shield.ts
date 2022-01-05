@@ -42,13 +42,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             if (!(effect instanceof EffectPF2e)) {
                 throw ErrorPF2e("Raise a Shield effect not found");
             }
-            const effectSource = effect.toObject();
-            effectSource.img = shield.img;
-            const rule = effectSource.data.rules.find(
-                (rule) => rule.selector === "ac" && ["PF2E.RuleElement.FlatModifier", "FlatModifier"].includes(rule.key)
-            );
-            rule!.value = shield.acBonus;
-            await actor.createEmbeddedDocuments("Item", [effectSource]);
+            await actor.createEmbeddedDocuments("Item", [effect.toObject()]);
             return true;
         } else if (shield?.isBroken) {
             ui.notifications.warn(

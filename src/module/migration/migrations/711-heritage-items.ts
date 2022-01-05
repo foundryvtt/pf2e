@@ -155,6 +155,11 @@ export class Migration711HeritageItems extends MigrationBase {
         "shadow-rat": "ratfolk",
         "snow-rat": "ratfolk",
         "tunnel-rat": "ratfolk",
+        "rite-of-invocation": "conrasu",
+        "rite-of-knowing": "conrasu",
+        "rite-of-light": "conrasu",
+        "rite-of-passage": "conrasu",
+        "rite-of-reinforcement": "conrasu",
     };
 
     private ancestrySlugs = Object.keys(this.officialAncestries);

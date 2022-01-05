@@ -304,4 +304,17 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         return super._onSubmit(event, options);
     }
+
+    /** Redirect an update to shield HP to the actual item */
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const heldShield = this.actor.heldShield;
+        if (heldShield && typeof formData["data.attributes.shield.hp.value"] === "number") {
+            await heldShield.update({
+                "data.hp.value": formData["data.attributes.shield.hp.value"],
+            });
+        }
+        delete formData["data.attributes.shield.hp.value"];
+
+        await super._updateObject(event, formData);
+    }
 }

@@ -41,14 +41,8 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -105,7 +99,7 @@
             },
             "rarity": "common",
             "senses": {
-                "value": "darkvision, tremorsense (imprecise) 30 feet "
+                "value": "darkvision, tremorsense (imprecise) 30 feet (creatures touching its web)"
             },
             "size": {
                 "value": "med"
@@ -176,6 +170,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -254,7 +249,7 @@
             "type": "melee"
         },
         {
-            "_id": "UIQULt86ANVMzHNV",
+            "_id": "gwswBzTnckFDYGZR",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -300,7 +295,7 @@
             "type": "action"
         },
         {
-            "_id": "B60yeuDRTfkGkdEI",
+            "_id": "47dklzJrGaCDSZ2N",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -341,7 +336,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense (Imprecise) 30 feet (Creatures Touching it's Web)",
+            "name": "Tremorsense (Imprecise) 30 feet (Creatures Touching its Web)",
             "sort": 500000,
             "type": "action"
         },
@@ -400,7 +395,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature touches the web lurker's web while the web lurker is on it.</p>\n<p><strong>Requirement</strong> Initiative has not yet been rolled.</p>\n<p><strong>Effect</strong> The web lurker automatically notices the creature and Strides or @Compendium[pf2e.actionspf2e.Climb]{Climbs} before rolling initiative.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> A creature touches the web lurker's web while the web lurker is on it.</p>\n<p><strong>Requirement</strong> Initiative has not yet been rolled.</p>\n</div>\n<p><strong>Effect</strong> The web lurker automatically notices the creature and Strides or Climbs before rolling initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -442,7 +437,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Web Lurker Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage}, flat-footed, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Web Lurker Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage}, flat-footed, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -599,20 +594,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Craft Traps",
+                        "label": "PF2E.SkillVariant.CraftTrapSnare",
                         "predicate": {
-                            "all": [
-                                "craft:trap"
-                            ]
-                        },
-                        "selector": "crafting",
-                        "value": 4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Craft Snares",
-                        "predicate": {
-                            "all": [
+                            "any": [
+                                "craft:trap",
                                 "craft:snare"
                             ]
                         },
@@ -631,12 +616,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+12 to Craft Traps",
-                        "options": "craft:trap"
-                    },
-                    "1": {
-                        "label": "and Snares",
-                        "options": "craft:snare"
+                        "label": "+12 to Craft Traps and Snares",
+                        "options": "craft:trap, craft:snare"
                     }
                 }
             },

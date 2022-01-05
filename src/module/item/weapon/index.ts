@@ -109,16 +109,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.data.category ||= "simple";
-        this.data.data.group ||= null;
-        this.data.data.baseItem ||= null;
-        this.data.data.potencyRune.value ||= null;
-        this.data.data.strikingRune.value ||= null;
-        this.data.data.propertyRune1.value ||= null;
-        this.data.data.propertyRune2.value ||= null;
-        this.data.data.propertyRune3.value ||= null;
-        this.data.data.propertyRune4.value ||= null;
-        this.data.data.traits.otherTags = [];
+        const systemData = this.data.data;
+        systemData.category ||= "simple";
+        systemData.group ||= null;
+        systemData.baseItem ||= null;
+        systemData.potencyRune.value ||= null;
+        systemData.strikingRune.value ||= null;
+        systemData.propertyRune1.value ||= null;
+        systemData.propertyRune2.value ||= null;
+        systemData.propertyRune3.value ||= null;
+        systemData.propertyRune4.value ||= null;
+        systemData.traits.otherTags ??= [];
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
         const traitSet = this.traits;
