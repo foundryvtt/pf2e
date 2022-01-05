@@ -408,24 +408,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Item Rolling
-        html.find("[data-item-id].item .item-image").on("click", (event) => this.onItemRoll(event));
-
-        // Update Item Bonus on an actor.item input
-        html.find<HTMLInputElement>(".item-value-input").on("change", async (event) => {
-            event.preventDefault();
-
-            let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-            if (!itemId) {
-                itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id");
-            }
-
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId ?? "",
-                    "data.item.value": Number(event.target.value),
-                },
-            ]);
-        });
+        html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
 
         // Delete Formula
         html.find(".formula-delete").on("click", (event) => {
@@ -1037,14 +1020,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    /**
-     * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
-     */
-    private onItemRoll(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+    /** Post the item's summary as a chat message */
+    private async onClickItemToChat(event: JQuery.ClickEvent) {
+        const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "");
-        item?.toChat(event);
+        await item?.toChat(event);
     }
 
     /** Opens an item container */
