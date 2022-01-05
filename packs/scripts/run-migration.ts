@@ -28,6 +28,7 @@ import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/mi
 import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
 import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
 import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
+import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
 
 const migrations: MigrationBase[] = [
     new Migration689EncumberanceActiveEffects(),
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration710RarityToString(),
     new Migration711HeritageItems(),
     new Migration712ActorShieldStructure(),
+    new Migration713FistToStrikeRE(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
