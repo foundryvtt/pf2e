@@ -32,6 +32,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.data.range ??= null;
         this.data.traits ??= [];
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
+        this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
 
         this.weapon = this.constructWeapon();
     }
@@ -49,6 +50,10 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
     override onAfterPrepareData(): void {
+        if (this.data.replaceBasicUnarmed && this.actor.data.type === "character") {
+            const systemData = this.actor.data.data;
+            systemData.actions = systemData.actions.filter((action) => action.weapon?.slug !== "unarmed");
+        }
         if (this.data.replaceAll && this.actor.data.type === "character") {
             const systemData = this.actor.data.data;
             systemData.actions = systemData.actions.filter((action) => action.weapon === this.weapon);
@@ -102,6 +107,7 @@ interface StrikeSource extends RuleElementSource {
     range?: unknown;
     traits?: unknown;
     replaceAll?: unknown;
+    replaceBasicUnarmed?: unknown;
     options?: unknown;
 }
 
@@ -115,6 +121,7 @@ interface StrikeData extends RuleElementData {
     range: WeaponRange | null;
     traits: WeaponTrait[];
     replaceAll: boolean;
+    replaceBasicUnarmed: boolean;
     options?: string[];
 }
 
