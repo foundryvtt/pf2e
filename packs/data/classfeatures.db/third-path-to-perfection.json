@@ -23,7 +23,47 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": {
+                            "any": [
+                                "self:feature:path-to-perfection-fortitude",
+                                "self:feature:second-path-to-perfection-fortitude"
+                            ]
+                        },
+                        "value": "Compendium.pf2e.classfeatures.dUMsM0yDTCdV31p6"
+                    },
+                    {
+                        "predicate": {
+                            "any": [
+                                "self:feature:path-to-perfection-reflex",
+                                "self:feature:second-path-to-perfection-reflex"
+                            ]
+                        },
+                        "value": "Compendium.pf2e.classfeatures.8kukH9c4h82e3qjl"
+                    },
+                    {
+                        "predicate": {
+                            "any": [
+                                "self:feature:path-to-perfection-will",
+                                "self:feature:second-path-to-perfection-will"
+                            ]
+                        },
+                        "value": "Compendium.pf2e.classfeatures.oVNRYF0FHbH8NsJD"
+                    }
+                ],
+                "flag": "pathToPerfection",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.pathToPerfection}"
+            }
+        ],
         "source": {
             "value": ""
         },
