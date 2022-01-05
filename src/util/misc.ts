@@ -201,29 +201,42 @@ export function setHasElement<T extends Set<unknown>>(set: T, value: unknown): v
     return set.has(value);
 }
 
+const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
+const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
+const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
+
+const wordBoundary = String.raw`(?<=${wordCharacter})(?=${nonWordCharacter})|(?<=${nonWordCharacter})(?=${wordCharacter})`;
+const nonWordBoundary = String.raw`(?<=${wordCharacter})(?=${wordCharacter})`;
+const lowerCaseLetter = String.raw`\p{Lowercase_Letter}`;
+const upperCaseLetter = String.raw`\p{Uppercase_Letter}`;
+const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
+
+const nonWordCharacterHyphenOrSpaceRE = /[^-\p{White_Space}\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]/gu;
+const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBoundary})${lowerCaseLetter}`, "gu");
+
 /**
- * The system's sluggification algorithm of entity names
- * @param name The name of the entity (or other object as needed)
+ * The system's sluggification algorithm for labels and other terms.
+ * @param [camel=null] The sluggification style to use: null is default, and there are otherwise two camel options.
  */
-export function sluggify(label: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+export function sluggify(str: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
     switch (camel) {
         case null:
-            return label
-                .replace(/([a-z])([A-Z])\B/g, "$1-$2")
+            return str
+                .replace(lowerCaseThenUpperCaseRE, "$1-$2")
                 .toLowerCase()
-                .replace(/'/g, "")
-                .replace(/[^a-z0-9]+/gi, " ")
+                .replace(/['’]/g, "")
+                .replace(nonWordCharacterRE, " ")
                 .trim()
                 .replace(/[-\s]+/g, "-");
         case "bactrian": {
-            const dromedary = sluggify(label, { camel: "dromedary" });
+            const dromedary = sluggify(str, { camel: "dromedary" });
             return dromedary.charAt(0).toUpperCase() + dromedary.slice(1);
         }
         case "dromedary":
-            return label
-                .replace(/[^-\w\s]/g, "")
+            return str
+                .replace(nonWordCharacterHyphenOrSpaceRE, "")
                 .replace(/[-_]+/g, " ")
-                .replace(/(?:^\w|[A-Z]|\b\w)/g, (part, index) =>
+                .replace(upperOrWordBoundariedLowerRE, (part, index) =>
                     index === 0 ? part.toLowerCase() : part.toUpperCase()
                 )
                 .replace(/\s+/g, "");
