@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "filth wallow",
                 "max": 170,
                 "temp": 0,
                 "value": 170
@@ -49,6 +49,7 @@
                 "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -95,7 +96,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(Can't Speak Any Language)",
                 "selected": [],
                 "value": [
                     "common"
@@ -127,6 +128,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "wretched-weeps"
                     ]
@@ -173,6 +175,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "wretched-weeps"
                     ]
@@ -213,6 +216,52 @@
             "type": "melee"
         },
         {
+            "_id": "0oxd4GYRm9A47FeP",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "3A8TmAuVP2C3XDsX",
             "data": {
                 "actionCategory": {
@@ -230,7 +279,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.refusePile"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "refusePile"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -251,7 +316,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Refuse Pile",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -267,7 +332,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A ofalth gains fast healing 2 when in an area with a high concentration of debris, junk, or excrement, such as a refuse heap or sewer.</p>"
+                    "value": "<p>A ofalth gains @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 2} when in an area with a high concentration of debris, junk, or excrement, such as a refuse heap or sewer.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -293,7 +358,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Filth Wallow",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -309,7 +374,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. A creature entering the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"aura\" data-pf2-label=\"Putrid Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become sickened 1 until the end of its turn (plus slowed 1 for as long as it is sickened on a critical failure). While within the aura, an affected creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"aura\" data-pf2-label=\"Putrid Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} until the end of its turn (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is sickened on a critical failure). While within the aura, an affected creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghast Stench]{Effect: Stench}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -337,7 +402,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Putrid Stench",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -353,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"disease\" data-pf2-label=\"Wretched Weeps DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every hour and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every hour and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"disease\" data-pf2-label=\"Wretched Weeps DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every hour and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} every hour and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -381,7 +446,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wretched Weeps",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -414,7 +479,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -435,7 +500,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Trash and Rubbish",
+                        "label": "PF2E.SkillVariant.TrashAndRubbish",
                         "predicate": {
                             "any": [
                                 "terrain:trash",
@@ -466,7 +531,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
