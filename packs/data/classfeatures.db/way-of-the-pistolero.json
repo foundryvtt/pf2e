@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Whether you're a professional duelist or a pistol-twirling entertainer, you have quick feet and quicker hands that never seem to let you down, and an equally sharp wit and tongue that jab your foes. You might leave a hand free or cultivate the ambidexterity for twin weapons. Either way, you stay close enough to your enemies to leverage your superior reflexes while leaving enough space to safely fire.</p>\n<p><strong>Slinger's Reload</strong> Raconteur's Reload</p>\n<p><strong>Deeds</strong> <em>Initial</em> Ten Paces; <em>Advanced</em> Pistolero's Retort; <em>Greater</em> Grim Swagger</p>\n<p><strong>Way Skill</strong> choose Deception or Intimidation</p>"
+            "value": "<p>Whether you're a professional duelist or a pistol-twirling entertainer, you have quick feet and quicker hands that never seem to let you down, and an equally sharp wit and tongue that jab your foes. You might leave a hand free or cultivate the ambidexterity for twin weapons. Either way, you stay close enough to your enemies to leverage your superior reflexes while leaving enough space to safely fire.</p>\n<p><strong>Slinger's Reload</strong> @Compendium[pf2e.actionspf2e.Raconteur's Reload]{Raconteur's Reload}</p>\n<p><strong>Deeds</strong> <em>Initial</em> @Compendium[pf2e.actionspf2e.Ten Paces]{Ten Paces}; <em>Advanced</em> @Compendium[pf2e.actionspf2e.Pistolero's Retort]{Pistolero's Retort}; <em>Greater</em> @Compendium[pf2e.actionspf2e.Grim Swagger]{Grim Swagger}</p>\n<p><strong>Way Skill</strong> choose Deception or Intimidation</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,7 +23,38 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.RADNqsvAt4gP9FOX"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.EeM0Czaep7G5ZSh5"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "itm"
+                    }
+                ],
+                "flag": "skillChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.{item|flags.pf2e.rulesSelections.skillChoice}.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
