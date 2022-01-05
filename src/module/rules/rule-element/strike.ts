@@ -32,7 +32,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.data.range ??= null;
         this.data.traits ??= [];
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
-        this.data.replaceBaseUnarmed = !!(this.data.replaceBaseUnarmed ?? false);
+        this.data.replaceBasicUnarmed = !!(this.data.replaceBaseUnarmed ?? false);
 
         this.weapon = this.constructWeapon();
     }
@@ -107,7 +107,7 @@ interface StrikeSource extends RuleElementSource {
     range?: unknown;
     traits?: unknown;
     replaceAll?: unknown;
-    replaceBaseUnarmed?: unknown;
+    replaceBasicUnarmed?: unknown;
     options?: unknown;
 }
 
@@ -121,7 +121,7 @@ interface StrikeData extends RuleElementData {
     range: WeaponRange | null;
     traits: WeaponTrait[];
     replaceAll: boolean;
-    replaceBaseUnarmed: boolean;
+    replaceBasicUnarmed: boolean;
     options?: string[];
 }
 
