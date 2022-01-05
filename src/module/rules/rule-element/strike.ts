@@ -50,7 +50,7 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
     override onAfterPrepareData(): void {
-        if (this.data.replaceBaseUnarmed && this.actor.data.type === "character") {
+        if (this.data.replaceBasicUnarmed && this.actor.data.type === "character") {
             const systemData = this.actor.data.data;
             systemData.actions = systemData.actions.filter((action) => action.weapon?.slug !== "unarmed");
         }
