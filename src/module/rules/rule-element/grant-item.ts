@@ -99,8 +99,9 @@ class GrantItemRuleElement extends RuleElementPF2e {
             );
             if (rule) {
                 const ruleSource = source.data.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
-                rule.data.selection = selection;
-                ruleSource.selection = selection;
+                const resolvedSelection =
+                    typeof selection === "string" ? this.resolveInjectedProperties(selection) : selection;
+                rule.data.selection = ruleSource.selection = resolvedSelection;
             }
         }
     }
