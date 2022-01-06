@@ -25,7 +25,7 @@ export class CraftingFormula implements CraftingFormulaData {
             });
 
         /** Use the passed batch size if provided or otherwise according to the following */
-        this.batchSize = Math.max(batchSize ?? 1, this.minimumBatchSize);
+        this.batchSize = Math.max(batchSize ?? 1, this.defaultBatchSize);
 
         /** Is the formula on the actor and therefore deletable? */
         this.deletable = deletable;
