@@ -919,7 +919,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
                 typeof conditionSource?.data.value.value === "number" && min && max
-                    ? Math.min(Math.max(min, conditionSource.data.value.value), max)
+                    ? Math.clamped(conditionSource.data.value.value), min, max)
                     : null;
             conditionSource.data.value.value = conditionValue;
             await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
