@@ -1,0 +1,64 @@
+{
+    "_id": "c6SiBB3mzV8lZUQr",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>The creature gains resistance to either acid, electricity, or sonic according to its Protean Anatomy.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "elementChoice",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.elementChoice}",
+                "value": "@actor.data.data.custom.modifiers.proteanResistance"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/proliferating-eyes.webp",
+    "name": "Effect: Protean Anatomy",
+    "type": "effect"
+}
