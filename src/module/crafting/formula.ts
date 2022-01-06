@@ -25,7 +25,7 @@ export class CraftingFormula implements CraftingFormulaData {
             });
 
         /** Use the passed batch size if provided or otherwise according to the following */
-        this.batchSize = Math.max(batchSize ?? 1, this.minimumBatchSize);
+        this.batchSize = Math.max(batchSize ?? 1, this.defaultBatchSize);
 
         /** Is the formula on the actor and therefore deletable? */
         this.deletable = deletable;
@@ -66,10 +66,7 @@ export class CraftingFormula implements CraftingFormulaData {
             (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
             (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
 
-        return Math.max(
-            this.minimumBatchSize,
-            isMundaneAmmo ? 10 : item.slug === "rations" ? 28 : isConsumable ? 4 : 1
-        );
+        return Math.max(this.minimumBatchSize, isMundaneAmmo ? 10 : isConsumable ? 4 : 1);
     }
 
     get description(): string {
