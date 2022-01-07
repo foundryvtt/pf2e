@@ -5,6 +5,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { ActorSourcePF2e } from "@actor/data";
+import { RuleElementSource } from "@module/rules";
 
 export interface PackMetadata {
     system: string;
@@ -65,7 +66,7 @@ export class CompendiumPack {
 
         CompendiumPack.namesToIds.set(this.name, new Map());
         const packMap = CompendiumPack.namesToIds.get(this.name);
-        if (packMap === undefined) {
+        if (!packMap) {
             throw PackError(`Compendium ${this.name} (${packDir}) was not found.`);
         }
 
@@ -172,6 +173,23 @@ export class CompendiumPack {
 
             if (isPhysicalData(docSource)) {
                 docSource.data.equipped.value = false;
+            }
+
+            // Convert uuids with names in GrantItem REs to well-formedness
+            if (isItemSource(docSource)) {
+                const rules: Array<RuleElementSource & { uuid?: unknown }> = docSource.data.rules;
+                for (const rule of rules) {
+                    if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
+                        const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.(.+)$/.exec(rule.uuid);
+                        const [, packId, docName] = match ?? [null, null, null];
+                        const docId = CompendiumPack.namesToIds.get(packId ?? "")?.get(docName ?? "");
+                        if (docName && docId) {
+                            rule.uuid = rule.uuid.replace(docName, docId);
+                        } else {
+                            throw PackError(`Unable to resolve UUID: ${rule.uuid}`);
+                        }
+                    }
+                }
             }
         }
 
