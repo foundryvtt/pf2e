@@ -907,6 +907,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (existing) {
             const conditionValue = (() => {
                 if (existing.value === null) return null;
+                if (min && max && min > max) throw ErrorPF2e(`min (${min}) > max (${max})`);
                 return min && max
                     ? Math.clamped(existing.value + 1, min, max)
                     : max
