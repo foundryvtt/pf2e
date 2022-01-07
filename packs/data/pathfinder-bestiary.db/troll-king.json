@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "regeneration 30 ",
+                "details": "regeneration 30 (deactivated by acid or fire)",
                 "max": 220,
                 "temp": 0,
                 "value": 220
@@ -42,6 +42,7 @@
                 "value": 19
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -56,7 +57,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>Some trolls have learned the skills necessary to survive well beyond the typical life expectancy for their kind and rally others to follow their lead. These champions develop a number of talents that make them worthy leaders and potent hunters-namely their abilities to willingly boost the rate of their regeneration and to shake off the acid and fire that would hinder it, not to mention a bestial roar that can send would-be predators scurrying off. Troll kings possess a cunning far beyond their younger kin- they know to keep their allies close, and their enemies even closer. If a troll king so much as suspects that one of its followers is plotting to usurp it, retribution is swift and fatal.</p>",
+            "publicNotes": "<p>Some trolls have learned the skills necessary to survive well beyond the typical life expectancy for their kind and rally others to follow their lead. These champions develop a number of talents that make them worthy leaders and potent hunters-namely their abilities to willingly boost the rate of their regeneration and to shake off the acid and fire that would hinder it, not to mention a bestial roar that can send would-be predators scurrying off. Troll kings possess a cunning far beyond their younger kin- they know to keep their allies close, and their enemies even closer. If a troll king so much as suspects that one of its followers is plotting to usurp it, retribution is swift and fatal.</p>\n<hr />\n<p>Slavering, cruel, practically invincible brutes: this is the villager's stock description for the dread monsters known as trolls. But words hardly do justice to trolls' capacity for destruction. They are as bloodthirsty as orcs but lacking the discipline, as massive as giants but capable of regenerating wounded flesh in an instant, and as reprobate as ogres but with twice the strength. The only way to really understand the wanton violence of a troll is to experience it firsthand-a fate few would wish even upon their worst enemies.</p>\n<p>The first thing that comes to mind when most think of trolls is the creatures' power of bodily regeneration. So potent is this regeneration that the only way to overcome it is to exploit the troll's vulnerability to acid and fire. It is not enough to slay the troll with caustic or flaming weapons, though-even the smallest scrap of a troll's flesh can regenerate into a full-size troll given enough time. The only sure way to eradicate a troll menace is to burn the monster's entire body until nothing remains.</p>\n<p>Trolls are solitary hunters, for their wickedness is anathema even to other giants. They occasionally roam in small gangs of two to four, but only when prey is plentiful or a particularly strong counterforce has broached their hunting grounds. In rare instances, an old and powerful troll comes to lead small tribes of trolls. Such \"troll kings\" possess enough cunning to lead their hordes in devastating raids and massacres, and their presence permanently alters the surrounding ecosystem. A wide variety of trolls exist, from the terrible monster traditionally associated with the name to the water-dwelling scrag and hybrid flood troll. Regional variations exist as well-mountain trolls among stony peaks, for instance, or moss trolls in swampy bayous-but all share the same trademark regenerative powers and insatiable thirst for blood.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -85,9 +86,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -124,6 +124,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -168,6 +169,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -207,25 +209,25 @@
             "type": "melee"
         },
         {
-            "_id": "HS9epq482gCCdlaz",
+            "_id": "khvFVWc6itmsBv7T",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -242,10 +244,106 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "M4f06NOUIcSyQNr2",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 30 (Deactivated by Acid or Fire)",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "g4bJ3hTpL9J2uQKp",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -261,7 +359,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The troll king takes persistent acid or fire damage.</p>\n<p><strong>Effect</strong> The troll king shakes itself to remove persistent acid or fire effects. The troll king immediately attempts a DC 15 flat check to end the persistent damage that triggered this reaction. If the troll king succeeds at this check, it can immediately use Primordial Roar as part of this reaction.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The troll king takes @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent} acid or fire damage.</p>\n<p><strong>Effect</strong> The troll king shakes itself to remove persistent acid or fire effects. The troll king immediately attempts a <span data-pf2-check=\"flat\" data-pf2-dc=\"15\">DC 15 flat check</span> to end the persistent damage that triggered this reaction. If the troll king succeeds at this check, it can immediately use Primordial Roar as part of this reaction.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -287,7 +385,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Vigorous Shake",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -303,7 +401,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The troll king's regeneration is not currently deactivated.</p>\n<p><strong>Effect</strong> The troll king regains 15 HP.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The troll king's regeneration is not currently deactivated.</p>\n<p><strong>Effect</strong> The troll king regains [[/r {15}[healing]]]{15 HP}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -331,7 +429,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Forced Regeneration",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -347,7 +445,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The troll king unleashes a bestial roar. Each non-troll creature within 100 feet must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"29\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Primordial Roar DC\" data-pf2-show-dc=\"gm\">Will</span> save. The creature is then temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is frightened 1.</p>\n<p><strong>Failure</strong> The creature is frightened 2.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 3.</p>"
+                    "value": "<p>The troll king unleashes a bestial roar. Each non-troll creature within @Template[type:emanation|distance:100]{100 feet} must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"29\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Primordial Roar DC\" data-pf2-show-dc=\"gm\">Will</span> save. The creature is then temporarily immune for 10 minutes.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,11 +476,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Primordial Roar",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "Svt48vM1uvsYOsJN",
+            "_id": "IKXHj9lMhQ6Qy07y",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -394,13 +492,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<p>claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -417,10 +515,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -462,7 +564,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Unstoppable Charge",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -495,7 +597,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -528,7 +630,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -561,7 +663,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
