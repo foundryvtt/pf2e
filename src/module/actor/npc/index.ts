@@ -722,6 +722,9 @@ export class NPCPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+
+        // Update this.synthetics; This should always be at the end of prepareDerivedData
+        mergeObject(this.synthetics, synthetics);
     }
 
     prepareSaves(synthetics: RuleElementSynthetics) {
