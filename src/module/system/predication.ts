@@ -1,17 +1,4 @@
-type Atom = string;
-type Conjunction = { and: PredicateStatement[] };
-type Disjunction = { or: PredicateStatement[] };
-type Negation = { not: PredicateStatement };
-type JointDenial = { nor: PredicateStatement[] };
-type Conditional = { if: PredicateStatement; then: PredicateStatement };
-type PredicateStatement = Atom | Conjunction | Disjunction | JointDenial | Negation | Conditional;
-
-interface RawPredicate {
-    all?: PredicateStatement[];
-    any?: PredicateStatement[];
-    not?: PredicateStatement[];
-    label?: string;
-}
+import { isObject } from "@util";
 
 /**
  * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
@@ -74,8 +61,34 @@ class PredicatePF2e implements RawPredicate {
     private isTrue(statement: PredicateStatement, domain: Set<string>): boolean {
         return (
             (typeof statement === "string" && domain.has(statement)) ||
-            (typeof statement !== "string" && this.testCompound(statement, domain))
+            (StatementValidator.isBinaryOp(statement) && this.testBinaryOp(statement, domain)) ||
+            (StatementValidator.isCompound(statement) && this.testCompound(statement, domain))
         );
+    }
+
+    private testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
+        if ("eq" in statement) {
+            return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
+        } else {
+            const operator = Object.keys(statement)[0];
+            const [left, right] = Object.values(statement)[0];
+            const numericValues = Array.from(domain).flatMap((s) =>
+                s.startsWith(left) ? Number(/:(\d+)$/.exec(s)?.[1]) : []
+            );
+            switch (operator) {
+                case "gt":
+                    return numericValues.some((n) => n > right);
+                case "gte":
+                    return numericValues.some((n) => n >= right);
+                case "lt":
+                    return numericValues.some((n) => n < right);
+                case "lte":
+                    return numericValues.some((n) => n <= right);
+                default:
+                    console.warn("PF2e System | Malformed binary operation encounter");
+                    return false;
+            }
+        }
     }
 
     /** Is the provided compound statement true? */
@@ -97,27 +110,44 @@ class StatementValidator {
 
     private static isStatement(statement: unknown): statement is PredicateStatement {
         return statement instanceof Object
-            ? this.isCompound(statement)
+            ? this.isCompound(statement) || this.isBinaryOp(statement)
             : typeof statement === "string"
             ? this.isAtomic(statement)
             : false;
     }
 
-    private static isAtomic(statement: unknown): boolean {
-        return typeof statement === "string" && statement.length > 0;
+    static isAtomic(statement: unknown): statement is Atom {
+        return (typeof statement === "string" && statement.length > 0) || this.isBinaryOp(statement);
     }
 
-    private static isCompound(statement: object): boolean {
+    private static binaryOperators = new Set(["eq", "gt", "gte", "lt", "lte"]);
+
+    static isBinaryOp(statement: unknown): statement is BinaryOperation {
+        if (!isObject(statement)) return false;
+        const entries = Object.entries(statement);
+        if (entries.length > 1) return false;
+        const [operator, operands]: [string, unknown] = entries[0];
         return (
-            this.isAnd(statement) ||
-            this.isOr(statement) ||
-            this.isNor(statement) ||
-            this.isNot(statement) ||
-            this.isIf(statement)
+            this.binaryOperators.has(operator) &&
+            Array.isArray(operands) &&
+            operands.length === 2 &&
+            typeof operands[0] === "string" &&
+            ["string", "number"].includes(typeof operands[1])
         );
     }
 
-    private static isAnd(statement: { and?: unknown }): boolean {
+    static isCompound(statement: unknown): statement is CompoundStatement {
+        return (
+            isObject(statement) &&
+            (this.isAnd(statement) ||
+                this.isOr(statement) ||
+                this.isNor(statement) ||
+                this.isNot(statement) ||
+                this.isIf(statement))
+        );
+    }
+
+    static isAnd(statement: { and?: unknown }): statement is Conjunction {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.and) &&
@@ -125,7 +155,7 @@ class StatementValidator {
         );
     }
 
-    private static isOr(statement: { or?: unknown }): boolean {
+    static isOr(statement: { or?: unknown }): statement is Disjunction {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.or) &&
@@ -133,7 +163,7 @@ class StatementValidator {
         );
     }
 
-    private static isNor(statement: { nor?: unknown }): boolean {
+    static isNor(statement: { nor?: unknown }): statement is JointDenial {
         return (
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.nor) &&
@@ -141,15 +171,39 @@ class StatementValidator {
         );
     }
 
-    private static isNot(statement: { not?: unknown }): boolean {
+    static isNot(statement: { not?: unknown }): statement is Negation {
         return Object.keys(statement).length === 1 && !!statement.not && this.isStatement(statement.not);
     }
 
-    private static isIf(statement: { if?: unknown; then?: unknown }): boolean {
+    static isIf(statement: { if?: unknown; then?: unknown }): statement is Conditional {
         return (
             Object.keys(statement).length === 2 && this.isStatement(statement.if) && this.isStatement(statement.then)
         );
     }
+}
+
+type EqualTo = { eq: [string, string | number] };
+type GreaterThan = { gt: [string, number] };
+type GreaterThanEqualTo = { gte: [string, number] };
+type LessThan = { lt: [string, number] };
+type LessThanEqualTo = { lte: [string, number] };
+type BinaryOperation = EqualTo | GreaterThan | GreaterThanEqualTo | LessThan | LessThanEqualTo;
+type Atom = string | BinaryOperation;
+
+type Conjunction = { and: PredicateStatement[] };
+type Disjunction = { or: PredicateStatement[] };
+type Negation = { not: PredicateStatement };
+type JointDenial = { nor: PredicateStatement[] };
+type Conditional = { if: PredicateStatement; then: PredicateStatement };
+type CompoundStatement = Conjunction | Disjunction | JointDenial | Negation | Conditional;
+
+type PredicateStatement = Atom | CompoundStatement;
+
+interface RawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
+    label?: string;
 }
 
 export { PredicateStatement, PredicatePF2e, RawPredicate };
