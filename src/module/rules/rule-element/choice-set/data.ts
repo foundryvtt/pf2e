@@ -35,7 +35,7 @@ export interface ChoiceSetSource extends RuleElementSource {
 }
 
 export interface ChoiceSetFeatQuery {
-    filter?: PredicatePF2e;
+    postFilter?: PredicatePF2e;
     pack?: string;
     query: string;
 }
