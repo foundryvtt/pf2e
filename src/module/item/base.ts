@@ -519,10 +519,15 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const source = this.collection.fromCompendium(JSON.parse(json));
+        const source = JSON.parse(json);
         source._id = this.id;
-        const data = new ItemPF2e.schema(source);
-        this.data.update(data.toObject(), { recursive: false });
+        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
+        const data = new (this.constructor as typeof ItemPF2e).schema(processed);
+
+        const { folder, sort, permission } = this.data;
+        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
+            recursive: false,
+        });
 
         await MigrationRunner.ensureSchemaVersion(
             this,

@@ -941,10 +941,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const source: unknown = JSON.parse(json);
         if (!this.canImportJSON(source)) return this;
 
-        const processed = this.collection.fromCompendium(source, { addFlags: false });
-        processed._id = this.id;
-        const data = new ActorPF2e.schema(processed);
-        this.data.update(data.toObject(), { recursive: false });
+        source._id = this.id;
+        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
+        const data = new (this.constructor as typeof ActorPF2e).schema(processed);
+
+        const { folder, sort, permission } = this.data;
+        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
+            recursive: false,
+        });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
@@ -952,7 +956,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             { preCreate: false }
         );
 
-        return this.update(this.toObject(), { diff: false, recursive: false, keepId: true });
+        return this.update(this.toObject(), { diff: false, recursive: false });
     }
 
     /** Determine whether a requested JSON import can be performed */
