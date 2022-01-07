@@ -15,6 +15,10 @@ export class EffectPF2e extends ItemPF2e {
         days: 86400,
     });
 
+    get level(): number {
+        return this.data.data.level.value;
+    }
+
     get isExpired(): boolean {
         return this.data.data.expired;
     }
