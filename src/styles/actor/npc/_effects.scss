@@ -1,7 +1,13 @@
-.expandable {
-    display: none;
+@use '../../mixins/effects_list';
 
-    &.expanded {
-        display: flex;
+@include configure($alt-color:$alt-color);
+
+.effects {
+    .section-body {
+        .effects-list{
+            @include effects-list;
+            padding-left: 0px;
+            padding-right: 5px;
+        }
     }
 }

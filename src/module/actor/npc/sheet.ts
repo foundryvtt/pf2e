@@ -6,10 +6,10 @@ import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
+import { ConditionPF2e } from "@item";
 import {
     ActionData,
     ArmorData,
-    ConditionData,
     ConsumableData,
     EffectData,
     EquipmentData,
@@ -86,7 +86,6 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     data: NPCSystemSheetData;
     items: SheetItemData[];
     effectItems: EffectData[];
-    //conditions: ConditionData[];
     conditions: FlattenedCondition[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
@@ -204,10 +203,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareActions(sheetData);
         sheetData.inventory = this.prepareInventory(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
-        /**sheetData.conditions = sheetData.items.filter(
-            (data): data is SheetItemData<ConditionData> => data.type === "condition"
-        );**/
-        sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions( this.actor.itemTypes.condition);
+        sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is SheetItemData<EffectData> => data.type === "effect"
         );
@@ -357,6 +353,26 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             event.preventDefault();
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
+        });
+
+        html.find(".decrement").on("click", async (event) => {
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await actor.decreaseCondition(effect);
+            }
+        });
+
+        html.find(".increment").on("click", async (event) => {
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await actor.increaseCondition(effect);
+            }
         });
     }
 
