@@ -1,6 +1,6 @@
 import { PredicatePF2e } from "@system/predication";
 
-describe("Predication with atomics return correct results", () => {
+describe("Predication with string atomics return correct results", () => {
     test("atomics with the `all` quantifier", () => {
         const predicate = new PredicatePF2e({ all: ["foo", "bar", "baz"] });
         expect(predicate.test(["foo"])).toEqual(false);
@@ -23,6 +23,24 @@ describe("Predication with atomics return correct results", () => {
         expect(predicate.test(["foo", "bar", "baz"])).toEqual(false);
         expect(predicate.test([])).toEqual(true);
         expect(predicate.test(["bat"])).toEqual(true);
+    });
+});
+
+describe("Predication with numeric-comparison atomics return correct results", () => {
+    test("greater-than, less-than", () => {
+        const predicate = new PredicatePF2e({ all: [{ gt: ["foo", 2] }, { lt: ["bar", 2] }] });
+        expect(predicate.test(["foo:1", "bar:3"])).toEqual(false);
+        expect(predicate.test(["foo:2", "bar:2"])).toEqual(false);
+        expect(predicate.test(["foo:3", "bar:1"])).toEqual(true);
+    });
+
+    test("greater-than-or-equal-to, less-than-or-equal-to", () => {
+        const predicate = new PredicatePF2e({ all: [{ gte: ["foo", 3] }, { lte: ["bar", 3] }] });
+        expect(predicate.test(["foo:1", "bar:4"])).toEqual(false);
+        expect(predicate.test(["foo:2", "bar:3"])).toEqual(false);
+        expect(predicate.test(["foo:3", "bar:3"])).toEqual(true);
+        expect(predicate.test(["foo:3", "bar:2"])).toEqual(true);
+        expect(predicate.test(["foo:4", "bar:1"])).toEqual(true);
     });
 });
 
