@@ -103,6 +103,10 @@ export class HomebrewElements extends SettingsMenuPF2e {
                 },
             });
         }
+
+        // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
+        // it has the value "true"
+        $form.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
