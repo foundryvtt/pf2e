@@ -236,14 +236,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             label: string;
             feats: SlottedFeat[];
             bonusFeats: { data: FeatData; grants: GrantedFeat[] }[];
+            featFilter?: string;
         }
 
         const tempFeats: FeatData[] = [];
         const featSlots: Record<string, FeatSlot> = {
             ancestryfeature: { label: "PF2E.FeaturesAncestryHeader", feats: [], bonusFeats: [] },
             classfeature: { label: "PF2E.FeaturesClassHeader", feats: [], bonusFeats: [] },
-            ancestry: { label: "PF2E.FeatAncestryHeader", feats: [], bonusFeats: [] },
-            class: { label: "PF2E.FeatClassHeader", feats: [], bonusFeats: [] },
+            ancestry: {
+                label: "PF2E.FeatAncestryHeader",
+                feats: [],
+                bonusFeats: [],
+                featFilter: "ancestry-" + this.actor.ancestry?.slug,
+            },
+            class: {
+                label: "PF2E.FeatClassHeader",
+                feats: [],
+                bonusFeats: [],
+                featFilter: "classes-" + this.actor.class?.slug,
+            },
             dualclass: { label: "PF2E.FeatDualClassHeader", feats: [], bonusFeats: [] },
             archetype: { label: "PF2E.FeatArchetypeHeader", feats: [], bonusFeats: [] },
             skill: { label: "PF2E.FeatSkillHeader", feats: [], bonusFeats: [] },
