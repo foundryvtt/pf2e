@@ -45,7 +45,7 @@ export class ConditionPF2e extends ItemPF2e {
     /** Set a self roll option for this condition */
     override prepareActorData(this: Embedded<ConditionPF2e>): void {
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`${self}:condition:${slug}`] = true;
+        this.actor.rollOptions.all[`self:condition:${slug}`] = true;
         if (this.slug === "flat-footed") {
             this.actor.rollOptions.all["self:flatFooted"] = true;
         }
