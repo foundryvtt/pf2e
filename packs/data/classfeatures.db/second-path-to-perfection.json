@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've learned to find perfection in every success. Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>\n<hr />\n<p>@Compendium[pf2e.classfeatures.Second Path to Perfection (Fortitude)]{Second Path to Perfection (Fortitude)}</p>\n<p>@Compendium[pf2e.classfeatures.Second Path to Perfection (Reflex)]{Second Path to Perfection (Reflex)}</p>\n<p>@Compendium[pf2e.classfeatures.Second Path to Perfection (Will)]{Second Path to Perfection (Will)}</p>"
+            "value": "<p>You've learned to find perfection in every success. Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -25,31 +25,33 @@
         },
         "rules": [
             {
-                "adjustName": false,
                 "choices": [
                     {
+                        "label": "PF2E.SavesFortitude",
                         "predicate": {
                             "not": [
-                                "self:feature:path-to-perfection-fortitude"
+                                "self:path-to-perfection:fortitude"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.XZnPwZ0ohlDXlFea"
+                        "value": "fortitude"
                     },
                     {
+                        "label": "PF2E.SavesReflex",
                         "predicate": {
                             "not": [
-                                "self:feature:path-to-perfection-reflex"
+                                "self:path-to-perfection:reflex"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.yDL9l9Klki6gE2ZD"
+                        "value": "reflex"
                     },
                     {
+                        "label": "PF2E.SavesWill",
                         "predicate": {
                             "not": [
-                                "self:feature:path-to-perfection-will"
+                                "self:path-to-perfection:will"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.RVPhB0RqmoJg7xI6"
+                        "value": "will"
                     }
                 ],
                 "flag": "pathToPerfection",
@@ -57,8 +59,28 @@
                 "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
             },
             {
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.pathToPerfection}"
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.{item|flags.pf2e.rulesSelections.pathToPerfection}.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "text": "<p class=\"compact-text\"><strong>{item|name}</strong> When you roll a success on a save, you get a critical success instead.</p>"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:path-to-perfection:{item|flags.pf2e.rulesSelections.pathToPerfection}"
             }
         ],
         "source": {
@@ -74,7 +96,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "img": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
     "name": "Second Path to Perfection",
     "type": "feat"
 }
