@@ -33,6 +33,7 @@ import {
     MagicTraditionProficiencies,
     MartialProficiency,
     CharacterSheetTabVisibility,
+    LinkedProficiency,
 } from "./data";
 import { MultipleAttackPenaltyPF2e, RuleElementSynthetics, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
@@ -391,7 +392,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         this.prepareSaves(synthetics);
 
-        this.prepareMartialProficiencies(synthetics.martialProficiencies);
+        this.prepareMartialProficiencies();
 
         // Perception
         {
@@ -1245,18 +1246,19 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Prepare stored and synthetic martial proficiencies */
-    prepareMartialProficiencies(syntheticProficiencies: Record<string, MartialProficiency>): void {
+    prepareMartialProficiencies(): void {
         const systemData = this.data.data;
-        for (const [slug, proficiency] of Object.entries(deepClone(syntheticProficiencies))) {
-            if (proficiency.sameAs) {
-                // A linked proficiency
-                const category = systemData.martial[proficiency.sameAs ?? ""];
-                proficiency.rank = ((): ZeroToFour => {
-                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                    return Math.min(category.rank, maxRankIndex) as ZeroToFour;
-                })();
-            }
-            systemData.martial[slug] = proficiency;
+
+        // Set ranks of linked proficiencies to their respective categories
+        const linkedProficiencies = Object.values(systemData.martial).filter(
+            (p): p is LinkedProficiency => "sameAs" in p && String(p.sameAs) in systemData.martial
+        );
+        for (const proficiency of linkedProficiencies) {
+            const category = systemData.martial[proficiency.sameAs ?? ""];
+            proficiency.rank = ((): ZeroToFour => {
+                const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
+                return Math.min(category.rank, maxRankIndex) as ZeroToFour;
+            })();
         }
 
         // Deduplicate proficiencies, set proficiency bonuses to all
