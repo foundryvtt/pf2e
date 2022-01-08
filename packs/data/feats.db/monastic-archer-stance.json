@@ -27,77 +27,32 @@
             {
                 "definition": {
                     "all": [
-                        "weapon:trait:monk",
                         "weapon:group:bow"
                     ],
                     "any": [
-                        "weapon:category:simple",
-                        "weapon:category:martial"
+                        "weapon:base:longbow",
+                        "weapon:base:shortbow",
+                        {
+                            "and": [
+                                "weapon:trait:monk",
+                                {
+                                    "or": [
+                                        "weapon:category:simple",
+                                        "weapon:category:martial"
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleAndMartialMonkBows",
-                "slug": "simple-martial-monk-bows",
-                "value": 1
-            },
-            {
-                "definition": {
-                    "all": [
-                        "weapon:trait:monk",
-                        "weapon:group:bow"
-                    ],
-                    "any": [
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                },
-                "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleAndMartialMonkBows",
-                "predicate": {
-                    "all": [
-                        "self:feature:expert-strikes"
-                    ]
-                },
-                "slug": "simple-martial-monk-bows",
-                "value": 2
-            },
-            {
-                "definition": {
-                    "all": [
-                        "weapon:trait:monk",
-                        "weapon:group:bow"
-                    ],
-                    "any": [
-                        "weapon:category:simple",
-                        "weapon:category:martial"
-                    ]
-                },
-                "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleAndMartialMonkBows",
-                "predicate": {
-                    "all": [
-                        "self:feature:master-strikes"
-                    ]
-                },
-                "slug": "simple-martial-monk-bows",
-                "value": 3
+                "label": "",
+                "slug": "monastic-archery"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-shortbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "data.martial.weapon-base-longbow.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "data.martial.weapon-base-shortbow.rank",
+                "path": "data.martial.monastic-archery.rank",
                 "predicate": {
                     "all": [
                         "self:feature:expert-strikes"
@@ -108,29 +63,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-longbow.rank",
-                "predicate": {
-                    "all": [
-                        "self:feature:expert-strikes"
-                    ]
-                },
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "data.martial.weapon-base-shortbow.rank",
-                "predicate": {
-                    "all": [
-                        "self:feature:master-strikes"
-                    ]
-                },
-                "value": 3
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "data.martial.weapon-base-longbow.rank",
+                "path": "data.martial.monastic-archery.rank",
                 "predicate": {
                     "all": [
                         "self:feature:master-strikes"
