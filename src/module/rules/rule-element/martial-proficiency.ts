@@ -1,22 +1,28 @@
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementSynthetics } from "./";
 import { CharacterPF2e } from "@actor";
-import { CharacterProficiency, MartialProficiency } from "@actor/character/data";
+import { MartialProficiency } from "@actor/character/data";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ProficiencyRank } from "@item/data";
 import { WeaponCategory } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { AELikeRuleElement, AELikeRuleElementData, AELikeRuleElementSource } from "./ae-like";
 
-class MartialProficiencyRuleElement extends RuleElementPF2e {
+class MartialProficiencyRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character"];
 
     constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>) {
+        data.mode = "override";
+        data.priority = 9;
+        data.path = `data.martial.${data.slug}`;
+        data.value = {};
         super(data, item);
         if (!this.dataIsValid(this.data)) {
             this.failValidation("A martial proficiency must have a slug and definition");
         }
+
         this.data.immutable = Boolean(data.immutable ?? true);
+        this.data.value = this.createValue();
     }
 
     private dataIsValid(data: MartialProficiencySource): boolean {
@@ -30,13 +36,8 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
         );
     }
 
-    /** Add this martial proficiency to the synthetics record */
-    override onBeforePrepareData({ martialProficiencies }: RuleElementSynthetics): void {
-        if (this.ignored) return;
-
-        // If an AE-like has created this proficiency already by upgrading its rank, get the existing rank
-        const existingProficiencies = this.actor.data.data.martial;
-
+    /** Set this martial proficiency as an AELike value  */
+    private createValue(): MartialProficiency {
         // Run the definition through resolveInjectedProperties
         for (const quantifier of ["all", "any", "not"] as const) {
             const statements = (this.data.definition[quantifier] ??= []);
@@ -47,38 +48,28 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
             }
         }
 
-        const newProficiency: MartialProficiency = (martialProficiencies[this.data.slug] = {
+        const proficiency: MartialProficiency = {
             definition: new PredicatePF2e(this.data.definition),
             immutable: this.data.immutable ?? true,
             label: this.label,
-            rank: Math.max(
-                Number(this.data.value) || 1,
-                existingProficiencies[this.data.slug]?.rank ?? 0
-            ) as ZeroToFour,
+            rank: (Number(this.data.value) || 1) as ZeroToFour,
             value: 0,
             breakdown: "",
-        });
+        };
+        if (this.data.sameAs) proficiency.sameAs = this.data.sameAs;
+        if (this.data.maxRank) proficiency.maxRank = this.data.maxRank;
 
-        if (this.data.sameAs) {
-            const baseProficiencies = this.actor.data.data.martial;
-            const proficiency: CharacterProficiency = baseProficiencies[this.data.sameAs];
-            if (!proficiency) {
-                return this.failValidation(`Proficiency "${this.data.sameAs}" not found`);
-            }
-            newProficiency.sameAs = this.data.sameAs;
-        }
-
-        if (this.data.maxRank) newProficiency.maxRank = this.data.maxRank;
+        return proficiency;
     }
 }
 
-interface MartialProficiencyRuleElement extends RuleElementPF2e {
+interface MartialProficiencyRuleElement extends AELikeRuleElement {
     data: MartialProficiencyData;
 
     get actor(): CharacterPF2e;
 }
 
-interface MartialProficiencyData extends RuleElementData {
+interface MartialProficiencyData extends AELikeRuleElementData {
     key: "MartialProficiency";
     /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
     slug: string;
@@ -92,7 +83,7 @@ interface MartialProficiencyData extends RuleElementData {
     maxRank?: Exclude<ProficiencyRank, "untrained">;
 }
 
-export interface MartialProficiencySource extends RuleElementSource {
+export interface MartialProficiencySource extends AELikeRuleElementSource {
     definition?: unknown;
     sameAs?: unknown;
     immutable?: unknown;
