@@ -907,8 +907,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (existing) {
             const conditionValue = (() => {
                 if (existing.value === null) return null;
+                if (min && max && min > max) throw ErrorPF2e(`min (${min}) > max (${max})`);
                 return min && max
-                    ? Math.min(Math.max(min, existing.value), max)
+                    ? Math.clamped(existing.value + 1, min, max)
                     : max
                     ? Math.min(existing.value + 1, max)
                     : existing.value + 1;
@@ -919,7 +920,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
                 typeof conditionSource?.data.value.value === "number" && min && max
-                    ? Math.min(Math.max(min, conditionSource.data.value.value), max)
+                    ? Math.clamped(conditionSource.data.value.value, min, max)
                     : null;
             conditionSource.data.value.value = conditionValue;
             await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
@@ -940,10 +941,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const source: unknown = JSON.parse(json);
         if (!this.canImportJSON(source)) return this;
 
-        const processed = this.collection.fromCompendium(source, { addFlags: false });
-        processed._id = this.id;
-        const data = new ActorPF2e.schema(processed);
-        this.data.update(data.toObject(), { recursive: false });
+        source._id = this.id;
+        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
+        const data = new (this.constructor as typeof ActorPF2e).schema(processed);
+
+        const { folder, sort, permission } = this.data;
+        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
+            recursive: false,
+        });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
@@ -951,7 +956,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             { preCreate: false }
         );
 
-        return this.update(this.toObject(), { diff: false, recursive: false, keepId: true });
+        return this.update(this.toObject(), { diff: false, recursive: false });
     }
 
     /** Determine whether a requested JSON import can be performed */
