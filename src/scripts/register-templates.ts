@@ -52,6 +52,7 @@ export function registerTemplates() {
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",
         "systems/pf2e/templates/actors/npc/tabs/inventory.html",
+        "systems/pf2e/templates/actors/npc/tabs/effects.html",
         "systems/pf2e/templates/actors/npc/tabs/spells.html",
         "systems/pf2e/templates/actors/npc/tabs/notes.html",
         "systems/pf2e/templates/actors/npc/partials/header.html",
