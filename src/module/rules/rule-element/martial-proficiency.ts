@@ -34,10 +34,6 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData({ martialProficiencies }: RuleElementSynthetics): void {
         if (this.ignored) return;
 
-        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions(["all"]))) {
-            return;
-        }
-
         // If an AE-like has created this proficiency already by upgrading its rank, get the existing rank
         const existingProficiencies = this.actor.data.data.martial;
 
