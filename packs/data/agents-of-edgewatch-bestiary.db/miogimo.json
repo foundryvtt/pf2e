@@ -2482,18 +2482,37 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Katana",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "custom": "Two-Hand 3d10",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "deadly-2d8",
                         "disarm",
                         "magical",
+                        "two-hand-d10",
                         "versatile-p"
                     ]
                 },
@@ -2609,6 +2628,51 @@
             "type": "action"
         },
         {
+            "_id": "5qAf1qV6aq6q3pQl",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Each time a creature willingly performs a service, quest, or task for the zealborn, the creature takes a cumulative -1 status penalty to saving throws against the zealborn's mental spells and abilities (maximum -4).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Little Favors",
+            "sort": 2300000,
+            "type": "action"
+        },
+        {
             "_id": "2S79HfbIxhTAsZFh",
             "data": {
                 "actionCategory": {
@@ -2651,7 +2715,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2709,51 +2773,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to Will Saves vs Mental",
-            "sort": 2400000,
-            "type": "action"
-        },
-        {
-            "_id": "5qAf1qV6aq6q3pQl",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Each time a creature willingly performs a service, quest, or task for the zealborn, the creature takes a cumulative -1 status penalty to saving throws against the zealborn's mental spells and abilities (maximum -4).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "mental",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Little Favors",
             "sort": 2500000,
             "type": "action"
         },
