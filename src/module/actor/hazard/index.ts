@@ -67,7 +67,6 @@ export class HazardPF2e extends ActorPF2e {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const synthetics: RuleElementSynthetics = {
             damageDice: {},
-            martialProficiencies: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],
