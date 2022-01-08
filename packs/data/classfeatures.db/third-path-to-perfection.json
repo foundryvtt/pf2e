@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You have made great progress in your personal studies of enlightenment. Choose one of the saving throws you selected for path to perfection or second path to perfection. Your proficiency rank for the chosen type of save increases to legendary. When you roll a critical failure on the chosen type of save, you get a failure instead. When you roll a failure on the chosen type of save against an effect that deals damage, you take half damage.</p>\n<hr />\n<p>@Compendium[pf2e.classfeatures.Third Path to Perfection (Fortitude)]{Third Path to Perfection (Fortitude)}</p>\n<p>@Compendium[pf2e.classfeatures.Third Path to Perfection (Reflex)]{Third Path to Perfection (Reflex)}</p>\n<p>@Compendium[pf2e.classfeatures.Third Path to Perfection (Will)]{Third Path to Perfection (Will)}</p>"
+            "value": "<p>You have made great progress in your personal studies of enlightenment. Choose one of the saving throws you selected for path to perfection or second path to perfection. Your proficiency rank for the chosen type of save increases to legendary. When you roll a critical failure on the chosen type of save, you get a failure instead. When you roll a failure on the chosen type of save against an effect that deals damage, you take half damage.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -25,34 +25,33 @@
         },
         "rules": [
             {
-                "adjustName": false,
                 "choices": [
                     {
+                        "label": "PF2E.SavesFortitude",
                         "predicate": {
-                            "any": [
-                                "self:feature:path-to-perfection-fortitude",
-                                "self:feature:second-path-to-perfection-fortitude"
+                            "not": [
+                                "self:path-to-perfection:fortitude"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.dUMsM0yDTCdV31p6"
+                        "value": "fortitude"
                     },
                     {
+                        "label": "PF2E.SavesReflex",
                         "predicate": {
-                            "any": [
-                                "self:feature:path-to-perfection-reflex",
-                                "self:feature:second-path-to-perfection-reflex"
+                            "not": [
+                                "self:path-to-perfection:reflex"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.8kukH9c4h82e3qjl"
+                        "value": "reflex"
                     },
                     {
+                        "label": "PF2E.SavesWill",
                         "predicate": {
-                            "any": [
-                                "self:feature:path-to-perfection-will",
-                                "self:feature:second-path-to-perfection-will"
+                            "not": [
+                                "self:path-to-perfection:will"
                             ]
                         },
-                        "value": "Compendium.pf2e.classfeatures.oVNRYF0FHbH8NsJD"
+                        "value": "will"
                     }
                 ],
                 "flag": "pathToPerfection",
@@ -60,8 +59,23 @@
                 "prompt": "PF2E.SpecificRule.Prompt.PathToPerfection"
             },
             {
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.pathToPerfection}"
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.saves.{item|flags.pf2e.rulesSelections.pathToPerfection}.rank",
+                "value": 3
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "selector": "{item|flags.pf2e.rulesSelections.pathToPerfection}",
+                "text": "<p class=\"compact-text\"><strong>{item|name}</strong> When you roll a critical failure on a save, you get a failure instead. When you roll a failure on a save against an effect that deals damage, you take half damage.</p>"
             }
         ],
         "source": {
@@ -77,7 +91,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "img": "systems/pf2e/icons/features/classes/third-path-to-perfection.webp",
     "name": "Third Path to Perfection",
     "type": "feat"
 }
