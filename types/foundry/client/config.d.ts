@@ -228,6 +228,7 @@ declare global {
             documentClass: ConstructorOf<TTokenDocument>;
             objectClass: new (...args: any[]) => TTokenDocument["object"];
             layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
+            prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
         /* -------------------------------------------- */
