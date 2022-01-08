@@ -12,7 +12,13 @@ import {
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "../data/values";
+import {
+    ABILITY_ABBREVIATIONS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_EXPANDED,
+} from "../data/values";
 import {
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
@@ -287,6 +293,8 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const abl of Object.values(systemData.abilities)) {
             abl.mod = Math.floor((abl.value - 10) / 2);
         }
+
+        this.setNumericRollOptions();
 
         const synthetics = this.prepareCustomModifiers(rules);
         if (!this.getFlag("pf2e", "disableABP")) {
@@ -779,6 +787,31 @@ export class CharacterPF2e extends CreaturePF2e {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
+        }
+    }
+
+    /** Set roll operations for ability scores and proficiency ranks */
+    private setNumericRollOptions(): void {
+        const rollOptionsAll = this.rollOptions.all;
+
+        rollOptionsAll[`self:level:${this.level}`] = true;
+
+        const perceptionRank = this.data.data.attributes.perception.rank;
+        rollOptionsAll[`self:perception:rank:${perceptionRank}`] = true;
+
+        for (const key of ABILITY_ABBREVIATIONS) {
+            const score = this.abilities[key].value;
+            rollOptionsAll[`self:ability:${key}:score:${score}`] = true;
+        }
+
+        for (const key of SKILL_ABBREVIATIONS) {
+            const rank = this.data.data.skills[key].rank;
+            rollOptionsAll[`self:skill:${key}:rank:${rank}`] = true;
+        }
+
+        for (const key of SAVE_TYPES) {
+            const rank = this.data.data.saves[key].rank;
+            rollOptionsAll[`self:save:${key}:rank:${rank}`] = true;
         }
     }
 
