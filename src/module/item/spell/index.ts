@@ -4,7 +4,7 @@ import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@module/damage-calculation";
 import { OneToTen } from "@module/data";
-import { ordinal, toNumber, objectHasKey, ErrorPF2e } from "@util";
+import { ordinal, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
@@ -218,7 +218,7 @@ export class SpellPF2e extends ItemPF2e {
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
-        const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? this.heightenedLevel);
+        const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.heightenedLevel);
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;

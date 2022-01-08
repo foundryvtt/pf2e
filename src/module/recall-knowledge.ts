@@ -19,7 +19,6 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from "./dc";
-import { toNumber } from "../util";
 
 const identifySkills = new Map<string, SkillAbbreviation[]>();
 identifySkills.set("aberration", ["occ"]);
@@ -70,7 +69,7 @@ export function identifyCreature(
     { proficiencyWithoutLevel = false }: DCOptions = {}
 ): IdentifyCreatureData {
     const rarity = creature.data.traits.rarity ?? "common";
-    const level = toNumber(creature.data.details.level?.value) ?? 0;
+    const level = Number(creature.data.details.level?.value) || 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
 
     const traits = creature.data.traits.traits.value;

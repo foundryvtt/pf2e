@@ -103,26 +103,7 @@ export function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
-/**
- * Parses a string, number, null or undefined into a Number
- * @param value
- * @return parsed value or undefined/null if either was provided or
- * undefined if it couldn't be parsed as a number
- */
-export function toNumber(value: Optional<string> | Optional<number>): Optional<number> {
-    if (value === null || value === undefined || typeof value === "number") {
-        return value as Optional<number>;
-    }
-    const result = parseInt(value, 10);
-    if (Number.isNaN(result)) {
-        return undefined;
-    }
-    return result;
-}
-
-/**
- * Used as a function reference
- */
+/** Used as a function reference */
 export function add(x: number, y: number): number {
     return x + y;
 }
