@@ -4,7 +4,7 @@ import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/n
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { StatisticData } from "@system/statistic";
+import { StatisticChatData } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
@@ -60,7 +60,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         dc: number;
         mod: number;
     };
-    statisticData?: StatisticData;
+    statisticData?: StatisticChatData;
     tradition: {
         value: MagicTradition | "";
     };
