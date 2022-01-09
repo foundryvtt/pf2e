@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 160,
                 "temp": 0,
                 "value": 160
@@ -42,6 +42,7 @@
                 "value": 8
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -56,7 +57,7 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>These towering horrors are animated from the corpses of monstrosities.</p>",
+            "publicNotes": "<p>These towering horrors are animated from the corpses of monstrosities.</p>\n<hr />\n<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -81,7 +82,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "mental",
                     "paralyzed",
@@ -108,7 +109,9 @@
                 "value": []
             },
             "rarity": "common",
-            "senses": [],
+            "senses": {
+                "value": "darkvision"
+            },
             "size": {
                 "value": "huge"
             },
@@ -126,6 +129,76 @@
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "whmcy3nyapkaz90s",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
         {
             "_id": "u0GbWrE4hwJyEA08",
             "data": {
@@ -167,7 +240,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hunk Of Meat",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -211,7 +284,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hunk Of Meat",
-            "sort": 200000,
+            "sort": 300000,
             "type": "melee"
         },
         {
@@ -256,8 +329,54 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Corpse",
-            "sort": 300000,
+            "sort": 400000,
             "type": "melee"
+        },
+        {
+            "_id": "peHpZeJ7VwkuSurw",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "TBlBPLZKvFBHjjgU",
@@ -298,7 +417,60 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "27wudVSiScZejHwt",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -314,7 +486,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A zombie hulk can throw corpses at foes. While any Medium dead body will do, they sometimes throw zombie shamblers, who take just as much damage from being thrown as the target they hit. A thrown shambler lands prone, but if it's not destroyed, it can rise and use other actions normally.</p>"
+                    "value": "<p>A zombie hulk can throw corpses at foes. While any Medium dead body will do, they sometimes throw @Compendium[pf2e.pathfinder-bestiary.Zombie Shambler]{Zombie Shamblers}, who take just as much damage from being thrown as the target they hit. A thrown shambler lands @Compendium[pf2e.conditionitems.Prone]{Prone}, but if it's not destroyed, it can rise and use other actions normally.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,7 +512,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corpse Throwing",
-            "sort": 500000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -382,7 +554,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wide Swing",
-            "sort": 600000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -415,7 +587,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
