@@ -27,7 +27,6 @@
             {
                 "adjustName": false,
                 "choices": {
-                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}",
                     "postFilter": {
                         "not": [
                             "item:animal-companion",
@@ -43,7 +42,8 @@
                             "item:versatile-performance",
                             "item:wild-shape"
                         ]
-                    }
+                    },
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
