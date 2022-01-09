@@ -113,6 +113,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
         const { details } = this.data.data;
+        const itemTypes = this.itemTypes;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -645,68 +646,73 @@ export class NPCPF2e extends CreaturePF2e {
                 };
 
                 data.actions.push(action);
-            } else if (itemData.type === "spellcastingEntry") {
-                const tradition = itemData.data.tradition.value;
-                const ability = itemData.data.ability.value || "int";
-                const abilityMod = data.abilities[ability].mod;
+            }
+        }
 
-                // There are still some bestiary entries where these values are strings
-                itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
-                itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
+        // Spellcasting Entries
+        for (const entry of itemTypes.spellcastingEntry) {
+            const tradition = entry.tradition;
+            const ability = entry.ability;
+            const abilityMod = data.abilities[ability].mod;
 
-                const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
-                const attackSelectors = [
-                    `${tradition}-spell-attack`,
-                    "spell-attack",
-                    "spell-attack-roll",
-                    "attack",
-                    "attack-roll",
-                ];
-                const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
+            // There are still some bestiary entries where these values are strings
+            entry.data.data.spelldc.dc = Number(entry.data.data.spelldc.dc);
+            entry.data.data.spelldc.value = Number(entry.data.data.spelldc.value);
 
-                // Check Modifiers, calculate using the user configured value
-                const baseMod = Number(itemData.data?.spelldc?.value ?? 0);
-                const attackModifiers = [
-                    new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...extractModifiers(statisticsModifiers, baseSelectors),
-                    ...extractModifiers(statisticsModifiers, attackSelectors),
-                ];
+            const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+            const attackSelectors = [
+                `${tradition}-spell-attack`,
+                "spell-attack",
+                "spell-attack-roll",
+                "attack",
+                "attack-roll",
+            ];
+            const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
-                // Save Modifiers, reverse engineer using the user configured value - 10
-                const baseDC = Number(itemData.data?.spelldc?.dc ?? 0);
-                const saveModifiers = [
-                    new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...extractModifiers(statisticsModifiers, baseSelectors),
-                    ...extractModifiers(statisticsModifiers, saveSelectors),
-                ];
+            // Check Modifiers, calculate using the user configured value
+            const baseMod = Number(entry.data.data?.spelldc?.value ?? 0);
+            const attackModifiers = [
+                new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                ...extractModifiers(statisticsModifiers, baseSelectors),
+                ...extractModifiers(statisticsModifiers, attackSelectors),
+            ];
 
-                // Assign statistic data to the spellcasting entry
-                itemData.data.statisticData = {
-                    slug: sluggify(itemData.name),
-                    notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
-                    domains: baseSelectors,
-                    check: {
-                        type: "spell-attack-roll",
-                        label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
-                        modifiers: attackModifiers,
-                        domains: attackSelectors,
-                    },
-                    dc: {
-                        modifiers: saveModifiers,
-                        domains: saveSelectors,
-                    },
-                };
+            // Save Modifiers, reverse engineer using the user configured value - 10
+            const baseDC = Number(entry.data.data?.spelldc?.dc ?? 0);
+            const saveModifiers = [
+                new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                ...extractModifiers(statisticsModifiers, baseSelectors),
+                ...extractModifiers(statisticsModifiers, saveSelectors),
+            ];
 
-                // The elite/weak modifier doesn't update the source data, so we do it again here
-                if (this.isElite) {
-                    itemData.data.spelldc.dc += 2;
-                    itemData.data.spelldc.value += 2;
-                } else if (this.isWeak) {
-                    itemData.data.spelldc.dc -= 2;
-                    itemData.data.spelldc.value -= 2;
-                }
+            // Assign statistic data to the spellcasting entry
+            entry.statistic = new Statistic(this, {
+                slug: sluggify(entry.data.name),
+                notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
+                domains: baseSelectors,
+                check: {
+                    type: "spell-attack-roll",
+                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+                    modifiers: attackModifiers,
+                    domains: attackSelectors,
+                },
+                dc: {
+                    modifiers: saveModifiers,
+                    domains: saveSelectors,
+                },
+            });
+
+            entry.data.data.statisticData = entry.statistic.getChatData();
+
+            // The elite/weak modifier doesn't update the source data, so we do it again here
+            if (this.isElite) {
+                entry.data.data.spelldc.dc += 2;
+                entry.data.data.spelldc.value += 2;
+            } else if (this.isWeak) {
+                entry.data.data.spelldc.dc -= 2;
+                entry.data.data.spelldc.value -= 2;
             }
         }
 

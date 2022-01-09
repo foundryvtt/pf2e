@@ -97,13 +97,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
-    get statistic(): Statistic {
-        const actor = this.actor;
-        const data = this.data.data.statisticData;
-        if (!actor) throw ErrorPF2e("Cannot get statistic for spellcasting entry without actor");
-        if (!data) throw ErrorPF2e("Missing statistic data for spellcasting entry");
-        return new Statistic(actor, data);
-    }
+    /** Spellcasting attack and dc data created during actor preparation */
+    statistic!: Statistic;
 
     override prepareData() {
         super.prepareData();

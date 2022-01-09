@@ -8,7 +8,6 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
-    PROFICIENCY_RANK_OPTION,
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
@@ -731,12 +730,10 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const entryData = entry.data;
             const tradition = entry.tradition;
             const rank = (entry.data.data.proficiency.value = entry.rank);
-            const ability = entry.ability;
 
-            const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+            const baseSelectors = [`${entry.ability}-based`, "all", "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",
@@ -747,13 +744,11 @@ export class CharacterPF2e extends CreaturePF2e {
             const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
             // assign statistic data to the spellcasting entry
-            entryData.data.statisticData = {
+            entry.statistic = new Statistic(this, {
                 slug: sluggify(entry.name),
-                modifiers: [
-                    AbilityModifier.fromScore(ability, systemData.abilities[ability].value),
-                    ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                    ...extractModifiers(statisticsModifiers, baseSelectors),
-                ],
+                ability: entry.ability,
+                rank,
+                modifiers: extractModifiers(statisticsModifiers, baseSelectors),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 check: {
@@ -766,7 +761,9 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers: extractModifiers(statisticsModifiers, saveSelectors),
                     domains: saveSelectors,
                 },
-            };
+            });
+
+            entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
         // Resources
@@ -826,14 +823,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-
-            // Add proficiency rank option to the source
-            const baseOptions = (this.rollOptions[saveType] ??= {});
-            baseOptions[PROFICIENCY_RANK_OPTION[save.rank]] = true;
-
-            // Base modifiers from ability scores & level/proficiency rank.
-            const abilityModifier = AbilityModifier.fromScore(save.ability, systemData.abilities[save.ability].value);
-            const modifiers = [abilityModifier, ProficiencyModifier.fromLevelAndRank(this.level, save.rank)];
+            const modifiers: ModifierPF2e[] = [];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.data.data.resiliencyRune.value) {
@@ -843,17 +833,14 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
             }
 
-            if (saveType === "reflex" && wornArmor?.traits.has("bulwark")) {
+            const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
+            if (affectedByBulwark) {
                 const bulwarkModifier = new ModifierPF2e(CONFIG.PF2E.armorTraits.bulwark, 3, MODIFIER_TYPE.UNTYPED);
                 bulwarkModifier.predicate = new PredicatePF2e({
                     all: ["damaging-effect"],
                     not: ["self:armor:bulwark-all"],
                 });
                 modifiers.push(bulwarkModifier);
-                abilityModifier.predicate.not.push(
-                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
-                    "self:armor:bulwark-all"
-                );
             }
 
             // Add custom modifiers and roll notes relevant to this save.
@@ -862,6 +849,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
             const stat = new Statistic(this, {
                 slug: saveType,
+                ability: save.ability,
+                rank: save.rank,
                 notes: extractNotes(rollNotes, selectors),
                 modifiers,
                 domains: selectors,
@@ -871,6 +860,13 @@ export class CharacterPF2e extends CreaturePF2e {
                 },
                 dc: {},
             });
+
+            if (affectedByBulwark) {
+                stat.abilityModifier?.predicate.not.push(
+                    { and: ["self:armor:trait:bulwark", "damaging-effect"] },
+                    "self:armor:bulwark-all"
+                );
+            }
 
             saves[saveType] = stat;
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());

@@ -1,7 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
 import { SpellPF2e } from "@item";
-import { AbilityModifier, ProficiencyModifier } from "@module/modifiers";
 import { Statistic } from "@system/statistic";
 
 export const TRICK_MAGIC_SKILLS = ["arc", "nat", "occ", "rel"] as const;
@@ -22,7 +21,7 @@ export class TrickMagicItemEntry {
 
     constructor(actor: CharacterPF2e, skill: TrickMagicItemSkill) {
         const { abilities } = actor.data.data;
-        const { ability, value } = (["int", "wis", "cha"] as const)
+        const { ability } = (["int", "wis", "cha"] as const)
             .map((ability) => {
                 return { ability, value: abilities[ability].value };
             })
@@ -36,15 +35,10 @@ export class TrickMagicItemEntry {
 
         this.ability = ability;
         const tradition = TrickMagicTradition[skill];
-        const skillRank = actor.data.data.skills[skill].rank;
-        const baseModifiers = [
-            AbilityModifier.fromScore(ability, value),
-            ProficiencyModifier.fromLevelAndRank(actor.level, Math.max(0, skillRank - 2)),
-        ];
-
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
-            modifiers: baseModifiers,
+            ability,
+            rank: actor.data.data.skills[skill].rank,
             check: {
                 label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                 type: "spell-attack-roll",

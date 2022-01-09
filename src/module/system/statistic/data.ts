@@ -1,3 +1,5 @@
+import { AbilityString } from "@actor/data";
+import { ZeroToFour } from "@module/data";
 import { ModifierPF2e } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
@@ -31,6 +33,8 @@ export interface StatisticDifficultyClassData {
 export interface BaseStatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
+    ability?: AbilityString;
+    rank?: ZeroToFour;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];
