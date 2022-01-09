@@ -2301,7 +2301,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2322,50 +2341,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 1800000,
-            "type": "melee"
-        },
-        {
-            "_id": "7bxqpbTsdIStErb3",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 4
-                },
-                "damageRolls": {
-                    "4y7sy1sumf72uhhdd88s1u": {
-                        "damage": "1d8+1",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff (Two-Handed)",
-            "sort": 1900000,
             "type": "melee"
         },
         {

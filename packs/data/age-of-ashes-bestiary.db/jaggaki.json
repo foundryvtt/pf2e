@@ -3572,20 +3572,21 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Using Staff in Two Hands",
-                        "property": "flags.pf2e.rollOptions.damage-roll.two-hand-staff"
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
                     },
                     {
                         "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
                         "override": {
                             "dieSize": "d8"
                         },
                         "predicate": {
                             "all": [
-                                "two-hand-staff"
+                                "twoHanded"
                             ]
                         },
-                        "selector": "staff-damage"
+                        "selector": "{item|_id}-damage"
                     }
                 ],
                 "slug": null,
