@@ -1911,53 +1911,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "deadly-2d8",
-                        "magical",
-                        "two-hand-d10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rhoka Sword (One Handed)",
-            "sort": 1500000,
-            "type": "melee"
-        },
-        {
-            "_id": "uPB2fMqw9vMoWrj2",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d10+11",
-                        "damageType": "slashing"
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.RhokaSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD10",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
                     }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1978,8 +1951,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rhoka Sword (Two Handed)",
-            "sort": 1600000,
+            "name": "Rhoka Sword",
+            "sort": 1500000,
             "type": "melee"
         },
         {
