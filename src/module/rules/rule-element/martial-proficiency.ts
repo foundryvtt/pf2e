@@ -15,7 +15,6 @@ class MartialProficiencyRuleElement extends AELikeRuleElement {
         data.mode = "override";
         data.priority = 9;
         data.path = `data.martial.${data.slug}`;
-        data.value = {};
         super(data, item);
         if (!this.dataIsValid(this.data)) {
             this.failValidation("A martial proficiency must have a slug and definition");
