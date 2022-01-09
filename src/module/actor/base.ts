@@ -1057,6 +1057,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onEmbeddedDocumentChange(embeddedName);
         this.token?.object?.drawEffects();
     }
+
+    /**
+     * Display floaty text on this Actor's tokens, for status effects
+     * @param isAdded True if the status effect is being added to actor, else removed
+     * @param name Name of status to display
+     * @param value Optional value of status, for example "Frightened 3"
+     */
+    showFloatyStatus(isAdded: Boolean, name: string, value: number | null): void {
+        let content = (isAdded ? "+ " : "- ") + name;
+        if (value) content += " " + value.toString();
+
+        this.getActiveTokens().forEach((token) => {
+            token.hud?.createScrollingText(content, {
+                anchor: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
+                direction: isAdded ? 2 : 1,
+                jitter: 0.25,
+                fill: "white",
+                fontSize: 32,
+                stroke: 0x000000,
+                strokeThickness: 4,
+            });
+        });
+    }
 }
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e> {
