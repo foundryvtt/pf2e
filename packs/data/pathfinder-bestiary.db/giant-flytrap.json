@@ -57,7 +57,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>Because they blend in so well with surrounding foliage, giant flytraps can use the element of surprise to make quick strikes against unsuspecting adventurers and forest travelers.</p>",
+            "publicNotes": "<p>Because they blend in so well with surrounding foliage, giant flytraps can use the element of surprise to make quick strikes against unsuspecting adventurers and forest travelers.</p>\n<hr />\n<p>Flytraps are dangerous creatures as eager to feed on humanoids and larger prey as they are monstrous insects.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -175,7 +175,7 @@
             "type": "melee"
         },
         {
-            "_id": "WGmigkS7JTgqEK51",
+            "_id": "j6xu1V9riuAOrTpK",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -233,7 +233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is grabbed in that leaf.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -280,7 +280,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.focusedAssault"
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "focusedAssault"
+                            ]
+                        },
+                        "selector": "leaf-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -322,7 +338,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.hungryFlurry"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hungryFlurry"
+                            ]
+                        },
+                        "selector": "leaf-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -347,7 +378,7 @@
             "type": "action"
         },
         {
-            "_id": "VhZOhoKPpbbGF743",
+            "_id": "FEiMSx6vAjQ1oKaY",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -359,7 +390,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {2d8+3}[bludgeoning]]]{2d8+3 bludgeoning damage} plus [[/r {2d6}[acid]]]{2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r {2d8+3}[bludgeoning]+{2d6}[acid]]]{2d8+3 bludgeoning damage plus 2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,7 +426,7 @@
             "type": "action"
         },
         {
-            "_id": "BT88TdSaFBfXtiXJ",
+            "_id": "3nwKZarzSffmcKzH",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
