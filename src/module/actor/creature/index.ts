@@ -255,14 +255,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                       CONFIG.PF2E.skills[checkType],
                   ] as const);
 
-        const modifiers = [
-            initStat.modifiers.map((m) =>
-                m.clone({ test: this.getRollOptions([proficiency, `${ability}-based`, "all"]) })
-            ),
-            statisticsModifiers["initiative"]?.map((m) =>
-                m.clone({ test: this.getRollOptions([proficiency, `${ability}-based`, "all"]) })
-            ) ?? [],
-        ].flat();
+        const rollOptions = [proficiency, ...this.getRollOptions([proficiency, `${ability}-based`, "all"])];
+        const modifiers = statisticsModifiers.initiative?.map((m) => m.clone({ test: rollOptions })) ?? [];
 
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
