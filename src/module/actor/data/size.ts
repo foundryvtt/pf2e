@@ -53,7 +53,7 @@ export class ActorSizePF2e {
     equals(size: ActorSizePF2e, { smallIsMedium = false } = {}): boolean {
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(size.value, { smallIsMedium });
-        return thisSize === otherSize && this.length * this.width === size.length * size.width;
+        return thisSize === otherSize;
     }
 
     /**
@@ -65,10 +65,7 @@ export class ActorSizePF2e {
         const other = size instanceof ActorSizePF2e ? size : new ActorSizePF2e({ value: size });
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(other.value, { smallIsMedium });
-        return (
-            ActorSizePF2e.sizeRanks[thisSize] > ActorSizePF2e.sizeRanks[otherSize] ||
-            this.length * this.width > other.length * other.width
-        );
+        return ActorSizePF2e.sizeRanks[thisSize] > ActorSizePF2e.sizeRanks[otherSize];
     }
 
     /**
@@ -80,10 +77,7 @@ export class ActorSizePF2e {
         const other = size instanceof ActorSizePF2e ? size : new ActorSizePF2e({ value: size });
         const thisSize = this.getEffectiveSize(this.value, { smallIsMedium });
         const otherSize = this.getEffectiveSize(other.value, { smallIsMedium });
-        return (
-            ActorSizePF2e.sizeRanks[thisSize] < ActorSizePF2e.sizeRanks[otherSize] ||
-            this.length * this.width < other.length * other.width
-        );
+        return ActorSizePF2e.sizeRanks[thisSize] < ActorSizePF2e.sizeRanks[otherSize];
     }
 
     /**
