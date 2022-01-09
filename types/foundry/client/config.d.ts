@@ -394,9 +394,9 @@ declare global {
             rolls: [typeof Roll];
             termTypes: Record<string, typeof DiceTerm>;
             terms: {
-                c: Coin;
-                d: Die;
-                f: FateDie;
+                c: typeof Coin;
+                d: typeof Die;
+                f: typeof FateDie;
             };
             randomUniform: Function;
         };
