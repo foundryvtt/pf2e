@@ -23,6 +23,7 @@ import { ActorSpellcasting } from "./spellcasting";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Statistic } from "@system/statistic";
 import { TokenEffect } from "./token-effect";
+import { RuleElementSynthetics } from "@module/rules";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -46,6 +47,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
+
+    synthetics!: RuleElementSynthetics;
 
     saves?: Record<SaveType, Statistic>;
 
@@ -257,6 +260,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Setup the basic structure of pf2e flags with roll options
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
+
+        this.synthetics = {
+            damageDice: {},
+            multipleAttackPenalties: {},
+            rollNotes: {},
+            senses: [],
+            statisticsModifiers: {},
+            strikes: [],
+            striking: {},
+            weaponPotency: {},
+        };
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
