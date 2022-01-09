@@ -153,7 +153,7 @@ export const SKILL_DICTIONARY = {
     ste: "stealth",
     sur: "survival",
     thi: "thievery",
-};
+} as const;
 
 interface SkillExpanded {
     ability: AbilityString;
