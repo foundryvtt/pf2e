@@ -245,28 +245,21 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const systemData = this.data.data;
         const checkType = systemData.attributes.initiative.ability || "perception";
 
-        const [ability, initStat] =
+        const [ability, initStat, proficiency, proficiencyLabel] =
             checkType === "perception"
-                ? (["wis", systemData.attributes.perception] as const)
-                : ([systemData.skills[checkType]?.ability ?? "int", systemData.skills[checkType]] as const);
+                ? (["wis", systemData.attributes.perception, "perception", "PF2E.PerceptionLabel"] as const)
+                : ([
+                      systemData.skills[checkType]?.ability ?? "int",
+                      systemData.skills[checkType],
+                      SKILL_DICTIONARY[checkType],
+                      CONFIG.PF2E.skills[checkType],
+                  ] as const);
 
-        const skillLongForms: Record<string, string | undefined> = SKILL_DICTIONARY;
-        const longForm = skillLongForms[checkType] ?? checkType;
-        const modifiers = [
-            initStat.modifiers.map((m) =>
-                m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
-            ),
-            statisticsModifiers["initiative"]?.map((m) =>
-                m.clone({ test: this.getRollOptions([longForm, `${ability}-based`, "all"]) })
-            ) ?? [],
-        ].flat();
+        const rollOptions = [proficiency, ...this.getRollOptions([proficiency, `${ability}-based`, "all"])];
+        const modifiers = statisticsModifiers.initiative?.map((m) => m.clone({ test: rollOptions })) ?? [];
 
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
-        const skillName = game.i18n.localize(
-            checkType === "perception" ? "PF2E.PerceptionLabel" : CONFIG.PF2E.skills[checkType]
-        );
-        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName });
-
+        const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
         const stat = mergeObject(new CheckModifier("initiative", initStat, modifiers), {
             ability: checkType,
             label,
@@ -276,8 +269,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                 const options = Array.from(
                     new Set([
-                        ...this.getRollOptions(["all", "initiative", `${ability}-based`, longForm]),
+                        ...this.getRollOptions(["all", "initiative", `${ability}-based`, proficiency]),
                         ...(args.options ?? []),
+                        proficiency,
                     ])
                 );
 
