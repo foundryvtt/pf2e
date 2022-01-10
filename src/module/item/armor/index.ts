@@ -73,7 +73,22 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isBroken(): boolean {
-        return this.hitPoints.value <= this.brokenThreshold;
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= this.brokenThreshold;
+    }
+
+    get isDestroyed(): boolean {
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && hitPoints.value === 0;
+    }
+
+    /** Given this is a shield, is it raised? */
+    get isRaised(): boolean {
+        if (!(this.isShield && (this.actor?.data.type === "character" || this.actor?.data.type === "npc"))) {
+            return false;
+        }
+
+        return this.actor.heldShield === this && this.actor.data.data.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -124,6 +139,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const ownerIsPCOrNPC = actor.data.type === "character" || actor.data.type === "npc";
 
         if (this.isArmor && this.isEquipped) {
+            // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
                 ["bulwark", "reflex"],
@@ -136,13 +152,17 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                 }
             }
         } else if (ownerIsPCOrNPC && this.actor.heldShield === this) {
+            // Set actor-shield data from this shield item
             actor.data.data.attributes.shield = {
+                itemId: this.id,
+                name: this.name,
                 ac: this.acBonus,
                 hp: this.hitPoints,
                 hardness: this.hardness,
                 brokenThreshold: this.brokenThreshold,
                 raised: false,
                 broken: this.isBroken,
+                destroyed: this.isDestroyed,
                 icon: this.img,
             };
         }
