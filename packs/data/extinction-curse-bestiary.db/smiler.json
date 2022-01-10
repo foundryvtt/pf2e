@@ -447,9 +447,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "ghast-fever",
-                        "paralysis"
+                        "ghast-ghast-fever",
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
@@ -494,8 +495,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "paralysis"
+                        "ghast-paralysis"
                     ]
                 },
                 "bonus": {
@@ -681,7 +683,7 @@
             "type": "action"
         },
         {
-            "_id": "PyFErFbzMDaAJsUV",
+            "_id": "xdZGT2FQbkaAnnVv",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -693,15 +695,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition.<span data-visibility=\"gm\"> A creature that succeeds at its save is temporarily immune for 1 minute.</span></p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghast Stench]{Effect: Ghast Stench}</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition.<span data-visibility=\"gm\"> A creature that succeeds at its save is temporarily immune for 1 minute.</span></p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghast Stench]{Effect: Ghast Stench}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-stench",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -719,14 +721,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.SEzkqVJxr2eJDsuJ"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "kwPsIpitPBaF09gf",
+            "_id": "AUdWGOamBXZXat3B",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -738,15 +744,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The ghast is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghast devours a chunk of the corpse and regains [[/r {3d6}]]{3d6 Hit Points}. <span data-visibility=\"gm\">It can regain Hit Points from any given corpse only once.</span></p>"
+                    "value": "<p><strong>Requirements</strong> Smiler is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> Smiler devours a chunk of the corpse and regains [[/r {2d6}[healing]]]{2d6 Hit Points} plus 1d6 for every 2 levels it has.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-consume-flesh",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -763,14 +769,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.m6teF5ADh7vuM8Zr"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
             "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "aQpfm3tCsEdIkopd",
+            "_id": "GCpCG2QeVwHXzzqM",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -782,15 +792,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghast Fever\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-ghast-fever",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -807,14 +817,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.hA6HsM4i4yPfEsDH"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghast Fever",
             "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "EgQHWy3kEnjf7oLy",
+            "_id": "ce0ME84C2cbPH0JA",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -826,23 +840,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any living creature hit by Smiler's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living creature hit by Smiler's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"\" data-pf2-traits=\"necromancy,occult,incapacitation\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghast-paralysis",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
                         "incapacitation",
-                        "occult",
-                        "necromancy"
+                        "necromancy",
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -853,14 +867,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.bVZ6KizWVTLJUBXi"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
             "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "oOLDphXSDdy4Tq1K",
+            "_id": "k1Ehx0dobB1JSYjA",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -872,15 +890,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ghast jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                    "value": "<p>Smiler jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -897,7 +915,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
             "sort": 1200000,
