@@ -113,7 +113,8 @@ export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, ac
     itemSource.data.quantity.value = itemQuantity;
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
-        itemSource.data.traits.value.push("infused");
+        const sourceTraits: string[] = itemSource.data.traits.value;
+        sourceTraits.push("infused");
         itemSource.data.temporary = { value: true };
     }
     const result = await actor.addToInventory(itemSource);
