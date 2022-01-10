@@ -16,7 +16,7 @@ declare module foundry {
             scene: string;
             combatants: CombatantSource[];
             active: boolean;
-            route: number;
+            round: number;
             turn: number;
             sort: number;
             flags: Record<string, unknown>;
