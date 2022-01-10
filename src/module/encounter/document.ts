@@ -178,14 +178,16 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        // No updates necessary if this combatant has already had a turn this round
-        if (!this.combatant?.actor || this.combatant.roundOfLastTurn === this.round) return;
+        // No updates necessary if combat hasn't started or this combatant has already had a turn this round
+        if (!this.combatant?.actor || !this.started || this.combatant.roundOfLastTurn === this.round) return;
 
-        const lastTurn = this.previous.turn;
-        const isNextTurn = typeof changed.turn === "number" && (lastTurn === null || changed.turn > lastTurn);
+        const { previous } = this;
+        const isNextRound =
+            typeof changed.round === "number" && (previous.round === null || changed.round > previous.round);
+        const isNextTurn = typeof changed.turn === "number" && (previous.turn === null || changed.turn > previous.turn);
+        if (!(isNextRound || isNextTurn)) return;
+
         const { actor } = this.combatant;
-        if (!isNextTurn) return;
-
         // Find the best user to make the update
         const updater = ((): UserPF2e | null => {
             const userUpdatingThis = game.users.get(userId, { strict: true });
