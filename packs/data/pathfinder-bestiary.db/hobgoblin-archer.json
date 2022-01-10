@@ -1034,7 +1034,28 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "target:condition:concealed"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.NPCAbility.IgnoreConcealed]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "target:effect:cover"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.NPCAbility.IgnoreCover]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
