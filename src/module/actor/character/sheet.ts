@@ -153,7 +153,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const formulasByLevel = await this.prepareCraftingFormulas();
         sheetData.crafting = {
             noCost: this.actor.data.flags.pf2e.freeCrafting || this.actor.data.flags.pf2e.quickAlchemy,
-            hasQuickAlchemy: this.actor.itemTypes.action.find((a) => a.slug === "quick-alchemy") !== undefined,
+            hasQuickAlchemy: this.actor.itemTypes.action.some((a) => a.slug === "quick-alchemy"),
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
         };

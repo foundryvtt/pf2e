@@ -111,7 +111,8 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
 export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
     const itemSource = item.toObject();
     itemSource.data.quantity.value = itemQuantity;
-    if (infused && (itemSource.type === "consumable" || itemSource.type === "weapon")) {
+    const itemTraits = item.traits;
+    if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
         itemSource.data.traits.value.push("infused");
         itemSource.data.temporary = { value: true };
     }
