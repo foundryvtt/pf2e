@@ -19,10 +19,31 @@
         "level": {
             "value": 3
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:featType:ancestry",
+                        "item:level:1"
+                    ],
+                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops"
+                },
+                "choices": {
+                    "query": "{\"data.featType.value\":\"ancestry\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.ancestry.trait}\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.ancestralParagon}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
