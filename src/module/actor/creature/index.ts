@@ -93,10 +93,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
-    get attributes(): this["data"]["data"]["attributes"] {
-        return this.data.data.attributes;
-    }
-
     get perception(): Statistic {
         const stat = this.data.data.attributes.perception as StatisticModifier;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
@@ -172,12 +168,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Set base actor-shield data for PCs NPCs
         if (this.data.type === "character" || this.data.type === "npc") {
             this.data.data.attributes.shield = {
+                itemId: null,
+                name: game.i18n.localize("PF2E.ArmorTypeShield"),
                 ac: 0,
                 hp: { value: 0, max: 0 },
                 brokenThreshold: 0,
                 hardness: 0,
                 raised: false,
                 broken: false,
+                destroyed: false,
                 icon: "systems/pf2e/icons/actions/raise-a-shield.webp",
             };
         }
@@ -375,13 +374,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Add a circumstance bonus if this creature has a raised shield */
     protected addShieldBonus(statisticModifiers: Record<string, ModifierPF2e[]>): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
-        const { heldShield } = this;
         const shieldData = this.data.data.attributes.shield;
-        if (heldShield && shieldData.raised && !shieldData.broken) {
+        if (shieldData.raised && !shieldData.broken) {
             const modifiers = (statisticModifiers["ac"] ??= []);
             modifiers.push(
                 new ModifierPF2e({
-                    label: heldShield.name,
+                    label: shieldData.name,
+                    slug: "raised-shield",
                     type: MODIFIER_TYPE.CIRCUMSTANCE,
                     modifier: shieldData.ac,
                 })
