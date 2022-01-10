@@ -42,6 +42,7 @@
                 "value": 10
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -116,7 +117,7 @@
     "img": "systems/pf2e/icons/bestiary/hobgoblinarcher.webp",
     "items": [
         {
-            "_id": "ZmbXjhVzRQdJxQlw",
+            "_id": "heNxIFcC3Ye9NDMA",
             "data": {
                 "MAP": {
                     "value": ""
@@ -151,7 +152,7 @@
                     "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -242,7 +243,7 @@
                 },
                 "slug": "crossbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -280,7 +281,7 @@
             "type": "weapon"
         },
         {
-            "_id": "M9C0AutcI0wPaGT0",
+            "_id": "UsSLxXRW7qgACHGU",
             "data": {
                 "MAP": {
                     "value": ""
@@ -406,7 +407,7 @@
                 },
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -448,7 +449,7 @@
             "type": "weapon"
         },
         {
-            "_id": "Yf9qnPanC0J7czy6",
+            "_id": "UWZN9sI8zfuBOL7z",
             "data": {
                 "armor": {
                     "value": 3
@@ -477,7 +478,7 @@
                     "value": 2
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": "2"
@@ -551,7 +552,7 @@
                 },
                 "slug": "scale-mail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -5
@@ -586,7 +587,7 @@
             "type": "armor"
         },
         {
-            "_id": "VVr9VWmwikCPReOz",
+            "_id": "Hc46a75PnZYUic1U",
             "data": {
                 "activation": {
                     "condition": "",
@@ -634,7 +635,7 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -690,7 +691,7 @@
                 },
                 "slug": "bolts",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -741,6 +742,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -803,21 +805,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "DamageDice",
-                        "label": "Crossbow Precision",
-                        "predicate": {
-                            "all": [
-                                "crossbow-precision"
-                            ]
-                        },
-                        "selector": "crossbow-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -842,7 +830,7 @@
             "type": "melee"
         },
         {
-            "_id": "fTUMso2FtH89sFRa",
+            "_id": "UK0INZ5G8eq5ytop",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -919,12 +907,11 @@
                     },
                     {
                         "key": "ToggleProperty",
-                        "label": "In Formation",
                         "property": "flags.pf2e.rollOptions.all.formation"
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Formation (vs. Area Effect)",
+                        "label": "PF2E.NPCAbility.FormationArea",
                         "predicate": {
                             "all": [
                                 "formation",
@@ -983,7 +970,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The first time the archer hits with a crossbow attack in a round, it deals [[/r {1d8}[Precision] #Crossbow Precision]]{1d8 extra precision damage}.</p>"
+                    "value": "<p>The first time the archer hits with a crossbow attack in a round, it deals [[/r {1d8}[Precision]]]{1d8 extra precision damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -991,8 +978,19 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "First Crossbow Attack This Round",
-                        "property": "flags.pf2e.rollOptions.all.crossbow-precision"
+                        "property": "flags.pf2e.rollOptions.damage-roll.crossbowPrecision"
+                    },
+                    {
+                        "damageType": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "crossbowPrecision"
+                            ]
+                        },
+                        "selector": "crossbow-damage"
                     }
                 ],
                 "slug": null,
@@ -1073,7 +1071,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The archer Strides, Steps, or Sneaks, then Interacts to reload.</p>"
+                    "value": "<p>The archer Strides, Steps, or @Compendium[pf2e.actionspf2e.Sneak]{Sneaks}, then Interacts to reload.</p>"
                 },
                 "requirements": {
                     "value": ""
