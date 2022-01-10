@@ -318,7 +318,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 Feet",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -461,7 +461,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>\n<hr />\n<p>The smoldering leopard deals an extra [[/r {1d4}[precision]]]{1d4 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>The smoldering leopard deals an extra [[/r {1d4}[precision]]]{1d4 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -470,7 +470,7 @@
                     {
                         "category": "precision",
                         "diceNumber": 1,
-                        "dieSize": "d6",
+                        "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
@@ -593,11 +593,11 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Dim Light or darker",
+                        "label": "In Dim Light or Darker",
                         "predicate": {
                             "any": [
-                                "trait:dimLight",
-                                "trait:darkness"
+                                "terrain:lighting:dimLight",
+                                "terrain:lighting:darkness"
                             ]
                         },
                         "selector": "stealth",
@@ -616,7 +616,7 @@
                 "variants": {
                     "0": {
                         "label": "+14 in dim light or darker",
-                        "options": "trait:dimLight,trait:darkness"
+                        "options": "terrain:lighting:dimLight,terrain:lighting:darkness"
                     }
                 }
             },
