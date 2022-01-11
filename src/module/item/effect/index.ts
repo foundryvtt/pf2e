@@ -105,6 +105,16 @@ export class EffectPF2e extends ItemPF2e {
         await super._preCreate(data, options, user);
     }
 
+    protected override _onCreate(
+        data: this["data"]["_source"],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        this.actor?.showFloatyStatus(true, this.name, null);
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
@@ -126,6 +136,8 @@ export class EffectPF2e extends ItemPF2e {
             game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
         }
         super._onDelete(options, userId);
+
+        this.actor?.showFloatyStatus(false, this.name, null);
     }
 }
 

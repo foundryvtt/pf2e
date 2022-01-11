@@ -1,3 +1,4 @@
+import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { ConditionData, ConditionType } from "./data";
@@ -50,6 +51,53 @@ export class ConditionPF2e extends ItemPF2e {
             this.actor.rollOptions.all["self:flatFooted"] = true;
         }
     }
+
+    protected override _onCreate(
+        data: this["data"]["_source"],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            this.actor?.showFloatyStatus(true, this.name, this.data.data.value.value);
+        }
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ConditionModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        options.conditionValue = this.data.data.value.value;
+        return super._preUpdate(changed, options, user);
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ConditionModificationContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            const valueChange = (this.data.data.value.value ?? 0) - (options.conditionValue ?? 0);
+            if (valueChange) {
+                this.actor?.showFloatyStatus(valueChange >= 0, this.name, this.data.data.value.value);
+            }
+        }
+    }
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        super._onDelete(options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            this.actor?.showFloatyStatus(false, this.name, null);
+        }
+    }
 }
 
 export interface ConditionPF2e {
@@ -61,4 +109,8 @@ export interface ConditionPF2e {
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;
     getFlag(scope: "pf2e", key: "condition"): true | undefined;
     getFlag(scope: string, key: string): any;
+}
+
+export interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
+    conditionValue?: number | null;
 }
