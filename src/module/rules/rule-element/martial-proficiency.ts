@@ -15,6 +15,7 @@ class MartialProficiencyRuleElement extends AELikeRuleElement {
         data.mode = "override";
         data.priority = 9;
         data.path = `data.martial.${data.slug}`;
+        data.value = Number(data.value) || 1;
         super(data, item);
         if (!this.dataIsValid(this.data)) {
             this.failValidation("A martial proficiency must have a slug and definition");
@@ -80,6 +81,8 @@ interface MartialProficiencyData extends AELikeRuleElementData {
     sameAs: WeaponCategory;
     /** The maximum rank this proficiency can reach, if any */
     maxRank?: Exclude<ProficiencyRank, "untrained">;
+    /** Initially a number indicating rank, changed into a `MartialProficiency` object for overriding as an AE-like */
+    value: number | MartialProficiency;
 }
 
 export interface MartialProficiencySource extends AELikeRuleElementSource {
