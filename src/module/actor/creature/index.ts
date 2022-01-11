@@ -234,6 +234,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+
+        this.prepareCustomModifiers(this.rules.filter((r) => !r.ignored));
     }
 
     protected prepareInitiative(
@@ -318,20 +320,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
+    private prepareCustomModifiers(rules: RuleElementPF2e[]): void {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const actorData = this.data;
-        const synthetics: RuleElementSynthetics = {
-            damageDice: {},
-            multipleAttackPenalties: {},
-            rollNotes: {},
-            senses: [],
-            statisticsModifiers: {},
-            strikes: [],
-            striking: {},
-            weaponPotency: {},
-        };
-        const statisticsModifiers = synthetics.statisticsModifiers;
+        const { synthetics } = this;
 
         for (const rule of rules) {
             try {
@@ -347,6 +339,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
             .map((c) => c.data);
 
+        const statisticsModifiers = synthetics.statisticsModifiers;
         for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
@@ -368,8 +361,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 damageDice[attack] = (damageDice[attack] || []).concat(dice);
             }
         }
-
-        return synthetics;
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
@@ -466,23 +457,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return preparedSenses;
     }
 
-    prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
-    prepareSpeed(
-        movementType: Exclude<MovementType, "land">,
-        synthetics: RuleElementSynthetics
-    ): LabeledSpeed & StatisticModifier;
-    prepareSpeed(
-        movementType: MovementType,
-        synthetics: RuleElementSynthetics
-    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    prepareSpeed(
-        movementType: MovementType,
-        synthetics: RuleElementSynthetics
-    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+    prepareSpeed(movementType: "land"): CreatureSpeeds;
+    prepareSpeed(movementType: Exclude<MovementType, "land">): LabeledSpeed & StatisticModifier;
+    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
+    prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
         const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
         const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
-            .flatMap((key) => synthetics.statisticsModifiers[key] || [])
+            .flatMap((key) => this.synthetics.statisticsModifiers[key] || [])
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
         if (movementType === "land") {

@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSynthetics } from "../";
+import { RuleElementPF2e, RuleElementData } from "../";
 import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -130,7 +130,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onBeforePrepareData(synthetics: RuleElementSynthetics): void {
+    override onBeforePrepareData(): void {
         if (this.ignored) return;
 
         const { rollOptions } = this.actor;
@@ -140,7 +140,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             return;
         }
         this.setRollOptions();
-        this.prepareSenses(synthetics);
+        this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
             const currentTraits = this.actor.data.data.traits.traits;
@@ -153,14 +153,14 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onAfterPrepareData(synthetics: RuleElementSynthetics): void {
+    override onAfterPrepareData(): void {
         if (this.ignored) return;
 
         this.prepareAC();
         this.prepareSize();
         this.prepareSkills();
-        this.prepareSpeeds(synthetics);
-        this.prepareStrikes(synthetics);
+        this.prepareSpeeds();
+        this.prepareStrikes();
         this.prepareIWR();
     }
 
@@ -208,13 +208,13 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Add new senses the character doesn't already have */
-    private prepareSenses(synthetics: RuleElementSynthetics): void {
+    private prepareSenses(): void {
         for (const senseType of SENSE_TYPES) {
             const newSense = this.overrides.senses[senseType];
             if (!newSense) continue;
             newSense.acuity ??= "precise";
             const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
-            new SenseRuleElement(ruleData, this.item).onBeforePrepareData(synthetics);
+            new SenseRuleElement(ruleData, this.item).onBeforePrepareData();
         }
     }
 
@@ -226,8 +226,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Add, replace and/or adjust non-land speeds */
-    private prepareSpeeds(synthetics: RuleElementSynthetics): void {
-        const { attributes } = this.actor.data.data;
+    private prepareSpeeds(): void {
+        const { attributes } = this.actor;
         const currentSpeeds = attributes.speed;
 
         for (const movementType of MOVEMENT_TYPES) {
@@ -262,7 +262,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                     label,
                     value: String(speedOverride),
                 });
-                const newSpeed = this.actor.prepareSpeed(movementType, synthetics);
+                const newSpeed = this.actor.prepareSpeed(movementType);
                 this.suppressModifiers(newSpeed);
                 newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
                 newSpeed.breakdown = [`${label} ${speedOverride}`]
@@ -301,7 +301,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     /** Clear out existing strikes and replace them with the form's stipulated ones, if any */
-    private prepareStrikes(synthetics: RuleElementSynthetics): void {
+    private prepareStrikes(): void {
+        const { synthetics } = this.actor;
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
             label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
@@ -335,7 +336,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.actor.data.data.actions = this.data.ownUnarmed
             ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
             : synthetics.strikes.map((weapon) =>
-                  this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES], synthetics })
+                  this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES] })
               );
         for (const action of this.actor.data.data.actions) {
             const strike = this.overrides.strikes[action.slug!];
