@@ -34,7 +34,7 @@ import {
     CharacterSheetTabVisibility,
     LinkedProficiency,
 } from "./data";
-import { MultipleAttackPenaltyPF2e, RuleElementSynthetics, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
@@ -283,20 +283,22 @@ export class CharacterPF2e extends CreaturePF2e {
         });
     }
 
+    /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
+
+        for (const ability of Object.values(this.data.data.abilities)) {
+            ability.mod = Math.floor((ability.value - 10) / 2);
+        }
+        this.setNumericRollOptions();
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const rules = this.rules.filter((rule) => !rule.ignored);
         const systemData = this.data.data;
+        const { synthetics } = this;
 
-        // Compute ability modifiers from raw ability scores.
-        for (const abl of Object.values(systemData.abilities)) {
-            abl.mod = Math.floor((abl.value - 10) / 2);
-        }
-
-        this.setNumericRollOptions();
-
-        const synthetics = this.prepareCustomModifiers(rules);
         if (!this.getFlag("pf2e", "disableABP")) {
             AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
@@ -389,7 +391,7 @@ export class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.hp = stat;
         }
 
-        this.prepareSaves(synthetics);
+        this.prepareSaves();
 
         this.prepareMartialProficiencies();
 
@@ -684,10 +686,10 @@ export class CharacterPF2e extends CreaturePF2e {
         systemData.skills = skills as Required<typeof skills>;
 
         // Speeds
-        systemData.attributes.speed = this.prepareSpeed("land", synthetics);
+        systemData.attributes.speed = this.prepareSpeed("land");
         const { otherSpeeds } = systemData.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
         // Automatic Actions
@@ -725,7 +727,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
         const weapons = [itemTypes.weapon, strikes].flat().filter((weapon) => weapon.quantity > 0);
         systemData.actions = weapons.map((weapon) =>
-            this.prepareStrike(weapon, { categories: offensiveCategories, synthetics, ammos })
+            this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
 
         // Spellcasting Entries
@@ -786,9 +788,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
-
-        // Update this.synthetics; This should always be at the end of prepareDerivedData
-        mergeObject(this.synthetics, synthetics);
     }
 
     /** Set roll operations for ability scores and proficiency ranks */
@@ -816,10 +815,10 @@ export class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    prepareSaves(synthetics: RuleElementSynthetics) {
+    prepareSaves(): void {
         const systemData = this.data.data;
         const { wornArmor } = this;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers } = this.synthetics;
 
         // Saves
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -878,19 +877,10 @@ export class CharacterPF2e extends CreaturePF2e {
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    override prepareSpeed(movementType: "land", synthetics: RuleElementSynthetics): CreatureSpeeds;
-    override prepareSpeed(
-        movementType: Exclude<MovementType, "land">,
-        synthetics: RuleElementSynthetics
-    ): LabeledSpeed & StatisticModifier;
-    override prepareSpeed(
-        movementType: MovementType,
-        synthetics: RuleElementSynthetics
-    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
-    override prepareSpeed(
-        movementType: MovementType,
-        synthetics: RuleElementSynthetics
-    ): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
+    override prepareSpeed(movementType: "land"): CreatureSpeeds;
+    override prepareSpeed(movementType: Exclude<MovementType, "land">): LabeledSpeed & StatisticModifier;
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
+    override prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.data.data.abilities.str.value;
@@ -900,12 +890,12 @@ export class CharacterPF2e extends CreaturePF2e {
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const armorPenalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
         if (armorPenalty) {
-            const speedModifiers = (synthetics.statisticsModifiers.speed ??= []);
+            const speedModifiers = (this.synthetics.statisticsModifiers.speed ??= []);
             armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
             armorPenalty.test(this.getRollOptions(["all", "speed", `${movementType}-speed`]));
             speedModifiers.push(armorPenalty);
         }
-        return super.prepareSpeed(movementType, synthetics);
+        return super.prepareSpeed(movementType);
     }
 
     /** Prepare a strike action from a weapon */
@@ -913,16 +903,16 @@ export class CharacterPF2e extends CreaturePF2e {
         weapon: Embedded<WeaponPF2e>,
         options: {
             categories: WeaponCategory[];
-            synthetics: RuleElementSynthetics;
             ammos?: Embedded<ConsumablePF2e>[];
         }
     ): CharacterStrike {
         const itemData = weapon.data;
-        const { rollNotes, statisticsModifiers } = options.synthetics;
+        const { synthetics } = this;
+        const { rollNotes, statisticsModifiers } = synthetics;
         const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.traits;
         const systemData = this.data.data;
-        const { categories, synthetics } = options;
+        const { categories } = options;
         const ammos = options.ammos ?? [];
 
         // Determine the default ability and score for this attack.
@@ -1092,7 +1082,7 @@ export class CharacterPF2e extends CreaturePF2e {
             traits: [],
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
-            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories, synthetics }) : null,
+            meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
         });
 
         // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
