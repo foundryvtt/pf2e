@@ -804,6 +804,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
+        const $craftingOptions = html.find(".crafting-options").find("input:checkbox");
+        $craftingOptions.on("click", async (event) => {
+            const flags: string[] = [];
+            $craftingOptions.each((_index, element) => {
+                if (element !== event.target) {
+                    flags.push($(element).attr("flag") as string);
+                }
+            });
+            flags.forEach(async (flag) => {
+                await this.actor.setFlag("pf2e", flag, false);
+            });
+        });
+
         const $formulas = html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
