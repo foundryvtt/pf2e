@@ -73,7 +73,6 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.applyActiveEffects();
 
         const data = this.data.data;
-        const rules = this.rules.filter((rule) => !rule.ignored);
 
         // Ensure uniqueness of traits
         data.traits.traits.value = [...this.traits].sort();
@@ -84,16 +83,16 @@ export class FamiliarPF2e extends CreaturePF2e {
         data.master.ability ||= "cha";
         const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
-        const synthetics = this.prepareCustomModifiers(rules);
+        const { synthetics } = this;
         const { statisticsModifiers } = synthetics;
         const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
         const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
         const { attributes } = data;
-        attributes.speed = this.prepareSpeed("land", synthetics);
+        attributes.speed = this.prepareSpeed("land");
         const { otherSpeeds } = data.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
         // Hit Points
@@ -296,9 +295,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
-
-        // Update this.synthetics; This should always be at the end of prepareDerivedData
-        mergeObject(this.synthetics, synthetics);
     }
 
     override async createEmbeddedDocuments(
