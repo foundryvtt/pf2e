@@ -1,0 +1,735 @@
+{
+    "_id": "OuefLa8uowpnC2DT",
+    "data": {
+        "abilities": {
+            "cha": {
+                "mod": 3,
+                "value": 10
+            },
+            "con": {
+                "mod": 4,
+                "value": 10
+            },
+            "dex": {
+                "mod": 4,
+                "value": 10
+            },
+            "int": {
+                "mod": 1,
+                "value": 10
+            },
+            "str": {
+                "mod": 6,
+                "value": 10
+            },
+            "wis": {
+                "mod": 4,
+                "value": 10
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": "+1 status to all saves vs. magic"
+            },
+            "hp": {
+                "details": "",
+                "max": 85,
+                "temp": 0,
+                "value": 85
+            },
+            "initiative": {
+                "ability": "perception"
+            },
+            "perception": {
+                "value": 15
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
+            },
+            "speed": {
+                "details": "",
+                "otherSpeeds": [],
+                "special": "",
+                "value": "40"
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "CE"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "value": []
+            },
+            "dr": [
+                {
+                    "exceptions": "except bludgeoning",
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "dv": [],
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": [
+                    "aklo",
+                    "common",
+                    "tien",
+                    "undercommon"
+                ]
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "darkvision"
+            },
+            "size": {
+                "value": "lg"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "hag",
+                    "humanoid"
+                ]
+            }
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "jynq7c4ofoan192t",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "Cold Iron",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "2IErmCBnvlLF6wMP": {
+                        "damage": "2d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "type": "melee"
+        },
+        {
+            "_id": "5YRuoVwdf0pEFWFC",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "ymrQyKkBLGBhBx5J",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "8s02e02zngu63a8t",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>An annis hag adds <i>earthbind</i>, <i>passwall</i>, and <i>spellwrack</i>to her coven's spells.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Coven",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "sMxei1fcNaDQ4RHB",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>Once per day, an annis hag can cause a cage built of cold iron fingernails to spring out of nothingness at a range of up to 30 feet, attempting an Athletics check to Grapple against the target's Fortitude DC; if the target has a weakness to cold iron, the annis hag gains a +2 circumstance bonus to this check. Unlike a normal Grapple, the annis hag doesn't need to be within reach and can move as she pleases, and a successful attempt lasts until the creature escapes (DC 24), causing the cage to crumble into rust. Any creature can attempt to destroy the cage by attacking it. It has an AC of 19, Hardness 10, and 40 Hit Points.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "conjuration",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.bKPOLbNfdVcrEpjV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Bonds of Iron",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "vOBRVurWu2t0GAI4",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>The hag can take on the appearance of any Medium female humanoid. This doesn't change her Speed or her attack and damage bonuses with her Strikes but might change the damage type her Strikes deal (typically to bludgeoning).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "occult",
+                        "transmutation",
+                        "polymorph"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.wuLaA7NsMPb5IMj7"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Change Shape",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "7jM9EOgEeGF5NvKK",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.eTZH8Uz8QGRnbvxz"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "1MLN6CwwBtZ8djMv",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "7d66r6qqd8u08ll2",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 900000,
+            "type": "lore"
+        },
+        {
+            "_id": "x85kv3upf5lm2lp0",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Grapple",
+                        "predicate": {
+                            "all": [
+                                "action:grapple"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 to grapple",
+                        "options": "action:grapple"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1000000,
+            "type": "lore"
+        },
+        {
+            "_id": "5c0wr73ticd5l0fg",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crafting",
+            "sort": 1100000,
+            "type": "lore"
+        },
+        {
+            "_id": "wqcvcnqd9a9ngj2v",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1200000,
+            "type": "lore"
+        },
+        {
+            "_id": "8ipm1ijjwauy2f7e",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1300000,
+            "type": "lore"
+        },
+        {
+            "_id": "qw98tf3grrslyqbz",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1400000,
+            "type": "lore"
+        }
+    ],
+    "name": "Annis Hag (1-06)",
+    "token": {
+        "disposition": -1,
+        "height": 2,
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
+        "name": "Annis Hag",
+        "width": 2
+    },
+    "type": "npc"
+}

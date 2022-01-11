@@ -1,60 +1,73 @@
 {
-    "_id": "JDjwID3HZJqytPFP",
+    "_id": "jMjK6j16K1NC2BdC",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
-                "mod": 3
+                "mod": 0
             },
             "dex": {
-                "mod": 1
+                "mod": 3
             },
             "int": {
-                "mod": -1
+                "mod": 0
             },
             "str": {
-                "mod": 4
+                "mod": -1
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 15
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 25,
+                "max": 7,
                 "temp": 0,
-                "value": 25
+                "value": 7
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 7
+                "value": 3
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
             },
             "speed": {
                 "details": "",
-                "otherSpeeds": [],
-                "value": "25"
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "special": "",
+                "value": "15"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "CE"
             },
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 1
+                "value": -1
             },
             "privateNotes": "",
             "publicNotes": "",
@@ -66,66 +79,60 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 10
+                "value": 0
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 4
+                "value": 5
             },
             "will": {
                 "saveDetail": "",
-                "value": 7
+                "value": 1
             }
         },
         "traits": {
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "bleed",
+                    "death-effects",
+                    "disease",
+                    "doomed",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "necromancy",
+                    "nonlethal-attacks",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "unconscious"
+                ]
             },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "axe",
-                    "value": 5
-                },
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "arboreal",
-                    "senzar",
-                    "sylvan",
-                    "tien"
+                    "aklo",
+                    "tien",
+                    "jotun"
                 ]
             },
             "rarity": "common",
             "senses": {
-                "value": "low-light vision"
+                "value": "darkvision"
             },
             "size": {
-                "value": "med"
+                "value": "tiny"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "plant"
+                    "construct",
+                    "soulbound"
                 ]
             }
         }
@@ -135,22 +142,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jxjiaabTOn252XDk",
+            "_id": "yv90fwe37s881tj2",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "sap"
+                        "homunculus-poison"
                     ]
                 },
                 "bonus": {
-                    "value": 8
+                    "value": 5
                 },
                 "damageRolls": {
-                    "cvf9aatvn2pwl73p7v7o": {
-                        "damage": "1d6+3",
+                    "6aqHwdLDMubVbRiv": {
+                        "damage": "1d4",
                         "damageType": "piercing"
                     }
                 },
@@ -165,7 +173,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -174,12 +185,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Branch",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "qPPVxOBaJ7Ft1uh8",
+            "_id": "at6V5BukyyXBLdoC",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -191,13 +202,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "low-light-vision",
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -216,19 +227,19 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
+            "name": "Darkvision",
             "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "LJ7moouiRvYEjzgz",
+            "_id": "jt23ck8yjid74oyb",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -237,7 +248,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A pine brute takes 5 additional damage from axes.</p>"
+                    "value": "<p>A homunculus has one dose of poison in a reservoir in its head. It can refill this poison from its reserves with an Interact action.</p>\n<hr />\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"HomunculusPoison DC\" data-pf2-dc=\"13\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -250,75 +261,29 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Axe Vulnerability",
+            "name": "Homunculus Poison",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "w2Ztb0xp1iTIsTXL",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Compendium[pf2e.equipment-effects.Effect: Tanglefoot Bag (Lesser)]{Effect: Tanglefoot Bag (Lesser)}</p>\n<hr />\n<p>A pine brute's bark secretes sticky sap. Any creature that hits the pine brute with a melee attack, is hit by the pine brute, or otherwise touches the pine brute must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-label=\"Sap DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or suffer the effects of a lesser tanglefoot bag, also becoming clumsy 1 until the sticky substance is removed. A creature striking the pine brute with a weapon or object can automatically succeed at this Reflex save by leaving the object stuck to the pine brute. The object can then be removed with a successful <span data-pf2-check=\"athletics\" data-pf2-dc=\"17\" data-pf2-label=\"Unstick Object DC\" data-pf2-show-dc=\"gm\">Athletics</span> check (made as a single action).</p>\n<p>A pine brute can have any number of objects stuck to it at a time. The pine brute can release a stuck object by using a single action, and the sap dissolves 1 minute after the pine brute dies, releasing all stuck objects.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sap",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "ObEC1tJu3vOYsYYU",
+            "_id": "0ntth5ss3kcz57uo",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
-                    "value": 7
+                    "value": 3
                 },
                 "proficient": {
                     "value": 0
@@ -337,39 +302,23 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
+            "name": "Acrobatics",
+            "sort": 400000,
             "type": "lore"
         },
         {
-            "_id": "Id8ZW2KIFCiESfBR",
+            "_id": "38oixth1unnwpchy",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 4
+                    "value": 3
                 },
                 "proficient": {
                     "value": 0
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "in forest",
-                        "predicate": {
-                            "all": [
-                                "terrain:forest"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "type": "untyped",
-                        "value": 4
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -378,29 +327,23 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+8 in forests",
-                        "options": "terrain:forest"
-                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 500000,
             "type": "lore"
         }
     ],
-    "name": "Pine Brute",
+    "name": "Weak Soulbound Homunculi",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Pine Brute",
-        "width": 1
+        "name": "Weak Soulbound Homunculi",
+        "width": 0.5
     },
     "type": "npc"
 }

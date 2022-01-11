@@ -42,6 +42,7 @@
                 "value": 12
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -58,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
             }
         },
         "resources": {
@@ -131,7 +132,7 @@
             },
             "rarity": "common",
             "senses": {
-                "value": ", darkvision"
+                "value": "darkvision"
             },
             "size": {
                 "value": "med"
@@ -174,7 +175,10 @@
                     "value": false
                 },
                 "signatureSpells": {
-                    "value": []
+                    "value": [
+                        "NtCGOiuLzKM638yZ",
+                        "0MAKXuAkKq6vxaU2"
+                    ]
                 },
                 "slots": {
                     "slot0": {
@@ -1177,7 +1181,7 @@
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 10
+                    "value": "10"
                 },
                 "areasize": {
                     "value": "10-foot burst"
@@ -1200,8 +1204,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "sonic"
                             },
                             "value": "2d10"
@@ -1288,7 +1294,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/sound-burst.webp",
-            "name": "Sound Burst (signature)",
+            "name": "Sound Burst",
             "sort": 1000000,
             "type": "spell"
         },
@@ -1895,7 +1901,7 @@
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "varies"
@@ -1918,8 +1924,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "1d8"
@@ -2005,7 +2013,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/harm.webp",
-            "name": "Harm (signature)",
+            "name": "Harm",
             "sort": 1600000,
             "type": "spell"
         },
@@ -2384,6 +2392,105 @@
             "type": "melee"
         },
         {
+            "_id": "BvQIXrP2eU7iWN2L",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "FDrA8y8CHMup5i49",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
             "_id": "K1rcnncWjOawSXCY",
             "data": {
                 "actionCategory": {
@@ -2422,7 +2529,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blood Magic",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2464,7 +2571,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Signature Spell",
-            "sort": 2200000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2506,7 +2613,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Widen Spell",
-            "sort": 2300000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2539,7 +2646,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2400000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2572,7 +2679,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2500000,
+            "sort": 2700000,
             "type": "lore"
         }
     ],
