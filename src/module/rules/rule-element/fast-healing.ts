@@ -1,14 +1,14 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource } from ".";
 
 /**
  * Rule element to implement fast healing and regeneration.
  * Creates a chat card every round of combat.
  * @category RuleElement
  */
-class HealingRuleElement extends RuleElementPF2e {
+class FastHealingRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
@@ -17,7 +17,7 @@ class HealingRuleElement extends RuleElementPF2e {
         const selector = this.resolveInjectedProperties(data.selector);
         if (!tupleHasValue(["fast-healing", "regeneration"] as const, selector)) {
             this.ignored = true;
-            console.warn("PF2e System | Healing only supports fast-healing or regeneration selectors");
+            console.warn("PF2e System | FastHealing only supports fast-healing or regeneration selectors");
             return;
         }
 
@@ -45,12 +45,12 @@ class HealingRuleElement extends RuleElementPF2e {
     }
 }
 
-interface HealingRuleElement extends RuleElementPF2e {
-    data: HealingData;
+interface FastHealingRuleElement extends RuleElementPF2e {
+    data: FastHealingData;
 }
 
-interface HealingData extends RuleElementData {
+interface FastHealingData extends RuleElementData {
     selector: "fast-healing" | "regeneration";
 }
 
-export { HealingRuleElement };
+export { FastHealingRuleElement as HealingRuleElement };

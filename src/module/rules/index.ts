@@ -32,7 +32,7 @@ import { CraftingEntryRuleElement } from "./rule-element/crafting/crafting-entry
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { GrantItemRuleElement } from "./rule-element/grant-item";
-import { HealingRuleElement } from "./rule-element/healing";
+import { HealingRuleElement } from "./rule-element/fast-healing";
 
 /**
  * @category RuleElement
@@ -54,7 +54,7 @@ class RuleElements {
         FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,
-        Healing: HealingRuleElement,
+        FastHealing: HealingRuleElement,
         Immunity: ImmunityRuleElement,
         MartialProficiency: MartialProficiencyRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
