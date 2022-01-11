@@ -309,7 +309,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
 
         // Feat Browser
-        html.find(".feat-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("feat"));
+        html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
 
         // Action Browser
         html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
@@ -641,6 +641,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         console.debug(`Filtering on: ${filter}`);
         game.pf2e.compendiumBrowser.openTab("spell", filter);
+    }
+
+    private onClickBrowseFeatCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const maxLevel = Number($(event.currentTarget).attr("data-level"));
+        const filter: string[] = [
+            $(event.currentTarget).attr("data-filter"),
+            $(event.currentTarget).attr("data-secondaryfilter"),
+        ].filter((element): element is string => !!element);
+        console.debug(`Filtering on: ${filter}, ${maxLevel}`);
+        game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
     }
 
     protected override _canDragStart(selector: string): boolean {
