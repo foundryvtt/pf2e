@@ -119,7 +119,6 @@ export const EnrichContent = {
             params = Object.fromEntries(rawParams);
         }
         if (!type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
-        if (!params.dc) return error(game.i18n.localize("PF2E.InlineCheck.Errors.DCMissing"));
 
         // Handle type:check and check as first parameter
         params.type = type.includes(":") ? type.split(":")[1] : type;
@@ -193,7 +192,7 @@ export const EnrichContent = {
 
 const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e): string => {
     const type = params.type!;
-    const dc = params.dc!;
+    const dc = params.dc ?? "0";
     const base = (() => {
         if (dc.startsWith("resolve") && item) {
             const resolve = dc.match(/resolve\((.+?)\)$/);
