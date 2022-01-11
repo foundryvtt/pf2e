@@ -19,6 +19,12 @@ export const PackError = (message: string) => {
     process.exit(1);
 };
 
+/** A rule element, possibly a ChoiceSet or GrantItem */
+export interface REMaybeChoiceGrant extends RuleElementSource {
+    choices?: Record<string, string | { value?: string }>;
+    uuid?: unknown;
+}
+
 type CompendiumSource = CompendiumDocument["data"]["_source"];
 export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
     return (
@@ -177,19 +183,7 @@ export class CompendiumPack {
 
             // Convert uuids with names in GrantItem REs to well-formedness
             if (isItemSource(docSource)) {
-                const rules: Array<RuleElementSource & { uuid?: unknown }> = docSource.data.rules;
-                for (const rule of rules) {
-                    if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
-                        const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.(.+)$/.exec(rule.uuid);
-                        const [, packId, docName] = match ?? [null, null, null];
-                        const docId = CompendiumPack.namesToIds.get(packId ?? "")?.get(docName ?? "");
-                        if (docName && docId) {
-                            rule.uuid = rule.uuid.replace(docName, docId);
-                        } else {
-                            throw PackError(`Unable to resolve UUID: ${rule.uuid}`);
-                        }
-                    }
-                }
+                CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.namesToIds });
             }
         }
 
@@ -217,8 +211,54 @@ export class CompendiumPack {
         );
     }
 
-    private sourceIdOf(documentId: string) {
+    private sourceIdOf(documentId: string): string {
         return `Compendium.${this.systemId}.${this.name}.${documentId}`;
+    }
+
+    /** Convert UUIDs in ChoiceSet/GrantItem REs to resemble links by name or back again */
+    static convertRuleUUIDs(
+        source: ItemSourcePF2e,
+        { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> }
+    ): void {
+        const hasUUIDChoices = (choices: object | string | undefined): choices is Record<string, { value: string }> =>
+            typeof choices === "object" &&
+            Object.values(choices ?? {}).every(
+                (c): c is { value: unknown } => typeof c.value === "string" && c.value.startsWith("Compendium.")
+            );
+
+        const toNameRef = (uuid: string): string => {
+            const parts = uuid.split(".");
+            const [packId, docId] = parts.slice(2, 4);
+            const docName = map.get(packId)?.get(docId);
+            if (docName) {
+                return parts.slice(0, 3).concat(docName).join(".");
+            } else {
+                throw PackError(`Unable to find document name corresponding with ${uuid}`);
+            }
+        };
+
+        const toIDRef = (uuid: string): string => {
+            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.(.+)$/.exec(uuid);
+            const [, packId, docName] = match ?? [null, null, null];
+            const docId = map.get(packId ?? "")?.get(docName ?? "");
+            if (docName && docId) {
+                return uuid.replace(docName, docId);
+            } else {
+                throw PackError(`Unable to resolve UUID: ${uuid}`);
+            }
+        };
+
+        const convert = to === "ids" ? toIDRef : toNameRef;
+        const rules: REMaybeChoiceGrant[] = source.data.rules;
+        for (const rule of rules) {
+            if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
+                rule.uuid = convert(rule.uuid);
+            } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
+                for (const [key, choice] of Object.entries(rule.choices)) {
+                    rule.choices[key].value = convert(choice.value);
+                }
+            }
+        }
     }
 
     save(): number {
