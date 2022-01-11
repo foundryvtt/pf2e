@@ -11,17 +11,17 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource } from ".";
 class FastHealingRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+    constructor(data: FastHealingSource, item: Embedded<ItemPF2e>) {
         super(data, item);
 
-        const selector = this.resolveInjectedProperties(data.selector);
-        if (!tupleHasValue(["fast-healing", "regeneration"] as const, selector)) {
+        const type = this.resolveInjectedProperties(data.type) || "fast-healing";
+        if (!tupleHasValue(["fast-healing", "regeneration"] as const, type)) {
             this.ignored = true;
-            console.warn("PF2e System | FastHealing only supports fast-healing or regeneration selectors");
+            console.warn("PF2e System | FastHealing only supports fast-healing or regeneration types");
             return;
         }
 
-        this.data.selector = selector;
+        this.data.type = type;
     }
 
     /** Refresh the actor's temporary hit points at the start of its turn */
@@ -35,7 +35,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
         }
 
         const key =
-            this.data.selector === "fast-healing"
+            this.data.type === "fast-healing"
                 ? "PF2E.Encounter.Broadcast.FastHealing"
                 : "PF2E.Encounter.Broadcast.Regeneration";
         const roll = new Roll(`${value}`).evaluate({ async: false });
@@ -50,7 +50,11 @@ interface FastHealingRuleElement extends RuleElementPF2e {
 }
 
 interface FastHealingData extends RuleElementData {
-    selector: "fast-healing" | "regeneration";
+    type: "fast-healing" | "regeneration";
+}
+
+interface FastHealingSource extends RuleElementSource {
+    type?: "fast-healing" | "regeneration";
 }
 
 export { FastHealingRuleElement as HealingRuleElement };
