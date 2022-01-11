@@ -319,7 +319,7 @@ const preciousMaterialDescriptions = {
     silver: "PF2E.PreciousMaterialSilverDescription",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
-}
+};
 
 const traitsDescriptions = {
     aasimar: "PF2E.TraitDescriptionAasimar",
@@ -568,7 +568,7 @@ const traitsDescriptions = {
     "reach-40": "PF2E.TraitDescriptionReach",
     "reach-50": "PF2E.TraitDescriptionReach",
     "reach-60": "PF2E.TraitDescriptionReach",
-    reload: "PF2E.TraitDescriptionReload",    
+    reload: "PF2E.TraitDescriptionReload",
     "reload-0": "PF2E.TraitDescriptionReload",
     "reload-1": "PF2E.TraitDescriptionReload",
     "reload-1-min": "PF2E.TraitDescriptionReload",
