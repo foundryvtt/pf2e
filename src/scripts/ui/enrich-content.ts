@@ -265,16 +265,16 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
 };
 
 const resolveItemValue = (item: ItemPF2e, formula: string): number | undefined => {
-    const isItem = formula.startsWith("@item.");
-    const isActor = formula.startsWith("@actor.");
-    const data = isItem ? item.data : isActor ? (item.isOwned ? item.actor!.data : undefined) : undefined;
-    if (data) {
-        const value = isActor ? formula.replace("actor.", "") : formula.replace("item.", "");
-        const result = Roll.replaceFormulaData(value, data, {
+    // Return 0 for unowned items that reference an actor value
+    if (formula.startsWith("@actor") && !item.isOwned) return 0;
+
+    const result = Roll.replaceFormulaData(
+        formula,
+        { item, actor: item.actor },
+        {
             missing: "0",
             warn: true,
-        });
-        return Number(result) || undefined;
-    }
-    return;
+        }
+    );
+    return Number(result) || undefined;
 };
