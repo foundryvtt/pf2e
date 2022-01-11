@@ -23,11 +23,10 @@ global.window = global.document.defaultView!;
 import $ from "jquery";
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { NPCSystemData } from "@actor/npc/data";
-import { isActorSource, isItemSource } from "./packman/compendium-pack";
+import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
 import { isPhysicalData } from "@item/data/helpers";
 import { IdentificationData } from "@item/physical/data";
 import { ActorSourcePF2e } from "@actor/data";
-import { RuleElementSource } from "@module/rules";
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -333,21 +332,8 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         sanitized.items = sanitized.items.map((itemData) => sanitizeDocument(itemData, { isEmbedded: true }));
     }
 
-    // Convert uuids in GrantItem REs to resemble links by name
     if (isItemSource(sanitized)) {
-        const rules: Array<RuleElementSource & { uuid?: unknown }> = sanitized.data.rules;
-        for (const rule of rules) {
-            if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
-                const parts = rule.uuid.split(".");
-                const [packId, docId] = parts.slice(2, 4);
-                const docName = idsToNames.get(packId)?.get(docId);
-                if (docName) {
-                    rule.uuid = parts.slice(0, 3).concat(docName).join(".");
-                } else {
-                    throw PackError(`Unable to find document name corresponding with ${rule.uuid}`);
-                }
-            }
-        }
+        CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: idsToNames });
     }
 
     const docJSON = JSON.stringify(sanitized);
