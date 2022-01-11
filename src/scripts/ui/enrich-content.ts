@@ -139,7 +139,7 @@ export const EnrichContent = {
         const allTraits = Array.from(new Set(traits));
 
         // Let the inline roll function handle level base DCs
-        const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
+        const checkDC = params.dc.startsWith("@self") ? params.dc : getCheckDc(params, item);
 
         // Build the inline link
         const html = document.createElement("span");
