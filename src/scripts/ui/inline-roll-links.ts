@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
@@ -6,6 +6,7 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { Statistic } from "@system/statistic";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { SaveType } from "@actor/data";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -167,16 +168,29 @@ export const InlineRollsLinks = {
                     for (const actor of skillActors) {
                         const skillCheck = actor.data.data.skills[skill ?? ""];
                         if (skill && skillCheck) {
-                            const dcValue =
-                                pf2Dc === "@self.level"
-                                    ? ((): number => {
-                                          const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-                                          const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
-                                          const level = actor.level;
-                                          const adjustment = Number(pf2Adjustment) || 0;
-                                          return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
-                                      })()
-                                    : Number(pf2Dc);
+                            const dcValue = (() => {
+                                switch (pf2Dc) {
+                                    case "@self.level": {
+                                        const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
+                                        const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+                                        const level = actor.level;
+                                        const adjustment = Number(pf2Adjustment) || 0;
+                                        return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
+                                    }
+                                    case "@self.dc.class":
+                                        return actor instanceof CharacterPF2e
+                                            ? actor.data.data.attributes.classDC.value
+                                            : 0;
+                                    case "@self.dc.fortitude":
+                                    case "@self.dc.reflex":
+                                    case "@self.dc.will": {
+                                        const type = pf2Dc.substring(pf2Dc.lastIndexOf(".") + 1) as SaveType;
+                                        return actor.saves[type].dc().value;
+                                    }
+                                    default:
+                                        return Number(pf2Dc);
+                                }
+                            })();
                             const dc = dcValue > 0 ? { label: pf2Label, value: dcValue } : null;
                             const options = actor.getRollOptions(["all", "skill-check", skill]);
                             if (pf2Traits) {
