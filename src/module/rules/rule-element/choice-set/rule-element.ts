@@ -74,9 +74,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Set the item flag in case other preCreate REs need it
             this.item.data.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
-            // Now that a selection is made, other rule elements can be set back to unignored
             for (const rule of this.item.rules) {
+                // Now that a selection is made, other rule elements can be set back to unignored
                 rule.ignored = false;
+                // Call any AE-likes in case roll options are required for later rules
+                rule.onApplyActiveEffects?.();
             }
         } else {
             ruleSource.ignored = true;
