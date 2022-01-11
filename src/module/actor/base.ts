@@ -306,7 +306,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     override prepareDerivedData(): void {
         // Record stored traits as roll options
         for (const trait of this.traits) {
-            this.rollOptions.all[`self:${trait}`] = true;
             this.rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
