@@ -152,7 +152,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         sheetData.crafting = {
-            noCost: this.actor.data.flags.pf2e.freeCrafting,
+            noCost: this.actor.data.flags.pf2e.freeCrafting || this.actor.data.flags.pf2e.quickAlchemy,
+            hasQuickAlchemy: this.actor.itemTypes.action.some((a) => a.slug === "quick-alchemy"),
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
         };
@@ -814,6 +815,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
+        const $craftingOptions = html.find(".crafting-options").find("input:checkbox");
+        $craftingOptions.on("click", async (event) => {
+            const flags: string[] = [];
+            $craftingOptions.each((_index, element) => {
+                if (element !== event.target) {
+                    flags.push($(element).attr("flag") as string);
+                }
+            });
+            flags.forEach(async (flag) => {
+                await this.actor.setFlag("pf2e", flag, false);
+            });
+        });
+
         const $formulas = html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
@@ -822,6 +836,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
             const formula = this.knownFormulas.get(itemUuid ?? "");
             if (!formula) return;
+
+            if (this.actor.data.flags.pf2e.quickAlchemy) {
+                const reagentValue = this.actor.data.data.resources.crafting.infusedReagents.value - itemQuantity;
+                if (reagentValue < 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                    return;
+                }
+                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+                craftItem(formula.item, itemQuantity, this.actor, true);
+                return;
+            }
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";
