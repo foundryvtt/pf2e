@@ -54,8 +54,14 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         const size = CreatureSizeRuleElement.wordToAbbreviation[value] ?? value;
 
         if (value === 1) {
+            if (this.data.maximumSize && !this.actor.data.data.traits.size.isSmallerThan(this.data.maximumSize)) {
+                return;
+            }
             this.actor.data.data.traits.size.increment();
         } else if (value === -1) {
+            if (this.data.minimumSize && !this.actor.data.data.traits.size.isLargerThan(this.data.minimumSize)) {
+                return;
+            }
             this.actor.data.data.traits.size.decrement();
         } else if (tupleHasValue(SIZES, size)) {
             this.actor.data.data.traits.size = new ActorSizePF2e({ value: size });
@@ -86,6 +92,8 @@ export interface CreatureSizeRuleElement extends RuleElementPF2e {
 
 interface CreatureSizeRuleElementData extends RuleElementData {
     resizeEquipment: boolean;
+    minimumSize?: ActorSizePF2e;
+    maximumSize?: ActorSizePF2e;
 }
 
 interface CreatureSizeConstructionData extends RuleElementSource {
