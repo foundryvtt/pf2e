@@ -289,6 +289,30 @@ export function ordinal(value: number) {
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
 }
 
+/** Localizes a list of strings into a comma delimited list for the current language */
+export function localizeList(items: string[]) {
+    const parts = LocalizePF2e.translations.PF2E.ListPartsOr;
+
+    if (items.length === 0) return "";
+    if (items.length === 1) return items[0];
+    if (items.length === 2) {
+        return game.i18n.format(parts.two, { first: items[0], second: items[1] });
+    }
+
+    let result = game.i18n.format(parts.start, { first: items[0], second: "{second}" });
+    for (let i = 1; i <= items.length - 2; i++) {
+        if (i === items.length - 2) {
+            const end = game.i18n.format(parts.end, { first: items[i], second: items[items.length - 1] });
+            result = result.replace("{second}", end);
+        } else {
+            const newSegment = game.i18n.format(parts.middle, { first: items[i], second: "{second}" });
+            result = result.replace("{second}", newSegment);
+        }
+    }
+
+    return result;
+}
+
 /** Generate and return an HTML element for a FontAwesome icon */
 export function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
     const styleClass = style === "regular" ? "far" : "fas";
