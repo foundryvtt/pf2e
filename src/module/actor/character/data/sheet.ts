@@ -56,6 +56,7 @@ interface CraftingEntries {
 
 interface CraftingData {
     noCost: boolean;
+    hasQuickAlchemy: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
     entries: CraftingEntries;
 }
