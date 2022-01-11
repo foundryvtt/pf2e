@@ -32,7 +32,7 @@ export class CheckModifiersDialog extends Application {
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
-            this.context.rollMode = game.settings.get("core", "rollMode");
+            this.context.rollMode ??= game.settings.get("core", "rollMode");
         }
     }
 
