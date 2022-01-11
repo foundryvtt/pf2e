@@ -15,7 +15,6 @@ import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
 import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { RuleElementSynthetics } from "@module/rules";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 
@@ -108,8 +107,7 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = this.rules.filter((rule) => !rule.ignored);
-        const synthetics = this.prepareCustomModifiers(rules);
+        const { synthetics } = this;
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
         const { details } = this.data.data;
@@ -195,10 +193,10 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        data.attributes.speed = this.prepareSpeed("land", synthetics);
+        data.attributes.speed = this.prepareSpeed("land");
         const { otherSpeeds } = data.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
         // Armor Class
@@ -231,7 +229,7 @@ export class NPCPF2e extends CreaturePF2e {
             data.attributes.ac = stat;
         }
 
-        this.prepareSaves(synthetics);
+        this.prepareSaves();
 
         // Perception
         {
@@ -728,14 +726,11 @@ export class NPCPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
-
-        // Update this.synthetics; This should always be at the end of prepareDerivedData
-        mergeObject(this.synthetics, synthetics);
     }
 
-    prepareSaves(synthetics: RuleElementSynthetics) {
+    prepareSaves(): void {
         const data = this.data.data;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};

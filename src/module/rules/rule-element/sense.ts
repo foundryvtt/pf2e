@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
@@ -20,7 +20,7 @@ export class SenseRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(synthetics: RuleElementSynthetics): void {
+    override onBeforePrepareData(): void {
         if (this.ignored) return;
 
         const range = this.resolveValue(this.data.range, "");
@@ -31,7 +31,7 @@ export class SenseRuleElement extends RuleElementPF2e {
                 value: String(range),
                 source: this.item.name,
             });
-            synthetics.senses.push({
+            this.actor.synthetics.senses.push({
                 sense: newSense,
                 predicate: this.data.predicate ?? null,
                 force: this.data.force,
