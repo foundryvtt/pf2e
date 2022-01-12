@@ -10,10 +10,8 @@
                 {{/if}}
                 <div class="instructions">
                     {{#if condition.value}}
-                        <p>[Left Click] Increment value</p>
-                        <p>[Right Click] Decrement value</p>
-                    {{else}}
-                        <p>[Right Click] Remove</p>
+                        <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
+                        <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
                     {{/if}}
                 </div>
             </div>
@@ -39,7 +37,7 @@
                     <div class="tag tag_secondary">{{this.data.remaining}}</div>
                 </div>
                 <div class="instructions">
-                    <p>[Right Click] Remove</p>
+                    <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
                 </div>
             </div>
             <div class="icon" data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
