@@ -64,7 +64,7 @@
             "alignment": {
                 "value": "CE"
             },
-            "blurb": "",
+            "blurb": "Variant ravener husk",
             "creatureType": "",
             "level": {
                 "value": 11
@@ -321,7 +321,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "(Ravener) Soulsense 60 feet",
+            "name": "Soulsense 60 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -391,7 +391,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> The ravener husk takes bludgeoning damage</div>\n<hr />\n<p><strong>Effect</strong> The ravener's brittle bones shatter, spraying bone shards everywhere. Every creature within a @Template[type:emanation|distance:10]{10-foot emanation} of the ravener husk takes [[/r {6d6}[piercing]]]{6d6 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Boneshatter DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> The ravener husk takes bludgeoning damage</div>\n<hr />\n<p><strong>Effect</strong> The ravener's brittle bones shatter, spraying bone shards everywhere. Every creature within a @Template[type:emanation|distance:10]{10-foot emanation} of the ravener husk takes [[/r {6d6}[piercing]]]{6d6 piercing damage} (@Check[type:reflex|traits:damaging-effect|dc:27|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,7 +430,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"27\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:27|traits:aura,emotion,fear,mental]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -481,7 +481,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ravener husk breathes a torrent of negative energy that deals [[/r {12d6}[negative]]]{12d6 negative damage} in a @Template[type:cone|distance:40]{40-foot cone} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"divine,evocation,negative,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The ravener husk breathes a torrent of negative energy that deals [[/r {12d6}[negative]]]{12d6 negative damage} in a @Template[type:cone|distance:40]{40-foot cone} (@Check[type:reflex|traits:divine,evocation,negative,damaging-effect|dc:30|basic:true] save).</p>\n<p data-visibility=\"gm\">They can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

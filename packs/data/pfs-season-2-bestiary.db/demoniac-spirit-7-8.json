@@ -251,7 +251,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -378,18 +378,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/fireball.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Fireball",
             "sort": 200000,
             "type": "spell"
@@ -519,18 +510,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.9AAkVUCwF6WVNNY2"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/lightning-bolt.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Lightning Bolt",
             "sort": 300000,
             "type": "spell"
@@ -646,18 +628,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.DCQHaLrYXMI37dvW"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Paralyze",
             "sort": 400000,
             "type": "spell"
@@ -769,18 +742,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Telekinetic Maneuver",
             "sort": 500000,
             "type": "spell"
@@ -892,18 +856,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Telekinetic Maneuver",
             "sort": 600000,
             "type": "spell"
@@ -1021,18 +976,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Fear",
             "sort": 700000,
             "type": "spell"
@@ -1199,7 +1145,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "positive"
                             ]
                         },
@@ -1301,7 +1247,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> A creature makes a successful melee attack against the spirit or makes a successful Acrobatics check to Tumble Through the spirit's space</div> <hr /><p><strong>Effect</strong> The spirit emits a brief pulse of negative energy that deals [[/r {5d6}[negative]]]{5d6 negative damage} to the triggering creature (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Vengeful Flash DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature makes a successful melee attack against the spirit or makes a successful Acrobatics check to @Compendium[pf2e.actionspf2e.Tumble Through]{Tumble Through} the spirit's space</p>\n<hr />\n<p><strong>Effect</strong> The spirit emits a brief pulse of negative energy that deals [[/r {5d6}[negative]]]{5d6 negative damage} to the triggering creature (@Check[type:reflex|traits:damaging-effect|dc:26|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1340,7 +1286,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The spirit lashes out at a creature within 60 feet, dealing [[/r {2d10 + 7}[mental]]]{2d10 + 7 mental damage} (<span data-pf2-check=\"will\" data-pf2-traits=\"evocation,occult,damaging-effect\" data-pf2-label=\"Abyssal Spite DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Will</span> save).</p>"
+                    "value": "<p>The spirit lashes out at a creature within 60 feet, dealing [[/r {2d10+7}[mental]]]{2d10+7 mental damage} (@Check[type:will|traits:evocation,occult,damaging-effect|dc:28|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1433,18 +1379,17 @@
                     {
                         "key": "ToggleProperty",
                         "label": "Rune has been disabled",
-                        "property": "flags.pf2e.rollOptions.all.rune-disabled"
+                        "property": "flags.pf2e.rollOptions.all.runeDisabled"
                     },
                     {
                         "key": "FlatModifier",
                         "label": "Rune Removed",
                         "predicate": {
                             "all": [
-                                "rune-disabled"
+                                "runeDisabled"
                             ]
                         },
                         "selector": "ac",
-                        "type": "untyped",
                         "value": -2
                     }
                 ],
