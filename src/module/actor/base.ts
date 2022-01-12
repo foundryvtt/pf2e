@@ -266,7 +266,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
         // Setup the basic structure of pf2e flags with roll options
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: {} } }, this.data.flags.pf2e ?? {});
+        const defaultOptions = { [`self:type:${this.type}`]: true };
+        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
 
         this.synthetics = {
             damageDice: {},
