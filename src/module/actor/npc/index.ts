@@ -17,6 +17,7 @@ import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
+import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -783,7 +784,11 @@ export class NPCPF2e extends CreaturePF2e {
             }
             return item.name;
         };
-        const formatNoteText = (itemName: string, description: string) => {
+        const formatNoteText = (itemName: string, item: ItemPF2e) => {
+            // Call enrichString with the correct item context
+            const rollData = { item, actor: this };
+            const description = EnrichContent.enrichString(item.description, { rollData });
+
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
         };
 
@@ -794,14 +799,14 @@ export class NPCPF2e extends CreaturePF2e {
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
-                note.text = formatNoteText(formatItemName(item), item.description);
+                note.text = formatNoteText(formatItemName(item), item);
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ "data.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    note.text = formatNoteText(formatItemName(packItem), packItem.description);
+                    note.text = formatNoteText(formatItemName(packItem), packItem);
                     notes.push(note);
                 }
             }

@@ -2,6 +2,7 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
+import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -13,7 +14,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
 
         const rollData = { item: this.item, actor: this.actor };
-        sheetData.data.description.value = game.pf2e.TextEditor.enrichHTML(sheetData.data.description.value, {
+        sheetData.data.description.value = EnrichContent.enrichString(sheetData.data.description.value, {
             rollData,
         });
 
