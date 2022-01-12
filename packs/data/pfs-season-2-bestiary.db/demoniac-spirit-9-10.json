@@ -251,7 +251,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -1144,7 +1144,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "positive"
                             ]
                         },
@@ -1285,7 +1285,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The spirit lashes out at a creature within 60 feet, dealing [[/r {2d12 + 8}[mental]]]{2d12 + 8 mental damage} (<span data-pf2-check=\"will\" data-pf2-traits=\"evocation,occult,damaging-effect\" data-pf2-label=\"Abyssal Spite DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">basic Will</span> save).</p>"
+                    "value": "<p>The spirit lashes out at a creature within 60 feet, dealing [[/r {2d12+8}[mental]]]{2d12+8 mental damage} (<span data-pf2-check=\"will\" data-pf2-traits=\"evocation,occult,damaging-effect\" data-pf2-label=\"Abyssal Spite DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">basic Will</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1378,18 +1378,17 @@
                     {
                         "key": "ToggleProperty",
                         "label": "Rune has been disabled",
-                        "property": "flags.pf2e.rollOptions.all.rune-disabled"
+                        "property": "flags.pf2e.rollOptions.all.runeDisabled"
                     },
                     {
                         "key": "FlatModifier",
                         "label": "Rune Removed",
                         "predicate": {
                             "all": [
-                                "rune-disabled"
+                                "runeDisabled"
                             ]
                         },
                         "selector": "ac",
-                        "type": "untyped",
                         "value": -2
                     }
                 ],
