@@ -361,7 +361,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 : this.toObject();
         if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
-        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
+        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value, { type: "regular" });
         if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
 
         const modifiers: ModifierPF2e[] = [];

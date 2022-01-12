@@ -4,6 +4,7 @@ import {
     MagicTradition,
     MAGIC_TRADITIONS,
     SlotKey,
+    SpellcastingEntry,
     SpellcastingEntryData,
     SpellcastingEntryListData,
     SpellcastingSlotLevel,
@@ -16,7 +17,7 @@ import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 
-export class SpellcastingEntryPF2e extends ItemPF2e {
+export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     static override get schema(): typeof SpellcastingEntryData {
         return SpellcastingEntryData;
     }
@@ -263,9 +264,9 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
-    getSpellData(this: Embedded<SpellcastingEntryPF2e>): SpellcastingEntryListData {
+    getSpellData(): SpellcastingEntryListData {
         if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) {
-            throw ErrorPF2e("Spellcasting entries can only exist on creatures");
+            throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
         const results: SpellcastingSlotLevel[] = [];

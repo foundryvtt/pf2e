@@ -67,6 +67,7 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
+import { TrickMagicItemEntry, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -768,11 +769,19 @@ export class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
+        // Trick Magic Item
+        if (itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
+            for (const skill of TRICK_MAGIC_SKILLS) {
+                const trick = new TrickMagicItemEntry(this, skill);
+                this.spellcasting.set(trick.id, trick);
+            }
+        }
+
         // Resources
         const { resources } = this.data.data;
         resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
         // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
-        if (!resources.focus.max && this.spellcasting.some((entry) => entry.isFocusPool)) {
+        if (!resources.focus.max && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
             resources.focus.max = 1;
         }
 

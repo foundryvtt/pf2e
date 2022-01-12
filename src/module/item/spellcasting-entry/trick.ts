@@ -1,7 +1,9 @@
 import { CharacterPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
 import { SpellPF2e } from "@item";
+import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
+import { SpellcastingEntry } from "./data";
 
 export const TRICK_MAGIC_SKILLS = ["arc", "nat", "occ", "rel"] as const;
 export type TrickMagicItemSkill = typeof TRICK_MAGIC_SKILLS[number];
@@ -14,12 +16,14 @@ const TrickMagicTradition = {
 };
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
-export class TrickMagicItemEntry {
+export class TrickMagicItemEntry implements SpellcastingEntry {
+    id = `trick-${this.skill}`;
+
     statistic: Statistic;
 
     ability: AbilityString;
 
-    constructor(actor: CharacterPF2e, skill: TrickMagicItemSkill) {
+    constructor(actor: CharacterPF2e, public skill: TrickMagicItemSkill) {
         const { abilities } = actor.data.data;
         const { ability } = (["int", "wis", "cha"] as const)
             .map((ability) => {
@@ -35,15 +39,33 @@ export class TrickMagicItemEntry {
 
         this.ability = ability;
         const tradition = TrickMagicTradition[skill];
+
+        const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
+        const attackSelectors = [
+            `${tradition}-spell-attack`,
+            "spell-attack",
+            "spell-attack-roll",
+            "attack",
+            "attack-roll",
+        ];
+        const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
+
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             ability,
             rank: actor.data.data.skills[skill].rank,
+            modifiers: extractModifiers(actor.synthetics.statisticsModifiers, selectors),
+            domains: selectors,
             check: {
                 label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                 type: "spell-attack-roll",
+                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, attackSelectors),
+                domains: attackSelectors,
             },
-            dc: {},
+            dc: {
+                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, saveSelectors),
+                domains: saveSelectors,
+            },
         });
     }
 

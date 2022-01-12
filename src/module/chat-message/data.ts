@@ -18,6 +18,7 @@ export type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
         damageRoll?: boolean;
         context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
         origin?: { type: ItemType; uuid: string } | null;
+        casting?: { id: string } | null;
         modifierName?: string;
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";

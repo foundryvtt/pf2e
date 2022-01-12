@@ -10,6 +10,7 @@ import { MagicSchool, SpellData, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { ChatMessagePF2e } from "@module/chat-message";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -211,6 +212,22 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
+    }
+
+    override async toMessage(
+        event?: JQuery.TriggeredEvent,
+        { create = true, data = {} } = {}
+    ): Promise<ChatMessagePF2e | undefined> {
+        const message = await super.toMessage(event, { data, create: false });
+        if (!message) return undefined;
+
+        const chatData = message.toObject(false);
+        const entry = this.trickMagicEntry ?? this.spellcasting;
+        if (entry) {
+            chatData.flags.pf2e.casting = { id: entry.id };
+        }
+
+        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : message;
     }
 
     override getChatData(

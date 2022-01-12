@@ -1,10 +1,17 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingEntry } from "@item/spellcasting-entry/data";
+import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e, tupleHasValue } from "@util";
 
-export class ActorSpellcasting extends Collection<Embedded<SpellcastingEntryPF2e>> {
-    constructor(public readonly actor: ActorPF2e, entries?: Embedded<SpellcastingEntryPF2e>[]) {
+export class ActorSpellcasting extends Collection<SpellcastingEntry> {
+    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntry[]) {
         super(entries?.map((entry) => [entry.id, entry]));
+    }
+
+    /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
+    get regular() {
+        return this.filter((entry): entry is SpellcastingEntryPF2e => entry instanceof SpellcastingEntryPF2e);
     }
 
     /**
@@ -12,7 +19,26 @@ export class ActorSpellcasting extends Collection<Embedded<SpellcastingEntryPF2e
      * full fledged spellcasting feature for wands and scrolls.
      */
     get spellcastingFeatures() {
-        return this.filter((entry) => entry.isPrepared || entry.isSpontaneous);
+        return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
+    }
+
+    override get<T extends SpellcastingEntry = SpellcastingEntry>(key: string, options: { strict: true }): T;
+    override get<T extends SpellcastingEntry = SpellcastingEntry>(
+        key: string,
+        options?: { strict?: boolean }
+    ): T | undefined;
+    override get(key: string, options: { type: "regular" }): Embedded<SpellcastingEntryPF2e> | undefined;
+    override get(key: string, options: { type: "trick" }): TrickMagicItemEntry | undefined;
+    override get(key: string, options?: { strict?: boolean; type?: "trick" | "regular" }) {
+        const entry = super.get(key, options);
+        switch (options?.type ?? "") {
+            case "regular":
+                return entry instanceof SpellcastingEntryPF2e && entry.actor ? entry : undefined;
+            case "trick":
+                return entry instanceof TrickMagicItemEntry ? entry : undefined;
+            default:
+                return entry;
+        }
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
