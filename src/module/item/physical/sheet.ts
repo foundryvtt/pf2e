@@ -12,6 +12,11 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         const identifiedData = this.item.getMystifiedData("identified", { source: true });
         mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
 
+        const rollData = { item: this.item, actor: this.actor };
+        sheetData.data.description.value = game.pf2e.TextEditor.enrichHTML(sheetData.data.description.value, {
+            rollData,
+        });
+
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
