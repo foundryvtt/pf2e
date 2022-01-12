@@ -596,6 +596,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
+
+        // Remove any rule elements that request their own removal upon item creation
+        this.data._source.data.rules = this.data._source.data.rules.filter((r) => !r.removeUponCreate);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
