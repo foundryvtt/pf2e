@@ -17,16 +17,19 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.flags.pf2e.rageTempHP",
+                "path": "flags.pf2e.rageTempHP",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.flags.pf2e.rageTempHP",
+                "path": "flags.pf2e.rageTempHP",
+                "phase": "beforeDerived",
                 "predicate": {
-                    "all": [
-                        "self:type:character"
+                    "not": [
+                        "self:type:familiar",
+                        "self:type:hazard",
+                        "self:type:vehicle"
                     ]
                 },
                 "value": "@actor.level + @actor.abilities.con.mod"
