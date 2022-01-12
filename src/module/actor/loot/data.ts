@@ -25,6 +25,7 @@ export interface LootData extends Omit<LootSource, "effects" | "flags" | "items"
 /** The system-level data of loot actors. */
 export interface LootSystemSource extends ActorSystemSource {
     attributes: {
+        ac?: never;
         hp?: never;
     };
     details: {
