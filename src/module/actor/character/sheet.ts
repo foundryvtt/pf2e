@@ -469,7 +469,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
         for (const featData of tempFeats) {
-            if (featData.flags.pf2e.grantedBy) {
+            if (featData.flags.pf2e.grantedBy && !featData.data.location) {
                 const granter = this.actor.items.get(featData.flags.pf2e.grantedBy);
                 if (granter instanceof FeatPF2e) continue;
             }
@@ -484,7 +484,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const getGrants = (grantedIds: string[]): GrantedFeat[] => {
                 return grantedIds.flatMap((grantedId: string) => {
                     const item = this.actor.items.get(grantedId);
-                    return item instanceof FeatPF2e
+                    return item instanceof FeatPF2e && !item.data.data.location
                         ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
                         : [];
                 });

@@ -50,6 +50,7 @@ abstract class RuleElementPF2e {
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
             label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
             ignored: data.ignored ?? false,
+            removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
     }
 
