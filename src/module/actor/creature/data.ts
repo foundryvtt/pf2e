@@ -201,6 +201,10 @@ export interface AttackRollContext {
 
 /** A PC's or NPC's held shield. An NPC's values can be stored directly on the actor or come from a shield item. */
 export interface HeldShieldData {
+    /** The item ID of the shield if in use or otherwise `null` */
+    itemId: string | null;
+    /** The name of the shield (defaulting to "Shield" if not from a shield item) */
+    name: string;
     /** The shield's AC */
     ac: number;
     /** The shield's hardness */
@@ -213,6 +217,8 @@ export interface HeldShieldData {
     raised: boolean;
     /** Whether the shield is broken */
     broken: boolean;
+    /** Whether the shield is destroyed (hp.value === 0) */
+    destroyed: boolean;
     /** An effect icon to use when the shield is raised */
     icon: ImagePath;
 }
