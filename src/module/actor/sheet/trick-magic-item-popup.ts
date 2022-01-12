@@ -4,7 +4,7 @@ import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
 import { SKILL_DICTIONARY } from "@actor/data/values";
-import { TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
+import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
@@ -65,7 +65,9 @@ export class TrickMagicItemPopup {
             dc: { value: this.checkDC[skill] ?? 0 },
         });
 
-        const trick = this.actor.spellcasting.get(`trick-${skill}`, { type: "trick" });
-        this.item.castEmbeddedSpell(trick);
+        const trick = this.actor.spellcasting.get(`trick-${skill}`);
+        if (trick instanceof TrickMagicItemEntry) {
+            this.item.castEmbeddedSpell(trick);
+        }
     }
 }

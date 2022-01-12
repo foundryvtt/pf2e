@@ -559,8 +559,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
-                const entry = this.actor.spellcasting.get(itemData._id, { type: "regular" });
-                if (!entry) continue;
+                const entry = this.actor.spellcasting.get(itemData._id);
+                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
                 sheetData.spellcastingEntries.push({
                     ...itemData,
                     ...entry.getSpellData(),

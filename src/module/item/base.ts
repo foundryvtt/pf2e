@@ -22,6 +22,7 @@ import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { SpellcastingEntryPF2e } from "./spellcasting-entry";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -361,8 +362,10 @@ class ItemPF2e extends Item<ActorPF2e> {
                 : this.toObject();
         if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
 
-        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value, { type: "regular" });
-        if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
+        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
+            throw ErrorPF2e("Spell points to location that is not a spellcasting type");
+        }
 
         const modifiers: ModifierPF2e[] = [];
         const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";

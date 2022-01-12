@@ -282,8 +282,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
-            const entry = this.actor.spellcasting.get(entryId, { type: "regular" });
-            entry?.unprepareSpell(spellLvl, slotId);
+            const entry = this.actor.spellcasting.get(entryId);
+            if (entry instanceof SpellcastingEntryPF2e) {
+                entry.unprepareSpell(spellLvl, slotId);
+            }
         });
 
         // Set Expended Status of Spell Slot
@@ -295,8 +297,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
                 return expendedString !== "true";
             })();
-            const entry = this.actor.spellcasting.get(entryId, { type: "regular" });
-            entry?.setSlotExpendedState(spellLvl, slotId, expendedState);
+            const entry = this.actor.spellcasting.get(entryId);
+            if (entry instanceof SpellcastingEntryPF2e) {
+                entry.setSlotExpendedState(spellLvl, slotId, expendedState);
+            }
         });
 
         // Toggle equip
