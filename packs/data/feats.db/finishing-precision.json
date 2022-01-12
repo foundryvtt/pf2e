@@ -31,6 +31,53 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Basic Finisher"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Precise Strike"
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache",
+                        "melee"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ],
+                    "not": [
+                        "finisher",
+                        "self:class:swashbuckler"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "dedication-precise-strike",
+                "value": 1
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "finisher",
+                        "panache",
+                        "melee"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ],
+                    "not": [
+                        "self:class:swashbuckler"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "dedication-finisher"
             }
         ],
         "source": {
