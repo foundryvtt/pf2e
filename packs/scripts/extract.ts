@@ -214,44 +214,44 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
     }
 }
 
-function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = { isEmbedded: false }): T {
+function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { isEmbedded: false }): T {
     // Clear non-core/pf2e flags
-    for (const flagScope in entityData.flags) {
+    for (const flagScope in docSource.flags) {
         if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
-            delete entityData.flags[flagScope];
+            delete docSource.flags[flagScope];
         }
     }
 
     if (!isEmbedded) {
-        entityData.permission = { default: entityData.permission?.default ?? 0 };
-        delete (entityData as Partial<typeof entityData>).sort;
+        docSource.permission = { default: docSource.permission?.default ?? 0 };
+        delete (docSource as Partial<typeof docSource>).sort;
 
-        if (isItemSource(entityData)) {
-            const slug = entityData.data.slug;
-            if (typeof slug === "string" && slug !== sluggify(entityData.name)) {
+        if (isItemSource(docSource)) {
+            const slug = docSource.data.slug;
+            if (typeof slug === "string" && slug !== sluggify(docSource.name)) {
                 console.warn(
-                    `Warning: Name change detected on ${entityData.name}. ` +
+                    `Warning: Name change detected on ${docSource.name}. ` +
                         "Please remember to create a slug migration before next release."
                 );
             }
 
-            delete (entityData.data as { slug?: unknown }).slug;
-            entityData.flags = entityData.type === "condition" ? { pf2e: { condition: true } } : {};
+            delete (docSource.data as { slug?: unknown }).slug;
+            docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
         }
 
-        if (isActorSource(entityData)) {
-            if (!entityData.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
-                for (const effect of entityData.effects) {
+        if (isActorSource(docSource)) {
+            if (!docSource.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
+                for (const effect of docSource.effects) {
                     effect.origin = "";
                 }
             }
         }
     }
 
-    pruneTree(entityData, entityData);
+    pruneTree(docSource, docSource);
 
     // Clean up description HTML
-    const cleanDescription = (description: string) => {
+    const cleanDescription = (description: string): string => {
         if (!description) {
             return "";
         }
@@ -265,9 +265,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
                 );
             } catch (error) {
                 console.error(error);
-                throw PackError(
-                    `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`
-                );
+                throw PackError(`Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`);
             }
         })();
 
@@ -314,12 +312,14 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             .trim();
     };
 
-    if ("data" in entityData && "description" in entityData.data) {
-        const description = entityData.data.description;
+    if ("data" in docSource && "description" in docSource.data) {
+        const description = docSource.data.description;
         description.value = cleanDescription(description.value);
+    } else if ("content" in docSource) {
+        docSource.content = cleanDescription(docSource.content);
     }
 
-    return entityData;
+    return docSource;
 }
 
 const newDocIdMap: Record<string, string> = {};
