@@ -16,11 +16,13 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Point-Blank Shot",
                 "predicate": {
                     "all": [
-                        "first-range-increment",
                         "ranged"
+                    ],
+                    "any": [
+                        "first-range-increment",
+                        "target:range-increment:1"
                     ],
                     "not": [
                         "volley-30"
