@@ -105,23 +105,23 @@ export const EnrichContent = {
             return `[${text}]`;
         };
 
-        // Extract the first parameter
+        // Parse the parameter string
         const parts = paramString.split("|");
-        const type = parts[0]?.trim();
-        // Handle the rest of paramString
-        let params: Record<string, string> = {};
-        if (parts.length > 1) {
-            parts.shift();
-            paramString = parts.join("|");
-            const rawParams = EnrichContent.getParams(paramString);
-            // Check for correct syntax
-            if (typeof rawParams === "string") return error(rawParams);
-            params = Object.fromEntries(rawParams);
+        const params: Record<string, string> = {};
+        for (const paramPart of parts) {
+            const param = paramPart.trim();
+            if (param.startsWith("traits:")) {
+                // Special case for "traits" that may be roll options
+                params.traits = param.substring(7);
+            } else {
+                const paramParts = param.split(":");
+                if (paramParts.length !== 2) {
+                    return error(`Error. Expected 'parameter:value' but got: ${param}`);
+                }
+                params[paramParts[0].trim()] = paramParts[1].trim();
+            }
         }
-        if (!type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
-
-        // Handle type:check and check as first parameter
-        params.type = type.includes(":") ? type.split(":")[1] : type;
+        if (!params.type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
 
         const traits: string[] = [];
         const itemTraits = item?.data.data.traits;
@@ -146,7 +146,7 @@ export const EnrichContent = {
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         html.setAttribute(
             "data-pf2-label",
-            game.i18n.format("PF2E.InlineCheck.DCWithName", { name: item?.name ?? params.name ?? params.type })
+            game.i18n.format("PF2E.InlineCheck.DCWithName", { name: params.name ?? item?.name ?? params.type })
         );
         html.setAttribute("data-pf2-show-dc", "gm");
 
