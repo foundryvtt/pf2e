@@ -15,8 +15,25 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.flags.pf2e.rageTempHP",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.flags.pf2e.rageTempHP",
+                "predicate": {
+                    "all": [
+                        "self:type:character"
+                    ]
+                },
+                "value": "@actor.level + @actor.abilities.con.mod"
+            },
+            {
                 "key": "TempHP",
-                "value": "@actor.abilities.con.mod + @actor.level"
+                "value": "@actor.data.flags.pf2e.rageTempHP"
             },
             {
                 "key": "ActiveEffectLike",
