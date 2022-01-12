@@ -613,21 +613,22 @@ class ItemPF2e extends Item<ActorPF2e> {
         await super._preUpdate(changed, options, user);
     }
 
-    /** Call onDelete rule-element hooks, refresh effects panel */
+    /** Call onCreate rule-element hooks, refresh effects panel */
     protected override _onCreate(
         data: ItemSourcePF2e,
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        if (this.actor) {
-            // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
+        super._onCreate(data, options, userId);
+
+        if (this.actor && game.user.id === userId) {
+            this.actor.prepareData();
             const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) rule.onCreate?.(actorUpdates);
+            for (const rule of this.rules) {
+                rule.onCreate?.(actorUpdates);
+            }
             this.actor.update(actorUpdates);
         }
-
-        super._onCreate(data, options, userId);
     }
 
     /** Call onDelete rule-element hooks */
