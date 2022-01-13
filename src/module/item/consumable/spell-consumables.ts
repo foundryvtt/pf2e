@@ -1,6 +1,7 @@
 import { ConsumableData, ConsumableSource } from "@item/data";
 import { ConsumablePF2e } from "@item/index";
 import { SpellPF2e } from "@item/spell";
+import { TraditionSkills } from "@item/spellcasting-entry/trick";
 import { calculateDC, DCOptions } from "@module/dc";
 import { ErrorPF2e } from "@util";
 
@@ -79,13 +80,6 @@ export interface TrickMagicItemDifficultyData {
     occ?: number;
     nat?: number;
 }
-
-const TraditionSkills = {
-    arcane: "arc",
-    divine: "rel",
-    occult: "occ",
-    primal: "nat",
-};
 
 export function calculateTrickMagicItemCheckDC(
     itemData: ConsumableData,

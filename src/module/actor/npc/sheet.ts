@@ -6,7 +6,7 @@ import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
-import { ConditionPF2e } from "@item";
+import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
 import {
     ActionData,
     ArmorData,
@@ -574,7 +574,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         for (const item of sheetData.items) {
             if (item.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(item._id);
-                if (!entry) continue;
+                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
