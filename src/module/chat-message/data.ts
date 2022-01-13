@@ -1,4 +1,5 @@
 import { ItemType } from "@item/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
 import { RawModifier } from "@module/modifiers";
 import { CheckModifiersContext } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
@@ -18,7 +19,7 @@ export type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
         damageRoll?: boolean;
         context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
         origin?: { type: ItemType; uuid: string } | null;
-        casting?: { id: string } | null;
+        casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";

@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
@@ -12,7 +12,7 @@ import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibility } from "@scripts/ui/user-visibility";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -89,12 +89,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         })();
 
         // Assign spellcasting entry, currently only used for trick magic item
-        const { id } = this.data.flags.pf2e?.casting ?? {};
-        if (id && item instanceof SpellPF2e) {
-            const entry = item?.actor.spellcasting.get(id);
-            if (entry instanceof TrickMagicItemEntry) {
-                item.trickMagicEntry = entry;
-            }
+        const { tradition } = this.data.flags.pf2e?.casting ?? {};
+        const isCharacter = item && item.actor instanceof CharacterPF2e;
+        if (tradition && item instanceof SpellPF2e && !item.spellcasting && isCharacter) {
+            const trick = new TrickMagicItemEntry(item.actor, TraditionSkills[tradition]);
+            item.trickMagicEntry = trick;
         }
 
         return item;

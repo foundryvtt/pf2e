@@ -12,8 +12,15 @@ const TrickMagicTradition = {
     arc: "arcane",
     nat: "primal",
     occ: "occult",
-    rel: "religion",
-};
+    rel: "divine",
+} as const;
+
+export const TraditionSkills = {
+    arcane: "arc",
+    divine: "rel",
+    occult: "occ",
+    primal: "nat",
+} as const;
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
 export class TrickMagicItemEntry implements SpellcastingEntry {
@@ -22,6 +29,8 @@ export class TrickMagicItemEntry implements SpellcastingEntry {
     statistic: Statistic;
 
     ability: AbilityString;
+
+    tradition = TrickMagicTradition[this.skill];
 
     constructor(actor: CharacterPF2e, public skill: TrickMagicItemSkill) {
         const { abilities } = actor.data.data;

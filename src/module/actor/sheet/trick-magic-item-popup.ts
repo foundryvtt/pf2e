@@ -65,9 +65,7 @@ export class TrickMagicItemPopup {
             dc: { value: this.checkDC[skill] ?? 0 },
         });
 
-        const trick = this.actor.spellcasting.get(`trick-${skill}`);
-        if (trick instanceof TrickMagicItemEntry) {
-            this.item.castEmbeddedSpell(trick);
-        }
+        const trick = new TrickMagicItemEntry(this.actor, skill);
+        this.item.castEmbeddedSpell(trick);
     }
 }

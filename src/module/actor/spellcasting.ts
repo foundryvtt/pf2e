@@ -1,10 +1,9 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntry } from "@item/spellcasting-entry/data";
 import { ErrorPF2e, tupleHasValue } from "@util";
 
-export class ActorSpellcasting extends Collection<SpellcastingEntry> {
-    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntry[]) {
+export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
+    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntryPF2e[]) {
         super(entries?.map((entry) => [entry.id, entry]));
     }
 
