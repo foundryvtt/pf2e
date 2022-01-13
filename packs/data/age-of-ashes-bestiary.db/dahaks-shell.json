@@ -23,7 +23,7 @@
         "customModifiers": {},
         "details": {
             "description": "<p>A ring of eight dragon pillar replicas mark the border of a dome of magical prismatic energy that entirely contains the Fortress of Sorrow.</p>",
-            "disable": "<p>Each dragon pillar that is destroyed removes the corresponding color's effect from Dahak's shell; as long as even one color remains active, the pillars marking the shell's border cannot be damaged themselves, but a successful <span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap,hazard\" data-pf2-label=\"Disable Color DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">Thievery</span> (master) check or a successful <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 30) against one of the eight pillars can cause a randomly determined active color in the shell defense (below) to become deactivated for [[/br 1d4 #rounds]]{1d4 rounds}.</p>",
+            "disable": "<p>Each dragon pillar that is destroyed removes the corresponding color's effect from Dahak's shell; as long as even one color remains active, the pillars marking the shell's border cannot be damaged themselves, but a successful @Check[type:thievery|dc:32|name:Disable Color|traits:magical,trap,hazard] (master) check or a successful <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 30) against one of the eight pillars can cause a randomly determined active color in the shell defense (below) to become deactivated for [[/br 1d4 #rounds]]{1d4 rounds}.</p>",
             "isComplex": false,
             "level": {
                 "value": 12
@@ -221,7 +221,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Black Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is blinded for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 24 hours.</p>\n</div>"
+                    "value": "<p>@Check[type:fortitude|dc:32|name:Black Eye Beam|traits:divine,abjuration,incapacitation,hazard,trap,light] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is blinded for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 24 hours.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -268,7 +268,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,trap,hazard,light\" data-pf2-label=\"Blue Eye Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong> The target is petrified for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is petrified permanently.</p>\n</div>"
+                    "value": "<p>@Check[type:fortitude|dc:32|name:Blue Eye Beam|traits:divine,abjuration,incapacitation,trap,hazard,light] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong> The target is petrified for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is petrified permanently.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -315,7 +315,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,poison,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Green Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>[[/r {6d6}[poison]]]{6d6 poison damage} (@Check[type:reflex|dc:32|basic:true|name:Green Eye Beam|traits:divine,abjuration,poison,custom,damaging-effect,hazard,trap,light] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -362,7 +362,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divination,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Indigo Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is controlled by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is controlled, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead confused for [[/br 1d4+1 #Confused Rounds]]{1d4+1} rounds. A controlled creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>\n</div>"
+                    "value": "<p>@Check[type:will|dc:32|name:Indigo Eye Beam|traits:divination,abjuration,incapacitation,hazard,trap,light] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is controlled by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is controlled, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead confused for [[/br 1d4+1 #Confused Rounds]]{1d4+1} rounds. A controlled creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -409,7 +409,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,evocation,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Yellow Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>[[/r {6d6}[electricity]]]{6d6 electricity damage} (@Check[type:reflex|dc:32|basic:true|name:Yellow Eye Beam|traits:divine,abjuration,evocation,custom,damaging-effect,hazard,trap,light] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -456,7 +456,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,acid,abjuration,custom,damaging-effect,hazard,trap,light\" data-pf2-label=\"Orange Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>[[/r {6d6}[acid]]]{6d6 acid damage} (@Check[type:reflex|dc:32|basic:true|name:Orange Eye Beam|traits:divine,acid,abjuration,custom,damaging-effect,hazard,trap,light] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -503,7 +503,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,fire,abjuration,damaging-effect,hazard,trap,light\" data-pf2-label=\"Red Eye Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>[[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:32|basic:true|name:Red Eye Beam|traits:divine,fire,abjuration,damaging-effect,hazard,trap,light] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -550,7 +550,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"divine,abjuration,incapacitation,hazard,trap,light\" data-pf2-label=\"Violet Eye Beam DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>\n</div>"
+                    "value": "<p>@Check[type:will|dc:32|name:Violet Eye Beam|traits:divine,abjuration,incapacitation,hazard,trap,light] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 7}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
