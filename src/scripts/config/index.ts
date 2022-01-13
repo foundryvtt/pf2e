@@ -254,6 +254,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
     vorpal: "PF2E.WeaponPropertyRuneVorpal",
     "vorpal-fear": "PF2E.TraitVorpalFear",
+    "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
     unarmed: "PF2E.TraitUnarmed",
     weapons: "PF2E.TraitWeapons",
 };
