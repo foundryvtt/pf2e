@@ -1,3 +1,4 @@
+import { ItemPF2e } from "@item";
 import { getActionGlyph } from "../util";
 
 export function registerHandlebarsHelpers() {
@@ -118,8 +119,10 @@ export function registerHandlebarsHelpers() {
         return strip_tags(String(value));
     });
 
-    Handlebars.registerHelper("enrichHTML", (html) => {
-        return game.pf2e.TextEditor.enrichHTML(html);
+    Handlebars.registerHelper("enrichHTML", (html, options) => {
+        const item: ItemPF2e = options?.hash.item;
+        const rollData = item?.getRollData();
+        return game.pf2e.TextEditor.enrichHTML(html, { rollData });
     });
 
     Handlebars.registerHelper("json", (html) => {

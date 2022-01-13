@@ -145,11 +145,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
 
-        const rollData = this.item.getRollData();
-        itemData.data.description.value = game.pf2e.TextEditor.enrichHTML(itemData.data.description.value, {
-            rollData,
-        });
-
         const isEditable = this.isEditable;
         return {
             itemType: null,

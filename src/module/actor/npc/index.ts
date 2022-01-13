@@ -786,7 +786,7 @@ export class NPCPF2e extends CreaturePF2e {
         };
         const formatNoteText = (itemName: string, item: ItemPF2e) => {
             // Call enrichString with the correct item context
-            const rollData = { item, actor: this };
+            const rollData = item.getRollData();
             const description = EnrichContent.enrichString(item.description, { rollData });
 
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
