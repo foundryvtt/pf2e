@@ -148,7 +148,7 @@ export const EnrichContent = {
             "data-pf2-label",
             game.i18n.format("PF2E.InlineCheck.DCWithName", { name: params.name ?? item?.name ?? params.type })
         );
-        html.setAttribute("data-pf2-show-dc", "gm");
+        html.setAttribute("data-pf2-show-dc", params.showDC ?? "gm");
 
         switch (params.type) {
             case "flat":
