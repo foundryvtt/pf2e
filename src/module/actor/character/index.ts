@@ -716,7 +716,11 @@ export class CharacterPF2e extends CreaturePF2e {
                     strikingRune: { value: null },
                     traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     equipped: {
-                        value: true, // consider checking for free hands
+                        carryType: "held",
+                        handsHeld: 1,
+                    },
+                    usage: {
+                        value: "held-in-one-hand",
                     },
                 },
             };

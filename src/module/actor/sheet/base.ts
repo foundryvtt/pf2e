@@ -24,7 +24,7 @@ import {
     SELECTABLE_TAG_FIELDS,
     TagSelectorOptions,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
@@ -41,6 +41,7 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { ITEM_CARRY_TYPES } from "@item/data/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -295,12 +296,36 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
+        $html.find(".carry-type-hover").tooltipster({
+            animation: "fade",
+            delay: 200,
+            animationDuration: 10,
+            trigger: "click",
+            arrow: false,
+            contentAsHTML: true,
+            debug: BUILD_MODE === "development",
+            interactive: true,
+            side: ["bottom"],
+            theme: "crb-hover",
+            minWidth: 120,
+        });
+
         // Toggle equip
-        $html.find(".item-toggle-equip").on("click", (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.closest("[data-item-id]").attr("data-item-id") ?? "";
-            const active = f.hasClass("active");
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.equipped.value": !active }]);
+        $html.find("a[data-carry-type]").on("click", (event) => {
+            $html.find(".carry-type-hover").tooltipster("close");
+
+            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
+            const item = this.actor.items.get(itemId);
+            if (!(item instanceof PhysicalItemPF2e)) {
+                throw new Error("PF2e System | Tried to update location on item that doesn't have location");
+            }
+
+            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
+            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
+            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
+            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                item.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+            }
         });
 
         // Trait Selector
@@ -970,6 +995,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
                 itemData.data.containerId.value = containerId;
+                itemData.data.equipped.carryType = "stowed";
+            } else {
+                itemData.data.equipped.carryType = "worn";
             }
             if (actor.size === "tiny") {
                 itemData.data.size.value = "tiny";
