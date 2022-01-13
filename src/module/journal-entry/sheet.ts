@@ -16,6 +16,11 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
         return options;
     }
 
+    override get template() {
+        if (this._sheetMode === "image") return ImagePopout.defaultOptions.template!;
+        return "systems/pf2e/templates/journal/sheet.html";
+    }
+
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
         InlineRollsLinks.listen($html);
