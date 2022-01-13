@@ -1,8 +1,8 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e } from "@actor";
 import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, SpellPF2e } from "@item";
 import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
@@ -12,6 +12,7 @@ import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibility } from "@scripts/ui/user-visibility";
+import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -78,12 +79,24 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
-        const domItem = this.getItemFromDOM();
-        if (domItem) return domItem;
+        const item = (() => {
+            const domItem = this.getItemFromDOM();
+            if (domItem) return domItem;
 
-        const origin = this.data.flags.pf2e?.origin ?? null;
-        const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-        return this.actor?.items.get(match?.[1] ?? "") ?? null;
+            const origin = this.data.flags.pf2e?.origin ?? null;
+            const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
+            return this.actor?.items.get(match?.[1] ?? "") ?? null;
+        })();
+
+        // Assign spellcasting entry, currently only used for trick magic item
+        const { tradition } = this.data.flags.pf2e?.casting ?? {};
+        const isCharacter = item && item.actor instanceof CharacterPF2e;
+        if (tradition && item instanceof SpellPF2e && !item.spellcasting && isCharacter) {
+            const trick = new TrickMagicItemEntry(item.actor, TraditionSkills[tradition]);
+            item.trickMagicEntry = trick;
+        }
+
+        return item;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
