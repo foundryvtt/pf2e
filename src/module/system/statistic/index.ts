@@ -87,6 +87,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
             data.modifiers.unshift(this.abilityModifier);
         }
+
+        // Pre-test modifiers so that inspection outside of rolls works correctly
+        if (data.domains) {
+            const options = this.createRollOptions(data.domains, {});
+            data.modifiers?.forEach((mod) => mod.test(options));
+            data.check?.modifiers?.forEach((mod) => mod.test(options));
+            data.dc?.modifiers?.forEach((mod) => mod.test(options));
+        }
     }
 
     /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
