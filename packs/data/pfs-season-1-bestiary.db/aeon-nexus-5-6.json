@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>A small cluster of aeon stones floats two feet off the ground, orbiting by shards of shattered aeon stones that crackle with electricity.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Remove Aeon Stone DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to remove one nexus aeon stone from the center</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Remove Aeon Stone|traits:magical,trap] (trained) to remove one nexus aeon stone from the center</p>",
             "isComplex": true,
             "level": {
                 "value": 5
             },
             "reset": "",
-            "routine": "<p><span class=\"pf2-icon\">3</span> The trap loses one action each turn for each nexus aeon stone removed from its center. On each action, it shoots a jet of electrified, razor-sharp aeon stone shards at a different creature within 30 feet, dealing [[/r {1d8+3}[piercing]]]{1d8+3 piercing damage} and [[/r {1d8+3}[electricity]]]{1d8+3 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Aeon Nexus DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span>).</p>"
+            "routine": "<p><span class=\"pf2-icon\">3</span> The trap loses one action each turn for each nexus aeon stone removed from its center. On each action, it shoots a jet of electrified, razor-sharp aeon stone shards at a different creature within 30 feet, dealing [[/r {1d8+3}[piercing]]]{1d8+3 piercing damage} and [[/r {1d8+3}[electricity]]]{1d8+3 electricity damage} (@Check[type:reflex|dc:23|basic:true|name:Aeon Nexus|traits:damaging-effect]).</p>"
         },
         "saves": {
             "fortitude": {
@@ -86,7 +86,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature who is not carrying a wayfinder with an aeon stone from the nexus slotted into it approaches within 15 feet of the aeon nexus</p>\n<p><strong>Effect</strong> The trap shocks the target, dealing [[/r {2d8+4}[electricity]]]{2d8+4 electricity damage} to the triggering creature (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Static DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span>), then rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature who is not carrying a wayfinder with an aeon stone from the nexus slotted into it approaches within 15 feet of the aeon nexus</p>\n<p><strong>Effect</strong> The trap shocks the target, dealing [[/r {2d8+4}[electricity]]]{2d8+4 electricity damage} to the triggering creature (@Check[type:reflex|dc:23|basic:true|name:Static|traits:damaging-effect]), then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
