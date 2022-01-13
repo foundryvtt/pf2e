@@ -8,7 +8,28 @@
         "description": {
             "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:level:1",
+                        "item:trait:general"
+                    ],
+                    "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+            }
+        ],
         "source": {
             "value": ""
         },

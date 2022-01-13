@@ -31,7 +31,7 @@ import {
 } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic } from "@system/statistic";
-import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -91,10 +91,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const tokens = this.getActiveTokens();
         const hasDeathOverlay = tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === deathIcon);
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
-    }
-
-    get attributes(): this["data"]["data"]["attributes"] {
-        return this.data.data.attributes;
     }
 
     get perception(): Statistic {
@@ -172,12 +168,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Set base actor-shield data for PCs NPCs
         if (this.data.type === "character" || this.data.type === "npc") {
             this.data.data.attributes.shield = {
+                itemId: null,
+                name: game.i18n.localize("PF2E.ArmorTypeShield"),
                 ac: 0,
                 hp: { value: 0, max: 0 },
                 brokenThreshold: 0,
                 hardness: 0,
                 raised: false,
                 broken: false,
+                destroyed: false,
                 icon: "systems/pf2e/icons/actions/raise-a-shield.webp",
             };
         }
@@ -366,13 +365,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Add a circumstance bonus if this creature has a raised shield */
     protected addShieldBonus(statisticModifiers: Record<string, ModifierPF2e[]>): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
-        const { heldShield } = this;
         const shieldData = this.data.data.attributes.shield;
-        if (heldShield && shieldData.raised && !shieldData.broken) {
+        if (shieldData.raised && !shieldData.broken) {
             const modifiers = (statisticModifiers["ac"] ??= []);
             modifiers.push(
                 new ModifierPF2e({
-                    label: heldShield.name,
+                    label: shieldData.name,
+                    slug: "raised-shield",
                     type: MODIFIER_TYPE.CIRCUMSTANCE,
                     modifier: shieldData.ac,
                 })
@@ -596,69 +595,74 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     createAttackRollContext(options: { domains?: string[]; traits?: string[] } = {}): AttackRollContext {
         const domains = ["all", "attack-roll", ...(options?.domains ?? [])];
-        const attackTraits = ["attack", ...(options.traits ?? [])];
-        const ctx = this.createStrikeRollContext(domains);
+        const context = this.createStrikeRollContext(domains);
         let dc: CheckDC | null = null;
-        let distance: number | null = null;
-        if (ctx.target?.actor instanceof CreaturePF2e) {
-            // Target roll options
-            ctx.options.push(...ctx.target.actor.getSelfRollOptions("target"));
-
+        if (context.target?.actor && context.target.actor) {
+            const attackTraits = ["attack", ...(options.traits ?? [])];
             // Clone the actor to recalculate its AC with contextual roll options
-            const contextActor = ctx.target.actor.getContextualClone([
+            const contextActor = context.target.actor.getContextualClone([
                 ...this.getSelfRollOptions("origin"),
                 ...attackTraits.map((trait) => `trait:${trait}`),
             ]);
 
-            dc = {
-                label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
-                    creature: ctx.target.name,
-                    dc: "{dc}",
-                }),
-                scope: "AttackOutcome",
-                value: contextActor.attributes.ac.value,
-            };
-
-            // calculate distance
-            const self = canvas.tokens.controlled.find((token) => token.actor?.id === this.id);
-            if (self && canvas.grid?.grid instanceof SquareGrid) {
-                const groundDistance = MeasuredTemplatePF2e.measureDistance(self.position, ctx.target.position);
-                const elevationDiff = Math.abs(self.data.elevation - ctx.target.data.elevation);
-                distance = Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
+            const { attributes } = contextActor;
+            if (attributes.ac) {
+                dc = {
+                    label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
+                        creature: context.target.name,
+                        dc: "{dc}",
+                    }),
+                    scope: "AttackOutcome",
+                    value: attributes.ac.value,
+                };
             }
         }
         return {
-            options: Array.from(new Set(ctx.options)),
-            targets: ctx.targets,
+            options: Array.from(new Set(context.options)),
+            targets: context.targets,
             dc,
-            distance,
+            distance: context.distance,
         };
     }
 
     protected createDamageRollContext(event: JQuery.Event) {
-        const ctx = this.createStrikeRollContext(["all", "damage-roll"]);
-        const targetRollOptions = ctx.target?.actor?.getSelfRollOptions("target") ?? [];
-        ctx.options.push(...targetRollOptions);
-
+        const context = this.createStrikeRollContext(["all", "damage-roll"]);
         return {
             event,
-            options: Array.from(new Set(ctx.options)),
-            targets: ctx.targets,
+            options: Array.from(new Set(context.options)),
+            targets: context.targets,
+            distance: context.distance,
         };
     }
 
     private createStrikeRollContext(domains: string[]) {
-        const options = Array.from(this.getRollOptions(domains));
+        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
+        const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
 
-        const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
-            (token) => token.actor instanceof CreaturePF2e
-        );
-        const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
+        const selfOptions = Array.from(this.getRollOptions(domains));
+        // Clone the actor to get contextual target options
+        const contextActor = target?.actor?.getContextualClone([...this.getSelfRollOptions("origin")]) ?? null;
+        const targetOptions = Array.from(contextActor?.getSelfRollOptions("target") ?? []);
+        // Target roll options
+        const options = Array.from(new Set([selfOptions, targetOptions].flat()));
+
+        // Calculate distance and set as a roll option
+        const selfToken = canvas.tokens.controlled.find((token) => token.actor === this);
+        const distance =
+            selfToken && target && canvas.grid?.grid instanceof SquareGrid
+                ? ((): number => {
+                      const groundDistance = MeasuredTemplatePF2e.measureDistance(selfToken.position, target.position);
+                      const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
+                      return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
+                  })()
+                : null;
+        options.push(`target:distance:${distance}`);
 
         return {
-            options: [...new Set(options)],
+            options,
             targets: new Set(targets),
             target,
+            distance,
         };
     }
 

@@ -1177,6 +1177,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 ]),
         ];
 
+        const getRangeIncrement = (distance: number | null): number | null =>
+            weapon.range && typeof distance === "number" ? Math.min(Math.ceil(distance / weapon.range), 1) : null;
+
         action.variants = [0, 1, 2]
             .map((index): [string, () => CheckModifier] => [labels[index], checkModifiers[index]])
             .map(([label, constructModifier]) => ({
@@ -1184,9 +1187,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 roll: (args: RollParameters) => {
                     const traits = ["attack", ...weapon.traits];
                     const context = this.createAttackRollContext({ traits });
+
+                    // Set range-increment roll option
+                    const rangeIncrement = getRangeIncrement(context.distance);
+                    const incrementOption =
+                        typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
+                    args.options ??= [];
                     const options = Array.from(
-                        new Set([args.options ?? [], context.options, action.options, defaultOptions])
-                    ).flat();
+                        new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
+                    );
                     const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
@@ -1203,8 +1212,17 @@ export class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = (args: RollParameters): string | void => {
-                const ctx = this.createDamageRollContext(args.event!);
-                const options = (args.options ?? []).concat(ctx.options).concat(action.options).concat(defaultOptions);
+                const context = this.createDamageRollContext(args.event!);
+
+                // Set range-increment roll option
+                const rangeIncrement = getRangeIncrement(context.distance);
+                const incrementOption =
+                    typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
+                args.options ??= [];
+                const options = Array.from(
+                    new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
+                );
+
                 const damage = WeaponDamagePF2e.calculate(
                     itemData,
                     this,

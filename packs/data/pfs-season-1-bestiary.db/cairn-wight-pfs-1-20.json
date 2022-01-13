@@ -42,6 +42,7 @@
                 "value": 10
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -58,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-20: The Lost Legend"
             }
         },
         "resources": {},
@@ -83,7 +84,7 @@
                 "value": [
                     "death-effects",
                     "disease",
-                    "paralyze",
+                    "paralyzed",
                     "poison",
                     "unconscious"
                 ]
@@ -193,7 +194,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -202,9 +205,108 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw (agile)",
+            "name": "Claw",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "UwyQK0fiSKHH2Iag",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "6Gcq6l1A4q3y82bE",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "9YeccAinNXXb9X3i",
@@ -219,7 +321,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The wight is reduced to 0 Hit Points.</p>\n<p><strong>Effect</strong> The wight makes a Strike before being destroyed.</p>\n<p>It doesn't gain any temporary HP from drain life on this Strike.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The wight is reduced to 0 Hit Points.</p>\n<p><strong>Effect</strong> The wight makes a Strike before being destroyed. It doesn't gain any temporary HP from drain life on this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -245,7 +347,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Final Spite",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -261,7 +363,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the wight damages a living creature with its claw Strike, the wight gains 3 temporary Hit Points and the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become drained 1. Further damage dealt by the wraith increases the amount of drain by 1 on a failed save to a maximum of drained 4.</p>"
+                    "value": "<p>When the wight damages a living creature with its claw Strike, the wight gains 3 temporary Hit Points and the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt by the wraith increases the amount of drain by 1 on a failed save to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -290,7 +392,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Drain Life",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -306,7 +408,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living humanoid slain by a wight's claw Strike rises as a wight after [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>This wight spawn is under the command of the wight that killed it. It doesn't have Drain Life or and becomes clumsy 2 for as long as it is a wight spawn. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains Drain Life and Wight Spawn, and is no longer clumsy.</p>"
+                    "value": "<p>A living humanoid slain by a wight's claw Strike rises as a wight after [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>This wight spawn is under the command of the wight that killed it. It doesn't have Drain Life or and becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as it is a wight spawn. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains Drain Life and Wight Spawn, and is no longer clumsy.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -335,7 +437,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wight Spawn",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -368,7 +470,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -401,7 +503,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -434,11 +536,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
-    "name": "Cairn Wight (1-20)",
+    "name": "Cairn Wight (PFS 1-20)",
     "token": {
         "disposition": -1,
         "height": 1,

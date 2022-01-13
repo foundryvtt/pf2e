@@ -596,6 +596,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
+
+        // Remove any rule elements that request their own removal upon item creation
+        this.data._source.data.rules = this.data._source.data.rules.filter((r) => !r.removeUponCreate);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
@@ -610,21 +613,22 @@ class ItemPF2e extends Item<ActorPF2e> {
         await super._preUpdate(changed, options, user);
     }
 
-    /** Call onDelete rule-element hooks, refresh effects panel */
+    /** Call onCreate rule-element hooks, refresh effects panel */
     protected override _onCreate(
         data: ItemSourcePF2e,
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        if (this.actor) {
-            // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
+        super._onCreate(data, options, userId);
+
+        if (this.actor && game.user.id === userId) {
+            this.actor.prepareData();
             const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) rule.onCreate?.(actorUpdates);
+            for (const rule of this.rules) {
+                rule.onCreate?.(actorUpdates);
+            }
             this.actor.update(actorUpdates);
         }
-
-        super._onCreate(data, options, userId);
     }
 
     /** Call onDelete rule-element hooks */
