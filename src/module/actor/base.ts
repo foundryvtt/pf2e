@@ -989,9 +989,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param name Name of status to display
      * @param value Optional value of status, for example "Frightened 3"
      */
-    showFloatyStatus(isAdded: Boolean, name: string, value: number | null): void {
-        let content = (isAdded ? "+ " : "- ") + name;
-        if (value) content += " " + value.toString();
+    showFloatyStatus(isAdded: boolean, name: string, value: number | null): void {
+        const hideFromUser =
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretCondition");
+        if (hideFromUser) return;
+
+        const content = (() => {
+            const sign = isAdded ? "+ " : "- ";
+            const appendedNumber = value ? ` ${value}` : "";
+            return `${sign}${name}${appendedNumber}`;
+        })();
 
         this.getActiveTokens().forEach((token) => {
             token.hud?.createScrollingText(content, {

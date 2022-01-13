@@ -52,6 +52,19 @@ export class ConditionPF2e extends ItemPF2e {
         }
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ConditionModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        options.conditionValue = this.value;
+        return super._preUpdate(changed, options, user);
+    }
+
     protected override _onCreate(
         data: this["data"]["_source"],
         options: DocumentModificationContext<this>,
@@ -61,17 +74,8 @@ export class ConditionPF2e extends ItemPF2e {
 
         /* Suppress floaty text on "linked" conditions */
         if (this.data.data.references.parent?.type !== "condition") {
-            this.actor?.showFloatyStatus(true, this.name, this.data.data.value.value);
+            this.actor?.showFloatyStatus(true, this.name, this.value);
         }
-    }
-
-    protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: ConditionModificationContext<this>,
-        user: UserPF2e
-    ): Promise<void> {
-        options.conditionValue = this.data.data.value.value;
-        return super._preUpdate(changed, options, user);
     }
 
     protected override _onUpdate(
@@ -83,14 +87,14 @@ export class ConditionPF2e extends ItemPF2e {
 
         /* Suppress floaty text on "linked" conditions */
         if (this.data.data.references.parent?.type !== "condition") {
-            const valueChange = (this.data.data.value.value ?? 0) - (options.conditionValue ?? 0);
+            const valueChange = (this.value ?? 0) - (options.conditionValue ?? 0);
             if (valueChange) {
-                this.actor?.showFloatyStatus(valueChange >= 0, this.name, this.data.data.value.value);
+                this.actor?.showFloatyStatus(valueChange >= 0, this.name, this.value);
             }
         }
     }
 
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
 
         /* Suppress floaty text on "linked" conditions */
