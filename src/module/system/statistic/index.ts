@@ -257,7 +257,6 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
     dc(options?: RollOptionParameters): T["dc"] extends object ? StatisticDifficultyClass : undefined;
-
     dc(options: RollOptionParameters = {}): StatisticDifficultyClass | undefined {
         const data = this.data;
         if (!data.dc) {
@@ -318,14 +317,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             value: checkValues.value ?? 0,
             totalModifier: checkValues.value ?? 0,
             breakdown: checkValues.breakdown ?? "",
-            _modifiers: check.modifiers.map((mod) => ({
-                slug: mod.slug,
-                label: mod.label,
-                modifier: mod.modifier,
-                type: mod.type,
-                enabled: mod.enabled,
-                custom: mod.custom ?? false,
-            })),
+            _modifiers: check.modifiers.map((m) => m.toObject()),
         };
     }
 }
