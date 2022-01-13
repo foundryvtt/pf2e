@@ -1,11 +1,4 @@
 import { ChatMessagePF2e } from "@module/chat-message";
-import {
-    AbilityModifier,
-    ensureProficiencyOption,
-    ModifierPF2e,
-    ProficiencyModifier,
-    StatisticModifier,
-} from "@module/modifiers";
 import { ErrorPF2e, sluggify } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
@@ -14,11 +7,9 @@ import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./
 import { isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
-import { AbilityString } from "@actor/data/base";
 import { isCreatureData } from "@actor/data/helpers";
 import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
-import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
@@ -345,80 +336,6 @@ class ItemPF2e extends Item<ActorPF2e> {
                 left: window.innerWidth - 710,
             },
         });
-    }
-
-    /**
-     * Roll Counteract check
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollCounteract(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) {
-            return;
-        }
-        const itemData =
-            this.data.type === "consumable" && this.data.data.spell?.data
-                ? duplicate(this.data.data.spell.data)
-                : this.toObject();
-        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
-
-        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
-        if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
-
-        const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";
-        const score = this.actor.data.data.abilities[ability]?.value ?? 0;
-        modifiers.push(AbilityModifier.fromScore(ability, score));
-
-        const proficiencyRank = spellcastingEntry.rank;
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
-
-        const rollOptions = ["all", "counteract-check"];
-        const traits = itemData.data.traits.value;
-
-        let flavor = "<hr>";
-        flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
-        flavor += `<hr>`;
-
-        const spellLevel = (() => {
-            const button = event.currentTarget;
-            const card = button.closest("*[data-spell-lvl]");
-            const cardData = card ? card.dataset : {};
-            return Number(cardData.spellLvl) || 1;
-        })();
-
-        const addFlavor = (success: string, level: number) => {
-            const title = game.i18n.localize(`PF2E.${success}`);
-            const desc = game.i18n.format(`PF2E.CounteractDescription.${success}`, {
-                level: level,
-            });
-            flavor += `<b>${title}</b> ${desc}<br>`;
-        };
-        flavor += `<p>${game.i18n.localize("PF2E.CounteractDescription.Hint")}</p>`;
-        flavor += "<p>";
-        addFlavor("CritSuccess", spellLevel + 3);
-        addFlavor("Success", spellLevel + 1);
-        addFlavor("Failure", spellLevel);
-        addFlavor("CritFailure", 0);
-        flavor += "</p>";
-        const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
-        ensureProficiencyOption(finalOptions, proficiencyRank);
-        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
-        const traitObjects = traits.map((trait) => ({
-            name: trait,
-            label: spellTraits[trait],
-        }));
-        CheckPF2e.roll(
-            check,
-            {
-                actor: this.actor,
-                type: "counteract-check",
-                options: finalOptions,
-                title: game.i18n.localize("PF2E.Counteract"),
-                traits: traitObjects,
-            },
-            event
-        );
     }
 
     createTemplate() {
