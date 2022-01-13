@@ -1,80 +1,93 @@
 {
-    "_id": "mblGfyIXWhiaNpFw",
+    "_id": "jMjK6j16K1NC2BdC",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
-                "mod": 2
+                "mod": 0
             },
             "dex": {
                 "mod": 3
             },
             "int": {
-                "mod": -5
+                "mod": 0
             },
             "str": {
-                "mod": 5
+                "mod": -1
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 15
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
-                "max": 33,
+                "details": "",
+                "max": 7,
                 "temp": 0,
-                "value": 33
+                "value": 7
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 8
+                "value": 3
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
             },
             "speed": {
                 "details": "",
-                "otherSpeeds": [],
-                "value": "40"
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "special": "",
+                "value": "15"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "CE"
             },
             "blurb": "",
-            "creatureType": "Undead",
+            "creatureType": "",
             "level": {
-                "value": 2
+                "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Skeletal horses are sometimes used as mounts by other undead or monsters.</p>\n<hr />\n<p>Made from bones held together by foul necromancy, skeletons are among the most common types of undead, found haunting old dungeons and forgotten cemeteries.</p>",
+            "publicNotes": "",
             "source": {
-                "value": "Pathfinder Bestiary"
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 6
+                "value": 0
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 5
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 1
             }
         },
         "traits": {
@@ -82,65 +95,44 @@
             "di": {
                 "custom": "",
                 "value": [
+                    "bleed",
                     "death-effects",
                     "disease",
-                    "mental",
+                    "doomed",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "necromancy",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
+                    "sickened",
                     "unconscious"
                 ]
             },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "5"
-                },
-                {
-                    "exceptions": "",
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "5"
-                },
-                {
-                    "exceptions": "",
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "exceptions": "",
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
+            "dr": [],
             "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "aklo",
+                    "tien",
+                    "jotun"
+                ]
             },
             "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
             "size": {
-                "value": "lg"
+                "value": "tiny"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "mindless",
-                    "skeleton",
-                    "undead"
+                    "construct",
+                    "soulbound"
                 ]
             }
         }
@@ -150,22 +142,24 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UCRM8G3tekG92tUj",
+            "_id": "yv90fwe37s881tj2",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "homunculus-poison"
+                    ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 5
                 },
                 "damageRolls": {
-                    "6wyc7t773noibxofs7zl": {
-                        "damage": "1d8+5",
-                        "damageType": "bludgeoning"
+                    "6aqHwdLDMubVbRiv": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -179,7 +173,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -188,12 +185,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "OTKM4OSjZGvMhEEJ",
+            "_id": "at6V5BukyyXBLdoC",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -239,10 +236,10 @@
             "type": "action"
         },
         {
-            "_id": "MQbK2a6aQPbnYNCw",
+            "_id": "jt23ck8yjid74oyb",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -251,141 +248,42 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>A homunculus has one dose of poison in a reservoir in its head. It can refill this poison from its reserves with an Interact action.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|traits:poison|dc:13];</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
+            "name": "Homunculus Poison",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "ohwAZH20CeE3uGMp",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The horse Strides twice, with its Speed increased by 10 feet.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gallop",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "1AzFNDZFiaJxTAJf",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Undead and creatures allied with them can @Compendium[pf2e.actionspf2e.Command an Animal]{Command} a skeletal steed without needing to attempt a skill check.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Undead Steed",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "uZMSCORs5A4NPE0E",
+            "_id": "0ntth5ss3kcz57uo",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
-                    "value": 7
+                    "value": 3
                 },
                 "proficient": {
                     "value": 0
@@ -405,20 +303,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 400000,
             "type": "lore"
         },
         {
-            "_id": "wffIFVNcWFHAYVfk",
+            "_id": "38oixth1unnwpchy",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 9
+                    "value": 3
                 },
                 "proficient": {
                     "value": 0
@@ -437,18 +332,18 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
+            "name": "Stealth",
+            "sort": 500000,
             "type": "lore"
         }
     ],
-    "name": "Skeletal Horse",
+    "name": "Weak Soulbound Homunculus",
     "token": {
         "disposition": -1,
-        "height": 2,
+        "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Skeletal Horse",
-        "width": 2
+        "name": "Weak Soulbound Homunculus",
+        "width": 0.5
     },
     "type": "npc"
 }

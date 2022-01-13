@@ -1,71 +1,80 @@
 {
-    "_id": "Gs2zYE86QGrDzCrv",
+    "_id": "Gsqdd6TysPcSd64h",
     "data": {
         "abilities": {
             "cha": {
-                "mod": -1
+                "mod": 1
             },
             "con": {
-                "mod": 0
-            },
-            "dex": {
-                "mod": 2
-            },
-            "int": {
-                "mod": 0
-            },
-            "str": {
                 "mod": 3
             },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 5
+            },
             "wis": {
-                "mod": 2
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
-                "details": "",
-                "value": 15
+                "details": "20 with shield raised",
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 8,
+                "max": 60,
                 "temp": 0,
-                "value": 8
+                "value": 60
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 7
+                "value": 9
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
+                "special": "",
                 "value": "25"
             }
         },
         "details": {
             "alignment": {
-                "value": "CN"
+                "value": "N"
             },
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": -1
+                "value": 3
             },
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 3
+                "value": 11
             },
             "reflex": {
                 "saveDetail": "",
@@ -73,7 +82,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 9
             }
         },
         "traits": {
@@ -82,27 +91,50 @@
                 "custom": "",
                 "value": []
             },
-            "dr": [],
-            "dv": [],
+            "dr": [
+                {
+                    "exceptions": "",
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "exceptions": "",
+                    "type": "piercing",
+                    "value": 5
+                }
+            ],
+            "dv": [
+                {
+                    "type": "axe",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
                 "value": [
+                    "arboreal",
+                    "common",
+                    "senzar",
+                    "sylvan",
                     "tien"
                 ]
             },
             "rarity": "common",
             "senses": {
-                "value": ""
+                "value": "low-light vision"
             },
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "human",
-                    "humanoid"
+                    "plant"
                 ]
             }
         }
@@ -112,28 +144,48 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8vIUFZx8F6y8IXZx",
+            "_id": "B1asCkMBWEnaa230",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -167,57 +219,112 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "longsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "club",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "name": "Stone Longsword",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "yg6gBWTVnzpW7qFV",
+            "_id": "SCuSRXxUIjpsO7sZ",
             "data": {
+                "armor": {
+                    "value": 2
+                },
                 "baseItem": null,
                 "brokenThreshold": {
-                    "value": 0
+                    "value": 10
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "category": "shield",
+                "check": {
+                    "value": 0
                 },
                 "collapsed": {
                     "value": false
@@ -226,19 +333,23 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "dex": {
+                    "value": 0
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": null,
                 "hardness": {
-                    "value": 0
+                    "value": 3
                 },
                 "hp": {
-                    "value": 0
+                    "value": 20
                 },
                 "identification": {
                     "misidentified": {},
@@ -260,33 +371,58 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": 20
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "wooden-shield",
                 "source": {
                     "value": ""
                 },
+                "speed": {
+                    "value": 0
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 0
                 },
                 "traits": {
                     "custom": "",
@@ -297,116 +433,22 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ezVp13Uw8cWW08Da"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/shields/wooden-shield.webp",
+            "name": "Large Bark Shield",
             "sort": 200000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "gssp6xkkC1NX2CDS",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "0 gp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "sling (10 bullets)",
-            "sort": 300000,
-            "type": "equipment"
-        },
-        {
-            "_id": "7CtAp3lfuP0Eord4",
+            "_id": "AtNJjjHwvrTXVnDp",
             "data": {
                 "attack": {
                     "value": ""
@@ -415,16 +457,16 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 6
+                    "value": 11
                 },
                 "damageRolls": {
-                    "3uiy8k3uhkiqlewr3xoo": {
-                        "damage": "1d6",
+                    "5xrmj5brkjqf9ghay3y4": {
+                        "damage": "1d8+8",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>(thrown 10 ft.)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -435,71 +477,67 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "thrown-10"
+                        "reach-10"
                     ]
                 },
                 "weaponType": {
-                    "value": "ranged"
+                    "value": "melee"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
+            "name": "Stone Longsword",
+            "sort": 300000,
+            "type": "melee"
+        },
+        {
+            "_id": "xBkRtAyPhawMmwQM",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "51rfkdcur76wjr4pt3l9": {
+                        "damage": "1d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shield Bash",
             "sort": 400000,
             "type": "melee"
         },
         {
-            "_id": "3eND1kLm4VtqSvmR",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 5
-                },
-                "damageRolls": {
-                    "adqypfvegicp6xtjzr64": {
-                        "damage": "1d6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": "<p>(propulsive, range increment 50 feet, reload 1)</p>"
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "propulsive",
-                        "range-increment-50",
-                        "reload-1"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sling",
-            "sort": 500000,
-            "type": "melee"
-        },
-        {
-            "_id": "zrNr1gvApyI0VOzH",
+            "_id": "2ofHEGJt932Zjvtg",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -508,13 +546,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A bandit deals [[/r 3 #precision]]{3 extra precision damage} to a flat-footed creature.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -531,17 +569,67 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Ruffian Strike",
+            "name": "Low-Light Vision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "jbhBBA76EOB1Z4jY",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "b0BP4CJoeJYdrlo9",
+            "_id": "tF8K9CDF0hivomOP",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -550,7 +638,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are flat-footed to the bandit.</p>"
+                    "value": "<p>An arboreal warden takes 5 additional damage from axes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -573,26 +661,79 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.LJ7moouiRvYEjzgz"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attacker",
+            "name": "Axe Vulnerability",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "pq2Pbdim8EyudYtz",
+            "_id": "eQZZYmvUHeGqbWqw",
             "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
                 "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "requirements": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
+                "rules": [],
+                "slug": "shield-block",
+                "source": {
+                    "value": ""
                 },
-                "mod": {
-                    "value": 4
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
                 },
-                "proficient": {
-                    "value": 0
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.m4HQ2o5aPxjXf2kY"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "yzhv5g8oc5lsqm7w",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "value": "<p>The arboreal warden Strides and then makes a shield bash Strike. If the attack hits, the target is pushed 10 feet.</p>"
+                },
+                "requirements": {
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -603,26 +744,26 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "trigger": {
+                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "type": "lore"
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shield Push",
+            "sort": 900000,
+            "type": "action"
         },
         {
-            "_id": "sGqbywsmqT8KZHYt",
+            "_id": "kodq7ruxandodxxz",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 5
+                    "value": 11
                 },
                 "proficient": {
                     "value": 0
@@ -642,58 +783,34 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "b5GLQO5QaqdZqT7J",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
             "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "8Dc83RiBtnZNfyJe",
+            "_id": "lktcf8kgudwa90uw",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 2
+                    "value": 7
                 },
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -702,155 +819,29 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1100000,
-            "type": "lore"
-        },
-        {
-            "_id": "kURxdZPptnyCb6Qb",
-            "data": {
-                "description": {
-                    "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1200000,
-            "type": "lore"
-        },
-        {
-            "_id": "YAJ5mOKcWuJ5J9Ni",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+                "variants": {
+                    "0": {
+                        "label": "+12 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
-            "type": "lore"
-        },
-        {
-            "_id": "MfuufT1M8iA6lpee",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1400000,
-            "type": "lore"
-        },
-        {
-            "_id": "ayfGTy2SrLmmf9Az",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1500000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
-    "name": "Human Bandit",
+    "name": "Weak Arboreal Warden",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Human Bandit",
-        "width": 1
+        "name": "Weak Arboreal Warden",
+        "width": 2
     },
     "type": "npc"
 }
