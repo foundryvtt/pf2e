@@ -42,7 +42,8 @@ export class CheckModifiersDialog extends Application {
         const none = fortune === misfortune;
         return {
             appId: this.id,
-            check: this.check,
+            modifiers: this.check.modifiers.filter((m) => m.enabled || !m.hideIfDisabled),
+            totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,

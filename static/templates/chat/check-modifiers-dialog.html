@@ -1,12 +1,12 @@
 <form class="check-modifiers-content">
     <div class="dialog-row header">
-        <span class="type">{{localize 'PF2E.Roll.Type'}}</span>
-        <span class="mod">{{localize 'PF2E.Roll.Modifier'}}</span>
+        <span class="type">{{localize "PF2E.Roll.Type"}}</span>
+        <span class="mod">{{localize "PF2E.Roll.Modifier"}}</span>
         <span class="exclude"></span>
     </div>
     <hr />
     <div class="modifier-container">
-        {{#each check.modifiers as |modifier idx|}}
+        {{#each modifiers as |modifier idx|}}
             <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
                 <span class="type tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
                 <span class="mod">{{modifier.label}}</span>
@@ -62,7 +62,7 @@
     </div>
     <hr/>
 
-    <button type="button" class="roll">{{localize "PF2E.Roll.Roll"}} ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
+    <button type="button" class="roll">{{localize "PF2E.Roll.Roll"}} ({{numberFormat totalModifier decimals=0 sign=true}})</button>
 
     <!-- Settings Menu -->
     <div class="hover-content" id="{{appId}}-settings">
