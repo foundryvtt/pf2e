@@ -530,7 +530,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         await super._preUpdate(changed, options, user);
     }
 
-    /** Call onCreate rule-element hooks, refresh effects panel */
+    /** Call onCreate rule-element hooks */
     protected override _onCreate(
         data: ItemSourcePF2e,
         options: DocumentModificationContext<this>,
@@ -550,52 +550,48 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
-        if (this.actor) {
-            if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
-            const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
-            for (const rule of this.rules) rule.onDelete?.(actorUpdates);
+        super._onDelete(options, userId);
+        if (!(this.actor && game.user.id === userId)) return;
 
-            // Remove attack effect from melee items if this deleted item was the source
-            if (this.actor instanceof NPCPF2e && ["action", "consumable"].includes(this.type)) {
-                const slug = this.slug ?? sluggify(this.name);
-                if (!this.actor.isToken) {
-                    const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
-                    this.actor.itemTypes.melee.forEach((item) => {
-                        const attackEffects = item.data.data.attackEffects.value;
-                        if (attackEffects.includes(slug)) {
-                            const updatedEffects = attackEffects.filter((effect) => effect !== slug);
-                            itemUpdates.push({
-                                _id: item.id,
-                                data: {
-                                    attackEffects: {
-                                        value: updatedEffects,
-                                    },
-                                },
-                            });
-                        }
-                    });
-                    if (itemUpdates.length > 0) {
-                        mergeObject(actorUpdates, { items: itemUpdates });
+        if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
+        const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
+        for (const rule of this.rules) rule.onDelete?.(actorUpdates);
+
+        // Remove attack effect from melee items if this deleted item was the source
+        if (this.actor instanceof NPCPF2e && ["action", "consumable"].includes(this.type)) {
+            const slug = this.slug ?? sluggify(this.name);
+            if (!this.actor.isToken) {
+                const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
+                this.actor.itemTypes.melee.forEach((item) => {
+                    const attackEffects = item.data.data.attackEffects.value;
+                    if (attackEffects.includes(slug)) {
+                        const updatedEffects = attackEffects.filter((effect) => effect !== slug);
+                        itemUpdates.push({
+                            _id: item.id,
+                            data: { attackEffects: { value: updatedEffects } },
+                        });
                     }
-                } else {
-                    // The above method of updating embedded items in an actor update does not work with synthetic actors
-                    const promises: Promise<ItemPF2e>[] = [];
-                    this.actor.itemTypes.melee.forEach((item) => {
-                        const attackEffects = item.data.data.attackEffects.value;
-                        if (attackEffects.includes(slug)) {
-                            const updatedEffects = attackEffects.filter((effect) => effect !== slug);
-                            promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
-                        }
-                    });
-                    if (promises.length > 0) {
-                        Promise.allSettled(promises);
+                });
+                if (itemUpdates.length > 0) {
+                    mergeObject(actorUpdates, { items: itemUpdates });
+                }
+            } else {
+                // The above method of updating embedded items in an actor update does not work with synthetic actors
+                const promises: Promise<ItemPF2e>[] = [];
+                this.actor.itemTypes.melee.forEach((item) => {
+                    const attackEffects = item.data.data.attackEffects.value;
+                    if (attackEffects.includes(slug)) {
+                        const updatedEffects = attackEffects.filter((effect) => effect !== slug);
+                        promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
                     }
+                });
+                if (promises.length > 0) {
+                    Promise.allSettled(promises);
                 }
             }
-
-            this.actor.update(actorUpdates);
         }
-        super._onDelete(options, userId);
+
+        this.actor.update(actorUpdates);
     }
 }
 
