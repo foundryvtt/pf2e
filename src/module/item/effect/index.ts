@@ -105,16 +105,6 @@ export class EffectPF2e extends ItemPF2e {
         await super._preCreate(data, options, user);
     }
 
-    protected override _onCreate(
-        data: this["data"]["_source"],
-        options: DocumentModificationContext<this>,
-        userId: string
-    ): void {
-        super._onCreate(data, options, userId);
-
-        this.actor?.showFloatyStatus(true, this.name, null);
-    }
-
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
@@ -129,6 +119,16 @@ export class EffectPF2e extends ItemPF2e {
         }
 
         return super._preUpdate(changed, options, user);
+    }
+
+    protected override _onCreate(
+        data: this["data"]["_source"],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        this.actor?.showFloatyStatus(true, this.name, null);
     }
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
