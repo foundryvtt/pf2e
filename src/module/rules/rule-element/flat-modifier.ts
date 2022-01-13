@@ -21,6 +21,9 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation(`A flat modifier must have one of the following types: ${MODIFIER_TYPES.join(", ")}`);
             return;
         }
+
+        this.data.hideIfDisabled = Boolean(data.hideIfDisabled ?? false);
+
         if (this.data.type === "ability") {
             if (!tupleHasValue(ABILITY_ABBREVIATIONS, data.ability)) {
                 this.failValidation(
@@ -51,6 +54,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 predicate: this.data.predicate,
                 damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                 damageCategory: this.data.damageCategory || undefined,
+                hideIfDisabled: this.data.hideIfDisabled,
             });
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         } else if (value === 0) {
@@ -77,6 +81,7 @@ interface FlatModifierSource extends RuleElementSource {
     ability?: unknown;
     damageType?: unknown;
     damageCategory?: unknown;
+    hideIfDisabled?: unknown;
 }
 
 type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;
@@ -88,6 +93,7 @@ interface BaseFlatModifierData extends RuleElementData {
     type: ModifierType;
     damageType?: string;
     damageCategory?: string;
+    hideIfDisabled: boolean;
 }
 
 interface FlatAbilityModifierData extends BaseFlatModifierData {

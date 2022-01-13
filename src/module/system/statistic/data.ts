@@ -1,6 +1,6 @@
 import { AbilityString } from "@actor/data";
 import { ZeroToFour } from "@module/data";
-import { ModifierPF2e } from "@module/modifiers";
+import { ModifierPF2e, RawModifier } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
@@ -74,12 +74,5 @@ export interface StatisticCompatData {
     totalModifier: number;
     value: number;
     breakdown: string;
-    _modifiers: {
-        slug: string;
-        label: string;
-        modifier: number;
-        type: string;
-        enabled: boolean;
-        custom: boolean;
-    }[];
+    _modifiers: Required<RawModifier>[];
 }
