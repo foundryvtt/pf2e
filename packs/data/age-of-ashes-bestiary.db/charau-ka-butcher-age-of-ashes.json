@@ -805,14 +805,35 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "predicate": {
                             "all": [
-                                "self:effect:npc-rage",
-                                "melee"
+                                "self:effect:rage"
+                            ],
+                            "not": [
+                                "range"
                             ]
                         },
                         "selector": "damage",
-                        "text": "<p class='compact text' data-visibility='gm'><strong>Mauler</strong> While the charau-ka butcher is raging, its melee Strikes deal [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage}.</p>"
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> While the charau-ka butcher is raging, its melee Strikes deal [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "self:effect:rage"
+                            ],
+                            "not": [
+                                "range"
+                            ]
+                        },
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> While the charau-ka butcher is raging, its melee Strikes deal [[/r {2*1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
                     }
                 ],
                 "slug": null,
@@ -851,7 +872,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>As the @Compendium[pf2e.classfeatures.Rage]{barbarian class ability}; AC 22, +9 HP, +2 melee damage.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: NPC Rage]{Effect: NPC Rage}</p>"
+                    "value": "<p><strong>Requirements</strong> The Charau-ka Butcher isn't @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or raging</p>\n<p>The Charau-ka Butcher taps into its inner fury and begins raging. The Charau-ka Butcher gains a number of temporary Hit Points equal to it's level plus it's Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies they can perceive, or until they fall unconscious, whichever comes first. They can't voluntarily stop raging. While they are raging:</p>\n<ul>\n<li>They deal 2 additional damage on melee Strikes. This additional damage is halved if their weapon or unarmed attack is agile.</li>\n<li>They take a -1 penalty to AC.</li>\n<li>They can't use actions with the concentrate trait unless they also have the rage trait. They can Seek while raging.</li>\n</ul>\n<p data-visibility=\"gm\">After they stop raging, they lose any remaining temporary Hit Points from Rage, and they can't Rage again for 1 minute.</p>\n<hr style=\"border-top: 1px solid var(--color-border-light-primary); border-bottom: 1px solid var(--color-border-light-highlight);\">\n<p>@Compendium[pf2e.feature-effects.Effect: Rage]{Effect: Rage}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -859,24 +880,46 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.TraitRage",
                         "predicate": {
                             "all": [
-                                "self:effect:npc-rage",
-                                "melee"
-                            ]
-                        },
-                        "selector": "damage",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:npc-rage"
+                                "self:effect:rage"
                             ]
                         },
                         "selector": "ac",
                         "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.TraitRage",
+                        "predicate": {
+                            "all": [
+                                "self:effect:rage"
+                            ],
+                            "not": [
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage",
+                        "slug": "rage",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.TraitRage",
+                        "predicate": {
+                            "all": [
+                                "self:effect:rage",
+                                "agile"
+                            ],
+                            "not": [
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage",
+                        "slug": "agile-rage",
+                        "value": 1
                     }
                 ],
                 "slug": null,
